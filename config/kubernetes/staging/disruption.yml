@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-staging
+  namespace: laa-review-criminal-legal-aid-staging
+spec:
+  maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: review-criminal-legal-aid-web-staging

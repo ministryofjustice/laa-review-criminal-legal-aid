@@ -1,0 +1,53 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 3.1
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'lib/tasks/**/*'
+    - 'lib/generators/**/*'
+    - 'features/**/*'
+    - 'spec/**/*'
+    - 'vendor/**/*'
+
+####################################
+## Customization for this project ##
+####################################
+
+# Disabled cops
+###############
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false
+
+# Enabled but tweaked cops
+##########################
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/HashSyntax
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Naming/BlockForwarding
+Naming/BlockForwarding:
+  EnforcedStyle: explicit

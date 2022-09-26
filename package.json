@@ -1,0 +1,10 @@
+{
+  "name": "laa-review-criminal-legal-aid",
+  "private": "true",
+  "dependencies": {
+    "govuk-frontend": "4.2.0"
+  },
+  "scripts": {
+    "postinstall": "bin/importmap pin govuk-frontend@4.2.0"
+  }
+}

@@ -1,0 +1,34 @@
+logs/
+log/
+tmp/
+Dockerfile
+docker-compose.yml
+Brewfile
+README.md
+.env*
+
+.DS_Store
+.DS_Store/
+.git/
+.bundle/
+vendor/bundle/
+.idea
+.github
+
+.byebug_history
+/coverage/*
+tags
+.ctags_exclude
+
+# Ignore master key for decrypting credentials
+config/master.key
+
+# Do not bring over assets, as we pull and precompile them
+node_modules
+public/assets
+public/packs
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# Ignore k8s manifests, these are only needed in the deploy pipeline
+config/kubernetes
