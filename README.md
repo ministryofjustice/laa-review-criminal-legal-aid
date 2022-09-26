@@ -1,6 +1,6 @@
 # laa-review-criminal-legal-aid
 
-[![CI and CD](https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid/actions/workflows/test-build-deploy.yml/badge.svg)](https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid/actions/workflows/test-build-deploy.yml)
+[![CI and CD](https://github.com/ministryofjustice/laa-review-criminal-legal-aid/actions/workflows/test-build-deploy.yml/badge.svg)](https://github.com/ministryofjustice/laa-review-criminal-legal-aid/actions/workflows/test-build-deploy.yml)
 
 A service to review criminal legal aid applications
 
@@ -75,8 +75,7 @@ AWS infrastructure is created by Cloud Platforms via PR to [their repository](ht
 Read [how to connect the cluster](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html).
 
 **Namespaces for this service:**
-* [staging namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-criminal-legal-aid-staging)
-* [production namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-apply-for-criminal-legal-aid-prod) (not yet used)
+* [staging namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-staging)
 
 ### Encode secrets in Base64
 
@@ -158,7 +157,7 @@ end
 
 ## Architectural decision records
 
-ADRs are in the `./docs/architectural-decisions/` folder will hold markdown documents that record Architectural decision records (ARDs) for the LAA Apply for Criminal Legal Aid application.
+ADRs are in the `./docs/architectural-decisions/` folder will hold markdown documents that record Architectural decision records (ARDs) for the LAA Review Criminal Legal Aid applications.
 
 Please install [ADRs Tools](https://github.com/npryce/adr-tools) (`brew install adr-tools`) to help manage the creation of new ADR documents.
 
