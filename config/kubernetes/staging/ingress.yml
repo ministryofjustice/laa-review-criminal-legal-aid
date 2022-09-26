@@ -2,9 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-staging
-  namespace: laa-apply-for-criminal-legal-aid-staging
+  namespace: laa-review-criminal-legal-aid-staging
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: ingress-staging-laa-apply-for-criminal-legal-aid-staging-green
+    external-dns.alpha.kubernetes.io/set-identifier: ingress-staging-laa-review-criminal-legal-aid-staging-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: secrets-staging
@@ -16,9 +16,9 @@ metadata:
 spec:
   tls:
   - hosts:
-    - laa-apply-for-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
+    - laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
   rules:
-  - host: laa-apply-for-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
+  - host: laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /
