@@ -39,7 +39,6 @@ group :test do
   gem 'brakeman'
   gem 'capybara'
   gem 'erb_lint', require: false
-  gem 'rails-controller-testing'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
