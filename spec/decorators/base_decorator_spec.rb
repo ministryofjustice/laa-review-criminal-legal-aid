@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe BaseDecorator do
   describe '.decorate' do
     it 'calls the helper method passing self' do
+      described_class.decorate('foobar')
+
       expect(
         ApplicationController.helpers
-      ).to receive(:decorate).with('foobar', described_class)
-
-      described_class.decorate('foobar')
+      ).to have_recieved(:decorate).with('foobar', described_class)
     end
   end
 end
