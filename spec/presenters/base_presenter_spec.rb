@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe BasePresenter do
   describe '.present' do
     it 'calls the helper method passing self' do
+      allow(ApplicationController.helpers).to receive(:present)
+
       described_class.present('foobar')
 
       expect(
