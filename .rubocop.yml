@@ -1,6 +1,7 @@
 require:
   - rubocop-rails
   - rubocop-performance
+  - rubocop-rspec
   # Add custom cops for this project below
   - ./lib/rubocop/custom_cops/govuk_formbuilder/text_field_autocomplete.rb
 
@@ -15,7 +16,6 @@ AllCops:
     - 'lib/tasks/**/*'
     - 'lib/generators/**/*'
     - 'features/**/*'
-    - 'spec/**/*'
     - 'vendor/**/*'
 
 ####################################
@@ -58,3 +58,6 @@ Style/HashSyntax:
 # https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Naming/BlockForwarding
 Naming/BlockForwarding:
   EnforcedStyle: explicit
+
+RSpec/MultipleExpectations:
+  Max: 2

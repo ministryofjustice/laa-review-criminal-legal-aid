@@ -8,13 +8,15 @@ RSpec.describe ApplicationHelper, type: :helper do
       helper.title(value)
     end
 
-    context 'for a blank value' do
+    context 'when value blank' do
       let(:value) { '' }
+
       it { expect(title).to eq('Review criminal legal aid applications - GOV.UK') }
     end
 
-    context 'for a provided value' do
+    context 'when value provided' do
       let(:value) { 'Test page' }
+
       it { expect(title).to eq('Test page - Review criminal legal aid applications - GOV.UK') }
     end
   end
@@ -23,6 +25,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     before do
       allow(helper).to receive(:controller_name).and_return('my_controller')
       allow(helper).to receive(:action_name).and_return('an_action')
+      allow(helper).to receive(:title)
 
       # So we can simulate what would happen on production
       allow(
@@ -30,9 +33,10 @@ RSpec.describe ApplicationHelper, type: :helper do
       ).to receive(:consider_all_requests_local).and_return(false)
     end
 
-    it 'should call #title with a blank value' do
-      expect(helper).to receive(:title).with('')
+    it 'calls #title with a blank value' do
       helper.fallback_title
+
+      expect(helper).to have_received(:title).with('')
     end
   end
 
@@ -40,21 +44,24 @@ RSpec.describe ApplicationHelper, type: :helper do
     before do
       stub_const('FooBar', Class.new)
       stub_const('FooBarDecorator', Class.new(BaseDecorator))
+      allow(FooBarDecorator).to receive(:new)
     end
 
     let(:foobar) { FooBar.new }
 
-    context 'for a specific delegator class' do
+    context 'when for a specific delegator class' do
       it 'instantiate the decorator with the passed object' do
-        expect(FooBarDecorator).to receive(:new).with(foobar)
         helper.decorate(foobar, FooBarDecorator)
+
+        expect(FooBarDecorator).to have_received(:new).with(foobar)
       end
     end
 
-    context 'using the object to infer the delegator class' do
+    context 'when using the object to infer the delegator class' do
       it 'instantiate the decorator with the passed object inferring the class' do
-        expect(FooBarDecorator).to receive(:new).with(foobar)
         helper.decorate(foobar)
+
+        expect(FooBarDecorator).to have_received(:new).with(foobar)
       end
     end
   end
@@ -63,21 +70,24 @@ RSpec.describe ApplicationHelper, type: :helper do
     before do
       stub_const('FooBar', Class.new)
       stub_const('FooBarPresenter', Class.new(BasePresenter))
+      allow(FooBarPresenter).to receive(:new)
     end
 
     let(:foobar) { FooBar.new }
 
-    context 'for a specific delegator class' do
+    context 'with a specific delegator class' do
       it 'instantiate the presenter with the passed object' do
-        expect(FooBarPresenter).to receive(:new).with(foobar)
         helper.present(foobar, FooBarPresenter)
+
+        expect(FooBarPresenter).to have_received(:new).with(foobar)
       end
     end
 
-    context 'using the object to infer the delegator class' do
+    context 'when using the object to infer the delegator class' do
       it 'instantiate the presenter with the passed object inferring the class' do
-        expect(FooBarPresenter).to receive(:new).with(foobar)
         helper.present(foobar)
+
+        expect(FooBarPresenter).to have_received(:new).with(foobar)
       end
     end
   end
