@@ -7,6 +7,8 @@ gem 'pg', '~> 1.4'
 gem 'puma'
 gem 'rails', '~> 7.0.3'
 
+gem 'faraday'
+
 gem 'govuk_design_system_formbuilder', '~> 3.1.0'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -23,6 +25,8 @@ gem 'dartsass-rails', '~> 0.4.0'
 # Exceptions notifications
 gem 'sentry-rails'
 gem 'sentry-ruby'
+
+gem 'dry-struct'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -46,4 +50,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'webdrivers'
+  gem 'webmock'
 end

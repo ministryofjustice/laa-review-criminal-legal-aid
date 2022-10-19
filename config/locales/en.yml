@@ -18,3 +18,20 @@ en:
   flash:
     success:
       title: Success
+
+  crime_applications:
+    index:
+      page_title: Your list
+      heading: Your list
+      table_headings:
+        applicant_name: Applicant
+        reference: Reference 
+        received_at: Date received 
+    show:
+      page_title: Application
+      heading: Application
+      subheading: Application Sub
+      table_headings:
+        applicant_name: Applicant
+        reference: Reference 
+        received_at: Date received 

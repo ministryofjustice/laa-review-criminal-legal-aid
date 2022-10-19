@@ -4,6 +4,10 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 
+Dir[
+  Rails.root.join('spec/support/**/*.rb')
+].each { |f| require f }
+
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
@@ -26,6 +30,11 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  # Use the faster rack test by default for system specs
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
