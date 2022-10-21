@@ -1,8 +1,8 @@
 {
   "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
   "application_reference": "LAA-696dd4",
-  "application_start_date": "2022-10-17T12:24:18.000+00:00",
-  "submission_date": "2022-10-17T12:24:18.000+00:00",
+  "application_start_date": "2022-10-21T16:19:00.000+00:00",
+  "submission_date": "2022-10-21T16:19:00.000+00:00",
   "client_details": {
     "client": {
       "address": {
@@ -14,8 +14,8 @@
       "first_name": "Kit",
       "last_name": "Pound",
       "national_insurance_number": "AJ123456C",
-      "date_of_birth": "2014-04-09",
-      "telephone_number": "07715339488",
+      "date_of_birth": "2011-06-09",
+      "telephone_number": "07771231231",
       "correspondence_address_type": "other_address",
       "correspondence_address": {
         "address_line_one": "Correspondence Cottage",
@@ -32,16 +32,17 @@
     }
   ],
   "case_details": {
-    "case_type": "indictable",
+    "case_type": "either_way",
     "co_defendants": [],
     "offences": [
       {
-        "class": "CONFLICT IN DATA MODEL",
-        "date": "2001-01-01",
+        "class": "Class C",
+        "date": "2020-05-11",
         "name": "Attempt robbery"
       }
     ],
-    "court_name": "Cardiff Magistrates' Court",
+    "hearing_court_name": "Cardiff Magistrates' Court",
+    "hearing_date": "2024-11-11",
     "urn": "12AB1234123"
   },
   "application_type": "initial_application"

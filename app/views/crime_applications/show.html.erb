@@ -15,6 +15,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: 'overview', object: @crime_application %>
     <%= render partial: 'client_details', object: @crime_application.client_details %>
+    <%= render partial: 'case_details', object: @crime_application.case_details %>
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
   </div>
 </div>

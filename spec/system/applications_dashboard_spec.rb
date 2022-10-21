@@ -20,7 +20,7 @@ RSpec.describe 'Applications Dashboard' do
 
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
-    expect(first_row_text).to eq('Zoe Wright LAA-207a30 11 Oct 2022')
+    expect(first_row_text).to eq('Kit Pound LAA-696dd4 21 Oct 2022')
   end
 
   it 'can be used to navigate to an application' do

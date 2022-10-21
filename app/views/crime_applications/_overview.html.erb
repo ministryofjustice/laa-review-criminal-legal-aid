@@ -8,7 +8,7 @@
       <%= t(:application_type, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= overview.application_type %>
+      <%= t(overview.application_type, scope: 'crime_applications.values') %>
     </dd>
   </div>
 
@@ -26,7 +26,7 @@
       <%= t(:common_platform, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= overview.common_platform? ? 'yes' : 'no'%>
+      <%= t(overview.common_platform?, scope: 'crime_applications.values') %>
     </dd>
   </div>
 

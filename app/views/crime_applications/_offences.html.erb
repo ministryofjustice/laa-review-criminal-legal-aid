@@ -7,10 +7,12 @@
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= offence.name %>
-        <%= offence.offence_class %>
+        <span class='govuk-caption-m'>
+          <%= offence.offence_class %>
+        </span>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= offence.date %>
+        <%= l offence.date %>
       </dd>
     </div>
   <% end %>

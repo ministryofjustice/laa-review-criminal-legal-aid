@@ -32,12 +32,14 @@ en:
       heading: Application
     section:
       headings:
+        case_details: Case details
         client_details: Client details
         overview: Overview
         offence_details: Offence details
     labels:
       first_name: First name
       last_name: Last name
+      case_type: Case type 
       national_insurance_number: National Insurance number 
       date_of_birth: Date of birth 
       application_type: Application type
@@ -46,8 +48,20 @@ en:
       urn: Unique reference number 
       application_start_date: Date stamp 
       telephone_number: UK Telephone number 
+      hearing_court_name: Court hearing the case
+      hearing_date: Next court hearing 
       home_address: Home address 
       correspondence_address: Correspondence address 
     values:
+      "true": "Yes"
+      "false": "No"
       initial_application: Initial application 
-      same_as_home_address: Same as home address 
+      home_address: Same as home address 
+      provider_address: Same as provider address 
+      summary_only: Summary only
+      either_way: Either way
+      indictable: Indictable
+      already_in_crown_court: Already in Crown Court
+      commital: Commital
+      appeal_to_crown_court: Appeal to Crown Court
+      appeal_to_crown_court_with_changes: Appeal to Crown Court with charges

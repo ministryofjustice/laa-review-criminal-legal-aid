@@ -1,0 +1,30 @@
+<h2 class="govuk-heading-m">
+  <%= t(:case_details, scope: 'crime_applications.section.headings') %>
+</h2>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:case_type, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(case_details.case_type, scope: 'crime_applications.values') %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:hearing_court_name, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= case_details.hearing_court_name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:hearing_date, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l case_details.hearing_date %>
+    </dd>
+  </div>
+</dl>
