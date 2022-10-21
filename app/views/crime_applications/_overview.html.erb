@@ -1,0 +1,50 @@
+<h2 class="govuk-heading-m">
+  <%= t(:overview, scope: 'crime_applications.section.headings') %>
+</h2>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:application_type, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(overview.application_type, scope: 'crime_applications.values') %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:means_type, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= overview.means_type %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:common_platform, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(overview.common_platform?, scope: 'crime_applications.values') %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:urn, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= overview.case_details.urn %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:application_start_date, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l(overview.application_start_date) %>
+    </dd>
+  </div>
+</dl>

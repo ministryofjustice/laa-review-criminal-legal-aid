@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'webmock/rspec'
 
 RSpec.describe 'Requesting applications' do
   subject(:applications_response) { response }

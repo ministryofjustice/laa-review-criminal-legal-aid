@@ -1,21 +1,19 @@
-class ApiResource < Dry::Struct
-  class << self
+module ApiResource
+  def self.included(base)
+    base.extend(QueryMethods)
+  end
+
+  def to_param
+    id
+  end
+
+  module QueryMethods
     def all
-      @all ||= ApiClient.new.all.map do |json|
-        new(extract_from_source(json))
-      end
+      @all ||= ApiClient.new.all.map { |data| new(data) }
     end
 
     def find(id)
-      all.find { |r| r.id == id }
+      new(ApiClient.new.find(id))
     end
-
-    # Overide if transformation required
-    # :nocov:
-    def skip_this_method
-      never_reached
-    end
-    # :nocov:
-    #
   end
 end
