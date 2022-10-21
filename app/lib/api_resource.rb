@@ -8,22 +8,12 @@ module ApiResource
   end
 
   module QueryMethods
-    # Override if transformation required
-    #
-    def params_from_source(source)
-      source
-    end
-
     def all
-      @all ||= ApiClient.new.all.map do |json|
-        new params_from_source(json)
-      end
+      @all ||= ApiClient.new.all.map { |data| new(data) }
     end
 
     def find(id)
-      json = ApiClient.new.find(id)
-
-      new params_from_source(json)
+      new(ApiClient.new.find(id))
     end
   end
 end
