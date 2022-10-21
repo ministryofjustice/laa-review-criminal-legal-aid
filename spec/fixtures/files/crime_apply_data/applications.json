@@ -3,44 +3,179 @@
     "id": "207a30bd-d425-41d7-8665-75d93606cda6",
     "application_reference": "LAA-207a30",
     "application_start_date": "2022-10-11T09:07:25.000+00:00",
+    "submission_date": "2022-10-11T09:07:25.000+00:00",
     "client_details": {
       "client": {
+        "address": {
+          "address_line_one": "Shawfield",
+          "address_line_two": "Laughton",
+          "county": "East Sussex",
+          "postcode": "BN8 6BY"
+        },
         "first_name": "Zoe",
-        "last_name": "Wrong"
+        "last_name": "Wright",
+        "national_insurance_number": "ZW123222B",
+        "date_of_birth": "1920-05-11",
+        "telephone_number": "07713333333",
+        "correspondence_address_type": "home_address"
       }
-    }
+    },
+    "interests_of_justice": [
+      {
+        "reason": "Loss of liberty",
+        "type": "liberty"
+      }
+    ],
+    "case_details": {
+      "case_type": "indictable",
+      "co_defendants": [],
+      "offences": [
+        {
+          "class": "CONFLICT IN DATA MODEL",
+          "date": "2001-01-01",
+          "name": "Assault a person thereby occasioning them actual bodily harm"
+        }
+      ],
+      "court_name": "Lewes Crown Court",
+      "urn": "12AB3456789"
+    },
+    "application_type": "initial_application"
   },
   {
     "id": "d8d384ec-ea6c-4fd0-a788-b3240c5fb14a",
     "application_reference": "LAA-d8d384",
     "application_start_date": "2022-10-12T17:05:19.000+00:00",
+    "submission_date": "2022-10-12T17:05:19.000+00:00",
     "client_details": {
       "client": {
+        "address": {
+          "address_line_one": "Shawfield",
+          "address_line_two": "LL",
+          "county": "East Sussex",
+          "postcode": "BN8 6BY"
+        },
         "first_name": "Ben",
-        "last_name": "Fish"
+        "last_name": "Fish",
+        "national_insurance_number": "JA123456B",
+        "date_of_birth": "2012-12-12",
+        "telephone_number": "07714339233",
+        "correspondence_address_type": "home_address"
       }
-    }
+    },
+    "interests_of_justice": [
+      {
+        "reason": "Loss of liberty",
+        "type": "liberty"
+      }
+    ],
+    "case_details": {
+      "case_type": "indictable",
+      "co_defendants": [],
+      "offences": [
+        {
+          "class": "CONFLICT IN DATA MODEL",
+          "date": "2001-01-01",
+          "name": "Robbery"
+        }
+      ],
+      "court_name": "Bradford Crown Court",
+      "urn": "12AB3456783"
+    },
+    "application_type": "initial_application"
   },
   {
     "id": "809e9e8f-50c5-4513-9579-3da4a1c176fb",
     "application_reference": "LAA-809e9e",
     "application_start_date": "2022-10-17T08:25:21.000+00:00",
+    "submission_date": "2022-10-17T08:25:21.000+00:00",
     "client_details": {
       "client": {
+        "address": {
+          "address_line_one": "23",
+          "address_line_two": "Laughton Lodge",
+          "county": "East Sussex",
+          "postcode": "BN8 6BY"
+        },
         "first_name": "Cat",
-        "last_name": "Brown"
+        "last_name": "Brown",
+        "national_insurance_number": "AJ123456C",
+        "date_of_birth": "2014-04-09",
+        "telephone_number": "07715339488",
+        "correspondence_address_type": "home_address"
       }
-    }
+    },
+    "interests_of_justice": [
+      {
+        "reason": "Loss of liberty",
+        "type": "liberty"
+      }
+    ],
+    "case_details": {
+      "case_type": "indictable",
+      "co_defendants": [],
+      "offences": [
+        {
+          "class": "CONFLICT IN DATA MODEL",
+          "date": "2001-01-01",
+          "name": "Conspire to commit robbery"
+        },
+        {
+          "class": "CONFLICT IN DATA MODEL",
+          "date": "2001-01-01",
+          "name": "Attempt robbery"
+        }
+      ],
+      "court_name": "Lewes Crown Court",
+      "urn": "12AB3412678"
+    },
+    "application_type": "initial_application"
   },
   {
     "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
     "application_reference": "LAA-696dd4",
     "application_start_date": "2022-10-17T12:24:18.000+00:00",
+    "submission_date": "2022-10-17T12:24:18.000+00:00",
     "client_details": {
       "client": {
+        "address": {
+          "address_line_one": "1 Road",
+          "address_line_two": "Village",
+          "county": "East Sussex",
+          "postcode": "SW1A 2AA"
+        },
         "first_name": "Kit",
-        "last_name": "Pound"
+        "last_name": "Pound",
+        "national_insurance_number": "AJ123456C",
+        "date_of_birth": "2014-04-09",
+        "telephone_number": "07715339488",
+        "correspondence_address_type": "other_address",
+        "correspondence_address": {
+          "address_line_one": "Correspondence Cottage",
+          "address_line_two": "Correspondence Lane",
+          "county": "West Midlands",
+          "postcode": "WM1 1CB"
+        }
       }
-    }
+    },
+    "interests_of_justice": [
+      {
+        "reason": "Loss of liberty",
+        "type": "liberty"
+      }
+    ],
+    "case_details": {
+      "case_type": "indictable",
+      "co_defendants": [],
+      "offences": [
+        {
+          "class": "CONFLICT IN DATA MODEL",
+          "date": "2001-01-01",
+          "name": "Attempt robbery"
+        }
+      ],
+      "court_name": "Cardiff Magistrates' Court",
+      "urn": "12AB1234123"
+    },
+    "application_type": "initial_application"
   }
 ]

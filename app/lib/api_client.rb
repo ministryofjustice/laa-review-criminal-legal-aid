@@ -11,6 +11,14 @@ class ApiClient
     JSON.parse(response.body)
   end
 
+  def find(id)
+    response = @connection.get("applications/#{id}")
+
+    return {} unless response.success?
+
+    JSON.parse(response.body)
+  end
+
   private
 
   def default_connection

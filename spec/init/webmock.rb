@@ -1,4 +1,4 @@
-require 'webmock'
+require 'webmock/rspec'
 
 # Allow connections to webdriver urls
 #

@@ -1,0 +1,66 @@
+<h2 class="govuk-heading-m">
+  <%= t(:client_details, scope: 'crime_applications.section.headings') %>
+</h2>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:first_name, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= client_details.client.first_name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:last_name, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= client_details.client.last_name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:date_of_birth, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= client_details.client.date_of_birth %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:national_insurance_number, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= client_details.client.national_insurance_number %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:telephone_number, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= client_details.client.telephone_number %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:home_address, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= render client_details.client.address %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:correspondence_address, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <% if client_details.client.address %>
+        <%= render client_details.client.address %>
+      <% else %>
+        <%= t(:same_as_home_address, scope: 'crime_applications.values') %>
+      <% end %>
+    </dd>
+  </div>
+</dl>

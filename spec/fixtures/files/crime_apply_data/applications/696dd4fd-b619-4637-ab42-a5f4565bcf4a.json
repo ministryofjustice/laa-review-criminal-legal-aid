@@ -1,0 +1,48 @@
+{
+  "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
+  "application_reference": "LAA-696dd4",
+  "application_start_date": "2022-10-17T12:24:18.000+00:00",
+  "submission_date": "2022-10-17T12:24:18.000+00:00",
+  "client_details": {
+    "client": {
+      "address": {
+        "address_line_one": "1 Road",
+        "address_line_two": "Village",
+        "county": "East Sussex",
+        "postcode": "SW1A 2AA"
+      },
+      "first_name": "Kit",
+      "last_name": "Pound",
+      "national_insurance_number": "AJ123456C",
+      "date_of_birth": "2014-04-09",
+      "telephone_number": "07715339488",
+      "correspondence_address_type": "other_address",
+      "correspondence_address": {
+        "address_line_one": "Correspondence Cottage",
+        "address_line_two": "Correspondence Lane",
+        "county": "West Midlands",
+        "postcode": "WM1 1CB"
+      }
+    }
+  },
+  "interests_of_justice": [
+    {
+      "reason": "Loss of liberty",
+      "type": "liberty"
+    }
+  ],
+  "case_details": {
+    "case_type": "indictable",
+    "co_defendants": [],
+    "offences": [
+      {
+        "class": "CONFLICT IN DATA MODEL",
+        "date": "2001-01-01",
+        "name": "Attempt robbery"
+      }
+    ],
+    "court_name": "Cardiff Magistrates' Court",
+    "urn": "12AB1234123"
+  },
+  "application_type": "initial_application"
+}

@@ -30,8 +30,24 @@ en:
     show:
       page_title: Application
       heading: Application
-      subheading: Application Sub
-      table_headings:
-        applicant_name: Applicant
-        reference: Reference 
-        received_at: Date received 
+    section:
+      headings:
+        client_details: Client details
+        overview: Overview
+        offence_details: Offence details
+    labels:
+      first_name: First name
+      last_name: Last name
+      national_insurance_number: National Insurance number 
+      date_of_birth: Date of birth 
+      application_type: Application type
+      means_type: Means type
+      common_platform: Common platform
+      urn: Unique reference number 
+      application_start_date: Date stamp 
+      telephone_number: UK Telephone number 
+      home_address: Home address 
+      correspondence_address: Correspondence address 
+    values:
+      initial_application: Initial application 
+      same_as_home_address: Same as home address 

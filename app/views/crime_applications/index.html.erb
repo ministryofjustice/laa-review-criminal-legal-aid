@@ -29,10 +29,10 @@
               <%= link_to app.applicant_name, crime_application_path(app) %>
             </th>
             <td class="govuk-table__cell">
-              <%= app.laa_reference %>
+              <%= app.application_reference %>
             </td>
             <td class="govuk-table__cell">
-              <%= l(app.received_at) %>
+              <%= l(app.submission_date) %>
             </td>
           </tr>
         <% end %>

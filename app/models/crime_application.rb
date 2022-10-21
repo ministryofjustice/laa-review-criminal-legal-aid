@@ -1,28 +1,26 @@
-class CrimeApplication < ApiResource
-  attribute :id, Types::String
-  attribute :laa_reference, Types::String
-  attribute :applicant_name, Types::String
-  attribute :received_at, Types::JSON::DateTime
+class CrimeApplication < ApplicationStruct
+  include ApiResource
 
-  def to_param
-    id
+  attribute :id, Types::String
+  attribute :application_reference, Types::String
+  attribute :application_type, Types::String
+  attribute :application_start_date, Types::JSON::DateTime
+  attribute :submission_date, Types::JSON::DateTime
+
+  attribute :client_details, ClientDetails
+  attribute :case_details, CaseDetails
+  attribute :interests_of_justice, Types::Array.of(InterestOfJustice)
+
+  def applicant_name
+    client = client_details.client
+    [client.first_name, client.last_name].join ' '
   end
 
-  class << self
-    # TOOD: find a better home
-    #
-    def extract_from_source(source)
-      applicant_name = [
-        source.dig('client_details', 'client', 'first_name'),
-        source.dig('client_details', 'client', 'last_name')
-      ].join(' ')
+  def means_type
+    :passported
+  end
 
-      {
-        id: source['id'],
-        applicant_name: applicant_name,
-        laa_reference: source['application_reference'],
-        received_at: source['application_start_date']
-      }
-    end
+  def common_platform?
+    true
   end
 end
