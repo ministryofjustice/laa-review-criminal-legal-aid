@@ -37,6 +37,7 @@ en:
         overview: Overview
         offence_details: Offence details
         co_defendants: Co-defendants 
+        interests_of_justice: Interest of Justice 
     labels:
       first_name: First name
       last_name: Last name
@@ -70,3 +71,13 @@ en:
       conflict_of_interest:
         "true": CONFLICT
         "false": ''
+      liberty: Liberty
+      suspended_sentence: suspended sentence
+      livelihood: livelihood
+      reputation: reputation
+      question_of_law: Question of Law
+      unable_to_understand: unabled to understand
+      witnesses_needed: witnesses needed
+      expert_cross_examination: expert cross examination
+      interests_of_another: Interests of Another
+      ioj_other: Other Interest of Justice
