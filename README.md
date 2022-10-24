@@ -41,6 +41,34 @@ You can also compile assets manually with `rails dartsass:build` at any time, an
 
 If you ever feel something is not right with the CSS or JS, run `rails assets:clobber` to purge the local cache.
 
+## Local development with the temporary API gem
+
+The app utilises [puma-dev](https://github.com/puma/puma-dev) for local development.
+
+Follow the setup proceedure for puma-dev [outlined here](https://github.com/puma/puma-dev#install)
+
+Clone [apply](https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid), and the [laa-crime-apply-dev-api](https://github.com/ministryofjustice/laa-crime-apply-dev-api) locally.
+
+Point the dev gem in apply's gemfile to your local laa-crime-apply-dev-api repo:
+
+```
+gem 'laa_crime_apply_dev_api', path: '../laa-crime-apply-dev-api'
+```
+
+Ensure that you have a `~/.puma-dev/` dir set up which contains symlinks to you local Apply and Review repos ([instructions](https://github.com/puma/puma-dev#usage))
+
+You should now be able to access apply and review at the following convenience URLs:
+
+```
+http://laa-review-criminal-legal-aid.test/
+
+http://laa-apply-for-criminal-legal-aid.test/
+
+## Access dev api (as defined in the gem)
+http://laa-apply-for-criminal-legal-aid.test/api/applications
+http://laa-apply-for-criminal-legal-aid.test/api/applications/<application-id>
+```
+
 ## Running the tests
 
 You can run all the code linters and tests with:
