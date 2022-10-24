@@ -12,9 +12,13 @@
         <%= co_defendant.first_name %>
         <%= co_defendant.last_name %>
       </dd>
-      <dd class="govuk-summary-list__value">
-        <%= co_defendant.conflict_of_interest %>
-      </dd>
+      <% if co_defendant.conflict_of_interest %>
+        <dd class="govuk-summary-list__value">
+          <span class="govuk-tag govuk-tag--red">
+            <%= t("crime_applications.values.conflict_of_interest.#{co_defendant.conflict_of_interest}") %>
+          </span>
+        </dd>
+      <% end %>
     </div>
   <% end %>
 </dl>

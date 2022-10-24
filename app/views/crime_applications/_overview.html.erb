@@ -17,7 +17,9 @@
       <%= t(:means_type, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= overview.means_type %>
+      <% if overview.means_type == :passported %>
+        <span class="govuk-tag"><%= overview.means_type %></span>
+      <% end %>
     </dd>
   </div>
 
