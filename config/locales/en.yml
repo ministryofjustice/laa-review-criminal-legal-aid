@@ -36,6 +36,7 @@ en:
         client_details: Client details
         overview: Overview
         offence_details: Offence details
+        co_defendants: Co-defendants 
     labels:
       first_name: First name
       last_name: Last name
@@ -52,6 +53,7 @@ en:
       hearing_date: Next court hearing 
       home_address: Home address 
       correspondence_address: Correspondence address 
+      co_defendant: Co-defendant %{number}
     values:
       "true": "Yes"
       "false": "No"
@@ -65,3 +67,6 @@ en:
       commital: Commital
       appeal_to_crown_court: Appeal to Crown Court
       appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
+      conflict_of_interest:
+        "true": CONFLICT
+        "false": ''
