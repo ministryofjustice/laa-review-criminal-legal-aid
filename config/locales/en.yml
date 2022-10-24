@@ -71,13 +71,13 @@ en:
       conflict_of_interest:
         "true": CONFLICT
         "false": ''
-      liberty: Liberty
-      suspended_sentence: suspended sentence
-      livelihood: livelihood
-      reputation: reputation
+      loss_of_liberty: Loss of liberty
+      suspended_sentence: Suspended sentence
+      loss_of_livelihood: Loss of livelihood
+      reputation: Reputation
       question_of_law: Question of Law
-      unable_to_understand: unabled to understand
-      witnesses_needed: witnesses needed
-      expert_cross_examination: expert cross examination
-      interests_of_another: Interests of Another
-      ioj_other: Other Interest of Justice
+      understanding: understanding
+      witness_tracing: Witness tracing
+      expert_examination: Expert examination
+      interest_of_another: Interest of another
+      other: Other

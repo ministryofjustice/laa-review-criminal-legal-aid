@@ -27,24 +27,24 @@ module Types
     provider_address
   ].freeze
 
-  INTERESTS_OF_JUSTICE_TYPES = %w[
-    liberty
+  INTERESTS_OF_JUSTICE_CRITERIA = %w[
+    loss_of_liberty
     suspended_sentence
-    livelihood
+    loss_of_livelihood
     reputation
     question_of_law
-    unable_to_understand
-    witnesses_needed
-    expert_cross_examination
-    interests_of_another
-    ioj_other
+    understanding
+    witness_tracing
+    expert_examination
+    interest_of_another
+    other
   ].freeze
 
   CorrespondenceAddressType = String.enum(*CORRESPONDENCE_ADDRESS_TYPES)
   OffenceClass = String.enum(*OFFENCE_CLASSES)
   CaseType = String.enum(*CASE_TYPES)
   CourtType = String.enum(*COURT_TYPES)
-  InterestsOfJusticeCriterion = String.enum(*INTERESTS_OF_JUSTICE_TYPES)
+  InterestsOfJusticeCriterion = String.enum(*INTERESTS_OF_JUSTICE_CRITERIA)
 
   CrimeApplicationReference = Types::String
   Uuid = String
