@@ -36,6 +36,8 @@ en:
         client_details: Client details
         overview: Overview
         offence_details: Offence details
+        co_defendants: Co-defendants 
+        interests_of_justice: Interest of Justice 
     labels:
       first_name: First name
       last_name: Last name
@@ -52,6 +54,7 @@ en:
       hearing_date: Next court hearing 
       home_address: Home address 
       correspondence_address: Correspondence address 
+      co_defendant: Co-defendant %{number}
     values:
       "true": "Yes"
       "false": "No"
@@ -65,3 +68,16 @@ en:
       commital: Commital
       appeal_to_crown_court: Appeal to Crown Court
       appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
+      conflict_of_interest:
+        "true": CONFLICT
+        "false": ''
+      loss_of_liberty: Loss of liberty
+      suspended_sentence: Suspended sentence
+      loss_of_livelihood: Loss of livelihood
+      reputation: Reputation
+      question_of_law: Question of Law
+      understanding: understanding
+      witness_tracing: Witness tracing
+      expert_examination: Expert examination
+      interest_of_another: Interest of another
+      other: Other

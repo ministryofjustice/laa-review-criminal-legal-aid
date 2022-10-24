@@ -1,8 +1,8 @@
 {
   "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
   "application_reference": "LAA-696dd4",
-  "application_start_date": "2022-10-21T16:19:00.000+00:00",
-  "submission_date": "2022-10-21T16:19:00.000+00:00",
+  "application_start_date": "2022-10-24T09:33:04.000+00:00",
+  "submission_date": "2022-10-24T09:33:04.000+00:00",
   "client_details": {
     "client": {
       "address": {
@@ -27,17 +27,37 @@
   },
   "interests_of_justice": [
     {
-      "reason": "Loss of liberty",
-      "type": "liberty"
+      "reason": "More details about why loss of liberty likely from the provider.",
+      "type": "loss_of_liberty"
+    },
+    {
+      "reason": "Witness justification as entered by the provider.",
+      "type": "expert_examination"
     }
   ],
   "case_details": {
     "case_type": "either_way",
-    "co_defendants": [],
+    "co_defendants": [
+      {
+        "conflict_of_interest": true,
+        "first_name": "Zoe",
+        "last_name": "Blogs"
+      },
+      {
+        "conflict_of_interest": false,
+        "first_name": "Ben",
+        "last_name": "Blogs"
+      }
+    ],
     "offences": [
       {
         "class": "Class C",
         "date": "2020-05-11",
+        "name": "Attempt robbery"
+      },
+      {
+        "class": "Class C",
+        "date": "2012-12-12",
         "name": "Attempt robbery"
       }
     ],

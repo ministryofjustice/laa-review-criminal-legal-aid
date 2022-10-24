@@ -17,5 +17,7 @@
     <%= render partial: 'client_details', object: @crime_application.client_details %>
     <%= render partial: 'case_details', object: @crime_application.case_details %>
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
+    <%= render partial: 'co_defendants', object: @crime_application.case_details.co_defendants %>
+    <%= render partial: 'interests_of_justice', object: @crime_application.interests_of_justice %>
   </div>
 </div>
