@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe ApiClient do
-  subject(:client) { described_class.new(connection: Faraday.new { |b| b.adapter(:test, stubs) }) }
+  subject(:client) do
+    stubbed_connection = Faraday.new { |b| b.adapter(:test, adapter) }
 
-  let(:stubs) { Faraday::Adapter::Test::Stubs.new }
+    described_class.new(connection: stubbed_connection)
+  end
+
+  let(:adapter) { Faraday::Adapter::Test::Stubs.new }
 
   let(:api_response) do
     [
@@ -14,7 +18,7 @@ RSpec.describe ApiClient do
   end
 
   after do
-    stubs.verify_stubbed_calls
+    adapter.verify_stubbed_calls
   end
 
   describe '.all' do
@@ -24,7 +28,7 @@ RSpec.describe ApiClient do
     let(:body) { file_fixture('crime_apply_data/applications.json').read }
 
     before do
-      stubs.get('/applications') { api_response }
+      adapter.get('/applications') { api_response }
     end
 
     it 'returns a list of applications from the dev api' do
@@ -68,7 +72,7 @@ RSpec.describe ApiClient do
     let(:status) { 200 }
 
     before do
-      stubs.get("/applications/#{id}") { api_response }
+      adapter.get("/applications/#{id}") { api_response }
     end
 
     it 'returns the application as a hash' do
