@@ -11,10 +11,13 @@ class ApiClient
     JSON.parse(response.body)
   end
 
+  # Returns nil if a resource is not found OR there is
+  # a problem with the api.
+  #
   def find(id)
     response = @connection.get("applications/#{id}")
 
-    return {} unless response.success?
+    return nil unless response.success?
 
     JSON.parse(response.body)
   end

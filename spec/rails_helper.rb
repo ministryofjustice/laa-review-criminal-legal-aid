@@ -6,7 +6,7 @@ require 'rspec/rails'
 
 Dir[
   Rails.root.join('spec/support/**/*.rb'),
-  Rails.root.join('spec/init/*.rb'),
+  Rails.root.join('spec/init/*.rb')
 ].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
@@ -19,6 +19,22 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  application_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
+
+  config.before do
+    stub_request(:get, "#{ENV.fetch('CRIME_APPLY_API_URL')}applications")
+      .to_return(
+        { body: file_fixture('crime_apply_data/applications.json').read },
+        status: 200
+      )
+
+    stub_request(:get, "#{ENV.fetch('CRIME_APPLY_API_URL')}applications/#{application_id}")
+      .to_return(
+        body: file_fixture("crime_apply_data/applications/#{application_id}.json").read,
+        status: 200
+      )
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
