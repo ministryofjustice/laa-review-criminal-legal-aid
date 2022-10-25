@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Applications Dashboard' do
-  include_context 'when applications exist'
-  include_context 'when a passported application exist'
-
   before do
     visit '/applications'
   end

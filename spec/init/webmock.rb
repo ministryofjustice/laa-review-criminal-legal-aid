@@ -1,5 +1,3 @@
-require 'webmock/rspec'
-
 # Allow connections to webdriver urls
 #
 driver_urls = Webdrivers::Common.subclasses.map(&:base_url)

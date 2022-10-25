@@ -1,5 +1,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 
+require 'webmock/rspec'
 require 'simplecov'
 SimpleCov.minimum_coverage 100
 

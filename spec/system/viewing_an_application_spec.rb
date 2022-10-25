@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application' do
-  include_context 'when applications exist'
-  include_context 'when a passported application exist'
-
   before do
     visit '/applications'
     click_on('Kit Pound')
