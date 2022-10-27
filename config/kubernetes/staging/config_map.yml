@@ -8,3 +8,4 @@ data:
   RACK_ENV: production
   RAILS_ENV: production
   RAILS_SERVE_STATIC_FILES: enabled
+  CRIME_APPLY_API_URL: http://service-staging.laa-apply-for-criminal-legal-aid-staging.svc.cluster.local
