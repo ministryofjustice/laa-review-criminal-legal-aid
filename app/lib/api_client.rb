@@ -27,7 +27,7 @@ class ApiClient
   def default_connection
     Faraday.new(
       url: ENV.fetch('CRIME_APPLY_API_URL'),
-      ssl: { verify: !Rails.env.development? },
+      ssl: { verify: false },
       headers: { 'Content-Type' => 'application/json' }
     )
   end
