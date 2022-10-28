@@ -1,0 +1,7 @@
+<% title t('.page_title') %>
+
+<h1>Login with DOM1</h1>
+
+<%= form_tag('/auth/azure_ad_auth', method: 'post', data: {turbo: false}) do %>
+  <button type='submit'>Login with Developer</button>
+<% end %>

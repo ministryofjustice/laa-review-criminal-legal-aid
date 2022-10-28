@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
 
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get '/login', to: 'sessions#new'
 
   resources :crime_applications, only: [:index, :show], path: 'applications'
 

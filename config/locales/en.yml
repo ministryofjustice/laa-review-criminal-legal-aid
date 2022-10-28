@@ -18,6 +18,9 @@ en:
   flash:
     success:
       title: Success
+  sessions:
+    new:
+      page_title: Login
 
   crime_applications:
     index:
