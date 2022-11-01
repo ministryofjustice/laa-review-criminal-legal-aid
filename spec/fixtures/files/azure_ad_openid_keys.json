@@ -1,0 +1,11 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "kid": "KdXE3YEpQbETa9UUMmtyT2hUd_FMgwyQ2pvMv9sdct4",
+      "n": "0oITWUZKEEdcSqj4lH5-YU4BEtidLWi5tVH0sTGZ7zT4t_eUBHgKyGPzKy_Gy3el_B2Dww9qoxov_bW_e0XwbRI4wRQ36096jD_FymQdiapMD3nSPjMGfJtBzM9X9Gc5JA74Rq31xKDmP_ndKh7KXIWNx01kSVDj_NTKywG1RIoKId_fhkt-AwhCl788TnOpMeLI_tBnJAW4qhhevdMRfx7acmFENYqX5bGkWGom6R3xeTljGhjAsAAFP-RM5ArDrqn-kCbFVwsN2lSHRJPYOEVAI_6CNDA1_LEeqCXEKTKirR7NWH_Cy9qUDQeSzJjXegm2F1_B71VXHvTDDMSvxQ",
+      "e": "AQAB",
+      "issuer": "https://login.microsoftonline.com/TestAzureTenantID/v2.0"
+    }
+  ]
+}

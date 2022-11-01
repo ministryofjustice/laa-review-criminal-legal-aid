@@ -30,6 +30,8 @@ gem 'dry-struct'
 
 gem 'omniauth-oauth2'
 gem 'omniauth-rails_csrf_protection'
+gem 'openid_connect'
+gem 'warden'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
