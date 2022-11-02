@@ -55,6 +55,8 @@ en:
       home_address: Home address 
       correspondence_address: Correspondence address 
       co_defendant: Co-defendant %{number}
+      interests_of_justice_type: Criteria
+      justification: Justification
     values:
       "true": "Yes"
       "false": "No"
