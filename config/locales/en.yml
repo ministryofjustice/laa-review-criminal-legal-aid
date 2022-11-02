@@ -55,6 +55,8 @@ en:
       home_address: Home address 
       correspondence_address: Correspondence address 
       co_defendant: Co-defendant %{number}
+      offence: Offence 
+      offence_date: Offence date 
     values:
       "true": "Yes"
       "false": "No"
