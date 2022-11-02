@@ -57,6 +57,8 @@ en:
       co_defendant: Co-defendant %{number}
       offence: Offence 
       offence_date: Offence date 
+      interests_of_justice_type: Criteria
+      justification: Justification
     values:
       "true": "Yes"
       "false": "No"
