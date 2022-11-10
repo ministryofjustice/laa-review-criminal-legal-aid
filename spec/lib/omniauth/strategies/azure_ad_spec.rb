@@ -2,7 +2,7 @@ require 'rails_helper'
 
 # rubocop:disable RSpec/FilePath
 
-PRIVATE_KEY = OpenSSL::PKey::RSA.generate(2048)
+MOCK_PRIVATE_KEY = OpenSSL::PKey::RSA.generate(2048)
 
 describe OmniAuth::Strategies::AzureAd do
   subject(:strategy) do
@@ -25,7 +25,7 @@ describe OmniAuth::Strategies::AzureAd do
   let(:kid) { SecureRandom.hex(16) }
 
   let(:private_key) do
-    PRIVATE_KEY
+    MOCK_PRIVATE_KEY
   end
 
   let(:id_token_jwt) do
