@@ -2,6 +2,8 @@ require 'rails_helper'
 
 # rubocop:disable RSpec/FilePath
 
+PRIVATE_KEY = OpenSSL::PKey::RSA.generate(2048)
+
 describe OmniAuth::Strategies::AzureAd do
   subject(:strategy) do
     app = Rack::Builder.new do
@@ -20,14 +22,10 @@ describe OmniAuth::Strategies::AzureAd do
     )
   end
 
-  before do
-    stub_auth_provider_requests
-  end
-
   let(:kid) { SecureRandom.hex(16) }
 
   let(:private_key) do
-    OpenSSL::PKey::RSA.generate(2048)
+    PRIVATE_KEY
   end
 
   let(:id_token_jwt) do
@@ -103,6 +101,8 @@ describe OmniAuth::Strategies::AzureAd do
           params: { 'id_token' => id_token_jwt }
         )
       )
+
+      stub_auth_provider_requests
     end
     # rubocop:enable RSpec/SubjectStub
 
@@ -158,7 +158,7 @@ describe OmniAuth::Strategies::AzureAd do
       end
     end
 
-    context 'when encrypted by key' do
+    context 'when encrypted by a different key' do
       let(:id_token_jwt) do
         private_key = OpenSSL::PKey::RSA.generate 2048
 
@@ -177,13 +177,11 @@ describe OmniAuth::Strategies::AzureAd do
 
     context 'when kid is not found in openid_connect config' do
       let(:id_token_jwt) do
-        private_key = OpenSSL::PKey::RSA.generate 2048
-
         JWT.encode(
           id_token_attr,
           private_key,
           'RS256',
-          kid: private_key.public_key
+          kid: SecureRandom.hex
         )
       end
 
