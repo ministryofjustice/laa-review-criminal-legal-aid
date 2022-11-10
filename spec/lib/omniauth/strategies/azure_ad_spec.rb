@@ -4,6 +4,14 @@ require 'rails_helper'
 
 describe OmniAuth::Strategies::AzureAd do
   subject(:strategy) do
+    app = Rack::Builder.new do
+      use OmniAuth::Test::PhonySession
+
+      run lambda { |_env|
+        [404, { 'Content-Type' => 'text/plain' }, []]
+      }
+    end.to_app
+
     described_class.new(
       app,
       ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID'),
@@ -16,24 +24,18 @@ describe OmniAuth::Strategies::AzureAd do
     stub_auth_provider_requests
   end
 
-  let(:app) do
-    Rack::Builder.new do
-      use OmniAuth::Test::PhonySession
+  let(:kid) { SecureRandom.hex(16) }
 
-      run lambda { |_env|
-        [404, { 'Content-Type' => 'text/plain' }, []]
-      }
-    end.to_app
+  let(:private_key) do
+    OpenSSL::PKey::RSA.generate(2048)
   end
 
   let(:id_token_jwt) do
-    private_key = OpenSSL::PKey::RSA.new(file_fixture('azure_ad_rsa_private.pem').read)
-
     JWT.encode(
       id_token_attr,
       private_key,
       'RS256',
-      kid: 'KdXE3YEpQbETa9UUMmtyT2hUd_FMgwyQ2pvMv9sdct4'
+      kid:
     )
   end
 
@@ -164,7 +166,7 @@ describe OmniAuth::Strategies::AzureAd do
           id_token_attr,
           private_key,
           'RS256',
-          kid: 'KdXE3YEpQbETa9UUMmtyT2hUd_FMgwyQ2pvMv9sdct4'
+          kid:
         )
       end
 
@@ -212,10 +214,11 @@ describe OmniAuth::Strategies::AzureAd do
 
   def stub_openid_keys_request
     keys_url = 'https://login.microsoftonline.com/TestAzureTenantID/discovery/v2.0/keys'
+    jwks = [JWT::JWK.new(private_key, kid:).export].to_json
 
     stub_request(:get, keys_url).to_return(
       status: 200,
-      body: file_fixture('azure_ad_openid_keys.json').read,
+      body: jwks,
       headers: { 'Content-Type': 'application/json' }
     )
   end
