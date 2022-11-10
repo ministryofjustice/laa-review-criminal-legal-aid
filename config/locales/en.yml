@@ -18,6 +18,9 @@ en:
   flash:
     success:
       title: Success
+  sessions:
+    new:
+      page_title: Login
 
   crime_applications:
     index:
@@ -85,3 +88,5 @@ en:
       expert_examination: Expert examination
       interest_of_another: Interest of another
       other: Other
+  cta:
+    assign_to_myself: Assign to myself

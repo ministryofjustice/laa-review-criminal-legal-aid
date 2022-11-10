@@ -50,4 +50,13 @@ module Types
   Uuid = String
   PhoneNumber = String
   Date = Date | JSON::Date
+
+  # Review only types
+  USER_ROLES = %w[
+    caseworker
+    supervisor
+  ].freeze
+
+  UserRole = String.enum(*USER_ROLES)
+  UserRoles = Array.of(UserRole)
 end

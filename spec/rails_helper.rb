@@ -35,6 +35,10 @@ RSpec.configure do |config|
       )
   end
 
+  config.before do
+    OmniAuth.config.test_mode = true
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -55,3 +59,17 @@ RSpec.configure do |config|
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
+
+OmniAuth.config.mock_auth[:azure_ad] = OmniAuth::AuthHash.new(
+  {
+    provider: 'azure_ad',
+    uid: '123456789',
+    info: {
+      id: '123456789',
+      email: 'Joe.EXAMPLE@justice.gov.uk',
+      first_name: 'Joe',
+      last_name: 'EXAMPLE',
+      roles: ['caseworker']
+    }
+  }
+)
