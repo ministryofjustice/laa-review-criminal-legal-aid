@@ -60,8 +60,9 @@ end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
 
-OmniAuth.config.mock_auth[:azure_ad] = OmniAuth::AuthHash.new({
-                                                                provider: 'azure_ad',
+OmniAuth.config.mock_auth[:azure_ad] = OmniAuth::AuthHash.new(
+  {
+    provider: 'azure_ad',
     uid: '123456789',
     info: {
       id: '123456789',
@@ -70,4 +71,5 @@ OmniAuth.config.mock_auth[:azure_ad] = OmniAuth::AuthHash.new({
       last_name: 'EXAMPLE',
       roles: ['caseworker']
     }
-                                                              })
+  }
+)
