@@ -25,9 +25,8 @@ class ApiClient
   private
 
   def default_connection
-    Faraday.new(ENV.fetch('CRIME_APPLY_API_URL')) do |f|
-      f.request :json # encode req bodies as JSON and automatically set the Content-Type header
-      f.response :json # decode response bodies as JSON
+    Faraday.new(url: ENV.fetch('CRIME_APPLY_API_URL'), ssl: { verify: false }) do |f|
+      f.request :json
       f.request :authorization, :basic, ENV.fetch('APPLY_BASIC_AUTH_USER', nil), ENV.fetch('APPLY_BASIC_AUTH_PW', nil)
     end
   end
