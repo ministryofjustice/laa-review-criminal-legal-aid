@@ -18,8 +18,8 @@ JSON::JWK::Set::Fetcher.cache = Rails.cache
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider(
     :azure_ad,
-    ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID'),
-    ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET'),
-    ENV.fetch('OMNIAUTH_AZURE_TENANT_ID')
+    ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID', nil),
+    ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil),
+    ENV.fetch('OMNIAUTH_AZURE_TENANT_ID', nil)
   )
 end
