@@ -2,6 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'shared/flash_banner' %>
     <h1 class="govuk-heading-xl">
       <%= @crime_application.application_reference %>
     </h1>
@@ -9,8 +10,22 @@
     <h2 class="govuk-heading-l">
       <%= @crime_application.applicant_name %>
     </h2>
+
+    <dl class="govuk-summary-list">
+      <dt class="govuk-summary-list__key">
+        <%= t(:assigned_to, scope: 'crime_applications.labels') %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= 'unassigned' %>
+      </dd>
+      <dd class="govuk-summary-list__action">
+        <%= button_to t('calls_to_action.assign_to_myself'), assign_to_self_crime_application_path(@crime_application) %>
+      </dd>
+      <td>
+    </dl>
   </div>
 </div>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: 'overview', object: @crime_application %>
