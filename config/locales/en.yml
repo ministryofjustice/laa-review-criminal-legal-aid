@@ -42,6 +42,7 @@ en:
         co_defendants: Co-defendants 
         interests_of_justice: Interest of Justice 
     labels:
+      assigned_to: Assigned to
       first_name: First name
       last_name: Last name
       case_type: Case type 
@@ -88,5 +89,5 @@ en:
       expert_examination: Expert examination
       interest_of_another: Interest of another
       other: Other
-  cta:
+  calls_to_action:
     assign_to_myself: Assign to myself
