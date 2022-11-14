@@ -18,6 +18,8 @@ en:
   flash:
     success:
       title: Success
+      assigned_to_you: This application has been assigned to you
+
   sessions:
     new:
       page_title: Login

@@ -23,4 +23,15 @@ class CrimeApplication < ApplicationStruct
   def common_platform?
     true
   end
+
+  def assignment
+    @assignment ||= Assignment.new(application: self)
+  end
+
+  def assign_to_user(user)
+    publish(
+      Assigning::AssignedToUser,
+      data: { user_id: user.id, user_name: user.name }
+    )
+  end
 end
