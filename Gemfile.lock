@@ -69,6 +69,10 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     aes_key_wrap (1.1.0)
+    aggregate_root (2.5.1)
+      ruby_event_store (= 2.5.1)
+    arkency-command_bus (0.4.1)
+      concurrent-ruby
     ast (2.4.2)
     attr_required (1.0.1)
     better_html (2.0.1)
@@ -270,6 +274,18 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
+    rails_event_store (2.5.1)
+      activejob (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      aggregate_root (= 2.5.1)
+      arkency-command_bus (>= 0.4)
+      rails_event_store_active_record (= 2.5.1)
+      ruby_event_store (= 2.5.1)
+      ruby_event_store-browser (= 2.5.1)
+    rails_event_store_active_record (2.5.1)
+      activerecord (>= 6.0)
+      ruby_event_store (= 2.5.1)
     railties (7.0.4)
       actionpack (= 7.0.4)
       activesupport (= 7.0.4)
@@ -323,6 +339,11 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    ruby_event_store (2.5.1)
+      concurrent-ruby (~> 1.0, >= 1.1.6)
+    ruby_event_store-browser (2.5.1)
+      rack
+      ruby_event_store (= 2.5.1)
     rubyzip (2.3.2)
     selenium-webdriver (4.4.0)
       childprocess (>= 0.5, < 5.0)
@@ -417,6 +438,7 @@ DEPENDENCIES
   pg (~> 1.4)
   puma
   rails (~> 7.0.3)
+  rails_event_store
   rspec-rails
   rubocop
   rubocop-performance

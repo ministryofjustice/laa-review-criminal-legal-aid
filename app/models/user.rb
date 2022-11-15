@@ -4,4 +4,8 @@ class User < ApplicationStruct
   attribute :last_name, Types::String
   attribute :email, Types::String
   attribute :roles, Types::Array.of(Types::UserRole)
+
+  def name
+    [first_name, last_name].join(' ')
+  end
 end

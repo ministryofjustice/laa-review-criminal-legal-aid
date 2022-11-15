@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # def current_user
-  #   warden.user
-  # end
+  def current_user
+    warden.user
+  end
 
   def authenticate_user!
     warden.authenticate!(:azure_ad)

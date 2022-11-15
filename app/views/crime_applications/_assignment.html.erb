@@ -1,0 +1,13 @@
+<dl class="govuk-summary-list">
+  <dt class="govuk-summary-list__key">
+    <%= t(:assigned_to, scope: 'crime_applications.labels') %>
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= assignment.user_name %>
+  </dd>
+  <% unless assignment.assigned_to_user(current_user) %>
+    <dd class="govuk-summary-list__action">
+      <%= button_to t('calls_to_action.assign_to_myself'), assign_to_self_crime_application_path(@crime_application) %>
+    </dd>
+  <% end %>
+</dl>

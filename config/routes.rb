@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'logout', to: 'sessions#logout'
 
-  resources :crime_applications, only: [:index, :show], path: 'applications'
+  resources :crime_applications, only: [:index, :show], path: 'applications' do
+    post :assign_to_self, on: :member
+  end
 
   root 'crime_applications#index'
 end
