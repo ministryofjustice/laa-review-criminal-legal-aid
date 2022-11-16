@@ -1,16 +1,15 @@
 <% title t('.page_title') %>
 
-<%# TODO: tab navigation %>
-<%= link_to t('assigned_applications.index.heading'), assigned_applications_path %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
     <h1 class="govuk-heading-xl"><%=t '.heading' %></h1>
+    <p><%=t '.your_assignments', count: @applications.count %></p>
   </div>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+    <%= link_to t('calls_to_action.view_all_open_applications'), crime_applications_path %>
     <table class="govuk-table app-dashboard-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -24,27 +23,15 @@
             <%= t('.table_headings.received_at') %>
           </th>
           <th scope="col" class="govuk-table__header">
-            <%= t('.table_headings.caseworker') %>
+            <%= t('.table_headings.time_passed') %>
+          </th>
+          <th scope="col" class="govuk-table__header">
+            <%= t(:common_platform, scope: 'crime_applications.labels') %>
           </th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
-        <% @applications.each do |app| %>
-          <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">
-              <%= link_to app.applicant_name, crime_application_path(app) %>
-            </th>
-            <td class="govuk-table__cell">
-              <%= app.application_reference %>
-            </td>
-            <td class="govuk-table__cell">
-              <%= l(app.submission_date) %>
-            </td>
-            <td class="govuk-table__cell">
-              <%= app.current_assignment.user_name if app.current_assignment.assigned? %>
-            </td>
-          </tr>
-        <% end %>
+        <%= render @applications %>
       </tbody>
     </table>
   </div>

@@ -11,7 +11,7 @@ RSpec.describe 'Assigning an application to myself' do
   context 'with an unassigned application' do
     it 'is assigned to unassigned' do
       expect(page).to have_content(
-        'unassigned'
+        'Unassigned'
       )
     end
 

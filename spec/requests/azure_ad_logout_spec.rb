@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'OmniAuth Endpoints' do
+  include_context 'with a logged in user'
+
+  let(:user_id) do
+    current_user_id
+  end
+
   describe "GET '/auth/azure_ad/callback'" do
     before do
       get 'https://www.example.com/auth/azure_ad/callback'
@@ -13,7 +19,7 @@ RSpec.describe 'OmniAuth Endpoints' do
     end
 
     it 'sets the current user id' do
-      expect(user.id).to eq '123456789'
+      expect(user.id).to eq user_id
     end
 
     it 'sets the current user name' do

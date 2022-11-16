@@ -24,14 +24,27 @@ en:
     new:
       page_title: Login
 
-  crime_applications:
+  assigned_applications:
     index:
       page_title: Your list
       heading: Your list
       table_headings:
         applicant_name: Applicant
+        reference: Ref.no. 
+        time_passed: Time passed
+        received_at: Date received 
+      your_assignments:
+        one: 1 saved application
+        other: "%{count} saved applications"
+  crime_applications:
+    index:
+      page_title: All open applications 
+      heading: All open applications
+      table_headings:
+        applicant_name: Applicant
         reference: Reference 
         received_at: Date received 
+        caseworker:  Caseworker
     show:
       page_title: Application
       heading: Application
@@ -91,5 +104,10 @@ en:
       expert_examination: Expert examination
       interest_of_another: Interest of another
       other: Other
+      days_passed:
+        one: 1 day
+        other: "%{count} days"
+
   calls_to_action:
     assign_to_myself: Assign to myself
+    view_all_open_applications: View all open applications 

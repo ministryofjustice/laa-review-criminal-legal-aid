@@ -1,4 +1,4 @@
-class Assignment < ApplicationStruct
+class CurrentAssignment < ApplicationStruct
   attribute :application, Types.Instance(CrimeApplication)
 
   def user_name
@@ -13,15 +13,19 @@ class Assignment < ApplicationStruct
     user.id.to_s == user_id
   end
 
+  def assigned?
+    !latest_assignment.nil?
+  end
+
   private
 
   def data
-    return { user_id: nil, user_name: 'unassigned' } unless latest_assignment
+    return { user_id: nil, user_name: 'Unassigned' } unless latest_assignment
 
     latest_assignment.data
   end
 
   def latest_assignment
-    @latest_assignment ||= application.event_stream.of_type([Assigning::AssignedToUser]).first
+    application.event_stream.of_type([Assigning::AssignedToUser]).first
   end
 end

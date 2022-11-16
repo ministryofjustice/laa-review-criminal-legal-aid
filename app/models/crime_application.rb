@@ -24,8 +24,12 @@ class CrimeApplication < ApplicationStruct
     true
   end
 
-  def assignment
-    @assignment ||= Assignment.new(application: self)
+  def days_passed
+    Rational(time_passed, 1.day).floor
+  end
+
+  def current_assignment
+    @current_assignment ||= CurrentAssignment.new(application: self)
   end
 
   def assign_to_user(user)
@@ -33,5 +37,11 @@ class CrimeApplication < ApplicationStruct
       Assigning::AssignedToUser,
       data: { user_id: user.id, user_name: user.name }
     )
+  end
+
+  private
+
+  def time_passed
+    Time.zone.now - submission_date
   end
 end

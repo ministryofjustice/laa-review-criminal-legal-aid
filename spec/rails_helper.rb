@@ -3,11 +3,10 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
-
-Dir[
-  Rails.root.join('spec/support/**/*.rb'),
-  Rails.root.join('spec/init/*.rb')
-].each { |f| require f }
+require 'init/event_store'
+require 'init/api_data'
+require 'init/webmock'
+require 'shared_contexts/logged_in_user'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -18,39 +17,22 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+OmniAuth.config.test_mode = true
+
 RSpec.configure do |config|
-  application_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
-
-  config.before do
-    stub_request(:get, "#{ENV.fetch('CRIME_APPLY_API_URL')}applications")
-      .to_return(
-        { body: file_fixture('crime_apply_data/applications.json').read },
-        status: 200
-      )
-
-    stub_request(:get, "#{ENV.fetch('CRIME_APPLY_API_URL')}applications/#{application_id}")
-      .to_return(
-        body: file_fixture("crime_apply_data/applications/#{application_id}.json").read,
-        status: 200
-      )
-  end
-
-  config.before do
-    OmniAuth.config.test_mode = true
-  end
-
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  config.include_context 'with a logged in user', type: :system
 
   # Use the faster rack test by default for system specs
   config.before(:each, type: :system) do
@@ -59,17 +41,3 @@ RSpec.configure do |config|
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
-
-OmniAuth.config.mock_auth[:azure_ad] = OmniAuth::AuthHash.new(
-  {
-    provider: 'azure_ad',
-    uid: '123456789',
-    info: {
-      id: '123456789',
-      email: 'Joe.EXAMPLE@justice.gov.uk',
-      first_name: 'Joe',
-      last_name: 'EXAMPLE',
-      roles: ['caseworker']
-    }
-  }
-)

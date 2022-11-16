@@ -2,8 +2,8 @@
   {
     "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
     "application_reference": "LAA-696dd4",
-    "application_start_date": "2022-10-24T09:33:04.000+00:00",
-    "submission_date": "2022-10-24T09:33:04.000+00:00",
+    "application_start_date": "2022-10-21T16:19:00.000+00:00",
+    "submission_date": "2022-10-27T14:09:11.000+00:00",
     "client_details": {
       "client": {
         "address": {
@@ -65,6 +65,49 @@
       "hearing_court_name": "Cardiff Magistrates' Court",
       "hearing_date": "2024-11-11",
       "urn": "12AB1234123"
+    },
+    "application_type": "initial_application"
+  },
+  {
+    "id": "1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc",
+    "application_reference": "LAA-1aa4c6",
+    "application_start_date": "2022-11-14T16:56:51.000+00:00",
+    "submission_date": "2022-11-14T16:58:15.000+00:00",
+    "client_details": {
+      "client": {
+        "address": {
+          "address_line_one": "1",
+          "address_line_two": "",
+          "county": "London",
+          "postcode": "SW1A 2AA"
+        },
+        "first_name": "Don",
+        "last_name": "JONES",
+        "national_insurance_number": "NC123458A",
+        "date_of_birth": "1980-06-01",
+        "telephone_number": "07712345678",
+        "correspondence_address_type": "home_address"
+      }
+    },
+    "interests_of_justice": [
+      {
+        "reason": "Justification provided by provider.",
+        "type": "loss_of_liberty"
+      }
+    ],
+    "case_details": {
+      "case_type": "summary_only",
+      "co_defendants": [],
+      "offences": [
+        {
+          "class": "Class C or B",
+          "date": "2020-12-12",
+          "name": "Robbery"
+        }
+      ],
+      "hearing_court_name": "Caernarfon Crown Court",
+      "hearing_date": "2023-12-12",
+      "urn": "12AB3456789"
     },
     "application_type": "initial_application"
   }

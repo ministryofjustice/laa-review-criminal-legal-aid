@@ -12,12 +12,12 @@ RSpec.describe 'Applications Dashboard' do
   it 'includes the correct headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text
 
-    expect(column_headings).to eq('Applicant Reference Date received')
+    expect(column_headings).to eq('Applicant Reference Date received Caseworker')
   end
 
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
-    expect(first_row_text).to eq('Kit Pound LAA-696dd4 24 Oct 2022')
+    expect(first_row_text).to eq('Kit Pound LAA-696dd4 27 Oct 2022')
   end
 
   it 'can be used to navigate to an application' do
