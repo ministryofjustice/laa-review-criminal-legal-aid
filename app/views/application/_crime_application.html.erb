@@ -1,0 +1,17 @@
+<tr class="govuk-table__row">
+  <th scope="row" class="govuk-table__header">
+    <%= link_to crime_application.applicant_name, crime_application_path(crime_application) %>
+  </th>
+  <td class="govuk-table__cell">
+    <%= crime_application.application_reference %>
+  </td>
+  <td class="govuk-table__cell">
+    <%= t('crime_applications.values.days_passed', count: crime_application.days_passed) %>
+  </td>
+  <td class="govuk-table__cell">
+    <%= l(crime_application.submission_date) %>
+  </td>
+  <td class="govuk-table__cell">
+    <%= t(crime_application.common_platform?, scope: 'crime_applications.values') %>
+  </td>
+</tr>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :crime_applications, only: [:index, :show], path: 'applications' do
     post :assign_to_self, on: :member
   end
+  
+  resources :assigned_applications, only: [:index]
 
   root 'crime_applications#index'
 end
