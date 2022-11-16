@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'OmniAuth Endpoints' do
+  include_context 'with a logged in user'
+
   let(:user_id) do
     current_user_id
   end

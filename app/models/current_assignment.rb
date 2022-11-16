@@ -20,7 +20,7 @@ class CurrentAssignment < ApplicationStruct
   private
 
   def data
-    return { user_id: nil, user_name: 'unassigned' } unless latest_assignment
+    return { user_id: nil, user_name: 'Unassigned' } unless latest_assignment
 
     latest_assignment.data
   end

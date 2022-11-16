@@ -49,7 +49,6 @@ end
 group :test do
   gem 'brakeman'
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'erb_lint', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
