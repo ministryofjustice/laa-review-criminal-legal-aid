@@ -9,7 +9,7 @@ module ApiResource
 
   module QueryMethods
     def all
-      @all ||= ApiClient.new.all.map { |data| new(data) }
+      ApiClient.new.all.map { |data| new(data) }
     end
 
     def find(id)

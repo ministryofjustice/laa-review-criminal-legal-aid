@@ -7,16 +7,18 @@ RSpec.configure do |config|
   config.before do
     stub_request(:get, "#{ENV.fetch('CRIME_APPLY_API_URL')}applications")
       .to_return(
-        { body: file_fixture('crime_apply_data/applications.json').read },
+        body: file_fixture('crime_apply_data/applications.json').read,
         status: 200
       )
 
     application_ids.each do |application_id|
-      stub_request(:get, "#{ENV.fetch('CRIME_APPLY_API_URL')}applications/#{application_id}")
-        .to_return(
-          body: file_fixture("crime_apply_data/applications/#{application_id}.json").read,
-          status: 200
-        )
+      stub_request(
+        :get,
+        "#{ENV.fetch('CRIME_APPLY_API_URL')}applications/#{application_id}"
+      ).to_return(
+        body: file_fixture("crime_apply_data/applications/#{application_id}.json").read,
+        status: 200
+      )
     end
   end
 end
