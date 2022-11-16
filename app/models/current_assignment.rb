@@ -14,7 +14,7 @@ class CurrentAssignment < ApplicationStruct
   end
 
   def assigned?
-    latest_assignment
+    !latest_assignment.nil?
   end
 
   private
