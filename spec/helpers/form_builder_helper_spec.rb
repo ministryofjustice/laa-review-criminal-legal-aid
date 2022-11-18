@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FormBuilderHelper, type: :helper do
+RSpec.describe FormBuilderHelper do
   let(:form_object) { class_double(Class) }
 
   let(:builder) do
