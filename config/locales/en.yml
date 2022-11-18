@@ -24,6 +24,10 @@ en:
     new:
       page_title: Login
 
+  primary_navigation:
+    your_list: "Your list (%{count})"
+    open_apps: All open applications
+
   assigned_applications:
     index:
       page_title: Your list
