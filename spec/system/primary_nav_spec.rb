@@ -5,14 +5,14 @@ RSpec.describe 'Applications Dashboard' do
     visit '/applications'
   end
 
-  context 'Your list link' do
-    context 'before assignment' do
+  context 'with the "Your list" link' do
+    describe 'before assignment' do
       it 'has the correct number of applications in the link' do
         expect(page).to have_content('Your list (0)')
       end
     end
-    context 'after assignment' do
 
+    describe 'after assignment' do
       before do
         click_on('Kit Pound')
         click_on('Assign to myself')
@@ -35,7 +35,7 @@ RSpec.describe 'Applications Dashboard' do
     end
   end
 
-  context 'other primary nav links' do
+  context 'with the other primary nav links' do
     it 'takes you to All applications when you click "All open applications"' do
       click_on('All open applications')
 
@@ -44,11 +44,6 @@ RSpec.describe 'Applications Dashboard' do
 
       expect(heading_text).to eq('All open applications')
       expect(first_row_text).to eq('Kit Pound LAA-696dd4 27 Oct 2022')
-    end
-
-    it 'takes you to closed applications when "Closed applications" is clicked' do
-      pending('add spec when we have Closed applications functionality / page')
-      raise 'pending closed applications'
     end
   end
 end

@@ -27,7 +27,6 @@ en:
   primary_navigation:
     your_list: "Your list (%{count})"
     open_apps: All open applications
-    closed_apps: Closed applications
 
   assigned_applications:
     index:

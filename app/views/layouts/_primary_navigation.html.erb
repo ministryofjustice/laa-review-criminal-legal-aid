@@ -10,22 +10,16 @@
             <%= link_to t('primary_navigation.your_list', count: assignments_count), 
               assigned_applications_path, 
               class: 'moj-primary-navigation__link', 
-              aria_current: 'page' %>
+              aria: { current: current_page?('/assigned_applications') ? 'page' : nil } %>
           </li>
 
           <li class="moj-primary-navigation__item">
             <%= link_to t('primary_navigation.open_apps'), 
               crime_applications_path, 
-              class: 'moj-primary-navigation__link' %>
-          </li>
-
-          <li class="moj-primary-navigation__item">
-            <%= link_to t('primary_navigation.closed_apps'), 
-              '#TODO', 
-              class: 'moj-primary-navigation__link' %>
+              class: 'moj-primary-navigation__link', 
+              aria: { current: current_page?('/applications') ? 'page' : nil } %>
           </li>
         </ul>
-
       </nav>
     </div>
   </div>
