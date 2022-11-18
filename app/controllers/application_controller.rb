@@ -1,8 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   helper_method :current_user
-
+  helper_method :assignments_count
+  
   private
+
+  def assignments_count
+    current_user.assigned_applications.count
+  end
 
   def current_user
     warden.user
