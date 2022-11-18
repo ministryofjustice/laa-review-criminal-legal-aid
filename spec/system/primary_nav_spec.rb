@@ -27,10 +27,8 @@ RSpec.describe 'Applications Dashboard' do
         click_on('Your list (1)')
 
         heading_text = page.first('.govuk-heading-xl').text
-        first_row_text = page.first('.app-dashboard-table tbody tr').text
 
         expect(heading_text).to eq('Your list')
-        expect(first_row_text).to eq('Kit Pound LAA-696dd4 21 days 27 Oct 2022 Yes')
       end
     end
   end
