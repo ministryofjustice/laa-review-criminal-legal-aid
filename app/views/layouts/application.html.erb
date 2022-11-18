@@ -14,6 +14,10 @@
   <%= render partial: 'layouts/phase_banner' %>
 <% end %>
 
+<% content_for(:primary_navgation) do %>
+  <%= render partial: 'layouts/primary_navigation' %>
+<% end %>
+
 <% content_for(:content) do %>
   <%= yield %>
 <% end %>
