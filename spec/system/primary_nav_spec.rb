@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Applications Dashboard' do
+RSpec.describe 'Primary navigation' do
   before do
     visit '/applications'
   end
