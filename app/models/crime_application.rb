@@ -32,13 +32,6 @@ class CrimeApplication < ApplicationStruct
     @current_assignment ||= CurrentAssignment.new(application: self)
   end
 
-  def assign_to_user(user)
-    publish(
-      Assigning::AssignedToUser,
-      data: { user_id: user.id, user_name: user.name }
-    )
-  end
-
   private
 
   def time_passed

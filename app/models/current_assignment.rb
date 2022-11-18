@@ -1,3 +1,4 @@
+# READ MODEL
 class CurrentAssignment < ApplicationStruct
   attribute :application, Types.Instance(CrimeApplication)
 
@@ -9,23 +10,35 @@ class CurrentAssignment < ApplicationStruct
     data.fetch(:user_id)
   end
 
-  def assigned_to_user(user)
-    user.id.to_s == user_id
+  def assigned_to_user?(user)
+    assigned? && user.id.to_s == user_id
   end
 
   def assigned?
-    !latest_assignment.nil?
+    !user_id.nil?
   end
 
   private
 
   def data
-    return { user_id: nil, user_name: 'Unassigned' } unless latest_assignment
-
-    latest_assignment.data
+    @data ||= projection.run(Rails.application.config.event_store).fetch(:user)
   end
 
-  def latest_assignment
-    application.event_stream.of_type([Assigning::AssignedToUser]).first
+  def projection
+    RailsEventStore::Projection
+      .from_stream("Assigning$#{application.id}")
+      .init(-> { { user: unassigned_user_data } })
+      .when(
+        Assigning::AssignedToUser,
+        ->(state, event) { state[:user] = event.data }
+      )
+      .when(
+        Assigning::UnassignedFromSelf,
+        ->(state, _event) { state[:user] = unassigned_user_data }
+      )
+  end
+
+  def unassigned_user_data
+    { user_id: nil, user_name: 'Unassigned' }
   end
 end

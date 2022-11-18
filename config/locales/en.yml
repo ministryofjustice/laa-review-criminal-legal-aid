@@ -18,7 +18,8 @@ en:
   flash:
     success:
       title: Success
-      assigned_to_you: This application has been assigned to you
+      assigned_to_self: This application has been assigned to you
+      unassigned_from_self: The application has been removed from your list 
 
   sessions:
     new:
@@ -46,7 +47,8 @@ en:
       heading: All open applications
       table_headings:
         applicant_name: Applicant
-        reference: Reference 
+        reference: Ref.no. 
+        time_passed: Time passed
         received_at: Date received 
         caseworker:  Caseworker
     show:
@@ -69,7 +71,7 @@ en:
       date_of_birth: Date of birth 
       application_type: Application type
       means_type: Means type
-      common_platform: Common platform
+      common_platform: Common Platform
       urn: Unique reference number 
       application_start_date: Date stamp 
       telephone_number: UK Telephone number 
@@ -113,7 +115,8 @@ en:
         other: "%{count} days"
 
   calls_to_action:
-    assign_to_myself: Assign to myself
+    assign_to_self: Assign to myself
+    unassign_from_self: Remove from your list 
     view_all_open_applications: View all open applications 
 
   shared:

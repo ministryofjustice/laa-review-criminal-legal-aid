@@ -7,14 +7,6 @@ class CrimeApplicationsController < ApplicationController
 
   def show; end
 
-  def assign_to_self
-    @crime_application.assign_to_user(current_user)
-
-    flash[:success] = :assigned_to_you
-
-    redirect_to crime_application_path(@crime_application)
-  end
-
   private
 
   def set_crime_application

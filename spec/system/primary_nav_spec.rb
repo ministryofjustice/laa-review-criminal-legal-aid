@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Primary navigation' do
   before do
-    visit '/applications'
+    visit '/'
   end
 
   context 'with the "Your list" link' do
@@ -14,9 +14,10 @@ RSpec.describe 'Primary navigation' do
 
     describe 'after assignment' do
       before do
+        click_on 'All open applications'
         click_on('Kit Pound')
         click_on('Assign to myself')
-        visit '/applications'
+        click_on 'All open applications'
       end
 
       it 'has the correct number of applications in the link' do
@@ -38,10 +39,7 @@ RSpec.describe 'Primary navigation' do
       click_on('All open applications')
 
       heading_text = page.first('.govuk-heading-xl').text
-      first_row_text = page.first('.app-dashboard-table tbody tr').text
-
       expect(heading_text).to eq('All open applications')
-      expect(first_row_text).to eq('Kit Pound LAA-696dd4 27 Oct 2022')
     end
   end
 end

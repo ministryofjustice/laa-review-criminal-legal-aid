@@ -21,6 +21,12 @@
             <%= t('.table_headings.received_at') %>
           </th>
           <th scope="col" class="govuk-table__header">
+            <%= t('.table_headings.time_passed') %>
+          </th>
+          <th scope="col" class="govuk-table__header">
+            <%= t(:common_platform, scope: 'crime_applications.labels') %>
+          </th>
+          <th scope="col" class="govuk-table__header">
             <%= t('.table_headings.caseworker') %>
           </th>
         </tr>
@@ -36,6 +42,12 @@
             </td>
             <td class="govuk-table__cell">
               <%= l(app.submission_date) %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= t('crime_applications.values.days_passed', count: app.days_passed) %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= t(app.common_platform?, scope: 'crime_applications.values') %>
             </td>
             <td class="govuk-table__cell">
               <%= app.current_assignment.user_name if app.current_assignment.assigned? %>

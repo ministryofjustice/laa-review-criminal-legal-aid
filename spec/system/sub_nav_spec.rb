@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Sub navigation' do
   before do
-    visit '/applications'
+    visit '/'
+    click_on 'All open applications'
     click_on('Kit Pound')
   end
 
