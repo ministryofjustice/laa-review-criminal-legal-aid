@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     post :assign_to_self, on: :member
   end
   
-  resources :assigned_applications, only: [:index]
+  resources :assigned_applications, only: [:index, :destroy, :create]
 
-  root 'crime_applications#index'
+  root 'assigned_applications#index'
 end
