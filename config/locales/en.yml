@@ -115,3 +115,10 @@ en:
   calls_to_action:
     assign_to_myself: Assign to myself
     view_all_open_applications: View all open applications 
+
+  shared:
+    subnavigation:
+      application_details: Application details
+      application_history: Application history
+      
+        

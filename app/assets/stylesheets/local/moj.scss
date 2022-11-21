@@ -7,6 +7,11 @@
 // Badge
 // https://design-patterns.service.justice.gov.uk/components/badge/
 @import "@ministryofjustice/frontend/moj/components/badge/badge";
+
+// Primary navigation
 @import "@ministryofjustice/frontend/moj/settings/measurements";
 @import "@ministryofjustice/frontend/moj/objects/width-container";
 @import "@ministryofjustice/frontend/moj/components/primary-navigation/primary-navigation";
+
+// Sub navigation
+@import "@ministryofjustice/frontend/moj/components/sub-navigation/sub-navigation";

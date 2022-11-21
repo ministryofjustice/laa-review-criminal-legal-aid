@@ -17,6 +17,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'shared/subnavigation', locals: { crime_application: @crime_application } %>
     <%= render partial: 'overview', object: @crime_application %>
     <%= render partial: 'client_details', object: @crime_application.client_details %>
     <%= render partial: 'case_details', object: @crime_application.case_details %>
