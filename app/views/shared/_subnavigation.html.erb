@@ -1,11 +1,10 @@
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
-      <%= link_to t('.application_details'), crime_application_path(crime_application), class: 'moj-sub-navigation__link', aria: { current: current_page?(crime_application_path, action: 'show') ? 'page' : nil } %>
+      <%= link_to t('.application_details'), crime_application_path(crime_application), class: 'moj-sub-navigation__link', aria: { current: current_page?(crime_application_path) ? 'page' : nil } %>
     </li>
-    <%# To do when we have application history path %>
     <li class="moj-sub-navigation__item">
-      <%= link_to t('.application_history'), health_path, class: 'moj-sub-navigation__link', aria: { current: current_page?(health_path, action: 'show') ? 'page' : nil } %>
+      <%= link_to t('.application_history'), history_crime_application_path(crime_application), class: 'moj-sub-navigation__link', aria: { current: current_page?(history_crime_application_path, action: 'history') ? 'page' : nil } %>
     </li>
   </ul>
 </nav>

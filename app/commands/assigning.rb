@@ -38,12 +38,14 @@ module Assigning
 
   class UnassignFromSelf < Assigning::Command
     attribute :user_id, Types::Uuid
+    attribute :user_name, Types::String
 
     def call
       publish(
         Assigning::UnassignedFromSelf,
         data: {
           user_id:,
+          user_name:,
           crime_application_id:
         }
       )

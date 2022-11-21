@@ -32,6 +32,10 @@ class CrimeApplication < ApplicationStruct
     @current_assignment ||= CurrentAssignment.new(application: self)
   end
 
+  def history
+    @history ||= ApplicationHistory.new(application: self)
+  end
+
   private
 
   def time_passed
