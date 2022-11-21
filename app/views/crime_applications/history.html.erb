@@ -40,7 +40,7 @@
       <% @crime_application.history.events.each do |event| %>
         <tr class="govuk-table__row">
           <td scope="row" class="govuk-table__cell">
-            <%= event.timestamp.strftime("%A %-d %b %H:%M") %>
+            <%= l event.timestamp, format: :timestamp %>
           </td>
           <td class="govuk-table__cell">
             <%= event.user_name %>
