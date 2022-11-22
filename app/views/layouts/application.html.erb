@@ -18,6 +18,10 @@
   <%= render partial: 'layouts/primary_navigation' %>
 <% end %>
 
+<% content_for(:back_link) do %>
+  <%= link_to 'Back', :back, class: 'govuk-back-link' %>
+<% end %>
+
 <% content_for(:content) do %>
   <%= render partial: 'shared/flash_banner' %>
   <%= yield %>
