@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#logout'
 
   resources :crime_applications, only: [:index, :show], path: 'applications' do
-    post :assign_to_self, on: :member
+    get :history, on: :member
   end
   
   resources :assigned_applications, only: [:index, :destroy, :create]

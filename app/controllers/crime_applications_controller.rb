@@ -7,6 +7,8 @@ class CrimeApplicationsController < ApplicationController
 
   def show; end
 
+  def history; end
+
   private
 
   def set_crime_application

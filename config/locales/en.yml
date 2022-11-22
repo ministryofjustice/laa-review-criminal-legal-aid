@@ -14,6 +14,7 @@ en:
     formats:
       <<: *DATE_FORMATS
       datetime: '%-l:%M%P %-d %b %Y'  # 2:45pm 3 Jan 2019
+      timestamp: '%A %-d %b %H:%M'  # Monday 21 Nov 12:20
 
   flash:
     success:
@@ -28,6 +29,81 @@ en:
   primary_navigation:
     your_list: "Your list (%{count})"
     open_apps: All open applications
+
+  labels: &LABELS
+    assigned_to: Assigned to
+    first_name: First name
+    last_name: Last name
+    case_type: Case type 
+    national_insurance_number: National Insurance number 
+    date_of_birth: Date of birth 
+    application_type: Application type
+    means_type: Means type
+    common_platform: Common Platform
+    urn: Unique reference number 
+    application_start_date: Date stamp 
+    telephone_number: UK Telephone number 
+    hearing_court_name: Court hearing the case
+    hearing_date: Next court hearing 
+    home_address: Home address 
+    correspondence_address: Correspondence address 
+    co_defendant: Co-defendant %{number}
+    offence: Offence 
+    offence_date: Offence date 
+    interests_of_justice_type: Criteria
+    justification: Justification
+    when: When
+    who: Who
+    what: What
+
+  values: &VALUES
+    "true": "Yes"
+    "false": "No"
+    initial_application: Initial application 
+    home_address: Same as home address 
+    provider_address: Same as provider address 
+    summary_only: Summary only
+    either_way: Either way
+    indictable: Indictable
+    already_in_crown_court: Already in Crown Court
+    commital: Commital
+    appeal_to_crown_court: Appeal to Crown Court
+    appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
+    conflict_of_interest:
+      "true": CONFLICT
+      "false": ''
+    loss_of_liberty: Loss of liberty
+    suspended_sentence: Suspended sentence
+    loss_of_livelihood: Loss of livelihood
+    reputation: Reputation
+    question_of_law: Question of Law
+    understanding: understanding
+    witness_tracing: Witness tracing
+    expert_examination: Expert examination
+    interest_of_another: Interest of another
+    other: Other
+    days_passed:
+      one: 1 day
+      other: "%{count} days"
+  
+  calls_to_action:
+    assign_to_self: Assign to myself
+    unassign_from_self: Remove from your list 
+    view_all_open_applications: View all open applications 
+
+  shared:
+    subnavigation:
+      application_details: Application details
+      application_history: Application history
+
+  event:
+    description:
+      application:
+        submitted: Application submitted by provider
+      assigning:
+        assigned_to_user: Application assigned to self
+        unassigned_from_self: Application unassigned from self
+
 
   assigned_applications:
     index:
@@ -54,6 +130,9 @@ en:
     show:
       page_title: Application
       heading: Application
+    history:
+      page_title: Application history
+      heading: Application history
     section:
       headings:
         case_details: Case details
@@ -63,65 +142,7 @@ en:
         co_defendants: Co-defendants 
         interests_of_justice: Interest of Justice 
     labels:
-      assigned_to: Assigned to
-      first_name: First name
-      last_name: Last name
-      case_type: Case type 
-      national_insurance_number: National Insurance number 
-      date_of_birth: Date of birth 
-      application_type: Application type
-      means_type: Means type
-      common_platform: Common Platform
-      urn: Unique reference number 
-      application_start_date: Date stamp 
-      telephone_number: UK Telephone number 
-      hearing_court_name: Court hearing the case
-      hearing_date: Next court hearing 
-      home_address: Home address 
-      correspondence_address: Correspondence address 
-      co_defendant: Co-defendant %{number}
-      offence: Offence 
-      offence_date: Offence date 
-      interests_of_justice_type: Criteria
-      justification: Justification
+      <<: *LABELS
     values:
-      "true": "Yes"
-      "false": "No"
-      initial_application: Initial application 
-      home_address: Same as home address 
-      provider_address: Same as provider address 
-      summary_only: Summary only
-      either_way: Either way
-      indictable: Indictable
-      already_in_crown_court: Already in Crown Court
-      commital: Commital
-      appeal_to_crown_court: Appeal to Crown Court
-      appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
-      conflict_of_interest:
-        "true": CONFLICT
-        "false": ''
-      loss_of_liberty: Loss of liberty
-      suspended_sentence: Suspended sentence
-      loss_of_livelihood: Loss of livelihood
-      reputation: Reputation
-      question_of_law: Question of Law
-      understanding: understanding
-      witness_tracing: Witness tracing
-      expert_examination: Expert examination
-      interest_of_another: Interest of another
-      other: Other
-      days_passed:
-        one: 1 day
-        other: "%{count} days"
+      <<: *VALUES
 
-  calls_to_action:
-    assign_to_self: Assign to myself
-    unassign_from_self: Remove from your list 
-    view_all_open_applications: View all open applications 
-
-  shared:
-    subnavigation:
-      application_details: Application details
-      application_history: Application history
-      
-        
