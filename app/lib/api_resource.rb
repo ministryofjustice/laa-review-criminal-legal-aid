@@ -1,4 +1,6 @@
 module ApiResource
+  NotFound = Class.new(StandardError)
+
   def self.included(base)
     base.extend(QueryMethods)
   end
@@ -13,7 +15,11 @@ module ApiResource
     end
 
     def find(id)
-      new(ApiClient.new.find(id))
+      resource = ApiClient.new.find(id)
+
+      raise NotFound unless resource
+
+      new(resource)
     end
   end
 end

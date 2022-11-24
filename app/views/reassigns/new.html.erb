@@ -1,0 +1,34 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      <%= t 'confirmations.reassign_to_self', from_whom_name: @current_assignment.user_name %>
+    </h1>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        <%= t 'warnings.reassign_to_self' %>
+      </strong>
+    </div>
+
+    <div class="govuk-button-group">
+      <%= form_with(
+            url: crime_application_reassign_path(crime_application_id: @current_assignment.crime_application_id),
+            method: :post
+          ) do |f| %>
+        <%= f.hidden_field :state, value: @current_assignment.state_key %>
+        <%= f.submit t('calls_to_action.confirm_reassign_to_self'), class: 'govuk-button'%>
+      <% end %>
+
+      <%= button_to(
+            t('calls_to_action.abandon_reassign_to_self'),
+            crime_application_path(@current_assignment.crime_application_id),
+            method: :get,
+            class: 'govuk-button govuk-button--warning'
+          ) %>
+    </div>
+  </div>
+</div>

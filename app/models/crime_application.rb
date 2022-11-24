@@ -29,7 +29,7 @@ class CrimeApplication < ApplicationStruct
   end
 
   def current_assignment
-    @current_assignment ||= CurrentAssignment.new(application: self)
+    @current_assignment ||= CurrentAssignment.new(crime_application_id: id)
   end
 
   def history

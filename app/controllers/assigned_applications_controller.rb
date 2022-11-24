@@ -6,10 +6,9 @@ class AssignedApplicationsController < ApplicationController
   end
 
   def create
-    Assigning::AssignToUser.new(
+    Assigning::AssignToSelf.new(
       crime_application_id: params[:crime_application_id],
-      user_id: current_user.id,
-      user_name: current_user.name
+      user: current_user
     ).call
 
     flash[:success] = :assigned_to_self
@@ -22,8 +21,7 @@ class AssignedApplicationsController < ApplicationController
   def destroy
     Assigning::UnassignFromSelf.new(
       crime_application_id: params[:id],
-      user_id: current_user.id,
-      user_name: current_user.name
+      user: current_user
     ).call
 
     flash[:success] = :unassigned_from_self
@@ -36,6 +34,6 @@ class AssignedApplicationsController < ApplicationController
   def set_assigned_application
     @assigned_application = current_user.assigned_applications.find { |aa| aa.id == params[:id] }
 
-    raise ActionController::RoutingError, 'Not Found' unless @assigned_application
+    raise ApiResource::RoutingError, 'Not Found' unless @assigned_application
   end
 end

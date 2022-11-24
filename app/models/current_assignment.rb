@@ -1,6 +1,10 @@
-# READ MODEL
 class CurrentAssignment < ApplicationStruct
-  attribute :application, Types.Instance(CrimeApplication)
+  ASSIGNING_EVENTS = [
+    Assigning::AssignedToUser,
+    Assigning::ReassignedToUser
+  ].freeze
+
+  attribute :crime_application_id, Types::Uuid
 
   def user_name
     data.fetch(:user_name)
@@ -18,6 +22,12 @@ class CurrentAssignment < ApplicationStruct
     !user_id.nil?
   end
 
+  def state_key
+    @state_key ||= Digest::SHA1.hexdigest(
+      [user_id, user_name].join('-')
+    )
+  end
+
   private
 
   def data
@@ -26,14 +36,12 @@ class CurrentAssignment < ApplicationStruct
 
   def projection
     RailsEventStore::Projection
-      .from_stream("Assigning$#{application.id}")
+      .from_stream("Assigning$#{crime_application_id}")
       .init(-> { { user: unassigned_user_data } })
+      .when(ASSIGNING_EVENTS,
+            ->(state, event) { state[:user] = event.data })
       .when(
-        Assigning::AssignedToUser,
-        ->(state, event) { state[:user] = event.data }
-      )
-      .when(
-        Assigning::UnassignedFromSelf,
+        Assigning::UnassignedFromUser,
         ->(state, _event) { state[:user] = unassigned_user_data }
       )
   end

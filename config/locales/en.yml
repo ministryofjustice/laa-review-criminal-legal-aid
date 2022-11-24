@@ -21,6 +21,9 @@ en:
       title: Success
       assigned_to_self: This application has been assigned to you
       unassigned_from_self: The application has been removed from your list 
+    important:
+      title: Important
+      state_has_changed: This application has already been assigned to someone else.
 
   sessions:
     new:
@@ -87,9 +90,17 @@ en:
       other: "%{count} days"
   
   calls_to_action:
-    assign_to_self: Assign to myself 
+    assign_to_self: Assign to myself
+    reassign_to_self: Reassign to myself
+    confirm_reassign_to_self: Yes, reassign 
+    abandon_reassign_to_self: No, do not reassign 
     unassign_from_self: Remove from your list 
     view_all_open_applications: View all open applications 
+
+  confirmations:
+    reassign_to_self: Are you sure you want to reassign this application from %{from_whom_name} to your list?
+  warnings:
+    reassign_to_self: This will remove the application from your colleague's list
 
   shared:
     subnavigation:
@@ -101,9 +112,9 @@ en:
       application:
         submitted: Application submitted
       assigning:
-        assigned_to_user: Application assigned to %{whom_user_name}
-        unassigned_from_self: Application removed from %{whom_user_name}
-
+        assigned_to_user: Application assigned to %{to_whom_name}
+        unassigned_from_user: Application removed from %{from_whom_name}
+        reassigned_to_user: Application reassigned from %{from_whom_name} to %{to_whom_name}
 
   assigned_applications:
     index:
@@ -117,6 +128,13 @@ en:
       your_assignments:
         one: 1 saved application
         other: "%{count} saved applications"
+
+  reassigns:
+    new:
+      page_title: Confirm reassign
+      warning:
+        page_title: Confirm reassign
+
   crime_applications:
     index:
       page_title: All open applications 
