@@ -5,7 +5,12 @@ class ApplicationHistoryEvent < ApplicationStruct
   attribute :event_type, Types::String
 
   def description
-    I18n.t(event_type.underscore.tr('/', '.'), scope: 'event.description', name: user_name)
+    I18n.t(
+      event_type.underscore.tr('/', '.'),
+      scope: 'event.description',
+      who_user_name: user_name,
+      whom_user_name: user_name
+    )
   end
 
   class << self

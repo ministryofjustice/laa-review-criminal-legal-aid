@@ -87,7 +87,7 @@ en:
       other: "%{count} days"
   
   calls_to_action:
-    assign_to_self: Assign to myself
+    assign_to_self: Assign to myself 
     unassign_from_self: Remove from your list 
     view_all_open_applications: View all open applications 
 
@@ -99,10 +99,10 @@ en:
   event:
     description:
       application:
-        submitted: Application submitted by provider
+        submitted: Application submitted
       assigning:
-        assigned_to_user: Application assigned to self
-        unassigned_from_self: Application unassigned from self
+        assigned_to_user: Application assigned to %{whom_user_name}
+        unassigned_from_self: Application removed from %{whom_user_name}
 
 
   assigned_applications:
