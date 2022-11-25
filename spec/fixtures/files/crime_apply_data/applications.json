@@ -1,114 +1,127 @@
-[
-  {
-    "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
-    "application_reference": "LAA-696dd4",
-    "application_start_date": "2022-10-21T16:19:00.000+00:00",
-    "submission_date": "2022-10-27T14:09:11.000+00:00",
-    "client_details": {
-      "applicant": {
-        "address": {
-          "address_line_one": "1 Road",
-          "address_line_two": "Village",
-          "county": "East Sussex",
-          "postcode": "SW1A 2AA"
-        },
-        "first_name": "Kit",
-        "last_name": "Pound",
-        "national_insurance_number": "AJ123456C",
-        "date_of_birth": "2011-06-09",
-        "telephone_number": "07771231231",
-        "correspondence_address_type": "other_address",
-        "correspondence_address": {
-          "address_line_one": "Correspondence Cottage",
-          "address_line_two": "Correspondence Lane",
-          "county": "West Midlands",
-          "postcode": "WM1 1CB"
+{
+  "records": [
+    {
+      "id": "696dd4fd-b619-4637-ab42-a5f4565bcf4a",
+      "reference": "120398120",
+      "schema_version": "1.0",
+      "status": "submitted",
+      "created_at": "2022-10-21T16:19:00.000+00:00",
+      "date_stamp": "2022-10-21T16:19:00.000+00:00",
+      "submitted_at": "2022-10-27T14:09:11.000+00:00",
+      "provider_details": [],
+      "client_details": {
+        "applicant": {
+          "address": {
+            "address_line_one": "1 Road",
+            "address_line_two": "Village",
+            "city": "London",
+            "country": "East Sussex",
+            "postcode": "SW1A 2AA"
+          },
+          "first_name": "Kit",
+          "last_name": "Pound",
+          "nino": "AJ123456C",
+          "date_of_birth": "2011-06-09",
+          "telephone_number": "07771231231",
+          "correspondence_address_type": "other_address",
+          "correspondence_address": {
+            "address_line_one": "Correspondence Cottage",
+            "address_line_two": "Correspondence Lane",
+            "city": "London",
+            "country": "West Midlands",
+            "postcode": "WM1 1CB"
+          }
         }
-      }
-    },
-    "interests_of_justice": [
-      {
-        "reason": "More details about why loss of liberty likely from the provider.",
-        "type": "loss_of_liberty"
       },
-      {
-        "reason": "Witness justification as entered by the provider.",
-        "type": "expert_examination"
-      }
-    ],
-    "case_details": {
-      "case_type": "either_way",
-      "co_defendants": [
+      "interests_of_justice": [
         {
-          "conflict_of_interest": true,
-          "first_name": "Zoe",
-          "last_name": "Blogs"
+          "reason": "More details about why loss of liberty likely from the provider.",
+          "type": "loss_of_liberty"
         },
         {
-          "conflict_of_interest": false,
-          "first_name": "Ben",
-          "last_name": "Blogs"
+          "reason": "Witness justification as entered by the provider.",
+          "type": "expert_examination"
         }
       ],
-      "offences": [
+      "case_details": {
+        "case_type": "either_way",
+        "codefendants": [
+          {
+            "conflict_of_interest": "yes",
+            "first_name": "Zoe",
+            "last_name": "Blogs"
+          },
+          {
+            "conflict_of_interest": "no",
+            "first_name": "Ben",
+            "last_name": "Blogs"
+          }
+        ],
+        "offences": [
+          {
+            "class": "Class C",
+            "dates": ["2020-05-11"],
+            "name": "Attempt robbery"
+          },
+          {
+            "class": "Class C",
+            "dates": ["2012-12-12"],
+            "name": "Attempt robbery"
+          }
+        ],
+        "hearing_court_name": "Cardiff Magistrates' Court",
+        "hearing_date": "2024-11-11",
+        "urn": "12AB1234123"
+      },
+      "application_type": "initial_application"
+    },
+    {
+      "id": "1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc",
+      "reference": "1230234359",
+      "schema_version": "1.0",
+      "status": "submitted",
+      "created_at": "2022-11-14T16:56:51.000+00:00",
+      "date_stamp": "2022-10-21T16:19:00.000+00:00",
+      "submitted_at": "2022-11-14T16:58:15.000+00:00",
+      "provider_details": [],
+      "client_details": {
+        "applicant": {
+          "address": {
+            "address_line_one": "1",
+            "address_line_two": "",
+            "city": "London",
+            "country": "London",
+            "postcode": "SW1A 2AA"
+          },
+          "first_name": "Don",
+          "last_name": "JONES",
+          "nino": "NC123458A",
+          "date_of_birth": "1980-06-01",
+          "telephone_number": "07712345678",
+          "correspondence_address_type": "home_address"
+        }
+      },
+      "interests_of_justice": [
         {
-          "class": "Class C",
-          "date": "2020-05-11",
-          "name": "Attempt robbery"
-        },
-        {
-          "class": "Class C",
-          "date": "2012-12-12",
-          "name": "Attempt robbery"
+          "reason": "Justification provided by provider.",
+          "type": "loss_of_liberty"
         }
       ],
-      "hearing_court_name": "Cardiff Magistrates' Court",
-      "hearing_date": "2024-11-11",
-      "urn": "12AB1234123"
-    },
-    "application_type": "initial_application"
-  },
-  {
-    "id": "1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc",
-    "application_reference": "LAA-1aa4c6",
-    "application_start_date": "2022-11-14T16:56:51.000+00:00",
-    "submission_date": "2022-11-14T16:58:15.000+00:00",
-    "client_details": {
-      "applicant": {
-        "address": {
-          "address_line_one": "1",
-          "address_line_two": "",
-          "county": "London",
-          "postcode": "SW1A 2AA"
-        },
-        "first_name": "Don",
-        "last_name": "JONES",
-        "national_insurance_number": "NC123458A",
-        "date_of_birth": "1980-06-01",
-        "telephone_number": "07712345678",
-        "correspondence_address_type": "home_address"
-      }
-    },
-    "interests_of_justice": [
-      {
-        "reason": "Justification provided by provider.",
-        "type": "loss_of_liberty"
-      }
-    ],
-    "case_details": {
-      "case_type": "summary_only",
-      "co_defendants": [],
-      "offences": [
-        {
-          "class": "Class C or B",
-          "date": "2020-12-12",
-          "name": "Robbery"
-        }
-      ],
-      "hearing_court_name": "Caernarfon Crown Court",
-      "hearing_date": "2023-12-12",
-      "urn": "12AB3456789"
-    },
-    "application_type": "initial_application"
-  }
-]
+      "case_details": {
+        "case_type": "summary_only",
+        "codefendants": [],
+        "offences": [
+          {
+            "class": "Class C or B",
+            "dates": ["2020-12-12"],
+            "name": "Robbery"
+          }
+        ],
+        "hearing_court_name": "Caernarfon Crown Court",
+        "hearing_date": "2023-12-12",
+        "urn": "12AB3456789"
+      },
+      "application_type": "initial_application"
+    }
+  ]
+}

@@ -11,11 +11,11 @@ module ApiResource
 
   module QueryMethods
     def all
-      data = DatastoreApi::Requests::ListApplications.new(
+      response = DatastoreApi::Requests::ListApplications.new(
         status: :submitted
       ).call
 
-      data.map { |data| new(data) }
+      response.map { |data| new(data) }
     end
 
     def find(id)

@@ -4,4 +4,3 @@ class Address < ApplicationStruct
   attribute :county, Types::String
   attribute :postcode, Types::String
 end
-

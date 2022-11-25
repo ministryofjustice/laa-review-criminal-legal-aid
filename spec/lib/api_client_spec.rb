@@ -32,7 +32,7 @@ RSpec.describe ApiClient do
     end
 
     it 'returns a list of applications from the dev api' do
-      expect(all.first['application_reference']).to eq('LAA-696dd4')
+      expect(all['records'].first['reference']).to eq('120398120')
     end
 
     context 'when the api returns an empty list' do
@@ -76,7 +76,7 @@ RSpec.describe ApiClient do
     end
 
     it 'returns the application as a hash' do
-      expect(find['application_reference']).to eq('LAA-696dd4')
+      expect(find['reference']).to eq('987435987')
     end
 
     context 'when the application does not exist' do

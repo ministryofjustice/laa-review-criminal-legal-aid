@@ -57,7 +57,7 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <% if client_details.applicant.correspondence_address_type == 'other_address' %>
-        <%= render client_details.applicant.correspondence_address %>
+        <%= render 'crime_applications/address', address: client_details.applicant.correspondence_address %>
       <% else %>
         <%= t(client_details.applicant.correspondence_address_type, scope: 'crime_applications.values') %>
       <% end %>

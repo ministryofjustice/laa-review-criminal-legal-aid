@@ -34,6 +34,7 @@ RSpec.describe 'Viewing your assigned application' do
       click_on('Kit Pound')
       click_on('Assign to myself')
       visit '/applications'
+
       click_on('Don JONES')
       click_on('Assign to myself')
       visit '/'

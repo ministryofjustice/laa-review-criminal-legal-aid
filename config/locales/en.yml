@@ -89,8 +89,8 @@ en:
     appeal_to_crown_court: Appeal to Crown Court
     appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
     conflict_of_interest:
-      "yes": 'Yes'
-      "no": 'No'
+      "yes": CONFLICT
+      "no": ''
     loss_of_liberty: Loss of liberty
     suspended_sentence: Suspended sentence
     loss_of_livelihood: Loss of livelihood
