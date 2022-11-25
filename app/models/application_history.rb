@@ -1,5 +1,13 @@
-# READ MODEL
+#
+# Read Model for Application History
+#
 class ApplicationHistory < ApplicationStruct
+  EVENT_TYPES = [
+    Assigning::AssignedToUser,
+    Assigning::UnassignedFromUser,
+    Assigning::ReassignedToUser
+  ].freeze
+
   attribute :application, Types.Instance(CrimeApplication)
 
   def events
@@ -12,13 +20,15 @@ class ApplicationHistory < ApplicationStruct
     RailsEventStore::Projection
       .from_stream("Assigning$#{application.id}")
       .init(-> { [application_submitted_event] })
-      .when(
-        [Assigning::AssignedToUser, Assigning::UnassignedFromSelf],
-        ->(state, event) { state << ApplicationHistoryEvent.from_event(event) }
-      ).run(Rails.application.config.event_store).reverse
+      .when(ApplicationHistory::EVENT_TYPES,
+            lambda { |state, event|
+              state << ApplicationHistoryEvent.from_event(event)
+            }).run(Rails.application.config.event_store).reverse
   end
 
   # NOTE: provider name is not yet availble in the data.
+  # Tihs is a fake submission event. It will be replace by a
+  # real one on import from the datastore.
   def application_submitted_event
     ApplicationHistoryEvent.new(
       user_id: nil,

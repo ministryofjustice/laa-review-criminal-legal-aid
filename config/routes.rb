@@ -7,9 +7,11 @@ Rails.application.routes.draw do
 
   resources :crime_applications, only: [:index, :show], path: 'applications' do
     get :history, on: :member
+    resource :reassign, only: [:new, :create]
   end
   
-  resources :assigned_applications, only: [:index, :destroy, :create]
+  resources :assigned_applications, only: [:index, :destroy, :create] do
+  end
 
   root 'assigned_applications#index'
 end
