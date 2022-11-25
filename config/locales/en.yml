@@ -20,7 +20,7 @@ en:
     success:
       title: Success
       assigned_to_self: This application has been assigned to you
-      unassigned_from_self: The application has been removed from your list 
+      unassigned_from_self: The application has been removed from your list
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
@@ -35,29 +35,29 @@ en:
 
   labels: &LABELS
     assigned_to: Assigned to
-    applicant_date_of_birth: Applicant's date of birth 
-    all_caseworkers: Assigned to 
-    caseworker: Caseworker 
+    applicant_date_of_birth: Applicant's date of birth
+    all_caseworkers: Assigned to
+    caseworker: Caseworker
     start_on: Date from
     end_on: Date to
     first_name: First name
     last_name: Last name
-    case_type: Case type 
-    national_insurance_number: National Insurance number 
-    date_of_birth: Date of birth 
+    case_type: Case type
+    national_insurance_number: National Insurance number
+    date_of_birth: Date of birth
     application_type: Application type
     means_type: Means type
     common_platform: Common Platform
-    urn: Unique reference number 
-    application_start_date: Date stamp 
-    telephone_number: UK Telephone number 
+    urn: Unique reference number
+    application_start_date: Date stamp
+    telephone_number: UK Telephone number
     hearing_court_name: Court hearing the case
-    hearing_date: Next court hearing 
-    home_address: Home address 
-    correspondence_address: Correspondence address 
-    co_defendant: Co-defendant %{number}
-    offence: Offence 
-    offence_date: Offence date 
+    hearing_date: Next court hearing
+    home_address: Home address
+    correspondence_address: Correspondence address
+    codefendant: Co-defendant %{number}
+    offence: Offence
+    offence_date: Offence date
     interests_of_justice_type: Criteria
     justification: Justification
     search_text: Reference number or applicant's first or last name
@@ -67,9 +67,9 @@ en:
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
-    reference: Ref.no. 
+    reference: Ref.no.
     time_passed: Time passed
-    received_at: Date received 
+    received_at: Date received
     caseworker: Caseworker
 
   legends:
@@ -78,9 +78,9 @@ en:
   values: &VALUES
     "true": "Yes"
     "false": "No"
-    initial_application: Initial application 
-    home_address: Same as home address 
-    provider_address: Same as provider address 
+    initial_application: Initial application
+    home_address: Same as home address
+    provider_address: Same as provider address
     summary_only: Summary only
     either_way: Either way
     indictable: Indictable
@@ -89,8 +89,8 @@ en:
     appeal_to_crown_court: Appeal to Crown Court
     appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
     conflict_of_interest:
-      "true": CONFLICT
-      "false": ''
+      "yes": 'Yes'
+      "no": 'No'
     loss_of_liberty: Loss of liberty
     suspended_sentence: Suspended sentence
     loss_of_livelihood: Loss of livelihood
@@ -104,17 +104,16 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-  
+
   calls_to_action:
-    abandon_reassign_to_self: No, do not reassign 
+    abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to myself
     clear_search: Clear
-    confirm_reassign_to_self: Yes, reassign 
+    confirm_reassign_to_self: Yes, reassign
     reassign_to_self: Reassign to myself
     search: Search
-    unassign_from_self: Remove from your list 
-    view_all_open_applications: View all open applications 
-
+    unassign_from_self: Remove from your list
+    view_all_open_applications: View all open applications
   confirmations:
     reassign_to_self: Are you sure you want to reassign this application from %{from_whom_name} to your list?
   warnings:
@@ -140,7 +139,6 @@ en:
       heading: Your list
       table_headings:
         <<: *TABLE_HEADINGS
-
       your_assignments:
         one: 1 saved application
         other: "%{count} saved applications"
@@ -151,9 +149,9 @@ en:
       warning:
         page_title: Confirm reassign
 
-  application_searches: 
+  application_searches:
     show:
-      page_title: All open applications 
+      page_title: All open applications
       heading: All open applications
       table_headings:
         <<: *TABLE_HEADINGS
@@ -163,7 +161,7 @@ en:
 
   crime_applications:
     index:
-      page_title: All open applications 
+      page_title: All open applications
       heading: All open applications
       table_headings:
         <<: *TABLE_HEADINGS
@@ -179,8 +177,8 @@ en:
         client_details: Client details
         overview: Overview
         offence_details: Offence details
-        co_defendants: Co-defendants 
-        interests_of_justice: Interest of Justice 
+        codefendants: Co-defendants
+        interests_of_justice: Interest of Justice
     labels:
       <<: *LABELS
     values:

@@ -1,22 +1,24 @@
-class CrimeApplication < ApplicationStruct
+require 'laa_crime_schemas'
+
+class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include ApiResource
 
-  attribute :id, Types::String
-  attribute :application_reference, Types::String
-  attribute :application_type, Types::String
-  attribute :application_start_date, Types::JSON::DateTime
-  attribute :submission_date, Types::JSON::DateTime
+  # attribute :id, Types::String
+  # attribute :reference, Types::String
+  # attribute :application_type, Types::String
+  # attribute :application_start_date, Types::JSON::DateTime
+  # attribute :submission_date, Types::JSON::DateTime
 
-  attribute :client_details, ClientDetails
-  attribute :case_details, CaseDetails
-  attribute :interests_of_justice, Types::Array.of(InterestOfJustice)
+  # attribute :client_details, ClientDetails
+  # attribute :case_details, CaseDetails
+  # attribute :interests_of_justice, Types::Array.of(InterestOfJustice)
 
   def applicant_name
-    [client.first_name, client.last_name].join ' '
+    [applicant.first_name, applicant.last_name].join ' '
   end
 
   def applicant_date_of_birth
-    client.date_of_birth
+    applicant.date_of_birth
   end
 
   def means_type
@@ -42,10 +44,10 @@ class CrimeApplication < ApplicationStruct
   private
 
   def time_passed
-    Time.zone.now - submission_date
+    Time.zone.now - submitted_at
   end
 
-  def client
-    client_details.client
+  def applicant
+    client_details.applicant
   end
 end

@@ -11,11 +11,17 @@ module ApiResource
 
   module QueryMethods
     def all
-      ApiClient.new.all.map { |data| new(data) }
+      data = DatastoreApi::Requests::ListApplications.new(
+        status: :submitted
+      ).call
+
+      data.map { |data| new(data) }
     end
 
     def find(id)
-      resource = ApiClient.new.find(id)
+      resource = DatastoreApi::Requests::GetApplication.new(
+        application_id: id
+      ).call
 
       raise NotFound unless resource
 
