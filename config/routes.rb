@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get :history, on: :member
     resource :reassign, only: [:new, :create]
   end
+
+  resource :application_searches, only: [:create]
   
   resources :assigned_applications, only: [:index, :destroy, :create] do
   end

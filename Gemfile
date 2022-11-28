@@ -26,6 +26,7 @@ gem 'dartsass-rails', '~> 0.4.0'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 
+gem 'dry-monads'
 gem 'dry-struct'
 
 gem 'omniauth-oauth2'

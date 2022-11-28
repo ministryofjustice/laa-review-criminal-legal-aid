@@ -123,6 +123,9 @@ GEM
     dry-logic (1.2.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5)
+    dry-monads (1.4.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.7)
     dry-struct (1.4.0)
       dry-core (~> 0.5, >= 0.5)
       dry-types (~> 1.5)
@@ -431,6 +434,7 @@ DEPENDENCIES
   dartsass-rails (~> 0.4.0)
   debug
   dotenv-rails
+  dry-monads
   dry-struct
   erb_lint
   faraday

@@ -35,6 +35,11 @@ en:
 
   labels: &LABELS
     assigned_to: Assigned to
+    applicant_date_of_birth: Applicant's date of birth 
+    all_caseworkers: Assigned to 
+    caseworker: Caseworker 
+    start_on: Date from
+    end_on: Date to
     first_name: First name
     last_name: Last name
     case_type: Case type 
@@ -55,9 +60,20 @@ en:
     offence_date: Offence date 
     interests_of_justice_type: Criteria
     justification: Justification
+    search_text: Reference number or applicant's first or last name
     when: When
     who: Who
     what: What
+
+  table_headings: &TABLE_HEADINGS
+    applicant_name: Applicant
+    reference: Ref.no. 
+    time_passed: Time passed
+    received_at: Date received 
+    caseworker: Caseworker
+
+  legends:
+    search_applications: Search for open applications
 
   values: &VALUES
     "true": "Yes"
@@ -90,10 +106,12 @@ en:
       other: "%{count} days"
   
   calls_to_action:
-    assign_to_self: Assign to myself
-    reassign_to_self: Reassign to myself
-    confirm_reassign_to_self: Yes, reassign 
     abandon_reassign_to_self: No, do not reassign 
+    assign_to_self: Assign to myself
+    clear_search: Clear
+    confirm_reassign_to_self: Yes, reassign 
+    reassign_to_self: Reassign to myself
+    search: Search
     unassign_from_self: Remove from your list 
     view_all_open_applications: View all open applications 
 
@@ -121,10 +139,8 @@ en:
       page_title: Your list
       heading: Your list
       table_headings:
-        applicant_name: Applicant
-        reference: Ref.no. 
-        time_passed: Time passed
-        received_at: Date received 
+        <<: *TABLE_HEADINGS
+
       your_assignments:
         one: 1 saved application
         other: "%{count} saved applications"
@@ -135,16 +151,22 @@ en:
       warning:
         page_title: Confirm reassign
 
+  application_searches: 
+    show:
+      page_title: All open applications 
+      heading: All open applications
+      table_headings:
+        <<: *TABLE_HEADINGS
+      total:
+        one: 1 search result
+        other: "%{count} search results"
+
   crime_applications:
     index:
       page_title: All open applications 
       heading: All open applications
       table_headings:
-        applicant_name: Applicant
-        reference: Ref.no. 
-        time_passed: Time passed
-        received_at: Date received 
-        caseworker:  Caseworker
+        <<: *TABLE_HEADINGS
     show:
       page_title: Application
       heading: Application

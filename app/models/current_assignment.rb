@@ -1,4 +1,9 @@
 class CurrentAssignment < ApplicationStruct
+  UNASSIGNED_USER = Assignee.new(
+    id: 'd5b133b9-ed09-4c40-a818-676ea2ae5e30',
+    name: 'Unassigned'
+  ).freeze
+
   ASSIGNING_EVENTS = [
     Assigning::AssignedToUser,
     Assigning::ReassignedToUser
@@ -6,47 +11,60 @@ class CurrentAssignment < ApplicationStruct
 
   attribute :crime_application_id, Types::Uuid
 
-  def user_name
-    data.fetch(:user_name)
+  def assigned_to_user?(user)
+    assigned? && user.id.to_s == assignee.id
   end
 
   def user_id
-    data.fetch(:user_id)
+    assignee.id
   end
 
-  def assigned_to_user?(user)
-    assigned? && user.id.to_s == user_id
+  def user_name
+    assignee.name
   end
 
   def assigned?
-    !user_id.nil?
+    assignee != UNASSIGNED_USER
   end
 
   def state_key
     @state_key ||= Digest::SHA1.hexdigest(
-      [user_id, user_name].join('-')
+      [assignee.id, assignee.name].join('-')
     )
+  end
+
+  class << self
+    def all
+      CrimeApplication.all.map(&:current_assignment)
+    end
+
+    def assigned
+      all.select(&:assigned?)
+    end
+  end
+
+  def assignee
+    @assignee ||= projection.run(Rails.application.config.event_store).fetch(:user)
   end
 
   private
 
-  def data
-    @data ||= projection.run(Rails.application.config.event_store).fetch(:user)
-  end
-
   def projection
     RailsEventStore::Projection
       .from_stream("Assigning$#{crime_application_id}")
-      .init(-> { { user: unassigned_user_data } })
+      .init(-> { { user: UNASSIGNED_USER } })
       .when(ASSIGNING_EVENTS,
-            ->(state, event) { state[:user] = event.data })
+            ->(state, event) { state[:user] = assignee_from_event(event) })
       .when(
         Assigning::UnassignedFromUser,
-        ->(state, _event) { state[:user] = unassigned_user_data }
+        ->(state, _event) { state[:user] = UNASSIGNED_USER }
       )
   end
 
-  def unassigned_user_data
-    { user_id: nil, user_name: 'Unassigned' }
+  def assignee_from_event(event)
+    Assignee.new(
+      id: event.data.fetch(:to_whom_id, nil),
+      name: event.data.fetch(:to_whom_name, nil)
+    )
   end
 end

@@ -1,0 +1,46 @@
+<%= form_with url: application_searches_path, scope: :filter, method: :post, class: 'search' do |f| %>
+
+  <%= f.govuk_fieldset legend: { text: t('legends.search_applications') } do %>
+    <div class="input-group">
+      <%= f.govuk_text_field(
+            :search_text,
+            label: { text: t('labels.search_text') },
+            autocomplete: 'off'
+          ) %>
+      <%= f.search_date_field(
+            :applicant_date_of_birth,
+            as: :date,
+            value: f.object&.strftime('%m/%m/%d/%y'),
+            label: { text: t('labels.applicant_date_of_birth') }
+          ) %>
+    </div>
+
+    <div class="input-group">
+      <%= f.search_date_field(
+            :start_on,
+            as: :date,
+            value: f.object&.strftime('%m/%m/%d/%y'),
+            label: { text: t('labels.start_on') }
+          ) %>
+      <%= f.search_date_field(
+            :end_on,
+            as: :date,
+            value: f.object&.strftime('%m/%m/%d/%y'),
+            label: { text: t('labels.end_on') }
+          ) %>
+
+      <%= f.govuk_collection_select(
+            :assigned_user_id,
+            application_search_filter.assigned_user_list,
+            :id, :name,
+            options: { include_blank: '' },
+            label: { text: t('labels.assigned_to') }
+          ) %>
+    </div>
+
+    <div class="govuk-button-group">
+      <%= f.govuk_submit t('calls_to_action.search') %>
+      <%= link_to t('calls_to_action.clear_search'), crime_applications_path, class: 'govuk-link' %>
+    </div>
+  <% end %>
+<% end %>
