@@ -1,5 +1,18 @@
 // App-specific custom styles and overrides
 span.offence_class {
-	display: block;
+  display: block;
+}
+
+form.search {
+  background-color: govuk-colour("light-grey");
+  .input-group {
+    display: flex;
+      .govuk-form-group {
+        margin-right: govuk-spacing(4);
+      }
+  }
+  input[type=date] {
+    width: 8em;
+  }
 }
 //

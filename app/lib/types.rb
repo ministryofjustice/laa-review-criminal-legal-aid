@@ -1,4 +1,5 @@
 # TODO: share types via gem
+
 module Types
   include Dry.Types()
 

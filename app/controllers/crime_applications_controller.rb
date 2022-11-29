@@ -2,6 +2,8 @@ class CrimeApplicationsController < ApplicationController
   before_action :set_crime_application, except: [:index]
 
   def index
+    @filter = ApplicationSearchFilter.new
+
     @applications = CrimeApplication.all
   end
 
