@@ -35,6 +35,8 @@ class ApplicationSearch < ApplicationStruct
       app.submission_date >= value.beginning_of_day
     when :end_on
       app.submission_date.to_date <= value.end_of_day
+    when :applicant_date_of_birth
+      app.applicant_date_of_birth == value
     end
   end
 end
