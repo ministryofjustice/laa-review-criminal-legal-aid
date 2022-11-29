@@ -7,9 +7,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     applicant.full_name
   end
 
-  def applicant_date_of_birth
-    applicant.date_of_birth
-  end
+  delegate :date_of_birth, to: :applicant, prefix: true
 
   def means_type
     :passported
