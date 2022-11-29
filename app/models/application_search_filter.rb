@@ -15,4 +15,10 @@ class ApplicationSearchFilter < ApplicationStruct
 
     @assigned_user_list + CurrentAssignment.assigned.map(&:assignee).uniq
   end
+
+  delegate :empty?, to: :constraints
+
+  def constraints
+    attributes.compact
+  end
 end
