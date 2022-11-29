@@ -15,6 +15,10 @@ class CrimeApplication < ApplicationStruct
     [client.first_name, client.last_name].join ' '
   end
 
+  def applicant_date_of_birth
+    client.date_of_birth
+  end
+
   def means_type
     :passported
   end
