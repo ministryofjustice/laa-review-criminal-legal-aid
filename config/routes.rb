@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'logout', to: 'sessions#logout'
 
+  resource :errors, only: [] do
+    get :application_not_found
+    get :unhandled
+  end
+
   resources :crime_applications, only: [:index, :show], path: 'applications' do
     get :history, on: :member
     resource :reassign, only: [:new, :create]

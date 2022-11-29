@@ -15,7 +15,5 @@ class CrimeApplicationsController < ApplicationController
 
   def set_crime_application
     @crime_application = CrimeApplication.find(params[:id])
-
-    raise ActionController::RoutingError, 'Not Found' unless @crime_application
   end
 end

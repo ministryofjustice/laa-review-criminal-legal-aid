@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  rescue_from ApiResource::NotFound, with: :not_found
-  rescue_from ActionController::RoutingError, with: :not_found
+  include ErrorHandling
 
   before_action :authenticate_user!
   helper_method :current_user
@@ -22,10 +21,5 @@ class ApplicationController < ActionController::Base
 
   def warden
     request.env['warden']
-  end
-
-  # TODO: bring over error pages from Apply
-  def not_found
-    render plain: '404 Not Found', status: :not_found
   end
 end

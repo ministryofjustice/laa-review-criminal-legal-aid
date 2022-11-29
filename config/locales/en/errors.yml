@@ -5,3 +5,9 @@ en:
     page_title_prefix: "Error: "
     error_summary:
       heading: There is a problem on this page
+    application_not_found:
+      page_title: Page not found
+    unhandled:
+      page_title: Unexpected error
+      heading: Sorry, something went wrong with our service
+      lead_text: You can go back and retry, or start again.

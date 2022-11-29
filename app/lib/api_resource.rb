@@ -23,8 +23,6 @@ module ApiResource
         application_id: id
       ).call
 
-      raise NotFound unless resource
-
       new(resource)
     end
   end

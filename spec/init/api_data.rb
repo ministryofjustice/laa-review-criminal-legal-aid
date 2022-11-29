@@ -11,6 +11,12 @@ RSpec.configure do |config|
         status: 200
       )
 
+    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/123")
+      .to_return(
+        body: file_fixture('crime_apply_data/responses/404.json').read,
+        status: 404
+      )
+
     application_ids.each do |application_id|
       stub_request(
         :get,
