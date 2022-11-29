@@ -12,7 +12,6 @@ class CrimeApplication < ApplicationStruct
   attribute :interests_of_justice, Types::Array.of(InterestOfJustice)
 
   def applicant_name
-    client = client_details.client
     [client.first_name, client.last_name].join ' '
   end
 
@@ -40,5 +39,9 @@ class CrimeApplication < ApplicationStruct
 
   def time_passed
     Time.zone.now - submission_date
+  end
+
+  def client
+    client_details.client
   end
 end
