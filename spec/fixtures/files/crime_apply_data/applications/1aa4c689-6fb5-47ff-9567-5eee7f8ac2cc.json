@@ -1,19 +1,25 @@
 {
   "id": "1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc",
-  "application_reference": "LAA-1aa4c6",
-  "application_start_date": "2022-11-14T16:56:51.000+00:00",
-  "submission_date": "2022-11-14T16:58:15.000+00:00",
+  "reference": "22340980",
+  "schema_version": "1.0",
+  "status": "submitted",
+  "created_at": "2022-11-14T16:56:51.000+00:00",
+  "date_stamp": "2022-11-14T16:57:51.000+00:00",
+  "submitted_at": "2022-11-14T16:58:15.000+00:00",
+  "provider_details": [],
   "client_details": {
-    "client": {
-      "address": {
+    "applicant": {
+      "home_address": {
         "address_line_one": "1",
         "address_line_two": "",
-        "county": "London",
+        "city": "London",
+        "country": "London",
         "postcode": "SW1A 2AA"
       },
       "first_name": "Don",
       "last_name": "JONES",
-      "national_insurance_number": "NC123458A",
+      "full_name": "Don JONES",
+      "nino": "NC123458A",
       "date_of_birth": "1980-06-01",
       "telephone_number": "07712345678",
       "correspondence_address_type": "home_address"
@@ -27,11 +33,11 @@
   ],
   "case_details": {
     "case_type": "summary_only",
-    "co_defendants": [],
+    "codefendants": [],
     "offences": [
       {
         "class": "Class C or B",
-        "date": "2020-12-12",
+        "dates": ["2020-12-12"],
         "name": "Robbery"
       }
     ],

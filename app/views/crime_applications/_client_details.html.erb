@@ -8,7 +8,7 @@
       <%= t(:first_name, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.client.first_name %>
+      <%= client_details.applicant.first_name %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -16,7 +16,7 @@
       <%= t(:last_name, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.client.last_name %>
+      <%= client_details.applicant.last_name %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -24,7 +24,7 @@
       <%= t(:date_of_birth, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l client_details.client.date_of_birth %>
+      <%= l client_details.applicant.date_of_birth %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -32,7 +32,7 @@
       <%= t(:national_insurance_number, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.client.national_insurance_number %>
+      <%= client_details.applicant.nino %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -40,7 +40,7 @@
       <%= t(:telephone_number, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.client.telephone_number %>
+      <%= client_details.applicant.telephone_number %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -48,7 +48,7 @@
       <%= t(:home_address, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= render client_details.client.address %>
+      <%= render 'crime_applications/address', address: client_details.applicant.home_address %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -56,10 +56,10 @@
       <%= t(:correspondence_address, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <% if client_details.client.use_other_address? %>
-        <%= render client_details.client.correspondence_address %>
+      <% if client_details.applicant.correspondence_address_type == 'other_address' %>
+        <%= render 'crime_applications/address', address: client_details.applicant.correspondence_address %>
       <% else %>
-        <%= t(client_details.client.correspondence_address_type, scope: 'crime_applications.values') %>
+        <%= t(client_details.applicant.correspondence_address_type, scope: 'crime_applications.values') %>
       <% end %>
     </dd>
   </div>

@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">
-      <%= @crime_application.application_reference %>
+      <%= @crime_application.reference %>
     </h1>
 
     <h2 class="govuk-heading-l">
@@ -21,7 +21,7 @@
     <%= render partial: 'client_details', object: @crime_application.client_details %>
     <%= render partial: 'case_details', object: @crime_application.case_details %>
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
-    <%= render partial: 'co_defendants', object: @crime_application.case_details.co_defendants %>
+    <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
     <%= render partial: 'interests_of_justice', object: @crime_application.interests_of_justice %>
   </div>
 </div>

@@ -11,6 +11,12 @@ gem 'faraday'
 
 gem 'govuk_design_system_formbuilder', '~> 3.1.0'
 
+gem 'laa-criminal-applications-datastore-api-client',
+    github: 'ministryofjustice/laa-criminal-applications-datastore-api-client'
+
+gem 'laa-criminal-legal-aid-schemas',
+    github: 'ministryofjustice/laa-criminal-legal-aid-schemas'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 

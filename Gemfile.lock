@@ -1,3 +1,18 @@
+GIT
+  remote: https://github.com/ministryofjustice/laa-criminal-applications-datastore-api-client.git
+  revision: a6de65802b69e7501dbf5ce2f8dc8a2f4d2ff81c
+  specs:
+    laa-criminal-applications-datastore-api-client (0.0.1)
+      faraday (~> 2.6)
+
+GIT
+  remote: https://github.com/ministryofjustice/laa-criminal-legal-aid-schemas.git
+  revision: 2d674da813a0d2b14dc15a1581afad540c5060de
+  specs:
+    laa-criminal-legal-aid-schemas (0.1.0)
+      dry-struct
+      json-schema (~> 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -115,24 +130,25 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    dry-container (0.11.0)
+    dry-core (1.0.0)
       concurrent-ruby (~> 1.0)
-    dry-core (0.8.1)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-logic (1.5.0)
       concurrent-ruby (~> 1.0)
-    dry-inflector (0.3.0)
-    dry-logic (1.2.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 0.5, >= 0.5)
-    dry-struct (1.4.0)
-      dry-core (~> 0.5, >= 0.5)
-      dry-types (~> 1.5)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-struct (1.6.0)
+      dry-core (~> 1.0, < 2)
+      dry-types (>= 1.7, < 2)
       ice_nine (~> 0.11)
-    dry-types (1.5.1)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.0)
       concurrent-ruby (~> 1.0)
-      dry-container (~> 0.3)
-      dry-core (~> 0.5, >= 0.5)
-      dry-inflector (~> 0.1, >= 0.1.2)
-      dry-logic (~> 1.0, >= 1.0.2)
+      dry-core (~> 1.0, < 2)
+      dry-inflector (~> 1.0, < 2)
+      dry-logic (>= 1.4, < 2)
+      zeitwerk (~> 2.6)
     erb_lint (0.2.0)
       activesupport
       better_html (>= 2.0.1)
@@ -174,6 +190,8 @@ GEM
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
+    json-schema (3.0.0)
+      addressable (>= 2.8)
     jwt (2.5.0)
     loofah (2.19.0)
       crass (~> 1.0.2)
@@ -436,6 +454,8 @@ DEPENDENCIES
   faraday
   govuk_design_system_formbuilder (~> 3.1.0)
   importmap-rails
+  laa-criminal-applications-datastore-api-client!
+  laa-criminal-legal-aid-schemas!
   omniauth-oauth2
   omniauth-rails_csrf_protection
   openid_connect

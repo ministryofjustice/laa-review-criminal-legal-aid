@@ -33,7 +33,7 @@ class ApplicationHistory < ApplicationStruct
     ApplicationHistoryEvent.new(
       user_id: nil,
       user_name: 'Provider Name',
-      timestamp: application.submission_date,
+      timestamp: application.submitted_at,
       event_type: 'Application::Submitted'
     )
   end

@@ -23,7 +23,9 @@
           </span>
         </td>
         <td class="govuk-table__cell">
-          <%= l offence.date %>
+          <% offence.dates.each do |date| %>
+            <%= l date %>
+          <% end %>
         </td>
       </tr>
     <% end %>
