@@ -11,7 +11,7 @@
       "provider_details": [],
       "client_details": {
         "applicant": {
-          "address": {
+          "home_address": {
             "address_line_one": "1 Road",
             "address_line_two": "Village",
             "city": "London",
@@ -20,6 +20,7 @@
           },
           "first_name": "Kit",
           "last_name": "Pound",
+          "full_name": "Kit Pound",
           "nino": "AJ123456C",
           "date_of_birth": "2011-06-09",
           "telephone_number": "07771231231",
@@ -86,7 +87,7 @@
       "provider_details": [],
       "client_details": {
         "applicant": {
-          "address": {
+          "home_address": {
             "address_line_one": "1",
             "address_line_two": "",
             "city": "London",
@@ -95,6 +96,7 @@
           },
           "first_name": "Don",
           "last_name": "JONES",
+          "full_name": "Don JONES",
           "nino": "NC123458A",
           "date_of_birth": "1980-06-01",
           "telephone_number": "07712345678",

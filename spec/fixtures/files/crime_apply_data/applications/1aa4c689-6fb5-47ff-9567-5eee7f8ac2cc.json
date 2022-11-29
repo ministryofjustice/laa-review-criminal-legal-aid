@@ -9,7 +9,7 @@
   "provider_details": [],
   "client_details": {
     "applicant": {
-      "address": {
+      "home_address": {
         "address_line_one": "1",
         "address_line_two": "",
         "city": "London",
@@ -18,6 +18,7 @@
       },
       "first_name": "Don",
       "last_name": "JONES",
+      "full_name": "Don JONES",
       "nino": "NC123458A",
       "date_of_birth": "1980-06-01",
       "telephone_number": "07712345678",

@@ -4,7 +4,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include ApiResource
 
   def applicant_name
-    [applicant.first_name, applicant.last_name].join ' '
+    applicant.full_name
   end
 
   def applicant_date_of_birth
