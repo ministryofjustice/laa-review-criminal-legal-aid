@@ -5,10 +5,8 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'logout', to: 'sessions#logout'
 
-  resource :errors, only: [] do
-    get :application_not_found
-    get :unhandled
-  end
+  get 'application_not_found', to: 'errors#application_not_found'
+  get 'unhandled', to: 'errors#unhandled'
 
   resources :crime_applications, only: [:index, :show], path: 'applications' do
     get :history, on: :member

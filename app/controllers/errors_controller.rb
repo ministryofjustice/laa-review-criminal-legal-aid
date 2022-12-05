@@ -1,6 +1,4 @@
 class ErrorsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
   def application_not_found
     respond_with_status(:not_found)
   end
