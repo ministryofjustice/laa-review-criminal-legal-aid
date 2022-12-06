@@ -5,3 +5,12 @@ en:
     page_title_prefix: "Error: "
     error_summary:
       heading: There is a problem on this page
+    application_not_found:
+      page_title: Page not found
+      heading: Page not found
+      body_1: The web address you are trying to access cannot be found.
+      body_2: If you’re looking for a specific application, go to all open applications
+    unhandled:
+      page_title: Unexpected error
+      heading: Sorry, something went wrong with our service
+      

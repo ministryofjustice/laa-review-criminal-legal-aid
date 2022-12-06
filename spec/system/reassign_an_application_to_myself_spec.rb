@@ -26,6 +26,11 @@ RSpec.describe 'Reassigning an application to myself' do
     visit '/'
     click_on 'All open applications'
     click_on('Kit Pound')
+
+    # So we can simulate what would happen on production
+    allow(
+      Rails.application.config
+    ).to receive(:consider_all_requests_local).and_return(false)
   end
 
   it 'shows "Assigned to Assignee Name"' do
@@ -142,7 +147,7 @@ RSpec.describe 'Reassigning an application to myself' do
 
     it 'returns not found' do
       visit(confirm_path)
-      expect(page).to have_content 'Not Found'
+      expect(page).to have_content 'Sorry, something went wrong'
     end
   end
 end
