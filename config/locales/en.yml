@@ -1,8 +1,7 @@
 en:
   dictionary:
     DATE_FORMATS: &DATE_FORMATS
-      default: '%-d %b %Y'  # 3 Jan 2019
-      compact: '%d/%m/%Y'   # 03/01/2019
+      default: '%d/%m/%Y'  ## 03/01/2019
 
   service:
     name: Review criminal legal aid applications

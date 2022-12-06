@@ -19,7 +19,7 @@ RSpec.describe 'Applications Dashboard' do
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
     days_ago = Rational((Time.zone.now - DateTime.parse('2022-10-27T14:09:11.000+00:00')), 1.day).floor
-    expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days Yes")
+    expect(first_row_text).to eq("Kit Pound 120398120 27/10/2022 #{days_ago} days Yes")
   end
 
   it 'can be used to navigate to an application' do
