@@ -13,7 +13,7 @@
         <%= codefendant.last_name %>
       </dd>
       <% if codefendant.conflict_of_interest %>
-        <dd class="govuk-summary-list__value">
+        <dd class="govuk-summary-list__value govuk-!-text-align-right">
           <span class="moj-badge moj-badge--red">
             <%= t("crime_applications.values.conflict_of_interest.#{codefendant.conflict_of_interest}") %>
           </span>
