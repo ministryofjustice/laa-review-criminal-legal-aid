@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Search applications casewoker filter' do
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-  let(:crime_application_id_2) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
+  let(:crime_application_id_two) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
 
   let(:david_brown) do
     User.new(
@@ -12,10 +12,9 @@ RSpec.describe 'Search applications casewoker filter' do
       email: 'David.Browneg@justice.gov.uk',
       roles: ['caseworker']
     )
-
   end
 
-  let(:john_deere) {
+  let(:john_deere) do
     User.new(
       id: SecureRandom.uuid,
       first_name: 'John',
@@ -23,7 +22,7 @@ RSpec.describe 'Search applications casewoker filter' do
       email: 'John.Deereeg@justice.gov.uk',
       roles: ['caseworker']
     )
-  }
+  end
 
   before do
     Assigning::AssignToSelf.new(
@@ -78,7 +77,7 @@ RSpec.describe 'Search applications casewoker filter' do
   describe 'All assigned' do
     before do
       Assigning::AssignToSelf.new(
-        crime_application_id: crime_application_id_2,
+        crime_application_id: crime_application_id_two,
         user: john_deere
       ).call
 
