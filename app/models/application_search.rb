@@ -30,7 +30,11 @@ class ApplicationSearch < ApplicationStruct
   def satisfied?(app, key, value)
     case key
     when :assigned_user_id
-      app.current_assignment.user_id == value
+      if value == CurrentAssignment::ALL_ASSIGNED_USER.id
+        app.current_assignment.user_id != CurrentAssignment::UNASSIGNED_USER.id
+      else
+        app.current_assignment.user_id == value
+      end
     when :start_on
       app.submitted_at >= value.beginning_of_day
     when :end_on
