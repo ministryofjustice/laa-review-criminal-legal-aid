@@ -10,7 +10,8 @@ class ApplicationSearchFilter < ApplicationStruct
     return @assigned_user_list if @assigned_user_list
 
     @assigned_user_list = [
-      CurrentAssignment::UNASSIGNED_USER
+      CurrentAssignment::UNASSIGNED_USER,
+      CurrentAssignment::ALL_ASSIGNED_USER
     ]
 
     @assigned_user_list + CurrentAssignment.assigned.map(&:assignee).uniq

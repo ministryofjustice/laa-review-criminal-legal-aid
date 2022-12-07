@@ -4,6 +4,11 @@ class CurrentAssignment < ApplicationStruct
     name: 'Unassigned'
   ).freeze
 
+  ALL_ASSIGNED_USER = Assignee.new(
+    id: '395ef5e5-bd91-49f0-bcfc-fb52fffb35ed',
+    name: 'All assigned'
+  ).freeze
+
   ASSIGNING_EVENTS = [
     Assigning::AssignedToUser,
     Assigning::ReassignedToUser
