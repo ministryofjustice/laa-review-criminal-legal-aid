@@ -1,5 +1,5 @@
 class AssignedApplicationsController < ApplicationController
-  before_action :set_assigned_application, except: [:index, :create]
+  before_action :set_assigned_application, except: [:index, :create, :get_next]
 
   def index
     @applications = current_user.assigned_applications
@@ -17,6 +17,30 @@ class AssignedApplicationsController < ApplicationController
       id: params[:crime_application_id]
     )
   end
+
+  # rubocop:disable Naming/AccessorMethodName, Metrics/MethodLength
+  def get_next
+    filter = ApplicationSearchFilter.new(
+      {
+        assigned_user_id: CurrentAssignment::UNASSIGNED_USER.id
+      }
+    )
+    search = ApplicationSearch.new(filter:)
+
+    next_app_id = search.applications.first.id
+
+    Assigning::AssignToSelf.new(
+      crime_application_id: next_app_id,
+      user: current_user
+    ).call
+
+    flash[:success] = :assigned_to_self
+
+    redirect_to crime_application_path(
+      id: next_app_id
+    )
+  end
+  # rubocop:enable Naming/AccessorMethodName, Metrics/MethodLength
 
   def destroy
     Assigning::UnassignFromSelf.new(

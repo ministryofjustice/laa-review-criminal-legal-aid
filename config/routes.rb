@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   end
 
   resource :application_searches, only: [:create]
-  
+
   resources :assigned_applications, only: [:index, :destroy, :create] do
+    post :get_next, on: :collection
   end
 
   root 'assigned_applications#index'
