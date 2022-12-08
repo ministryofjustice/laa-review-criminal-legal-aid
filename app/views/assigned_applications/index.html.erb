@@ -6,6 +6,16 @@
     <p><%=t '.your_assignments', count: @applications.count %></p>
   </div>
 </div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
+    <%= button_to(
+          'Get next application',
+          get_next_assigned_applications_path,
+          method: :post,
+          class: 'govuk-button'
+        ) %>
+  </div>
+</div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
