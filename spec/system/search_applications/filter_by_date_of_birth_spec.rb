@@ -6,9 +6,9 @@ RSpec.describe 'Search applications applicant date of birth filter' do
   before do
     visit '/'
 
-    click_on 'All open applications'
-    fill_in 'filter-applicant-date-of-birth-field', with: dob
     click_on 'Search'
+    fill_in 'filter-applicant-date-of-birth-field', with: dob
+    click_button 'Search'
   end
 
   it 'returns applications with the specified DOB' do

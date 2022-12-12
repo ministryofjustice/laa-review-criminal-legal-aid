@@ -32,12 +32,12 @@ RSpec.describe 'Search applications casewoker filter' do
 
     visit '/'
 
-    click_on ''
+    click_on 'Search'
   end
 
   describe 'by default' do
     before do
-      click_on 'Search'
+      click_button 'Search'
     end
 
     it 'shows both assinged and unassinged' do
