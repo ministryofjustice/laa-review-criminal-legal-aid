@@ -50,7 +50,7 @@ RSpec.describe 'Search applications casewoker filter' do
       fill_in 'filter-end-on-field', with: (application_date - 1.day)
       click_button 'Search'
 
-      expect(page).to have_content('0 search results')
+      expect(page).to have_content('There are no results that match the search criteria')
       expect(page).not_to have_content('Kit Pound')
     end
   end
