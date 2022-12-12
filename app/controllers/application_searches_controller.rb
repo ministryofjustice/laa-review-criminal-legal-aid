@@ -1,4 +1,9 @@
 class ApplicationSearchesController < ApplicationController
+  def new
+    @filter = ApplicationSearchFilter.new
+    @applications = CrimeApplication.all
+  end
+
   def create
     @filter = ApplicationSearchFilter.new(search_params)
     @search = ApplicationSearch.new(filter: @filter)

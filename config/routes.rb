@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resource :reassign, only: [:new, :create]
   end
 
-  resource :application_searches, only: [:create]
+  resource :application_searches, only: [:create, :new]
 
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :get_next, on: :collection

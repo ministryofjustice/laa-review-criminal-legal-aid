@@ -30,6 +30,7 @@ en:
 
   primary_navigation:
     your_list: "Your list (%{count})"
+    search: Search
     open_apps: All open applications
 
   labels: &LABELS
@@ -149,6 +150,15 @@ en:
         page_title: Confirm reassign
 
   application_searches:
+    new:
+      page_title: Search for an application
+      heading: Search for an application
+      table_headings:
+        <<: *TABLE_HEADINGS
+      total:
+        one: 1 search result
+        other: "%{count} search results"
+
     show:
       page_title: All open applications
       heading: All open applications
