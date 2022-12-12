@@ -18,7 +18,8 @@
             <%= link_to t('primary_navigation.search'),
                         new_application_searches_path,
                         class: 'moj-primary-navigation__link',
-                        aria: { current: current_page?(new_application_searches_path) ? 'page' : nil } %>
+                        aria: { current: request.url.include?('searches') ? 'page' : nil } %>
+
           </li>
 
           <li class="moj-primary-navigation__item">

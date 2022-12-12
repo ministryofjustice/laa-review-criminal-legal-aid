@@ -1,7 +1,6 @@
 class ApplicationSearchesController < ApplicationController
   def new
     @filter = ApplicationSearchFilter.new
-    @applications = CrimeApplication.all
   end
 
   def create

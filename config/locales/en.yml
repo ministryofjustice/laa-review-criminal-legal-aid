@@ -160,8 +160,8 @@ en:
         other: "%{count} search results"
 
     show:
-      page_title: All open applications
-      heading: All open applications
+      page_title: Search for an application
+      heading: Search for an application
       table_headings:
         <<: *TABLE_HEADINGS
       total:
@@ -174,6 +174,10 @@ en:
       heading: All open applications
       table_headings:
         <<: *TABLE_HEADINGS
+      total:
+        one: 1 search result
+        other: "%{count} applications"
+
     show:
       page_title: Application
       heading: Application
