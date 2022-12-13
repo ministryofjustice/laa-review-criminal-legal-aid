@@ -18,7 +18,7 @@ class AssignedApplicationsController < ApplicationController
     )
   end
 
-  # rubocop:disable Naming/AccessorMethodName, Metrics/MethodLength
+  # rubocop:disable Naming/AccessorMethodName, Metrics/MethodLength, Metrics/AbcSize
   def get_next
     filter = ApplicationSearchFilter.new(
       {
@@ -27,20 +27,26 @@ class AssignedApplicationsController < ApplicationController
     )
     search = ApplicationSearch.new(filter:)
 
-    next_app_id = search.applications.first.id
+    next_app_id = search.applications.first&.id
 
-    Assigning::AssignToSelf.new(
-      crime_application_id: next_app_id,
-      user: current_user
-    ).call
+    if next_app_id
+      Assigning::AssignToSelf.new(
+        crime_application_id: next_app_id,
+        user: current_user
+      ).call
 
-    flash[:success] = :assigned_to_self
+      flash[:success] = :assigned_to_self
 
-    redirect_to crime_application_path(
-      id: next_app_id
-    )
+      redirect_to crime_application_path(
+        id: next_app_id
+      )
+    else
+      flash[:important] = :no_next_to_assign
+
+      redirect_to assigned_applications_path
+    end
   end
-  # rubocop:enable Naming/AccessorMethodName, Metrics/MethodLength
+  # rubocop:enable Naming/AccessorMethodName, Metrics/MethodLength, Metrics/AbcSize
 
   def destroy
     Assigning::UnassignFromSelf.new(
