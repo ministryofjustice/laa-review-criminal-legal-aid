@@ -8,16 +8,13 @@ RSpec.describe 'Assigning an application to myself' do
     expect(page).to have_content('This application has been assigned to you')
   end
 
-  # rubocop:disable RSpec/ExampleLength
   it 'shows an error when there is no next application' do
-    visit '/'
-    click_on 'Get next application'
-    visit '/'
-    click_on 'Get next application'
-    visit '/'
-    click_on 'Get next application'
+    3.times do
+      visit '/'
+      click_on 'Get next application'
+    end
+
     expect(page).to have_content('Your list')
-    expect(page).to have_content('There are no unassigned applications to that need processing at this time')
+    expect(page).to have_content('There are no new applications to be reviewed')
   end
-  # rubocop:enable RSpec/ExampleLength
 end
