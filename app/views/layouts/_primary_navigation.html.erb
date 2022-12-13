@@ -15,6 +15,14 @@
           </li>
 
           <li class="moj-primary-navigation__item">
+            <%= link_to t('primary_navigation.search'),
+                        new_application_searches_path,
+                        class: 'moj-primary-navigation__link',
+                        aria: { current: request.url.include?('searches') ? 'page' : nil } %>
+
+          </li>
+
+          <li class="moj-primary-navigation__item">
             <%= link_to t('primary_navigation.open_apps'),
                         crime_applications_path,
                         class: 'moj-primary-navigation__link',

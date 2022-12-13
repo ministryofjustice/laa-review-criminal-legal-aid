@@ -30,6 +30,7 @@ en:
 
   primary_navigation:
     your_list: "Your list (%{count})"
+    search: Search
     open_apps: All open applications
 
   labels: &LABELS
@@ -149,14 +150,28 @@ en:
         page_title: Confirm reassign
 
   application_searches:
-    show:
-      page_title: All open applications
-      heading: All open applications
+    new:
+      page_title: Search for an application
+      heading: Search for an application
       table_headings:
         <<: *TABLE_HEADINGS
       total:
         one: 1 search result
         other: "%{count} search results"
+
+    show:
+      page_title: Search for an application
+      heading: Search for an application
+      table_headings:
+        <<: *TABLE_HEADINGS
+      total:
+        one: 1 search result
+        other: "%{count} search results"
+      no_results_header: There are no results that match the search criteria
+      no_results_list:
+        - Check the spelling of the applicant’s name
+        - Make sure that you’ve entered the correct details
+      no_results_body: If the application has been processed, look in Closed applications.
 
   crime_applications:
     index:
@@ -164,6 +179,10 @@ en:
       heading: All open applications
       table_headings:
         <<: *TABLE_HEADINGS
+      total:
+        one: 1 search result
+        other: "%{count} applications"
+
     show:
       page_title: Application
       heading: Application

@@ -22,6 +22,10 @@ RSpec.describe 'Applications Dashboard' do
     expect(first_row_text).to eq("Kit Pound 120398120 27/10/2022 #{days_ago} days Yes")
   end
 
+  it 'has the correct count' do
+    expect(page).to have_content('2 applications')
+  end
+
   it 'can be used to navigate to an application' do
     click_on('Kit Pound')
 

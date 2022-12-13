@@ -35,11 +35,18 @@ RSpec.describe 'Primary navigation' do
   end
 
   context 'with the other primary nav links' do
-    it 'takes you to All applications when you click "All open applications"' do
+    it 'takes you to all applications when you click "all open applications"' do
       click_on('All open applications')
 
       heading_text = page.first('.govuk-heading-xl').text
       expect(heading_text).to eq('All open applications')
+    end
+
+    it 'takes you to search when you click "Search"' do
+      click_on('Search')
+
+      heading_text = page.first('.govuk-heading-xl').text
+      expect(heading_text).to eq('Search for an application')
     end
   end
 end

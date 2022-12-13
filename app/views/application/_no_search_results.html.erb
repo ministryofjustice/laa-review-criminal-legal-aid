@@ -1,0 +1,11 @@
+<div class="govuk-body">
+  <h2><%= t('application_searches.show.no_results_header') %></h2>
+  <ul>
+    <% t('application_searches.show.no_results_list').each do |list_item| %>
+      <li>
+        <%= list_item %>
+      </li>
+    <% end%>
+  </ul>
+  <p><%= t('application_searches.show.no_results_body') %></p>
+</div>

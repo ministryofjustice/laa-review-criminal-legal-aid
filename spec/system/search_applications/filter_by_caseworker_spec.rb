@@ -32,12 +32,12 @@ RSpec.describe 'Search applications casewoker filter' do
 
     visit '/'
 
-    click_on 'All open applications'
+    click_on 'Search'
   end
 
   describe 'by default' do
     before do
-      click_on 'Search'
+      click_button 'Search'
     end
 
     it 'shows both assinged and unassinged' do
@@ -48,7 +48,7 @@ RSpec.describe 'Search applications casewoker filter' do
   describe 'by a user' do
     before do
       select david_brown.name, from: 'filter-assigned-user-id-field'
-      click_on 'Search'
+      click_button 'Search'
     end
 
     it 'shows only those assigned to the selected user' do
@@ -62,7 +62,7 @@ RSpec.describe 'Search applications casewoker filter' do
   describe 'by unassigned' do
     before do
       select 'Unassigned', from: 'filter-assigned-user-id-field'
-      click_on 'Search'
+      click_button 'Search'
     end
 
     it 'shows only unassigned applications' do
@@ -82,7 +82,7 @@ RSpec.describe 'Search applications casewoker filter' do
       ).call
 
       select 'All assigned', from: 'filter-assigned-user-id-field'
-      click_on 'Search'
+      click_button 'Search'
     end
 
     it 'shows all assigned applications' do
