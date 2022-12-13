@@ -23,6 +23,7 @@ en:
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
+      no_next_to_assign: There are no unassigned applications to that need processing at this time. Please try again later.
 
   sessions:
     new:
