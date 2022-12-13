@@ -36,7 +36,6 @@ en:
   labels: &LABELS
     assigned_to: Assigned to
     applicant_date_of_birth: Applicant's date of birth
-    all_caseworkers: Assigned to
     caseworker: Caseworker
     start_on: Date from
     end_on: Date to
@@ -67,10 +66,11 @@ en:
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
-    reference: Ref.no.
+    reference: Ref. no.
     time_passed: Time passed
     received_at: Date received
     caseworker: Caseworker
+    status: Status
 
   legends:
     search_applications: Search for open applications
