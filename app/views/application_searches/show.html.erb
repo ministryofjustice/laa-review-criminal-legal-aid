@@ -37,6 +37,9 @@
             <th scope="col" class="govuk-table__header">
               <%= t('.table_headings.caseworker') %>
             </th>
+            <th scope="col" class="govuk-table__header">
+              <%= t('.table_headings.status') %>
+            </th>
           </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -59,6 +62,9 @@
               </td>
               <td class="govuk-table__cell">
                 <%= app.current_assignment.user_name if app.current_assignment.assigned? %>
+              </td>
+              <td class="govuk-table__cell">
+                <%= app.status == 'submitted' ? 'Open' : 'Other' %>
               </td>
             </tr>
           <% end %>
