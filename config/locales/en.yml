@@ -103,6 +103,8 @@ en:
     expert_examination: Expert examination
     interest_of_another: Interest of another
     other: Other
+    status:
+      "submitted": Open
     days_passed:
       one: 1 day
       other: "%{count} days"
