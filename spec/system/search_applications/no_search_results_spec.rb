@@ -9,6 +9,12 @@ RSpec.describe 'No search results' do
     click_on 'Search'
   end
 
+  describe 'form help text' do
+    it 'states that all fields are optional' do
+      expect(page).to have_content('All fields are optional')
+    end
+  end
+
   describe 'no results found header' do
     before do
       fill_in 'filter-applicant-date-of-birth-field', with: dob

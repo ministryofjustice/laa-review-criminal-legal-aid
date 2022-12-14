@@ -36,8 +36,9 @@ en:
 
   labels: &LABELS
     assigned_to: Assigned to
+    application_information: Application information
+    search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
-    all_caseworkers: Assigned to
     caseworker: Caseworker
     start_on: Date from
     end_on: Date to
@@ -68,13 +69,13 @@ en:
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
-    reference: Ref.no.
+    reference: Ref. no.
     time_passed: Time passed
     received_at: Date received
     caseworker: Caseworker
+    status: Status
 
   legends:
-    search_applications: Search for open applications
 
   values: &VALUES
     "true": "Yes"
@@ -151,6 +152,7 @@ en:
         page_title: Confirm reassign
 
   application_searches:
+    hint_text: All fields are optional
     new:
       page_title: Search for an application
       heading: Search for an application
