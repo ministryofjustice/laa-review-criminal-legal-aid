@@ -76,7 +76,6 @@ en:
     status: Status
 
   legends:
-    search_applications: Search for open applications
 
   values: &VALUES
     "true": "Yes"
@@ -153,6 +152,7 @@ en:
         page_title: Confirm reassign
 
   application_searches:
+    hint_text: All fields are optional
     new:
       page_title: Search for an application
       heading: Search for an application
