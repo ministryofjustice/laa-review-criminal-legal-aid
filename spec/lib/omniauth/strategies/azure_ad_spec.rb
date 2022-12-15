@@ -109,7 +109,7 @@ describe OmniAuth::Strategies::AzureAd do
     it { is_expected.to be_a Hash }
 
     it 'includes the users id' do
-      expect(info.fetch(:id)).to eq(id_token_attr.fetch(:oid))
+      expect(info.fetch(:auth_oid)).to eq(id_token_attr.fetch(:oid))
     end
 
     it 'includes the user\'s email address' do

@@ -9,8 +9,7 @@ RSpec.describe 'Search applications casewoker filter' do
       id: SecureRandom.uuid,
       first_name: 'David',
       last_name: 'Brown',
-      email: 'David.Browneg@justice.gov.uk',
-      roles: ['caseworker']
+      email: 'David.Browneg@justice.gov.uk'
     )
   end
 
@@ -19,8 +18,7 @@ RSpec.describe 'Search applications casewoker filter' do
       id: SecureRandom.uuid,
       first_name: 'John',
       last_name: 'Deere',
-      email: 'John.Deereeg@justice.gov.uk',
-      roles: ['caseworker']
+      email: 'John.Deereeg@justice.gov.uk'
     )
   end
 

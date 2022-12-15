@@ -53,8 +53,7 @@ RSpec.describe 'Viewing application history' do
         first_name: 'Fred',
         last_name: 'Smitheg',
         id: SecureRandom.uuid,
-        email: 'Fred.Smitheg@justice.gov.uk',
-        roles: ['supervisor']
+        email: 'Fred.Smitheg@justice.gov.uk'
       )
 
       Assigning::AssignToSelf.new(
