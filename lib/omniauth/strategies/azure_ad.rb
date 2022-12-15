@@ -34,7 +34,7 @@ module OmniAuth
 
       info do
         {
-          id: raw_info['oid'],
+          auth_oid: raw_info['oid'],
           email: raw_info['email'],
           first_name: raw_info['first_name'],
           last_name: raw_info['last_name'],

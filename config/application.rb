@@ -30,5 +30,9 @@ module LaaReviewCriminalLegalAid
     # config.eager_load_paths << Rails.root.join("extras")
     config.force_ssl = true
     config.ssl_options = { redirect: { exclude: -> request { request.path =~ /health|ping/ } } }
+
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
   end
 end
