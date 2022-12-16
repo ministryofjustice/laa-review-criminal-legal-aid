@@ -49,16 +49,16 @@ RSpec.describe 'Viewing application history' do
 
   context 'with a reassigned application' do
     before do
-      user = User.new(
+      user = User.create(
         first_name: 'Fred',
         last_name: 'Smitheg',
-        id: SecureRandom.uuid,
+        auth_oid: SecureRandom.uuid,
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 
       Assigning::AssignToSelf.new(
-        user:,
-        crime_application_id:
+        user: user,
+        assignment_id: crime_application_id
       ).call
 
       click_on 'All open applications'

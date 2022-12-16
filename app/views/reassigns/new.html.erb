@@ -16,7 +16,7 @@
 
     <div class="govuk-button-group">
       <%= form_with(
-            url: crime_application_reassign_path(crime_application_id: @current_assignment.crime_application_id),
+            url: crime_application_reassign_path(crime_application_id: @current_assignment.assignment_id),
             method: :post
           ) do |f| %>
         <%= f.hidden_field :state, value: @current_assignment.state_key %>
@@ -25,7 +25,7 @@
 
       <%= button_to(
             t('calls_to_action.abandon_reassign_to_self'),
-            crime_application_path(@current_assignment.crime_application_id),
+            crime_application_path(@current_assignment.assignment_id),
             method: :get,
             class: 'govuk-button govuk-button--warning'
           ) %>

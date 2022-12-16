@@ -2,12 +2,14 @@ class AssignedApplicationsController < ApplicationController
   before_action :set_assigned_application, except: [:index, :create, :get_next]
 
   def index
-    @applications = current_user.assigned_applications
+    current_assignments = current_user.current_assignments
+
+    @applications = current_assignments.pluck(:assignment_id).map { |a_id| CrimeApplication.find(a_id) }
   end
 
   def create
     Assigning::AssignToSelf.new(
-      crime_application_id: params[:crime_application_id],
+      assignment_id: params[:crime_application_id],
       user: current_user
     ).call
 
@@ -31,7 +33,7 @@ class AssignedApplicationsController < ApplicationController
 
     if next_app_id
       Assigning::AssignToSelf.new(
-        crime_application_id: next_app_id,
+        assignment_id: next_app_id,
         user: current_user
       ).call
 
@@ -50,7 +52,7 @@ class AssignedApplicationsController < ApplicationController
 
   def destroy
     Assigning::UnassignFromSelf.new(
-      crime_application_id: params[:id],
+      assignment_id: params[:id],
       user: current_user
     ).call
 
@@ -62,8 +64,8 @@ class AssignedApplicationsController < ApplicationController
   private
 
   def set_assigned_application
-    @assigned_application = current_user.assigned_applications.find { |aa| aa.id == params[:id] }
-
-    raise ApiResource::RoutingError, 'Not Found' unless @assigned_application
+    @assigned_application = current_user.current_assignments.find_by(
+      assignment_id: params[:id]
+    )
   end
 end

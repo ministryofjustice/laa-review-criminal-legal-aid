@@ -14,6 +14,10 @@ class ApplicationHistory < ApplicationStruct
     @events ||= load_events
   end
 
+  def user_names
+    @user_names ||= {}
+  end
+
   private
 
   def load_events

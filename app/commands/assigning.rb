@@ -2,7 +2,7 @@ module Assigning
   StateHasChanged = Class.new(StandardError)
 
   class Command < Dry::Struct
-    attribute :crime_application_id, Types::Uuid
+    attribute :assignment_id, Types::Uuid
 
     def publish(event_klass, args)
       event_store.publish(
@@ -19,14 +19,12 @@ module Assigning
       "Assigning$#{aggregate_id}"
     end
 
-    alias aggregate_id crime_application_id
+    alias aggregate_id assignment_id
   end
 
   class AssignToUser < Assigning::Command
     attribute :user_id, Types::Uuid
-    attribute :user_name, Types::String
     attribute :to_whom_id, Types::Uuid
-    attribute :to_whom_name, Types::String
 
     def call
       publish(AssignedToUser, data: to_hash)
@@ -38,11 +36,9 @@ module Assigning
 
     def call
       AssignToUser.new(
-        crime_application_id: crime_application_id,
+        assignment_id: assignment_id,
         user_id: user.id,
-        user_name: user.name,
-        to_whom_id: user.id,
-        to_whom_name: user.name
+        to_whom_id: user.id
       ).call
     end
   end
@@ -52,16 +48,13 @@ module Assigning
     attribute :state_key, Types::String
 
     def call
-      validate_state
+      raise StateHasChanged if state_changed?
 
       ReassignToUser.new(
-        crime_application_id: crime_application_id,
+        assignment_id: assignment_id,
         user_id: user.id,
-        user_name: user.name,
         from_whom_id: current_assignment.user_id,
-        from_whom_name: current_assignment.user_name,
-        to_whom_id: user.id,
-        to_whom_name: user.name
+        to_whom_id: user.id
       ).call
     end
 
@@ -69,12 +62,8 @@ module Assigning
 
     def current_assignment
       @current_assignment ||= CurrentAssignment.new(
-        crime_application_id:
+        assignment_id:
       )
-    end
-
-    def validate_state
-      raise StateHasChanged if state_changed?
     end
 
     def state_changed?
@@ -84,11 +73,8 @@ module Assigning
 
   class ReassignToUser < Assigning::Command
     attribute :user_id, Types::Uuid
-    attribute :user_name, Types::String
     attribute :from_whom_id, Types::Uuid
-    attribute :from_whom_name, Types::String
     attribute :to_whom_id, Types::Uuid
-    attribute :to_whom_name, Types::String
 
     def call
       publish(
@@ -102,20 +88,16 @@ module Assigning
 
     def call
       UnassignFromUser.new(
-        crime_application_id: crime_application_id,
+        assignment_id: assignment_id,
         user_id: user.id,
-        user_name: user.name,
-        from_whom_id: user.id,
-        from_whom_name: user.name
+        from_whom_id: user.id
       ).call
     end
   end
 
   class UnassignFromUser < Assigning::Command
     attribute :user_id, Types::Uuid
-    attribute :user_name, Types::String
     attribute :from_whom_id, Types::Uuid
-    attribute :from_whom_name, Types::String
 
     def call
       publish(

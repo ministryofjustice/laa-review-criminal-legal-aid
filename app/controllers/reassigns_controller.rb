@@ -1,7 +1,7 @@
 class ReassignsController < ApplicationController
   def new
     @current_assignment = CurrentAssignment.new(
-      crime_application_id: params[:crime_application_id]
+      assignment_id: params[:crime_application_id]
     )
 
     return if @current_assignment&.assigned?
@@ -21,7 +21,7 @@ class ReassignsController < ApplicationController
 
   def reassign_to_self
     Assigning::ReassignToSelf.new(
-      crime_application_id: params[:crime_application_id],
+      assignment_id: params[:crime_application_id],
       user: current_user,
       state_key: params[:state]
     ).call

@@ -20,13 +20,29 @@ class ApplicationHistoryEvent < ApplicationStruct
 
   class << self
     def from_event(event)
+      user_id = event.data.fetch(:user_id)
+
       ApplicationHistoryEvent.new(
-        user_id: event.data.fetch(:user_id),
-        user_name: event.data.fetch(:user_name),
+        user_id: user_id,
+        user_name: User.name_for(user_id),
         timestamp: event.timestamp,
         event_type: event.event_type,
-        viewable_data: event.data.slice(*VIEWABLE_DATA)
+        viewable_data: viewable_data_for_event(event)
       )
+    end
+
+    def viewable_data_for_event(event)
+      case event.event_type
+      when 'Assigning::AssignedToUser'
+        { to_whom_name: User.name_for(event.data.fetch(:to_whom_id)) }
+      when 'Assigning::UnassignedFromUser'
+        { from_whom_name: User.name_for(event.data.fetch(:from_whom_id)) }
+      when 'Assigning::ReassignedToUser'
+        {
+          to_whom_name: User.name_for(event.data.fetch(:to_whom_id)),
+          from_whom_name: User.name_for(event.data.fetch(:from_whom_id))
+        }
+      end
     end
   end
 end

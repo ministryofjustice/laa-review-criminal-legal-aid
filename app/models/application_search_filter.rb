@@ -14,12 +14,20 @@ class ApplicationSearchFilter < ApplicationStruct
       CurrentAssignment::ALL_ASSIGNED_USER
     ]
 
-    @assigned_user_list + CurrentAssignment.assigned.map(&:assignee).uniq
+    @assigned_user_list + users_with_assignments
   end
 
   delegate :empty?, to: :constraints
 
   def constraints
     attributes.compact
+  end
+
+  private
+
+  def users_with_assignments
+    User.where(
+      id: Assignments::CurrentAssignment.distinct.select(:user_id)
+    )
   end
 end

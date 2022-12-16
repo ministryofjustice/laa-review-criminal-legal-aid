@@ -14,7 +14,7 @@ class CurrentAssignment < ApplicationStruct
     Assigning::ReassignedToUser
   ].freeze
 
-  attribute :crime_application_id, Types::Uuid
+  attribute :assignment_id, Types::Uuid
 
   def assigned_to_user?(user)
     assigned? && user.id.to_s == assignee.id
@@ -29,7 +29,7 @@ class CurrentAssignment < ApplicationStruct
   end
 
   def assigned?
-    assignee != UNASSIGNED_USER
+    !assigned_user_id.nil?
   end
 
   def state_key
@@ -38,38 +38,30 @@ class CurrentAssignment < ApplicationStruct
     )
   end
 
-  class << self
-    def all
-      CrimeApplication.all.map(&:current_assignment)
-    end
-
-    def assigned
-      all.select(&:assigned?)
-    end
-  end
-
   def assignee
-    @assignee ||= projection.run(Rails.application.config.event_store).fetch(:user)
+    return @assignee if @assignee
+    return UNASSIGNED_USER unless assigned_user_id
+
+    @assignee = User.find(assigned_user_id)
   end
 
   private
 
-  def projection
-    RailsEventStore::Projection
-      .from_stream("Assigning$#{crime_application_id}")
-      .init(-> { { user: UNASSIGNED_USER } })
-      .when(ASSIGNING_EVENTS,
-            ->(state, event) { state[:user] = assignee_from_event(event) })
-      .when(
-        Assigning::UnassignedFromUser,
-        ->(state, _event) { state[:user] = UNASSIGNED_USER }
-      )
+  def assigned_user_id
+    @assigned_user_id ||= assigned_user_projection.run(
+      Rails.application.config.event_store
+    ).fetch(:user_id)
   end
 
-  def assignee_from_event(event)
-    Assignee.new(
-      id: event.data.fetch(:to_whom_id, nil),
-      name: event.data.fetch(:to_whom_name, nil)
-    )
+  def assigned_user_projection
+    RailsEventStore::Projection
+      .from_stream("Assigning$#{assignment_id}")
+      .init(-> { { user_id: nil } })
+      .when(ASSIGNING_EVENTS,
+            ->(state, event) { state[:user_id] = event.data.fetch(:to_whom_id) })
+      .when(
+        Assigning::UnassignedFromUser,
+        ->(state, _event) { state[:user_id] = nil }
+      )
   end
 end

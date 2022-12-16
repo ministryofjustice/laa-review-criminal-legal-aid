@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def assignments_count
-    current_user.assigned_applications.count
+    current_user.current_assignments.count
   end
 
   def current_user

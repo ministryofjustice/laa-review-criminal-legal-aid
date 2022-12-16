@@ -8,10 +8,10 @@ RSpec.describe 'Reassigning an application to myself' do
   end
 
   let(:assignee) do
-    User.new(
+    User.create(
       first_name: 'Fred',
       last_name: 'Smitheg',
-      id: SecureRandom.uuid,
+      auth_oid: SecureRandom.uuid,
       email: 'Fred.Smitheg@justice.gov.uk'
     )
   end
@@ -19,7 +19,7 @@ RSpec.describe 'Reassigning an application to myself' do
   before do
     Assigning::AssignToSelf.new(
       user: assignee,
-      crime_application_id: crime_application_id
+      assignment_id: crime_application_id
     ).call
 
     visit '/'
@@ -78,19 +78,19 @@ RSpec.describe 'Reassigning an application to myself' do
 
     context 'when the application is reassigned to another before confirming reassign' do
       let(:another) do
-        User.new(
+        User.create(
           first_name: 'Fast',
           last_name: 'Janeeg',
-          id: SecureRandom.uuid,
+          auth_oid: SecureRandom.uuid,
           email: 'Fast.Janeeg@justice.gov.uk'
         )
       end
 
       let(:reassign_to_another) do
         Assigning::ReassignToSelf.new(
-          crime_application_id: crime_application_id,
+          assignment_id: crime_application_id,
           user: another,
-          state_key: CurrentAssignment.new(crime_application_id:).state_key
+          state_key: CurrentAssignment.new(assignment_id: crime_application_id).state_key
         ).call
       end
 
@@ -139,7 +139,7 @@ RSpec.describe 'Reassigning an application to myself' do
     before do
       Assigning::UnassignFromSelf.new(
         user: assignee,
-        crime_application_id: crime_application_id
+        assignment_id: crime_application_id
       ).call
     end
 

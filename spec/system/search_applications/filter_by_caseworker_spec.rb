@@ -5,8 +5,8 @@ RSpec.describe 'Search applications casewoker filter' do
   let(:crime_application_id_two) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
 
   let(:david_brown) do
-    User.new(
-      id: SecureRandom.uuid,
+    User.create(
+      auth_oid: SecureRandom.uuid,
       first_name: 'David',
       last_name: 'Brown',
       email: 'David.Browneg@justice.gov.uk'
@@ -14,8 +14,8 @@ RSpec.describe 'Search applications casewoker filter' do
   end
 
   let(:john_deere) do
-    User.new(
-      id: SecureRandom.uuid,
+    User.create(
+      auth_oid: SecureRandom.uuid,
       first_name: 'John',
       last_name: 'Deere',
       email: 'John.Deereeg@justice.gov.uk'
@@ -24,7 +24,7 @@ RSpec.describe 'Search applications casewoker filter' do
 
   before do
     Assigning::AssignToSelf.new(
-      crime_application_id: crime_application_id,
+      assignment_id: crime_application_id,
       user: david_brown
     ).call
 
@@ -45,6 +45,14 @@ RSpec.describe 'Search applications casewoker filter' do
 
   describe 'by a user' do
     before do
+      Assigning::AssignToSelf.new(
+        assignment_id: crime_application_id,
+        user: david_brown
+      ).call
+
+      visit '/'
+      click_on 'Search'
+
       select david_brown.name, from: 'filter-assigned-user-id-field'
       click_button 'Search'
     end
@@ -75,7 +83,7 @@ RSpec.describe 'Search applications casewoker filter' do
   describe 'All assigned' do
     before do
       Assigning::AssignToSelf.new(
-        crime_application_id: crime_application_id_two,
+        assignment_id: crime_application_id_two,
         user: john_deere
       ).call
 
