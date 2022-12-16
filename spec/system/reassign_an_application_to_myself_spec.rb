@@ -12,8 +12,7 @@ RSpec.describe 'Reassigning an application to myself' do
       first_name: 'Fred',
       last_name: 'Smitheg',
       id: SecureRandom.uuid,
-      email: 'Fred.Smitheg@justice.gov.uk',
-      roles: ['supervisor']
+      email: 'Fred.Smitheg@justice.gov.uk'
     )
   end
 
@@ -83,8 +82,7 @@ RSpec.describe 'Reassigning an application to myself' do
           first_name: 'Fast',
           last_name: 'Janeeg',
           id: SecureRandom.uuid,
-          email: 'Fast.Janeeg@justice.gov.uk',
-          roles: ['caseworker']
+          email: 'Fast.Janeeg@justice.gov.uk'
         )
       end
 

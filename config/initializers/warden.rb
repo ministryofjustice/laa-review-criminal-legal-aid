@@ -7,12 +7,12 @@ Rails.application.config.middleware.insert_before(OmniAuth::Builder, Warden::Man
   manager.scope_defaults :user, strategies: [:azure_ad]
   manager.failure_app = Warden::AzureAdFailureController
 
-  manager.serialize_into_session(:user) do |user|
-    [user.id, user.to_hash]
+  manager.serialize_into_session(:user) do |user_id|
+    [user_id]
   end
-  
+
   manager.serialize_from_session(:user) do |user_session_data|
-    User.new(user_session_data.last)
+    User.find(user_session_data.last)
   end
 end
 

@@ -5,13 +5,13 @@ RSpec.configure do |config|
   ]
 
   config.before do
-    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications?status=submitted")
+    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications?status=submitted")
       .to_return(
         body: file_fixture('crime_apply_data/applications.json').read,
         status: 200
       )
 
-    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/123")
+    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/123")
       .to_return(
         body: file_fixture('crime_apply_data/responses/404.json').read,
         status: 404
@@ -20,7 +20,7 @@ RSpec.configure do |config|
     application_ids.each do |application_id|
       stub_request(
         :get,
-        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/#{application_id}"
       ).to_return(
         body: file_fixture("crime_apply_data/applications/#{application_id}.json").read,
         status: 200

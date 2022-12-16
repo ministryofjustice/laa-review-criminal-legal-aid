@@ -3,8 +3,14 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
     auth_hash = OmniAuth::AuthHash.new(
       {
         provider: 'azure_ad',
-        uid: current_user_id,
-        info: user_for_auth.to_hash
+        uid: current_user_auth_oid,
+        info: {
+          auth_oid: current_user_auth_oid,
+          email: 'Joe.EXAMPLE@justice.gov.uk',
+          first_name: 'Joe',
+          last_name: 'EXAMPLE',
+          roles: ['caseworker']
+        }
       }
     )
 
@@ -14,14 +20,7 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   let(:current_user_id) do
     user_for_auth.id
   end
-
-  let(:user_for_auth) do
-    User.new(
-      id: SecureRandom.hex,
-      email: 'Joe.EXAMPLE@justice.gov.uk',
-      first_name: 'Joe',
-      last_name: 'EXAMPLE',
-      roles: ['caseworker']
-    )
+  let(:current_user_auth_oid) do
+    SecureRandom.hex
   end
 end

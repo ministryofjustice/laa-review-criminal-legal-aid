@@ -12,22 +12,18 @@ RSpec.describe 'OmniAuth Endpoints' do
       get 'https://www.example.com/auth/azure_ad/callback'
     end
 
-    let(:user) { request.env['warden'].user }
+    let(:user) { User.find(request.env['warden'].user) }
 
     it 'authenticates the user' do
       expect(request.env['warden'].authenticated?(:user)).to be true
     end
 
     it 'sets the current user id' do
-      expect(user.id).to eq user_id
+      expect(user.auth_oid).to eq current_user_auth_oid
     end
 
     it 'sets the current user name' do
       expect(user.name).to eq 'Joe EXAMPLE'
-    end
-
-    it 'sets the current user roles' do
-      expect(user.roles).to eq ['caseworker']
     end
 
     it 'sets the current users email' do
