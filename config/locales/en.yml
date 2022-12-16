@@ -36,6 +36,7 @@ en:
 
   labels: &LABELS
     assigned_to: 'Assigned to:'
+    date_received: 'Date received:'
     application_information: Application information
     search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
