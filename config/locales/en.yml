@@ -75,8 +75,6 @@ en:
     caseworker: Caseworker
     status: Status
 
-  legends:
-
   values: &VALUES
     "true": "Yes"
     "false": "No"
@@ -143,11 +141,12 @@ en:
       heading: Your list
       get_next: Get next application
       open_applications: View all open applications
-      table_headings:
-        <<: *TABLE_HEADINGS
       your_assignments:
         one: 1 saved application
         other: "%{count} saved applications"
+    application_table:
+      table_headings:
+        <<: *TABLE_HEADINGS
 
   reassigns:
     new:
