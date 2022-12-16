@@ -11,7 +11,7 @@ RSpec.describe 'Sub navigation' do
     it 'takes the user to their list when clicked' do
       click_on('Application details')
 
-      heading_text = page.first('.govuk-heading-l').text
+      heading_text = page.first('.govuk-heading-xl').text
 
       expect(heading_text).to eq('Kit Pound')
     end

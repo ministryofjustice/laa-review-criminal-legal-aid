@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resource :application_searches, only: [:create, :new]
 
   resources :assigned_applications, only: [:index, :destroy, :create] do
-    post :get_next, on: :collection
+    post :next_application, on: :collection
   end
 
   mount RailsEventStore::Browser => "/event_browser" if Rails.env.development?

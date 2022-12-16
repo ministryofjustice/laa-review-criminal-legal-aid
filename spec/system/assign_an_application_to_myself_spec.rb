@@ -12,7 +12,7 @@ RSpec.describe 'Assigning an application to myself' do
 
   it 'shows "Assigned to Unassigned"' do
     expect(page).to have_content(
-      'Assigned to Unassigned'
+      'Assigned to: Unassigned'
     )
   end
 

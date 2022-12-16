@@ -5,7 +5,7 @@ RSpec.describe 'Assigning an application to myself' do
     visit '/'
     click_on 'Get next application'
     expect(page).to have_content('Kit Pound')
-    expect(page).to have_content('This application has been assigned to you')
+    expect(page).to have_content('Remove from your list')
   end
 
   it 'shows an error when there is no next application' do

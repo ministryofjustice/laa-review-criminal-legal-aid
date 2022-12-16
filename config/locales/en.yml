@@ -35,7 +35,7 @@ en:
     open_apps: All open applications
 
   labels: &LABELS
-    assigned_to: Assigned to
+    assigned_to: 'Assigned to:'
     application_information: Application information
     search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
@@ -74,8 +74,6 @@ en:
     received_at: Date received
     caseworker: Caseworker
     status: Status
-
-  legends:
 
   values: &VALUES
     "true": "Yes"
@@ -141,11 +139,14 @@ en:
     index:
       page_title: Your list
       heading: Your list
-      table_headings:
-        <<: *TABLE_HEADINGS
+      get_next: Get next application
+      open_applications: View all open applications
       your_assignments:
         one: 1 saved application
         other: "%{count} saved applications"
+    application_table:
+      table_headings:
+        <<: *TABLE_HEADINGS
 
   reassigns:
     new:
