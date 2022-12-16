@@ -34,7 +34,7 @@ RSpec.describe 'Reassigning an application to myself' do
   end
 
   it 'shows "Assigned to Assignee Name"' do
-    expect(page).to have_content("Assigned to #{assignee.name}")
+    expect(page).to have_content("Assigned to: #{assignee.name}")
   end
 
   describe 'clicking on "Reassign to myself"' do
@@ -73,7 +73,7 @@ RSpec.describe 'Reassigning an application to myself' do
 
       it 'assigns to the current user' do
         click_on('Yes, reassign')
-        expect(page).to have_content 'Assigned to Joe EXAMPLE'
+        expect(page).to have_content 'Assigned to: Joe EXAMPLE'
       end
     end
 
@@ -118,7 +118,7 @@ RSpec.describe 'Reassigning an application to myself' do
         reassign_to_another
 
         click_on('Yes, reassign')
-        expect(page).to have_content 'Assigned to Fast Janeeg'
+        expect(page).to have_content 'Assigned to: Fast Janeeg'
       end
     end
 
@@ -132,7 +132,7 @@ RSpec.describe 'Reassigning an application to myself' do
 
       it 'does not reassign' do
         click_on('No, do not reassign')
-        expect(page).to have_content 'Assigned to Fred Smitheg'
+        expect(page).to have_content 'Assigned to: Fred Smitheg'
       end
     end
   end

@@ -35,7 +35,7 @@ en:
     open_apps: All open applications
 
   labels: &LABELS
-    assigned_to: Assigned to
+    assigned_to: 'Assigned to:'
     application_information: Application information
     search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
@@ -141,6 +141,8 @@ en:
     index:
       page_title: Your list
       heading: Your list
+      get_next: Get next application
+      open_applications: View all open applications
       table_headings:
         <<: *TABLE_HEADINGS
       your_assignments:
