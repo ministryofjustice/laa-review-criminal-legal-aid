@@ -15,21 +15,21 @@
       <%= button_to t('calls_to_action.unassign_from_self'),
                     assigned_application_path(current_assignment.crime_application_id),
                     method: :delete,
-                    class: 'govuk-button govuk-button--secondary' %>
+                    class: 'govuk-button govuk-button--secondary govuk-!-margin-top-1' %>
     <% elsif current_assignment.assigned? %>
       <%= button_to t('calls_to_action.reassign_to_self'),
                     new_crime_application_reassign_path(
                       current_assignment.crime_application_id
                     ),
                     method: :get,
-                    class: 'govuk-button govuk-button--secondary' %>
+                    class: 'govuk-button govuk-button--secondary govuk-!-margin-top-1' %>
     <% else %>
       <%= button_to t('calls_to_action.assign_to_self'),
                     assigned_applications_path(
                       crime_application_id: current_assignment.crime_application_id
                     ),
                     method: :post,
-                    class: 'govuk-button govuk-button--secondary' %>
+                    class: 'govuk-button govuk-button--secondary govuk-!-margin-top-1' %>
     <% end %>
   </dd>
 </dl>
