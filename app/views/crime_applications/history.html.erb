@@ -10,7 +10,11 @@
       <%= @crime_application.applicant_name %>
     </h2>
 
-    <%= render @crime_application.current_assignment %>
+    <%= render(partial: 'current_assignment',
+               locals: {
+                 received_at: @crime_application.submitted_at,
+                 current_assignment: @crime_application.current_assignment
+               })%>
   </div>
 </div>
 
