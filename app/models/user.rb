@@ -1,7 +1,7 @@
 # TODO: move
 
 class User < ApplicationRecord
-  has_many :current_assignments, class_name: 'Assignments::CurrentAssignment', dependent: :destroy
+  has_many :current_assignments, dependent: :destroy
 
   def name
     [first_name, last_name].join(' ')

@@ -1,7 +1,7 @@
 #
-# View Object for an application history event
+# View Object for an application history item
 #
-class ApplicationHistoryEvent < ApplicationStruct
+class ApplicationHistoryItem < ApplicationStruct
   VIEWABLE_DATA = %i[from_whom_name to_whom_name].freeze
 
   attribute :user_id, Types::Uuid.optional

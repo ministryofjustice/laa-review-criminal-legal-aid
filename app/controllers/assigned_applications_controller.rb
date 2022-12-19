@@ -1,16 +1,15 @@
 class AssignedApplicationsController < ApplicationController
-  before_action :set_assigned_application, except: [:index, :create, :get_next]
-
   def index
-    current_assignments = current_user.current_assignments
-
+    current_assignments = CurrentAssignment.where(user_id: current_user_id
+                                                     )
     @applications = current_assignments.pluck(:assignment_id).map { |a_id| CrimeApplication.find(a_id) }
   end
 
   def create
-    Assigning::AssignToSelf.new(
+    Assigning::AssignToUser.new(
       assignment_id: params[:crime_application_id],
-      user: current_user
+      user_id: current_user_id,
+      to_whom_id: current_user_id
     ).call
 
     flash[:success] = :assigned_to_self
@@ -32,9 +31,10 @@ class AssignedApplicationsController < ApplicationController
     next_app_id = search.applications.first&.id
 
     if next_app_id
-      Assigning::AssignToSelf.new(
-        assignment_id: next_app_id,
-        user: current_user
+      Assigning::AssignToUser.new(
+        assignment_id: params[:crime_application_id],
+        user_id: current_user_id,
+        to_whom_id: current_user_id
       ).call
 
       flash[:success] = :assigned_to_self
@@ -51,21 +51,19 @@ class AssignedApplicationsController < ApplicationController
   # rubocop:enable Naming/AccessorMethodName, Metrics/MethodLength, Metrics/AbcSize
 
   def destroy
-    Assigning::UnassignFromSelf.new(
+    current_assignment = CurrentAssignment.find_by!(
       assignment_id: params[:id],
-      user: current_user
+      user_id: current_user_id
+    )
+
+    Assigning::UnassignFromUser.new(
+      assignment_id: current_assignment.assignment_id,
+      user_id: current_user_id,
+      from_whom_id: current_user_id
     ).call
 
     flash[:success] = :unassigned_from_self
 
     redirect_to assigned_applications_path
-  end
-
-  private
-
-  def set_assigned_application
-    @assigned_application = current_user.current_assignments.find_by(
-      assignment_id: params[:id]
-    )
   end
 end

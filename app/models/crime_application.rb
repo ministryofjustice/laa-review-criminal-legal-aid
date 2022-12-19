@@ -22,7 +22,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   end
 
   def current_assignment
-    @current_assignment ||= CurrentAssignment.new(assignment_id: id)
+    @current_assignment ||= CurrentAssignment.where(assignment_id: id).first
   end
 
   def history

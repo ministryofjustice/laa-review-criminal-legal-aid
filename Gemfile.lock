@@ -443,6 +443,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aggregate_root
   bootsnap
   brakeman
   capybara

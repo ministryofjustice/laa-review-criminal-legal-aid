@@ -40,6 +40,7 @@ gem 'openid_connect'
 gem 'warden'
 
 gem 'rails_event_store'
+gem 'aggregate_root'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

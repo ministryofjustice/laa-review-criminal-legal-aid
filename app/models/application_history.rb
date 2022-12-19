@@ -1,6 +1,3 @@
-#
-# Read Model for Application History
-#
 class ApplicationHistory < ApplicationStruct
   EVENT_TYPES = [
     Assigning::AssignedToUser,
@@ -10,20 +7,16 @@ class ApplicationHistory < ApplicationStruct
 
   attribute :application, Types.Instance(CrimeApplication)
 
-  def events
-    @events ||= load_events
-  end
-
-  def user_names
-    @user_names ||= {}
+  def items
+    @items ||= load_from_events
   end
 
   private
 
-  def load_events
+  def load_from_events
     RailsEventStore::Projection
       .from_stream("Assigning$#{application.id}")
-      .init(-> { [application_submitted_event] })
+      .init(-> { [application_submitted_item] })
       .when(ApplicationHistory::EVENT_TYPES,
             lambda { |state, event|
               state << ApplicationHistoryEvent.from_event(event)
@@ -33,7 +26,7 @@ class ApplicationHistory < ApplicationStruct
   # NOTE: provider name is not yet availble in the data.
   # Tihs is a fake submission event. It will be replace by a
   # real one on import from the datastore.
-  def application_submitted_event
+  def application_submitted_item
     ApplicationHistoryEvent.new(
       user_id: nil,
       user_name: 'Provider Name',

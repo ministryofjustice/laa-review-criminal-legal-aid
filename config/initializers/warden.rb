@@ -11,9 +11,9 @@ Rails.application.config.middleware.insert_before(OmniAuth::Builder, Warden::Man
     [user_id]
   end
 
-  manager.serialize_from_session(:user) do |user_session_data|
-    User.find(user_session_data.last)
-  end
+  # manager.serialize_from_session(:user) do |user_session_data|
+  #   User.find(user_session_data.last)
+  # end
 end
 
 Warden::Manager.after_set_user do |user,auth,opts|

@@ -3,7 +3,6 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
-require 'init/event_store'
 require 'init/api_data'
 require 'init/webmock'
 require 'shared_contexts/logged_in_user'
