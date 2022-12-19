@@ -1,7 +1,7 @@
 <% title t('.page_title') %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <p class="govuk-body-l govuk-!-margin-bottom-2">
       <%= @crime_application.reference %>
     </p>
@@ -10,7 +10,11 @@
       <%= @crime_application.applicant_name %>
     </h2>
 
-    <%= render @crime_application.current_assignment %>
+    <%= render(partial: 'current_assignment',
+               locals: {
+                 received_at: @crime_application.submitted_at,
+                 current_assignment: @crime_application.current_assignment
+               })%>
   </div>
 </div>
 
