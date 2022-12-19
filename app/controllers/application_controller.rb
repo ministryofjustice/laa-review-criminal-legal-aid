@@ -2,17 +2,19 @@ class ApplicationController < ActionController::Base
   include ErrorHandling
 
   before_action :authenticate_user!
-  helper_method :current_user
+  helper_method :current_user_id
   helper_method :assignments_count
 
   private
 
   def assignments_count
-    current_user.assigned_applications.count
+    @assignments_count ||= CurrentAssignment.where(
+      user_id: current_user_id
+    ).count
   end
 
-  def current_user
-    warden.user
+  def current_user_id
+    warden.user.first
   end
 
   def authenticate_user!
