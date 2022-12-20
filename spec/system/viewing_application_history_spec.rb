@@ -56,8 +56,9 @@ RSpec.describe 'Viewing application history' do
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 
-      Assigning::AssignToSelf.new(
-        user: user,
+      Assigning::AssignToUser.new(
+        user_id: user.id,
+        to_whom_id: user.id,
         assignment_id: crime_application_id
       ).call
 

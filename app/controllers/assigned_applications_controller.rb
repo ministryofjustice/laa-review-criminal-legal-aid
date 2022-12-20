@@ -1,7 +1,9 @@
 class AssignedApplicationsController < ApplicationController
   def index
-    current_assignments = CurrentAssignment.where(user_id: current_user_id
-                                                     )
+    current_assignments = CurrentAssignment.where(
+      user_id: current_user_id
+    )
+
     @applications = current_assignments.pluck(:assignment_id).map { |a_id| CrimeApplication.find(a_id) }
   end
 
@@ -23,7 +25,7 @@ class AssignedApplicationsController < ApplicationController
   def get_next
     filter = ApplicationSearchFilter.new(
       {
-        assigned_user_id: CurrentAssignment::UNASSIGNED_USER.id
+        assigned_user_id: ApplicationSearchFilter::UNASSIGNED_USER.id
       }
     )
     search = ApplicationSearch.new(filter:)
@@ -32,7 +34,7 @@ class AssignedApplicationsController < ApplicationController
 
     if next_app_id
       Assigning::AssignToUser.new(
-        assignment_id: params[:crime_application_id],
+        assignment_id: next_app_id,
         user_id: current_user_id,
         to_whom_id: current_user_id
       ).call

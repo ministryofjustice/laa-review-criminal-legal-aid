@@ -1,10 +1,14 @@
 module Assigning
+  StateHasChanged = Class.new(StandardError)
+
   class AssignToUser < Assigning::Command
     attribute :user_id, Types::Uuid
     attribute :to_whom_id, Types::Uuid
 
     def call
-      publish(AssignedToUser, data: to_hash)
+      with_assignment do |assignment|
+        assignment.assign_to_user(user_id:, to_whom_id:)
+      end
     end
   end
 
@@ -14,9 +18,9 @@ module Assigning
     attribute :to_whom_id, Types::Uuid
 
     def call
-      publish(
-        ReassignedToUser, data: to_hash
-      )
+      with_assignment do |assignment|
+        assignment.reassign_to_user(user_id:, from_whom_id:, to_whom_id:)
+      end
     end
   end
 
@@ -25,10 +29,9 @@ module Assigning
     attribute :from_whom_id, Types::Uuid
 
     def call
-      publish(
-        UnassignedFromUser,
-        data: to_hash
-      )
+      with_assignment do |assignment|
+        assignment.unassign_from_user(user_id:, from_whom_id:)
+      end
     end
   end
 end

@@ -17,8 +17,9 @@ RSpec.describe 'Reassigning an application to myself' do
   end
 
   before do
-    Assigning::AssignToSelf.new(
-      user: assignee,
+    Assigning::AssignToUser.new(
+      user_id: assignee.id,
+      to_whom_id: assignee.id,
       assignment_id: crime_application_id
     ).call
 
@@ -87,10 +88,11 @@ RSpec.describe 'Reassigning an application to myself' do
       end
 
       let(:reassign_to_another) do
-        Assigning::ReassignToSelf.new(
+        Assigning::ReassignToUser.new(
           assignment_id: crime_application_id,
-          user: another,
-          state_key: CurrentAssignment.new(assignment_id: crime_application_id).state_key
+          user_id: another.id,
+          to_whom_id: another.id,
+          from_whom_id: assignee.id
         ).call
       end
 
@@ -137,8 +139,10 @@ RSpec.describe 'Reassigning an application to myself' do
 
   describe 'attempting to reassign an unassigned application' do
     before do
-      Assigning::UnassignFromSelf.new(
-        user: assignee,
+      Assigning::UnassignFromUser.new(
+        user_id: assignee.id,
+        to_whom_id: assignee.id,
+        from_whom_id: assignee.id,
         assignment_id: crime_application_id
       ).call
     end

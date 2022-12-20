@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # def current_user
   #   warden.user
   # end
-  
+
   def current_user_id
     warden.user.first
   end

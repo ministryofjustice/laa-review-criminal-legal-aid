@@ -10,7 +10,7 @@
       <%= @crime_application.applicant_name %>
     </h2>
 
-    <%= render @crime_application.current_assignment %>
+    <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
   </div>
 </div>
 
@@ -37,7 +37,7 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
-      <% @crime_application.history.events.each do |event| %>
+      <% @crime_application.history.items.each do |event| %>
         <tr class="govuk-table__row">
           <td scope="row" class="govuk-table__cell">
             <%= l event.timestamp, format: :timestamp %>

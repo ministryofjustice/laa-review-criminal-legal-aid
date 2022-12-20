@@ -22,7 +22,7 @@ class ApplicationHistoryItem < ApplicationStruct
     def from_event(event)
       user_id = event.data.fetch(:user_id)
 
-      ApplicationHistoryEvent.new(
+      new(
         user_id: user_id,
         user_name: User.name_for(user_id),
         timestamp: event.timestamp,

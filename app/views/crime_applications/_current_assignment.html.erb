@@ -5,7 +5,7 @@
 
     <% if crime_application.current_assignment.nil? %>
       <dd class="govuk-summary-list__value">
-        <%= 'Unasasigned' %>
+        <%= 'Unassigned' %>
       </dd>
       <%= button_to t('calls_to_action.assign_to_self'),
                     assigned_applications_path(

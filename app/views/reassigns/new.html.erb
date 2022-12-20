@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">
-      <%= t 'confirmations.reassign_to_self', from_whom_name: @current_assignment.user_name %>
+      <%= t 'confirmations.reassign_to_self_html', from_whom_name: User.name_for(@current_assignment.user_id) %>
     </h1>
 
     <div class="govuk-warning-text">
@@ -16,10 +16,10 @@
 
     <div class="govuk-button-group">
       <%= form_with(
-            url: crime_application_reassign_path(crime_application_id: @current_assignment.assignment_id),
+            url: crime_application_reassign_path(assignment_id: @current_assignment.assignment_id),
             method: :post
           ) do |f| %>
-        <%= f.hidden_field :state, value: @current_assignment.state_key %>
+        <%= f.hidden_field :from_whom_id, value: @current_assignment.user_id %>
         <%= f.submit t('calls_to_action.confirm_reassign_to_self'), class: 'govuk-button'%>
       <% end %>
 

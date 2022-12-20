@@ -19,7 +19,7 @@ class ApplicationHistory < ApplicationStruct
       .init(-> { [application_submitted_item] })
       .when(ApplicationHistory::EVENT_TYPES,
             lambda { |state, event|
-              state << ApplicationHistoryEvent.from_event(event)
+              state << ApplicationHistoryItem.from_event(event)
             }).run(Rails.application.config.event_store).reverse
   end
 
@@ -27,7 +27,7 @@ class ApplicationHistory < ApplicationStruct
   # Tihs is a fake submission event. It will be replace by a
   # real one on import from the datastore.
   def application_submitted_item
-    ApplicationHistoryEvent.new(
+    ApplicationHistoryItem.new(
       user_id: nil,
       user_name: 'Provider Name',
       timestamp: application.submitted_at,

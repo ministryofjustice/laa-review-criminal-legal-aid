@@ -23,9 +23,10 @@ RSpec.describe 'Search applications casewoker filter' do
   end
 
   before do
-    Assigning::AssignToSelf.new(
+    Assigning::AssignToUser.new(
       assignment_id: crime_application_id,
-      user: david_brown
+      user_id: david_brown.id,
+      to_whom_id: david_brown.id
     ).call
 
     visit '/'
@@ -45,11 +46,6 @@ RSpec.describe 'Search applications casewoker filter' do
 
   describe 'by a user' do
     before do
-      Assigning::AssignToSelf.new(
-        assignment_id: crime_application_id,
-        user: david_brown
-      ).call
-
       visit '/'
       click_on 'Search'
 
@@ -82,9 +78,10 @@ RSpec.describe 'Search applications casewoker filter' do
 
   describe 'All assigned' do
     before do
-      Assigning::AssignToSelf.new(
+      Assigning::AssignToUser.new(
         assignment_id: crime_application_id_two,
-        user: john_deere
+        user_id: john_deere.id,
+        to_whom_id: john_deere.id
       ).call
 
       select 'All assigned', from: 'filter-assigned-user-id-field'

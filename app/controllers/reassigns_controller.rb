@@ -1,10 +1,8 @@
 class ReassignsController < ApplicationController
   def new
-    @current_assignment = CurrentAssignment.new(
-      assignment_id: params[:crime_application_id]
-    )
+    @current_assignment = CurrentAssignment.find_by!(assignment_id: params[:crime_application_id])
 
-    return if @current_assignment&.assigned?
+    return if @current_assignment
 
     raise ApiResource::NotFound, 'Not Found'
   end
@@ -20,10 +18,11 @@ class ReassignsController < ApplicationController
   private
 
   def reassign_to_self
-    Assigning::ReassignToSelf.new(
+    Assigning::ReassignToUser.new(
       assignment_id: params[:crime_application_id],
-      user: current_user,
-      state_key: params[:state]
+      user_id: current_user_id,
+      from_whom_id: params[:from_whom_id],
+      to_whom_id: current_user_id
     ).call
   end
 
