@@ -160,8 +160,6 @@ en:
     new:
       page_title: Search for an application
       heading: Search for an application
-      table_headings:
-        <<: *TABLE_HEADINGS
       total:
         one: 1 search result
         other: "%{count} search results"
@@ -169,8 +167,6 @@ en:
     show:
       page_title: Search for an application
       heading: Search for an application
-      table_headings:
-        <<: *TABLE_HEADINGS
       total:
         one: 1 search result
         other: "%{count} search results"
@@ -179,13 +175,14 @@ en:
         - Check the spelling of the applicant’s name
         - Make sure that you’ve entered the correct details
       no_results_body: If the application has been processed, look in Closed applications.
+    search_results_table:
+      table_headings:
+        <<: *TABLE_HEADINGS
 
   crime_applications:
     index:
       page_title: All open applications
       heading: All open applications
-      table_headings:
-        <<: *TABLE_HEADINGS
       total:
         one: 1 search result
         other: "%{count} applications"
@@ -208,4 +205,8 @@ en:
       <<: *LABELS
     values:
       <<: *VALUES
+
+    crime_applications_table:
+      table_headings:
+        <<: *TABLE_HEADINGS
 

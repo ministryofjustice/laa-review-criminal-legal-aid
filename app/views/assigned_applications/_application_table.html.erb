@@ -21,9 +21,9 @@
           </tr>
         </thead>
         <tbody class="govuk-table__body">
-          <% applications.each do |app| %>
-            <%= render 'application/crime_application', crime_application: app %>
-          <% end %>
+          <%= render partial: 'application/crime_application',
+                     collection: applications,
+                     as: :crime_application %>
         </tbody>
       </table>
     </div>

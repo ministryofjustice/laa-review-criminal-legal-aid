@@ -1,0 +1,29 @@
+<table class="govuk-table app-dashboard-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">
+        <%= t('.table_headings.applicant_name') %>
+      </th>
+      <th scope="col" class="govuk-table__header">
+        <%= t('.table_headings.reference') %>
+      </th>
+      <th scope="col" class="govuk-table__header">
+        <%= t('.table_headings.received_at') %>
+      </th>
+      <th scope="col" class="govuk-table__header">
+        <%= t('.table_headings.time_passed') %>
+      </th>
+      <th scope="col" class="govuk-table__header">
+        <%= t(:common_platform, scope: 'crime_applications.labels') %>
+      </th>
+      <th scope="col" class="govuk-table__header">
+        <%= t('.table_headings.caseworker') %>
+      </th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <%= render partial: 'crime_applications_table_body',
+               collection: applications,
+               as: :app %>
+  </tbody>
+</table>
