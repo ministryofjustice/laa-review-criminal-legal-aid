@@ -41,10 +41,13 @@ class ApplicationSearch < ApplicationStruct
   end
 
   def assigned_user_clause(app, value)
-    if value == CurrentAssignment::ALL_ASSIGNED_USER.id
-      app.current_assignment.user_id != CurrentAssignment::UNASSIGNED_USER.id
+    case value
+    when ApplicationSearchFilter::ALL_ASSIGNED_USER.id
+      app.current_assignment.present?
+    when ApplicationSearchFilter::UNASSIGNED_USER.id
+      app.current_assignment.nil?
     else
-      app.current_assignment.user_id == value
+      app.current_assignment&.user_id == value
     end
   end
 end

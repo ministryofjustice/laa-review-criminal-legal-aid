@@ -118,7 +118,7 @@ en:
     unassign_from_self: Remove from your list
     view_all_open_applications: View all open applications
   confirmations:
-    reassign_to_self: Are you sure you want to reassign this application from %{from_whom_name} to your list?
+    reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
   warnings:
     reassign_to_self: This will remove the application from your colleague's list
 

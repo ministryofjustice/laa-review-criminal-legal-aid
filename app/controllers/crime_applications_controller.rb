@@ -7,13 +7,15 @@ class CrimeApplicationsController < ApplicationController
     @applications = CrimeApplication.all
   end
 
-  def show; end
+  def show
+    @current_assignment = @crime_application.current_assignment
+  end
 
   def history; end
 
   private
 
   def set_crime_application
-    @crime_application = CrimeApplication.find(params[:id])
+    @crime_application = ::CrimeApplication.find(params[:id])
   end
 end

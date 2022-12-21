@@ -1,5 +1,8 @@
 RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   before do
+    # TODO: MAKE WORK FOR DATABSE USER!
+    # (user.id needs to be consistent to be stored in the vent stream)
+
     auth_hash = OmniAuth::AuthHash.new(
       {
         provider: 'azure_ad',
@@ -20,6 +23,7 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   let(:current_user_id) do
     user_for_auth.id
   end
+
   let(:current_user_auth_oid) do
     SecureRandom.hex
   end

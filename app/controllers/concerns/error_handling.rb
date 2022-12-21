@@ -4,7 +4,7 @@ module ErrorHandling
   included do
     rescue_from Exception do |exception|
       case exception
-      when DatastoreApi::Errors::NotFoundError
+      when DatastoreApi::Errors::NotFoundError, ActiveRecord::RecordNotFound
         redirect_to application_not_found_path
       # NOTE: Add more custom errors as they are needed, for instance:
       # when Errors::InvalidSession, ActionController::InvalidAuthenticityToken

@@ -39,6 +39,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'openid_connect'
 gem 'warden'
 
+gem 'aggregate_root'
 gem 'rails_event_store'
 
 group :development, :test do

@@ -3,7 +3,6 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
-require 'init/event_store'
 require 'init/api_data'
 require 'init/webmock'
 require 'shared_contexts/logged_in_user'
@@ -25,7 +24,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   config.infer_spec_type_from_file_location!
 

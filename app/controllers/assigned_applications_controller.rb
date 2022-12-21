@@ -1,14 +1,17 @@
 class AssignedApplicationsController < ApplicationController
-  before_action :set_assigned_application, except: [:index, :create, :next_application]
-
   def index
-    @applications = current_user.assigned_applications
+    current_assignments = CurrentAssignment.where(
+      user_id: current_user_id
+    )
+
+    @applications = current_assignments.pluck(:assignment_id).map { |id| CrimeApplication.find(id) }
   end
 
   def create
-    Assigning::AssignToSelf.new(
-      crime_application_id: params[:crime_application_id],
-      user: current_user
+    Assigning::AssignToUser.new(
+      assignment_id: params[:crime_application_id],
+      user_id: current_user_id,
+      to_whom_id: current_user_id
     ).call
 
     flash[:success] = :assigned_to_self
@@ -19,13 +22,14 @@ class AssignedApplicationsController < ApplicationController
   end
 
   def next_application
-    filter = ApplicationSearchFilter.new({ assigned_user_id: CurrentAssignment::UNASSIGNED_USER.id })
+    filter = ApplicationSearchFilter.new(assigned_user_id: ApplicationSearchFilter::UNASSIGNED_USER.id)
     search = ApplicationSearch.new(filter:)
-
     next_app_id = search.applications.first&.id
 
     if next_app_id
-      Assigning::AssignToSelf.new(crime_application_id: next_app_id, user: current_user).call
+      Assigning::AssignToUser.new(
+        assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id
+      ).call
 
       redirect_to crime_application_path(id: next_app_id)
     else
@@ -36,21 +40,19 @@ class AssignedApplicationsController < ApplicationController
   end
 
   def destroy
-    Assigning::UnassignFromSelf.new(
-      crime_application_id: params[:id],
-      user: current_user
+    current_assignment = CurrentAssignment.find_by!(
+      assignment_id: params[:id],
+      user_id: current_user_id
+    )
+
+    Assigning::UnassignFromUser.new(
+      assignment_id: current_assignment.assignment_id,
+      user_id: current_user_id,
+      from_whom_id: current_user_id
     ).call
 
     flash[:success] = :unassigned_from_self
 
     redirect_to assigned_applications_path
-  end
-
-  private
-
-  def set_assigned_application
-    @assigned_application = current_user.assigned_applications.find { |aa| aa.id == params[:id] }
-
-    raise ApiResource::RoutingError, 'Not Found' unless @assigned_application
   end
 end

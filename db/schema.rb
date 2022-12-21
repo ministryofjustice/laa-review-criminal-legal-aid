@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_15_143214) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_163842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "current_assignments", id: false, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "assignment_id", null: false
+    t.index ["assignment_id"], name: "index_current_assignments_on_assignment_id", unique: true
+    t.index ["user_id"], name: "index_current_assignments_on_user_id"
+  end
 
   create_table "event_store_events", force: :cascade do |t|
     t.uuid "event_id", null: false
@@ -48,4 +55,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_143214) do
     t.index ["auth_oid"], name: "index_users_on_auth_oid", unique: true
   end
 
+  add_foreign_key "current_assignments", "users"
 end
