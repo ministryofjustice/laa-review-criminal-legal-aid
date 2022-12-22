@@ -54,12 +54,11 @@ RSpec.describe ApplicationSearchFilter do
 
     context 'when the filter is empty' do
       it 'returns the correct datastore api search params as json' do
-        expect(to_json).to eq(
-          {
-            applicant_date_of_birth: nil, application_id_in: [], application_id_not_in: [],
+        expect(to_json).to eq({
+          applicant_date_of_birth: nil, application_id_in: [],
+            application_id_not_in: [], status: ['submitted'],
             submitted_after: nil, submitted_before: nil, search_text: nil
-          }.to_json
-        )
+        }.to_json)
       end
     end
 
@@ -67,16 +66,17 @@ RSpec.describe ApplicationSearchFilter do
       let(:params) do
         {
           applicant_date_of_birth: '1970-10-10', assigned_status: david.id,
-          search_text: 'David 100003', submitted_after: '2022-12-22', submitted_before: '2022-12-21'
+          search_text: 'David 100003', application_status: 'sent_back',
+          submitted_after: '2022-12-22', submitted_before: '2022-12-21'
         }
       end
 
       it 'returns the correct datastore api search params as json' do
-        expect(to_json).to eq(
-          { applicant_date_of_birth: '1970-10-10', application_id_in: david.current_assignments.pluck(:assignment_id),
-           application_id_not_in: [], submitted_after: '2022-12-22', submitted_before: '2022-12-21',
-           search_text: 'David 100003' }.to_json
-        )
+        expect(to_json).to eq({ applicant_date_of_birth: '1970-10-10',
+            application_id_in: david.current_assignments.pluck(:assignment_id),
+            application_id_not_in: [], status: ['returned'],
+            submitted_after: '2022-12-22', submitted_before: '2022-12-21',
+            search_text: 'David 100003' }.to_json)
       end
     end
   end

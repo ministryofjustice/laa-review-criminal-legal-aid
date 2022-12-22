@@ -1,5 +1,6 @@
 class ApplicationSearchFilter < ApplicationStruct
-  attribute? :assigned_status, Types::Params::Nil | Types::Uuid | Types::String.enum('assigned', 'unassigned')
+  attribute? :assigned_status, Types::Params::Nil | Types::AssignedStatus | Types::Uuid
+  attribute? :application_status, Types::ReviewApplicationStatus
   attribute? :search_text, Types::Params::Nil | Types::Params::String
   attribute? :submitted_after, Types::Params::Nil | Types::Params::Date
   attribute? :submitted_before, Types::Params::Nil | Types::Params::Date
@@ -13,10 +14,22 @@ class ApplicationSearchFilter < ApplicationStruct
   # If a user is specified, only applications assinged to that user are returned.
   #
   def assigned_status_options
-    [
-      [I18n.t('labels.assigned_status.unassigned'), 'unassigned'],
-      [I18n.t('labels.assigned_status.assigned'), 'assigned']
-    ] + assigned_to_user_options
+    status_options = Types::ASSIGNED_STATUSES.map do |status|
+      [I18n.t(status, scope: 'values.assigned_status'), status]
+    end
+
+    status_options + assigned_to_user_options
+  end
+
+  #
+  # Options for the application status filter
+  #
+  # Includes 'Open', 'Completed', 'Sent back to provider' or 'All applications'
+  # Values can be "open", "completed", "sent_back", "all"
+  def application_status_options
+    Types::REVIEW_APPLICATION_STATUSES.keys.map do |status|
+      [I18n.t(status, scope: 'values.application_status'), status]
+    end
   end
 
   #
@@ -31,6 +44,7 @@ class ApplicationSearchFilter < ApplicationStruct
       applicant_date_of_birth:,
       application_id_in:,
       application_id_not_in:,
+      status:,
       submitted_after:,
       submitted_before:,
       search_text:
@@ -62,6 +76,14 @@ class ApplicationSearchFilter < ApplicationStruct
     else
       CurrentAssignment.where(user: assigned_status).pluck(:assignment_id)
     end
+  end
+
+  #
+  # returns the value of the DatastoreApi Search "status" constraint
+  # according to the #application_status
+  #
+  def status
+    Types::REVIEW_APPLICATION_STATUSES.fetch(application_status)
   end
 
   #
