@@ -1,25 +1,25 @@
 <tbody class="govuk-table__body">
   <tr class="govuk-table__row">
     <th scope="row" class="govuk-table__header">
-      <%= link_to app.applicant_name, crime_application_path(app) %>
+      <%= link_to result.applicant_name, crime_application_path(result.resource_id) %>
     </th>
     <td class="govuk-table__cell">
-      <%= app.reference %>
+      <%= result.reference %>
     </td>
     <td class="govuk-table__cell">
-      <%= l(app.submitted_at) %>
+      <%= l(result.submitted_at) %>
     </td>
     <td class="govuk-table__cell">
-      <%= t('crime_applications.values.days_passed', count: app.days_passed) %>
+      <%= t('crime_applications.values.days_passed', count: result.days_passed) %>
     </td>
     <td class="govuk-table__cell">
-      <%= t(app.common_platform?, scope: 'crime_applications.values') %>
+      <%= t(result.common_platform?, scope: 'crime_applications.values') %>
     </td>
     <td class="govuk-table__cell">
-      <%= app.current_assignment&.user&.name %>
+      <%= result.current_assignment&.user&.name %>
     </td>
     <td class="govuk-table__cell">
-      <%= t("crime_applications.values.status.#{app.status}") %>
+      <%= t("crime_applications.values.status.#{result.status}") %>
     </td>
   </tr>
 </tbody>

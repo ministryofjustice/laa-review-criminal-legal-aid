@@ -1,95 +1,55 @@
 require 'rails_helper'
 
 RSpec.describe 'Search applications casewoker filter' do
-  let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-  let(:crime_application_id_two) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
+  include_context 'when search results are returned'
 
-  let(:david_brown) do
-    User.create(
-      auth_oid: SecureRandom.uuid,
-      first_name: 'David',
-      last_name: 'Brown',
-      email: 'David.Browneg@justice.gov.uk'
-    )
-  end
-
-  let(:john_deere) do
-    User.create(
-      auth_oid: SecureRandom.uuid,
-      first_name: 'John',
-      last_name: 'Deere',
-      email: 'John.Deereeg@justice.gov.uk'
-    )
-  end
-
-  before do
-    Assigning::AssignToUser.new(
-      assignment_id: crime_application_id,
-      user_id: david_brown.id,
-      to_whom_id: david_brown.id
-    ).call
-
-    visit '/'
-
-    click_on 'Search'
-  end
-
-  describe 'by default' do
+  context 'when unassigned status is selected' do
     before do
+      select 'Unassigned', from: 'filter-assigned-status-field'
       click_button 'Search'
     end
 
-    it 'shows both assinged and unassinged' do
-      expect(page).to have_content('2 search results')
+    it 'excludes assigned applications from the search' do
+      assert_api_searched_with_filter(
+        :assigned_status, 'unassigned'
+      )
+    end
+
+    it 'remains selected on the results page' do
+      expect(page).to have_select(
+        'filter-assigned-status-field', selected: 'Unassigned'
+      )
     end
   end
 
-  describe 'by a user' do
+  context 'when assigned status is selected' do
+    before do
+      select 'All assigned', from: 'filter-assigned-status-field'
+      click_button 'Search'
+    end
+
+    it 'excludes unassigned applications from the search' do
+      assert_api_searched_with_filter(
+        :assigned_status, 'assigned'
+      )
+    end
+
+    it 'remains selected on the results page' do
+      expect(page).to have_select(
+        'filter-assigned-status-field', selected: 'All assigned'
+      )
+    end
+  end
+
+  describe 'options for selecting assigned status' do
     before do
       visit '/'
       click_on 'Search'
-
-      select david_brown.name, from: 'filter-assigned-user-id-field'
-      click_button 'Search'
     end
 
-    it 'shows only those assigned to the selected user' do
-      expect(page).to have_content('1 search result')
-      page.all('.app-dashboard-table tbody tr').map do |row|
-        expect(row.text).to match david_brown.name
-      end
-    end
-  end
-
-  describe 'by unassigned' do
-    before do
-      select 'Unassigned', from: 'filter-assigned-user-id-field'
-      click_button 'Search'
-    end
-
-    it 'shows only unassigned applications' do
-      expect(page).to have_content('1 search result')
-
-      page.all('.app-dashboard-table tbody tr').map do |row|
-        expect(row).not_to match david_brown.name
-      end
-    end
-  end
-
-  describe 'All assigned' do
-    before do
-      Assigning::AssignToUser.new(
-        assignment_id: crime_application_id_two,
-        user_id: john_deere.id,
-        to_whom_id: john_deere.id
-      ).call
-
-      select 'All assigned', from: 'filter-assigned-user-id-field'
-      click_button 'Search'
-    end
-
-    it 'shows all assigned applications' do
-      expect(page).to have_content('2 search result')
+    it 'can choose from "", "Unassigned", "All assigned", and caseworkers' do
+      choices = ['', 'Unassigned', 'All assigned', 'Joe EXAMPLE']
+      expect(page).to have_select('filter-assigned-status-field', options: choices)
     end
   end
 end

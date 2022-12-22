@@ -26,10 +26,6 @@ RSpec.describe 'OmniAuth Endpoints' do
       expect(user.name).to eq 'Joe EXAMPLE'
     end
 
-    it 'sets the current users email' do
-      expect(user.email).to eq 'Joe.EXAMPLE@justice.gov.uk'
-    end
-
     it 'redirects to root' do
       expect(response).to redirect_to root_path
     end

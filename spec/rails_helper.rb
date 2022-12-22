@@ -3,9 +3,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
-require 'init/api_data'
-require 'init/webmock'
-require 'shared_contexts/logged_in_user'
+Dir[File.expand_path('shared_contexts/*.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('init/*.rb', __dir__)].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.

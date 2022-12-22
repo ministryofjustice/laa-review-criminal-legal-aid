@@ -6,7 +6,6 @@ class ApplicationSearchesController < ApplicationController
   def create
     @filter = ApplicationSearchFilter.new(search_params)
     @search = ApplicationSearch.new(filter: @filter)
-    @applications = @search.applications
 
     render :show
   end

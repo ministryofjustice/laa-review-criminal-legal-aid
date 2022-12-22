@@ -68,3 +68,4 @@ RSpec/MultipleExpectations:
 Rails/SkipsModelValidations:
   Exclude:
     - '**/app/read_models/**/*'
+    - '**/lib/warden/**/*'

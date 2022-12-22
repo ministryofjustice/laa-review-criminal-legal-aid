@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Search Page' do
+  include_context 'when search results are returned'
   before do
-    visit '/'
-    click_on 'Search'
     click_button 'Search'
   end
 
@@ -15,12 +14,6 @@ RSpec.describe 'Search Page' do
     search_input_names = page.first('.search .govuk-fieldset .input-group').text
 
     expect(search_input_names).to eq("Reference number or applicant's first or last name\nApplicant's date of birth")
-  end
-
-  it 'shows the search criteria input fields' do
-    search_input_names = page.all('.search .govuk-fieldset .input-group')[1].text
-
-    expect(search_input_names).to eq("Date from\nDate to\nCaseworker Unassigned All assigned")
   end
 
   it 'includes the correct results table headings' do

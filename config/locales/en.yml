@@ -67,6 +67,9 @@ en:
     when: When
     who: Who
     what: What
+    assigned_status:
+      assigned: All assigned
+      unassigned: Unassigned
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant

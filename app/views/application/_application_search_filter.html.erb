@@ -20,20 +20,19 @@
     <label class="govuk-label govuk-label--s"><%= t('labels.search_criteria')%></label>
     <div class="input-group">
       <%= f.search_date_field(
-            :start_on,
+            :submitted_after,
             as: :date,
             label: { text: t('labels.start_on') }
           ) %>
       <%= f.search_date_field(
-            :end_on,
+            :submitted_before,
             as: :date,
             label: { text: t('labels.end_on') }
           ) %>
 
-      <%= f.govuk_collection_select(
-            :assigned_user_id,
-            application_search_filter.assigned_user_list,
-            :id, :name,
+      <%= f.govuk_select(
+            :assigned_status,
+            application_search_filter.assigned_status_options,
             options: { include_blank: '' },
             label: { text: t('labels.caseworker') }
           ) %>

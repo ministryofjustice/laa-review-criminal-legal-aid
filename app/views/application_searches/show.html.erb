@@ -7,8 +7,9 @@
   </div>
 </div>
 
-<% if @applications.any? %>
-
+<% if @search.results.empty? %>
+  <%= render 'no_search_results'%>
+<% else %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <h2 class="govuk-heading-s">
@@ -17,10 +18,5 @@
     </div>
   </div>
 
-  <%= render 'search_results_table', applications: @applications %>
-
-<% else %>
-
-  <%= render 'no_search_results'%>
-
+  <%= render 'search_results_table', results: @search.results %>
 <% end %>
