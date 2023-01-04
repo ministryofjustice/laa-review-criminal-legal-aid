@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   resource :application_searches, only: [:create, :new]
+  resource :downloads, only: [:show]
 
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :next_application, on: :collection
