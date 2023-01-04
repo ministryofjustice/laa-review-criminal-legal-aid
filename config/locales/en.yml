@@ -76,6 +76,7 @@ en:
     reference: Ref. no.
     time_passed: Time passed
     received_at: Date received
+    reviewed_at: Date reviewed
     caseworker: Caseworker
     status: Status
 
