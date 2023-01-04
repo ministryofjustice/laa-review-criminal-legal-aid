@@ -51,6 +51,7 @@ module Types
   Uuid = String
   PhoneNumber = String
   Date = Date | JSON::Date
+  DateTime = DateTime | JSON::DateTime
 
   # Review only types
   USER_ROLES = %w[

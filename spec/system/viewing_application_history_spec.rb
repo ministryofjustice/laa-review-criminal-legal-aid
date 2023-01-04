@@ -16,7 +16,7 @@ RSpec.describe 'Viewing application history' do
 
     it 'includes the submission event' do
       first_row = page.first('.app-dashboard-table tbody tr').text
-      expect(first_row).to match('Monday 24 Oct 09:33 Provider Name Application submitted')
+      expect(first_row).to match('Thursday 27 Oct 14:09 Provider Name Application submitted')
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe 'Viewing application history' do
       user = User.create(
         first_name: 'Fred',
         last_name: 'Smitheg',
-        auth_oid: SecureRandom.uuid,
+        auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa',
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 

@@ -22,9 +22,9 @@ class AssignedApplicationsController < ApplicationController
   end
 
   def next_application
-    filter = ApplicationSearchFilter.new(assigned_user_id: ApplicationSearchFilter::UNASSIGNED_USER.id)
+    filter = ApplicationSearchFilter.new(assigned_status: 'unassigned')
     search = ApplicationSearch.new(filter:)
-    next_app_id = search.applications.first&.id
+    next_app_id = search.results.first&.id
 
     if next_app_id
       Assigning::AssignToUser.new(

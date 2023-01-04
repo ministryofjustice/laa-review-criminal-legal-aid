@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Unhandled Error' do
   it 'shows the generic error page' do
     allow(ApplicationSearchFilter).to receive(:new) {
-      raise SomeCrazyError
+      raise StandardError
     }
 
     visit '/'
