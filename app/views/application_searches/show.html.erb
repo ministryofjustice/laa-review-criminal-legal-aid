@@ -10,10 +10,15 @@
 <% if @applications.any? %>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-one-half">
       <h2 class="govuk-heading-s">
         <%= t('.total', count: @search.total) %>
       </h2>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <div class="govuk-!-text-align-right">
+        <%= link_to "Download","#",class: "govuk-link" %>
+      </div>
     </div>
   </div>
 
