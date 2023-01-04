@@ -19,14 +19,20 @@
                         new_application_searches_path,
                         class: 'moj-primary-navigation__link',
                         aria: { current: request.url.include?('searches') ? 'page' : nil } %>
-
           </li>
 
           <li class="moj-primary-navigation__item">
             <%= link_to t('primary_navigation.open_apps'),
-                        crime_applications_path,
+                        crime_applications_path(status: 'submitted'),
                         class: 'moj-primary-navigation__link',
-                        aria: { current: current_page?(crime_applications_path) ? 'page' : nil } %>
+                        aria: { current: current_page?(crime_applications_path(status: 'submitted')) ? 'page' : nil } %>
+          </li>
+
+          <li class="moj-primary-navigation__item">
+            <%= link_to t('primary_navigation.closed_apps'),
+                        crime_applications_path(status: 'closed'),
+                        class: 'moj-primary-navigation__link',
+                        aria: { current: current_page?(crime_applications_path(status: 'closed')) ? 'page' : nil } %>
           </li>
         </ul>
       </nav>
