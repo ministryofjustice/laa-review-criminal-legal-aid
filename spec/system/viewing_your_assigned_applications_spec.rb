@@ -33,7 +33,7 @@ RSpec.describe 'Viewing your assigned application' do
       click_on 'All open applications'
       click_on('Kit Pound')
       click_on('Assign to myself')
-      visit '/applications?status=submitted'
+      visit '/applications?status=open'
 
       click_on('Don JONES')
       click_on('Assign to myself')

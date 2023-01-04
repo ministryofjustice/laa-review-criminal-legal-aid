@@ -7,7 +7,7 @@ RSpec.describe 'Applications Dashboard' do
   end
 
   it 'includes the page title' do
-    expect(page).to have_content I18n.t('crime_applications.index.submitted_title')
+    expect(page).to have_content I18n.t('crime_applications.index.open_title')
   end
 
   it 'includes the correct headings' do

@@ -7,7 +7,13 @@ RSpec.configure do |config|
   config.before do
     stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications?status=submitted")
       .to_return(
-        body: file_fixture('crime_apply_data/applications.json').read,
+        body: file_fixture('crime_apply_data/open_applications.json').read,
+        status: 200
+      )
+
+    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications?status=returned")
+      .to_return(
+        body: file_fixture('crime_apply_data/closed_applications.json').read,
         status: 200
       )
 

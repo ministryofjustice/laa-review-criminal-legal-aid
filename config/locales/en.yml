@@ -76,9 +76,10 @@ en:
     applicant_name: Applicant
     reference: Ref. no.
     time_passed: Time passed
-    received_at: Date received
-    reviewed_at: Date reviewed
+    received_on: Date received
+    reviewed_on: Date reviewed
     caseworker: Caseworker
+    reviewer: Reviewed by
     status: Status
 
   values: &VALUES
@@ -186,9 +187,9 @@ en:
 
   crime_applications:
     index:
-      submitted_title: All open applications
+      open_title: All open applications
       closed_title: Closed applications
-      submitted_heading: All open applications
+      open_heading: All open applications
       closed_heading: Closed applications
       total:
         one: 1 application
@@ -212,7 +213,11 @@ en:
     values:
       <<: *VALUES
 
-    crime_applications_table:
+    open_crime_applications_table:
+      table_headings:
+        <<: *TABLE_HEADINGS
+
+    closed_crime_applications_table:
       table_headings:
         <<: *TABLE_HEADINGS
 

@@ -8,21 +8,21 @@
         <%= t('.table_headings.reference') %>
       </th>
       <th scope="col" class="govuk-table__header">
-        <%= t('.table_headings.received_at') %>
+        <%= t('.table_headings.received_on') %>
       </th>
       <th scope="col" class="govuk-table__header">
-        <%= t('.table_headings.time_passed') %>
+        <%= t('.table_headings.reviewed_on') %>
       </th>
       <th scope="col" class="govuk-table__header">
-        <%= t(:common_platform, scope: 'crime_applications.labels') %>
+        <%= t('.table_headings.reviewer') %>
       </th>
       <th scope="col" class="govuk-table__header">
-        <%= t('.table_headings.caseworker') %>
+        <%= t('.table_headings.status') %>
       </th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    <%= render partial: 'crime_applications_table_body',
+    <%= render partial: 'closed_crime_applications_table_body',
                collection: applications,
                as: :app %>
   </tbody>
