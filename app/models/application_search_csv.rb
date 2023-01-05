@@ -16,10 +16,7 @@ class ApplicationSearchCsv
   end
 
   def file_name
-    [
-      'application_search',
-      @filter.state_key
-    ].join('_')
+    "application_search-#{@filter.state_key}.csv"
   end
 
   private

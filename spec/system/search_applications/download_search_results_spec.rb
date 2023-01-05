@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Download Search Page' do
+RSpec.describe 'Downloading the Search Results' do
   include_context 'when search results are returned'
 
   before do
@@ -8,8 +8,9 @@ RSpec.describe 'Download Search Page' do
     click_button 'Download'
   end
 
-  it 'downloads a csv of the search results' do
+  it 'downloads the expected search results as a csv file' do
     csv = page.driver.response.body
     expect(csv).to match(file_fixture('application_search.csv').read)
+    expect(page.driver.response.content_type).to eq 'text/csv'
   end
 end
