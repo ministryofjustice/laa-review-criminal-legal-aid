@@ -8,7 +8,12 @@
       "created_at": "2022-10-21T16:19:00.000+00:00",
       "date_stamp": "2022-10-21T16:19:00.000+00:00",
       "submitted_at": "2022-10-27T14:09:11.000+00:00",
-      "provider_details": [],
+      "provider_details": {
+        "office_code": "1",
+        "legal_rep_first_name": "Jack",
+        "legal_rep_last_name": "Wagyu",
+        "legal_rep_telephone": "07098765602"
+      },
       "client_details": {
         "applicant": {
           "home_address": {
@@ -84,7 +89,12 @@
       "created_at": "2022-11-14T16:56:51.000+00:00",
       "date_stamp": "2022-10-21T16:19:00.000+00:00",
       "submitted_at": "2022-11-14T16:58:15.000+00:00",
-      "provider_details": [],
+      "provider_details": {
+        "office_code": "1",
+        "legal_rep_first_name": "Jack",
+        "legal_rep_last_name": "Wagyu",
+        "legal_rep_telephone": "07098765602"
+      },
       "client_details": {
         "applicant": {
           "home_address": {
@@ -133,7 +143,12 @@
       "created_at": "2022-12-14T16:56:51.000+00:00",
       "date_stamp": "2022-11-21T16:19:00.000+00:00",
       "submitted_at": "2022-12-14T16:58:15.000+00:00",
-      "provider_details": [],
+      "provider_details": {
+        "office_code": "1",
+        "legal_rep_first_name": "Jack",
+        "legal_rep_last_name": "Wagyu",
+        "legal_rep_telephone": "07098765602"
+      },
       "client_details": {
         "applicant": {
           "home_address": {
