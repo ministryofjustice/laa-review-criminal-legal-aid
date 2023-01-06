@@ -36,6 +36,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     Time.zone.now - submitted_at
   end
 
+  # TODO: Convert to working days
   def applicant
     client_details.applicant
   end

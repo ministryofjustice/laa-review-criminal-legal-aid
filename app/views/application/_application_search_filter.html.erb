@@ -19,6 +19,11 @@
 
     <label class="govuk-label govuk-label--s"><%= t('labels.search_criteria')%></label>
     <div class="input-group">
+      <%= f.govuk_select(
+            :application_status,
+            application_search_filter.application_status_options,
+            label: { text: t('labels.application_status') }
+          ) %>
       <%= f.search_date_field(
             :submitted_after,
             as: :date,

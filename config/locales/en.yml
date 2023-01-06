@@ -39,6 +39,7 @@ en:
     assigned_to: 'Assigned to:'
     date_received: 'Date received:'
     application_information: Application information
+    all_applications: All applications 
     search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
     caseworker: Caseworker
@@ -68,9 +69,7 @@ en:
     when: When
     who: Who
     what: What
-    assigned_status:
-      assigned: All assigned
-      unassigned: Unassigned
+    application_status: Status
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
@@ -113,6 +112,14 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
+    application_status: 
+      open: Open
+      sent_back: Sent back to provider
+      completed: Completed 
+      all: All applications 
+    assigned_status:
+      assigned: All assigned
+      unassigned: Unassigned
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
