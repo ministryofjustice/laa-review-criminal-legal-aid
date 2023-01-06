@@ -7,7 +7,6 @@ Rails.application.configure do
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-  config.hosts << 'laa-review-criminal-legal-aid.test'
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -69,9 +68,6 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   
-  # Allow a host to be set in development
-  if ENV.fetch("CRIME_REVIEW_HOST", false)
-    config.hosts << ENV['CRIME_REVIEW_HOST']
-  end
-  #
+  # Add the development host if set
+  config.hosts += [ENV["DEVELOPMENT_HOST"]]
 end
