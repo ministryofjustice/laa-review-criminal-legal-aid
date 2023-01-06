@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'Applications Dashboard' do
+RSpec.describe 'Open Applications Dashboard' do
   before do
     visit '/'
     click_on 'All open applications'
   end
 
   it 'includes the page title' do
-    expect(page).to have_content I18n.t('crime_applications.index.page_title')
+    expect(page).to have_content I18n.t('crime_applications.index.open_title')
   end
 
   it 'includes the correct headings' do

@@ -33,6 +33,7 @@ en:
     your_list: "Your list (%{count})"
     search: Search
     open_apps: All open applications
+    closed_apps: Closed applications
 
   labels: &LABELS
     assigned_to: 'Assigned to:'
@@ -78,6 +79,7 @@ en:
     received_at: Date received
     reviewed_at: Date reviewed
     caseworker: Caseworker
+    reviewer: Reviewed by
     status: Status
 
   values: &VALUES
@@ -185,12 +187,13 @@ en:
 
   crime_applications:
     index:
-      page_title: All open applications
-      heading: All open applications
+      open_title: All open applications
+      closed_title: Closed applications
+      open_heading: All open applications
+      closed_heading: Closed applications
       total:
-        one: 1 search result
+        one: 1 application
         other: "%{count} applications"
-
     show:
       page_title: Application
       heading: Application
@@ -210,7 +213,11 @@ en:
     values:
       <<: *VALUES
 
-    crime_applications_table:
+    open_crime_applications_table:
+      table_headings:
+        <<: *TABLE_HEADINGS
+
+    closed_crime_applications_table:
       table_headings:
         <<: *TABLE_HEADINGS
 

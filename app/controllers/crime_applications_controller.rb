@@ -2,9 +2,12 @@ class CrimeApplicationsController < ApplicationController
   before_action :set_crime_application, except: [:index]
 
   def index
-    @filter = ApplicationSearchFilter.new
-
-    @applications = CrimeApplication.all
+    case params[:status]
+    when 'open'
+      @applications = CrimeApplication.open
+    when 'closed'
+      @applications = CrimeApplication.closed
+    end
   end
 
   def show

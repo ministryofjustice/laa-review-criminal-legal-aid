@@ -10,9 +10,18 @@ module ApiResource
   end
 
   module QueryMethods
-    def all
+    def open
       resources = DatastoreApi::Requests::ListApplications.new(
         status: :submitted
+      ).call
+
+      resources.map { |resource| new(resource) }
+    end
+
+    def closed
+      # TODO: update when other 'closed' statuses are avaliable
+      resources = DatastoreApi::Requests::ListApplications.new(
+        status: :returned
       ).call
 
       resources.map { |resource| new(resource) }
