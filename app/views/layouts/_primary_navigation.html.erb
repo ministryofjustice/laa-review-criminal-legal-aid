@@ -25,7 +25,7 @@
             <%= link_to t('primary_navigation.open_apps'),
                         crime_applications_path(status: 'open'),
                         class: 'moj-primary-navigation__link',
-                        aria: { current: current_page?(crime_applications_path(status: 'submitted')) ? 'page' : nil } %>
+                        aria: { current: current_page?(crime_applications_path(status: 'open')) ? 'page' : nil } %>
           </li>
 
           <li class="moj-primary-navigation__item">
