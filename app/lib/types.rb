@@ -12,13 +12,13 @@ module Types
   # Map of review application statuses to LaaCrimeSchemas::Types:APPLICATION_STATUSES
   #
   REVIEW_APPLICATION_STATUSES = {
-    'open' => APPLICATION_STATUSES & ['submitted'],
-    'completed' => APPLICATION_STATUSES & ['completed'],
-    'sent_back' => APPLICATION_STATUSES & ['returned'],
+    'open' => [ApplicationStatus['submitted']],
+    'completed' => [], # NOTE: completed status does no yet exist in datastore/schema
+    'sent_back' => [ApplicationStatus['returned']],
     'all' => APPLICATION_STATUSES
   }.freeze
 
-  ReviewApplicationStatus = String.default('open').enum(
+  ReviewApplicationStatus = String.default('open'.freeze).enum(
     *REVIEW_APPLICATION_STATUSES.keys
   )
 

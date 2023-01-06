@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Search applications status filter' do
   include_context 'when search results are returned'
-  let(:choice) { nil }
   let(:filter_field) { 'filter-application-status-field' }
 
   before do
