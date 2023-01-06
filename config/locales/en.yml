@@ -65,6 +65,10 @@ en:
     offence_date: Offence date
     interests_of_justice_type: Criteria
     justification: Justification
+    office_account_number: Office account number
+    legal_representative: Legal representative
+    provider_phone_number: Phone
+    provider_email_address: Email address
     search_text: Reference number or applicant's first or last name
     when: When
     who: Who
@@ -215,6 +219,7 @@ en:
         offence_details: Offence details
         codefendants: Co-defendants
         interests_of_justice: Interest of Justice
+        provider_details: Provider details
     labels:
       <<: *LABELS
     values:
