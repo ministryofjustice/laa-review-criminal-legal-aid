@@ -76,8 +76,8 @@ en:
     applicant_name: Applicant
     reference: Ref. no.
     time_passed: Time passed
-    received_on: Date received
-    reviewed_on: Date reviewed
+    received_at: Date received
+    reviewed_at: Date reviewed
     caseworker: Caseworker
     reviewer: Reviewed by
     status: Status

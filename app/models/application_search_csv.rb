@@ -22,7 +22,7 @@ class ApplicationSearchCsv
   private
 
   def headers
-    %i[reference received_on reviewed_on caseworker status].map do |key|
+    %i[reference received_at reviewed_at caseworker status].map do |key|
       I18n.t(key, scope: :table_headings)
     end
   end

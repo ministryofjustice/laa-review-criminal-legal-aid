@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Applications Dashboard' do
+RSpec.describe 'Open Applications Dashboard' do
   before do
     visit '/'
     click_on 'All open applications'
