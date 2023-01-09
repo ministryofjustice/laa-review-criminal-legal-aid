@@ -5,6 +5,16 @@ RSpec.describe 'Viewing your assigned application' do
     visit '/'
   end
 
+  context 'when using the all applications link' do
+    before do
+      click_on('View all open applications')
+    end
+
+    it 'proceeds to the correct page' do
+      expect(page).to have_content 'All open applications'
+    end
+  end
+
   context 'when there are no assigned applications' do
     it 'includes the page title' do
       expect(page).to have_content I18n.t('assigned_applications.index.page_title')
