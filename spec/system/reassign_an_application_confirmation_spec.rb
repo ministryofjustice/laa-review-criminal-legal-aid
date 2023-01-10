@@ -73,7 +73,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     it 'redirects to the application details page' do
       reassign_to_another
 
-      expect { click_on('Yes, reassign') }.to change(page, :current_path)
+      expect { click_on('Yes, reassign') }.to change { page.current_path }
         .from(confirm_path).to(
           crime_application_path(crime_application_id)
         )
