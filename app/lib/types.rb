@@ -12,9 +12,9 @@ module Types
   # Map of review application statuses to LaaCrimeSchemas::Types:APPLICATION_STATUSES
   #
   REVIEW_APPLICATION_STATUSES = {
-    'open' => [ApplicationStatus['submitted']],
+    'open' => [Types::ApplicationStatus['submitted']],
     'completed' => [], # NOTE: completed status does no yet exist in datastore/schema
-    'sent_back' => [ApplicationStatus['returned']],
+    'sent_back' => [Types::ApplicationStatus['returned']],
     'all' => APPLICATION_STATUSES
   }.freeze
 
@@ -34,4 +34,20 @@ module Types
     assigned
   ].freeze
   AssignedStatus = String.enum(*ASSIGNED_STATUSES)
+
+  RETURN_REASONS = %w[
+    clarification_required
+    evidence_issue
+    duplicate_application
+    case_concluded
+    provider_request
+  ].freeze
+
+  #
+  # Is this rendered on apply? Should we add it to types?
+  #
+  ReturnReason = Hash.schema(
+    details?: Nil | String,
+    selected_reason: String.enum(*RETURN_REASONS)
+  )
 end
