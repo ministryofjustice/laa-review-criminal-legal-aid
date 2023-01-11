@@ -53,7 +53,7 @@ RSpec.describe 'Reassigning an application to myself' do
 
     describe 'clicking on "Yes, reassign"' do
       it 'redirects to the application details' do
-        expect { click_on('Yes, reassign') }.to change(page, :current_path)
+        expect { click_on('Yes, reassign') }.to change { page.current_path }
           .from(confirm_path)
           .to(crime_application_path(crime_application_id))
       end
@@ -74,7 +74,7 @@ RSpec.describe 'Reassigning an application to myself' do
 
     describe 'clicking on "No, do not reassign"' do
       it 'redirects to application details' do
-        expect { click_on('No, do not reassign') }.to change(page, :current_path)
+        expect { click_on('No, do not reassign') }.to change { page.current_path }
           .from(confirm_path).to(
             crime_application_path(crime_application_id)
           )

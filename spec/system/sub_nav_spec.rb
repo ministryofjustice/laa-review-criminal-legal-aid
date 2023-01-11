@@ -19,7 +19,7 @@ RSpec.describe 'Sub navigation' do
 
   context 'when the "Application history" link' do
     it 'links to the application history page' do
-      expect { click_on('Application history') }.to change(page, :current_path).from(
+      expect { click_on('Application history') }.to change { page.current_path }.from(
         '/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a'
       ).to(
         '/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/history'

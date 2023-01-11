@@ -69,3 +69,7 @@ Rails/SkipsModelValidations:
   Exclude:
     - '**/app/read_models/**/*'
     - '**/lib/warden/**/*'
+
+# Prefer block over method call.
+RSpec/ExpectChange:
+  EnforcedStyle: block
