@@ -112,14 +112,13 @@ en:
     expert_examination: Expert examination
     interest_of_another: Interest of another
     other: Other
-    status:
-      "submitted": Open
     days_passed:
       one: 1 day
       other: "%{count} days"
     application_status: 
       open: Open
-      sent_back: Sent back to provider
+      submitted: Open
+      returned: Sent back to provider
       completed: Completed 
       all: All applications 
     assigned_status:

@@ -25,7 +25,7 @@ class ApplicationSearchFilter < ApplicationStruct
   # Options for the application status filter
   #
   # Includes 'Open', 'Completed', 'Sent back to provider' or 'All applications'
-  # Values can be "open", "completed", "sent_back", "all"
+  # Values can be "open", "completed", "returned", "all"
   def application_status_options
     Types::REVIEW_APPLICATION_STATUSES.keys.map do |status|
       [I18n.t(status, scope: 'values.application_status'), status]

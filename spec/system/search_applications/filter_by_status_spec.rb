@@ -46,7 +46,7 @@ RSpec.describe 'Search applications status filter' do
       end
 
       it 'filters by status "completed"' do
-        assert_api_searched_with_filter(:application_status, 'sent_back')
+        assert_api_searched_with_filter(:application_status, 'returned')
         expect(page).to have_select(filter_field, selected: 'Sent back to provider')
       end
     end

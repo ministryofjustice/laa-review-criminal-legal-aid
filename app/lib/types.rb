@@ -13,8 +13,8 @@ module Types
   #
   REVIEW_APPLICATION_STATUSES = {
     'open' => [Types::ApplicationStatus['submitted']],
-    'completed' => [], # NOTE: completed status does no yet exist in datastore/schema
-    'sent_back' => [Types::ApplicationStatus['returned']],
+    'completed' => [Types::ApplicationStatus['completed']],
+    'returned' => [Types::ApplicationStatus['returned']],
     'all' => APPLICATION_STATUSES
   }.freeze
 

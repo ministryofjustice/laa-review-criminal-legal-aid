@@ -66,7 +66,7 @@ RSpec.describe ApplicationSearchFilter do
       let(:params) do
         {
           applicant_date_of_birth: '1970-10-10', assigned_status: david.id,
-          search_text: 'David 100003', application_status: 'sent_back',
+          search_text: 'David 100003', application_status: 'returned',
           submitted_after: '2022-12-22', submitted_before: '2022-12-21'
         }
       end

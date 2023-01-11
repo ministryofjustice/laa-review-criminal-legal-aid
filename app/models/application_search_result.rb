@@ -27,7 +27,7 @@ class ApplicationSearchResult < ApplicationStruct
   def as_csv
     [
       reference, submitted_at, '', current_assignment&.user_id,
-      I18n.t(status, scope: 'values.status')
+      I18n.t(status, scope: 'values.application_status')
     ]
   end
 end
