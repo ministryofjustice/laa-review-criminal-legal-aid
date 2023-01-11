@@ -192,7 +192,6 @@ en:
       no_results_list:
         - Check the spelling of the applicant’s name
         - Make sure that you’ve entered the correct details
-      no_results_body: If the application has been processed, look in Closed applications.
     search_results_table:
       table_headings:
         <<: *TABLE_HEADINGS
