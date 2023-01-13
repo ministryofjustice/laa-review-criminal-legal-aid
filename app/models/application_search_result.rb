@@ -30,4 +30,8 @@ class ApplicationSearchResult < ApplicationStruct
       I18n.t(status, scope: 'values.status')
     ]
   end
+
+  def to_param
+    id
+  end
 end

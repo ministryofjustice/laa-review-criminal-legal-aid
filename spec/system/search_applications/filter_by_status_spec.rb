@@ -6,7 +6,7 @@ RSpec.describe 'Search applications status filter' do
 
   before do
     visit '/'
-    click_on 'Search'
+    click_link 'Search'
   end
 
   it 'filters by "Open" by default' do
@@ -21,7 +21,6 @@ RSpec.describe 'Search applications status filter' do
   describe 'search by:' do
     describe 'default' do
       it 'filters by status "open"' do
-        click_button 'Search'
         assert_api_searched_with_filter(:application_status, 'open')
         expect(page).to have_select(filter_field, selected: 'Open')
       end

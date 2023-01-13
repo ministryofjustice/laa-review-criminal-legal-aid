@@ -3,6 +3,17 @@ require 'rails_helper'
 RSpec.describe 'Search applications casewoker filter' do
   include_context 'when search results are returned'
 
+  before do
+    visit '/'
+
+    user_id = User.last.id
+    Assigning::AssignToUser.new(
+      assignment_id: SecureRandom.uuid, user_id: user_id, to_whom_id: user_id
+    ).call
+
+    click_link 'Search'
+  end
+
   context 'when unassigned status is selected' do
     before do
       select 'Unassigned', from: 'filter-assigned-status-field'
@@ -42,11 +53,6 @@ RSpec.describe 'Search applications casewoker filter' do
   end
 
   describe 'options for selecting assigned status' do
-    before do
-      visit '/'
-      click_on 'Search'
-    end
-
     it 'can choose from "", "Unassigned", "All assigned", and caseworkers' do
       choices = ['', 'Unassigned', 'All assigned', 'Joe EXAMPLE']
       expect(page).to have_select('filter-assigned-status-field', options: choices)

@@ -7,6 +7,9 @@ RSpec.describe 'Search by submitted date' do
   let(:before_date) { Date.parse('2011-06-09') }
 
   before do
+    visit '/'
+    click_link 'Search'
+
     fill_in 'filter-submitted-after-field', with: after_date
     fill_in 'filter-submitted-before-field', with: before_date
 

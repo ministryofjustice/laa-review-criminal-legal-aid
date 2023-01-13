@@ -4,6 +4,8 @@ RSpec.describe 'Downloading the Search Results' do
   include_context 'when search results are returned'
 
   before do
+    visit '/'
+    click_link 'Search'
     click_button 'Search'
     click_button 'Download'
   end
