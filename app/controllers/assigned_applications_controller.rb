@@ -1,10 +1,9 @@
 class AssignedApplicationsController < ApplicationController
   def index
-    current_assignments = CurrentAssignment.where(
-      user_id: current_user_id
-    )
+    filter = ApplicationSearchFilter.new(assigned_status: current_user_id)
+    search = ApplicationSearch.new(filter:)
 
-    @applications = current_assignments.pluck(:assignment_id).map { |id| CrimeApplication.find(id) }
+    @applications = search.results
   end
 
   def create

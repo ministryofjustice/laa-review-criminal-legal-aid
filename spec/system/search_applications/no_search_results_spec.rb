@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe 'No search results' do
   include_context 'when search results empty'
 
+  before do
+    visit '/'
+    click_link 'Search'
+    click_button 'Search'
+  end
+
   describe 'form help text' do
     it 'states that all fields are optional' do
       expect(page).to have_content('All fields are optional')

@@ -33,5 +33,15 @@ RSpec.configure do |config|
         status: 200
       )
     end
+
+    #
+    # All DatastoreApi search requests are stubbed to return empty result sets by default.
+    # To return anything other than that include the shared_context "with stubbed search".
+    #
+    stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/searches")
+      .to_return(
+        body: { pagination: {}, records: [] }.to_json,
+        status: 201
+      )
   end
 end
