@@ -37,7 +37,12 @@
     "offences": [
       {
         "class": "Class C or B",
-        "dates": ["2020-12-12"],
+        "dates": [
+          {
+            "date_from": "2020-12-12",
+            "date_to": null
+          }
+        ],
         "name": "Robbery"
       }
     ],
