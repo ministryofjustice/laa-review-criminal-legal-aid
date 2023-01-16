@@ -10,7 +10,7 @@ RSpec.describe 'Unassign an application from myself' do
     click_on 'All open applications'
     click_on('Kit Pound')
     click_on('Assign to myself')
-    click_on('Remove from your list')
+    first(:button, 'Remove from your list').click
   end
 
   it 'the assigned application is unassigned' do

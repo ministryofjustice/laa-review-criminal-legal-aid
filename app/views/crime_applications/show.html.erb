@@ -6,16 +6,18 @@
       <%= @crime_application.reference %>
     </p>
 
-    <h2 class="govuk-heading-xl govuk-!-padding-top-0">
+    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
       <%= @crime_application.applicant_name %>
     </h2>
+
+    <span class="govuk-tag govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
 
     <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
   </div>
 </div>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-9">
     <%= render partial: 'shared/subnavigation', locals: { crime_application: @crime_application } %>
     <%= render partial: 'overview', object: @crime_application %>
     <%= render partial: 'client_details', object: @crime_application.client_details %>
@@ -24,5 +26,23 @@
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
     <%= render partial: 'interests_of_justice', object: @crime_application.interests_of_justice %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% if @crime_application.status == 'submitted' && @crime_application.current_assignment&.user_id == current_user_id %>
+      <%= render partial: 'application_ctas', locals: { crime_application: @crime_application } %>
+    <%end%>
+    <p>
+      <%= link_to t('.view_history'),
+                  history_crime_application_path(@crime_application),
+                  class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+    </p>
+    <p>
+      <%= link_to t('.view_your_list'),
+                  assigned_applications_path,
+                  class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+    </p>
   </div>
 </div>
