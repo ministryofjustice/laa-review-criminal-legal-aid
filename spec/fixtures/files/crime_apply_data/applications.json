@@ -66,12 +66,22 @@
         "offences": [
           {
             "class": "Class C",
-            "dates": ["2020-05-11"],
+            "dates": [
+              {
+                "date_from": "2020-05-11",
+                "date_to": null
+              }
+              ],
             "name": "Attempt robbery"
           },
           {
             "class": "Class C",
-            "dates": ["2012-12-12"],
+            "dates": [
+              {
+                "date_from": "2020-12-12",
+                "date_to": null
+              }
+            ],
             "name": "Attempt robbery"
           }
         ],
@@ -125,7 +135,12 @@
         "offences": [
           {
             "class": "Class C or B",
-            "dates": ["2020-12-12"],
+            "dates": [
+              {
+                "date_from": "2020-12-12",
+                "date_to": null
+              }
+            ],
             "name": "Robbery"
           }
         ],
@@ -179,7 +194,12 @@
         "offences": [
           {
             "class": "Class C or B",
-            "dates": ["2020-12-12"],
+            "dates": [
+              {
+                "date_from": "2020-12-12",
+                "date_to": null
+              }
+            ],
             "name": "Robbery"
           }
         ],

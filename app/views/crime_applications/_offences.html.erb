@@ -24,7 +24,10 @@
         </td>
         <td class="govuk-table__cell">
           <% offence.dates.each do |date| %>
-            <%= l date %>
+            <%= l date.date_from %>
+            <% if date.date_to %>
+              - <%= l date.date_to %>
+            <% end %>
           <% end %>
         </td>
       </tr>
