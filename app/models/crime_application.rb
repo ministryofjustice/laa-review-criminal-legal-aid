@@ -1,8 +1,6 @@
 require 'laa_crime_schemas'
 
 class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
-  include ApiResource
-
   def applicant_name
     applicant.full_name
   end
@@ -27,6 +25,20 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   def history
     @history ||= ApplicationHistory.new(application: self)
+  end
+
+  def to_param
+    id
+  end
+
+  class << self
+    def find(id)
+      resource = DatastoreApi::Requests::GetApplication.new(
+        application_id: id
+      ).call
+
+      new(resource)
+    end
   end
 
   private

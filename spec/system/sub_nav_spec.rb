@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Sub navigation' do
+  include_context 'with stubbed search'
+
   before do
     visit '/'
     click_on 'All open applications'

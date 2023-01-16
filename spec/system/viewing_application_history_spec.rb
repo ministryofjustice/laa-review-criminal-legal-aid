@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing application history' do
+  include_context 'with stubbed search'
+
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do
@@ -16,7 +18,7 @@ RSpec.describe 'Viewing application history' do
 
     it 'includes the submission event' do
       first_row = page.first('.app-dashboard-table tbody tr').text
-      expect(first_row).to match('Thursday 27 Oct 14:09 Provider Name Application submitted')
+      expect(first_row).to match('Monday 24 Oct 09:50 Provider Name Application submitted')
     end
   end
 

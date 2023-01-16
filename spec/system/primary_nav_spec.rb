@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Primary navigation' do
+  include_context 'with stubbed search'
+
   before do
     visit '/'
   end

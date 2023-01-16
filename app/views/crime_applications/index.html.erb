@@ -1,9 +1,9 @@
-<% title t(".#{params[:status]}_title") %>
+<% title t(".#{@review_status}_title") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
       <h1 class="govuk-heading-xl">
-        <%= t ".#{params[:status]}_heading" %>
+        <%= t ".#{@review_status}_heading" %>
       </h1>
   </div>
 </div>
@@ -11,13 +11,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h2 class="govuk-heading-s">
-      <%= t('.total', count: @applications.count) %>
+      <%= t('.total', count: @search.total) %>
     </h2>
   </div>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= render "#{params[:status]}_crime_applications_table", applications: @applications %>
+    <%= render "#{@review_status}_crime_applications_table", applications: @search.results %>
   </div>
 </div>
