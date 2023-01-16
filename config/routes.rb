@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :crime_applications, only: [:index, :show], path: 'applications' do
     get :history, on: :member
     resource :reassign, only: [:new, :create]
+    resource :return, only: [:new, :create]
   end
 
   resource :application_searches, only: [:create, :new] do
