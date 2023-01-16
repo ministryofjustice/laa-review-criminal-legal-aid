@@ -135,6 +135,8 @@ en:
     search: Search
     unassign_from_self: Remove from your list
     view_all_open_applications: View all open applications
+    mark_complete: Mark as completed
+    send_back: Send back to provider
   confirmations:
     reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
   warnings:
@@ -208,6 +210,10 @@ en:
     show:
       page_title: Application
       heading: Application
+      status:
+        submitted: Open
+        returned: Sent back to provider
+        completed: Completed
       view_history: View application history
       view_your_list: View your list
     history:

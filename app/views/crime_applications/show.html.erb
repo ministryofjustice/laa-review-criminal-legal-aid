@@ -6,9 +6,11 @@
       <%= @crime_application.reference %>
     </p>
 
-    <h2 class="govuk-heading-xl govuk-!-padding-top-0">
+    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
       <%= @crime_application.applicant_name %>
     </h2>
+
+    <span class="govuk-tag govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
 
     <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
   </div>
@@ -29,13 +31,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if @crime_application.status == 'submitted' && @crime_application.current_assignment.user_id == current_user_id %>
-      <%= render partial: 'application_ctas' %>
+    <% if @crime_application.status == 'submitted' && @crime_application.current_assignment&.user_id == current_user_id %>
+      <%= render partial: 'application_ctas', locals: { crime_application: @crime_application } %>
     <%end%>
     <p>
       <%= link_to t('.view_history'),
-                history_crime_application_path(@crime_application),
-                class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+                  history_crime_application_path(@crime_application),
+                  class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
     </p>
     <p>
       <%= link_to t('.view_your_list'),

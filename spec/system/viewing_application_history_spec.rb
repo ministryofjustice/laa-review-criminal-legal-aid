@@ -35,7 +35,7 @@ RSpec.describe 'Viewing application history' do
   context 'with an unassigned application' do
     before do
       click_on('Assign to myself')
-      click_on('Remove from your list')
+      first(:button, 'Remove from your list').click
       click_on 'All open applications'
       click_on('Kit Pound')
       click_on('Application history')
