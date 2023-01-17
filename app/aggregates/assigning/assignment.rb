@@ -57,5 +57,9 @@ module Assigning
     def unassigned?
       state == :unassigned
     end
+
+    def assigned_to?(user_id)
+      assigned? && assignee_id == user_id
+    end
   end
 end

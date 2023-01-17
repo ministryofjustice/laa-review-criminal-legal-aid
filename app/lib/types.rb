@@ -35,19 +35,23 @@ module Types
   ].freeze
   AssignedStatus = String.enum(*ASSIGNED_STATUSES)
 
-  RETURN_REASONS = %w[
+  RETURN_REASON_TYPES = %w[
     clarification_required
     evidence_issue
     duplicate_application
     case_concluded
     provider_request
   ].freeze
+  
+  ReturnReasonType = String.enum(*RETURN_REASON_TYPES)
 
-  #
-  # Is this rendered on apply? Should we add it to types?
-  #
   ReturnReason = Hash.schema(
     details?: Nil | String,
-    selected_reason: String.enum(*RETURN_REASONS)
+    type?: ReturnReasonType
   )
+
+  ReturnReasonSchema = Dry::Schema.Params do
+    optional(:details).value(String)
+    required(:type).value(ReturnReasonType)
+  end
 end

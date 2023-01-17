@@ -1,8 +1,17 @@
 class ApplicationStruct < Dry::Struct
-  # convert string keys to symbols
   transform_keys(&:to_sym)
+  
+   include ActiveModel::Validations
 
-  def to_partial_path
-    self.class.name.split('::').last.underscore
-  end
+   class SchemaValidator < ActiveModel::Validator
+     def validate(record)
+       errors = options[:schema].call(record.attributes).errors.to_h
+
+       errors.each_pair do |key, messages|
+         messages.each do |message|
+           record.errors.add(key, message)
+         end
+       end
+      end
+    end
 end

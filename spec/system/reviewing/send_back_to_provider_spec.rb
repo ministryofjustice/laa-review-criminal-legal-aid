@@ -5,42 +5,65 @@ RSpec.describe 'Send an application back to the provider' do
 
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
-  let(:confirm_path) do
+  let(:new_return_path) do
     new_crime_application_return_path(crime_application_id)
   end
 
-  let(:assignee) do
-    User.create(
-      first_name: 'Fred',
-      last_name: 'Smitheg',
-      auth_oid: SecureRandom.uuid,
-      email: 'Fred.Smitheg@justice.gov.uk'
-    )
-  end
+  let(:send_back_cta) { 'Send back to provider' }
 
   before do
-    Assigning::AssignToUser.new(
-      user_id: assignee.id,
-      to_whom_id: assignee.id,
-      assignment_id: crime_application_id
-    ).call
-
     visit '/'
-    click_on 'All open applications'
-    click_on('Kit Pound')
-    click_on('Return')
   end
 
-  describe 'reloading the confirm page after a assignment has been unassigned' do
+  context 'when assigned to the application' do
+    let(:assignee_id) { User.find_by(auth_oid: current_user_auth_oid).id }
+
     before do
-      CurrentAssignment.delete_all
-      visit current_path
+      Assigning::AssignToUser.new(
+        assignment_id: crime_application_id,
+        user_id: assignee_id,
+        to_whom_id: assignee_id
+      ).call
+
+      click_on 'All open applications'
+      click_on('Kit Pound')
     end
 
-    it 'returns not found' do
-      expect(page).to have_content(
-        'Page not found'
-      )
+    it 'the "Send back to provider" button is visable and accessible' do
+      expect { click_button(send_back_cta) }.to change { page.current_path }
+        .from(crime_application_path(crime_application_id)).to(
+          new_return_path
+        )
+    end
+
+    describe 'adding the return reason' do
+      before { click_button(send_back_cta) }
+
+      it 'shows the applicant name in the heading' do
+        expect(page).to have_content "Send Kit Pound's application back to the provider"
+      end
+
+      it 'shows the applicant name in the heading' do
+        choose 'Duplicate application'
+        fill_in 'return-reason-details-field', with: 'This application was duplicated'
+        click_button(send_back_cta)
+
+        expect(page).to have_content 'The application has been sent back to the provider'
+      end
+    end
+  end
+
+
+  context 'when not assigned to the application' do
+    let(:assignee_id) { User.create(auth_oid: SecureRandom.uuid, first_name: 'A', last_name: 'Caseworder').id }
+
+    before do
+      click_on 'All open applications'
+      click_on('Kit Pound')
+    end
+
+    it 'the "Send back to provider" button is not visable' do
+      expect(page).not_to have_button(send_back_cta)
     end
   end
 end

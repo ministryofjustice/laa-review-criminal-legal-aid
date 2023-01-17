@@ -20,6 +20,7 @@ en:
       title: Success
       assigned_to_self: This application has been assigned to you
       unassigned_from_self: The application has been removed from your list
+      sent_back: The application has been sent back to the provider 
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
@@ -36,6 +37,9 @@ en:
     closed_apps: Closed applications
 
   labels: &LABELS
+    select_return_reason: Select the reason for returning this application
+    return_reason_details_legend: Give further details 
+    return_reason_details: We'll share this information with the provider
     assigned_to: 'Assigned to:'
     date_received: 'Date received:'
     application_information: Application information
@@ -125,6 +129,12 @@ en:
     assigned_status:
       assigned: All assigned
       unassigned: Unassigned
+    return_reason:
+      clarification_required: Clarification required
+      evidence_issue: Evidence issue
+      duplicate_application: Duplicate application
+      case_concluded: Case has already concluded
+      provider_request: Provider request
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
@@ -174,6 +184,11 @@ en:
       page_title: Confirm reassign
       warning:
         page_title: Confirm reassign
+
+  returns:
+    new:
+      page_title: Confirm reassign
+      header: "Send %{applicant_name}'s application back to the provider"
 
   application_searches:
     hint_text: All fields are optional
