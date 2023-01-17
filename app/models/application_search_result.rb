@@ -1,6 +1,7 @@
 class ApplicationSearchResult < ApplicationStruct
   attribute :applicant_name, Types::String
   attribute :submitted_at, Types::DateTime
+  attribute? :reviewed_at, Types::DateTime.optional
   attribute :reference, Types::Integer
   attribute :resource_id, Types::Uuid
   attribute :status, Types::String

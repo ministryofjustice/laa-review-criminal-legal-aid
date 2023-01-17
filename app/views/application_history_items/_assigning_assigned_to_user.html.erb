@@ -1,0 +1,3 @@
+<strong>
+  <%= t(:assigned_to_user, scope: 'event.description.assigning', to_whom_name: User.name_for(item.event_data.fetch(:to_whom_id))) %>
+</strong>
