@@ -13,7 +13,7 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         submitted_at: '2022-10-27T14:09:11.000+00:00'
       ),
       ApplicationSearchResult.new(
-        applicant_name: 'Don Jones',
+        applicant_name: 'Don JONES',
         resource_id: '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc',
         reference: 1_230_234_359,
         status: 'submitted',

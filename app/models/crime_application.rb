@@ -1,8 +1,6 @@
 require 'laa_crime_schemas'
 
 class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
-  include ApiResource
-
   def applicant_name
     applicant.full_name
   end
@@ -17,10 +15,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     true
   end
 
-  def days_passed
-    Rational(time_passed, 1.day).floor
-  end
-
   def current_assignment
     @current_assignment ||= CurrentAssignment.where(assignment_id: id).first
   end
@@ -29,12 +23,21 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     @history ||= ApplicationHistory.new(application: self)
   end
 
-  private
-
-  # TODO: Convert to working days
-  def time_passed
-    Time.zone.now - submitted_at
+  def to_param
+    id
   end
+
+  class << self
+    def find(id)
+      resource = DatastoreApi::Requests::GetApplication.new(
+        application_id: id
+      ).call
+
+      new(resource)
+    end
+  end
+
+  private
 
   # TODO: Convert to working days
   def applicant

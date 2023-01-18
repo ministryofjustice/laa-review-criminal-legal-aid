@@ -1,30 +1,24 @@
 RSpec.configure do |config|
   application_ids = %w[
-    696dd4fd-b619-4637-ab42-a5f4565bcf4a
     1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc
     5aa4c689-6fb5-47ff-9567-5efe7f8ac211
   ]
 
   config.before do
-    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications?status=submitted")
-      .to_return(
-        body: file_fixture('crime_apply_data/open_applications.json').read,
-        status: 200
-      )
+    #
+    # Stub for valid application for Kit Pound, fixture provided by the LaaCrimeSchemas Gem
+    #
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0).read, status: 200)
 
-    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications?status=returned")
-      .to_return(
-        body: file_fixture('crime_apply_data/closed_applications.json').read,
-        status: 200
-      )
-
-    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/123")
-      .to_return(
-        body: file_fixture('crime_apply_data/responses/404.json').read,
-        status: 404
-      )
-
+    #
+    # Stub datastore find for ids listed in application_ids.
+    #
     application_ids.each do |application_id|
+      raise 'Error! Cannot stub "Kit Pound" locally!' if application_id == '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
+
       stub_request(
         :get,
         "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/#{application_id}"
@@ -42,6 +36,15 @@ RSpec.configure do |config|
       .to_return(
         body: { pagination: {}, records: [] }.to_json,
         status: 201
+      )
+
+    #
+    # For an application not found on the datastore
+    #
+    stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/123")
+      .to_return(
+        body: file_fixture('crime_apply_data/responses/404.json').read,
+        status: 404
       )
   end
 end

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Reassigning an application to myself' do
+  include_context 'with stubbed search'
+
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   let(:confirm_path) do

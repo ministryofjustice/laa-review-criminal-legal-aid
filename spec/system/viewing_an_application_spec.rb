@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application' do
+  include_context 'with stubbed search'
+
   context 'when an application exists in the datastore' do
     context 'when an application is open' do
       before do
@@ -19,6 +21,19 @@ RSpec.describe 'Viewing an application' do
     end
 
     context 'when an application is closed' do
+      let(:stubbed_search_results) do
+        [
+          ApplicationSearchResult.new(
+            applicant_name: 'Ella Fitzgerald',
+            resource_id: '5aa4c689-6fb5-47ff-9567-5efe7f8ac211',
+            reference: 5_230_234_344,
+            status: 'returned',
+            submitted_at: '2022-12-14T16:58:15.000+00:00',
+            returned_at: '2022-12-14T16:58:15.000+00:00'
+          )
+        ]
+      end
+
       before do
         visit '/'
         click_on 'Closed applications'
