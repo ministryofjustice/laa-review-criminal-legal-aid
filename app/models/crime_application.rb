@@ -15,10 +15,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     true
   end
 
-  def days_passed
-    Rational(time_passed, 1.day).floor
-  end
-
   def current_assignment
     @current_assignment ||= CurrentAssignment.where(assignment_id: id).first
   end
@@ -42,11 +38,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   end
 
   private
-
-  # TODO: Convert to working days
-  def time_passed
-    Time.zone.now - submitted_at
-  end
 
   # TODO: Convert to working days
   def applicant
