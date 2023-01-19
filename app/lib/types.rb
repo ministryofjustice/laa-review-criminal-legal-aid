@@ -42,7 +42,7 @@ module Types
     case_concluded
     provider_request
   ].freeze
-  
+
   ReturnReasonType = String.enum(*RETURN_REASON_TYPES)
 
   ReturnReason = Hash.schema(
@@ -51,7 +51,9 @@ module Types
   )
 
   ReturnReasonSchema = Dry::Schema.Params do
-    optional(:details).value(String)
+    config.messages.backend = :i18n
+    # config.messages.load_paths << File.join(Rails.root, '/config/locales/en/errors.yml')
+
     required(:type).value(ReturnReasonType)
   end
 end

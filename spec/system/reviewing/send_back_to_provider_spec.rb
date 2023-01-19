@@ -43,7 +43,7 @@ RSpec.describe 'Send an application back to the provider' do
         expect(page).to have_content "Send Kit Pound's application back to the provider"
       end
 
-      it 'shows the applicant name in the heading' do
+      it 'returns to the application an notifies the caseworker' do
         choose 'Duplicate application'
         fill_in 'return-reason-details-field', with: 'This application was duplicated'
         click_button(send_back_cta)
@@ -53,9 +53,10 @@ RSpec.describe 'Send an application back to the provider' do
     end
   end
 
-
   context 'when not assigned to the application' do
-    let(:assignee_id) { User.create(auth_oid: SecureRandom.uuid, first_name: 'A', last_name: 'Caseworder').id }
+    let(:assignee_id) do
+      User.create(auth_oid: SecureRandom.uuid, first_name: 'A', last_name: 'Caseworder').id
+    end
 
     before do
       click_on 'All open applications'

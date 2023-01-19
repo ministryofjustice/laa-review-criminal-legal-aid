@@ -2,7 +2,7 @@ class ReturnsController < ApplicationController
   before_action :set_crime_application
 
   def new
-    @return_reason = ReturnReason.new()
+    @return_reason = ReturnReason.new
   end
 
   def create

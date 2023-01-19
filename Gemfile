@@ -32,8 +32,8 @@ gem 'dartsass-rails', '~> 0.4.0'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 
-gem 'dry-struct'
 gem 'dry-schema'
+gem 'dry-struct'
 gem 'dry-validation'
 
 gem 'omniauth-oauth2'
