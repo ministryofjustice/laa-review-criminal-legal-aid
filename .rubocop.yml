@@ -53,6 +53,9 @@ Metrics/MethodLength:
 RSpec/ExampleLength:
   Max: 6
 
+RSpec/NestedGroups:
+  Max: 4
+
 # https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/HashSyntax
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
