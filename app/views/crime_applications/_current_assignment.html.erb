@@ -3,7 +3,7 @@
     <div class="govuk-row">
       <strong><%= t(:assigned_to, scope: 'crime_applications.labels') %></strong>
       <% if crime_application.current_assignment.nil? %>
-        <%= 'Unassigned' %>
+        <%= t(:unassigned, scope: 'crime_applications.values.assigned_status') %>
       <% else %>
         <%= crime_application.current_assignment.user.name %>
       <% end %>
