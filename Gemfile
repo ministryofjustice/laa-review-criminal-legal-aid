@@ -34,7 +34,6 @@ gem 'sentry-ruby'
 
 gem 'dry-schema'
 gem 'dry-struct'
-gem 'dry-validation'
 
 gem 'omniauth-oauth2'
 gem 'omniauth-rails_csrf_protection'

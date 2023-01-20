@@ -25,6 +25,8 @@ en:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
       no_next_to_assign: There are no new applications to be reviewed at this time. Please try again later.
+      already_sent_back: This application has already been sent back to the provider.
+      cannot_send_back_when_completed: This application has already been completed.
 
   sessions:
     new:
@@ -187,7 +189,7 @@ en:
 
   returns:
     new:
-      page_title: Confirm reassign
+      page_title: Send back application
       header: "Send %{applicant_name}'s application back to the provider"
 
   application_searches:

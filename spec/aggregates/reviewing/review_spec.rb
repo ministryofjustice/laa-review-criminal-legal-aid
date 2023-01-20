@@ -4,7 +4,7 @@ require_relative '../../../app/aggregates/reviewing'
 describe Reviewing::Review do
   subject(:review) { described_class.new(SecureRandom.uuid) }
 
-  let(:reason) { { selected_reason: 'case_concluded' } }
+  let(:reason) { 'case_concluded' }
 
   let(:application_id) { SecureRandom.uuid }
 

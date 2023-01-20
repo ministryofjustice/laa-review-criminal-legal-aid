@@ -2,25 +2,30 @@ class ReturnsController < ApplicationController
   before_action :set_crime_application
 
   def new
-    @return_reason = ReturnReason.new
+    @return_details = ReturnDetails.new
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create
-    @return_reason = ReturnReason.new(return_params)
+    @return_details = ReturnDetails.new(return_params)
 
-    if @return_reason.valid?(:send_back)
-      Reviewing::SendBack.new(
-        application_id: params[:crime_application_id],
-        user_id: current_user_id,
-        reason: @return_reason.attributes
-      ).call
+    @return_details.validate!
 
-      flash[key] = message
-      redirect_to @crime_application
-    else
-      render :new
-    end
+    Reviewing::SendBack.new(
+      application_id: params[:crime_application_id],
+      user_id: current_user_id,
+      return_details: @return_details.attributes
+    ).call
+
+    flash_and_redirect :success, :sent_back
+  rescue ActiveModel::ValidationError
+    render :new
+  rescue Reviewing::AlreadySentBack
+    flash_and_redirect :important, :already_sent_back
+  rescue Reviewing::CannotSendBackWhenCompleted
+    flash_and_redirect :important, :cannot_send_back_when_completed
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -30,7 +35,7 @@ class ReturnsController < ApplicationController
   end
 
   def return_params
-    params[:return_reason].permit(*Types::ReturnReasonSchema.types.keys).to_h.symbolize_keys
+    params[:return_details].permit(:reason, :details)
   end
 
   def set_crime_application

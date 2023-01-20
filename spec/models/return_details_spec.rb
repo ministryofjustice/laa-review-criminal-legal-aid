@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe ReturnReason do
+RSpec.describe ReturnDetails do
   subject(:new) { described_class.new(**params) }
 
   let(:params) { valid_attributes }
-  let(:valid_attributes) { { type: 'evidence_issue', details: 'Detailed reason' } }
+  let(:valid_attributes) { { reason: 'evidence_issue', details: 'Detailed reason' } }
 
   describe '#valid?' do
     subject(:valid?) { new.valid? }
@@ -14,7 +14,7 @@ RSpec.describe ReturnReason do
     end
 
     context 'when return_reason type is not on the list' do
-      let(:params) { { type: 'not_a_return_reason', details: '' } }
+      let(:params) { { reason: 'not_a_return_reason', details: '' } }
 
       it { is_expected.to be false }
     end
@@ -32,15 +32,12 @@ RSpec.describe ReturnReason do
     end
 
     context 'when return_reason type is not on the list' do
-      let(:params) { { type: 'not_a_return_reason', details: '' } }
+      let(:params) { { reason: 'not_a_return_reason', details: '' } }
 
       it { is_expected.not_to be_empty }
 
       it 'has an error message on type' do
-        expect(errors[:type]).to eq([
-                                      'must be one of: clarification_required, evidence_issue, ' \
-                                      'duplicate_application, case_concluded, provider_request'
-                                    ])
+        expect(errors[:reason]).to eq(['Choose a reason'])
       end
     end
 
@@ -50,7 +47,7 @@ RSpec.describe ReturnReason do
       it { is_expected.not_to be_empty }
 
       it 'has an error message on type' do
-        expect(errors[:type]).to eq(['is missing'])
+        expect(errors[:reason]).to eq(['Choose a reason'])
       end
     end
   end

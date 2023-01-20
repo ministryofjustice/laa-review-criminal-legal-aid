@@ -3,6 +3,11 @@ en:
   errors:
     format: "%{message}"
     page_title_prefix: "Error: "
+    attributes:
+      details:
+        too_short: Give further details
+      reason:
+        inclusion: Choose a reason
     error_summary:
       heading: There is a problem on this page
     application_not_found:
@@ -13,34 +18,3 @@ en:
     unhandled:
       page_title: Unexpected error
       heading: Sorry, something went wrong with our service
-    schema_errors:
-      is_missing: a valid reason must be given
-
-  dry_schema:
-    errors:
-      size?:
-        arg:
-          default: "size must be %{num}"
-          range: "size must be within %{left} - %{right}"
-
-        value:
-          string:
-            arg:
-              default: "length must be %{num}"
-              range: "length must be within %{left} - %{right}"
-
-      filled?: "must be filled"
-
-      included_in?: "must be a valid"
-      excluded_from?: "must not be one of: %{list}"
-
-      rules:
-        email:
-          filled?: "the email is missing"
-
-        user:
-          filled?: "name cannot be blank"
-
-          rules:
-            address:
-              filled?: "You gotta tell us where you live"

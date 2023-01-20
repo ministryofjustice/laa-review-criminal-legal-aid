@@ -3,15 +3,7 @@ class ApplicationStruct < Dry::Struct
 
   include ActiveModel::Validations
 
-  class SchemaValidator < ActiveModel::Validator
-    def validate(record)
-      errors = options[:schema].call(record.attributes).errors.to_h
-
-      errors.each_pair do |key, messages|
-        messages.each do |message|
-          record.errors.add(key, message)
-        end
-      end
-    end
+  def to_partial_path
+    self.class.name.split('::').last.underscore
   end
 end

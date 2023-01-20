@@ -1,4 +1,5 @@
 require 'laa_crime_schemas/types/types'
+require 'dry-schema'
 
 module Types
   include LaaCrimeSchemas::Types
@@ -35,7 +36,7 @@ module Types
   ].freeze
   AssignedStatus = String.enum(*ASSIGNED_STATUSES)
 
-  RETURN_REASON_TYPES = %w[
+  RETURN_REASONS = %w[
     clarification_required
     evidence_issue
     duplicate_application
@@ -43,17 +44,10 @@ module Types
     provider_request
   ].freeze
 
-  ReturnReasonType = String.enum(*RETURN_REASON_TYPES)
+  ReturnReason = String.enum(*RETURN_REASONS)
 
-  ReturnReason = Hash.schema(
-    details?: Nil | String,
-    type?: ReturnReasonType
+  ReturnDetails = Hash.schema(
+    reason: ReturnReason,
+    details: String
   )
-
-  ReturnReasonSchema = Dry::Schema.Params do
-    config.messages.backend = :i18n
-    # config.messages.load_paths << File.join(Rails.root, '/config/locales/en/errors.yml')
-
-    required(:type).value(ReturnReasonType)
-  end
 end
