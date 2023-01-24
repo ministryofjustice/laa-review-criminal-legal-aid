@@ -18,13 +18,11 @@ RSpec.describe 'Search Page' do
     expect(search_input_names).to eq("Reference number or applicant's first or last name\nApplicant's date of birth")
   end
 
-  # rubocop:disable Layout/LineLength
   it 'includes the correct results table headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text
 
-    expect(column_headings).to eq("link_to( t('.table_headings.applicant_name'), '#', class: 'govuk-link--no-visited-state govuk-link--no-underline sorting' ) %> Ref. no. link_to( t('.table_headings.received_at'), '#', class: 'govuk-link--no-visited-state govuk-link--no-underline sorting' ) %> Time passed Common Platform Caseworker Status")
+    expect(column_headings).to eq('Applicant Ref. no. Date received Time passed Common Platform Caseworker Status')
   end
-  # rubocop:enable Layout/LineLength
 
   it 'shows the correct results' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
