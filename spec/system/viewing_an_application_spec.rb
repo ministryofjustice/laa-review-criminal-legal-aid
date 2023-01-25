@@ -127,7 +127,7 @@ RSpec.describe 'Viewing an application' do
         expect(page).to have_content I18n.t('crime_applications.show.page_title')
       end
 
-      it 'includes the users details' do
+      it 'includes the applicant details' do
         expect(page).to have_content('JC123458B')
       end
 
