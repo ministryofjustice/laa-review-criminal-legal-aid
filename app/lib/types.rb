@@ -1,4 +1,5 @@
 require 'laa_crime_schemas/types/types'
+require 'dry-schema'
 
 module Types
   include LaaCrimeSchemas::Types
@@ -43,11 +44,10 @@ module Types
     provider_request
   ].freeze
 
-  #
-  # Is this rendered on apply? Should we add it to types?
-  #
-  ReturnReason = Hash.schema(
-    details?: Nil | String,
-    selected_reason: String.enum(*RETURN_REASONS)
+  ReturnReason = String.enum(*RETURN_REASONS)
+
+  ReturnDetails = Hash.schema(
+    reason: ReturnReason,
+    details: String
   )
 end

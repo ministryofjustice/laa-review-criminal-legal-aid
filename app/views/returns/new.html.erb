@@ -1,0 +1,28 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body-l govuk-!-margin-bottom-2">
+      <%= @crime_application.reference %>
+    </p>
+
+    <h1 class="govuk-heading-l">
+      <%= t '.header', applicant_name: @crime_application.applicant_name %>
+    </h1>
+
+    <%= form_with model: @return_details, url: crime_application_return_path(@crime_application.id), scope: :return_details, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_radio_buttons_fieldset(:reason, legend: { size: 's', text: t(:select_return_reason, scope: 'labels') }) do %>
+        <% ReturnDetails::RETURN_REASONS.each do |reason| %>
+          <%= f.govuk_radio_button :reason, reason, label: { text: t(reason, scope: 'values.return_reason') } %>
+        <% end %>
+      <% end %>
+
+      <%= f.govuk_fieldset(legend: { size: 's', text: t(:return_reason_details_legend, scope: 'labels') }) do %>
+        <%= f.govuk_text_area :details, label: { text: t(:return_reason_details, scope: 'labels') } %>
+      <% end %>
+
+      <%= f.govuk_submit t(:send_back, scope: 'calls_to_action') %>
+    <% end %>
+  </div>
+</div>

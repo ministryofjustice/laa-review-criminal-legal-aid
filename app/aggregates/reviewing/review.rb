@@ -44,7 +44,7 @@ module Reviewing
 
     on SentBack do |event|
       @state = :sent_back
-      @return_reason = Types::ReturnReason[event.data.fetch(:reason)]
+      @return_reason = event.data.fetch(:reason, nil)
     end
 
     on Completed do |_event|
