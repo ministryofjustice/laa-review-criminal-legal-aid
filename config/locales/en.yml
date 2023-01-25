@@ -160,13 +160,15 @@ en:
       application_history: Application history
 
   event:
+    title:
     description:
-      application:
-        submitted: Application submitted
       assigning:
         assigned_to_user: Application assigned to %{to_whom_name}
         unassigned_from_user: Application removed from %{from_whom_name}
         reassigned_to_user: Application reassigned from %{from_whom_name} to %{to_whom_name}
+      reviewing:
+        sent_back: Application sent back to provider
+        application_received: Application submitted
 
   assigned_applications:
     index:

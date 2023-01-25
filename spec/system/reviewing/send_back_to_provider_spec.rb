@@ -37,7 +37,11 @@ RSpec.describe 'Send an application back to the provider' do
     end
 
     describe 'adding the return reason' do
-      before { click_button(send_back_cta) }
+      before do
+        allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+          .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+        click_button(send_back_cta)
+      end
 
       it 'shows the applicant name in the heading' do
         expect(page).to have_content "Send Kit Pound's application back to the provider"

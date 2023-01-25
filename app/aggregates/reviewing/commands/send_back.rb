@@ -10,7 +10,11 @@ module Reviewing
           review.send_back(application_id:, user_id:, reason:)
         end
 
-        # TODO: Call http client
+        DatastoreApi::Requests::UpdateApplication.new(
+          application_id: application_id,
+          payload: { return_details: },
+          member: :return
+        ).call
       end
     end
 

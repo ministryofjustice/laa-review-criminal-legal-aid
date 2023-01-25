@@ -11,7 +11,7 @@ RSpec.describe 'Closed Applications Dashboard' do
         reference: 5_230_234_344,
         status: 'returned',
         submitted_at: '2022-12-14T16:58:15.000+00:00',
-        returned_at: '2022-12-14T16:58:15.000+00:00'
+        reviewed_at: '2022-12-15T16:58:15.000+00:00'
       )
     ]
   end
@@ -37,7 +37,7 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
-    expect(first_row_text).to eq('Ella Fitzgerald 5230234344 14/12/2022 14/12/2022 Returned')
+    expect(first_row_text).to eq('Ella Fitzgerald 5230234344 14/12/2022 15/12/2022 Returned')
   end
 
   it 'has the correct count' do
