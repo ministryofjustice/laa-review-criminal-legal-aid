@@ -1,7 +1,11 @@
 <dl class="govuk-summary-list">
   <dd class="govuk-summary-list__value govuk-!-width-one-half govuk-!-padding-0 govuk-body-l">
     <div class="govuk-row">
-      <strong><%= t(:assigned_to, scope: 'crime_applications.labels') %></strong>
+      <% if crime_application.status == 'submitted' %>
+        <strong><%= t(:assigned_to, scope: 'crime_applications.labels') %></strong>
+      <% else %>
+        <strong><%= t(:reviewed_by, scope: 'crime_applications.labels') %></strong>
+      <% end %>
       <% if crime_application.current_assignment.unassigned? %>
         <%= t(:unassigned, scope: 'crime_applications.values.assigned_status') %>
       <% else %>
@@ -12,28 +16,40 @@
       <strong><%= t(:date_received, scope: 'crime_applications.labels') %></strong>
       <%= crime_application.submitted_at.strftime('%d %B %Y') %>
     </div>
+    <% if crime_application.status == 'returned' %>
+      <div class="govuk-row">
+        <strong><%= t(:date_returned, scope: 'crime_applications.labels') %></strong>
+        <%= crime_application.return_details.returned_at.strftime('%d %B %Y') %>
+      </div>
+    <% elsif crime_application.status == 'completed' %>
+        <strong><%= t(:date_reviewed, scope: 'crime_applications.labels') %></strong>
+        <%# TODO: Implement reviewed date when mark as complete available %>
+        <%= crime_application.submitted_at.strftime('%d %B %Y') %>
+    <% end %>
   </dd>
-  <dd class="govuk-summary-list__action">
-    <% if crime_application.current_assignment.unassigned? %>
-      <%= button_to t('calls_to_action.assign_to_self'),
-                    assigned_applications_path(
-                      crime_application_id: crime_application.id
-                    ),
-                    method: :post,
-                    class: 'govuk-button govuk-button--secondary govuk-!-margin-top-1' %>
-    <% else %>
-      <% if crime_application.current_assignment.assigned_to?(current_user_id) %>
-        <%= button_to t('calls_to_action.unassign_from_self'),
-                      assigned_application_path(crime_application),
-                      method: :delete,
-                      class: 'govuk-button govuk-button--secondary' %>
-      <% else %>
-        <%= button_to t('calls_to_action.reassign_to_self'),
-                      new_crime_application_reassign_path(
-                        crime_application.id
+  <% if crime_application.status == "submitted" %>
+    <dd class="govuk-summary-list__action">
+      <% if crime_application.current_assignment.unassigned? %>
+        <%= button_to t('calls_to_action.assign_to_self'),
+                      assigned_applications_path(
+                        crime_application_id: crime_application.id
                       ),
-                      method: :get,
-                      class: 'govuk-button govuk-button--secondary' %>
+                      method: :post,
+                      class: 'govuk-button govuk-button--secondary govuk-!-margin-top-1' %>
+      <% else %>
+        <% if crime_application.current_assignment.assigned_to?(current_user_id) %>
+          <%= button_to t('calls_to_action.unassign_from_self'),
+                        assigned_application_path(crime_application),
+                        method: :delete,
+                        class: 'govuk-button govuk-button--secondary' %>
+        <% else %>
+          <%= button_to t('calls_to_action.reassign_to_self'),
+                        new_crime_application_reassign_path(
+                          crime_application.id
+                        ),
+                        method: :get,
+                        class: 'govuk-button govuk-button--secondary' %>
+        <% end %>
       <% end %>
     <% end %>
   </dd>

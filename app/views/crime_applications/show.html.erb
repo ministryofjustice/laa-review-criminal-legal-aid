@@ -10,7 +10,13 @@
       <%= @crime_application.applicant_name %>
     </h2>
 
-    <span class="govuk-tag govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
+    <% if @crime_application.status == 'returned' %>
+      <span class="govuk-tag govuk-tag--red govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
+    <% elsif @crime_application.status == 'completed' %>
+      <span class="govuk-tag govuk-tag--green govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
+    <% else %>
+      <span class="govuk-tag govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
+    <% end %>
 
     <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
   </div>
@@ -31,7 +37,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if @crime_application.current_assignment.assigned_to?(current_user_id) %>
+    <% if @crime_application.current_assignment.assigned_to?(current_user_id) && @crime_application.status == 'submitted' %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= button_to t('calls_to_action.mark_complete'),
                       new_crime_application_return_path(@crime_application),

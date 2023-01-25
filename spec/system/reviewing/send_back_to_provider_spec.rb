@@ -49,7 +49,7 @@ RSpec.describe 'Send an application back to the provider' do
 
       it 'requires further details' do
         choose 'Duplicate application'
-        fill_in 'return-details-details-field', with: 'too short'
+        fill_in 'return-details-details-field', with: ''
         click_button(send_back_cta)
 
         within '.govuk-error-summary__body' do

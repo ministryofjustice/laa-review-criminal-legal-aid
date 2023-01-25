@@ -31,7 +31,11 @@ class ReturnsController < ApplicationController
 
   def flash_and_redirect(key, message)
     flash[key] = message
-    redirect_to crime_application_path(params[:crime_application_id])
+    if key == :success
+      redirect_to assigned_applications_path
+    else
+      redirect_to crime_application_path(params[:crime_application_id])
+    end
   end
 
   def return_params
