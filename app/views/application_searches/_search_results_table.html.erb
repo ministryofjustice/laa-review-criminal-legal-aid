@@ -3,14 +3,22 @@
     <table class="govuk-table app-dashboard-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">
-            <%= t('.table_headings.applicant_name') %>
+          <th scope="col" class="govuk-table__header" aria-sort="desc">
+            <%= link_to(
+                  t('.table_headings.applicant_name'),
+                  '#',
+                  class: 'govuk-link--no-visited-state govuk-link--no-underline sorting'
+                ) %>
           </th>
           <th scope="col" class="govuk-table__header">
             <%= t('.table_headings.reference') %>
           </th>
-          <th scope="col" class="govuk-table__header">
-            <%= t('.table_headings.received_at') %>
+          <th scope="col" class="govuk-table__header" aria-sort="desc">
+             <%= link_to(
+                   t('.table_headings.received_at'),
+                   '#',
+                   class: 'govuk-link--no-visited-state govuk-link--no-underline sorting'
+                 ) %>
           </th>
           <th scope="col" class="govuk-table__header">
             <%= t('.table_headings.time_passed') %>
