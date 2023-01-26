@@ -21,7 +21,9 @@ RSpec.describe 'Search Page' do
   it 'includes the correct results table headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text
 
-    expect(column_headings).to eq('Applicant Ref. no. Date received Days passed Common Platform Caseworker Status')
+    expect(column_headings.squish).to eq(
+      'Applicant Ref. no. Date received Days passed Common Platform Caseworker Status'
+    )
   end
 
   it 'shows the correct results' do

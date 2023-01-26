@@ -14,9 +14,7 @@ Rails.application.routes.draw do
     resource :return, only: [:new, :create]
   end
 
-  resource :application_searches, only: [:create, :new] do
-    post :download, on: :collection
-  end
+  resource :application_searches, only: [:create, :new]
 
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :next_application, on: :collection
