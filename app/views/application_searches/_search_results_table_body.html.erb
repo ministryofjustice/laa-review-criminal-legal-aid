@@ -19,7 +19,7 @@
       <%= result.current_assignment&.user&.name %>
     </td>
     <td class="govuk-table__cell">
-      <%= t("crime_applications.values.status.#{result.status}") %>
+      <%= t(result.status, scope: 'values.status') %>
     </td>
   </tr>
 </tbody>
