@@ -55,5 +55,10 @@
     "hearing_date": "2023-12-12",
     "urn": "12AB3456789"
   },
+  "return_details": {
+    "reason": "clarification_required",
+    "details": "It is unclear what you are referring to by 'high risk' in the interests of justice",
+    "returned_at": "2023-01-25T16:21:55.418Z"
+  },
   "application_type": "initial_application"
 }

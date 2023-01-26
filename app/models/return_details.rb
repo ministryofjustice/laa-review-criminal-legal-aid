@@ -4,6 +4,6 @@ class ReturnDetails < ApplicationStruct
   attribute? :reason, Types::Nil | Types::String
   attribute? :details, Types::Nil | Types::String
 
-  validates :details, length: { minimum: 10 }
+  validates :details, presence: true
   validates :reason, inclusion: { in: RETURN_REASONS }
 end
