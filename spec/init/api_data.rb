@@ -41,7 +41,7 @@ RSpec.configure do |config|
     #
     stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/searches")
       .to_return(
-        body: { pagination: {}, records: [] }.to_json,
+        body: { pagination: {}, records: [], sort: {} }.to_json,
         status: 201
       )
 

@@ -8,7 +8,7 @@ RSpec.describe 'Search applications applicant date of birth filter' do
     visit '/'
 
     click_on 'Search'
-    fill_in 'filter-applicant-date-of-birth-field', with: dob
+    fill_in 'search-application-search-filter-applicant-date-of-birth-field', with: dob
     click_button 'Search'
   end
 
@@ -18,7 +18,7 @@ RSpec.describe 'Search applications applicant date of birth filter' do
 
   it 'remains selected on the results page' do
     expect(page).to have_field(
-      'filter-applicant-date-of-birth-field', with: dob
+      'search-application-search-filter-applicant-date-of-birth-field', with: dob
     )
   end
 end
