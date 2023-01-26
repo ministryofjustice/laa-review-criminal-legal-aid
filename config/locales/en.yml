@@ -87,7 +87,7 @@ en:
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
     reference: Ref. no.
-    time_passed: Time passed
+    time_passed: Days passed
     received_at: Date received
     reviewed_at: Date reviewed
     caseworker: Caseworker
@@ -122,7 +122,9 @@ en:
     interest_of_another: Interest of another
     other: Other
     status:
-      "submitted": Open
+      submitted: Open
+      returned: Sent back to provider
+      completed: Completed
     days_passed:
       one: 1 day
       other: "%{count} days"

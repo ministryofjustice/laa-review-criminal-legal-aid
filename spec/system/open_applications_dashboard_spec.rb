@@ -15,7 +15,7 @@ RSpec.describe 'Open Applications Dashboard' do
   it 'includes the correct headings' do
     column_headings = page.first('.app-dashboard-table thead tr')
 
-    expect(column_headings.text).to eq('Applicant Ref. no. Date received Time passed Common Platform Caseworker')
+    expect(column_headings.text).to eq('Applicant Ref. no. Date received Days passed Common Platform Caseworker')
   end
 
   it 'shows the correct information' do
