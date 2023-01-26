@@ -23,5 +23,5 @@
     </div>
   </div>
 
-  <%= render 'search_results_table', results: @search.results %>
+  <%= render 'search_results_table', results: @search.results, form_params: { sorting: @sorting, filter: @filter, url: application_searches_path }  %>
 <% end %>
