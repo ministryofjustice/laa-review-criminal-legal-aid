@@ -43,7 +43,10 @@ en:
     return_reason_details_legend: Give further details 
     return_reason_details: We'll share this information with the provider
     assigned_to: 'Assigned to:'
+    reviewed_by: 'Reviewed by:'
     date_received: 'Date received:'
+    date_returned: 'Date returned:'
+    date_reviewed: 'Date reviewed:'
     application_information: Application information
     all_applications: All applications 
     search_criteria: Search criteria
@@ -74,7 +77,7 @@ en:
     office_account_number: Office account number
     legal_representative: Legal representative
     provider_phone_number: Phone
-    provider_email_address: Email address
+    provider_email: Email address
     search_text: Reference number or applicant's first or last name
     when: When
     who: Who
@@ -84,7 +87,7 @@ en:
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
     reference: Ref. no.
-    time_passed: Time passed
+    time_passed: Days passed
     received_at: Date received
     reviewed_at: Date reviewed
     caseworker: Caseworker
@@ -119,7 +122,9 @@ en:
     interest_of_another: Interest of another
     other: Other
     status:
-      "submitted": Open
+      submitted: Open
+      returned: Sent back to provider
+      completed: Completed
     days_passed:
       one: 1 day
       other: "%{count} days"
@@ -160,13 +165,15 @@ en:
       application_history: Application history
 
   event:
+    title:
     description:
-      application:
-        submitted: Application submitted
       assigning:
         assigned_to_user: Application assigned to %{to_whom_name}
         unassigned_from_user: Application removed from %{from_whom_name}
         reassigned_to_user: Application reassigned from %{from_whom_name} to %{to_whom_name}
+      reviewing:
+        sent_back: Application sent back to provider
+        application_received: Application submitted
 
   assigned_applications:
     index:

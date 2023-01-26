@@ -10,9 +10,16 @@ RSpec.configure do |config|
     #
     stub_request(
       :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/47a93336-7da6-48ac-b139-808ddd555a41"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
+
+    #
+    # Stub for valid returned application for Kit Pound, fixture provided by the LaaCrimeSchemas Gem
+    #
+    stub_request(
+      :get,
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a"
     ).to_return(body: LaaCrimeSchemas.fixture(1.0).read, status: 200)
-
     #
     # Stub datastore find for ids listed in application_ids.
     #

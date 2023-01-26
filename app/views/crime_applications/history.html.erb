@@ -37,9 +37,9 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
-      <%= render partial: 'history_item',
-                 collection: @crime_application.history.items,
-                 as: :event %>
+      <% @crime_application.history.items.each do |item| %>
+        <%= render partial: item, layout: 'history_item', as: :item, locals: { application: @crime_application } %>
+      <% end %>
     </tbody>
   </table>
   </div>

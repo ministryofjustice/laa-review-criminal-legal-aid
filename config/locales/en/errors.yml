@@ -5,7 +5,7 @@ en:
     page_title_prefix: "Error: "
     attributes:
       details:
-        too_short: Give further details
+        blank: Give further details
       reason:
         inclusion: Choose a reason
     error_summary:
