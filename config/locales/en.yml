@@ -43,7 +43,10 @@ en:
     return_reason_details_legend: Give further details 
     return_reason_details: We'll share this information with the provider
     assigned_to: 'Assigned to:'
+    reviewed_by: 'Reviewed by:'
     date_received: 'Date received:'
+    date_returned: 'Date returned:'
+    date_reviewed: 'Date reviewed:'
     application_information: Application information
     all_applications: All applications 
     search_criteria: Search criteria
@@ -74,7 +77,7 @@ en:
     office_account_number: Office account number
     legal_representative: Legal representative
     provider_phone_number: Phone
-    provider_email_address: Email address
+    provider_email: Email address
     search_text: Reference number or applicant's first or last name
     when: When
     who: Who
