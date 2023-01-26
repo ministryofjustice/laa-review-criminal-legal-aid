@@ -51,10 +51,6 @@ class ApplicationSearchFilter < ApplicationStruct
     }
   end
 
-  def state_key
-    Digest::SHA256.hexdigest(as_json.values.join)
-  end
-
   private
 
   def assigned_to_user_options
