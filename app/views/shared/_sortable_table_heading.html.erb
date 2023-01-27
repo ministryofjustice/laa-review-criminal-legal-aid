@@ -1,4 +1,4 @@
-<%= content_tag :th, scope: 'col', class: 'govuk-table__header', 'aria-sort': sorting.aria_sort(column_name) do %>
+<%= content_tag :th, scope: 'col', class: 'govuk-table__header', id: column_name, 'aria-sort': sorting.column_sort_state(column_name) do %>
   <%= button_to(
         t(column_name, scope: 'table_headings'),
         url,

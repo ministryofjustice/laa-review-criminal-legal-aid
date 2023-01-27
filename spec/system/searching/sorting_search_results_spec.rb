@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Sorting search results' do
   include_context 'when search results are returned'
-  let(:filter_field) { 'search-application-search-filter-application-status-field' }
 
   before do
     visit '/'
@@ -10,13 +9,21 @@ RSpec.describe 'Sorting search results' do
     click_button 'Search'
   end
 
-  describe 'search by:' do
-    describe 'default' do
-      it 'filters by status "open"' do
-        # TODO
-        # replace with spec that asserts searched with sort when hooked up.
-        click_button 'Date received'
-        expect(page).to have_button('Date received')
+  describe 'sortable table headers' do
+    describe 'Date received' do
+      subject(:column_sort) do
+        page.find('thead tr th#submitted_at')['aria-sort']
+      end
+
+      it 'is active and descending by default' do
+        expect(column_sort).to eq 'descending'
+      end
+
+      context 'when clicked' do
+        it 'changes to ascending when it is selected' do
+          click_button 'Date received'
+          expect(column_sort).to eq 'ascending'
+        end
       end
     end
   end

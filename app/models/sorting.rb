@@ -1,8 +1,7 @@
 class Sorting < ApplicationStruct
-  attribute? :sort_direction, Types::String.default('descending'.freeze).enum('descending', 'ascending')
-  attribute? :sort_by,
-             Types::String.default('submitted_at'.freeze).enum('submitted_at', 'reviewed_at', 'reference',
-                                                               'applicant_name')
+  attribute? :sort_direction, Types::SortDirection
+
+  attribute? :sort_by, Types::SortBy
 
   def reverse_direction
     return 'ascending' if sort_direction == 'descending'
@@ -10,7 +9,7 @@ class Sorting < ApplicationStruct
     'descending'
   end
 
-  def aria_sort(column_name)
+  def column_sort_state(column_name)
     column_name == sort_by ? sort_direction : 'none'
   end
 end
