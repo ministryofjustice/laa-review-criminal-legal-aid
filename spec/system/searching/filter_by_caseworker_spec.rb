@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Search applications casewoker filter' do
   include_context 'when search results are returned'
+  let(:assigned_status_field) { 'search-application-search-filter-assigned-status-field' }
 
   before do
     visit '/'
@@ -16,7 +17,7 @@ RSpec.describe 'Search applications casewoker filter' do
 
   context 'when unassigned status is selected' do
     before do
-      select 'Unassigned', from: 'filter-assigned-status-field'
+      select 'Unassigned', from: assigned_status_field
       click_button 'Search'
     end
 
@@ -27,15 +28,13 @@ RSpec.describe 'Search applications casewoker filter' do
     end
 
     it 'remains selected on the results page' do
-      expect(page).to have_select(
-        'filter-assigned-status-field', selected: 'Unassigned'
-      )
+      expect(page).to have_select(assigned_status_field, selected: 'Unassigned')
     end
   end
 
   context 'when assigned status is selected' do
     before do
-      select 'All assigned', from: 'filter-assigned-status-field'
+      select 'All assigned', from: assigned_status_field
       click_button 'Search'
     end
 
@@ -46,16 +45,14 @@ RSpec.describe 'Search applications casewoker filter' do
     end
 
     it 'remains selected on the results page' do
-      expect(page).to have_select(
-        'filter-assigned-status-field', selected: 'All assigned'
-      )
+      expect(page).to have_select(assigned_status_field, selected: 'All assigned')
     end
   end
 
   describe 'options for selecting assigned status' do
     it 'can choose from "", "Unassigned", "All assigned", and caseworkers' do
       choices = ['', 'Unassigned', 'All assigned', 'Joe EXAMPLE']
-      expect(page).to have_select('filter-assigned-status-field', options: choices)
+      expect(page).to have_select(assigned_status_field, options: choices)
     end
   end
 end

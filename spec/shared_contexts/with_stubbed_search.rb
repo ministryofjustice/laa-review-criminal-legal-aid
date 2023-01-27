@@ -1,8 +1,4 @@
 RSpec.shared_context 'with stubbed search', shared_context: :metadata do
-  let(:datastore_search) do
-    DatastoreApi::Requests::SearchApplications
-  end
-
   let(:stubbed_search_results) do
     [
       ApplicationSearchResult.new(
@@ -22,32 +18,38 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
     ]
   end
 
+  let(:http_client) { instance_double(DatastoreApi::HttpClient, post: search_response) }
+
   let(:search_response) do
     pagination = {
       total_pages: 1, current_page: 1, total_count: stubbed_search_results.size
-    }.stringify_keys
+    }
+    records = stubbed_search_results.map(&:to_h)
 
-    DatastoreApi::Decorators::PaginatedCollection.new(
-      stubbed_search_results, pagination
-    )
+    { pagination:, records: }.deep_stringify_keys
   end
 
   before do
-    allow(datastore_search).to receive(:new) {
-      instance_double(
-        datastore_search,
-        call: search_response
-      )
-    }
+    allow(http_client).to receive(:post) { search_response }
+
+    #
+    # Temporarily allow any instance of.
+    #
+    # TODO remove when datastore api client has been updated.
+    #
+    # rubocop:disable RSpec::AnyInstance
+    allow_any_instance_of(ApplicationSearch).to receive(:http_client) { http_client }
+    # rubocop:enable RSpec::AnyInstance
   end
 
   def assert_api_searched_with_filter(*params)
-    expect(datastore_search).to have_received(:new).with(
-      ApplicationSearchFilter.new(**Hash[*params]).as_json
-    ) {
-      instance_double(
-        DatastoreApi::Requests::SearchApplications, call: []
-      )
-    }
+    expect(http_client).to have_received(:post).with(
+      '/searches',
+      {
+        search: ApplicationSearchFilter.new(**Hash[*params]).as_json,
+        sorting: Sorting.new.to_h,
+        pagination: {}
+      }
+    )
   end
 end

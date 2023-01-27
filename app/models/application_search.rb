@@ -1,23 +1,35 @@
 class ApplicationSearch
-  def initialize(filter:)
+  def initialize(filter:, sorting: Sorting.new)
     @filter = filter
+    @sorting = sorting
   end
 
   def results
-    @results ||= search.map do |result|
+    @results ||= datastore_search_response.map do |result|
       ApplicationSearchResult.new result
     end
   end
 
   def total
-    @total ||= search.pagination['total_count']
+    @total ||= datastore_search_response.pagination['total_count']
   end
 
   private
 
-  def search
-    @search ||= DatastoreApi::Requests::SearchApplications.new(
-      **@filter.as_json
-    ).call
+  include DatastoreApi::Traits::ApiRequest
+  include DatastoreApi::Traits::PaginatedResponse
+
+  def datastore_search_response
+    @datastore_search_response ||= paginated_response(
+      http_client.post('/searches', datastore_params)
+    )
+  end
+
+  def datastore_params
+    {
+      search: @filter.as_json,
+      pagination: {},
+      sorting: @sorting.to_h
+    }
   end
 end

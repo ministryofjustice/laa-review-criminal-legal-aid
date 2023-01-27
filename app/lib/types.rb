@@ -40,4 +40,14 @@ module Types
     reason: ReturnReason,
     details: String
   )
+
+  SortDirection = String.default('descending'.freeze).enum('descending', 'ascending')
+
+  SORTABLE_COLUMNS = %w[
+    submitted_at
+    reviewed_at
+    reference
+    applicant_name
+  ].freeze
+  SortBy = String.default('submitted_at'.freeze).enum(*SORTABLE_COLUMNS)
 end

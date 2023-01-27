@@ -1,0 +1,10 @@
+<%= content_tag :th, scope: 'col', class: 'govuk-table__header', id: column_name, 'aria-sort': sorting.column_sort_state(column_name) do %>
+  <%= button_to(
+        t(column_name, scope: 'table_headings'),
+        url,
+        params: { search: {
+          sorting: { sort_by: column_name, sort_direction: sorting.reverse_direction },
+          application_search_filter: filter.attributes
+        } }
+      ) %>
+<% end %>

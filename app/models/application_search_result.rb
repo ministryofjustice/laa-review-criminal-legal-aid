@@ -25,13 +25,6 @@ class ApplicationSearchResult < ApplicationStruct
     Time.zone.now - submitted_at
   end
 
-  def as_csv
-    [
-      reference, submitted_at, '', current_assignment&.user_id,
-      I18n.t(status, scope: 'values.status')
-    ]
-  end
-
   def to_param
     id
   end

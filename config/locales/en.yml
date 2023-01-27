@@ -89,6 +89,7 @@ en:
     reference: Ref. no.
     time_passed: Days passed
     received_at: Date received
+    submitted_at: Date received
     reviewed_at: Date reviewed
     caseworker: Caseworker
     reviewer: Reviewed by

@@ -16,12 +16,7 @@
         <%= t('.total', count: @search.total) %>
       </h2>
     </div>
-    <div class="govuk-grid-column-one-half">
-      <div class="govuk-!-text-align-right">
-        <%=  button_to 'Download', download_application_searches_path, class: 'govuk-button govuk-button--secondary', params: { filter: @filter.to_h } %>
-      </div>
-    </div>
   </div>
 
-  <%= render 'search_results_table', results: @search.results %>
+  <%= render 'search_results_table', results: @search.results, form_params: { sorting: @sorting, filter: @filter, url: application_searches_path }  %>
 <% end %>
