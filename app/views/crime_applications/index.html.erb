@@ -21,7 +21,7 @@
   <table class="govuk-table app-dashboard-table">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <%= render "#{@review_status}_crime_applications_table_headers", sorting: @sorting %>
+        <%= render "#{@review_status}_crime_applications_table_headers", sorting: @search.sorting %>
       </tr>
     </thead>
 
@@ -31,5 +31,6 @@
                  as: :app %>
     </tbody>
   </table>
+    <%= paginate @search.pagination %>
   </div>
 </div>

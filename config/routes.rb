@@ -8,13 +8,17 @@ Rails.application.routes.draw do
   get 'application_not_found', to: 'errors#application_not_found'
   get 'unhandled', to: 'errors#unhandled'
 
-  resources :crime_applications, only: [:index, :show], path: 'applications' do
+  resources :crime_applications, only: [:show], path: 'applications' do
+    get :open, on: :collection
+    get :closed, on: :collection
     get :history, on: :member
     resource :reassign, only: [:new, :create]
     resource :return, only: [:new, :create]
   end
 
-  resource :application_searches, only: [:create, :new]
+  resource :application_searches, only: [:new] do
+    get :search, on: :collection
+  end
 
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :next_application, on: :collection

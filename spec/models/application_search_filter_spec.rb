@@ -49,16 +49,16 @@ RSpec.describe ApplicationSearchFilter do
     end
   end
 
-  describe '#to_json' do
-    subject(:to_json) { new.to_json }
+  describe '#datastore_params' do
+    subject(:datastore_params) { new.datastore_params }
 
     context 'when the filter is empty' do
-      it 'returns the correct datastore api search params as json' do
-        expect(to_json).to eq({
-          applicant_date_of_birth: nil, application_id_in: [],
+      it 'returns the correct datastore api search params' do
+        expect(datastore_params).to eq({
+                                         applicant_date_of_birth: nil, application_id_in: [],
             application_id_not_in: [], status: ['submitted'],
             submitted_after: nil, submitted_before: nil, search_text: nil
-        }.to_json)
+                                       })
       end
     end
 
@@ -71,19 +71,27 @@ RSpec.describe ApplicationSearchFilter do
         }
       end
 
-      it 'returns the correct datastore api search params as json' do
-        expect(to_json).to eq({ applicant_date_of_birth: '1970-10-10',
-            application_id_in: david.current_assignments.pluck(:assignment_id),
-            application_id_not_in: [], status: ['returned'],
-            submitted_after: '2022-12-22', submitted_before: '2022-12-21',
-            search_text: 'David 100003' }.to_json)
+      let(:expected_datstore_params) do
+        {
+          applicant_date_of_birth: Date.parse('1970-10-10'),
+          application_id_in: david.current_assignments.pluck(:assignment_id),
+          submitted_after: Date.parse('2022-12-22'),
+          submitted_before: Date.parse('2022-12-21'),
+          search_text: 'David 100003',
+          application_id_not_in: [],
+          status: ['returned']
+        }
+      end
+
+      it 'returns the correct datastore api search params' do
+        expect(datastore_params).to eq expected_datstore_params
       end
     end
   end
 
   describe 'translating the assigned_status into search params' do
-    let(:application_id_in) { JSON.parse(new.to_json).fetch('application_id_in') }
-    let(:application_id_not_in) { JSON.parse(new.to_json).fetch('application_id_not_in') }
+    let(:application_id_in) { new.datastore_params.fetch(:application_id_in) }
+    let(:application_id_not_in) { new.datastore_params.fetch(:application_id_not_in) }
 
     context 'when a user is specified' do
       let(:params) { { assigned_status: john.id } }

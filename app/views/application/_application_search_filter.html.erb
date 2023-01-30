@@ -1,4 +1,4 @@
-<%= form_with url: application_searches_path, scope: :filter, method: :post, class: 'search', id: 'search_filter' do |f| %>
+<%= form_with url: search_application_searches_path, scope: :filter, method: :get, class: 'search', id: 'search_filter' do |f| %>
 
   <p class="help-text"><%= t('application_searches.hint_text') %></p>
 

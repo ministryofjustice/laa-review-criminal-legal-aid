@@ -33,16 +33,18 @@
                     caseworker
                     status
                   ],
-                  base_params: { filter: @filter.to_h },
-                  sorting: @sorting,
-                  sort_form_method: :post
+                  base_params: { filter: @search.filter.to_h },
+                  sorting: @search.sorting
                 ) %>
           </tr>
         </thead>
-        <%= render partial: 'search_results_table_body',
-                   collection: @search.results,
-                   as: :result %>
+        <tbody class="govuk-table__body">
+          <%= render partial: 'search_results_table_body',
+                     collection: @search.results,
+                     as: :result %>
+        </tbody>
       </table>
+      <%= paginate @search.pagination %>
     </div>
   </div>
 <% end %>

@@ -20,7 +20,7 @@ en:
       title: Success
       assigned_to_self: This application has been assigned to you
       unassigned_from_self: The application has been removed from your list
-      sent_back: The application has been sent back to the provider 
+      sent_back: The application has been sent back to the provider
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
@@ -40,7 +40,7 @@ en:
 
   labels: &LABELS
     select_return_reason: Select the reason for returning this application
-    return_reason_details_legend: Give further details 
+    return_reason_details_legend: Give further details
     return_reason_details: We'll share this information with the provider
     assigned_to: 'Assigned to:'
     reviewed_by: 'Reviewed by:'
@@ -48,7 +48,7 @@ en:
     date_returned: 'Date returned:'
     date_reviewed: 'Date reviewed:'
     application_information: Application information
-    all_applications: All applications 
+    all_applications: All applications
     search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
     caseworker: Caseworker
@@ -130,11 +130,11 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-    application_status: 
+    application_status:
       open: Open
       sent_back: Sent back to provider
-      completed: Completed 
-      all: All applications 
+      completed: Completed
+      all: All applications
     assigned_status:
       assigned: All assigned
       unassigned: Unassigned
@@ -266,4 +266,8 @@ en:
     closed_crime_applications_table:
       table_headings:
         <<: *TABLE_HEADINGS
+
+  pagination:
+    previous: Previous
+    next: Next
 

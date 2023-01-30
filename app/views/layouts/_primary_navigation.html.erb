@@ -23,16 +23,16 @@
 
           <li class="moj-primary-navigation__item">
             <%= link_to t('primary_navigation.open_apps'),
-                        crime_applications_path(status: 'open'),
+                        open_crime_applications_path,
                         class: 'moj-primary-navigation__link',
-                        aria: { current: current_page?(crime_applications_path(status: 'open')) ? 'page' : nil } %>
+                        aria: { current: current_page?(open_crime_applications_path) ? 'page' : nil } %>
           </li>
 
           <li class="moj-primary-navigation__item">
             <%= link_to t('primary_navigation.closed_apps'),
-                        crime_applications_path(status: 'closed'),
+                        closed_crime_applications_path,
                         class: 'moj-primary-navigation__link',
-                        aria: { current: current_page?(crime_applications_path(status: 'closed')) ? 'page' : nil } %>
+                        aria: { current: current_page?(closed_crime_applications_path) ? 'page' : nil } %>
           </li>
         </ul>
       </nav>

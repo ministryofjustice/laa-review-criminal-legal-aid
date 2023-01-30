@@ -11,6 +11,9 @@ gem 'faraday'
 
 gem 'govuk_design_system_formbuilder', '~> 3.1.0'
 
+gem 'kaminari-actionview'
+gem 'kaminari-core'
+
 gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client'
 
