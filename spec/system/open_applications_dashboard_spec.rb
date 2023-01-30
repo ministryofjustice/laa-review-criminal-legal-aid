@@ -13,9 +13,9 @@ RSpec.describe 'Open Applications Dashboard' do
   end
 
   it 'includes the correct headings' do
-    column_headings = page.first('.app-dashboard-table thead tr')
+    column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
-    expect(column_headings.text).to eq('Applicant Ref. no. Date received Days passed Common Platform Caseworker')
+    expect(column_headings).to eq('Applicant Ref. no. Date received Days passed Common Platform Caseworker')
   end
 
   it 'shows the correct information' do
@@ -34,5 +34,22 @@ RSpec.describe 'Open Applications Dashboard' do
     expect(current_url).to match(
       'applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a'
     )
+  end
+
+  describe 'sortable table headers' do
+    subject(:column_sort) do
+      page.find('thead tr th#submitted_at')['aria-sort']
+    end
+
+    it 'is active and descending by default' do
+      expect(column_sort).to eq 'descending'
+    end
+
+    context 'when clicked' do
+      it 'changes to ascending when it is selected' do
+        expect { click_button 'Date received' }.not_to(change { current_path })
+        expect(column_sort).to eq 'ascending'
+      end
+    end
   end
 end

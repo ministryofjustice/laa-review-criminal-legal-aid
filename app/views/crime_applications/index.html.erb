@@ -18,6 +18,18 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <%= render "#{@review_status}_crime_applications_table", applications: @search.results %>
+  <table class="govuk-table app-dashboard-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <%= render "#{@review_status}_crime_applications_table_headers", sorting: @sorting %>
+      </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+      <%= render partial: "#{@review_status}_crime_applications_table_body",
+                 collection: @search.results,
+                 as: :app %>
+    </tbody>
+  </table>
   </div>
 </div>

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Search applications applicant date of birth filter' do
   include_context 'when search results are returned'
   let(:dob) { Date.parse('2011-06-09') }
-  let(:date_of_birth_field) { 'search-application-search-filter-applicant-date-of-birth-field' }
+  let(:date_of_birth_field) { 'filter-applicant-date-of-birth-field' }
 
   before do
     visit '/'

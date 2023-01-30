@@ -16,4 +16,19 @@ module ApplicationHelper
 
     title ''
   end
+
+  # Creates an array of table headers for each column name given.
+  #
+  # If the column is sortable, (exists in Types::SORTABLE_COLUMNS), then a
+  # form for sorting by that column is used for the table header.
+  #
+  # The sortable column form includes params from any base_params provided.
+  #
+  def table_headers(column_names, sorting:, base_params: {}, sort_form_method: :get)
+    headers = column_names.map do |column_name|
+      TableHeader.new(column_name:, sorting:)
+    end
+
+    render headers, base_params:, sort_form_method:
+  end
 end

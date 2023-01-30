@@ -10,8 +10,8 @@ RSpec.describe 'Search by submitted date' do
     visit '/'
     click_link 'Search'
 
-    fill_in 'search-application-search-filter-submitted-after-field', with: after_date
-    fill_in 'search-application-search-filter-submitted-before-field', with: before_date
+    fill_in 'filter-submitted-after-field', with: after_date
+    fill_in 'filter-submitted-before-field', with: before_date
 
     click_button 'Search'
   end

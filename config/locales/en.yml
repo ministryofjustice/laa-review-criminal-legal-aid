@@ -86,6 +86,7 @@ en:
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
+    common_platform: Common Platform
     reference: Ref. no.
     time_passed: Days passed
     received_at: Date received

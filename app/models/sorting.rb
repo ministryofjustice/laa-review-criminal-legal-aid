@@ -8,8 +8,4 @@ class Sorting < ApplicationStruct
 
     'descending'
   end
-
-  def column_sort_state(column_name)
-    column_name == sort_by ? sort_direction : 'none'
-  end
 end

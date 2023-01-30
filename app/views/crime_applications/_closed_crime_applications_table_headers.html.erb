@@ -1,0 +1,12 @@
+<%= table_headers(
+      %w[
+        applicant_name
+        reference
+        submitted_at
+        reviewed_at
+        reviewer
+        status
+      ],
+      base_params: { status: 'closed' },
+      sorting: sorting
+    ) %>
