@@ -18,5 +18,31 @@
     </div>
   </div>
 
-  <%= render 'search_results_table', results: @search.results, form_params: { sorting: @sorting, filter: @filter, url: application_searches_path }  %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <table class="govuk-table app-dashboard-table" data-module="moj-sortable-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <%= table_headers(
+                  %w[
+                    applicant_name
+                    reference
+                    submitted_at
+                    time_passed
+                    common_platform
+                    caseworker
+                    status
+                  ],
+                  base_params: { filter: @filter.to_h },
+                  sorting: @sorting,
+                  sort_form_method: :post
+                ) %>
+          </tr>
+        </thead>
+        <%= render partial: 'search_results_table_body',
+                   collection: @search.results,
+                   as: :result %>
+      </table>
+    </div>
+  </div>
 <% end %>

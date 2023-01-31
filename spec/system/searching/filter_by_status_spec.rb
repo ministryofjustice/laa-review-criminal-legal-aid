@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Search applications status filter' do
   include_context 'when search results are returned'
-  let(:filter_field) { 'search-application-search-filter-application-status-field' }
+  let(:filter_field) { 'filter-application-status-field' }
 
   before do
     visit '/'

@@ -1,13 +1,9 @@
 class ApplicationSearchesController < ApplicationController
-  def new
-    @filter = ApplicationSearchFilter.new
-    @sorting = Sorting.new
-  end
+  before_action :set_sort_filter
+
+  def new; end
 
   def create
-    @filter = ApplicationSearchFilter.new(search_params)
-    @sorting = Sorting.new(sort_params)
-
     @search = ApplicationSearch.new(filter: @filter, sorting: @sorting)
 
     render :show
@@ -15,11 +11,15 @@ class ApplicationSearchesController < ApplicationController
 
   private
 
-  def search_params
-    params[:search][:application_search_filter].permit(ApplicationSearchFilter.attribute_names)
+  def set_sort_filter
+    @filter = ApplicationSearchFilter.new(permitted_params[:filter])
+    @sorting = Sorting.new(permitted_params[:sorting])
   end
 
-  def sort_params
-    params[:search][:sorting]&.permit(Sorting.attribute_names)
+  def permitted_params
+    params.permit(
+      filter: ApplicationSearchFilter.attribute_names,
+      sorting: Sorting.attribute_names
+    )
   end
 end

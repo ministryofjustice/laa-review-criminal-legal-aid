@@ -1,0 +1,12 @@
+<%= table_headers(
+      %w[
+        applicant_name
+        reference
+        submitted_at
+        time_passed
+        common_platform
+        caseworker
+      ],
+      base_params: { status: 'open' },
+      sorting: sorting
+    ) %>

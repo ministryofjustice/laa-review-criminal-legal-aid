@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Search applications casewoker filter' do
   include_context 'when search results are returned'
-  let(:assigned_status_field) { 'search-application-search-filter-assigned-status-field' }
+  let(:assigned_status_field) { 'filter-assigned-status-field' }
 
   before do
     visit '/'

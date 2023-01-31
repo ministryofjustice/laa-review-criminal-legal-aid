@@ -1,9 +1,11 @@
 class AssignedApplicationsController < ApplicationController
   def index
+    sort_params = params[:sorting]&.permit(Sorting.attribute_names)
     filter = ApplicationSearchFilter.new(assigned_status: current_user_id)
-    search = ApplicationSearch.new(filter:)
+    sorting = Sorting.new(sort_params)
 
-    @applications = search.results
+    @search = ApplicationSearch.new(filter:, sorting:)
+    @sorting = sorting
   end
 
   def create

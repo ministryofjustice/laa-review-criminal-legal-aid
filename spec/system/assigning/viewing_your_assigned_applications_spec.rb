@@ -53,11 +53,28 @@ RSpec.describe 'Viewing your assigned application' do
 
       click_on('Don JONES')
       click_on('Assign to myself')
-      visit '/'
+      click_on 'Your list'
     end
 
     it 'shows shows how many assignments' do
       expect(page).to have_content '2 saved application'
+    end
+
+    describe 'sortable table headers' do
+      subject(:column_sort) do
+        page.find('thead tr th#submitted_at')['aria-sort']
+      end
+
+      it 'is active and descending by default' do
+        expect(column_sort).to eq 'descending'
+      end
+
+      context 'when clicked' do
+        it 'changes to ascending when it is selected' do
+          expect { click_button 'Date received' }.not_to(change { current_path })
+          expect(column_sort).to eq 'ascending'
+        end
+      end
     end
   end
 

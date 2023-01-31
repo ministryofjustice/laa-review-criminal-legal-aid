@@ -30,7 +30,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'includes the correct headings' do
-    column_headings = page.first('.app-dashboard-table thead tr').text
+    column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
     expect(column_headings).to eq('Applicant Ref. no. Date received Date reviewed Reviewed by Status')
   end
@@ -50,5 +50,22 @@ RSpec.describe 'Closed Applications Dashboard' do
     expect(current_url).to match(
       'applications/5aa4c689-6fb5-47ff-9567-5efe7f8ac211'
     )
+  end
+
+  describe 'sortable table headers' do
+    subject(:column_sort) do
+      page.find('thead tr th#reviewed_at')['aria-sort']
+    end
+
+    it 'is active and descending by default' do
+      expect(column_sort).to eq 'descending'
+    end
+
+    context 'when clicked' do
+      it 'changes to ascending when it is selected' do
+        expect { click_button 'Date reviewed' }.not_to(change { current_path })
+        expect(column_sort).to eq 'ascending'
+      end
+    end
   end
 end
