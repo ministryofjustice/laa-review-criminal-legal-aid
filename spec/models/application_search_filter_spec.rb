@@ -52,13 +52,21 @@ RSpec.describe ApplicationSearchFilter do
   describe '#datastore_params' do
     subject(:datastore_params) { new.datastore_params }
 
+    let(:expected_datastore_params) do
+      {
+        applicant_date_of_birth: nil,
+        application_id_in: [],
+        application_id_not_in: [],
+        status: ['submitted'],
+        submitted_after: nil,
+        submitted_before: nil,
+        search_text: nil
+      }
+    end
+
     context 'when the filter is empty' do
       it 'returns the correct datastore api search params' do
-        expect(datastore_params).to eq({
-                                         applicant_date_of_birth: nil, application_id_in: [],
-            application_id_not_in: [], status: ['submitted'],
-            submitted_after: nil, submitted_before: nil, search_text: nil
-                                       })
+        expect(datastore_params).to eq(expected_datastore_params)
       end
     end
 
@@ -71,7 +79,7 @@ RSpec.describe ApplicationSearchFilter do
         }
       end
 
-      let(:expected_datstore_params) do
+      let(:expected_datastore_params) do
         {
           applicant_date_of_birth: Date.parse('1970-10-10'),
           application_id_in: david.current_assignments.pluck(:assignment_id),
@@ -84,7 +92,7 @@ RSpec.describe ApplicationSearchFilter do
       end
 
       it 'returns the correct datastore api search params' do
-        expect(datastore_params).to eq expected_datstore_params
+        expect(datastore_params).to eq expected_datastore_params
       end
     end
   end

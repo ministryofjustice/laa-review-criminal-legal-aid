@@ -21,9 +21,12 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
   let(:http_client) { instance_double(DatastoreApi::HttpClient, post: search_response) }
 
   let(:search_response) do
-    pagination = {
-      total_pages: 1, current_page: 1, total_count: stubbed_search_results.size
-    }
+    pagination = Pagination.new(
+      total_count: stubbed_search_results.size,
+      total_pages: 1,
+      limit_value: 50
+    ).to_h
+
     records = stubbed_search_results.map(&:to_h)
 
     { pagination:, records: }.deep_stringify_keys

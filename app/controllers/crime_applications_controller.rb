@@ -15,7 +15,7 @@ class CrimeApplicationsController < ApplicationController
   def closed
     set_search(
       filter: ApplicationSearchFilter.new(
-        application_status: 'open'
+        application_status: 'sent_back'
       ),
       default_sort_by: 'reviewed_at'
     )
@@ -24,9 +24,7 @@ class CrimeApplicationsController < ApplicationController
     render :index
   end
 
-  def show
-    @current_assignment = @crime_application.current_assignment
-  end
+  def show; end
 
   def history; end
 
@@ -39,6 +37,7 @@ class CrimeApplicationsController < ApplicationController
   def permitted_params
     params.permit(
       :page,
+      :per_page,
       sorting: Sorting.attribute_names
     )
   end

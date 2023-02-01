@@ -30,7 +30,10 @@ class ApplicationController < ActionController::Base
       permitted_params[:sorting] || { sort_by: default_sort_by }
     )
 
-    pagination = Pagination.new(current_page: permitted_params[:page] || 1)
+    pagination = Pagination.new(
+      current_page: permitted_params[:page],
+      limit_value: permitted_params[:per_page]
+    )
 
     @search = ApplicationSearch.new(
       filter:,

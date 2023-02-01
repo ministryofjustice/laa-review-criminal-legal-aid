@@ -1,6 +1,8 @@
 class AssignedApplicationsController < ApplicationController
   def index
-    set_search(filter: ApplicationSearchFilter.new(assigned_status: current_user_id))
+    set_search(
+      filter: ApplicationSearchFilter.new(assigned_status: current_user_id)
+    )
   end
 
   def create
@@ -53,6 +55,7 @@ class AssignedApplicationsController < ApplicationController
   def permitted_params
     params.permit(
       :page,
+      :per_page,
       sorting: Sorting.attribute_names
     )
   end
