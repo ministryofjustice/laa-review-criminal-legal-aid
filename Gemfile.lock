@@ -204,6 +204,10 @@ GEM
     json-schema (3.0.0)
       addressable (>= 2.8)
     jwt (2.6.0)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -465,6 +469,8 @@ DEPENDENCIES
   faraday
   govuk_design_system_formbuilder (~> 3.1.0)
   importmap-rails
+  kaminari-actionview
+  kaminari-core
   laa-criminal-applications-datastore-api-client!
   laa-criminal-legal-aid-schemas!
   omniauth-oauth2

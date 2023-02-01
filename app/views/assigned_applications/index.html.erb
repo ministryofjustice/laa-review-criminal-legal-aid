@@ -16,7 +16,7 @@
                      data: { module: 'govuk-button' } %>
 
         <%= link_to t('.open_applications'),
-                    crime_applications_path(status: 'open'),
+                    open_crime_applications_path,
                     class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
       </div>
     <% end %>
@@ -37,7 +37,7 @@
                       time_passed
                       common_platform
                     ],
-                    sorting: @sorting
+                    sorting: @search.sorting
                   ) %>
             </tr>
           </thead>
@@ -49,4 +49,6 @@
         </table>
       </div>
     </div>
+
+    <%= paginate @search.pagination %>
 <% end %>

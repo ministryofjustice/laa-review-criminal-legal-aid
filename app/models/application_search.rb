@@ -1,5 +1,6 @@
 class ApplicationSearch
-  def initialize(filter:, sorting: Sorting.new)
+  def initialize(filter:, pagination:, sorting: Sorting.new)
+    @pagination = pagination
     @filter = filter
     @sorting = sorting
   end
@@ -11,8 +12,14 @@ class ApplicationSearch
   end
 
   def total
-    @total ||= datastore_search_response.pagination['total_count']
+    @total ||= pagination.total_count
   end
+
+  def pagination
+    Pagination.new(datastore_search_response.pagination)
+  end
+
+  attr_reader :sorting, :filter
 
   private
 
@@ -27,8 +34,8 @@ class ApplicationSearch
 
   def datastore_params
     {
-      search: @filter.as_json,
-      pagination: {},
+      search: @filter.datastore_params,
+      pagination: @pagination.datastore_params,
       sorting: @sorting.to_h
     }
   end

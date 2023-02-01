@@ -1,20 +1,27 @@
 class CrimeApplicationsController < ApplicationController
-  before_action :set_crime_application, except: %i[index]
+  before_action :set_crime_application, only: %i[show history]
 
-  def index
-    default_sorting_params = {}
-    if params[:status] == 'closed'
-      @review_status = 'closed'
-      application_status = 'sent_back'
-      default_sorting_params[:sort_by] = 'reviewed_at'
-    else
-      @review_status = 'open'
-      application_status = 'open'
-    end
+  def open
+    set_search(
+      filter: ApplicationSearchFilter.new(
+        application_status: 'open'
+      )
+    )
+    @review_status = 'open'
 
-    @sorting = Sorting.new(permitted_params[:sorting] || default_sorting_params)
-    @filter = ApplicationSearchFilter.new(application_status:)
-    @search = ApplicationSearch.new(filter: @filter, sorting: @sorting)
+    render :index
+  end
+
+  def closed
+    set_search(
+      filter: ApplicationSearchFilter.new(
+        application_status: 'open'
+      ),
+      default_sort_by: 'reviewed_at'
+    )
+    @review_status = 'closed'
+
+    render :index
   end
 
   def show
@@ -31,7 +38,7 @@ class CrimeApplicationsController < ApplicationController
 
   def permitted_params
     params.permit(
-      :status,
+      :page,
       sorting: Sorting.attribute_names
     )
   end

@@ -42,13 +42,13 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
     # rubocop:enable RSpec::AnyInstance
   end
 
-  def assert_api_searched_with_filter(*params)
+  def assert_api_searched_with_filter(*params, sorting: Sorting.new, pagination: Pagination.new)
     expect(http_client).to have_received(:post).with(
       '/searches',
       {
-        search: ApplicationSearchFilter.new(**Hash[*params]).as_json,
-        sorting: Sorting.new.to_h,
-        pagination: {}
+        search: ApplicationSearchFilter.new(**Hash[*params]).datastore_params,
+        sorting: sorting.to_h,
+        pagination: pagination.datastore_params
       }
     )
   end

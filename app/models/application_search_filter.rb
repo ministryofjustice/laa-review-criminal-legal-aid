@@ -39,7 +39,7 @@ class ApplicationSearchFilter < ApplicationStruct
   # DatastoreApi searches by assigned status, we translate the assigned_status into
   # "application_id_in" and "application_id_not_in" DatastoreApi constraints.
   #
-  def as_json(_opts = {})
+  def datastore_params
     {
       applicant_date_of_birth:,
       application_id_in:,

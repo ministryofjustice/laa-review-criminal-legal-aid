@@ -1,11 +1,6 @@
 class AssignedApplicationsController < ApplicationController
   def index
-    sort_params = params[:sorting]&.permit(Sorting.attribute_names)
-    filter = ApplicationSearchFilter.new(assigned_status: current_user_id)
-    sorting = Sorting.new(sort_params)
-
-    @search = ApplicationSearch.new(filter:, sorting:)
-    @sorting = sorting
+    set_search(filter: ApplicationSearchFilter.new(assigned_status: current_user_id))
   end
 
   def create
@@ -23,9 +18,7 @@ class AssignedApplicationsController < ApplicationController
   end
 
   def next_application
-    filter = ApplicationSearchFilter.new(assigned_status: 'unassigned')
-    search = ApplicationSearch.new(filter:)
-    next_app_id = search.results.first&.id
+    next_app_id = GetNext.new.call
 
     if next_app_id
       Assigning::AssignToUser.new(
@@ -55,5 +48,12 @@ class AssignedApplicationsController < ApplicationController
     flash[:success] = :unassigned_from_self
 
     redirect_to assigned_applications_path
+  end
+
+  def permitted_params
+    params.permit(
+      :page,
+      sorting: Sorting.attribute_names
+    )
   end
 end
