@@ -1,6 +1,6 @@
 class TableHeader < ApplicationStruct
   attribute :column_name, Types::String
-  attribute :sorting, Types.Instance(Sorting)
+  attribute :search, Types.Instance(ApplicationSearch)
 
   def name
     I18n.t(column_name, scope: 'table_headings')
@@ -21,6 +21,8 @@ class TableHeader < ApplicationStruct
       }
     }
   end
+
+  delegate :sorting, to: :search
 
   #
   # returns 'ascending', 'descending' or 'none' depending on

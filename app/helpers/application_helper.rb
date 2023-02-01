@@ -24,9 +24,11 @@ module ApplicationHelper
   #
   # The sortable column form includes params from any base_params provided.
   #
-  def table_headers(column_names, sorting:, base_params: {}, sort_form_method: :get)
+  def table_headers(column_names, search:, base_params: {}, sort_form_method: :get)
+    base_params[:per_page] = search.pagination.limit_value
+
     headers = column_names.map do |column_name|
-      TableHeader.new(column_name:, sorting:)
+      TableHeader.new(column_name:, search:)
     end
 
     render headers, base_params:, sort_form_method:

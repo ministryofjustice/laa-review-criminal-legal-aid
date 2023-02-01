@@ -15,6 +15,7 @@ class ApplicationSearchesController < ApplicationController
   def permitted_params
     params.permit(
       :page,
+      :per_page,
       filter: ApplicationSearchFilter.attribute_names,
       sorting: Sorting.attribute_names
     )
