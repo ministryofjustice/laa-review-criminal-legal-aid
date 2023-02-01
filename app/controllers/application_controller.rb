@@ -25,9 +25,9 @@ class ApplicationController < ActionController::Base
     request.env['warden']
   end
 
-  def set_search(filter: ApplicationSearchFilter.new, default_sort_by: 'submitted_at')
+  def set_search(filter: ApplicationSearchFilter.new, sorting: {})
     sorting = Sorting.new(
-      permitted_params[:sorting] || { sort_by: default_sort_by }
+      permitted_params[:sorting] || sorting.to_h
     )
 
     pagination = Pagination.new(
