@@ -41,7 +41,7 @@ module Types
     details: String
   )
 
-  SortDirection = String.default('descending'.freeze).enum('descending', 'ascending')
+  SortDirection = String.default('ascending'.freeze).enum('descending', 'ascending')
 
   SORTABLE_COLUMNS = %w[
     submitted_at

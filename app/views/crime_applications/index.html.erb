@@ -1,9 +1,9 @@
-<% title t(".#{@review_status}_title") %>
+<% title t(".#{action_name}_title") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
       <h1 class="govuk-heading-xl">
-        <%= t ".#{@review_status}_heading" %>
+        <%= t ".#{action_name}_heading" %>
       </h1>
   </div>
 </div>
@@ -21,12 +21,12 @@
   <table class="govuk-table app-dashboard-table">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <%= render "#{@review_status}_crime_applications_table_headers", search: @search %>
+        <%= render "#{action_name}_crime_applications_table_headers", search: @search %>
       </tr>
     </thead>
 
     <tbody class="govuk-table__body">
-      <%= render partial: "#{@review_status}_crime_applications_table_body",
+      <%= render partial: "#{action_name}_crime_applications_table_body",
                  collection: @search.results,
                  as: :app %>
     </tbody>

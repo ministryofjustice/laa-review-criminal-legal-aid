@@ -3,23 +3,16 @@ class CrimeApplicationsController < ApplicationController
 
   def open
     set_search(
-      filter: ApplicationSearchFilter.new(
-        application_status: 'open'
-      )
+      filter: ApplicationSearchFilter.new(application_status: 'open')
     )
-    @review_status = 'open'
-
     render :index
   end
 
   def closed
     set_search(
-      filter: ApplicationSearchFilter.new(
-        application_status: 'sent_back'
-      ),
-      default_sort_by: 'reviewed_at'
+      filter: ApplicationSearchFilter.new(application_status: 'sent_back'),
+      sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
-    @review_status = 'closed'
 
     render :index
   end
