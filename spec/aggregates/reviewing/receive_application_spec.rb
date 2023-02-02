@@ -9,6 +9,6 @@ RSpec.describe Reviewing::ReceiveApplication do
 
   it 'changes the state from :nil to :received' do
     expect { command.call }.to change { review.state }
-      .from(nil).to(:received)
+      .from(:submitted).to(:open)
   end
 end

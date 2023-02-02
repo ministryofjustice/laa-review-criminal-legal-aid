@@ -10,11 +10,11 @@
       <%= @crime_application.applicant_name %>
     </h2>
 
-    <span class="govuk-tag govuk-tag--<%= t(@crime_application.status, scope: 'values.color') %> govuk-!-margin-bottom-6">
-      <%= t(@crime_application.status, scope: 'values.status') %>
+    <span class="govuk-tag govuk-tag--<%= t(@crime_application.review_status, scope: 'values.color') %> govuk-!-margin-bottom-6">
+      <%= t(@crime_application.review_status, scope: 'values.review_status') %>
     </span>
 
-    <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
+    <%= render partial: 'assignment', locals: { crime_application: @crime_application } %>
   </div>
 </div>
 
@@ -33,7 +33,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if @crime_application.current_assignment.assigned_to?(current_user_id) && @crime_application.status == 'submitted' %>
+    <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= button_to t('calls_to_action.mark_complete'),
                       new_crime_application_return_path(@crime_application),

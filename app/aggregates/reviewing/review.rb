@@ -4,16 +4,18 @@ module Reviewing
 
     def initialize(id)
       @id = id
-      @state = nil
+      @state = :submitted
       @return_reason = nil
+      @reviewer_id = nil
+      @reviewed_at = nil
     end
 
-    attr_reader :id, :state, :return_reason
+    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id
 
     alias application_id id
 
     def receive_application(application_id:)
-      raise AlreadyReceived unless @state.nil?
+      raise AlreadyReceived unless @state == :submitted
 
       apply ApplicationReceived.new(
         data: { application_id: }
@@ -39,17 +41,24 @@ module Reviewing
     end
 
     on ApplicationReceived do |_event|
-      @state = :received
+      @state = :open
     end
 
     on SentBack do |event|
       @state = :sent_back
       @return_reason = event.data.fetch(:reason, nil)
+      @reviewer_id = event.data.fetch(:user_id)
+      @reviewed_at = event.timestamp
     end
 
-    on Completed do |_event|
-      @assignee_id = nil
+    on Completed do |event|
       @state = :completed
+      @reviewer_id = event.data.fetch(:user_id)
+      @reviewed_at = event.timestamp
+    end
+
+    def reviewed?
+      !@reviewed_at.nil?
     end
   end
 end

@@ -112,8 +112,6 @@ RSpec.describe 'Viewing application history' do
 
       click_on 'All open applications'
       click_on('Kit Pound')
-      click_on('Reassign to myself')
-      click_on('Yes, reassign')
       click_on('Application history')
     end
 

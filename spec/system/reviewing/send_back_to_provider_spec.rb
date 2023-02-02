@@ -25,8 +25,8 @@ RSpec.describe 'Send an application back to the provider' do
         to_whom_id: assignee_id
       ).call
 
-      click_on 'All open applications'
-      click_on('Kit Pound')
+      click_on 'Your list'
+      click_on 'Kit Pound'
     end
 
     it 'the "Send back to provider" button is visable and accessible' do
@@ -40,6 +40,7 @@ RSpec.describe 'Send an application back to the provider' do
       before do
         allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
           .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
         click_button(send_back_cta)
       end
 
@@ -66,12 +67,58 @@ RSpec.describe 'Send an application back to the provider' do
         end
       end
 
-      it 'returns to the application and notifies the caseworker' do
+      describe 'when successful' do
+        before do
+          choose 'Duplicate application'
+          fill_in 'return-details-details-field', with: 'This application was duplicated'
+        end
+
+        it 'removes the application from "Your list"' do
+          expect(page).to have_content('Your list (1)')
+
+          click_button(send_back_cta)
+
+          expect(page).to have_content('Your list (0)')
+        end
+
+        it 'redirects to "Your list" and notifies the caseworker' do
+          click_button(send_back_cta)
+          expect(page).to have_content 'The application has been sent back to the provider'
+          expect(page).to have_current_path assigned_applications_path
+        end
+      end
+    end
+
+    describe 'viewing the returned application' do
+      before do
+        allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+          .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+        click_button(send_back_cta)
+
         choose 'Duplicate application'
         fill_in 'return-details-details-field', with: 'This application was duplicated'
         click_button(send_back_cta)
 
-        expect(page).to have_content 'The application has been sent back to the provider'
+        visit(crime_application_path(crime_application_id))
+      end
+
+      it 'includes the page title' do
+        expect(page).to have_content I18n.t('crime_applications.show.page_title')
+      end
+
+      it 'shows the sent back status badge' do
+        badge = page.all('.govuk-tag').last.text
+
+        expect(badge).to match('Sent back to provider')
+      end
+
+      it 'includes the applicant details' do
+        expect(page).to have_content('AJ123456C')
+      end
+
+      it 'does not show the CTAs' do
+        expect(page).not_to have_content('Mark as complete')
       end
     end
   end

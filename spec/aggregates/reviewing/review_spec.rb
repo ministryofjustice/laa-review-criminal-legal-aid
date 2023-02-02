@@ -14,7 +14,7 @@ describe Reviewing::Review do
     end
 
     it 'is becomes "received"' do
-      expect(review.state).to eq :received
+      expect(review.state).to eq :open
     end
 
     it 'creates an event' do

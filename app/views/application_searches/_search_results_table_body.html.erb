@@ -15,9 +15,9 @@
     <%= t(result.common_platform?, scope: 'crime_applications.values') %>
   </td>
   <td class="govuk-table__cell">
-    <%= result.current_assignment&.user&.name %>
+    <%= result.caseworker_name %>
   </td>
   <td class="govuk-table__cell">
-    <%= t(result.status, scope: 'values.status') %>
+    <%= t(result.review_status, scope: 'values.review_status') %>
   </td>
 </tr>
