@@ -27,9 +27,7 @@ class ApplicationSearch
   include DatastoreApi::Traits::PaginatedResponse
 
   def datastore_search_response
-    @datastore_search_response ||= paginated_response(
-      http_client.post('/searches', datastore_params)
-    )
+    @datastore_search_response ||= paginated_response(datastore_response)
   end
 
   def datastore_params
@@ -38,5 +36,11 @@ class ApplicationSearch
       pagination: @pagination.datastore_params,
       sorting: @sorting.to_h
     }
+  end
+
+  def datastore_response
+    http_client.post('/searches', datastore_params)
+  rescue DatastoreApi::Errors::BadRequest
+    { records: [], pagination: {} }
   end
 end
