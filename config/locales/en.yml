@@ -126,6 +126,7 @@ en:
     status:
       submitted: Open
       returned: Sent back to provider
+      superseded: Sent back to provider
       completed: Completed
     days_passed:
       one: 1 day
@@ -144,6 +145,12 @@ en:
       duplicate_application: Duplicate application
       case_concluded: Case has already concluded
       provider_request: Provider request
+    color:
+      submitted: default
+      returned: red 
+      superseded: red
+      completed: green 
+
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
@@ -236,10 +243,6 @@ en:
     show:
       page_title: Application
       heading: Application
-      status:
-        submitted: Open
-        returned: Sent back to provider
-        completed: Completed
       view_history: View application history
       view_your_list: View your list
     history:

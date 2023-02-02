@@ -27,14 +27,24 @@ RSpec.describe 'Search applications status filter' do
     end
 
     describe 'Completed' do
+      #
+      # Completed is expected to raise an error because the completed
+      # state is not yet supported.
+      #
+      # Here we catch the error and return an empty collection.
+      #
+      let(:datastore_response) do
+        raise DatastoreApi::Errors::BadRequest
+      end
+
       before do
         select 'Completed', from: filter_field
         click_button 'Search'
       end
 
       it 'filters by status "completed"' do
-        assert_api_searched_with_filter(:application_status, 'completed')
         expect(page).to have_select(filter_field, selected: 'Completed')
+        expect(page).to have_content('There are no results that match the search criteria')
       end
     end
 

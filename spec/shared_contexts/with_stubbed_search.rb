@@ -18,9 +18,9 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
     ]
   end
 
-  let(:http_client) { instance_double(DatastoreApi::HttpClient, post: search_response) }
+  let(:http_client) { instance_double(DatastoreApi::HttpClient) }
 
-  let(:search_response) do
+  let(:datastore_response) do
     pagination = Pagination.new(
       total_count: stubbed_search_results.size,
       total_pages: 1,
@@ -33,11 +33,9 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
   end
 
   before do
-    allow(http_client).to receive(:post) { search_response }
-
+    allow(http_client).to receive(:post) { datastore_response }
     #
     # Temporarily allow any instance of.
-    #
     # TODO remove when datastore api client has been updated.
     #
     # rubocop:disable RSpec::AnyInstance

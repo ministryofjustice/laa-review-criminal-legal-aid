@@ -87,7 +87,7 @@ RSpec.describe ApplicationSearchFilter do
           submitted_before: Date.parse('2022-12-21'),
           search_text: 'David 100003',
           application_id_not_in: [],
-          status: ['returned']
+          status: %w[returned superseded]
         }
       end
 

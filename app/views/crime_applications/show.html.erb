@@ -10,13 +10,9 @@
       <%= @crime_application.applicant_name %>
     </h2>
 
-    <% if @crime_application.status == 'returned' %>
-      <span class="govuk-tag govuk-tag--red govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
-    <% elsif @crime_application.status == 'completed' %>
-      <span class="govuk-tag govuk-tag--green govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
-    <% else %>
-      <span class="govuk-tag govuk-!-margin-bottom-6"><%= t(".status.#{@crime_application.status}") %></span>
-    <% end %>
+    <span class="govuk-tag govuk-tag--<%= t(@crime_application.status, scope: 'values.color') %> govuk-!-margin-bottom-6">
+      <%= t(@crime_application.status, scope: 'values.status') %>
+    </span>
 
     <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
   </div>
