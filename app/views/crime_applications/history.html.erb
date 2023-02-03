@@ -1,22 +1,6 @@
 <% title t('.page_title') %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <p class="govuk-body-l govuk-!-margin-bottom-2">
-      <%= @crime_application.reference %>
-    </p>
-
-    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
-      <%= @crime_application.applicant_name %>
-    </h2>
-
-    <span class="govuk-tag govuk-tag--<%= t(@crime_application.review_status, scope: 'values.color') %> govuk-!-margin-bottom-6">
-      <%= t(@crime_application.review_status, scope: 'values.review_status') %>
-    </span>
-
-    <%= render partial: 'assignment', locals: { crime_application: @crime_application } %>
-  </div>
-</div>
+<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
