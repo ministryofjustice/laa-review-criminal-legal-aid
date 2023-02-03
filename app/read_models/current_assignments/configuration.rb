@@ -10,7 +10,7 @@ module CurrentAssignments
 
       subscribe(
         ->(event) { unassign(event) },
-        [Assigning::UnassignedFromUser]
+        [Assigning::UnassignedFromUser, Reviewing::SentBack]
       )
     end
 
@@ -31,8 +31,9 @@ module CurrentAssignments
     end
 
     def unassign(event)
-      user_id = event.data.fetch(:from_whom_id)
-      assignment_id = event.data.fetch(:assignment_id)
+      user_id = event.data.slice(:from_whom_id, :user_id).compact.first
+
+      assignment_id = event.data.slice(:assignment_id, :application_id).compact.first
 
       CurrentAssignment.where(assignment_id:, user_id:).delete_all
     end

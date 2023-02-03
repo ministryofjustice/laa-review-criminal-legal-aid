@@ -1,6 +1,9 @@
 require 'laa_crime_schemas'
 
 class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
+  include Assignable
+  include Reviewable
+
   def applicant_name
     applicant.full_name
   end
@@ -15,18 +18,16 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     true
   end
 
-  def current_assignment
-    @current_assignment ||= Assigning::LoadAssignment.new(
-      assignment_id: id
-    ).call
-  end
-
   def history
     @history ||= ApplicationHistory.new(application: self)
   end
 
   def to_param
     id
+  end
+
+  def reviewable_by?(user_id)
+    !reviewed? && assigned_to?(user_id)
   end
 
   class << self
@@ -41,7 +42,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   private
 
-  # TODO: Convert to working days
   def applicant
     client_details.applicant
   end

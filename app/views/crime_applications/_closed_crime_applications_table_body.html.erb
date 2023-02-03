@@ -12,9 +12,9 @@
     <%= l(app.reviewed_at) if app.reviewed_at %>
   </td>
   <td class="govuk-table__cell">
-    <%= app.current_assignment&.user&.name %>
+    <%= app.reviewer_name %>
   </td>
   <td class="govuk-table__cell">
-    <%= app.status.humanize %>
+    <%= t(app.review_status, scope: 'values.review_status') %>
   </td>
 </tr>

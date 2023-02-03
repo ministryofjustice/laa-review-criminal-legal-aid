@@ -31,10 +31,11 @@ RSpec.describe Reviewing::SendBack do
   end
 
   include_context 'with review'
+
   context 'with a valid reason' do
     it 'changes the state from :received to :sent_back' do
       expect { command.call }.to change { review.state }
-        .from(:received).to(:sent_back)
+        .from(:open).to(:sent_back)
     end
 
     it 'records the return reason' do
@@ -51,7 +52,7 @@ RSpec.describe Reviewing::SendBack do
 
     it 'raises an invalid reason error' do
       expect { command.call }.to raise_error(/has invalid type for :reason/)
-      expect(review.state).to eq(:received)
+      expect(review.state).to eq(:open)
     end
 
     it 'does not call datastore' do

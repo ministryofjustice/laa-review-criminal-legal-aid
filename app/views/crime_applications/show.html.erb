@@ -1,22 +1,6 @@
 <% title t('.page_title') %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <p class="govuk-body-l govuk-!-margin-bottom-2">
-      <%= @crime_application.reference %>
-    </p>
-
-    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
-      <%= @crime_application.applicant_name %>
-    </h2>
-
-    <span class="govuk-tag govuk-tag--<%= t(@crime_application.status, scope: 'values.color') %> govuk-!-margin-bottom-6">
-      <%= t(@crime_application.status, scope: 'values.status') %>
-    </span>
-
-    <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
-  </div>
-</div>
+<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-9">
@@ -33,7 +17,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if @crime_application.current_assignment.assigned_to?(current_user_id) && @crime_application.status == 'submitted' %>
+    <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= button_to t('calls_to_action.mark_complete'),
                       new_crime_application_return_path(@crime_application),

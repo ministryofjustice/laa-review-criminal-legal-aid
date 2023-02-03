@@ -96,44 +96,6 @@ RSpec.describe 'Viewing an application' do
         end
       end
     end
-
-    context 'when an application is sent back' do
-      let(:stubbed_search_results) do
-        [
-          ApplicationSearchResult.new(
-            applicant_name: 'Ella Fitzgerald',
-            resource_id: '5aa4c689-6fb5-47ff-9567-5efe7f8ac211',
-            reference: 5_230_234_344,
-            status: 'returned',
-            submitted_at: '2022-12-14T16:58:15.000+00:00'
-          )
-        ]
-      end
-
-      before do
-        visit '/'
-        click_on 'Closed applications'
-        click_on('Ella Fitzgerald')
-      end
-
-      it 'shows the sent back status badge' do
-        badge = page.all('.govuk-tag').last.text
-
-        expect(badge).to match('Sent back to provider')
-      end
-
-      it 'includes the page title' do
-        expect(page).to have_content I18n.t('crime_applications.show.page_title')
-      end
-
-      it 'includes the applicant details' do
-        expect(page).to have_content('JC123458B')
-      end
-
-      it 'does not show the CTAs' do
-        expect(page).not_to have_content('Mark as complete')
-      end
-    end
   end
 
   context 'when an application does not exist in the datastore' do

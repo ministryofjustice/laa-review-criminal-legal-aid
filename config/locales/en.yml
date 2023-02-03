@@ -47,6 +47,10 @@ en:
     date_received: 'Date received:'
     date_returned: 'Date returned:'
     date_reviewed: 'Date reviewed:'
+    date:
+      sent_back: 'Date returned:'
+      completed: 'Date completed:'
+
     application_information: Application information
     all_applications: All applications
     search_criteria: Search criteria
@@ -68,6 +72,7 @@ en:
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
+    providers_office_address: Providers office address 
     correspondence_address: Correspondence address
     codefendant: Co-defendant %{number}
     offence: Offence
@@ -102,6 +107,7 @@ en:
     initial_application: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
+    providers_office_address: Same as provider address
     summary_only: Summary only
     deleted_user_name: '[deleted]'
     either_way: Either way
@@ -123,15 +129,11 @@ en:
     expert_examination: Expert examination
     interest_of_another: Interest of another
     other: Other
-    status:
-      submitted: Open
-      returned: Sent back to provider
-      superseded: Sent back to provider
-      completed: Completed
     days_passed:
       one: 1 day
       other: "%{count} days"
-    application_status:
+    review_status:
+      submitted: Open
       open: Open
       sent_back: Sent back to provider
       completed: Completed
@@ -147,8 +149,8 @@ en:
       provider_request: Provider request
     color:
       submitted: default
-      returned: red 
-      superseded: red
+      open: default
+      sent_back: red
       completed: green 
 
 

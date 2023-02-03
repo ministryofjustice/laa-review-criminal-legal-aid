@@ -2,22 +2,36 @@ require 'rails_helper'
 
 RSpec.describe 'Closed Applications Dashboard' do
   include_context 'with stubbed search'
+  let(:application_id) { '47a93336-7da6-48ac-b139-808ddd555a41' }
 
   let(:stubbed_search_results) do
     [
       ApplicationSearchResult.new(
-        applicant_name: 'Ella Fitzgerald',
-        resource_id: '5aa4c689-6fb5-47ff-9567-5efe7f8ac211',
-        reference: 5_230_234_344,
+        applicant_name: 'John Potter',
+        resource_id: '47a93336-7da6-48ac-b139-808ddd555a41',
+        reference: 6_000_002,
         status: 'returned',
-        submitted_at: '2022-12-14T16:58:15.000+00:00',
+        submitted_at: '2022-09-27T14:10:00.000+00:00',
         reviewed_at: '2022-12-15T16:58:15.000+00:00'
       )
     ]
   end
 
+  let(:user_id) { User.find_by(auth_oid: current_user_auth_oid).id }
+
   before do
     visit '/'
+    return_details = ReturnDetails.new(
+      reason: ReturnDetails::RETURN_REASONS.first,
+      details: 'Detailed reason'
+    ).attributes
+
+    Reviewing::SendBack.new(
+      application_id:,
+      user_id:,
+      return_details:
+    ).call
+
     click_on 'Closed applications'
   end
 
@@ -37,7 +51,8 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
-    expect(first_row_text).to eq('Ella Fitzgerald 5230234344 14/12/2022 15/12/2022 Returned')
+    reviewed_at = I18n.l(Time.zone.now.to_date)
+    expect(first_row_text).to eq("John Potter 6000002 27/09/2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
   end
 
   it 'has the correct count' do
@@ -45,10 +60,10 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'can be used to navigate to an application' do
-    click_on('Ella Fitzgerald')
+    click_on('John Potter')
 
     expect(current_url).to match(
-      'applications/5aa4c689-6fb5-47ff-9567-5efe7f8ac211'
+      'applications/47a93336-7da6-48ac-b139-808ddd555a41'
     )
   end
 

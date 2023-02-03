@@ -15,6 +15,6 @@ RSpec.describe Reviewing::Complete do
 
   it 'changes the state from :received to :completed' do
     expect { command.call }.to change { review.state }
-      .from(:received).to(:completed)
+      .from(:open).to(:completed)
   end
 end

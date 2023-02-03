@@ -6,14 +6,6 @@ RSpec.configure do |config|
 
   config.before do
     #
-    # Stub for valid application for Kit Pound, fixture provided by the LaaCrimeSchemas Gem
-    #
-    stub_request(
-      :get,
-      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/47a93336-7da6-48ac-b139-808ddd555a41"
-    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
-
-    #
     # Stub for valid returned application for Kit Pound, fixture provided by the LaaCrimeSchemas Gem
     #
     stub_request(
@@ -34,6 +26,22 @@ RSpec.configure do |config|
         status: 200
       )
     end
+
+    #
+    # Stub for valid application for Kit Pound, fixture provided by the LaaCrimeSchemas Gem
+    #
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/47a93336-7da6-48ac-b139-808ddd555a41"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
+
+    #
+    # For sending back the returned fixture application
+    #
+    stub_request(
+      :put,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/47a93336-7da6-48ac-b139-808ddd555a41/return"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
 
     #
     # All DatastoreApi search requests are stubbed to return empty result sets by default.

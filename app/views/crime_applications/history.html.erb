@@ -1,18 +1,6 @@
 <% title t('.page_title') %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      <%= @crime_application.reference %>
-    </h1>
-
-    <h2 class="govuk-heading-l">
-      <%= @crime_application.applicant_name %>
-    </h2>
-
-    <%= render partial: 'current_assignment', locals: { crime_application: @crime_application } %>
-  </div>
-</div>
+<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

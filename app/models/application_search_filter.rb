@@ -28,7 +28,7 @@ class ApplicationSearchFilter < ApplicationStruct
   # Values can be "open", "completed", "sent_back", "all"
   def application_status_options
     Types::REVIEW_APPLICATION_STATUSES.keys.map do |status|
-      [I18n.t(status, scope: 'values.application_status'), status]
+      [I18n.t(status, scope: 'values.review_status'), status]
     end
   end
 

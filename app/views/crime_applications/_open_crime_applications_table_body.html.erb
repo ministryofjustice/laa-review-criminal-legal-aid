@@ -15,6 +15,6 @@
     <%= t(app.common_platform?, scope: 'crime_applications.values') %>
   </td>
   <td class="govuk-table__cell">
-    <%= app.current_assignment&.user&.name %>
+    <%= app.assignee_name %>
   </td>
 </tr>

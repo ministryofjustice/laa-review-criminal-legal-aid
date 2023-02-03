@@ -1,10 +1,12 @@
 class ApplicationSearchResult < ApplicationStruct
   attribute :applicant_name, Types::String
   attribute :submitted_at, Types::DateTime
-  attribute? :reviewed_at, Types::DateTime.optional
   attribute :reference, Types::Integer
   attribute :resource_id, Types::Uuid
   attribute :status, Types::String
+
+  include Assignable
+  include Reviewable
 
   alias id resource_id
 
@@ -16,8 +18,8 @@ class ApplicationSearchResult < ApplicationStruct
     true
   end
 
-  def current_assignment
-    @current_assignment ||= CurrentAssignment.find_by(assignment_id: id)
+  def caseworker_name
+    reviewer_name || assignee_name
   end
 
   # TODO: Convert to working days
