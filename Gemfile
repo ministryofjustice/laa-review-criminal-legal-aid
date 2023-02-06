@@ -7,8 +7,8 @@ gem 'pg', '~> 1.4'
 gem 'puma'
 gem 'rails', '~> 7.0.3'
 
+gem 'business'
 gem 'faraday'
-
 gem 'govuk_design_system_formbuilder', '~> 3.1.0'
 
 gem 'kaminari-actionview'
