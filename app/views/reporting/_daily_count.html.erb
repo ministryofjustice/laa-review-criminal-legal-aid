@@ -3,7 +3,7 @@
     <details class="govuk-details" data-module="govuk-details">
       <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
-          View by time passed
+          <%= t 'calls_to_action.view_daily_count' %>
         </span>
       </summary>
       <div class="govuk-details__text ">
@@ -11,20 +11,20 @@
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">
-                Time passed
+                <%= t 'table_headings.time_passed' %>
               </th>
               <th scope="col" class="govuk-table__header">
-                Open
+                <%= t action_name, scope: 'table_headings.daily_count' %>
               </th>
             </tr>
           </thead>
           <tbody class="govuk-table__body">
-            <% Reporting::CurrentOpenApplications.new.counts.each_with_index do |count, index| %>
+            <% daily_count.counts.each_with_index do |count, index| %>
               <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">
-                  <%= "#{index} days" %>
+                  <%= t 'values.days_passed', count: index %>
                 </th>
-                <td class="govuk-table__cell" >
+                <td class="govuk-table__cell">
                   <%= count %>
                 </td>
               </tr>
