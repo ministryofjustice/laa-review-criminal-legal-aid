@@ -14,7 +14,7 @@ module Reporting
     def filters
       days.map do |day|
         submitted_before = day.tomorrow
-        submitted_after = day == final_day ? nil : day
+        submitted_after = day == days.last ? nil : day
 
         ApplicationSearchFilter.new(submitted_after:, submitted_before:, **filter_args)
       end
@@ -27,10 +27,6 @@ module Reporting
     private
 
     attr_reader :days, :filter_args
-
-    def final_day
-      days.last
-    end
 
     def pagination
       Pagination.new(limit_value: 1)
