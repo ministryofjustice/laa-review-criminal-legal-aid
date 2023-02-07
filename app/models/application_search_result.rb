@@ -11,7 +11,7 @@ class ApplicationSearchResult < ApplicationStruct
   alias id resource_id
 
   def days_passed
-    Rational(time_passed, 1.day).floor
+    Calendar.new.business_days_between(submitted_at, Time.zone.now.to_date)
   end
 
   def common_platform?
@@ -20,11 +20,6 @@ class ApplicationSearchResult < ApplicationStruct
 
   def caseworker_name
     reviewer_name || assignee_name
-  end
-
-  # TODO: Convert to working days
-  def time_passed
-    Time.zone.now - submitted_at
   end
 
   def to_param

@@ -28,14 +28,14 @@ RSpec.describe Reporting::DailyCount do
   describe '#periods' do
     subject(:periods) { report.periods }
 
-    it 'returns the periods for submissions for each workding day' do
+    it 'returns the periods for submissions for each working day' do
       expect(periods).to eq(expected_periods)
     end
 
-    context 'when day_zero is non working day' do
+    context 'when day_zero is a non-working day' do
       let(:day_zero) { Date.parse('2023-01-01') }
 
-      it 'cosiders day zero as the next workding day' do
+      it 'considers day zero as the next working day' do
         expect(periods.first).to eq([Date.parse('2022-12-31'), nil])
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe Reporting::DailyCount do
       expect(report.filters.map(&:assigned_status).uniq).to eq([filter.assigned_status])
     end
 
-    it 'sets submitted_after and submitted_before acording to the period' do
+    it 'sets submitted_after and submitted_before according to the period' do
       filtered_periods = report.filters.map { |f| [f.submitted_after, f.submitted_before] }
 
       expect(filtered_periods).to eq(expected_periods)

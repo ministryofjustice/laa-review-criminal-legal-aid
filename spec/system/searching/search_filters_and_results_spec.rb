@@ -28,7 +28,12 @@ RSpec.describe 'Search Page' do
 
   it 'shows the correct results' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
-    days_ago = Rational((Time.zone.now - DateTime.parse('2022-10-27T14:09:11.000+00:00')), 1.day).floor
+
+    days_ago = Calendar.new.business_days_between(
+      DateTime.parse('2022-10-27T14:09:11.000+00:00'),
+      Time.zone.now.to_date
+    )
+
     expect(first_row_text).to eq("Kit Pound 120398120 27/10/2022 #{days_ago} days Yes Open")
   end
 
