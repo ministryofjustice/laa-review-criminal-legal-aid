@@ -103,6 +103,7 @@ GEM
       msgpack (~> 1.2)
     brakeman (5.4.0)
     builder (3.2.4)
+    business (2.3.0)
     capybara (3.38.0)
       addressable
       matrix
@@ -459,6 +460,7 @@ DEPENDENCIES
   aggregate_root
   bootsnap
   brakeman
+  business
   capybara
   dartsass-rails (~> 0.4.0)
   debug
