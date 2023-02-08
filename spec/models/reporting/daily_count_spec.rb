@@ -1,44 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Reporting::DailyCount do
-  subject(:report) { described_class.new(filter:, day_zero:) }
-
-  let(:filter) { ApplicationSearchFilter.new(assigned_status: SecureRandom.uuid) }
-
-  # Required logic for working day counts for submissions.
+  # Required logic for business day counts for submissions:
+  #
   # Example given for a week with a bank holiday Monday, viewed on Wednesdays.
   #
   #               | 29/12 | 30/12 | 31/01 | 1/1 | 2/1 | 3/1 | 4/1 |
   #               |  thu  |  fri  |  sat  | sun | mon | tue | wed |
   # age_in_days   |   3   |   2   |   1   |  1  |  1  |  1  |  0  |
-  # after_date    |  nil  |  fri  |  sat  | sat | sat | sat | wed |
+  # after_date    |  thu  |  fri  |  sat  | sat | sat | sat | wed |
   # before_date   |  fri  |  sat  |  wed  | wed | wed | wed | nil |
 
+  subject(:report) { described_class.new(filter:, day_zero:) }
+
+  let(:filter) { ApplicationSearchFilter.new(assigned_status: SecureRandom.uuid) }
   let(:day_zero) { Date.parse('2023-01-04') }
 
-  let(:expected_periods) do
+  let(:expected_search_filter_periods) do
     [
-      [Date.parse('2023-01-04'), nil],
+      [Date.parse('2023-01-04'), Date.parse('2023-01-05')],
       [Date.parse('2022-12-31'), Date.parse('2023-01-04')],
       [Date.parse('2022-12-30'), Date.parse('2022-12-31')],
       [nil, Date.parse('2022-12-30')]
     ]
-  end
-
-  describe '#periods' do
-    subject(:periods) { report.periods }
-
-    it 'returns the periods for submissions for each working day' do
-      expect(periods).to eq(expected_periods)
-    end
-
-    context 'when day_zero is a non-working day' do
-      let(:day_zero) { Date.parse('2023-01-01') }
-
-      it 'considers day zero as the next working day' do
-        expect(periods.first).to eq([Date.parse('2022-12-31'), nil])
-      end
-    end
   end
 
   describe '#filters' do
@@ -46,10 +30,10 @@ RSpec.describe Reporting::DailyCount do
       expect(report.filters.map(&:assigned_status).uniq).to eq([filter.assigned_status])
     end
 
-    it 'sets submitted_after and submitted_before according to the period' do
+    it 'sets submitted_after and submitted_before according to the BusinessDay periods' do
       filtered_periods = report.filters.map { |f| [f.submitted_after, f.submitted_before] }
 
-      expect(filtered_periods).to eq(expected_periods)
+      expect(filtered_periods).to eq(expected_search_filter_periods)
     end
   end
 

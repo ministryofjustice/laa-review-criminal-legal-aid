@@ -7,19 +7,21 @@ module Reporting
       @filter_args = filter.to_h
     end
 
-    def periods
-      [business_day_period_start_dates, business_day_period_end_dates].transpose
-    end
-
     def counts
       filters.map { |filter| ApplicationSearch.new(filter:, pagination:).total }
     end
 
+    #
+    # Search filters for each of the business day periods.
+    # The oldest day count includes all records on and before that day.
+    #
     def filters
-      periods.map do |submitted_after, submitted_before|
+      business_days.map do |day|
+        is_oldest_day = day.age_in_business_days == number_of_days - 1
+
         ApplicationSearchFilter.new(
-          submitted_after:,
-          submitted_before:,
+          submitted_after: is_oldest_day ? nil : day.period_starts_on,
+          submitted_before: day.period_ends_before,
           **@filter_args
         )
       end
@@ -33,30 +35,10 @@ module Reporting
 
     attr_reader :number_of_days, :day_zero, :calendar
 
-    #
-    # Array of the four most recent business days in descending order
-    #
     def business_days
-      @business_days ||= Array.new(number_of_days) do |i|
-        calendar.subtract_business_days(day_zero, i)
+      @business_days ||= Array.new(number_of_days) do |age_in_business_days|
+        BusinessDay.new(age_in_business_days:, day_zero:, calendar:)
       end
-    end
-
-    #
-    # If a business day follows a non-working day or bank holiday
-    # then the period start date is the date of the first non-working day
-    # after the previous business day.
-    #
-    def business_day_period_start_dates
-      Array.new(number_of_days) do |i|
-        previous_business_day = business_days[i + 1]
-        previous_business_day&.tomorrow
-      end
-    end
-
-    # Array of the next period's start date or nil
-    def business_day_period_end_dates
-      business_day_period_start_dates.rotate(-1)
     end
 
     def pagination
