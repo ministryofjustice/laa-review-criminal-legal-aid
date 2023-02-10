@@ -5,6 +5,9 @@ class CrimeApplicationsController < ApplicationController
     set_search(
       filter: ApplicationSearchFilter.new(application_status: 'open')
     )
+
+    @report = :workload_report
+
     render :index
   end
 
@@ -13,6 +16,8 @@ class CrimeApplicationsController < ApplicationController
       filter: ApplicationSearchFilter.new(application_status: 'sent_back'),
       sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
+
+    @report = :processed_report
 
     render :index
   end

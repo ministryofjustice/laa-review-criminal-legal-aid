@@ -27,10 +27,6 @@ module Reporting
       end
     end
 
-    def to_partial_path
-      'reporting/daily_count'
-    end
-
     private
 
     attr_reader :number_of_days, :day_zero, :calendar
