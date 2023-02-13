@@ -67,3 +67,8 @@ spec:
               secretKeyRef:
                 name: rds-instance
                 key: url
+          - name: DATASTORE_API_AUTH_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: datastore-api-auth-secret
+                key: secret
