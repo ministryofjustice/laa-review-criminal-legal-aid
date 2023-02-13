@@ -6,7 +6,7 @@ class CrimeApplicationsController < ApplicationController
       filter: ApplicationSearchFilter.new(application_status: 'open')
     )
 
-    @report = :workload_report
+    @report = Reporting::WorkloadReport.new
 
     render :index
   end
@@ -17,7 +17,7 @@ class CrimeApplicationsController < ApplicationController
       sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
 
-    @report = :processed_report
+    @report = Reporting::ProcessedReport.new
 
     render :index
   end

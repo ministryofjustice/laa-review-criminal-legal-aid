@@ -25,7 +25,7 @@
         </span>
       </summary>
       <div class="govuk-details__text ">
-        <%= turbo_frame_tag @report, src: report_path(@report), loading: :lazy %>
+        <%= turbo_frame_tag @report.id, src: report_path(@report.id), loading: :lazy %>
       </div>
     </details>
   </div>

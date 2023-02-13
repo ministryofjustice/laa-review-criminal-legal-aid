@@ -1,60 +1,56 @@
 module Reporting
   class WorkloadReport
-    def initialize
-      @number_of_rows = 4
-      @slug = 'workload_report'
+    include Reportable
+
+    def initialize(number_of_days: 4)
+      @number_of_days = number_of_days
     end
 
-    def id
-      @slug
-    end
-
-    attr_reader :number_of_rows, :to_param
-
-    def headers
-      table.keys.map do |header|
-        I18n.t(header, scope: :table_headings)
-      end
-    end
-
-    def rows
-      table.values.transpose
+    def table
+      Table.new(
+        {
+          days_passed:,
+          open_applications_by_age:,
+          closed_applications_by_age:
+        }
+      )
     end
 
     private
 
-    def table
-      {
-        days_passed:,
-        open_applications_by_age:,
-        closed_applications_by_age:
-      }
+    attr_reader :number_of_days
+
+    #
+    # Days passed header column for table.
+    # Returns an array of header cells with contents:
+    #
+    # 0 days
+    # 1 day
+    # 2 days
+    # 3 or more days
+    #
+    def days_passed
+      # All bar last header
+      row_headers = Array.new(number_of_days - 1) do |day|
+        I18n.t('values.days_passed', count: day)
+      end
+
+      # Add the last header.
+      row_headers << I18n.t('values.days_passed.last', count: number_of_days - 1)
+
+      row_headers.map { |text| Cell.new(text, header: true) }
     end
 
     def open_applications_by_age
-      DailyCount.new(filter: ApplicationSearchFilter.new(application_status: 'open')).counts.map do |content|
-        Cell.new(content)
-      end
+      filter = ApplicationSearchFilter.new(application_status: 'open')
+      counts = DailyCount.new(filter:, number_of_days:).counts
+      counts.map { |count| Cell.new(count) }
     end
 
     def closed_applications_by_age
-      DailyCount.new(
-        filter: ApplicationSearchFilter.new(application_status: 'sent_back')
-      ).counts.map { |content| Cell.new(content) }
-    end
-
-    def days_passed
-      Array.new(number_of_rows) do |index|
-        last_row = (index + 1) == number_of_rows
-
-        content = if last_row
-                    I18n.t('values.days_passed.last', count: index)
-                  else
-                    I18n.t('values.days_passed', count: index)
-                  end
-
-        Cell.new(content, header: true)
-      end
+      filter = ApplicationSearchFilter.new(application_status: 'sent_back')
+      counts = DailyCount.new(filter:, number_of_days:).counts
+      counts.map { |count| Cell.new(count) }
     end
   end
 end

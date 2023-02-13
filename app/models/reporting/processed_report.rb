@@ -1,31 +1,23 @@
 module Reporting
   class ProcessedReport
+    include Reportable
+
     def initialize(day_zero: Time.zone.now.to_date)
       @day_zero = day_zero
-      @slug = 'processed_report'
     end
 
-    def id
-      @slug
-    end
-
-    def headers
-      table.keys.map do |header|
-        I18n.t(header, scope: :table_headings)
-      end
-    end
-
-    def rows
-      table.values.transpose
+    def table
+      Table.new(
+        {
+          processed_on:,
+          applications_closed:
+        }
+      )
     end
 
     private
 
     attr_reader :day_zero
-
-    def table
-      { processed_on:, applications_closed: }
-    end
 
     #
     # TODO: This can be calculated from review data
@@ -44,7 +36,11 @@ module Reporting
     end
 
     def dates
-      [day_zero, day_zero.prev_day, day_zero.prev_day.prev_day]
+      [
+        day_zero,
+        day_zero.prev_day,
+        day_zero.prev_day.prev_day
+      ]
     end
 
     def processed_on
