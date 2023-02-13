@@ -45,7 +45,10 @@ RUN gem install bundler && \
 COPY . .
 
 RUN yarn install --pure-lockfile
-RUN RAILS_ENV=production ENV_NAME= rails assets:precompile --trace
+RUN RAILS_ENV=production \
+    ENV_NAME=production \
+    SECRET_KEY_BASE=dummy_for_turbo_signed_stream_verifier_on_precompile \
+    rails assets:precompile --trace
 
 # tidy up installation
 RUN apk del build-deps && rm -rf /tmp/*
