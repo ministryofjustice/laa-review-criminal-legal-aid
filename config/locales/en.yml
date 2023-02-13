@@ -93,6 +93,7 @@ en:
     applicant_name: Applicant
     common_platform: Common Platform
     reference: Ref. no.
+    days_passed: Days passed
     time_passed: Days passed
     received_at: Date received
     submitted_at: Date received
@@ -100,9 +101,10 @@ en:
     caseworker: Caseworker
     reviewer: Reviewed by
     status: Status
-    daily_count:
-      open: Open
-      closed: Closed
+    open_applications_by_age: Open applications
+    closed_applications_by_age: Closed applications
+    processed_on: Closed on
+    applications_closed: Closed applications
 
   values: &VALUES
     "true": "Yes"
@@ -132,9 +134,14 @@ en:
     expert_examination: Expert examination
     interest_of_another: Interest of another
     other: Other
+    today: Today
+    yesterday: Yesterday
+    day_before_yesterday: Day before yesterday
+    day: Yesterday
     days_passed:
       one: 1 day
       other: "%{count} days"
+      last: "%{count} or more days" 
     review_status:
       submitted: Open
       open: Open

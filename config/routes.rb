@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'application_not_found', to: 'errors#application_not_found'
   get 'unhandled', to: 'errors#unhandled'
 
+  resources :reports, only: [:show]
   resources :crime_applications, only: [:show], path: 'applications' do
     get :open, on: :collection
     get :closed, on: :collection

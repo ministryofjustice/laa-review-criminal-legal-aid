@@ -1,0 +1,22 @@
+<% title @report.report_name %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= turbo_frame_tag @report.report_name do %>
+      <table class="govuk-table app-dashboard-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <% @report.table.headers.map do |header| %>
+              <th scope="col" class="govuk-table__header"><%= header %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <% @report.table.rows.each do |row| %>
+            <tr class="govuk-table__row"><%= render row %></tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

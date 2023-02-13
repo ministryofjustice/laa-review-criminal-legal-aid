@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read('.ruby-version').chomp
-
 gem 'pg', '~> 1.4'
 gem 'puma'
 gem 'rails', '~> 7.0.3'
+gem 'turbo-rails'
 
 gem 'business'
 gem 'faraday'
