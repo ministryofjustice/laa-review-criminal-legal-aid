@@ -19,28 +19,11 @@ module Reporting
 
     attr_reader :day_zero
 
-    #
-    # TODO: This can be calculated from review data
-    # as soon as the Review read_model is available.
-    #
     def applications_closed
-      dates.map do |date|
-        filter = ApplicationSearchFilter.new(
-          submitted_after: date,
-          submitted_before: date.next_day,
-          application_status: 'sent_back'
-        )
-
-        Cell.new(ApplicationSearch.new(filter:, pagination:).total)
+      Array.new(3) do |days_ago|
+        date = day_zero - days_ago
+        Cell.new(closing_events.between(date...date.tomorrow).count)
       end
-    end
-
-    def dates
-      [
-        day_zero,
-        day_zero.prev_day,
-        day_zero.prev_day.prev_day
-      ]
     end
 
     def processed_on
@@ -49,8 +32,10 @@ module Reporting
       end
     end
 
-    def pagination
-      @pagination ||= Pagination.new(limit_value: 1)
+    def closing_events
+      closing_event_types = [Reviewing::SentBack, Reviewing::Completed]
+
+      Rails.configuration.event_store.read.of_type(closing_event_types).backward
     end
   end
 end

@@ -36,6 +36,7 @@ class ApplicationHistory < ApplicationStruct
       application.provider_details.legal_rep_first_name,
       application.provider_details.legal_rep_last_name
     ].join ' '
+
     ApplicationHistoryItem.new(
       user_id: nil,
       user_name: provider_name,
