@@ -20,11 +20,6 @@ gem 'laa-criminal-applications-datastore-api-client',
 gem 'laa-criminal-legal-aid-schemas',
     github: 'ministryofjustice/laa-criminal-legal-aid-schemas'
 
-# Gem is not published to rubygems. If published, then we will not need this,
-# as it can be loaded via the `datastore-api-client` gem instead
-gem 'simple-jwt-auth',
-    github: 'ministryofjustice/simple-jwt-auth'
-
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
