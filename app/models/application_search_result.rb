@@ -14,10 +14,6 @@ class ApplicationSearchResult < ApplicationStruct
     Calendar.new.business_days_between(submitted_at, Time.zone.now.to_date)
   end
 
-  def common_platform?
-    true
-  end
-
   def caseworker_name
     reviewer_name || assignee_name
   end

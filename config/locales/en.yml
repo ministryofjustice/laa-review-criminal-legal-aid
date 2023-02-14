@@ -65,14 +65,13 @@ en:
     date_of_birth: Date of birth
     application_type: Application type
     means_type: Means type
-    common_platform: Common Platform
     urn: Unique reference number
     application_start_date: Date stamp
     telephone_number: UK Telephone number
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
-    providers_office_address: Providers office address 
+    providers_office_address: Providers office address
     correspondence_address: Correspondence address
     codefendant: Co-defendant %{number}
     offence: Offence
@@ -91,7 +90,6 @@ en:
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
-    common_platform: Common Platform
     reference: Ref. no.
     days_passed: Days passed
     time_passed: Days passed
@@ -141,7 +139,7 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-      last: "%{count} or more days" 
+      last: "%{count} or more days"
     review_status:
       submitted: Open
       open: Open
@@ -161,7 +159,7 @@ en:
       submitted: default
       open: default
       sent_back: red
-      completed: green 
+      completed: green
 
 
   calls_to_action:
@@ -173,7 +171,7 @@ en:
     search: Search
     unassign_from_self: Remove from your list
     view_all_open_applications: View all open applications
-    view_daily_count: View by days passed 
+    view_daily_count: View by days passed
     mark_complete: Mark as completed
     send_back: Send back to provider
   confirmations:
