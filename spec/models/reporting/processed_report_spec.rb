@@ -7,19 +7,19 @@ describe Reporting::ProcessedReport do
   subject(:report) { described_class.new }
 
   describe '#table' do
-    it 'returns a table report data' do
+    it 'returns a table of report data' do
       expect(report.table).to be_a Reporting::Table
     end
 
-    it 'includes column headers' do
+    it 'has column headers' do
       expect(report.table.headers).to eq(['Closed on', 'Closed applications'])
     end
 
-    it 'includes 3 rows' do
+    it '3 rows of data' do
       expect(report.table.rows.size).to eq(3)
     end
 
-    it 'includes row headers' do
+    it 'row headers with "Today", "Yesterday", and "Day before yesterday"' do
       expect(report.table.rows.map(&:first).map(&:content)).to eq(['Today', 'Yesterday', 'Day before yesterday'])
     end
 
@@ -31,27 +31,24 @@ describe Reporting::ProcessedReport do
 
         # Yesterday
         travel_to Time.zone.now.yesterday
-
         event_store.publish(Reviewing::Completed.new)
 
         # The day before yesterday
         travel_to Time.zone.now.yesterday
-
-        event_store.publish(Reviewing::Completed.new)
+        event_store.publish(Reviewing::SentBack.new)
 
         # The day before, the day before yesterday
         travel_to Time.zone.now.yesterday
-
         event_store.publish(Reviewing::Completed.new)
 
         # Today
         travel_back
-
+        event_store.publish(Reviewing::ApplicationReceived.new)
         event_store.publish(Reviewing::Completed.new)
         event_store.publish(Reviewing::SentBack.new)
       end
 
-      it 'includes a count of completing events for each day' do
+      it 'includes a count of closing events for each day' do
         expect(data).to eq([2, 1, 1])
       end
     end
