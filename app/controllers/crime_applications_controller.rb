@@ -1,5 +1,5 @@
 class CrimeApplicationsController < ApplicationController
-  before_action :set_crime_application, only: %i[show history]
+  before_action :set_crime_application, only: %i[show history complete]
 
   def open
     set_search(
@@ -26,6 +26,18 @@ class CrimeApplicationsController < ApplicationController
 
   def history; end
 
+  def complete
+    Reviewing::Complete.new(
+      application_id: @crime_application.id,
+      user_id: current_user_id
+    ).call
+    flash_and_redirect :success, :completed
+  rescue Reviewing::AlreadyCompleted
+    flash_and_redirect :important, :already_completed
+  rescue Reviewing::CannotCompleteWhenSentBack
+    flash_and_redirect :important, :already_sent_back
+  end
+
   private
 
   def set_crime_application
@@ -38,5 +50,14 @@ class CrimeApplicationsController < ApplicationController
       :per_page,
       sorting: Sorting.attribute_names
     )
+  end
+
+  def flash_and_redirect(key, message)
+    flash[key] = message
+    if key == :success
+      redirect_to assigned_applications_path
+    else
+      redirect_to crime_application_path(params[:crime_application_id])
+    end
   end
 end

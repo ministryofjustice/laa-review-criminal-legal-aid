@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe 'Marking an application as complete' do
@@ -6,11 +5,11 @@ RSpec.describe 'Marking an application as complete' do
 
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
-  let(:new_return_path) do
-    new_crime_application_return_path(crime_application_id)
-  end
+  # let(:complete_path) do
+  #   complete_crime_application_path(crime_application_id)
+  # end
 
-  let(:mark_application_as_complete) { 'Mark as complete' }
+  let(:complete_cta) { 'Mark as complete' }
 
   before do
     visit '/'
@@ -30,42 +29,65 @@ RSpec.describe 'Marking an application as complete' do
       click_on 'Kit Pound'
     end
 
-    it 'the "Mark as complete" button is visable and accessible' do
-      expect { click_button(send_back_cta) }.to change { page.current_path }
+    it 'has a visable "Mark as complete" CTA' do
+      expect(page).to have_content('Mark as complete')
+    end
+
+    it 'redirects to the correct page' do
+      expect { click_button(complete_cta) }.to change { page.current_path }
         .from(crime_application_path(crime_application_id)).to(
-          new_return_path
+          assigned_applications_path
         )
     end
 
-    # describe 'clicking the link' do
-    #   descibe 'when successful' do
-      #   before do
-      #     click link
-      #   end
-    #
-      #   it 'should flash a success message to the user' do
-      #      # expect page to have correct flash message
-      #   end
-      #
-      #   it 'should reflect the status change on the application show page' do
-      #   end
-    #   end
-    #
-    #   descibe 'when unsuccessful' do
-      #   before do
-      #     click link
-      #   end
-      #   it 'should flash an unsuccessful message to the user' do
-      #      # expect page to have correct flash message
-      #   end
-      #
-      #   it 'should not change the status on the application show page' do
-      #   end
-    #   end
-    # end
+    it 'shows success flash message' do
+      click_button(complete_cta)
+      expect(page).to have_content('The application has marked as complete')
+    end
 
-    # context 'with errors Closing::' do
-    #   ... closing specific errors
-    # end
+    context 'with errors Reviewing::' do
+      before do
+        click_on 'All open applications'
+        click_on('Kit Pound')
+        command_double = instance_double(Reviewing::Complete)
+
+        allow(command_double).to receive(:call) { raise error_class }
+
+        allow(Reviewing::Complete).to receive(:new) { command_double }
+
+        click_button(complete_cta)
+      end
+
+      describe 'AlreadyCompleted' do
+        let(:error_class) { Reviewing::AlreadyCompleted }
+        let(:message) do
+          'This application has already been marked as complete'
+        end
+
+        it 'notifies that the application has already been completed' do
+          expect(page).to have_content message
+        end
+      end
+
+      describe 'CannotCompleteWhenSentBack' do
+        let(:error_class) { Reviewing::CannotCompleteWhenSentBack }
+        let(:message) { 'This application has already been sent back to the provider' }
+
+        it 'notifies that the application has already been sent back' do
+          expect(page).to have_content message
+        end
+      end
+    end
+  end
+
+  context 'when not assigned to the application' do
+    before do
+      click_on 'All open applications'
+      click_on('Kit Pound')
+    end
+
+    it 'the "Mark as complete" button is not visable' do
+      expect(page).not_to have_button(complete_cta)
+    end
   end
 end
