@@ -14,10 +14,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     :passported
   end
 
-  def common_platform?
-    true
-  end
-
   def history
     @history ||= ApplicationHistory.new(application: self)
   end

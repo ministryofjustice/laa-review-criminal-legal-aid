@@ -22,7 +22,7 @@ RSpec.describe 'Search Page' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
     expect(column_headings).to eq(
-      'Applicant Ref. no. Date received Days passed Common Platform Caseworker Status'
+      'Applicant Ref. no. Date received Days passed Caseworker Status'
     )
   end
 
@@ -34,7 +34,7 @@ RSpec.describe 'Search Page' do
       Time.zone.now.to_date
     )
 
-    expect(first_row_text).to eq("Kit Pound 120398120 27/10/2022 #{days_ago} days Yes Open")
+    expect(first_row_text).to eq("Kit Pound 120398120 27/10/2022 #{days_ago} days Open")
   end
 
   it 'has the correct search results count' do

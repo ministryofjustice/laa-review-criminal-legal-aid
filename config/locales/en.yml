@@ -65,7 +65,6 @@ en:
     date_of_birth: Date of birth
     application_type: Application type
     means_type: Means type
-    common_platform: Common Platform
     urn: Unique reference number
     application_start_date: Date stamp
     telephone_number: UK Telephone number
@@ -91,7 +90,6 @@ en:
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
-    common_platform: Common Platform
     reference: Ref. no.
     days_passed: Days passed
     time_passed: Days passed
