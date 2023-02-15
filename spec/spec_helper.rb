@@ -11,6 +11,8 @@ SimpleCov.start 'rails' do
   add_filter 'config/routes.rb'
   add_filter 'lib/rubocop/'
   add_filter 'spec/'
+
+  enable_coverage_for_eval
 end
 
 RSpec.configure do |config|
