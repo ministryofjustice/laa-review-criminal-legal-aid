@@ -27,7 +27,14 @@
       "nino": "JC123458B",
       "date_of_birth": "1980-06-01",
       "telephone_number": "07612345649",
-      "correspondence_address_type": "home_address"
+      "correspondence_address": {
+        "address_line_one": "Other House",
+        "address_line_two": "Second Road",
+        "city": "London",
+        "country": "London",
+        "postcode": "EC2A 2AA"
+      },
+      "correspondence_address_type": "other_address"
     }
   },
   "interests_of_justice": [
