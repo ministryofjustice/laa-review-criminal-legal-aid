@@ -44,6 +44,14 @@ RSpec.describe 'Marking an application as complete' do
       expect(page).to have_content('The application has been marked as complete')
     end
 
+    it 'removes the application from "Your list"' do
+      expect(page).to have_content('Your list (1)')
+
+      click_button(complete_cta)
+
+      expect(page).to have_content('Your list (0)')
+    end
+
     context 'with errors Reviewing::' do
       before do
         click_on 'All open applications'
