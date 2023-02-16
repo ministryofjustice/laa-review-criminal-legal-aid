@@ -166,7 +166,7 @@ RSpec.describe 'Send an application back to the provider' do
 
     describe 'CannotSendBackWhenCompleted' do
       let(:error_class) { Reviewing::CannotSendBackWhenCompleted }
-      let(:message) { 'This application has already been completed' }
+      let(:message) { 'This application has already been marked as complete' }
 
       it 'notifies that the application has already been completed' do
         expect(page).to have_content message

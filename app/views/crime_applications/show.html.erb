@@ -20,8 +20,8 @@
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= button_to t('calls_to_action.mark_complete'),
-                      new_crime_application_return_path(@crime_application),
-                      method: :post,
+                      complete_crime_application_path(@crime_application),
+                      method: :put,
                       class: 'govuk-button govuk-button' %>
         <%= button_to t('calls_to_action.send_back'),
                       new_crime_application_return_path(@crime_application),
