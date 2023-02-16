@@ -8,7 +8,24 @@ RSpec.describe Reviewing::Complete do
   include_context 'with review'
 
   before do
+    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
+      {
+        application_id: application_id,
+        payload: true,
+        member: :complete
+      }
+    ).and_return(return_request)
+
     Reviewing::ReceiveApplication.new(application_id:).call
+  end
+
+  let(:return_request) do
+    instance_double(
+      DatastoreApi::Requests::UpdateApplication,
+      call: JSON.parse(
+        LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read
+      )
+    )
   end
 
   let(:user_id) { SecureRandom.uuid }

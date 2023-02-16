@@ -5,10 +5,6 @@ RSpec.describe 'Marking an application as complete' do
 
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
-  # let(:complete_path) do
-  #   complete_crime_application_path(crime_application_id)
-  # end
-
   let(:complete_cta) { 'Mark as complete' }
 
   before do
@@ -19,6 +15,9 @@ RSpec.describe 'Marking an application as complete' do
     let(:assignee_id) { User.find_by(auth_oid: current_user_auth_oid).id }
 
     before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
       Assigning::AssignToUser.new(
         assignment_id: crime_application_id,
         user_id: assignee_id,
@@ -42,7 +41,7 @@ RSpec.describe 'Marking an application as complete' do
 
     it 'shows success flash message' do
       click_button(complete_cta)
-      expect(page).to have_content('The application has marked as complete')
+      expect(page).to have_content('The application has been marked as complete')
     end
 
     context 'with errors Reviewing::' do

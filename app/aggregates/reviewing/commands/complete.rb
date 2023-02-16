@@ -4,8 +4,16 @@ module Reviewing
     attribute :user_id, Types::Uuid
 
     def call
-      with_review do |review|
-        review.complete(application_id:, user_id:)
+      ActiveRecord::Base.transaction do
+        with_review do |review|
+          review.complete(application_id:, user_id:)
+        end
+
+        DatastoreApi::Requests::UpdateApplication.new(
+          application_id: application_id,
+          payload: true,
+          member: :complete
+        ).call
       end
     end
   end
