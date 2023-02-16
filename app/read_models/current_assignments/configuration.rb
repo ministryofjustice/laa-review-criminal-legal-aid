@@ -10,7 +10,7 @@ module CurrentAssignments
 
       subscribe(
         ->(event) { unassign(event) },
-        [Assigning::UnassignedFromUser, Reviewing::SentBack]
+        [Assigning::UnassignedFromUser, Reviewing::SentBack, Reviewing::Completed]
       )
     end
 
