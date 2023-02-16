@@ -73,7 +73,7 @@ en:
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
-    providers_office_address: Providers office address 
+    providers_office_address: Providers office address
     correspondence_address: Correspondence address
     codefendant: Co-defendant %{number}
     offence: Offence
