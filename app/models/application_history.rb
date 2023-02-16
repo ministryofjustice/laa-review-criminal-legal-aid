@@ -3,7 +3,8 @@ class ApplicationHistory < ApplicationStruct
     Assigning::AssignedToUser,
     Assigning::UnassignedFromUser,
     Assigning::ReassignedToUser,
-    Reviewing::SentBack
+    Reviewing::SentBack,
+    Reviewing::Completed
   ].freeze
 
   attribute :application, Types.Instance(CrimeApplication)
