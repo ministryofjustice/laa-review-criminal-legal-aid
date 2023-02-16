@@ -29,7 +29,6 @@ class ApplicationHistory < ApplicationStruct
     ["Assigning$#{application.id}", "Reviewing$#{application.id}"]
   end
 
-  # NOTE: provider name is not yet availble in the data.
   # Tihs is a fake submission event. It will be replace by a
   # real one on import from the datastore.
   def application_submitted_item
