@@ -26,6 +26,10 @@ Rails.application.routes.draw do
     post :next_application, on: :collection
   end
 
+  namespace :api do
+    resources :events, only: [:create]
+  end
+
   mount RailsEventStore::Browser => "/event_browser" if Rails.env.development?
   root 'assigned_applications#index'
 end

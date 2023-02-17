@@ -14,10 +14,13 @@ module Reviewing
 
     alias application_id id
 
-    def receive_application(application_id:)
+    def receive_application(application_id:, correlation_id: nil)
       raise AlreadyReceived unless @state == :submitted
 
+      causation_id = correlation_id
+
       apply ApplicationReceived.new(
+        metadata: { correlation_id:, causation_id: },
         data: { application_id: }
       )
     end
