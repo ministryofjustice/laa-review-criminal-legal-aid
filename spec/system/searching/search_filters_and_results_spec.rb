@@ -34,7 +34,7 @@ RSpec.describe 'Search Page' do
       Time.zone.now.to_date
     )
 
-    expect(first_row_text).to eq("Kit Pound 120398120 27/10/2022 #{days_ago} days Open")
+    expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days Open")
   end
 
   it 'has the correct search results count' do

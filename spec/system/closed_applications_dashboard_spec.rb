@@ -52,7 +52,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
     reviewed_at = I18n.l(Time.zone.now.to_date)
-    expect(first_row_text).to eq("John Potter 6000002 27/09/2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
+    expect(first_row_text).to eq("John Potter 6000002 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
   end
 
   it 'has the correct count' do

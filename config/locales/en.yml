@@ -1,7 +1,8 @@
 en:
   dictionary:
     DATE_FORMATS: &DATE_FORMATS
-      default: '%d/%m/%Y'  ## 03/01/2019
+      default: '%-d %b %Y'  # 3 Jan 2019
+      compact: '%d/%m/%Y'   # 03/01/2019
 
   service:
     name: Review criminal legal aid applications
@@ -70,6 +71,7 @@ en:
     urn: Unique reference number
     application_start_date: Date stamp
     telephone_number: UK Telephone number
+    partner: Partner
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
@@ -121,6 +123,7 @@ en:
     commital: Commital
     appeal_to_crown_court: Appeal to Crown Court
     appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
+    class: Class
     conflict_of_interest:
       "yes": CONFLICT
       "no": ''
