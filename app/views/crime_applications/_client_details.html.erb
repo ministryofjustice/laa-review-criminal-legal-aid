@@ -24,7 +24,7 @@
       <%= t(:date_of_birth, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l client_details.applicant.date_of_birth %>
+      <%= l client_details.applicant.date_of_birth, format: :compact %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -63,6 +63,15 @@
       <% else %>
         <%= t(client_details.applicant.correspondence_address_type, scope: 'values') %>
       <% end %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:partner, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+    <%# TODO Update this when has_partner provided by datastore %>
+      <%= t(false, scope: 'values') %>
     </dd>
   </div>
 </dl>

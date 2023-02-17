@@ -24,7 +24,7 @@
       <%= t(:hearing_date, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l case_details.hearing_date %>
+      <%= l case_details.hearing_date, format: :compact %>
     </dd>
   </div>
 </dl>

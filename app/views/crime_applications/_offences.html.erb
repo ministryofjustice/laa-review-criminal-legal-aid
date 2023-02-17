@@ -5,7 +5,7 @@
 <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">
+      <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">
         <%= t('crime_applications.labels.offence') %>
       </th>
       <th scope="col" class="govuk-table__header">
@@ -15,22 +15,23 @@
   </thead>
   <tbody class="govuk-table__body">
     <% offences.each do |offence| %>
-      <tr class="govuk-table__row">
-        <td scope="row" class="govuk-table__cell">
-          <%= offence.name %>
-          <span class='govuk-caption-m'>
-            <%= offence.offence_class %>
-          </span>
-        </td>
-        <td class="govuk-table__cell">
-          <% offence.dates.each do |date| %>
-            <%= l date.date_from %>
-            <% if date.date_to %>
-              - <%= l date.date_to %>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
+      <% offence.dates.each_with_index do |date, i| %>
+        <tr class="govuk-table__row">
+          <td scope="row" class="govuk-table__cell">
+            <%= offence.name %>
+            <span class='govuk-caption-m'>
+              <%= t('crime_applications.values.class') %>
+              <%= offence.offence_class %>
+            </span>
+          </td>
+          <td class="govuk-table__cell">
+              <%= l date.date_from, format: :compact %>
+              <% if date.date_to %>
+                - <%= l date.date_to, format: :compact %>
+              <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
