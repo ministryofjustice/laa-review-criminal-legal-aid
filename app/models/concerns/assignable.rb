@@ -1,8 +1,8 @@
 module Assignable
   def assignment
-    @assignment ||= Assigning::LoadAssignment.new(
+    @assignment ||= Assigning::LoadAssignment.call(
       assignment_id: id
-    ).call
+    )
   end
 
   delegate :assignee_id, :assigned?, :assigned_to?, :unassigned?, to: :assignment

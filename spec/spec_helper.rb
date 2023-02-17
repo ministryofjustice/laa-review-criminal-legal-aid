@@ -2,13 +2,16 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require 'webmock/rspec'
 require 'simplecov'
-SimpleCov.minimum_coverage 100
 
 SimpleCov.start 'rails' do
+  enable_coverage :branch
+  coverage_criterion :branch
+  # primary_coverage :branch
+  minimum_coverage 100
+  add_group 'Views', 'app/views'
   add_filter 'app/mailers/application_mailer.rb'
   add_filter 'app/jobs/application_job.rb'
   add_filter 'config/initializers'
-  add_filter 'config/routes.rb'
   add_filter 'lib/rubocop/'
   add_filter 'spec/'
 
