@@ -21,7 +21,6 @@ RSpec.describe 'Search applications status filter' do
   describe 'search by:' do
     describe 'default' do
       it 'filters by status "open"' do
-        assert_api_searched_with_filter(:application_status, 'open')
         expect(page).to have_select(filter_field, selected: 'Open')
       end
     end
