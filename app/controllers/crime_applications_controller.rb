@@ -13,7 +13,7 @@ class CrimeApplicationsController < ApplicationController
 
   def closed
     set_search(
-      filter: ApplicationSearchFilter.new(application_status: 'sent_back'),
+      filter: ApplicationSearchFilter.new(application_status: 'closed'),
       sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
 

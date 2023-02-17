@@ -48,7 +48,7 @@ module Reporting
     end
 
     def closed_applications_by_age
-      filter = ApplicationSearchFilter.new(application_status: 'sent_back')
+      filter = ApplicationSearchFilter.new(application_status: 'closed')
       counts = DailyCount.new(filter:, number_of_days:).counts
       counts.map { |count| Cell.new(count) }
     end

@@ -147,6 +147,7 @@ en:
       open: Open
       sent_back: Sent back to provider
       completed: Completed
+      closed: Closed
       all: All applications
     assigned_status:
       assigned: All assigned
