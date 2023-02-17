@@ -14,7 +14,7 @@ RSpec.describe 'Search applications status filter' do
   end
 
   it "can choose from 'Open', 'Completed', 'Sent back to provider' or 'All applications'" do
-    choices = ['Open', 'Completed', 'Sent back to provider', 'All applications']
+    choices = ['Open', 'Closed', 'Completed', 'Sent back to provider', 'All applications']
     expect(page).to have_select(filter_field, options: choices)
   end
 

@@ -57,7 +57,7 @@ RSpec.describe ApplicationSearchFilter do
         applicant_date_of_birth: nil,
         application_id_in: [],
         application_id_not_in: [],
-        status: ['submitted'],
+        review_status: %w[application_received ready_for_assessment],
         submitted_after: nil,
         submitted_before: nil,
         search_text: nil
@@ -87,7 +87,7 @@ RSpec.describe ApplicationSearchFilter do
           submitted_before: Date.parse('2022-12-21'),
           search_text: 'David 100003',
           application_id_not_in: [],
-          status: %w[returned superseded]
+          review_status: %w[returned_to_provider]
         }
       end
 

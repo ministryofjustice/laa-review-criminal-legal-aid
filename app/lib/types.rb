@@ -10,17 +10,28 @@ module Types
   DateTime = DateTime | JSON::DateTime
 
   #
-  # Map of review application statuses to LaaCrimeSchemas::Types:APPLICATION_STATUSES
+  # Map of review status groups to LaaCrimeSchemas::Types:REVIEW_APPLICATION_STATUSES
   #
-  REVIEW_APPLICATION_STATUSES = {
-    'open' => [Types::ApplicationStatus['submitted']],
-    'completed' => ['completed'], # NOTE: completed status does no yet exist in datastore/schema
-    'sent_back' => [Types::ApplicationStatus['returned'], Types::ApplicationStatus['superseded']],
-    'all' => APPLICATION_STATUSES
+  REVIEW_STATUS_GROUPS = {
+    'open' => [
+      Types::ReviewApplicationStatus['application_received'],
+      Types::ReviewApplicationStatus['ready_for_assessment']
+    ],
+    'closed' => [
+      Types::ReviewApplicationStatus['assessment_completed'],
+      Types::ReviewApplicationStatus['returned_to_provider']
+    ],
+    'completed' => [
+      Types::ReviewApplicationStatus['assessment_completed']
+    ],
+    'sent_back' => [
+      Types::ReviewApplicationStatus['returned_to_provider']
+    ],
+    'all' => REVIEW_APPLICATION_STATUSES
   }.freeze
 
-  ReviewApplicationStatus = String.default('open'.freeze).enum(
-    *REVIEW_APPLICATION_STATUSES.keys
+  ReviewStatusGroup = String.default('open'.freeze).enum(
+    *REVIEW_STATUS_GROUPS.keys
   )
 
   USER_ROLES = %w[

@@ -1,6 +1,6 @@
 class ApplicationSearchFilter < ApplicationStruct
-  attribute? :assigned_status, Types::Params::Nil | Types::AssignedStatus | Types::Uuid
-  attribute? :application_status, Types::ReviewApplicationStatus
+  attribute? :assigned_status, Types::AssignedStatus | Types::Uuid
+  attribute? :application_status, Types::ReviewStatusGroup
   attribute? :search_text, Types::Params::Nil | Types::Params::String
   attribute? :submitted_after, Types::Params::Nil | Types::Params::Date
   attribute? :submitted_before, Types::Params::Nil | Types::Params::Date
@@ -27,7 +27,7 @@ class ApplicationSearchFilter < ApplicationStruct
   # Includes 'Open', 'Completed', 'Sent back to provider' or 'All applications'
   # Values can be "open", "completed", "sent_back", "all"
   def application_status_options
-    Types::REVIEW_APPLICATION_STATUSES.keys.map do |status|
+    Types::REVIEW_STATUS_GROUPS.keys.map do |status|
       [I18n.t(status, scope: 'values.review_status'), status]
     end
   end
@@ -44,7 +44,7 @@ class ApplicationSearchFilter < ApplicationStruct
       applicant_date_of_birth:,
       application_id_in:,
       application_id_not_in:,
-      status:,
+      review_status:,
       submitted_after:,
       submitted_before:,
       search_text:
@@ -75,11 +75,11 @@ class ApplicationSearchFilter < ApplicationStruct
   end
 
   #
-  # returns the value of the DatastoreApi Search "status" constraint
+  # returns the value of the DatastoreApi Search "review_status" constraint
   # according to the #application_status
   #
-  def status
-    Types::REVIEW_APPLICATION_STATUSES.fetch(application_status)
+  def review_status
+    Types::REVIEW_STATUS_GROUPS.fetch(application_status)
   end
 
   #
