@@ -13,7 +13,7 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         resource_id: '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc',
         reference: 1_230_234_359,
         status: 'submitted',
-        submitted_at: '2022-11-14T16:58:15.000+00:00'
+        submitted_at: '2022-11-11T16:58:15.000+00:00'
       )
     ]
   end

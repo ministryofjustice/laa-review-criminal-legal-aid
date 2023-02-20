@@ -2,7 +2,7 @@
   <dd class="govuk-summary-list__value govuk-!-width-one-half govuk-!-padding-0 govuk-body-l">
     <div class="govuk-row">
       <% if crime_application.reviewer_name %>
-        <strong><%= t(:reviewed_by, scope: 'crime_applications.labels') %></strong>
+        <strong><%= t(:closed_by, scope: 'crime_applications.labels') %></strong>
         <%= crime_application.reviewer_name %>
       <% else %>
         <strong><%= t(:assigned_to, scope: 'crime_applications.labels') %></strong>

@@ -1,6 +1,8 @@
 <tr class="govuk-table__row">
   <th scope="row" class="govuk-table__header">
-    <%= link_to result.applicant_name, crime_application_path(result.resource_id) %>
+    <%= link_to result.applicant_name,
+                crime_application_path(result.resource_id),
+                class: 'govuk-link--no-visited-state govuk-!-font-weight-regular' %>
   </th>
   <td class="govuk-table__cell">
     <%= result.reference %>
@@ -9,7 +11,7 @@
     <%= l(result.submitted_at) %>
   </td>
   <td class="govuk-table__cell">
-    <%= t('crime_applications.values.days_passed', count: result.days_passed) %>
+    <%= result.reviewed_at.present? ? l(result.reviewed_at) : nil %>
   </td>
   <td class="govuk-table__cell">
     <%= result.caseworker_name %>

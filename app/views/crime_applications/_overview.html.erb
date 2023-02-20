@@ -8,7 +8,8 @@
       <%= t(:application_type, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= t(overview.application_type, scope: 'crime_applications.values') %>
+    <%# TODO implement application type once we handle more types - currently hardcoded %>
+      <%= t(:initial_application, scope: 'crime_applications.values') %>
     </dd>
   </div>
 
@@ -17,9 +18,8 @@
       <%= t(:means_type, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <% if overview.means_type == :passported %>
-        <span class="moj-badge moj-badge--blue"><%= overview.means_type %></span>
-      <% end %>
+    <%# TODO implement means type once we handle it - currently hardcoded %>
+      <span class="moj-badge moj-badge--blue"><%= overview.means_type %></span>
     </dd>
   </div>
 
@@ -28,7 +28,11 @@
       <%= t(:urn, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= overview.case_details.urn %>
+      <% if overview.case_details.urn %>
+        <%= overview.case_details.urn %>
+      <% else %>
+        <%= t(:not_provided, scope: 'crime_applications.values') %>
+      <% end %>
     </dd>
   </div>
 
