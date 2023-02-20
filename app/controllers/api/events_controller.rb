@@ -10,6 +10,9 @@ module Api
       # Return 200 for other types
       # Return confirm endpoint status for subscription confirm.
       #
+
+      log_request_for_debugging
+
       case request.headers.fetch('x-amz-sns-message-type')
       when 'SubscriptionConfirmation'
         confirm_subscription!
@@ -39,6 +42,13 @@ module Api
       head :created
     rescue Reviewing::AlreadyReceived
       head :ok
+    end
+
+    def log_request_for_debugging
+      logger.info('>' * 100)
+      logger.info(request.headers.env.to_hash)
+      logger.info(params.inspect)
+      logger.info('<' * 100)
     end
   end
 end
