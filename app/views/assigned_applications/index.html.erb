@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-1">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-1"><%= t '.heading' %></h1>
-    <p><%= t '.your_assignments', count: @search.total %></p>
+    <p><%= t '.your_assignments', count: assignments_count %></p>
   </div>
 </div>
 
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<% unless @search.results.empty? %>
+<% if assignments_count > 0 %>
   <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <table class="govuk-table app-dashboard-table">

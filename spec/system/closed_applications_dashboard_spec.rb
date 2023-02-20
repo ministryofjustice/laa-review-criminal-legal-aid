@@ -36,7 +36,10 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'shows only closed applications' do
-    assert_api_searched_with_filter({ status: 'sent_back' })
+    assert_api_searched_with_filter(
+      { application_status: 'closed' },
+      sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+    )
   end
 
   it 'includes the page title' do

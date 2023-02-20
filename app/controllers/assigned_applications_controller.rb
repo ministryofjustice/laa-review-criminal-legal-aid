@@ -1,5 +1,7 @@
 class AssignedApplicationsController < ApplicationController
   def index
+    return unless assignments_count.positive?
+
     set_search(
       filter: ApplicationSearchFilter.new(assigned_status: current_user_id)
     )

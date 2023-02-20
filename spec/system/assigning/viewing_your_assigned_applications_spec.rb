@@ -19,6 +19,17 @@ RSpec.describe 'Viewing your assigned application' do
     end
   end
 
+  context 'when no application are assigned' do
+    before do
+      visit '/'
+    end
+
+    it 'shows how many assignments' do
+      expect(page).to have_content '0 saved applications'
+      expect(page).to have_content 'Your list (0)'
+    end
+  end
+
   context 'when one application is assigned' do
     let(:stubbed_search_results) do
       [
@@ -112,7 +123,7 @@ RSpec.describe 'Viewing your assigned application' do
 
     it 'shows the assignment in the counts' do
       expect(page).to have_content 'Your list (1)'
-      expect(page).to have_content '0 saved application'
+      expect(page).to have_content '1 saved application'
     end
   end
 end
