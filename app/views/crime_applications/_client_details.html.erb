@@ -40,7 +40,11 @@
       <%= t(:telephone_number, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.applicant.telephone_number %>
+      <% if client_details.applicant.telephone_number.present? %>
+        <%= client_details.applicant.telephone_number %>
+      <% else %>
+        <%= t(:not_provided, scope: 'crime_applications.values') %>
+      <% end %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -50,6 +54,8 @@
     <dd class="govuk-summary-list__value">
       <% if client_details.applicant.home_address %>
         <%= render 'crime_applications/address', address: client_details.applicant.home_address %>
+      <% else %>
+        <%= t(:not_provided, scope: 'crime_applications.values') %>
       <% end %>
     </dd>
   </div>

@@ -1,6 +1,8 @@
 <tr class="govuk-table__row">
   <th scope="row" class="govuk-table__header">
-    <%= link_to crime_application.applicant_name, crime_application_path(crime_application) %>
+    <%= link_to crime_application.applicant_name,
+                crime_application_path(crime_application),
+                class: 'govuk-link--no-visited-state govuk-!-font-weight-regular' %>
   </th>
   <td class="govuk-table__cell">
     <%= crime_application.reference %>

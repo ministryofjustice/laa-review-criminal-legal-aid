@@ -37,4 +37,25 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   it 'does not show the CTAs' do
     expect(page).not_to have_content('Mark as complete')
   end
+
+  context 'with optional fields not provided' do
+    let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
+
+    before do
+      visit '/'
+      visit crime_application_path(application_id)
+    end
+
+    it 'shows that the URN was not provided' do
+      expect(page).to have_content('Unique reference number Not provided')
+    end
+
+    it 'shows that the client telephone number was not provided' do
+      expect(page).to have_content('UK Telephone number Not provided')
+    end
+
+    it 'shows that the client homw address was not provided' do
+      expect(page).to have_content('Home address Not provided')
+    end
+  end
 end
