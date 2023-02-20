@@ -83,4 +83,24 @@ RSpec.describe 'Api::Events' do
       expect(response).to have_http_status :ok
     end
   end
+
+  describe 'SNS unsubscribe notifcation' do
+    let(:headers) do
+      {
+        'x-amz-sns-message-type' => 'UnsubscribeConfirmation',
+        'x-amz-sns-message-id' => sns_message_id
+      }
+    end
+
+    let(:body) do
+      {
+        'Type' => 'UnsubscribeConfirmation'
+      }
+    end
+
+    it 'returns okay' do
+      do_request
+      expect(response).to have_http_status :ok
+    end
+  end
 end
