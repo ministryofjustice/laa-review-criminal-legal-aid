@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/laa-criminal-legal-aid-schemas.git
-  revision: 79de69687adb7f596206e3835f5b77ba867a99ea
+  revision: 46dd417bbb3a30d5b8ecdd0652e6f0d7a0dd86b2
   specs:
     laa-criminal-legal-aid-schemas (0.1.1)
       dry-struct
@@ -123,6 +123,8 @@ GEM
       railties (>= 6.0.0)
     date (3.3.3)
     debug (1.7.1)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
     dotenv (2.8.1)
@@ -191,6 +193,9 @@ GEM
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
+    io-console (0.6.0)
+    irb (1.6.2)
+      reline (>= 0.3.0)
     json (2.6.3)
     json-jwt (1.16.1)
       activesupport (>= 4.2)
@@ -327,6 +332,8 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.6.1)
+    reline (0.3.2)
+      io-console (~> 0.5)
     rexml (3.2.5)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
