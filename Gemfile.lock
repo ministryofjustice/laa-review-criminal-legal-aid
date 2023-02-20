@@ -123,8 +123,8 @@ GEM
       railties (>= 6.0.0)
     date (3.3.3)
     debug (1.7.1)
-      irb (>= 1.5.0)
-      reline (>= 0.3.1)
+     irb (>= 1.5.0)
+     reline (>= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
     dotenv (2.8.1)
@@ -479,6 +479,7 @@ DEPENDENCIES
   faraday
   govuk_design_system_formbuilder (~> 3.1.0)
   importmap-rails
+  irb
   kaminari-actionview
   kaminari-core
   laa-criminal-applications-datastore-api-client!
@@ -491,6 +492,7 @@ DEPENDENCIES
   puma
   rails (~> 7.0.3)
   rails_event_store
+  reline
   rspec-rails
   rubocop
   rubocop-performance
