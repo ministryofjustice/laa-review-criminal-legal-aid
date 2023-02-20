@@ -6,12 +6,30 @@ module Api
     #
     def create
       #
-      # Only care about Notifcations for now
-      # return 200 for other types in case SNS needs it to move on on
+      # Return 204 for a succesfull notification
+      # Return 200 for other types
+      # Return confirm endpoint status for subscription confirm.
       #
-      type = request.headers.fetch('x-amz-sns-message-type')
-      head :ok and return unless type == 'Notification'
+      case request.headers.fetch('x-amz-sns-message-type')
+      when 'SubscriptionConfirmation'
+        confirm_subscription!
+      when 'Notification'
+        handle_notification!
+      else
+        head :ok
+      end
+    end
 
+    private
+
+    def confirm_subscription!
+      confirm_url = params['SubscribeURL']
+      response = Faraday.get(confirm_url)
+
+      head response.status
+    end
+
+    def handle_notification!
       application_id = JSON.parse(params['Message'])['id']
       message_id = request.headers.fetch('x-amz-sns-message-id')
       correlation_id = message_id
@@ -20,7 +38,6 @@ module Api
 
       head :created
     rescue Reviewing::AlreadyReceived
-      # return okay so SNS can move on if already recieved.
       head :ok
     end
   end
