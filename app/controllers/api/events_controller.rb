@@ -26,14 +26,13 @@ module Api
     private
 
     def confirm_subscription!
-      confirm_url = params['SubscribeURL']
+      confirm_url = request_body['SubscribeURL']
       response = Faraday.get(confirm_url)
 
       head response.status
     end
 
     def handle_notification!
-      application_id = JSON.parse(params['Message'])['id']
       message_id = request.headers.fetch('x-amz-sns-message-id')
       correlation_id = message_id
 
@@ -49,6 +48,14 @@ module Api
       logger.info(request.headers.env.to_hash)
       logger.info(params.inspect)
       logger.info('<' * 100)
+    end
+
+    def application_id
+      JSON.parse(request_body.fetch('Message')).fetch('id')
+    end
+
+    def request_body
+      @request_body ||= JSON.parse(request.body.read).slice('SubscribeURL', 'Message')
     end
   end
 end
