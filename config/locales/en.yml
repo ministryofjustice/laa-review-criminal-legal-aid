@@ -47,12 +47,13 @@ en:
     return_reason_details: We'll share this information with the provider
     assigned_to: 'Assigned to:'
     reviewed_by: 'Reviewed by:'
+    closed_by: 'Closed by:'
     date_received: 'Date received:'
     date_returned: 'Date returned:'
     date_reviewed: 'Date reviewed:'
     date:
-      sent_back: 'Date returned:'
-      completed: 'Date completed:'
+      sent_back: 'Date closed:'
+      completed: 'Date closed:'
 
     application_information: Application information
     all_applications: All applications
@@ -78,6 +79,7 @@ en:
     providers_office_address: Provider's office address
     correspondence_address: Correspondence address
     codefendant: Co-defendant %{number}
+    codefendants: Co-defendants
     offence: Offence
     offence_date: Offence date
     interests_of_justice_type: Criteria
@@ -111,6 +113,7 @@ en:
   values: &VALUES
     "true": "Yes"
     "false": "No"
+    not_provided: Not provided
     initial_application: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
@@ -178,6 +181,7 @@ en:
     unassign_from_self: Remove from your list
     view_all_open_applications: View all open applications
     view_daily_count: View by days passed
+    view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider
   confirmations:

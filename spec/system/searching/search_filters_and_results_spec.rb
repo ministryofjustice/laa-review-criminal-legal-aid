@@ -22,19 +22,14 @@ RSpec.describe 'Search Page' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
     expect(column_headings).to eq(
-      'Applicant Ref. no. Date received Days passed Caseworker Status'
+      'Applicant Ref. no. Date received Date reviewed Caseworker Status'
     )
   end
 
   it 'shows the correct results' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
 
-    days_ago = Calendar.new.business_days_between(
-      DateTime.parse('2022-10-27T14:09:11.000+00:00'),
-      Time.zone.now.to_date
-    )
-
-    expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days Open")
+    expect(first_row_text).to eq('Kit Pound 120398120 27 Oct 2022 Open')
   end
 
   it 'has the correct search results count' do
