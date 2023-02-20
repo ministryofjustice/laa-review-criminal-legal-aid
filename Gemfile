@@ -52,6 +52,8 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry'
   gem 'rspec-rails'
+  gem 'irb'
+  gem 'reline'
 end
 
 group :development do
