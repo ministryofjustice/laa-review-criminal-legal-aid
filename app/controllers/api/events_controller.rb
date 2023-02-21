@@ -26,7 +26,6 @@ module Api
     private
 
     def confirm_subscription!
-      confirm_url = request_body['SubscribeURL']
       response = Faraday.get(confirm_url)
 
       head response.status
@@ -45,8 +44,7 @@ module Api
 
     def log_request_for_debugging
       logger.info('>' * 100)
-      logger.info(request.headers.env.to_hash)
-      logger.info(params.inspect)
+      logger.info(json_body)
       logger.info('<' * 100)
     end
 
@@ -54,8 +52,16 @@ module Api
       JSON.parse(request_body.fetch('Message')).fetch('id')
     end
 
+    def confirm_url
+      request_body.fetch('SubscribeURL')
+    end
+
     def request_body
-      @request_body ||= JSON.parse(request.body.read).slice('SubscribeURL', 'Message')
+      JSON.parse(json_body).slice('SubscribeURL', 'Message')
+    end
+
+    def json_body
+      @json_body ||= request.body.read
     end
   end
 end
