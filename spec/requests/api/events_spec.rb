@@ -50,6 +50,47 @@ RSpec.describe 'Api::Events' do
     end
   end
 
+  describe 'SNS Nofification callback with raw_message_delivery' do
+    let(:headers) do
+      {
+        'x-amz-sns-message-type' => 'Notification',
+        'x-amz-sns-message-id' => sns_message_id,
+        'x-amz-sns-rawdelivery' => 'true'
+      }
+    end
+
+    let(:body) { LaaCrimeSchemas.fixture(1.0).read }
+
+    it 'creates an ApplicationReceived event' do
+      expect { do_request }.to change { review.state }.from(:submitted).to(:open)
+
+      expect(response).to have_http_status :created
+    end
+  end
+
+  describe 'SNS Nofification callback with raw_message_delivery and message object' do
+    let(:headers) do
+      {
+        'x-amz-sns-message-type' => 'Notification',
+        'x-amz-sns-message-id' => sns_message_id,
+        'x-amz-sns-rawdelivery' => 'true'
+      }
+    end
+
+    let(:body) do
+      {
+        data: JSON.parse(LaaCrimeSchemas.fixture(1.0).read),
+        event_name: 'apply.submitted'
+      }.to_json
+    end
+
+    it 'creates an ApplicationReceived event' do
+      expect { do_request }.to change { review.state }.from(:submitted).to(:open)
+
+      expect(response).to have_http_status :created
+    end
+  end
+
   describe 'SNS Subscription Confirmation' do
     let(:headers) do
       {

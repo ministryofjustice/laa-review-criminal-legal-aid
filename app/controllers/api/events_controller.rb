@@ -11,8 +11,6 @@ module Api
       # Return confirm endpoint status for subscription confirm.
       #
 
-      log_request_for_debugging
-
       case request.headers.fetch('x-amz-sns-message-type')
       when 'SubscriptionConfirmation'
         confirm_subscription!
@@ -33,6 +31,7 @@ module Api
 
     def handle_notification!
       message_id = request.headers.fetch('x-amz-sns-message-id')
+
       correlation_id = message_id
 
       Reviewing::ReceiveApplication.call(application_id:, correlation_id:)
@@ -42,14 +41,16 @@ module Api
       head :ok
     end
 
-    def log_request_for_debugging
-      logger.info('>' * 100)
-      logger.info(json_body)
-      logger.info('<' * 100)
-    end
-
+    #
+    # TODO: simplify when notification message format decided.
+    #
     def application_id
-      JSON.parse(request_body.fetch('Message')).fetch('id')
+      if request.headers['x-amz-sns-rawdelivery'] == 'true'
+        data = request_body.fetch('data', request_body)
+        data.fetch('id')
+      else
+        JSON.parse(request_body.fetch('Message')).fetch('id')
+      end
     end
 
     def confirm_url
@@ -57,11 +58,7 @@ module Api
     end
 
     def request_body
-      JSON.parse(json_body).slice('SubscribeURL', 'Message')
-    end
-
-    def json_body
-      @json_body ||= request.body.read
+      @request_body ||= JSON.parse(request.body.read)
     end
   end
 end
