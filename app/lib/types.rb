@@ -56,6 +56,7 @@ module Types
 
   SORTABLE_COLUMNS = %w[
     submitted_at
+    time_passed
     reviewed_at
     applicant_name
   ].freeze
