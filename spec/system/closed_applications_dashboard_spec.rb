@@ -21,6 +21,9 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   before do
     visit '/'
+
+    Reviewing::ReceiveApplication.call(application_id:)
+
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,
       details: 'Detailed reason'

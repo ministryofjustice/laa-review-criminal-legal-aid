@@ -4,10 +4,11 @@ module Reviewing
 
     def initialize(id)
       @id = id
-      @state = :submitted
+      @state = nil
       @return_reason = nil
       @reviewer_id = nil
       @reviewed_at = nil
+      @received_at = nil
     end
 
     attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id
@@ -15,7 +16,7 @@ module Reviewing
     alias application_id id
 
     def receive_application(application_id:, correlation_id: nil)
-      raise AlreadyReceived unless @state == :submitted
+      raise AlreadyReceived if received?
 
       causation_id = correlation_id
 
@@ -26,6 +27,7 @@ module Reviewing
     end
 
     def send_back(application_id:, user_id:, reason:)
+      raise NotReceived unless received?
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
 
@@ -35,6 +37,7 @@ module Reviewing
     end
 
     def complete(application_id:, user_id:)
+      raise NotReceived unless received?
       raise AlreadyCompleted if @state.equal?(:completed)
       raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
 
@@ -43,8 +46,9 @@ module Reviewing
       )
     end
 
-    on ApplicationReceived do |_event|
+    on ApplicationReceived do |event|
       @state = :open
+      @received_at = event.timestamp
     end
 
     on SentBack do |event|
@@ -62,6 +66,10 @@ module Reviewing
 
     def reviewed?
       !@reviewed_at.nil?
+    end
+
+    def received?
+      state != nil
     end
   end
 end

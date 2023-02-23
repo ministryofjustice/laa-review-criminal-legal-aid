@@ -5,8 +5,7 @@ RSpec.shared_context 'with review', shared_context: :metadata do
 
   def review
     repository.load(
-      Reviewing::Review.new(application_id),
-      "Reviewing$#{application_id}"
+      Reviewing::Review.new(application_id), "Reviewing$#{application_id}"
     )
   end
 

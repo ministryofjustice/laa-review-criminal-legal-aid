@@ -3,6 +3,7 @@ class ApplicationHistory < ApplicationStruct
     Assigning::AssignedToUser,
     Assigning::UnassignedFromUser,
     Assigning::ReassignedToUser,
+    Reviewing::ApplicationReceived,
     Reviewing::SentBack,
     Reviewing::Completed
   ].freeze
@@ -15,33 +16,23 @@ class ApplicationHistory < ApplicationStruct
 
   private
 
+  #
+  # TODO: Refactor as part of CRIMRE-180
+  # Assignment and Review will be combined into a single stream / aggregate.
+  #
   def load_from_events
     RailsEventStore::Projection
       .from_stream(streams)
-      .init(-> { [application_submitted_item] })
-      .when(ApplicationHistory::EVENT_TYPES,
-            lambda { |state, event|
-              state << ApplicationHistoryItem.from_event(event)
-            }).run(Rails.application.config.event_store).reverse
+      .init(-> { [] })
+      .when(
+        ApplicationHistory::EVENT_TYPES,
+        lambda { |state, event|
+          state << ApplicationHistoryItem.from_event(event, application)
+        }
+      ).run(Rails.application.config.event_store).sort_by(&:timestamp).reverse
   end
 
   def streams
     ["Assigning$#{application.id}", "Reviewing$#{application.id}"]
-  end
-
-  # Tihs is a fake submission event. It will be replace by a
-  # real one on import from the datastore.
-  def application_submitted_item
-    provider_name = [
-      application.provider_details.legal_rep_first_name,
-      application.provider_details.legal_rep_last_name
-    ].join ' '
-
-    ApplicationHistoryItem.new(
-      user_id: nil,
-      user_name: provider_name,
-      timestamp: application.submitted_at,
-      event_type: 'Reviewing::ApplicationReceived'
-    )
   end
 end

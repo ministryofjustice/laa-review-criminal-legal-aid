@@ -8,6 +8,13 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     applicant.full_name
   end
 
+  def legal_rep_name
+    [
+      provider_details.legal_rep_first_name,
+      provider_details.legal_rep_last_name
+    ].join ' '
+  end
+
   delegate :date_of_birth, to: :applicant, prefix: true
 
   def means_type

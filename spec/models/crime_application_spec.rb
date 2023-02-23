@@ -13,22 +13,45 @@ RSpec.describe CrimeApplication do
     it { is_expected.to eq Date.parse('2011-06-09') }
   end
 
-  describe '#means_type' do
-    subject(:means_type) { application.means_type }
-
-    it { is_expected.to eq :passported }
-  end
-
   describe '#applicant_name' do
     subject(:applicant_name) { application.applicant_name }
 
     it { is_expected.to eq 'Kit Pound' }
   end
 
+  describe '#assignee_name' do
+    subject(:assignee_name) { application.assignee_name }
+
+    it { is_expected.to be_nil }
+
+    context 'when assigned' do
+      before do
+        user_id = SecureRandom.uuid
+        allow(Assigning::LoadAssignment).to receive(:call) { assignment }
+        allow(assignment).to receive(:assignee_id) { user_id }
+        allow(User).to receive(:name_for).with(user_id).and_return('John Deere')
+      end
+
+      it { is_expected.to eq('John Deere') }
+    end
+  end
+
   describe '#history' do
     subject(:history) { application.history }
 
     it { is_expected.to be_a ApplicationHistory }
+  end
+
+  describe '#legal_rep_name' do
+    subject(:legal_rep_name) { application.legal_rep_name }
+
+    it { is_expected.to eq 'John Doe' }
+  end
+
+  describe '#means_type' do
+    subject(:means_type) { application.means_type }
+
+    it { is_expected.to eq :passported }
   end
 
   describe '#reviewable_by?' do
@@ -62,7 +85,7 @@ RSpec.describe CrimeApplication do
   describe '#review_status' do
     subject(:review_status) { application.review_status }
 
-    it { is_expected.to be(:submitted) }
+    it { is_expected.to be(:open) }
   end
 
   describe '#reviewed_at' do
@@ -85,23 +108,6 @@ RSpec.describe CrimeApplication do
       end
 
       it { is_expected.to eq('David Brown') }
-    end
-  end
-
-  describe '#assignee_name' do
-    subject(:assignee_name) { application.assignee_name }
-
-    it { is_expected.to be_nil }
-
-    context 'when assigned' do
-      before do
-        user_id = SecureRandom.uuid
-        allow(Assigning::LoadAssignment).to receive(:call) { assignment }
-        allow(assignment).to receive(:assignee_id) { user_id }
-        allow(User).to receive(:name_for).with(user_id).and_return('John Deere')
-      end
-
-      it { is_expected.to eq('John Deere') }
     end
   end
 
