@@ -14,9 +14,15 @@ class TableHeader < ApplicationStruct
   # Params required to sort by this column
   #
   def sorting_params
+    sort_by = if column_name == 'time_passed'
+                'submitted_at'
+              else
+                column_name
+              end
+
     {
       sorting: {
-        sort_by: column_name,
+        sort_by: sort_by,
         sort_direction: sorting.reverse_direction
       }
     }
