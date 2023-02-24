@@ -4,7 +4,7 @@ RSpec.describe CrimeApplication do
   subject(:application) { described_class.new(attributes) }
 
   let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
-  let(:review) { instance_double(Reviewing::Review) }
+  let(:review) { instance_double(Reviewing::Review, received?: true, state: :open) }
   let(:assignment) { instance_double(Assigning::Assignment) }
 
   describe '#applicant_date_of_birth' do
@@ -85,13 +85,23 @@ RSpec.describe CrimeApplication do
   describe '#review_status' do
     subject(:review_status) { application.review_status }
 
+    before do
+      allow(Reviewing::LoadReview).to receive(:call) { review }
+      allow(review).to receive(:state).and_return(:open)
+    end
+
     it { is_expected.to be(:open) }
   end
 
   describe '#reviewed_at' do
-    subject(:reviewed_status) { application.reviewed_at }
+    subject(:reviewed_at) { application.reviewed_at }
 
-    it { is_expected.to be_nil }
+    before do
+      allow(Reviewing::LoadReview).to receive(:call) { review }
+      allow(review).to receive(:reviewed_at).and_return('2023-01-01')
+    end
+
+    it { is_expected.to eq '2023-01-01' }
   end
 
   describe '#reviewer_name' do

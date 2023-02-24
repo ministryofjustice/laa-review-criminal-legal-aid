@@ -68,5 +68,11 @@ RSpec.describe BusinessDay do
         end
       end
     end
+
+    describe '#period_ends_before' do
+      it 'the first date after the last day in the period' do
+        expect(business_day.period_ends_before).to eq(business_day.date.tomorrow)
+      end
+    end
   end
 end

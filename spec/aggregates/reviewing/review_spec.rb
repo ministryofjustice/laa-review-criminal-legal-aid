@@ -8,9 +8,11 @@ describe Reviewing::Review do
 
   let(:application_id) { SecureRandom.uuid }
 
+  let(:submitted_at) { Time.zone.now }
+
   describe '#recieve_application' do
     before do
-      review.receive_application(application_id:)
+      review.receive_application(submitted_at:)
     end
 
     it 'is becomes "received"' do
@@ -25,7 +27,7 @@ describe Reviewing::Review do
 
     context 'when has already been received' do
       it 'raises AlreadyReceived' do
-        expect { review.receive_application(application_id:) }.to raise_error(
+        expect { review.receive_application(submitted_at:) }.to raise_error(
           Reviewing::AlreadyReceived
         )
       end
@@ -36,8 +38,8 @@ describe Reviewing::Review do
     let(:user_id) { SecureRandom.uuid }
 
     before do
-      review.receive_application(application_id:)
-      review.send_back(application_id:, user_id:, reason:)
+      review.receive_application(submitted_at:)
+      review.send_back(user_id:, reason:)
     end
 
     it 'is becomes "sent_back"' do
@@ -52,13 +54,13 @@ describe Reviewing::Review do
 
     it 'can only happen once' do
       expect do
-        review.send_back(application_id:, user_id:, reason:)
+        review.send_back(user_id:, reason:)
       end.to raise_error Reviewing::AlreadySentBack
     end
 
     it 'cannot then be completed' do
       expect do
-        review.complete(application_id:, user_id:)
+        review.complete(user_id:)
       end.to raise_error Reviewing::CannotCompleteWhenSentBack
     end
   end
@@ -67,8 +69,8 @@ describe Reviewing::Review do
     let(:user_id) { SecureRandom.uuid }
 
     before do
-      review.receive_application(application_id:)
-      review.complete(application_id:, user_id:)
+      review.receive_application(submitted_at:)
+      review.complete(user_id:)
     end
 
     it 'is becomes "completed"' do
@@ -82,14 +84,14 @@ describe Reviewing::Review do
     end
 
     it 'can only happen once' do
-      expect { review.complete(application_id:, user_id:) }.to raise_error(
+      expect { review.complete(user_id:) }.to raise_error(
         Reviewing::AlreadyCompleted
       )
     end
 
     it 'cannot then be sent back' do
       expect do
-        review.send_back(application_id:, user_id:, reason:)
+        review.send_back(user_id:, reason:)
       end.to raise_error Reviewing::CannotSendBackWhenCompleted
     end
   end

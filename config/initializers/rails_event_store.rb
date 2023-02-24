@@ -1,5 +1,6 @@
 Rails.configuration.to_prepare do
-  Rails.configuration.event_store = RailsEventStore::Client.new
+  event_store = Rails.configuration.event_store = RailsEventStore::Client.new
   
-  CurrentAssignments::Configuration.new.call(Rails.configuration.event_store)
+  CurrentAssignments::Configuration.new.call(event_store)
+  ReceivedOnReports::Configuration.new.call(event_store)
 end

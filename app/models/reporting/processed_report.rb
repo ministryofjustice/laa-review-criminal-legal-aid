@@ -7,12 +7,7 @@ module Reporting
     end
 
     def table
-      Table.new(
-        {
-          processed_on:,
-          applications_closed:
-        }
-      )
+      Table.new({ processed_on:, applications_closed: })
     end
 
     private

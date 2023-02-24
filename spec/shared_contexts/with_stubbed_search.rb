@@ -33,6 +33,13 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
   end
 
   before do
+    stubbed_search_results.each do |result|
+      Reviewing::ReceiveApplication.call(
+        application_id: result.id,
+        submitted_at: result.submitted_at
+      )
+    end
+
     allow(http_client).to receive(:post) { datastore_response }
     #
     # Temporarily allow any instance of.

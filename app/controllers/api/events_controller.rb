@@ -30,11 +30,12 @@ module Api
     end
 
     def handle_notification!
-      message_id = request.headers.fetch('x-amz-sns-message-id')
-
-      correlation_id = message_id
-
-      Reviewing::ReceiveApplication.call(application_id:, correlation_id:)
+      Reviewing::ReceiveApplication.call(
+        application_id:,
+        correlation_id:,
+        causation_id:,
+        submitted_at:
+      )
 
       head :created
     rescue Reviewing::AlreadyReceived
@@ -43,6 +44,18 @@ module Api
 
     def application_id
       message.dig('data', 'id')
+    end
+
+    def submitted_at
+      message.dig('data', 'submitted_at') || Time.zone.now.to_s
+    end
+
+    def correlation_id
+      message.fetch('data').fetch('parent_id', 'id')
+    end
+
+    def causation_id
+      request.headers.fetch('x-amz-sns-message-id')
     end
 
     def message

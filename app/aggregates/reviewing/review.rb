@@ -9,46 +9,45 @@ module Reviewing
       @reviewer_id = nil
       @reviewed_at = nil
       @received_at = nil
+      @submitted_at = nil
     end
 
-    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id
+    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at
 
     alias application_id id
 
-    def receive_application(application_id:, correlation_id: nil)
+    def receive_application(submitted_at:)
       raise AlreadyReceived if received?
 
-      causation_id = correlation_id
-
       apply ApplicationReceived.new(
-        metadata: { correlation_id:, causation_id: },
-        data: { application_id: }
+        data: { application_id:, submitted_at: }
       )
     end
 
-    def send_back(application_id:, user_id:, reason:)
+    def send_back(user_id:, reason:)
       raise NotReceived unless received?
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
 
       apply SentBack.new(
-        data: { application_id:, user_id:, reason: }
+        data: { application_id:, submitted_at:, user_id:, reason: }
       )
     end
 
-    def complete(application_id:, user_id:)
+    def complete(user_id:)
       raise NotReceived unless received?
       raise AlreadyCompleted if @state.equal?(:completed)
       raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
 
       apply Completed.new(
-        data: { application_id:, user_id: }
+        data: { application_id:, submitted_at:, user_id: }
       )
     end
 
     on ApplicationReceived do |event|
       @state = :open
       @received_at = event.timestamp
+      @submitted_at = event.data[:submitted_at]
     end
 
     on SentBack do |event|
