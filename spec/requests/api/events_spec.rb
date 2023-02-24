@@ -1,16 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::Events' do
+  include_context 'with review'
   let(:sns_message_id) { SecureRandom.uuid }
-
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+
+  let(:message) do
+    {
+      event_name: 'apply.submission',
+      data: { id: application_id }
+    }
+  end
 
   def do_request
     post('/api/events', params: body, headers: headers)
-  end
-
-  def review
-    Reviewing::LoadReview.call(application_id:)
   end
 
   describe 'SNS Nofification callback' do
@@ -27,7 +30,7 @@ RSpec.describe 'Api::Events' do
         'MessageId' => sns_message_id,
         'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
         'Subject' => 'apply.submission',
-        'Message' => LaaCrimeSchemas.fixture(1.0).read,
+        'Message' => message.to_json,
         'Timestamp' => '2012-05-02T00:54:06.655Z',
         'SignatureVersion' => '1',
         'Signature' => 'EXAMPLEw6JRN...',
@@ -37,12 +40,12 @@ RSpec.describe 'Api::Events' do
     end
 
     it 'creates an ApplicationReceived event' do
-      expect { do_request }.to change { review.state }.from(:submitted).to(:open)
+      expect { do_request }.to change { review.state }.from(nil).to(:open)
 
       expect(response).to have_http_status :created
     end
 
-    it 'idempotent' do
+    it 'is idempotent' do
       do_request
       expect { do_request }.not_to(change { review.state })
 
@@ -59,33 +62,10 @@ RSpec.describe 'Api::Events' do
       }
     end
 
-    let(:body) { LaaCrimeSchemas.fixture(1.0).read }
+    let(:body) { message.to_json }
 
     it 'creates an ApplicationReceived event' do
-      expect { do_request }.to change { review.state }.from(:submitted).to(:open)
-
-      expect(response).to have_http_status :created
-    end
-  end
-
-  describe 'SNS Nofification callback with raw_message_delivery and message object' do
-    let(:headers) do
-      {
-        'x-amz-sns-message-type' => 'Notification',
-        'x-amz-sns-message-id' => sns_message_id,
-        'x-amz-sns-rawdelivery' => 'true'
-      }
-    end
-
-    let(:body) do
-      {
-        data: JSON.parse(LaaCrimeSchemas.fixture(1.0).read),
-        event_name: 'apply.submitted'
-      }.to_json
-    end
-
-    it 'creates an ApplicationReceived event' do
-      expect { do_request }.to change { review.state }.from(:submitted).to(:open)
+      expect { do_request }.to change { review.state }.from(nil).to(:open)
 
       expect(response).to have_http_status :created
     end

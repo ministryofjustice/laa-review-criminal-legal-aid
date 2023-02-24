@@ -41,15 +41,15 @@ module Api
       head :ok
     end
 
-    #
-    # TODO: simplify when notification message format decided.
-    #
     def application_id
+      message.dig('data', 'id')
+    end
+
+    def message
       if request.headers['x-amz-sns-rawdelivery'] == 'true'
-        data = request_body.fetch('data', request_body)
-        data.fetch('id')
+        request_body
       else
-        JSON.parse(request_body.fetch('Message')).fetch('id')
+        JSON.parse(request_body.fetch('Message'))
       end
     end
 

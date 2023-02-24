@@ -6,6 +6,8 @@ RSpec.describe Reviewing::SendBack do
   end
 
   before do
+    Reviewing::ReceiveApplication.new(application_id:).call
+
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
       {
         application_id: application_id,
@@ -13,8 +15,6 @@ RSpec.describe Reviewing::SendBack do
       member: :return
       }
     ).and_return(return_request)
-
-    Reviewing::ReceiveApplication.new(application_id:).call
   end
 
   let(:return_request) do

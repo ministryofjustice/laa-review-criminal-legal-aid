@@ -2,6 +2,9 @@ module Reviewing
   class AlreadyReceived < StandardError
   end
 
+  class NotReceived < StandardError
+  end
+
   class AlreadySentBack < StandardError
   end
 
