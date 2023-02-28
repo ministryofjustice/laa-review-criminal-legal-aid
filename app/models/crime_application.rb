@@ -45,6 +45,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   def parent
     return nil if parent_id.nil?
+    return nil if parent_id == id
 
     @parent ||= CrimeApplication.find(parent_id)
   end
