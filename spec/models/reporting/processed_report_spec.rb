@@ -1,7 +1,4 @@
 require 'rails_helper'
-RSpec.configure do |config|
-  config.include ActiveSupport::Testing::TimeHelpers
-end
 
 describe Reporting::ProcessedReport do
   subject(:report) { described_class.new }

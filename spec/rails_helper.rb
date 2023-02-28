@@ -38,6 +38,9 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
+
+  # For time travel.
+  config.include ActiveSupport::Testing::TimeHelpers
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
