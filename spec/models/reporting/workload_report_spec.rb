@@ -61,7 +61,7 @@ RSpec.describe Reporting::WorkloadReport do
     end
   end
 
-  describe 'number of rows can be configure using :number_of_days' do
+  describe 'number of rows can be configured using :number_of_days' do
     subject(:report) { described_class.new(number_of_days: 7) }
 
     it 'returns the counts for the four working days up to and including day_zero' do

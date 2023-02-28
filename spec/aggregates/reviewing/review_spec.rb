@@ -15,7 +15,7 @@ describe Reviewing::Review do
       review.receive_application(submitted_at:)
     end
 
-    it 'is becomes "received"' do
+    it 'becomes "received"' do
       expect(review.state).to eq :open
     end
 
@@ -42,7 +42,7 @@ describe Reviewing::Review do
       review.send_back(user_id:, reason:)
     end
 
-    it 'is becomes "sent_back"' do
+    it 'becomes "sent_back"' do
       expect(review.state).to eq :sent_back
     end
 
@@ -73,7 +73,7 @@ describe Reviewing::Review do
       review.complete(user_id:)
     end
 
-    it 'is becomes "completed"' do
+    it 'becomes "completed"' do
       expect(review.state).to eq :completed
     end
 

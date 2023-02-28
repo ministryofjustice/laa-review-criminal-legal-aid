@@ -7,7 +7,7 @@ describe Reporting::ProcessedReport do
   subject(:report) { described_class.new }
 
   describe '#table' do
-    it 'returns a table report data' do
+    it 'returns a Table' do
       expect(report.table).to be_a Reporting::Table
     end
 
