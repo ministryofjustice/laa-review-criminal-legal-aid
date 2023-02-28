@@ -8,7 +8,7 @@ SimpleCov.start 'rails' do
   coverage_criterion :branch
   # primary_coverage :branch
   minimum_coverage 100
-  add_group 'Views', 'app/views'
+  add_filter 'app/views'
   add_filter 'app/mailers/application_mailer.rb'
   add_filter 'app/jobs/application_job.rb'
   add_filter 'config/initializers'

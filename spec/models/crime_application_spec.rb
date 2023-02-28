@@ -42,6 +42,44 @@ RSpec.describe CrimeApplication do
     it { is_expected.to be_a ApplicationHistory }
   end
 
+  describe '#all_histories' do
+    subject(:history) { application.all_histories }
+
+    context 'when initital submission' do
+      it { is_expected.to eq [application.history] }
+    end
+  end
+
+  describe '#parent' do
+    subject(:parent) { application.parent }
+
+    context 'when an initital submission' do
+      it { is_expected.to be_nil }
+    end
+
+    context 'when a re-submission' do
+      let(:parent_id) { SecureRandom.uuid }
+      let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read).merge({ 'parent_id' => parent_id }) }
+      let(:parent) { instance_double(described_class) }
+
+      before do
+        allow(described_class).to receive(:find).with(parent_id) { parent }
+      end
+
+      it { is_expected.to be parent }
+    end
+
+    context 'when parent id is same as the id' do
+      let(:attributes) do
+        JSON.parse(LaaCrimeSchemas.fixture(1.0).read).merge(
+          { 'parent_id' => '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+        )
+      end
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#legal_rep_name' do
     subject(:legal_rep_name) { application.legal_rep_name }
 

@@ -1,3 +1,7 @@
 <strong>
-  <%= t('reviewing.application_received', scope: 'event.description') %>
+  <% if current_page_application_id == application.id %>
+    <%= t('reviewing.application_received', scope: 'event.description') %>
+  <% else %>
+    <%= link_to t('reviewing.application_received', scope: 'event.description'), crime_application_path(application.id) %>
+  <% end %>
 </strong>

@@ -2,6 +2,7 @@ RSpec.configure do |config|
   application_ids = %w[
     1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc
     5aa4c689-6fb5-47ff-9567-5efe7f8ac211
+    148df27d-4710-4c5b-938c-bb132eb040ca
   ]
 
   config.before do
