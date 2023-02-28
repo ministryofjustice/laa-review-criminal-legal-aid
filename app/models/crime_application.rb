@@ -46,14 +46,16 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   def parent
     return nil if parent_id.nil?
 
-    CrimeApplication.find(parent_id)
+    @parent ||= CrimeApplication.find(parent_id)
   end
 
   def all_histories
+    return @all_histories if @all_histories
+
     histories = [history]
     histories += parent.all_histories if parent
 
-    histories
+    @all_histories = histories
   end
 
   private
