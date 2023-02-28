@@ -30,7 +30,7 @@ module Reviewing
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
 
       apply SentBack.new(
-        data: { application_id:, submitted_at:, user_id:, reason: }
+        data: { application_id:, user_id:, reason: }
       )
     end
 
@@ -40,7 +40,7 @@ module Reviewing
       raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
 
       apply Completed.new(
-        data: { application_id:, submitted_at:, user_id: }
+        data: { application_id:, user_id: }
       )
     end
 
