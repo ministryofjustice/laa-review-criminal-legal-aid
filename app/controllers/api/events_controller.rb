@@ -51,7 +51,7 @@ module Api
     end
 
     def correlation_id
-      message.fetch('data').fetch('parent_id', 'id')
+      message.fetch('data').fetch('parent_id', application_id)
     end
 
     def causation_id
