@@ -7,7 +7,7 @@ module Reviewing
     def call
       ActiveRecord::Base.transaction do
         with_review do |review|
-          review.send_back(application_id:, user_id:, reason:)
+          review.send_back(user_id:, reason:)
         end
 
         DatastoreApi::Requests::UpdateApplication.new(

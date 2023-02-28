@@ -1,5 +1,5 @@
 class BusinessDay
-  def initialize(age_in_business_days:, day_zero: Time.zone.now.to_date, calendar: Calendar.new)
+  def initialize(age_in_business_days: 0, day_zero: Time.zone.now.to_date, calendar: Calendar.new)
     @age_in_business_days = age_in_business_days
     @day_zero = day_zero
     @calendar = calendar
@@ -8,7 +8,7 @@ class BusinessDay
   attr_reader :age_in_business_days
 
   def date
-    return calendar.roll_forward(day_zero) if age_in_business_days.zero?
+    return calendar.roll_forward(day_zero).to_date if age_in_business_days.zero?
 
     calendar.subtract_business_days(day_zero, age_in_business_days)
   end

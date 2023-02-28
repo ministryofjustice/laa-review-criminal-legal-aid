@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Reviewing::ReceiveApplication do
   subject(:command) do
-    described_class.new(application_id:)
+    described_class.new(
+      application_id: application_id, submitted_at: Time.zone.now.to_s
+    )
   end
 
   include_context 'with review'

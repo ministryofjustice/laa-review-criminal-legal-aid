@@ -8,7 +8,11 @@ RSpec.describe 'Api::Events' do
   let(:message) do
     {
       event_name: 'apply.submission',
-      data: { id: application_id }
+      data: {
+        id: application_id,
+        submitted_at: DateTime.parse('2022-10-27T14:09:11'),
+        parent_id: nil
+      }
     }
   end
 
@@ -65,7 +69,9 @@ RSpec.describe 'Api::Events' do
     let(:body) { message.to_json }
 
     it 'creates an ApplicationReceived event' do
-      expect { do_request }.to change { review.state }.from(nil).to(:open)
+      expect { do_request }
+        .to change { review.state }.from(nil).to(:open)
+        .and change { review.submitted_at }.from(nil).to DateTime.parse('2022-10-27T14:09:11')
 
       expect(response).to have_http_status :created
     end

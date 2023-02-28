@@ -4,6 +4,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do
+    Reviewing::ReceiveApplication.call(application_id: application_id, submitted_at: '2022-10-24T09:50:04.000+00:00')
+
     visit '/'
     visit crime_application_path(application_id)
   end

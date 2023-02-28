@@ -16,7 +16,9 @@ RSpec.describe Reviewing::Complete do
       }
     ).and_return(return_request)
 
-    Reviewing::ReceiveApplication.new(application_id:).call
+    Reviewing::ReceiveApplication.call(
+      application_id: application_id, submitted_at: 1.day.ago.to_s
+    )
   end
 
   let(:return_request) do
