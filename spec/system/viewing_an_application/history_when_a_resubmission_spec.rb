@@ -1,17 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Viewing a resubmitted application's history" do
-  let(:parent_id) { SecureRandom.uuid }
-  let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  let(:parent_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+  let(:application_id) { '148df27d-4710-4c5b-938c-bb132eb040ca' }
 
   before do
     visit '/'
 
     travel_to Time.zone.now.yesterday
-
-    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new) {
-      instance_double(DatastoreApi::Requests::UpdateApplication, call: {})
-    }
 
     user = User.create(
       first_name: 'Fred',
@@ -30,6 +26,10 @@ RSpec.describe "Viewing a resubmitted application's history" do
       to_whom_id: user.id,
       assignment_id: parent_id
     ).call
+
+    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new) {
+      instance_double(DatastoreApi::Requests::UpdateApplication, call: {})
+    }
 
     return_details = ReturnDetails.new(
       reason: 'evidence_issue',
@@ -53,12 +53,11 @@ RSpec.describe "Viewing a resubmitted application's history" do
     visit history_crime_application_path(application_id)
   end
 
-  it "includes the previous submission's history" do
-    # TODO update to include previous history
-    expected_content = "Monday 24 Oct 09:50 John Doe Application submitted"
-
+  it 'includes a link to the previous version of the application in the application history' do
     within('tbody.govuk-table__body') do
-      expect(page).to have_content(expected_content)
+      expect { click_on('Application submitted') }.to change { page.current_path }
+        .from(history_crime_application_path(application_id))
+        .to(crime_application_path(parent_id))
     end
   end
 end
