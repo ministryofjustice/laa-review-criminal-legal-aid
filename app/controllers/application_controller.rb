@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_id
-    warden.user.first
+    warden.user.first.fetch('id')
   end
 
   def authenticate_user!

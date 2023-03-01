@@ -2,26 +2,13 @@ module Warden
   module Strategies
     class AzureAd < Warden::Strategies::Base
       def authenticate!
-        omniauth_user = env['omniauth.auth']
+        info = env.dig('omniauth.auth', 'info')
 
-        if omniauth_user
-          info = env['omniauth.auth']['info']
-
-          success! find_and_update_user(info)
+        if info && (user = User.authenticate!(info))
+          success! user
         else
           fail!
         end
-      end
-
-      def find_and_update_user(info)
-        User.upsert(
-          {
-            auth_oid: info.fetch('auth_oid'),
-            first_name: info['first_name'],
-            last_name: info['last_name']
-          },
-          unique_by: :auth_oid
-        ).first.fetch('id')
       end
     end
   end
