@@ -4,6 +4,7 @@ RSpec.describe 'Manage Users Dashboard' do
   include_context 'with a logged in user'
 
   before do
+    visit '/'
     visit '/admin/manage_users'
   end
 

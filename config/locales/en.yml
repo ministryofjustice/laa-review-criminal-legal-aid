@@ -206,6 +206,7 @@ en:
         application_received: Application submitted
         completed: Application completed
 
+
   assigned_applications:
     index:
       page_title: Your list
@@ -252,6 +253,12 @@ en:
     search_results_table:
       table_headings:
         <<: *TABLE_HEADINGS
+
+  admin:
+    manage_users:
+      index:
+        page_title: Manage users
+        heading: Manage users
 
   crime_applications:
     index:
