@@ -46,6 +46,8 @@ describe OmniAuth::Strategies::AzureAd do
       oid: SecureRandom.uuid,
       name: 'Example, Jo',
       email: 'Jo.Example@justice.gov.uk',
+      acct: 0,
+      tid: 'TestAzureTenantID',
       iss: 'https://login.microsoftonline.com/TestAzureTenantID/v2.0',
       sub: SecureRandom.uuid,
       aud: ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID'),
@@ -182,6 +184,26 @@ describe OmniAuth::Strategies::AzureAd do
 
       it 'fails' do
         expect { strategy.info }.to raise_error(/KidNotFound/)
+      end
+    end
+
+    context 'when user is not a tenant member' do
+      let(:id_token_attr) do
+        valid_token_attr.merge(acct: 1)
+      end
+
+      it 'fails' do
+        expect { strategy.info }.to raise_error(/User is not a tenant member/)
+      end
+    end
+
+    context 'when tenant id is different' do
+      let(:id_token_attr) do
+        valid_token_attr.merge(tid: SecureRandom.hex)
+      end
+
+      it 'fails' do
+        expect { strategy.info }.to raise_error(/Tenant does not match tid/)
       end
     end
   end

@@ -3,6 +3,9 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class AzureAd < OmniAuth::Strategies::OAuth2
+      class InvalidMember < StandardError; end
+      class NotInTenant < StandardError; end
+
       args %i[client_id client_secret tenant_id]
 
       option :name, :azure_ad
@@ -55,15 +58,18 @@ module OmniAuth
           access_token.params['id_token'], openid_connect_config
         )
 
-        decoded.verify!(
-          issuer: issuer,
-          client_id: options.client_id
-        )
+        decoded.verify!(issuer: issuer, client_id: options.client_id)
 
         data = decoded.raw_attributes
+        validate_user_in_tenant!(data)
         data['last_name'], data['first_name'] = data.fetch('name').split(', ')
 
         @raw_info = data
+      end
+
+      def validate_user_in_tenant!(data)
+        raise InvalidMember, 'Invalid ID token: User is not a tenant member.' unless data['acct']&.zero?
+        raise NotInTenant, 'Invalid ID token: Tenant does not match tid.' unless data['tid'] == options.tenant_id
       end
 
       def issuer
