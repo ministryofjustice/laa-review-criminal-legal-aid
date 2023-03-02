@@ -1,9 +1,41 @@
-<% title t(".page_title") %>
+<% title t('.page_title') %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
-      <%= t ".heading" %>
+      <%= t '.heading' %>
     </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-bottom-3">
+    <%= link_to t('.buttons.add_new_user'), '#', class: 'govuk-button govuk-button--primary' %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <table class="govuk-table">
+      <caption class="govuk-table__caption"><%= t '.table.caption' %></caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header"><%= t '.table.headings.email' %></th>
+          <th scope="col" class="govuk-table__header"><%= t '.table.headings.manage_others' %></th>
+          <th scope="col" class="govuk-table__header"><%= t '.table.headings.actions' %></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <% @users.each do |user| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><%= user.email %></td>
+            <td class="govuk-table__cell">TODO</td>
+            <td class="govuk-table__cell">
+              <%= link_to t('.buttons.edit'), '#', class: 'govuk-link' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

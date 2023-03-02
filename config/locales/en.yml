@@ -259,6 +259,15 @@ en:
       index:
         page_title: Manage users
         heading: Manage users
+        buttons:
+          add_new_user: Add new user
+          edit: Edit
+        table:
+          caption: Existing users
+          headings:
+            email: Email
+            manage_others: Manage other users
+            actions: Actions
 
   crime_applications:
     index:

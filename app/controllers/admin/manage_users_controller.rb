@@ -1,5 +1,7 @@
 module Admin
   class ManageUsersController < ApplicationController
-    def index; end
+    def index
+      @users = User.all
+    end
   end
 end
