@@ -1,5 +1,7 @@
 RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   before do
+    User.find_or_create_by(auth_oid: current_user_auth_oid)
+
     auth_hash = OmniAuth::AuthHash.new(
       {
         provider: 'azure_ad',
