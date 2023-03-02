@@ -35,10 +35,10 @@ module OmniAuth
       info do
         {
           auth_oid: raw_info['oid'],
+          auth_subject_id: raw_info['sub'],
           email: raw_info['email'],
           first_name: raw_info['first_name'],
-          last_name: raw_info['last_name'],
-          roles: raw_info['roles']
+          last_name: raw_info['last_name']
         }
       end
 

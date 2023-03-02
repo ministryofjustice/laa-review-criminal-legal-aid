@@ -44,7 +44,6 @@ describe OmniAuth::Strategies::AzureAd do
   let(:valid_token_attr) do
     {
       oid: SecureRandom.uuid,
-      roles: ['caseworker'],
       name: 'Example, Jo',
       email: 'Jo.Example@justice.gov.uk',
       iss: 'https://login.microsoftonline.com/TestAzureTenantID/v2.0',
@@ -122,10 +121,6 @@ describe OmniAuth::Strategies::AzureAd do
 
     it 'includes the user\'s last name' do
       expect(info.fetch(:last_name)).to eq('Example')
-    end
-
-    it 'includes the user\'s roles' do
-      expect(info.fetch(:roles)).to eq(id_token_attr.fetch(:roles))
     end
 
     context 'when issuer is incorrect' do

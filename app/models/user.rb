@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :current_assignments, dependent: :destroy
 
+  scope :pending_authentication, -> { where(first_auth_at: nil, auth_subject_id: nil) }
+
   def name
     [first_name, last_name].join(' ')
   end
@@ -29,7 +31,7 @@ class User < ApplicationRecord
     end
 
     def authenticate_and_update!(info)
-      user = User.find_by(auth_oid: info.fetch('auth_oid'))
+      user = find_by(auth_subject_id: info.fetch('auth_subject_id'))
 
       return nil unless user
 
@@ -44,12 +46,13 @@ class User < ApplicationRecord
     end
 
     def authenticate_and_activate!(info)
-      user = User.find_by email: info['email'], auth_oid: nil, first_auth_at: nil
+      user = find_pending_authentication_by_email(info.fetch('email'))
 
       return nil unless user
 
       user.update(
         auth_oid: info.fetch('auth_oid'),
+        auth_subject_id: info.fetch('auth_subject_id'),
         first_name: info['first_name'],
         last_name: info['last_name'],
         last_auth_at: Time.zone.now,
@@ -57,6 +60,10 @@ class User < ApplicationRecord
       )
 
       user
+    end
+
+    def find_pending_authentication_by_email(email)
+      pending_authentication.find_by(email:)
     end
   end
 end

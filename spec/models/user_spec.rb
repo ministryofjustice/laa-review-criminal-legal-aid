@@ -15,6 +15,7 @@ RSpec.describe User do
         described_class.create!(
           id: user_id,
           auth_oid: SecureRandom.uuid,
+          auth_subject_id: SecureRandom.uuid,
           first_name: 'John',
           last_name: 'Deere'
         )
@@ -30,6 +31,7 @@ RSpec.describe User do
     let(:auth_info) do
       {
         'auth_oid' => SecureRandom.hex,
+        'auth_subject_id' => SecureRandom.uuid,
         'email' => 'test@example.com',
         'first_name' => 'Jo',
         'last_name' => 'TEST'
@@ -40,7 +42,7 @@ RSpec.describe User do
       it { is_expected.to be_nil }
     end
 
-    context 'when a matching active user is found' do
+    context 'when an active user is found' do
       let(:user) { instance_double(described_class, update: true) }
       let(:expected_attributes) do
         {
@@ -54,7 +56,7 @@ RSpec.describe User do
       before do
         freeze_time
         allow(described_class).to receive(:find_by).with(
-          { auth_oid: auth_info['auth_oid'] }
+          { auth_subject_id: auth_info['auth_subject_id'] }
         ).and_return user
       end
 
@@ -77,6 +79,7 @@ RSpec.describe User do
     let(:auth_info) do
       {
         'auth_oid' => SecureRandom.hex,
+        'auth_subject_id' => SecureRandom.hex,
         'email' => 'test@example.com',
         'first_name' => 'Jo',
         'last_name' => 'TEST'
@@ -95,6 +98,7 @@ RSpec.describe User do
           first_name: 'Jo',
           last_name: 'TEST',
           auth_oid: auth_info.fetch('auth_oid'),
+          auth_subject_id: auth_info.fetch('auth_subject_id'),
           first_auth_at: Time.zone.now,
           last_auth_at: Time.zone.now
         }
@@ -103,8 +107,8 @@ RSpec.describe User do
       before do
         freeze_time
 
-        allow(described_class).to receive(:find_by)
-          .with({ email: auth_info['email'], auth_oid: nil, first_auth_at: nil })
+        allow(described_class).to receive(:find_pending_authentication_by_email)
+          .with(auth_info['email'])
           .and_return user
       end
 
