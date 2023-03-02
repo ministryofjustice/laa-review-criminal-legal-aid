@@ -9,7 +9,6 @@ en:
 
   layouts:
     header_navigation:
-      applications: Applications
       manage_users: Manage users
 
   date:
