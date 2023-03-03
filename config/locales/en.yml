@@ -7,6 +7,10 @@ en:
   service:
     name: Review criminal legal aid applications
 
+  layouts:
+    header_navigation:
+      manage_users: Manage users
+
   date:
     formats:
       <<: *DATE_FORMATS
