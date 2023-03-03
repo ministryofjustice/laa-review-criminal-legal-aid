@@ -3,9 +3,8 @@
       <li class="govuk-header__navigation-item app-header__auth-user">
         <%= current_user_name %>
       </li>
-      <%# TODO: update path to new management console %>
       <li class="govuk-header__navigation-item">
-        <%= link_to t('.manage_users'), assigned_applications_path, class: 'govuk-header__link' %>
+        <%= link_to t('.manage_users'), admin_manage_users_path, class: 'govuk-header__link' %>
       </li>
     </ul>
   </nav>
