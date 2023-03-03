@@ -1,14 +1,25 @@
 module Warden
   module Strategies
     class AzureAd < Warden::Strategies::Base
+      #
+      # halt and redirect to provider authentication unless valid id_token
+      #
+      # halt and redirect to forbidden unless user with subject id exists
+      #
       def authenticate!
-        info = env.dig('omniauth.auth', 'info')
+        throw(:warden, action: 'authenticate') unless auth_info
 
-        if info && (user = User.authenticate!(info))
+        if (user = User.authenticate!(auth_info))
           success! user
         else
-          fail!
+          throw(:warden, action: 'forbidden')
         end
+      end
+
+      private
+
+      def auth_info
+        env.dig('omniauth.auth', 'info')
       end
     end
   end
@@ -17,11 +28,15 @@ module Warden
     include ActionController::Redirecting
 
     def self.call(env)
-      @respond ||= action(:respond)
+      @respond = action(env['warden.options'][:action] || :forbidden)
       @respond.call(env)
     end
 
-    def respond
+    def forbidden
+      redirect_to '/forbidden'
+    end
+
+    def authenticate
       redirect_to '/auth/azure_ad'
     end
   end

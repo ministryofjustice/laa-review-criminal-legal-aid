@@ -1,6 +1,13 @@
 class ErrorsController < ApplicationController
+  skip_before_action :authenticate_user!, only: :forbidden
+  layout false, only: :forbidden
+
   def application_not_found
     respond_with_status(:not_found)
+  end
+
+  def forbidden
+    respond_with_status(:forbidden)
   end
 
   def unhandled
