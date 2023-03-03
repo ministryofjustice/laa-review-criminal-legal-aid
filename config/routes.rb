@@ -26,6 +26,10 @@ Rails.application.routes.draw do
     post :next_application, on: :collection
   end
 
+  namespace :admin do
+    resources :manage_users, only: [:index]
+  end
+
   namespace :api do
     resources :events, only: [:create]
   end
