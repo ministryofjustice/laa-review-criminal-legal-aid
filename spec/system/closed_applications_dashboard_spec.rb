@@ -17,7 +17,7 @@ RSpec.describe 'Closed Applications Dashboard' do
     ]
   end
 
-  let(:user_id) { User.find_by(auth_oid: current_user_auth_oid).id }
+  let(:user_id) { current_user_id }
 
   before do
     visit '/'

@@ -16,7 +16,7 @@ RSpec.describe 'Send an application back to the provider' do
   end
 
   context 'when assigned to the application' do
-    let(:assignee_id) { User.find_by(auth_oid: current_user_auth_oid).id }
+    let(:assignee_id) { current_user_id }
 
     before do
       Assigning::AssignToUser.new(
@@ -125,7 +125,7 @@ RSpec.describe 'Send an application back to the provider' do
 
   context 'when not assigned to the application' do
     let(:assignee_id) do
-      User.create(auth_oid: SecureRandom.uuid, first_name: 'A', last_name: 'Caseworder').id
+      User.create(first_name: 'A', last_name: 'Caseworder').id
     end
 
     before do

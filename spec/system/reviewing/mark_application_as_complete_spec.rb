@@ -12,7 +12,7 @@ RSpec.describe 'Marking an application as complete' do
   end
 
   context 'when assigned to the application' do
-    let(:assignee_id) { User.find_by(auth_oid: current_user_auth_oid).id }
+    let(:assignee_id) { current_user_id }
 
     before do
       allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)

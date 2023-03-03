@@ -110,12 +110,10 @@ RSpec.describe 'Viewing your assigned application' do
     # or a temporary issue as the a result of a bug.
 
     before do
-      user = User.where(auth_oid: current_user_auth_oid).first
-
       Assigning::AssignToUser.new(
         assignment_id: SecureRandom.uuid,
-        user_id: user.id,
-        to_whom_id: user.id
+        user_id: current_user_id,
+        to_whom_id: current_user_id
       ).call
 
       click_on 'Your list'
