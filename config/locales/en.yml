@@ -27,6 +27,7 @@ en:
       unassigned_from_self: The application has been removed from your list
       sent_back: The application has been sent back to the provider
       completed: The application has been marked as complete
+      new_user_created: A new user has been created
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
@@ -35,6 +36,7 @@ en:
       already_completed: This application has already been marked as complete.
       cannot_send_back_when_completed: This application has already been marked as complete.
       cannot_access: Only authorised users can access the admin page
+      user_created: User was successfully created
 
   sessions:
     new:
@@ -261,10 +263,6 @@ en:
 
   admin:
     manage_users:
-      new:
-        page_title: Add a new user
-        heading: Add a new user
-
       index:
         page_title: Manage users
         heading: Manage users
@@ -277,6 +275,13 @@ en:
             email: Email
             manage_others: Manage other users
             actions: Actions
+          body:
+            can_manage_others:
+              <<: *VALUES
+
+      new:
+        page_title: Add a new user
+        heading: Add a new user
 
   crime_applications:
     index:

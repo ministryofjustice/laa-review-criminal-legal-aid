@@ -1,5 +1,4 @@
 <% title t('.page_title') %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
@@ -8,7 +7,7 @@
   </div>
 </div>
 
-<%= form_with model: @user, url: admin_manage_users_path, local: true, class: "govuk-form" do |f| %>
+<%= form_with model: @new_user_form, url: admin_manage_users_path, local: true do |f| %>
   <div class="govuk-form-group">
     <%= f.govuk_text_field :email,
         class: "govuk-!-width-one-third",

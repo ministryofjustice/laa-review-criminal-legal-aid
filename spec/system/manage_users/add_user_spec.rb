@@ -15,29 +15,22 @@ RSpec.describe 'Add users from manage users dashboard' do
     expect(heading).to have_content 'Add a new user'
   end
 
-  # it 'allows a user with management access to be added' do
-  #   fill_in 'First name', with: 'John'
-  #   fill_in 'Email', with: 'john@example.com'
-  #   check 'Give access to manage other users'
-  #
-  #   click_button 'Add user'
-  #
-  #   expect(page).to have_text('User was successfully created.')
-  #   expect(page).to have_text('John')
-  #   expect(page).to have_text('john@example.com')
-  #   expect(page).to have_text('Yes')
-  # end
-  #
-  # it 'allows a user with management access to be added' do
-  #   fill_in 'First name', with: 'Jane'
-  #   fill_in 'Email', with: 'jane@example.com'
-  #   check 'Give access to manage other users'
-  #
-  #   click_button 'Add user'
-  #
-  #   expect(page).to have_text('User was successfully created.')
-  #   expect(page).to have_text('jane')
-  #   expect(page).to have_text('jane@example.com')
-  #   expect(page).to have_text('No')
-  # end
+  it 'allows a user with management access to be added' do
+    fill_in 'Email', with: 'john@example.com'
+    check 'Give access to manage other users'
+
+    click_button 'Add user'
+
+    expect(page).to have_text('A new user has been created')
+    expect(page).to have_text('Yes')
+  end
+
+  it 'allows a user without management access to be added' do
+    fill_in 'Email', with: 'jane@example.com'
+
+    click_button 'Add user'
+
+    expect(page).to have_text('A new user has been created')
+    expect(page).to have_text('No')
+  end
 end
