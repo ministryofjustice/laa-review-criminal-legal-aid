@@ -261,6 +261,10 @@ en:
 
   admin:
     manage_users:
+      new:
+        page_title: Add a new user
+        heading: Add a new user
+
       index:
         page_title: Manage users
         heading: Manage users

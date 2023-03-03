@@ -1,0 +1,28 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= t '.heading' %>
+    </h1>
+  </div>
+</div>
+
+<%= form_with model: @user, url: admin_manage_users_path, local: true, class: "govuk-form" do |f| %>
+  <div class="govuk-form-group">
+    <%= f.govuk_text_field :email,
+        class: "govuk-!-width-one-third",
+        label: { text: 'Email' },
+        hint: { text: 'Enter the user\'s DOM1 email' } %>
+  </div>
+
+  <div class="govuk-form-group">
+    <%= f.govuk_check_box :can_manage_others,
+        true,
+        multiple: false,
+        label: { text: "Give access to manage other users" } %>
+  </div>
+
+  <%= f.submit "Add user", class: "govuk-button govuk-button--primary" %>
+<% end %>
+

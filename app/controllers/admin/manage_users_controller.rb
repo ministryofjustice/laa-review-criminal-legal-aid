@@ -1,5 +1,9 @@
 module Admin
   class ManageUsersController < ApplicationController
+    def new
+      @user = User.new
+    end
+
     def index
       if current_user.can_manage_others
         @users = User.all
