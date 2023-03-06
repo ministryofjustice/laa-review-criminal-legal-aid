@@ -7,21 +7,20 @@
   </div>
 </div>
 
-<%= form_with model: @new_user_form, url: admin_manage_users_path, local: true do |f| %>
+<%= form_with model: @new_user_form, url: admin_manage_users_path, data: { turbo: false } do |f| %>
+
   <div class="govuk-form-group">
     <%= f.govuk_text_field :email,
-        class: "govuk-!-width-one-third",
-        label: { text: 'Email' },
-        hint: { text: 'Enter the user\'s DOM1 email' } %>
-  </div>
+                           class: 'govuk-!-width-one-third',
+                           label: { text: t('.fields.email.label') },
+                           hint: { text: t('.fields.email.hint_text') },
+                           autocomplete: 'off' %>
 
-  <div class="govuk-form-group">
     <%= f.govuk_check_box :can_manage_others,
-        true,
-        multiple: false,
-        label: { text: "Give access to manage other users" } %>
+                          true,
+                          multiple: false,
+                          label: { text: t('.fields.checkbox.label') } %>
   </div>
 
-  <%= f.submit "Add user", class: "govuk-button govuk-button--primary" %>
+  <%= f.submit 'Add user', class: 'govuk-button govuk-button--primary' %>
 <% end %>
-

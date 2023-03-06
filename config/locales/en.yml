@@ -278,10 +278,16 @@ en:
           body:
             can_manage_others:
               <<: *VALUES
-
       new:
         page_title: Add a new user
         heading: Add a new user
+        fields:
+          email:
+            label: Email
+            hint_text: Enter the user\'s DOM1 email
+          checkbox:
+            label: Give access to manage other users
+
 
   crime_applications:
     index:

@@ -19,6 +19,19 @@ module FormBuilderHelper
     end
   end
 
+  def govuk_error_summary(form_object)
+    return if form_object.try(:errors).blank?
+
+    # Prepend to page title so screen readers read it out as soon as possible
+    content_for(:page_title, flush: true) do
+      content_for(:page_title).insert(0, t('errors.page_title_prefix'))
+    end
+
+    fields_for(form_object, form_object) do |f|
+      f.govuk_error_summary t('errors.error_summary.heading')
+    end
+  end
+
   private
 
   # The `save and come back later` might not always be needed,

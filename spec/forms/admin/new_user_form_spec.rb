@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Admin::NewUserForm, type: :model do
   let(:valid_params) { { email: 'user@example.com', can_manage_others: true } }
   let(:invalid_params) { { email: 'invalid_email', can_manage_others: nil } }
+  let(:blank_params) { { email: 'invalid_email', can_manage_others: nil } }
 
   describe 'validations' do
     context 'with valid params' do
@@ -18,10 +19,18 @@ RSpec.describe Admin::NewUserForm, type: :model do
         expect(form).not_to be_valid
       end
 
-      it 'has errors on email field' do
-        form = described_class.new(invalid_params)
-        form.valid?
-        expect(form.errors[:email]).to include('is invalid')
+      describe 'form validations' do
+        it 'errors when email is invalid' do
+          form = described_class.new(invalid_params)
+          form.valid?
+          expect(form.errors[:email]).to include('Invalid email format')
+        end
+
+        it 'errors when email is blank' do
+          form = described_class.new(blank_params)
+          form.valid?
+          expect(form.errors[:email]).to include('Please enter an email')
+        end
       end
     end
   end

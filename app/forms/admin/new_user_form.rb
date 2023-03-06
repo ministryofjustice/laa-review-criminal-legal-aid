@@ -1,8 +1,10 @@
 module Admin
   class NewUserForm
     include ActiveModel::Model
+    include ActiveModel::Attributes
 
-    attr_accessor :email, :can_manage_others
+    attribute :email, :string
+    attribute :can_manage_others, :boolean
 
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :can_manage_others, presence: false

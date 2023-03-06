@@ -10,7 +10,7 @@ RSpec.describe 'Add users from manage users dashboard' do
   end
 
   it 'loads the correct page' do
-    heading = page.first('h1').text
+    heading = first('h1').text
 
     expect(heading).to have_content 'Add a new user'
   end
@@ -21,8 +21,10 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     click_button 'Add user'
 
+    first_row = first('tbody > tr:nth-child(2)').text.squish
+
     expect(page).to have_text('A new user has been created')
-    expect(page).to have_text('Yes')
+    expect(first_row).to have_text('john@example.com Yes')
   end
 
   it 'allows a user without management access to be added' do
@@ -30,7 +32,30 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     click_button 'Add user'
 
+    first_row = first('tbody > tr:nth-child(2)').text.squish
+
     expect(page).to have_text('A new user has been created')
-    expect(page).to have_text('No')
+    expect(first_row).to have_text('jane@example.com No')
+  end
+
+  describe 'validations' do
+    it 'errors when no email is provided' do
+      check 'Give access to manage other users'
+      click_button 'Add user'
+
+      error_message = first('#admin-new-user-form-email-error').text.squish
+
+      expect(error_message).to have_text('Please enter an email')
+    end
+
+    it 'errors when email is in the wrong format' do
+      fill_in 'Email', with: 'WRONG FORMAT'
+      check 'Give access to manage other users'
+      click_button 'Add user'
+
+      error_message = first('#admin-new-user-form-email-error').text.squish
+
+      expect(error_message).to have_text('Invalid email format')
+    end
   end
 end

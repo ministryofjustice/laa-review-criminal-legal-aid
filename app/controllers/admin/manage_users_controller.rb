@@ -1,4 +1,3 @@
-require_relative '../../forms/admin/new_user_form'
 module Admin
   class ManageUsersController < ApplicationController
     def index
