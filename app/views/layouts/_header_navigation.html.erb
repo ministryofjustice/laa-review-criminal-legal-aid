@@ -1,10 +1,12 @@
-  <nav aria-label="Menu" class="govuk-header__navigation">
-    <ul id="navigation" class="govuk-header__navigation-list">
-      <li class="govuk-header__navigation-item app-header__auth-user">
-        <%= current_user_name %>
-      </li>
+<nav aria-label="Menu" class="govuk-header__navigation">
+  <ul id="navigation" class="govuk-header__navigation-list">
+    <li class="govuk-header__navigation-item app-header__auth-user">
+      <%= current_user.name %>
+    </li>
+    <% if current_user.can_manage_others %>
       <li class="govuk-header__navigation-item">
         <%= link_to t('.manage_users'), admin_manage_users_path, class: 'govuk-header__link' %>
       </li>
-    </ul>
-  </nav>
+    <% end %>
+  </ul>
+</nav>
