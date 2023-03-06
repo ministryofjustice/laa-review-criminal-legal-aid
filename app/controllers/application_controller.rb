@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   helper_method :current_user_id
-  helper_method :current_user_name
+  helper_method :current_user
   helper_method :assignments_count
 
   private
@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
     warden.user.first.fetch('id')
   end
 
-  def current_user_name
-    @current_user_name || warden.user.first.values_at('first_name', 'last_name').join(' ')
+  def current_user
+    @current_user ||= User.find(current_user_id)
   end
 
   def authenticate_user!

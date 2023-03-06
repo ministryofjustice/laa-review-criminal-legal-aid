@@ -34,6 +34,7 @@ en:
       already_sent_back: This application has already been sent back to the provider.
       already_completed: This application has already been marked as complete.
       cannot_send_back_when_completed: This application has already been marked as complete.
+      cannot_access: Only authorised users can access the admin page
 
   sessions:
     new:
