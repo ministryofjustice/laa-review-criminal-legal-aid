@@ -18,3 +18,6 @@ en:
     unhandled:
       page_title: Unexpected error
       heading: Sorry, something went wrong with our service
+    forbidden:
+      page_title: Not authorised
+      heading: Access to this service is restricted

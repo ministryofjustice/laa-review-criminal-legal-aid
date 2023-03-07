@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_id
+    return nil unless warden.authenticated?(:user)
+
     warden.user.first.fetch('id')
   end
 

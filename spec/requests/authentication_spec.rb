@@ -1,57 +1,161 @@
 require 'rails_helper'
 
-RSpec.describe 'OmniAuth Endpoints' do
-  include_context 'with a logged in user'
+RSpec.describe 'Authentication Session Initialisation' do
+  let(:auth_callback) do
+    get 'https://www.example.com/auth/azure_ad/callback'
+  end
 
-  describe "GET '/auth/azure_ad/callback'" do
-    let(:callback) do
-      get 'https://www.example.com/auth/azure_ad/callback'
-    end
-
-    let(:user) { User.find(current_user_id) }
-
-    it 'authenticates the user' do
-      callback
-      expect(request.env['warden'].authenticated?(:user)).to be true
-    end
-
-    it 'sets the current user subject id' do
-      expect { callback }.to change { user.reload.auth_subject_id }
-        .from(nil)
-        .to(current_user_auth_subject_id)
-    end
-
-    it 'sets the current user\'s last_auth_at' do
-      expect { callback }.to change { user.reload.last_auth_at }.from(nil)
-    end
-
-    it 'sets the current user\'s first_auth_at' do
-      expect { callback }.to change { user.reload.first_auth_at }.from(nil)
-    end
-
-    it 'sets the current user name' do
-      expect { callback }.to change { user.reload.name }.from(' ').to('Joe EXAMPLE')
-    end
-
-    it 'redirects to root' do
-      callback
-      expect(response).to redirect_to root_path
+  describe 'an initial request to the site' do
+    it 'authenticates the user with Azure Ad' do
+      get '/'
+      expect(response).to redirect_to('/auth/azure_ad')
     end
   end
 
-  describe "GET '/auth/azure_ad'" do
+  context 'when user info is returned by Azure Ad' do
+    let(:auth_subject_id) { SecureRandom.uuid }
+    let(:auth_oid) { SecureRandom.uuid }
+
     before do
-      get 'https://www.example.com/auth/azure_ad'
+      auth_hash = {
+        provider: 'azure_ad',
+        uid: SecureRandom.uuid,
+        info: {
+          auth_oid: auth_oid,
+          auth_subject_id: auth_subject_id,
+          email: 'Ben.EXAMPLE@example.com',
+          first_name: 'Ben',
+          last_name: 'EXAMPLE'
+        }
+      }
+
+      OmniAuth.config.mock_auth[:azure_ad] = OmniAuth::AuthHash.new(auth_hash)
     end
 
-    it 'redirects for authorization' do
-      expect(response).to have_http_status :found
+    describe 'when the user does not exist in the review database' do
+      it 'redirects the user to the "Not authorised" page' do
+        auth_callback
+        expect(response).to redirect_to('/forbidden')
+      end
+    end
+
+    describe 'when the user is pending authentication' do
+      let(:user) { User.create(email: 'Ben.EXAMPLE@example.com') }
+
+      before { user }
+
+      it 'redirects to "Your list"' do
+        auth_callback
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'authenticates the user' do
+        auth_callback
+        expect(request.env['warden'].authenticated?(:user)).to be true
+      end
+
+      it 'sets the current user subject id' do
+        expect { auth_callback }.to(
+          change { user.reload.auth_subject_id }.from(nil).to(auth_subject_id)
+        )
+      end
+
+      it 'sets the auth oid' do
+        expect { auth_callback }.to(
+          change { user.reload.auth_oid }.from(nil).to(auth_oid)
+        )
+      end
+
+      it 'sets the current user\'s last_auth_at' do
+        expect { auth_callback }.to(
+          change { user.reload.last_auth_at }.from(nil)
+        )
+      end
+
+      it 'sets the current user\'s first_auth_at' do
+        expect { auth_callback }.to(
+          change { user.reload.first_auth_at }.from(nil)
+        )
+      end
+
+      it 'sets the current user name' do
+        expect { auth_callback }.to(
+          change { user.reload.name }.from(' ').to('Ben EXAMPLE')
+        )
+      end
+    end
+
+    describe 'when the user is an activated user' do
+      let(:user) do
+        User.create(auth_subject_id:)
+      end
+
+      before { user }
+
+      it 'redirects to "Your list"' do
+        auth_callback
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'authenticates the user' do
+        auth_callback
+        expect(request.env['warden'].authenticated?(:user)).to be true
+      end
+
+      it 'does not change the auth_subject_id' do
+        expect { auth_callback }.not_to(
+          change { user.reload.auth_subject_id }
+        )
+      end
+
+      it 'does not change the auth_oid' do
+        expect { auth_callback }.not_to(
+          change { user.reload.auth_oid }
+        )
+      end
+
+      it 'does not cahnge the first_auth_at' do
+        expect { auth_callback }.not_to(
+          change { user.reload.first_auth_at }
+        )
+      end
+
+      it 'sets the current user\'s last_auth_at' do
+        expect { auth_callback }.to(
+          change { user.reload.last_auth_at }.from(nil)
+        )
+      end
+
+      it 'sets the current user name' do
+        expect { auth_callback }.to(
+          change { user.reload.name }.from(' ').to('Ben EXAMPLE')
+        )
+      end
+    end
+  end
+
+  context 'when user id_token is invalid' do
+    let(:auth_subject_id) { SecureRandom.uuid }
+    let(:auth_oid) { SecureRandom.uuid }
+
+    before do
+      OmniAuth.config.mock_auth[:azure_ad] = :access_denied
+    end
+
+    it 'redirects the user to the "Not authorised" page' do
+      auth_callback
+
+      expect(response).to redirect_to('/auth/failure?message=access_denied&strategy=azure_ad')
+
+      follow_redirect!
+
+      expect(response).to have_http_status(:forbidden)
     end
   end
 
   describe "GET '/logout'" do
     before do
-      get 'https://www.example.com/logout'
+      get '/logout'
     end
 
     it 'returns status OK' do

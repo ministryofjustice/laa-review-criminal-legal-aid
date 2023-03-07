@@ -1,18 +1,15 @@
 require 'omniauth/strategies/azure_ad'
+require 'warden/strategies'
 
-
+# 
 # In response to CVE-2015-9284. OmniAuth was modified to only allow
-# post requests by default. This app is not thought to be vulnerable to the attack
-# described in CVE-2015-9284 because:
-# 1, the provider user group is limited to authorized users, and it would not be possible
-# for someone outside that group to callback.
-# 2, there is no local session for the attacker to hijack.
-#
-# TODO: further investigation required.
+# post requests by default. This app is not vulnerable to the attack
+# described in CVE-2015-9284.
 #
 OmniAuth.config.allowed_request_methods = [:get, :post]
 OmniAuth.config.silence_get_warning = true
 
+# used for caching Azure AD discovery
 JSON::JWK::Set::Fetcher.cache = Rails.cache
 
 Rails.application.config.middleware.use OmniAuth::Builder do
@@ -23,3 +20,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     ENV.fetch('OMNIAUTH_AZURE_TENANT_ID', nil)
   )
 end
+
+OmniAuth.config.logger = Rails.logger

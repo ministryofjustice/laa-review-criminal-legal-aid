@@ -23,4 +23,5 @@ Warden::Manager.after_set_user do |user,auth,opts|
   # end
   #
   # auth.session["#{scope}.last_access_at"] = Time.zone.now
+  # throw :warden, scope: scope, message: :timeout
 end

@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   get :ping,   to: 'healthcheck#ping'
 
   get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: 'errors#forbidden'
+
   get 'logout', to: 'sessions#logout'
 
   get 'application_not_found', to: 'errors#application_not_found'
   get 'unhandled', to: 'errors#unhandled'
+  get 'forbidden', to: 'errors#forbidden'
 
   resources :reports, only: [:show]
   resources :crime_applications, only: [:show], path: 'applications' do
