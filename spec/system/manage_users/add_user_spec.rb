@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Add users from manage users dashboard' do
-  include_context 'with a logged in user'
+  include_context 'with a logged in admin user'
 
   before do
     visit '/'
@@ -21,7 +21,7 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     click_button 'Add user'
 
-    first_row = first('tbody > tr:nth-child(2)').text.squish
+    first_row = first('tbody > tr:nth-child(3)').text.squish
 
     expect(page).to have_text('A new user has been created')
     expect(first_row).to have_text('john@example.com Yes')
@@ -32,7 +32,7 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     click_button 'Add user'
 
-    first_row = first('tbody > tr:nth-child(2)').text.squish
+    first_row = first('tbody > tr:nth-child(3)').text.squish
 
     expect(page).to have_text('A new user has been created')
     expect(first_row).to have_text('jane@example.com No')
