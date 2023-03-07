@@ -21,10 +21,10 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     click_button 'Add user'
 
-    first_row = first('tbody > tr:nth-child(3)').text.squish
+    row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], 'john@example.com')]")
 
     expect(page).to have_text('A new user has been created')
-    expect(first_row).to have_text('john@example.com Yes')
+    expect(row).to have_text('john@example.com Yes')
   end
 
   it 'allows a user without management access to be added' do
@@ -32,10 +32,10 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     click_button 'Add user'
 
-    first_row = first('tbody > tr:nth-child(3)').text.squish
+    row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], 'jane@example.com')]")
 
     expect(page).to have_text('A new user has been created')
-    expect(first_row).to have_text('jane@example.com No')
+    expect(row).to have_text('jane@example.com No')
   end
 
   describe 'validations' do
