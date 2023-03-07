@@ -287,7 +287,14 @@ en:
             hint_text: "Enter the user's DOM1 email"
           checkbox:
             label: Give access to manage other users
-
+      edit: 
+        page_title: Edit a user
+        heading: Edit a user
+        fields:
+          email:
+            label: Email
+          checkbox:
+            label: Give access to manage other users
 
   crime_applications:
     index:

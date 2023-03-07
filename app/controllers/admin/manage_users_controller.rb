@@ -25,6 +25,10 @@ module Admin
       end
     end
 
+    def edit
+      @user = params[user]
+    end
+
     def user_params
       params.require(:admin_new_user_form).permit(:email, :can_manage_others)
     end

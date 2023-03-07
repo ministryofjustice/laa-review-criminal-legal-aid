@@ -33,7 +33,7 @@
             <td class="govuk-table__cell"><%= user.email %></td>
             <td class="govuk-table__cell"><%= t(user.can_manage_others, scope: 'values') %></td>
             <td class="govuk-table__cell">
-              <%= link_to t('.buttons.edit'), '#', class: 'govuk-link' %>
+              <%= link_to t('.buttons.edit'), edit_admin_manage_user_path(user), class: 'govuk-link' %>
             </td>
           </tr>
         <% end %>
