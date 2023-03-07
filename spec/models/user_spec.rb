@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User do
+  describe '#deactivate!' do
+    let(:user) { described_class.create }
+
+    it 'deactivates a user' do
+      expect { user.deactivate! }.to change { user.deactivated? }.from(false).to(true)
+    end
+  end
+
   describe '.name_for(:id)' do
     subject(:name_for) { described_class.name_for(user_id) }
 
@@ -43,7 +51,7 @@ RSpec.describe User do
     end
 
     context 'when an active user is found' do
-      let(:user) { instance_double(described_class, update: true) }
+      let(:user) { instance_double(described_class, update: true, deactivated?: false) }
       let(:expected_attributes) do
         {
           first_name: 'Jo',
@@ -68,6 +76,14 @@ RSpec.describe User do
         authenticate!
         expect(user).to have_received(:update).with expected_attributes
       end
+
+      context 'when the user is deactivated' do
+        let(:user) { instance_double(described_class, deactivated?: true) }
+
+        it 'returns nil' do
+          expect(authenticate!).to be_nil
+        end
+      end
     end
   end
 
@@ -91,7 +107,7 @@ RSpec.describe User do
     end
 
     context 'when a user pending activation exists in database' do
-      let(:user) { instance_double(described_class, update: true) }
+      let(:user) { instance_double(described_class, update: true, deactivated?: false) }
 
       let(:expected_attributes) do
         {
@@ -119,6 +135,14 @@ RSpec.describe User do
       it "sets the user's name, auth_oid, first_auth_at and last_auth_at" do
         authenticate_and_activate!
         expect(user).to have_received(:update).with(expected_attributes)
+      end
+
+      context 'when the user is deactivated' do
+        let(:user) { instance_double(described_class, deactivated?: true) }
+
+        it 'returns nil' do
+          expect(authenticate_and_activate!).to be_nil
+        end
       end
     end
   end
