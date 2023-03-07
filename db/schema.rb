@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_151554) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_07_122915) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -54,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_151554) do
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "auth_oid"
-    t.string "email"
+    t.citext "email"
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
@@ -64,6 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_151554) do
     t.string "auth_subject_id"
     t.boolean "can_manage_others", default: false, null: false
     t.datetime "deactivated_at", precision: nil
+    t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "current_assignments", "users"
