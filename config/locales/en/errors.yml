@@ -8,8 +8,15 @@ en:
         blank: Give further details
       reason:
         inclusion: Choose a reason
+      email:
+        blank: Please enter an email
+        invalid: Invalid email format
+
     error_summary:
       heading: There is a problem on this page
+      attributes:
+        email:
+          blank: Please enter an email
     application_not_found:
       page_title: Page not found
       heading: Page not found
