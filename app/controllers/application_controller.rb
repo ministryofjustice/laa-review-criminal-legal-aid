@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :assignments_count
 
+  protect_from_forgery with: :null_session
+
   private
 
   def assignments_count
