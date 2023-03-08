@@ -28,6 +28,7 @@ en:
       sent_back: The application has been sent back to the provider
       completed: The application has been marked as complete
       new_user_created: A new user has been created
+      user_updated: User has been updated
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
@@ -288,7 +289,14 @@ en:
             hint_text: "Enter the user's DOM1 email"
           checkbox:
             label: Give access to manage other users
-
+      edit: 
+        page_title: Edit a user
+        heading: Edit a user
+        email: Email
+        cancel: Cancel
+        fields:
+          checkbox:
+            label: Give access to manage other users
 
   crime_applications:
     index:

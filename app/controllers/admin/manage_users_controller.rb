@@ -14,6 +14,10 @@ module Admin
       @new_user_form = Admin::NewUserForm.new
     end
 
+    def edit
+      @user = User.find(params[:id])
+    end
+
     def create
       @new_user_form = Admin::NewUserForm.new(user_params)
 
@@ -22,6 +26,19 @@ module Admin
         redirect_to admin_manage_users_path
       else
         render :new
+      end
+    end
+
+    def update
+      can_manage_others = params[:can_manage_others] ? true : false
+
+      @user = User.find(params[:id])
+
+      if @user.update(can_manage_others:)
+        flash[:success] = :user_updated
+        redirect_to admin_manage_users_path
+      else
+        render :edit
       end
     end
 
