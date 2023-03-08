@@ -30,10 +30,15 @@
       <tbody class="govuk-table__body">
         <% @users.each do |user| %>
           <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><%= user.email.downcase %></td>
+            <td class="govuk-table__cell"><%= user.email %></td>
             <td class="govuk-table__cell"><%= t(user.can_manage_others, scope: 'values') %></td>
             <td class="govuk-table__cell">
-              <%= link_to t('.buttons.edit'), edit_admin_manage_user_path(user), class: 'govuk-link' %>
+              <% unless user.id == current_user_id %>
+                <%= link_to t('.buttons.edit'), edit_admin_manage_user_path(user), class: 'govuk-link' %>
+                <% unless user.deactivated? %>
+                  <%= link_to t('.buttons.deactivate'), new_admin_manage_user_deactivate_users_path(user), class: 'govuk-link' %>
+                <% end %>
+              <% end %>
             </td>
           </tr>
         <% end %>

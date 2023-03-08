@@ -30,7 +30,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :manage_users, only: [:index, :new, :create, :edit, :update]
+    resources :manage_users, only: [:index, :new, :create, :edit, :update] do
+      resource :deactivate_users, only: [:new, :create]
+    end
   end
 
   namespace :api do
