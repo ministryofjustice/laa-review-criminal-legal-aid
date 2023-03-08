@@ -4,7 +4,7 @@ class User < ApplicationRecord
   scope :pending_authentication, -> { where(first_auth_at: nil, auth_subject_id: nil) }
 
   def name
-    [first_name, last_name].join(' ')
+    [first_name, last_name].flatten.join(' ')
   end
 
   def deactivated?
