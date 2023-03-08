@@ -282,6 +282,7 @@ en:
       new:
         page_title: Add a new user
         heading: Add a new user
+        cancel: cancel
         fields:
           email:
             label: Email

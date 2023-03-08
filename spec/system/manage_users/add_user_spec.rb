@@ -15,6 +15,12 @@ RSpec.describe 'Add users from manage users dashboard' do
     expect(heading).to have_content 'Add a new user'
   end
 
+  it 'allows a users to cancel the adding of a new user' do
+    click_link 'cancel'
+    heading = first('h1').text
+    expect(heading).to have_text('Manage users')
+  end
+
   it 'allows a user with management access to be added' do
     fill_in 'Email', with: 'john@example.com'
     check 'Give access to manage other users'
