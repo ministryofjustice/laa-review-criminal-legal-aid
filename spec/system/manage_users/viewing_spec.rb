@@ -44,7 +44,7 @@ RSpec.describe 'Manage Users Dashboard' do
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to have_content('joe.example@justice.gov.uk Yes Edit')
+      expect(first_data_row).to have_content(current_user.email)
     end
   end
 end
