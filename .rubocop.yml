@@ -43,6 +43,9 @@ Style/TrailingCommaInArrayLiteral:
 Layout/HashAlignment:
   Enabled: false
 
+RSpec/AnyInstance:
+  Enabled: false
+
 # Enabled but tweaked cops
 ##########################
 
