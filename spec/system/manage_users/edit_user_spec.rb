@@ -16,6 +16,25 @@ RSpec.describe 'Edit users from manage users dashboard' do
     expect(page).to have_field('can-manage-others-true-field', checked: false)
   end
 
+  it 'allows a users to cancel the editing of a user' do
+    click_link 'Cancel'
+    heading = first('h1').text
+    expect(heading).to have_text('Manage users')
+  end
+
+  context 'when update fails' do
+    before do
+      allow_any_instance_of(User).to receive(:update).and_return(false)
+      click_button 'Save'
+    end
+
+    it 'rerenders the edit page' do
+      heading = first('h1').text
+
+      expect(heading).to have_content 'Edit a user'
+    end
+  end
+
   context 'when granting management access' do
     before do
       check 'Give access to manage other users'

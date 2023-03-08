@@ -32,7 +32,9 @@ module Admin
     def update
       can_manage_others = params[:can_manage_others] ? true : false
 
-      if User.update(params[:id], can_manage_others:)
+      @user = User.find(params[:id])
+
+      if @user.update(can_manage_others:)
         flash[:success] = :user_updated
         redirect_to admin_manage_users_path
       else
