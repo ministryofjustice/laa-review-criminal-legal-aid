@@ -46,5 +46,27 @@ RSpec.describe 'Manage Users Dashboard' do
       first_data_row = page.first('.govuk-table tbody tr').text
       expect(first_data_row).to have_content(current_user.email)
     end
+
+    describe 'ordering of users in the list' do
+      before do
+        User.create(first_name: 'Hassan', last_name: 'Example', email: 'hassan.example@example.com')
+        User.create(first_name: 'Hassan', last_name: 'Sample', email: 'hassan.sample@example.com')
+        User.create(first_name: 'Arthur', last_name: 'Sample', email: 'arthur.sample@example.com')
+        visit '/admin/manage_users'
+      end
+
+      let(:expected_order) do
+        [
+          'arthur.sample@example.com',
+          'hassan.example@example.com',
+          'hassan.sample@example.com',
+          'Joe.EXAMPLE@justice.gov.uk'
+        ]
+      end
+
+      it 'is ordered by first name, last name' do
+        expect(page.all('tbody tr td:first-child').map(&:text)).to eq expected_order
+      end
+    end
   end
 end
