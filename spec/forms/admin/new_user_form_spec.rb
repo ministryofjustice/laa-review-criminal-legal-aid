@@ -4,6 +4,8 @@ RSpec.describe Admin::NewUserForm, type: :model do
   let(:valid_params) { { email: 'user@example.com', can_manage_others: true } }
   let(:invalid_params) { { email: 'invalid_email', can_manage_others: nil } }
   let(:blank_params) { { email: '', can_manage_others: nil } }
+  let(:user) { instance_double(User, save: true) }
+  let(:user_class) { class_double(User).as_stubbed_const }
 
   describe 'validations' do
     context 'with valid params' do
@@ -31,14 +33,21 @@ RSpec.describe Admin::NewUserForm, type: :model do
           form.valid?
           expect(form.errors[:email]).to include('Please enter an email')
         end
+
+        it 'errors when email is not unique (i.e. user already exists)' do
+          allow(user_class).to receive(:new).with(valid_params).and_return(user)
+          allow(user).to receive(:save).and_raise(ActiveRecord::RecordNotUnique)
+
+          form = described_class.new(valid_params)
+          form.save
+
+          expect(form.errors[:email]).to include('User already exists')
+        end
       end
     end
   end
 
   describe '#save' do
-    let(:user) { instance_double(User, save: true) }
-    let(:user_class) { class_double(User).as_stubbed_const }
-
     before do
       allow(user_class).to receive(:new).with(valid_params).and_return(user)
     end

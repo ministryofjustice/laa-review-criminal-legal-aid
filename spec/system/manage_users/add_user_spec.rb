@@ -63,5 +63,15 @@ RSpec.describe 'Add users from manage users dashboard' do
 
       expect(error_message).to have_text('Invalid email format')
     end
+
+    it 'errors if the user is not unique / already exists' do
+      fill_in 'Email', with: 'jane@example.com'
+      click_button 'Add user'
+      click_on 'Add new user'
+      fill_in 'Email', with: 'jane@example.com'
+      click_button 'Add user'
+      error_message = first('#admin-new-user-form-email-error').text.squish
+      expect(error_message).to have_text('User already exists')
+    end
   end
 end

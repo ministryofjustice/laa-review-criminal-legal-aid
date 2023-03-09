@@ -16,12 +16,17 @@ module Admin
       # seems to be issue with DFE form builder
       boolean_can_manage_others = can_manage_others ? true : false
 
-      user = User.new(
-        email: email,
-        can_manage_others: boolean_can_manage_others
-      )
+      begin
+        user = User.new(
+          email: email,
+          can_manage_others: boolean_can_manage_others
+        )
 
-      user.save
+        user.save
+      rescue ActiveRecord::RecordNotUnique
+        errors.add(:email, :uniqueness)
+        false
+      end
     end
   end
 end
