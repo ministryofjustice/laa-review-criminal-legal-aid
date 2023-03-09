@@ -31,3 +31,11 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.profile_examples = true
 end
+
+def print_page
+  require 'nokogiri'
+  html = page.html
+  doc = Nokogiri::HTML.parse(html)
+  formatted_html = doc.to_xhtml(indent: 2)
+  puts formatted_html
+end
