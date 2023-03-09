@@ -39,4 +39,3 @@ def print_page
   formatted_html = doc.to_xhtml(indent: 2)
   puts formatted_html
 end
-
