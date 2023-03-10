@@ -16,7 +16,7 @@ RSpec.describe 'Add users from manage users dashboard' do
   end
 
   it 'allows a users to cancel the adding of a new user' do
-    click_link 'cancel'
+    click_link 'Cancel'
     heading = first('h1').text
     expect(heading).to have_text('Manage users')
   end
@@ -29,7 +29,7 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], 'john@example.com')]")
 
-    expect(page).to have_text('A new user has been created')
+    expect(page).to have_text('Email address has been added')
     expect(row).to have_text('john@example.com Yes')
   end
 
@@ -40,7 +40,7 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], 'jane@example.com')]")
 
-    expect(page).to have_text('A new user has been created')
+    expect(page).to have_text('Email address has been added')
     expect(row).to have_text('jane@example.com No')
   end
 

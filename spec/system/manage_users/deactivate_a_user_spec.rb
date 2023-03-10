@@ -59,7 +59,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
         click_on('Yes, deactivate')
 
         within('.govuk-notification-banner--success') do
-          expect(page).to have_content('The user has been deactivated')
+          expect(page).to have_content('Email address has been deactivated')
         end
       end
 
