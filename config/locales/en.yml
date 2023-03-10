@@ -283,6 +283,7 @@ en:
           caption: Existing users
           headings:
             email: Email
+            last_auth_at: Last authentication
             manage_others: Manage other users
             actions: Actions
           body:

@@ -20,9 +20,11 @@ RSpec.describe 'Manage Users Dashboard' do
   end
 
   context 'when user does have access to manage other users' do
+    let(:last_auth_at) { Time.zone.now }
+
     before do
-      User.update(current_user_id, can_manage_others: true)
       visit '/'
+      User.update(current_user_id, can_manage_others: true, last_auth_at: last_auth_at)
       visit '/admin/manage_users'
     end
 
@@ -39,12 +41,12 @@ RSpec.describe 'Manage Users Dashboard' do
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Email Manage other users Actions')
+      expect(column_headings).to eq('Email Last authentication Manage other users Actions')
     end
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to have_content(current_user.email)
+      expect(first_data_row).to eq([current_user.email, I18n.l(last_auth_at, format: :timestamp), 'Yes'].join(' '))
     end
 
     describe 'ordering of users in the list' do
