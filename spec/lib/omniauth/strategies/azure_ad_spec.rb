@@ -90,6 +90,26 @@ describe OmniAuth::Strategies::AzureAd do
     end
   end
 
+  describe 'uid' do
+    subject(:uid) { strategy.uid }
+
+    before do
+      # rubocop:disable RSpec/SubjectStub
+      allow(strategy).to receive(:access_token).and_return(
+        instance_double(
+          OAuth2::AccessToken,
+          token: {},
+          params: { 'id_token' => id_token_jwt }
+        )
+      )
+      # rubocop:enable RSpec/SubjectStub
+
+      stub_auth_provider_requests
+    end
+
+    it { is_expected.to eq id_token_attr.fetch(:sub) }
+  end
+
   describe 'info' do
     subject(:info) { strategy.info }
 
@@ -108,10 +128,6 @@ describe OmniAuth::Strategies::AzureAd do
     # rubocop:enable RSpec/SubjectStub
 
     it { is_expected.to be_a Hash }
-
-    it 'includes the users id' do
-      expect(info.fetch(:auth_oid)).to eq(id_token_attr.fetch(:oid))
-    end
 
     it 'includes the user\'s email address' do
       expect(info.fetch(:email)).to eq(id_token_attr.fetch(:email))
