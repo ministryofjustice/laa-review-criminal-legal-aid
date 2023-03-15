@@ -4,7 +4,8 @@ RSpec.describe UserAuthenticate do
   describe '.authenticate!' do
     subject(:authenticate!) { described_class.new(auth_hash).authenticate! }
 
-    let(:auth_expires_at) { 1.minute.from_now }
+    let(:auth_expires_at) { expires_in.from_now }
+    let(:expires_in) { 1.minute }
 
     let(:auth_hash) do
       OmniAuth::AuthHash.new(
@@ -16,7 +17,7 @@ RSpec.describe UserAuthenticate do
           last_name: 'TEST'
         },
         credentials: {
-          expires_at: auth_expires_at.to_i
+          expires_in:
         }
         }
       )

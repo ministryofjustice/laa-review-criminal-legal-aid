@@ -10,7 +10,7 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
           last_name: current_user.last_name
         },
         credentials: {
-          expires_at: 1.minute.from_now.to_i
+          expires_in: 1.minute
         }
       }
     )

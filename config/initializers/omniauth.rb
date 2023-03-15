@@ -1,6 +1,3 @@
-require 'omniauth/strategies/azure_ad'
-require 'warden/strategies'
-
 # 
 # In response to CVE-2015-9284. OmniAuth was modified to only allow
 # post requests by default. This app is not vulnerable to the attack
@@ -16,16 +13,18 @@ tenant_id = ENV.fetch('OMNIAUTH_AZURE_TENANT_ID', nil)
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider(
-    :azure_ad,
-    ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID', nil),
-    ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil),
-    tenant_id,
+    :openid_connect, 
     {
-      authorize_options: [:scope, :tenant],
-      authorize_params: {
-        scope: 'openid email profile User.Read',
-        tenant: tenant_id
-      }
+      name: :azure_ad,
+      scope: [:openid, :email, :profile],
+      response_type: :code,
+      client_options: {
+        identifier: ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID', nil),
+        secret: ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil)
+      },
+      discovery: true,
+      pkce: true,
+      issuer: "https://login.microsoftonline.com/#{tenant_id}/v2.0",
     }
   )
 end
