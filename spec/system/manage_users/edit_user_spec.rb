@@ -63,7 +63,7 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'shows correct success flash message' do
-      expect(page).to have_content('User has been updated')
+      expect(page).to have_content('Email address has been updated')
     end
 
     it 'updates can manage others value to Yes' do
@@ -85,7 +85,7 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'shows correct success flash message' do
-      expect(page).to have_content('User has been updated')
+      expect(page).to have_content('Email address has been updated')
     end
 
     it 'updates can manage others value to No' do
