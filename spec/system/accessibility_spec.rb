@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Accessibility' do
+  include_context 'with a logged in user'
   before { driven_by(:headless_chrome) }
 
   describe 'Start page' do
