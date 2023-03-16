@@ -57,6 +57,7 @@ group :development do
 end
 
 group :test do
+  gem 'axe-core-rspec'
   gem 'brakeman'
   gem 'capybara'
   gem 'erb_lint', require: false
