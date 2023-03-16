@@ -11,8 +11,9 @@ module OmniAuth
       option :name, :azure_ad
       option :tenant_id, nil
       option :pkce, true
-      option :authorize_options, [:scope]
+      option :authorize_options, [:scope, :tenant]
       option :authorize_params, { scope: 'openid email profile User.Read' }
+      option :token_params, { token_method: :post }
 
       #
       # Use custom url for OAuth2::Client to enable scoping by tenant.
@@ -33,12 +34,10 @@ module OmniAuth
         full_host + callback_path
       end
 
-      uid { raw_info['oid'] }
+      uid { raw_info['sub'] }
 
       info do
         {
-          auth_oid: raw_info['oid'],
-          auth_subject_id: raw_info['sub'],
           email: raw_info['email'],
           first_name: raw_info['first_name'],
           last_name: raw_info['last_name']
