@@ -33,11 +33,11 @@
 <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">
   <%= content_for?(:skip_link_message) ? yield(:skip_link_message) : 'Skip to main content' %>
 </a>
-<div class="govuk-width-container">
-  <%= yield(:phase_banner) %>
-</div>
 
 <header class="govuk-header" role="banner" data-module="govuk-header">
+  <div class="govuk-width-container">
+    <%= yield(:phase_banner) %>
+  </div>
   <div class="govuk-header__container">
     <div class="govuk-width-container">
       <div class="govuk-header__logo">
@@ -64,13 +64,13 @@
 
 <%= yield(:primary_navgation) %>
 
-<div class="govuk-width-container">
-  <%= yield(:back_link) %>
+<main class="govuk-main-wrapper" id="main-content" role="main">
+  <div class="govuk-width-container">
+    <%= yield(:back_link) %>
 
-  <main class="govuk-main-wrapper" id="main-content" role="main">
-    <%= yield(:content) %>
-  </main>
-</div>
+      <%= yield(:content) %>
+  </div>
+</main>
 
 <footer class="govuk-footer" role="contentinfo">
   <div class="govuk-width-container ">
