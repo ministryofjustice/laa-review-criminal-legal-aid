@@ -113,18 +113,18 @@ en:
     "true": "Yes"
     "false": "No"
     not_provided: Not provided
+    deleted_user_name: '[deleted]'
     initial_application: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
     providers_office_address: Same as provider address
     summary_only: Summary only
-    deleted_user_name: '[deleted]'
     either_way: Either way
     indictable: Indictable
-    already_in_crown_court: Already in Crown Court
-    committal: Committal
-    appeal_to_crown_court: Appeal to Crown Court
-    appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
+    already_in_crown_court: Trial already in crown court
+    committal: Committal for sentence
+    appeal_to_crown_court: Appeal to crown court
+    appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
     class: Class
     conflict_of_interest:
       "yes": CONFLICT
