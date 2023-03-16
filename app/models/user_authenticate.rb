@@ -1,7 +1,7 @@
 class UserAuthenticate
   def initialize(auth_hash)
     @auth_subject_id = auth_hash.uid
-    @auth_expires_at = Time.zone.at(auth_hash.credentials.expires_at)
+    @auth_expires_at = Time.zone.now + auth_hash.credentials.expires_in
     @last_auth_at = Time.zone.now
     @auth_info = auth_hash.info
   end

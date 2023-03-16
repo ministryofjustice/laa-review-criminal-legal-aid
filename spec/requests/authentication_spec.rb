@@ -14,13 +14,13 @@ RSpec.describe 'Authentication Session Initialisation' do
 
   context 'when user info is returned by Azure Ad' do
     let(:auth_subject_id) { SecureRandom.uuid }
-    let(:expires_at) { 1.minute.from_now.to_i }
+    let(:expires_in) { 1.minute }
 
     before do
       auth_hash = {
         provider: 'azure_ad',
         uid: auth_subject_id,
-        credentials: { expires_at: },
+        credentials: { expires_in: },
         info: {
           email: 'Ben.EXAMPLE@example.com',
           first_name: 'Ben',
