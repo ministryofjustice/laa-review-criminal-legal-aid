@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<%= form_with model: @new_user_form, url: admin_manage_users_path, data: { turbo: false } do |f| %>
+<%= form_with model: @new_user_form, url: admin_manage_users_path do |f| %>
 
   <div class="govuk-form-group">
     <%= f.govuk_text_field :email,

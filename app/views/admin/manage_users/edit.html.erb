@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<%= form_with url: admin_manage_user_path(@user.id), method: :put, data: { turbo: false } do |f| %>
+<%= form_with url: admin_manage_user_path(@user.id), method: :put do |f| %>
   <div class="govuk-form-group govuk-!-margin-bottom-8">
     <%= f.govuk_check_box :can_manage_others,
                           true,
