@@ -23,6 +23,7 @@
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header"><%= t '.table.headings.email' %></th>
+          <th scope="col" class="govuk-table__header"><%= t '.table.headings.last_auth_at' %></th>
           <th scope="col" class="govuk-table__header"><%= t '.table.headings.manage_others' %></th>
           <th scope="col" class="govuk-table__header"><%= t '.table.headings.actions' %></th>
         </tr>
@@ -31,6 +32,7 @@
         <% @users.each do |user| %>
           <tr class="govuk-table__row">
             <td class="govuk-table__cell"><%= user.email %></td>
+            <td class="govuk-table__cell"><%= l(user.last_auth_at, format: :timestamp) if user.last_auth_at %></td>
             <td class="govuk-table__cell"><%= t(user.can_manage_others, scope: 'values') %></td>
             <td class="govuk-table__cell">
               <% unless user.id == current_user_id %>

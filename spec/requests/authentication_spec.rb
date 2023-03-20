@@ -14,15 +14,14 @@ RSpec.describe 'Authentication Session Initialisation' do
 
   context 'when user info is returned by Azure Ad' do
     let(:auth_subject_id) { SecureRandom.uuid }
-    let(:auth_oid) { SecureRandom.uuid }
+    let(:expires_in) { 1.minute }
 
     before do
       auth_hash = {
         provider: 'azure_ad',
-        uid: SecureRandom.uuid,
+        uid: auth_subject_id,
+        credentials: { expires_in: },
         info: {
-          auth_oid: auth_oid,
-          auth_subject_id: auth_subject_id,
           email: 'Ben.EXAMPLE@example.com',
           first_name: 'Ben',
           last_name: 'EXAMPLE'
@@ -57,12 +56,6 @@ RSpec.describe 'Authentication Session Initialisation' do
       it 'sets the current user subject id' do
         expect { auth_callback }.to(
           change { user.reload.auth_subject_id }.from(nil).to(auth_subject_id)
-        )
-      end
-
-      it 'sets the auth oid' do
-        expect { auth_callback }.to(
-          change { user.reload.auth_oid }.from(nil).to(auth_oid)
         )
       end
 

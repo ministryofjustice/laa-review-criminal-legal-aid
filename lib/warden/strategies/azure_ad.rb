@@ -7,19 +7,19 @@ module Warden
       # halt and redirect to forbidden unless user with subject id exists
       #
       def authenticate!
-        throw(:warden, action: 'authenticate') unless auth_info
+        throw(:warden, action: 'authenticate') unless auth_hash
 
-        if (user = User.authenticate!(auth_info))
+        user = UserAuthenticate.new(auth_hash).authenticate!
+
+        if user
           success! user
         else
           throw(:warden, action: 'forbidden')
         end
       end
 
-      private
-
-      def auth_info
-        env.dig('omniauth.auth', 'info')
+      def auth_hash
+        env['omniauth.auth']
       end
     end
   end
