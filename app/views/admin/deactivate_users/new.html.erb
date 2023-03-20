@@ -17,8 +17,7 @@
     <div class="govuk-button-group">
       <%= form_with(
             url: admin_manage_user_deactivate_users_path(@user),
-            method: :post,
-            data: { turbo: 'false' }
+            method: :post
           ) do |f| %>
         <%= f.submit t('calls_to_action.confirm_deactivation'), class: 'govuk-button'%>
       <% end %>

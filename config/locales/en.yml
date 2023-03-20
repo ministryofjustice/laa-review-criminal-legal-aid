@@ -27,9 +27,9 @@ en:
       unassigned_from_self: The application has been removed from your list
       sent_back: The application has been sent back to the provider
       completed: The application has been marked as complete
-      new_user_created: A new user has been created
-      user_updated: User has been updated
-      user_deactivated: The user has been deactivated
+      new_user_created: Email address has been added
+      user_updated: Email address has been updated
+      user_deactivated: Email address has been deactivated
     important:
       title: Important
       state_has_changed: This application has already been assigned to someone else.
@@ -37,12 +37,7 @@ en:
       already_sent_back: This application has already been sent back to the provider.
       already_completed: This application has already been marked as complete.
       cannot_send_back_when_completed: This application has already been marked as complete.
-      cannot_access: Only authorised users can access the admin page
-      user_created: User was successfully created
-
-  sessions:
-    new:
-      page_title: Login
+      cannot_access: Only authorised users can access the admin page.
 
   primary_navigation:
     your_list: "Your list (%{count})"
@@ -55,17 +50,13 @@ en:
     return_reason_details_legend: Give further details
     return_reason_details: We'll share this information with the provider
     assigned_to: 'Assigned to:'
-    reviewed_by: 'Reviewed by:'
     closed_by: 'Closed by:'
     date_received: 'Date received:'
-    date_returned: 'Date returned:'
-    date_reviewed: 'Date reviewed:'
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
 
     application_information: Application information
-    all_applications: All applications
     search_criteria: Search criteria
     applicant_date_of_birth: Applicant's date of birth
     caseworker: Caseworker
@@ -85,7 +76,6 @@ en:
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
-    providers_office_address: Provider's office address
     correspondence_address: Correspondence address
     codefendant: Co-defendant %{number}
     codefendants: Co-defendants
@@ -123,18 +113,18 @@ en:
     "true": "Yes"
     "false": "No"
     not_provided: Not provided
+    deleted_user_name: '[deleted]'
     initial_application: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
     providers_office_address: Same as provider address
     summary_only: Summary only
-    deleted_user_name: '[deleted]'
     either_way: Either way
     indictable: Indictable
-    already_in_crown_court: Already in Crown Court
-    commital: Commital
-    appeal_to_crown_court: Appeal to Crown Court
-    appeal_to_crown_court_with_changes: Appeal to Crown Court with charges
+    already_in_crown_court: Trial already in crown court
+    committal: Committal for sentence
+    appeal_to_crown_court: Appeal to crown court
+    appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
     class: Class
     conflict_of_interest:
       "yes": CONFLICT
@@ -292,7 +282,7 @@ en:
       new:
         page_title: Add a new user
         heading: Add a new user
-        cancel: cancel
+        cancel: Cancel
         fields:
           email:
             label: Email

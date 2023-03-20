@@ -4,6 +4,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'laa_crime_schemas'
+require 'axe-rspec'
 
 Dir[File.expand_path('init/*.rb', __dir__)].each { |f| require f }
 Dir[File.expand_path('shared_contexts/*.rb', __dir__)].each { |f| require f }
@@ -18,6 +19,16 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 OmniAuth.config.test_mode = true
+
+Capybara.register_driver :headless_chrome do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless')
+  options.add_argument('--disable-gpu')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--start-maximized')
+  options.add_argument('--window-size=1980,2080')
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
 
 RSpec.configure do |config|
   config.fixture_path = Rails.root.join('/spec/fixtures')
