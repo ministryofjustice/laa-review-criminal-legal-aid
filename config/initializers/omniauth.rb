@@ -20,11 +20,13 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       response_type: :code,
       client_options: {
         identifier: ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID', nil),
-        secret: ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil)
+        secret: ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil),
+        redirect_uri: ENV.fetch('OMNIAUTH_AZURE_REDIRECT_URI', '/auth/azure_ad/callback')
       },
       discovery: true,
       pkce: true,
       issuer: "https://login.microsoftonline.com/#{tenant_id}/v2.0",
+      extra_authorize_params: { tenant: tenant_id }
     }
   )
 end
