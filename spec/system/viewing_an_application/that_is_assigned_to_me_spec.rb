@@ -20,4 +20,6 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   it 'shows the Reviwing buttons' do
     expect(page).to have_content('Mark as complete')
   end
+
+  # it_behaves_like 'Accessible'
 end

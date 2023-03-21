@@ -28,6 +28,9 @@ RSpec.describe 'Viewing your assigned application' do
       expect(page).to have_content '0 saved applications'
       expect(page).to have_content 'Your list (0)'
     end
+
+    # Option 2: Integrating to existing accessibility tests
+    it_behaves_like 'Accessible'
   end
 
   context 'when one application is assigned' do

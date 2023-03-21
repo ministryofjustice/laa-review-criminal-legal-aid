@@ -33,6 +33,8 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(heading_text).to eq('Manage users')
     end
 
+    # it_behaves_like 'Accessible'
+
     it 'includes the button to add new user' do
       add_new_user_button = page.first('.govuk-button').text
       expect(add_new_user_button).to have_content 'Add new user'

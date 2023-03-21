@@ -40,6 +40,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).not_to have_content('Mark as complete')
   end
 
+  # it_behaves_like 'Accessible'
+
   context 'with optional fields not provided' do
     let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
 
@@ -59,5 +61,6 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     it 'shows that the client homw address was not provided' do
       expect(page).to have_content('Home address Not provided')
     end
+    # it_behaves_like 'Accessible'
   end
 end
