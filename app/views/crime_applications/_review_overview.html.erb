@@ -1,9 +1,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <p class="govuk-body-l govuk-!-margin-bottom-2">
+    <p id="reference-number"class="govuk-body-l govuk-!-margin-bottom-2">
       <%= crime_application.reference %>
-      <%= link_to 'Copy', '#', class: 'govuk-link' %>
     </p>
+    <%= link_to 'Copy', '', id: 'copy-reference-number', class: 'govuk-link' %>
 
     <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
       <%= crime_application.applicant_name %>
