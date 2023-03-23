@@ -1,4 +1,4 @@
-<%= govuk_header(service_name: t('service.name')) do |header| %>
+<%= govuk_header(service_name: t('service.name'), classes: ['app-header']) do |header| %>
   <% if current_user %>
     <%= header.navigation_item(text: current_user.name) %>
     <% if current_user.can_manage_others %>

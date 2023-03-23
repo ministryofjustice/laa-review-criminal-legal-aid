@@ -1,4 +1,3 @@
-
 <% title t('.page_title') %>
 
 <% content_for(:head) do %>
@@ -6,9 +5,8 @@
   <%= csp_meta_tag %>
 <% end %>
 
-<% content_for(:service_name) do %>
-  <%= link_to service_name, root_path,
-              class: 'govuk-header__link govuk-header__service-name', id: 'header-service-name' %>
+<% content_for(:header) do %>
+  <%= govuk_header(service_name: t('service.name'), classes: ['app-header']) %>
 <% end %>
 
 <% content_for(:content) do %>
@@ -17,10 +15,6 @@
       <h1 class="govuk-heading-xl"><%=t '.heading' %></h1>
     </div>
   </div>
-<% end %>
-
-<% content_for(:footer_links) do %>
-  <% render partial: 'layouts/footer_links' %>
 <% end %>
 
 <%= render template: 'layouts/govuk_template', layout: false %>
