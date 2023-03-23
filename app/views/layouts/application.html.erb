@@ -5,17 +5,8 @@
   <%= csp_meta_tag %>
 <% end %>
 
-<% content_for(:service_name) do %>
-  <%= link_to service_name, root_path,
-              class: 'govuk-header__link govuk-header__service-name', id: 'header-service-name' %>
-<% end %>
-
-<% content_for(:header_navigation) do %>
-  <% render partial: 'layouts/header_navigation' %>
-<% end %>
-
-<% content_for(:phase_banner) do %>
-  <%= render partial: 'layouts/phase_banner' %>
+<% content_for(:header) do %>
+  <% render partial: 'layouts/header' %>
 <% end %>
 
 <% content_for(:primary_navgation) do %>
@@ -29,10 +20,6 @@
 <% content_for(:content) do %>
   <%= render partial: 'shared/flash_banner' %>
   <%= yield %>
-<% end %>
-
-<% content_for(:footer_links) do %>
-  <% render partial: 'layouts/footer_links' %>
 <% end %>
 
 <%= render template: 'layouts/govuk_template', layout: false %>

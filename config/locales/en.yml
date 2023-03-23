@@ -8,7 +8,7 @@ en:
     name: Review criminal legal aid applications
 
   layouts:
-    header_navigation:
+    header:
       manage_users: Manage users
 
   date:
@@ -20,6 +20,9 @@ en:
       datetime: '%-l:%M%P %-d %b %Y'  # 2:45pm 3 Jan 2019
       timestamp: '%A %-d %b %H:%M'  # Monday 21 Nov 12:20
 
+  phase_banner:
+    text: This is an MVP. Some things may not work as expected. 
+    alpha: alpha
   flash:
     success:
       title: Success

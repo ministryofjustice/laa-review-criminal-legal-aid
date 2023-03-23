@@ -21,4 +21,29 @@ form.search {
 p.help-text {
   color: govuk-colour("dark-grey");
 }
+
+// 
+// Make the header color bar full width:
+// 
+.app-header {
+  // 1, remove the standard bar
+  .govuk-header__container {
+    padding-bottom: 10px;
+    border-bottom: none;
+  }
+
+  // 2, add the bar to the bottom of the header
+  border-bottom: 10px solid $govuk-brand-colour;
+}
+
+// 
+// Make the phase banner bottom border full width
 //
+// 1, remove the standard border
+.app-phase-banner.govuk-phase-banner {
+  border-bottom: none;
+}
+// 2, add to the wrapper 
+.app-phase-banner-wrapper {
+  border-bottom: 1px solid $govuk-border-colour;
+}
