@@ -1,10 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Reference number', rack_test: false do
-  include_context 'with stubbed search'
+RSpec.describe 'Reference number' do
+  include_context 'with a logged in user'
+
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do
+    driven_by(:headless_chrome)
     visit '/'
     visit crime_application_path(application_id)
   end
@@ -13,19 +15,27 @@ RSpec.describe 'Reference number', rack_test: false do
     expect(page).to have_content('Copy')
   end
 
-  describe 'click link' do
-    it 'copies the reference number to the system clipboard when clicked' do
+  describe 'clickling the link' do
+    it 'copies the reference number to the system clipboard' do
       # get the reference reference number from the page
-      # google rspec get text from <p> html element
-      # page_value = code to get the refnum from page
-      #
-      # click the Copy link
-      # google how to click link with rspec, or look at other specs
-      #
-      # copied_value = code to get the value out of the the system clipboard
-      # google how to get a value out of the the system clipboard with rspec
-      #
-      # expect(copied_value).to be(the_value_we_got_from_the_page)
+      case_reference = find('#reference-number').text
+
+      # grant spec access to clipboard in headless chrome
+      page.driver.browser.execute_cdp(
+        'Browser.grantPermissions',
+        origin: page.server_url,
+        permissions: ['clipboardReadWrite']
+      )
+
+      # Click the link
+      click_link 'Copy'
+
+      # Get the current value of the clipboard
+      # clipboard_value = page.evaluate_script('navigator.clipboard.readText()')
+      clipboard_value = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+
+      # Test the clipboard value against an expected value
+      expect(clipboard_value).to eq case_reference
     end
   end
 end
