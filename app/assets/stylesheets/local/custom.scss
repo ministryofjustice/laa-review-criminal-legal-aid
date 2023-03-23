@@ -21,4 +21,14 @@ form.search {
 p.help-text {
   color: govuk-colour("dark-grey");
 }
+
+.app-header {
+  # Make the header border full with
+  # Remove the bor
+  .govuk-header__container {
+    border-bottom: none;
+	}
+  border-bottom: 10px solid #1d70b8;
+}
+
 //

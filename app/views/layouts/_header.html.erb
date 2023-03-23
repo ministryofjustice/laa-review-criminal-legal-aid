@@ -1,0 +1,8 @@
+<%= govuk_header(service_name: t('service.name')) do |header| %>
+  <% if current_user %>
+    <%= header.navigation_item(text: current_user.name) %>
+    <% if current_user.can_manage_others %>
+      <%= header.with_navigation_item(text: t('.manage_users'), href: admin_manage_users_path) %>
+    <% end %>
+  <% end %>
+<% end %>
