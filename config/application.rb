@@ -31,6 +31,11 @@ module LaaReviewCriminalLegalAid
     config.force_ssl = true
     config.ssl_options = { redirect: { exclude: -> request { request.path =~ /health|ping/ } } }
 
+    # Load the templates set (refer to `config/govuk_notify_templates.yml` for details)
+    config.govuk_notify_templates = config_for(
+      :govuk_notify_templates, env: :production
+    ).with_indifferent_access
+
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
