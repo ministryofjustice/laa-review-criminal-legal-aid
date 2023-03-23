@@ -18,10 +18,10 @@
         <% end %>
       <% end %>
 
-      <%= f.govuk_fieldset(legend: { text: t(:return_reason_details_legend, scope: 'labels') }) do %>
-      <div class="govuk-hint"><%= t(:return_reason_details, scope: 'labels') %>  </div>
-        <%= f.govuk_text_area :details, label: nil%>
-      <% end %>
+      <%= f.govuk_text_area :details,
+                            label: { text: t(:return_reason_details_legend, scope: 'labels'), class: 'govuk-label--m' },
+                            hint: { text: t(:return_reason_details, scope: 'labels') },
+                            autocomplete: 'off' %>
 
       <%= f.govuk_submit t(:send_back, scope: 'calls_to_action') %>
     <% end %>

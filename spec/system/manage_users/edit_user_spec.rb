@@ -2,20 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Edit users from manage users dashboard' do
   include_context 'with a logged in admin user'
-  let(:user) do
-    User.create!(
-      first_name: 'Zoe',
-      last_name: 'Blogs',
-      email: 'Zoe.Blogs@example.com'
-    )
-  end
-
-  let(:user_row) do
-    find(
-      :xpath,
-      "//table[@class='govuk-table']//tr[contains(td[1], '#{user.email}')]"
-    )
-  end
+  include_context 'with an existing user'
 
   before do
     user

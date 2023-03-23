@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Reassigning an application confirmation errors' do
-  include_context 'with stubbed search'
-
-  let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  include_context 'with an existing application'
 
   let(:confirm_path) do
     new_crime_application_reassign_path(crime_application_id)
