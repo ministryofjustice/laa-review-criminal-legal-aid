@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Marking an application as complete' do
-  include_context 'with stubbed search'
-
-  let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  include_context 'with an existing application'
 
   let(:complete_cta) { 'Mark as complete' }
 
