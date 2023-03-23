@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Send an application back to the provider' do
-  include_context 'with stubbed search'
-
-  let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  include_context 'with an existing application'
 
   let(:new_return_path) do
     new_crime_application_return_path(crime_application_id)

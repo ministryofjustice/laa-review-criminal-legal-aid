@@ -1,6 +1,6 @@
-<dl class="govuk-summary-list">
-  <dd class="govuk-summary-list__value govuk-!-width-one-half govuk-!-padding-0 govuk-body-l">
-    <div class="govuk-row">
+<div class="govuk-grid-row govuk-!-margin-bottom-6">
+  <div class="govuk-grid-column-one-half">
+    <div class="govuk-body-l govuk-!-margin-bottom-0">
       <% if crime_application.reviewer_name %>
         <strong><%= t(:closed_by, scope: 'crime_applications.labels') %></strong>
         <%= crime_application.reviewer_name %>
@@ -10,21 +10,21 @@
       <% end %>
     </div>
 
-    <div class="govuk-row">
+    <div class="govuk-body-l govuk-!-margin-bottom-0">
       <strong><%= t(:date_received, scope: 'crime_applications.labels') %></strong>
       <%= crime_application.submitted_at.strftime('%d %B %Y') %>
     </div>
 
     <% if crime_application.reviewed? %>
-      <div class="govuk-row">
+      <div class="govuk-body-l govuk-!-margin-bottom-0">
         <strong><%= t(crime_application.review_status, scope: 'labels.date') %></strong>
         <%= crime_application.reviewed_at&.strftime('%d %B %Y') %>
       </div>
     <% end %>
-  </dd>
+  </div>
 
-  <% unless crime_application.reviewed? %>
-    <dd class="govuk-summary-list__action">
+  <div class="govuk-grid-column-one-half">
+    <% unless crime_application.reviewed? %>
       <% if crime_application.unassigned? %>
         <%= button_to t('calls_to_action.assign_to_self'),
                       assigned_applications_path(
@@ -48,5 +48,5 @@
         <% end %>
       <% end %>
     <% end %>
-  </dd>
-</dl>
+  </div>
+</div>
