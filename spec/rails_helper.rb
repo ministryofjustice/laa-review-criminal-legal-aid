@@ -47,7 +47,7 @@ RSpec.configure do |config|
 
   # Use the faster rack test by default for system specs
   config.before(:each, type: :system) do |example|
-    driven_by :rack_test if example.metadata.fetch(:rack_test, true)
+    driven_by :rack_test
   end
 
   # For time travel.
