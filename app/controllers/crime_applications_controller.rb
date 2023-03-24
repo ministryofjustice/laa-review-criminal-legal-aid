@@ -1,5 +1,5 @@
 class CrimeApplicationsController < ApplicationController
-  before_action :set_crime_application, only: %i[show history complete]
+  before_action :set_crime_application, only: %i[show history complete ready]
 
   def open
     set_search(
@@ -36,6 +36,14 @@ class CrimeApplicationsController < ApplicationController
     flash_and_redirect :important, :already_completed
   rescue Reviewing::CannotCompleteWhenSentBack
     flash_and_redirect :important, :already_sent_back
+  end
+
+  def ready
+    Reviewing::MarkAsReady.new(
+      application_id: @crime_application.id,
+      user_id: current_user_id
+    ).call
+    flash_and_redirect :success, :marked_as_ready
   end
 
   private

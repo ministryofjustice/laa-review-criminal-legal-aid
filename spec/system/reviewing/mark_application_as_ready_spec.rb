@@ -1,0 +1,56 @@
+require 'rails_helper'
+
+RSpec.describe 'Marking an application as ready for assessment' do
+  include_context 'with an existing application'
+
+  let(:ready_for_assessment_cta) { 'Mark as ready' }
+
+  before do
+    visit '/'
+  end
+
+  context 'when assigned to the application' do
+    let(:assignee_id) { current_user_id }
+
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+      Assigning::AssignToUser.new(
+        assignment_id: crime_application_id,
+        user_id: assignee_id,
+        to_whom_id: assignee_id
+      ).call
+
+      click_on 'Your list'
+      click_on 'Kit Pound'
+    end
+
+    it 'has a visable "Mark as ready" CTA' do
+      expect(page).to have_content('Mark as ready')
+    end
+
+    it 'redirects to the correct page' do
+      expect { click_button(ready_for_assessment_cta) }.to change { page.current_path }
+        .from(crime_application_path(crime_application_id)).to(
+          assigned_applications_path
+        )
+    end
+
+    it 'shows success flash message' do
+      click_button(ready_for_assessment_cta)
+      expect(page).to have_content('The application has been marked as ready for assessment')
+    end
+  end
+
+  context 'when not assigned to the application' do
+    before do
+      click_on 'All open applications'
+      click_on('Kit Pound')
+    end
+
+    it 'the "Ready for assessment" button is not visable' do
+      expect(page).not_to have_button(ready_for_assessment_cta)
+    end
+  end
+end

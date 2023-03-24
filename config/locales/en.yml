@@ -30,6 +30,7 @@ en:
       unassigned_from_self: The application has been removed from your list
       sent_back: The application has been sent back to the provider
       completed: The application has been marked as complete
+      marked_as_ready: The application has been marked as ready for assessment
       new_user_created: Email address has been added
       user_updated: Email address has been updated
       user_deactivated: Email address has been deactivated
@@ -58,6 +59,7 @@ en:
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
+      marked_as_ready: 'Date closed:'
 
     application_information: Application information
     search_criteria: Search criteria
@@ -156,6 +158,7 @@ en:
       sent_back: Sent back to provider
       completed: Completed
       closed: Closed
+      marked_as_ready: Ready for assessment
       all: All applications
     assigned_status:
       assigned: All assigned
@@ -171,6 +174,7 @@ en:
       open: default
       sent_back: red
       completed: green
+      marked_as_ready: green
 
 
   calls_to_action:
@@ -188,6 +192,7 @@ en:
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider
+    mark_as_ready: Mark as ready
   confirmations:
     reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
     deactivate_user: Are you sure you want to deactivate %{user_name}?
@@ -211,6 +216,7 @@ en:
         sent_back: Application sent back to provider
         application_received: Application submitted
         completed: Application completed
+        marked_as_ready: Application marked as ready
 
 
   assigned_applications:
