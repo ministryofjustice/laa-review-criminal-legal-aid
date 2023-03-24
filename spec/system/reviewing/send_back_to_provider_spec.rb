@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Send an application back to the provider' do
   include_context 'with an existing application'
 
+  let(:mailer_double) { instance_double(ActionMailer::MessageDelivery, deliver_now: true) }
+
   let(:new_return_path) do
     new_crime_application_return_path(crime_application_id)
   end
@@ -10,6 +12,7 @@ RSpec.describe 'Send an application back to the provider' do
   let(:send_back_cta) { 'Send back to provider' }
 
   before do
+    allow(NotifyMailer).to receive(:application_returned_email).and_return(mailer_double)
     visit '/'
   end
 
@@ -67,8 +70,6 @@ RSpec.describe 'Send an application back to the provider' do
 
       describe 'when successful' do
         before do
-          allow(NotifyMailer).to receive(:application_returned_email).and_call_original
-
           choose 'Duplicate application'
           fill_in 'return-details-details-field', with: 'This application was duplicated'
         end
@@ -88,9 +89,9 @@ RSpec.describe 'Send an application back to the provider' do
         end
 
         it 'calls the NotifyMailer which would send an email to a provider' do
-          click_button(send_back_cta)
           expect(NotifyMailer).to have_received(:application_returned_email)
             .with(an_instance_of(CrimeApplication))
+          expect(mailer_double).to have_received(:deliver_now)
         end
       end
     end
