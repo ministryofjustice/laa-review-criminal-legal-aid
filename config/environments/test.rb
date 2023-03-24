@@ -58,4 +58,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
   config.force_ssl = false
+
+  # turn off actually trying to send emails in test mode
+  config.govuk_notify_delivery_method = :test
 end

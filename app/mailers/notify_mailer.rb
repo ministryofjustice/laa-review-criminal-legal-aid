@@ -1,4 +1,3 @@
-require 'pry'
 class NotifyMailer < GovukNotifyRails::Mailer
   # Define methods as usual, and set the template and personalisation accordingly
   # Then just use mail() as with any other ActionMailer, with the recipient email.

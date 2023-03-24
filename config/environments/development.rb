@@ -67,7 +67,11 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  
+
   # Add the development host if set
   config.hosts += [ENV["DEVELOPMENT_HOST"]]
+
+  # Stops mails being sent in development mode
+  # Change this to test mails in development
+  config.govuk_notify_delivery_method = :none
 end

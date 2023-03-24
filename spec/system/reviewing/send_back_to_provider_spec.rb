@@ -67,6 +67,8 @@ RSpec.describe 'Send an application back to the provider' do
 
       describe 'when successful' do
         before do
+          allow(NotifyMailer).to receive(:application_returned_email).and_call_original
+
           choose 'Duplicate application'
           fill_in 'return-details-details-field', with: 'This application was duplicated'
         end
@@ -83,6 +85,12 @@ RSpec.describe 'Send an application back to the provider' do
           click_button(send_back_cta)
           expect(page).to have_content 'The application has been sent back to the provider'
           expect(page).to have_current_path assigned_applications_path
+        end
+
+        it 'calls the NotifyMailer which would send an email to a provider' do
+          click_button(send_back_cta)
+          expect(NotifyMailer).to have_received(:application_returned_email)
+            .with(an_instance_of(CrimeApplication))
         end
       end
     end

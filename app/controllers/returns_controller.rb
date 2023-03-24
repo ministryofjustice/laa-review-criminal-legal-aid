@@ -17,6 +17,8 @@ class ReturnsController < ApplicationController
       return_details: @return_details.attributes
     ).call
 
+    NotifyMailer.application_returned_email(@crime_application)
+
     flash_and_redirect :success, :sent_back
   rescue ActiveModel::ValidationError
     render :new
