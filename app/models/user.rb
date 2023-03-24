@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  devise :omniauthable, :timeoutable
+
   has_many :current_assignments, dependent: :destroy
 
   def name

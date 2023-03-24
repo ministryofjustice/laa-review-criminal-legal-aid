@@ -1,15 +1,7 @@
 <% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
 
 <% content_for(:header) do %>
-  <% render partial: 'layouts/header' %>
-<% end %>
-
-<% content_for(:primary_navgation) do %>
-  <%= render partial: 'layouts/primary_navigation' %>
-<% end %>
-
-<% content_for(:back_link) do %>
-  <%= link_to 'Back', :back, class: 'govuk-back-link' %>
+  <%= govuk_header(service_name: t('service.name'), classes: ['app-header']) %>
 <% end %>
 
 <% content_for(:content) do %>
