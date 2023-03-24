@@ -44,6 +44,12 @@ class CrimeApplicationsController < ApplicationController
       user_id: current_user_id
     ).call
     flash_and_redirect :success, :marked_as_ready
+  rescue Reviewing::AlreadyMarkedAsReady
+    flash_and_redirect :important, :already_marked_as_ready
+  rescue Reviewing::CannotMarkAsReadyWhenSentBack
+    flash_and_redirect :important, :already_sent_back
+  rescue Reviewing::CannotMarkAsReadyWhenCompleted
+    flash_and_redirect :important, :already_completed
   end
 
   private
