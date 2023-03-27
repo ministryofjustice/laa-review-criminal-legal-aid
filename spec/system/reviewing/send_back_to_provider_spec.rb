@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Send an application back to the provider' do
   include_context 'with an existing application'
-
-  let(:mailer_double) { instance_double(ActionMailer::MessageDelivery, deliver_now: true) }
+  include_context 'with a stubbed mailer'
 
   let(:new_return_path) do
     new_crime_application_return_path(crime_application_id)
@@ -12,7 +11,6 @@ RSpec.describe 'Send an application back to the provider' do
   let(:send_back_cta) { 'Send back to provider' }
 
   before do
-    allow(NotifyMailer).to receive(:application_returned_email).and_return(mailer_double)
     visit '/'
   end
 
