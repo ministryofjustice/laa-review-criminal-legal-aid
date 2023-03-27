@@ -46,7 +46,7 @@ RSpec.configure do |config|
   config.include_context 'with a logged in user', type: :system
 
   # Use the faster rack test by default for system specs
-  config.before(:each, type: :system) do |example|
+  config.before(:each, type: :system) do |_example|
     driven_by :rack_test
   end
 
