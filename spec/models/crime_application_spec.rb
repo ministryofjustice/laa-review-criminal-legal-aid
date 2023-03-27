@@ -164,4 +164,26 @@ RSpec.describe CrimeApplication do
 
     it { is_expected.to be(true) }
   end
+
+  describe '#status?' do
+    subject(:status?) { application.status?(:marked_as_ready) }
+
+    context 'when not marked as ready' do
+      before do
+        allow(Reviewing::LoadReview).to receive(:call) { review }
+        allow(review).to receive(:state).and_return(:open)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when marked as ready' do
+      before do
+        allow(Reviewing::LoadReview).to receive(:call) { review }
+        allow(review).to receive(:state).and_return(:marked_as_ready)
+      end
+
+      it { is_expected.to be true }
+    end
+  end
 end

@@ -64,7 +64,7 @@ RSpec.describe 'Viewing your assigned application' do
 
       click_on('Don JONES')
       click_on('Assign to myself')
-      click_on 'Your list'
+      visit '/'
     end
 
     it 'shows shows how many assignments' do

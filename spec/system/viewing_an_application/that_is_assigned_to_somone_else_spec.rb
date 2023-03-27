@@ -30,6 +30,7 @@ RSpec.describe 'Viewing an application that is assigned to someone else' do
   end
 
   it 'does not show the review buttons' do
+    expect(page).not_to have_content('Mark as ready')
     expect(page).not_to have_content('Mark as complete')
   end
 end

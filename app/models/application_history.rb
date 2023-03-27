@@ -5,7 +5,8 @@ class ApplicationHistory < ApplicationStruct
     Assigning::ReassignedToUser,
     Reviewing::ApplicationReceived,
     Reviewing::SentBack,
-    Reviewing::Completed
+    Reviewing::Completed,
+    Reviewing::MarkedAsReady
   ].freeze
 
   attribute :application, Types.Instance(CrimeApplication)

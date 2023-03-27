@@ -1,13 +1,11 @@
 module Admin
   class ManageUsersController < ApplicationController
-    def index
-      if current_user.can_manage_others
-        @users = User.all.order(first_name: :asc, last_name: :asc)
-      else
-        flash[:important] = :cannot_access
+    layout 'manage_users'
 
-        redirect_to assigned_applications_path
-      end
+    before_action :require_user_manager!
+
+    def index
+      @users = User.all.order(first_name: :asc, last_name: :asc)
     end
 
     def new
@@ -42,8 +40,17 @@ module Admin
       end
     end
 
+    private
+
     def user_params
       params.require(:admin_new_user_form).permit(:email, :can_manage_others)
+    end
+
+    def require_user_manager!
+      return if current_user.can_manage_others?
+
+      flash[:important] = :cannot_access
+      redirect_to assigned_applications_path
     end
   end
 end

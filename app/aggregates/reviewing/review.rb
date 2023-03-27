@@ -28,6 +28,7 @@ module Reviewing
       raise NotReceived unless received?
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
+      raise CannotSendBackWhenMarkedAsReady if @state.equal?(:marked_as_ready)
 
       apply SentBack.new(
         data: { application_id:, user_id:, reason: }
@@ -40,6 +41,17 @@ module Reviewing
       raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
 
       apply Completed.new(
+        data: { application_id:, user_id: }
+      )
+    end
+
+    def mark_as_ready(user_id:)
+      raise NotReceived unless received?
+      raise AlreadyMarkedAsReady if @state.equal?(:marked_as_ready)
+      raise CannotMarkAsReadyWhenSentBack if @state.equal?(:sent_back)
+      raise CannotMarkAsReadyWhenCompleted if @state.equal?(:completed)
+
+      apply MarkedAsReady.new(
         data: { application_id:, user_id: }
       )
     end
@@ -61,6 +73,10 @@ module Reviewing
       @state = :completed
       @reviewer_id = event.data.fetch(:user_id)
       @reviewed_at = event.timestamp
+    end
+
+    on MarkedAsReady do |_event|
+      @state = :marked_as_ready
     end
 
     def reviewed?

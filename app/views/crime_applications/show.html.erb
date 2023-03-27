@@ -18,10 +18,17 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <% if @crime_application.status?(:marked_as_ready) %>
         <%= button_to t('calls_to_action.mark_complete'),
                       complete_crime_application_path(@crime_application),
                       method: :put,
                       class: 'govuk-button govuk-button' %>
+        <% else %>
+        <%= button_to t('calls_to_action.mark_as_ready'),
+                      ready_crime_application_path(@crime_application),
+                      method: :put,
+                      class: 'govuk-button govuk-button' %>
+        <% end %>
         <%= button_to t('calls_to_action.send_back'),
                       new_crime_application_return_path(@crime_application),
                       method: :get,

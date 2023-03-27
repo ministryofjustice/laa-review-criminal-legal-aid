@@ -17,7 +17,17 @@ RSpec.describe 'Viewing an application that is assigned to me' do
     expect(page).to have_content('Remove from your list')
   end
 
-  it 'shows the Reviwing buttons' do
-    expect(page).to have_content('Mark as complete')
+  describe 'Conditional display of review buttons' do
+    it 'displays mark as ready button as default' do
+      expect(page).to have_content('Mark as ready')
+      expect(page).not_to have_content('Mark as complete')
+    end
+
+    it 'displays mark as complete button if application is marked as ready' do
+      click_button 'Mark as ready'
+      visit crime_application_path(application_id)
+      expect(page).to have_content('Mark as complete')
+      expect(page).not_to have_content('Mark as ready')
+    end
   end
 end
