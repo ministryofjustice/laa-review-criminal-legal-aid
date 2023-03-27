@@ -38,8 +38,6 @@ module LaaReviewCriminalLegalAid
       :govuk_notify_templates, env: :production
     ).with_indifferent_access
 
-    config.action_mailer.interceptors = %[NotifyMailerInterceptor]
-
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
