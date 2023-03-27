@@ -45,15 +45,13 @@ module Reviewing
       )
     end
 
-    def mark_as_ready(user_id:)
+    def mark_as_ready
       raise NotReceived unless received?
       raise AlreadyMarkedAsReady if @state.equal?(:marked_as_ready)
       raise CannotMarkAsReadyWhenSentBack if @state.equal?(:sent_back)
       raise CannotMarkAsReadyWhenCompleted if @state.equal?(:completed)
 
-      apply MarkedAsReady.new(
-        data: { application_id:, user_id: }
-      )
+      apply MarkedAsReady.new
     end
 
     on ApplicationReceived do |event|
@@ -75,10 +73,8 @@ module Reviewing
       @reviewed_at = event.timestamp
     end
 
-    on MarkedAsReady do |event|
+    on MarkedAsReady do |_event|
       @state = :marked_as_ready
-      @reviewer_id = event.data.fetch(:user_id)
-      @reviewed_at = event.timestamp
     end
 
     def reviewed?

@@ -32,7 +32,7 @@ RSpec.describe Reviewing::MarkAsReady do
 
   let(:user_id) { SecureRandom.uuid }
 
-  it 'changes the state from :received to :marked_ready_for_assessment' do
+  it 'changes the state from :received to :marked_as_ready' do
     expect { command.call }.to change { review.state }
       .from(:open).to(:marked_as_ready)
   end
