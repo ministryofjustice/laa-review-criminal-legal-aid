@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   get 'users/auth/failure', to: 'errors#forbidden'
 
-
   get 'application_not_found', to: 'errors#application_not_found'
   get 'unhandled', to: 'errors#unhandled'
   get 'forbidden', to: 'errors#forbidden'

@@ -36,7 +36,8 @@ Devise.setup do |config|
       response_type: :code,
       client_options: {
         identifier: ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID', nil),
-        secret: ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil)
+        secret: ENV.fetch('OMNIAUTH_AZURE_CLIENT_SECRET', nil),
+        redirect_uri: ENV.fetch('OMNIAUTH_AZURE_REDIRECT_URI', nil)
       },
       discovery: true,
       pkce: true,
