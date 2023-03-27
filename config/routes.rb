@@ -2,14 +2,28 @@ Rails.application.routes.draw do
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
 
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: 'errors#forbidden'
+  get 'users/auth/failure', to: 'errors#forbidden'
 
-  get 'logout', to: 'sessions#logout'
 
   get 'application_not_found', to: 'errors#application_not_found'
   get 'unhandled', to: 'errors#unhandled'
   get 'forbidden', to: 'errors#forbidden'
+
+  devise_for :users,
+    controllers: {
+      omniauth_callbacks: 'users/omniauth_callbacks'
+    }
+
+  devise_scope :user do
+    unauthenticated :user do
+      root 'users/sessions#new', as: :unauthenticated_root
+    end
+
+    authenticated :user do
+      root to: 'assigned_applications#index', as: :authenticated_root
+      get 'sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
+    end
+  end
 
   resources :reports, only: [:show]
   resources :crime_applications, only: [:show], path: 'applications' do

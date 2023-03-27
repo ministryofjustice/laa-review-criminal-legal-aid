@@ -3,33 +3,18 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   helper_method :current_user_id
-  helper_method :current_user
   helper_method :assignments_count
 
   private
+
+  def current_user_id
+    current_user&.id
+  end
 
   def assignments_count
     @assignments_count ||= CurrentAssignment.where(
       user_id: current_user_id
     ).count
-  end
-
-  def current_user_id
-    return nil unless warden.authenticated?(:user)
-
-    warden.user.first.fetch('id')
-  end
-
-  def current_user
-    @current_user ||= User.find(current_user_id)
-  end
-
-  def authenticate_user!
-    warden.authenticate!(:azure_ad)
-  end
-
-  def warden
-    request.env['warden']
   end
 
   def set_search(filter: ApplicationSearchFilter.new, sorting: {})
