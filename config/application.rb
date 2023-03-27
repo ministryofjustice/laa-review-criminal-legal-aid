@@ -12,6 +12,8 @@ require "active_job/railtie"
 # require "action_text/engine"
 require "rails/test_unit/railtie"
 
+require_relative "../app/lib/notify_mailer_interceptor"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -35,6 +37,8 @@ module LaaReviewCriminalLegalAid
     config.govuk_notify_templates = config_for(
       :govuk_notify_templates, env: :production
     ).with_indifferent_access
+
+    config.action_mailer.register_interceptor(NotifyMailerInterceptor)
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
