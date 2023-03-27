@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 describe NotifyMailerInterceptor do
-  let(:message) {
+  let(:message) do
     Mail::Message.new(
       from: ['from@example.com'],
-      to: ['recipient@example.com'],
+      to: ['recipient@example.com']
     )
-  }
+  end
 
   before do
     allow(HostEnv).to receive(:env_name).and_return('staging')
