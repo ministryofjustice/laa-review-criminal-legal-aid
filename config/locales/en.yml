@@ -44,6 +44,12 @@ en:
       cannot_send_back_when_completed: This application has already been marked as complete.
       cannot_send_back_when_marked_as_ready: This application has already been marked as ready for assessment.
       cannot_access: Only authorised users can access the admin page.
+    # flash.notice is only used by Devise and is treated as success.
+    notice: 
+      title: Success
+    # flash.notice is only used by Devise and is treated as important.
+    alert: 
+      title: Important
 
   primary_navigation:
     your_list: "Your list (%{count})"

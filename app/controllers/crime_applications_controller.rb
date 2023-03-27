@@ -67,7 +67,7 @@ class CrimeApplicationsController < ApplicationController
   end
 
   def flash_and_redirect(key, message)
-    flash[key] = message
+    flash[key] = I18n.t(message, scope: [:flash, key])
     if key == :success
       redirect_to assigned_applications_path
     else

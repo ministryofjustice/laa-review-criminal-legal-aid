@@ -65,7 +65,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       reassign_to_another
 
       click_on('Yes, reassign')
-      within('.govuk-notification-banner--important') do
+      within('.govuk-notification-banner') do
         expect(page).to have_content('This application has already been assigned to someone else.')
       end
     end
@@ -100,7 +100,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       unassign
 
       click_on('Yes, reassign')
-      within('.govuk-notification-banner--important') do
+      within('.govuk-notification-banner') do
         # TODO: Update the error message text
         expect(page).to have_content('This application has already been assigned to someone else.')
       end

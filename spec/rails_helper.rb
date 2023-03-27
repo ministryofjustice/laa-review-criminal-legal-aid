@@ -6,9 +6,9 @@ require 'rspec/rails'
 require 'laa_crime_schemas'
 require 'axe-rspec'
 
-Dir[File.expand_path('init/*.rb', __dir__)].each { |f| require f }
-Dir[File.expand_path('shared_contexts/*.rb', __dir__)].each { |f| require f }
-Dir[File.expand_path('shared_examples/*.rb', __dir__)].each { |f| require f }
+['init/*.rb', 'shared_contexts/*.rb', 'shared_examples/*.rb', 'support/*.rb'].each do |path|
+  Dir[File.expand_path(path, __dir__)].each { |f| require f }
+end
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -53,6 +53,7 @@ RSpec.configure do |config|
 
   # For time travel.
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include GdsHelper
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
