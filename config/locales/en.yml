@@ -218,7 +218,7 @@ en:
         sent_back: Application sent back to provider
         application_received: Application submitted
         completed: Application completed
-        marked_as_ready: Application marked as ready
+        marked_as_ready: Application marked as ready for assessment
 
 
   assigned_applications:

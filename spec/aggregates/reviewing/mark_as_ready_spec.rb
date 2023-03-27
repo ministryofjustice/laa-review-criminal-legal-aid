@@ -12,7 +12,7 @@ RSpec.describe Reviewing::MarkAsReady do
       {
         application_id: application_id,
         payload: true,
-        member: :ready_for_assessment
+        member: :mark_as_ready
       }
     ).and_return(return_request)
 

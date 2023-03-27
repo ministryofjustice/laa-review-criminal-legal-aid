@@ -66,7 +66,7 @@ describe Reviewing::Review do
 
     it 'cannot then be marked as ready' do
       expect do
-        review.mark_as_ready
+        review.mark_as_ready(user_id:)
       end.to raise_error Reviewing::CannotMarkAsReadyWhenSentBack
     end
   end
@@ -103,7 +103,7 @@ describe Reviewing::Review do
 
     it 'cannot then be marked as ready' do
       expect do
-        review.mark_as_ready
+        review.mark_as_ready(user_id:)
       end.to raise_error Reviewing::CannotMarkAsReadyWhenCompleted
     end
   end
@@ -113,7 +113,7 @@ describe Reviewing::Review do
 
     before do
       review.receive_application(submitted_at:)
-      review.mark_as_ready
+      review.mark_as_ready(user_id:)
     end
 
     it 'becomes "marked as ready"' do
@@ -127,7 +127,7 @@ describe Reviewing::Review do
     end
 
     it 'can only happen once' do
-      expect { review.mark_as_ready }.to raise_error(
+      expect { review.mark_as_ready(user_id:) }.to raise_error(
         Reviewing::AlreadyMarkedAsReady
       )
     end

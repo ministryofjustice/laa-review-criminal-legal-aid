@@ -22,6 +22,11 @@ RSpec.describe 'Marking an application as complete' do
         to_whom_id: assignee_id
       ).call
 
+      Reviewing::MarkAsReady.new(
+        user_id: assignee_id,
+        application_id: crime_application_id
+      ).call
+
       click_on 'Your list'
       click_on 'Kit Pound'
     end
