@@ -64,7 +64,6 @@ en:
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
-      marked_as_ready: 'Date closed:'
 
     application_information: Application information
     search_criteria: Search criteria
