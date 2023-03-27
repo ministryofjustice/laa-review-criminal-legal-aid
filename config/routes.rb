@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get :closed, on: :collection
     get :history, on: :member
     put :complete, on: :member
+    put :ready, on: :member
     resource :reassign, only: [:new, :create]
     resource :return, only: [:new, :create]
   end

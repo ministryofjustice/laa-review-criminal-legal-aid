@@ -30,6 +30,7 @@ en:
       unassigned_from_self: The application has been removed from your list
       sent_back: The application has been sent back to the provider
       completed: The application has been marked as complete
+      marked_as_ready: The application has been marked as ready for assessment
       new_user_created: Email address has been added
       user_updated: Email address has been updated
       user_deactivated: Email address has been deactivated
@@ -39,7 +40,9 @@ en:
       no_next_to_assign: There are no new applications to be reviewed at this time. Please try again later.
       already_sent_back: This application has already been sent back to the provider.
       already_completed: This application has already been marked as complete.
+      already_marked_as_ready: The application has already been marked as ready for assessment.
       cannot_send_back_when_completed: This application has already been marked as complete.
+      cannot_send_back_when_marked_as_ready: This application has already been marked as ready for assessment.
       cannot_access: Only authorised users can access the admin page.
 
   primary_navigation:
@@ -159,6 +162,7 @@ en:
       sent_back: Sent back to provider
       completed: Completed
       closed: Closed
+      marked_as_ready: Ready for assessment
       all: All applications
     assigned_status:
       assigned: All assigned
@@ -174,6 +178,7 @@ en:
       open: default
       sent_back: red
       completed: green
+      marked_as_ready: default
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
@@ -190,6 +195,7 @@ en:
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider
+    mark_as_ready: Mark as ready
     sign_out: Sign out
     sign_in: Sign in
   confirmations:
@@ -215,6 +221,7 @@ en:
         sent_back: Application sent back to provider
         application_received: Application submitted
         completed: Application completed
+        marked_as_ready: Application marked as ready for assessment
 
   landing:
     page_title:

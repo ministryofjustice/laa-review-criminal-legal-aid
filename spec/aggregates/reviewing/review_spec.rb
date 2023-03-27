@@ -63,6 +63,12 @@ describe Reviewing::Review do
         review.complete(user_id:)
       end.to raise_error Reviewing::CannotCompleteWhenSentBack
     end
+
+    it 'cannot then be marked as ready' do
+      expect do
+        review.mark_as_ready(user_id:)
+      end.to raise_error Reviewing::CannotMarkAsReadyWhenSentBack
+    end
   end
 
   describe 'completing a received application' do
@@ -93,6 +99,43 @@ describe Reviewing::Review do
       expect do
         review.send_back(user_id:, reason:)
       end.to raise_error Reviewing::CannotSendBackWhenCompleted
+    end
+
+    it 'cannot then be marked as ready' do
+      expect do
+        review.mark_as_ready(user_id:)
+      end.to raise_error Reviewing::CannotMarkAsReadyWhenCompleted
+    end
+  end
+
+  describe 'marking a received application as ready for assessment' do
+    let(:user_id) { SecureRandom.uuid }
+
+    before do
+      review.receive_application(submitted_at:)
+      review.mark_as_ready(user_id:)
+    end
+
+    it 'becomes "marked as ready"' do
+      expect(review.state).to eq :marked_as_ready
+    end
+
+    it 'creates an event' do
+      expect(review.unpublished_events.map(&:event_type)).to match [
+        'Reviewing::ApplicationReceived', 'Reviewing::MarkedAsReady'
+      ]
+    end
+
+    it 'can only happen once' do
+      expect { review.mark_as_ready(user_id:) }.to raise_error(
+        Reviewing::AlreadyMarkedAsReady
+      )
+    end
+
+    it 'cannot then be sent back' do
+      expect do
+        review.send_back(user_id:, reason:)
+      end.to raise_error Reviewing::CannotSendBackWhenMarkedAsReady
     end
   end
 end
