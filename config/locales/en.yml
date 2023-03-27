@@ -179,7 +179,7 @@ en:
       open: default
       sent_back: red
       completed: green
-      marked_as_ready: green
+      marked_as_ready: default
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
