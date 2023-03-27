@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentication Session Initialisation' do
+  include Devise::Test::IntegrationHelpers
+
   let(:auth_callback) do
-    get 'https://www.example.com/auth/azure_ad/callback'
+    get 'https://www.example.com/users/auth/azure_ad/callback'
   end
 
-  describe 'an initial request to the site' do
+  describe 'an initial request to a protected part of the site' do
     it 'authenticates the user with Azure Ad' do
-      get '/'
-      expect(response).to redirect_to('/auth/azure_ad')
+      get closed_crime_applications_path
+      expect(response).to redirect_to(unauthenticated_root_path)
     end
   end
 
@@ -45,7 +47,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       it 'redirects to "Your list"' do
         auth_callback
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(authenticated_root_path)
       end
 
       it 'authenticates the user' do
@@ -87,7 +89,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       it 'redirects to "Your list"' do
         auth_callback
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(authenticated_root_path)
       end
 
       it 'authenticates the user' do
@@ -138,21 +140,22 @@ RSpec.describe 'Authentication Session Initialisation' do
     it 'redirects the user to the "Not authorised" page' do
       auth_callback
 
-      expect(response).to redirect_to('/auth/failure?message=access_denied&strategy=azure_ad')
-
       follow_redirect!
 
       expect(response).to have_http_status(:forbidden)
     end
   end
 
-  describe "GET '/logout'" do
+  describe "GET '/sign_out'" do
+    let(:user) { User.new(email: 'Ben.EXAMPLE@example.com', auth_subject_id: SecureRandom.uuid) }
+
     before do
-      get '/logout'
+      sign_in user
     end
 
-    it 'returns status OK' do
-      expect(response).to have_http_status :ok
+    it 'redirects to login' do
+      get '/sign_out'
+      expect(response).to redirect_to(unauthenticated_root_path)
     end
   end
 end

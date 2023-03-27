@@ -51,6 +51,9 @@ en:
     open_apps: All open applications
     closed_apps: Closed applications
 
+  navigation:
+    manage_users: Manage users
+
   labels: &LABELS
     select_return_reason: Select the reason for returning this application
     return_reason_details_legend: Give further details
@@ -178,7 +181,6 @@ en:
       completed: green
       marked_as_ready: green
 
-
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     abandon_deactivation: No, do not deactivate
@@ -195,6 +197,8 @@ en:
     mark_complete: Mark as completed
     send_back: Send back to provider
     mark_as_ready: Mark as ready
+    sign_out: Sign out
+    sign_in: Sign in
   confirmations:
     reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
     deactivate_user: Are you sure you want to deactivate %{user_name}?
@@ -220,6 +224,9 @@ en:
         completed: Application completed
         marked_as_ready: Application marked as ready for assessment
 
+  landing:
+    page_title:
+      Sign in
 
   assigned_applications:
     index:

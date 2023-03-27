@@ -39,9 +39,9 @@ gem 'sentry-ruby'
 gem 'dry-schema'
 gem 'dry-struct'
 
+gem 'devise'
 gem 'omniauth_openid_connect'
 gem 'omniauth-rails_csrf_protection'
-gem 'warden'
 
 gem 'aggregate_root'
 gem 'rails_event_store'
