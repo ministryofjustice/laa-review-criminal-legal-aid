@@ -25,7 +25,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'includes the date received' do
-    expect(page).to have_content('Date received: 24 October 2022')
+    expect(page).to have_content('Date received: 24/10/2022')
   end
 
   it 'shows that the application is unassigned' do

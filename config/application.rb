@@ -12,6 +12,8 @@ require "active_job/railtie"
 # require "action_text/engine"
 require "rails/test_unit/railtie"
 
+require_relative "../app/lib/notify_mailer_interceptor"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -30,6 +32,11 @@ module LaaReviewCriminalLegalAid
     # config.eager_load_paths << Rails.root.join("extras")
     config.force_ssl = true
     config.ssl_options = { redirect: { exclude: -> request { request.path =~ /health|ping/ } } }
+
+    # Load the templates set (refer to `config/govuk_notify_templates.yml` for details)
+    config.govuk_notify_templates = config_for(
+      :govuk_notify_templates, env: :production
+    ).with_indifferent_access
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
