@@ -5,9 +5,11 @@ class NotifyMailer < GovukNotifyRails::Mailer
     @template_ids = Rails.configuration.govuk_notify_templates
   end
 
+  # :nocov:
   rescue_from 'Notifications::Client::BadRequestError' do |message|
     Rails.logger.warn message.to_s
   end
+  # :nocov:
 
   def application_returned_email(crime_application)
     provider_email = crime_application.provider_details.provider_email
