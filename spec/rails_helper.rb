@@ -8,6 +8,7 @@ require 'axe-rspec'
 
 Dir[File.expand_path('init/*.rb', __dir__)].each { |f| require f }
 Dir[File.expand_path('shared_contexts/*.rb', __dir__)].each { |f| require f }
+Dir[File.expand_path('shared_examples/*.rb', __dir__)].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.

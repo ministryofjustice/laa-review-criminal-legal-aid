@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Send an application back to the provider' do
   include_context 'with an existing application'
+  include_context 'with a stubbed mailer'
 
   let(:new_return_path) do
     new_crime_application_return_path(crime_application_id)
@@ -83,6 +84,12 @@ RSpec.describe 'Send an application back to the provider' do
           click_button(send_back_cta)
           expect(page).to have_content 'The application has been sent back to the provider'
           expect(page).to have_current_path assigned_applications_path
+        end
+
+        it 'calls the NotifyMailer which would send an email to a provider' do
+          expect(NotifyMailer).to have_received(:application_returned_email)
+            .with(an_instance_of(CrimeApplication))
+          expect(mailer_double).to have_received(:deliver_now)
         end
       end
     end

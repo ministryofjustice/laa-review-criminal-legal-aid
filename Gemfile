@@ -12,6 +12,8 @@ gem 'faraday'
 gem 'govuk-components'
 gem 'govuk_design_system_formbuilder', '~> 3.1.0'
 
+gem 'govuk_notify_rails'
+
 gem 'kaminari-actionview'
 gem 'kaminari-core'
 
