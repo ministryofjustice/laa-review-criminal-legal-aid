@@ -48,7 +48,7 @@ RUN yarn install --pure-lockfile
 RUN RAILS_ENV=production \
     ENV_NAME=production \
     SECRET_KEY_BASE=dummy_for_turbo_signed_stream_verifier_on_precompile \
-    GOVUK_NOTIFY_API_KEY=replace_this_at_build_time
+    GOVUK_NOTIFY_API_KEY=replace_this_at_build_time \
     rails assets:precompile --trace
 
 # tidy up installation
