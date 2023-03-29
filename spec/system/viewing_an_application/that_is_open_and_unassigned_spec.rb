@@ -37,7 +37,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'does not show the CTAs' do
-    expect(page).not_to have_content('Mark as complete')
+    expect(page).not_to have_content('Mark as completed')
   end
 
   context 'with optional fields not provided' do

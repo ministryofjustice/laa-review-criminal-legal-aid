@@ -123,7 +123,7 @@ RSpec.describe 'Send an application back to the provider' do
       end
 
       it 'does not show the CTAs' do
-        expect(page).not_to have_content('Mark as complete')
+        expect(page).not_to have_content('Mark as completed')
       end
     end
   end

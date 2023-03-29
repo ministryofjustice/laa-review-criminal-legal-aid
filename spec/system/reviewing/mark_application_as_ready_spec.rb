@@ -13,6 +13,9 @@ RSpec.describe 'Marking an application as ready for assessment' do
     let(:assignee_id) { current_user_id }
 
     before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
       Assigning::AssignToUser.new(
         assignment_id: crime_application_id,
         user_id: assignee_id,
