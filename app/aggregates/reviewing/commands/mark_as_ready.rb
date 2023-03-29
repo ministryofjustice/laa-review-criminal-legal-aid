@@ -8,6 +8,12 @@ module Reviewing
         with_review do |review|
           review.mark_as_ready(user_id:)
         end
+
+        DatastoreApi::Requests::UpdateApplication.new(
+          application_id: application_id,
+          payload: true,
+          member: :mark_as_ready
+        ).call
       end
     end
   end
