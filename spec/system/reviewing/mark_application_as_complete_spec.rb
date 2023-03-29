@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Marking an application as complete' do
   include_context 'with an existing application'
 
-  let(:complete_cta) { 'Mark as complete' }
+  let(:complete_cta) { 'Mark as completed' }
 
   before do
     visit '/'
@@ -31,8 +31,8 @@ RSpec.describe 'Marking an application as complete' do
       click_on 'Kit Pound'
     end
 
-    it 'has a visable "Mark as complete" CTA' do
-      expect(page).to have_content('Mark as complete')
+    it 'has a visable "Mark as completed" CTA' do
+      expect(page).to have_content('Mark as completed')
     end
 
     it 'redirects to the correct page' do
@@ -96,7 +96,7 @@ RSpec.describe 'Marking an application as complete' do
       click_on('Kit Pound')
     end
 
-    it 'the "Mark as complete" button is not visable' do
+    it 'the "Mark as completed" button is not visable' do
       expect(page).not_to have_button(complete_cta)
     end
   end

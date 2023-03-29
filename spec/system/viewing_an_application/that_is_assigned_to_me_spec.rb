@@ -20,14 +20,22 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   describe 'Conditional display of review buttons' do
     it 'displays mark as ready button as default' do
       expect(page).to have_content('Mark as ready')
-      expect(page).not_to have_content('Mark as complete')
+      expect(page).not_to have_content('Mark as completed')
     end
 
-    it 'displays mark as complete button if application is marked as ready' do
-      click_button 'Mark as ready'
-      visit crime_application_path(application_id)
-      expect(page).to have_content('Mark as complete')
-      expect(page).not_to have_content('Mark as ready')
+    context 'when the application is already marked as ready' do
+      before do
+        allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+          .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+        click_button 'Mark as ready'
+        visit crime_application_path(application_id)
+      end
+
+      it 'displays mark as completed button if application is marked as ready' do
+        expect(page).to have_content('Mark as completed')
+        expect(page).not_to have_content('Mark as ready')
+      end
     end
   end
 end
