@@ -12,13 +12,13 @@
 
     <div class="govuk-body-l govuk-!-margin-bottom-0">
       <strong><%= t(:date_received, scope: 'crime_applications.labels') %></strong>
-      <%= crime_application.submitted_at.strftime('%d %B %Y') %>
+      <%= l crime_application.submitted_at, format: :compact %>
     </div>
 
     <% if crime_application.reviewed? %>
       <div class="govuk-body-l govuk-!-margin-bottom-0">
         <strong><%= t(crime_application.review_status, scope: 'labels.date') %></strong>
-        <%= crime_application.reviewed_at&.strftime('%d %B %Y') %>
+        <%= l crime_application.reviewed_at, format: :compact %>
       </div>
     <% end %>
   </div>
