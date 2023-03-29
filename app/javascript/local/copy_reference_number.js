@@ -7,6 +7,7 @@ function copyReferenceNumber(){
 
     let text = referenceNumber.textContent.trim();
     window.navigator.clipboard.writeText(text);
+    copyLink.blur();
   });
 }
 
