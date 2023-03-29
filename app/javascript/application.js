@@ -5,7 +5,7 @@ import { Turbo } from "@hotwired/turbo-rails"
 // defaults "data: { turbo: 'false' }"
 Turbo.session.drive = false
 
-import copyReferenceNumber from './copy_reference_number'
+import copyReferenceNumber from 'local/copy_reference_number'
 
 // https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#javascript
 import { initAll } from 'govuk-frontend'
