@@ -9,7 +9,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  config.timeout_in = 15.minutes
+  config.timeout_in = Rails.configuration.x.auth.timeout_in
 
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
@@ -29,6 +29,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
+  #
   config.omniauth :openid_connect, 
     {
       name: :azure_ad,
@@ -43,10 +44,4 @@ Devise.setup do |config|
       pkce: true,
       issuer: "https://login.microsoftonline.com/#{ENV.fetch('OMNIAUTH_AZURE_TENANT_ID', nil)}/v2.0"
     }
-end
-
-Rails.application.config.to_prepare do
-  Rails.application.reload_routes!
-
-  Devise::SessionsController.layout "external"
 end

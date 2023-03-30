@@ -25,7 +25,7 @@ class ReassignsController < ApplicationController
   end
 
   def flash_and_redirect(key, message)
-    flash[key] = message
+    flash[key] = I18n.t(message, scope: [:flash, key])
     redirect_to crime_application_path(params[:crime_application_id])
   end
 end

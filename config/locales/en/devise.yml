@@ -1,12 +1,18 @@
+# For Devise flash notices. 
+# Where the value is an array, the first item is used as the notification 
+# banner header, and subsequenty items as paragraphs.
 en:
   devise:
     failure:
-      timeout: ""
-      unauthenticated: ""
-    omniauth_callbacks:
-      failure: ""
-      success: "Successfully authenticated from Dom 1 account."
+      user:
+        reauthenticate:
+          - You have been signed out
+          - Your session automatically ends if it has been more than 12 hours since you last signed in.
+        timeout: 
+          - You have been signed out
+          - Your session automatically ends if you do not access the service for more than 15 minutes.
+        unauthenticated: ""
     sessions:
-      signed_in: ""
-      signed_out: ""
-      already_signed_out: ""
+      user:
+        signed_in: ""
+        signed_out: You have been signed out

@@ -14,11 +14,7 @@ class AssignedApplicationsController < ApplicationController
       to_whom_id: current_user_id
     ).call
 
-    flash[:success] = :assigned_to_self
-
-    redirect_to crime_application_path(
-      id: params[:crime_application_id]
-    )
+    flash_and_redirect(:success, :assigned_to_self, params[:crime_application_id])
   end
 
   def next_application
@@ -29,11 +25,9 @@ class AssignedApplicationsController < ApplicationController
         assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id
       ).call
 
-      redirect_to crime_application_path(id: next_app_id)
+      flash_and_redirect(:success, :assigned_to_self, next_app_id)
     else
-      flash[:important] = :no_next_to_assign
-
-      redirect_to assigned_applications_path
+      flash_and_redirect(:important, :no_next_to_assign)
     end
   end
 
@@ -49,9 +43,19 @@ class AssignedApplicationsController < ApplicationController
       from_whom_id: current_user_id
     ).call
 
-    flash[:success] = :unassigned_from_self
+    flash_and_redirect(:success, :unassigned_from_self)
+  end
 
-    redirect_to assigned_applications_path
+  private
+
+  def flash_and_redirect(key, message, resource_id = nil)
+    flash[key] = I18n.t(message, scope: [:flash, key])
+
+    if resource_id
+      redirect_to crime_application_path(resource_id)
+    else
+      redirect_to assigned_applications_path
+    end
   end
 
   def permitted_params

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User do
+  it_behaves_like 'a reauthable model'
+
   describe '#deactivate!' do
     let(:user) { described_class.create }
 

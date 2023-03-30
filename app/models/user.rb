@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   devise :omniauthable, :timeoutable
+  include Reauthable
 
   has_many :current_assignments, dependent: :destroy
 
