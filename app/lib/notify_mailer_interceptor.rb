@@ -1,7 +1,7 @@
 class NotifyMailerInterceptor
   class << self
     def delivering_email(message)
-      return unless HostEnv.env_name == 'staging'
+      return unless HostEnv.staging?
 
       intercept_email!(message)
     end
