@@ -50,7 +50,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   it 'includes the correct headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
-    expect(column_headings).to eq('Applicant Ref. no. Date received Date reviewed Reviewed by Status')
+    expect(column_headings).to eq('Applicant Ref. no. Date received Date closed Closed by Status')
   end
 
   it 'shows the correct information' do
@@ -82,7 +82,7 @@ RSpec.describe 'Closed Applications Dashboard' do
 
     context 'when clicked' do
       it 'changes to ascending when it is selected' do
-        expect { click_button 'Date reviewed' }.not_to(change { current_path })
+        expect { click_button 'Date closed' }.not_to(change { current_path })
         expect(column_sort).to eq 'ascending'
       end
     end

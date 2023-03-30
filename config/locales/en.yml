@@ -115,9 +115,9 @@ en:
     time_passed: Days passed
     received_at: Date received
     submitted_at: Date received
-    reviewed_at: Date reviewed
+    reviewed_at: Date closed
     caseworker: Caseworker
-    reviewer: Reviewed by
+    closed_by: Closed by
     status: Status
     open_applications_by_age: Open applications
     closed_applications_by_age: Closed applications
