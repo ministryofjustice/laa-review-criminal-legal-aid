@@ -29,8 +29,14 @@ RSpec.describe Reporting::WorkloadReport do
     end
 
     it 'has column headers' do
-      expect(report.table.headers).to eq(
+      expect(report.table.headers.map(&:content)).to eq(
         ['Days passed', 'Open applications', 'Closed applications']
+      )
+    end
+
+    it 'all but the first column\'s header are numeric' do
+      expect(report.table.headers.map(&:numeric)).to eq(
+        [false, true, true]
       )
     end
 

@@ -22,11 +22,11 @@ module Reporting
     attr_reader :number_of_days, :day_zero
 
     def open_applications_by_age
-      reports.map { |report| Cell.new(report.total_open) }
+      reports.map { |report| Cell.new(report.total_open, numeric: true) }
     end
 
     def closed_applications_by_age
-      reports.map { |report| Cell.new(report.total_closed) }
+      reports.map { |report| Cell.new(report.total_closed, numeric: true) }
     end
 
     #
@@ -48,7 +48,7 @@ module Reporting
       # Add the last header.
       row_headers << I18n.t('values.days_passed.last', count: number_of_days - 1)
 
-      row_headers.map { |text| Cell.new(text, header: true) }
+      row_headers.map { |text| Cell.new(text, header: true, numeric: false) }
     end
 
     def business_days

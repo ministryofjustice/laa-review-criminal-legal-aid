@@ -7,7 +7,7 @@ module Reporting
     end
 
     def table
-      Table.new({ processed_on:, applications_closed: })
+      Table.new({ processed_on:, applications_closed: }, numeric_column_keys: [])
     end
 
     private
@@ -17,13 +17,13 @@ module Reporting
     def applications_closed
       Array.new(3) do |days_ago|
         date = day_zero - days_ago
-        Cell.new(closing_events.between(date...date.tomorrow).count)
+        Cell.new(closing_events.between(date...date.tomorrow).count, numeric: false)
       end
     end
 
     def processed_on
       %i[today yesterday day_before_yesterday].map do |key|
-        Cell.new(I18n.t(key, scope: :values), header: true)
+        Cell.new(I18n.t(key, scope: :values), header: true, numeric: false)
       end
     end
 
