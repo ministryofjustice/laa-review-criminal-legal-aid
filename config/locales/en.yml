@@ -179,6 +179,7 @@ en:
       duplicate_application: Duplicate application
       case_concluded: Case has already concluded
       provider_request: Provider request
+      split_case: The case has been split so we need justification for all offences
     color:
       submitted: default
       open: default
