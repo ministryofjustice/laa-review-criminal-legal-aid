@@ -1,18 +1,11 @@
 module Reporting
   class Cell
-    def initialize(content, header: false)
+    def initialize(content, header: false, numeric: true)
       @content = content
       @header = header
+      @numeric = numeric
     end
 
-    attr_reader :header, :content
-
-    def to_partial_path
-      if header
-        'reporting/header_cell'
-      else
-        'reporting/cell'
-      end
-    end
+    attr_reader :header, :content, :numeric
   end
 end
