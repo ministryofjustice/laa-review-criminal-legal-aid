@@ -16,8 +16,9 @@ module Reporting
 
     def applications_closed
       Array.new(3) do |days_ago|
-        date = day_zero - days_ago
-        Cell.new(closing_events.between(date...date.tomorrow).count, numeric: false)
+        date_from = day_zero - days_ago
+        date_to = date_from.tomorrow
+        Cell.new(closing_events.between(date_from...date_to).count, numeric: false)
       end
     end
 
