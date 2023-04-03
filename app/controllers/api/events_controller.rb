@@ -1,5 +1,9 @@
+require 'aws-sdk-sns'
+
 module Api
   class EventsController < ActionController::API
+    before_action :verify_request_authenticity
+
     #
     # TODO extract to middleware if we go down this route....
     # TODO: verify message
@@ -72,6 +76,25 @@ module Api
 
     def request_body
       @request_body ||= JSON.parse(request.body.read)
+    end
+
+    def verify_request_authenticity
+      head :unauthorized if message.blank? || !message_verifier.authentic?(message)
+    end
+
+    def message_verifier
+      @message_verifier ||= Aws::SNS::MessageVerifier.new
+    end
+
+    def confirm_subscription
+      AWS_SNS_CLIENT.confirm_subscription(
+        topic_arn: message_body['TopicArn'],
+        token: message_body['Token']
+      )
+      true
+    rescue Aws::SNS::Errors::ServiceError => e
+      Rails.logger.info(e.message)
+      false
     end
   end
 end
