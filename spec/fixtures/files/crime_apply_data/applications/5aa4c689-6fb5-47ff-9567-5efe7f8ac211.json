@@ -37,12 +37,8 @@
       "correspondence_address_type": "other_address"
     }
   },
-  "interests_of_justice": [
-    {
-      "reason": "Justification provided by provider.",
-      "type": "loss_of_liberty"
-    }
-  ],
+  "ioj_passport": ["on_age_under18"],
+  "interests_of_justice": [],
   "case_details": {
     "case_type": "summary_only",
     "codefendants": [],
