@@ -79,22 +79,23 @@ module Api
     end
 
     def verify_request_authenticity
-      head :unauthorized if message.blank? || !message_verifier.authentic?(message)
+      puts "IS AUTHENTIC? #{message_verifier.authentic?(request_body.to_json)}"
+      head :unauthorized if request_body.blank? || !message_verifier.authentic?(request_body.to_json)
     end
 
     def message_verifier
       @message_verifier ||= Aws::SNS::MessageVerifier.new
     end
 
-    def confirm_subscription
-      AWS_SNS_CLIENT.confirm_subscription(
-        topic_arn: message_body['TopicArn'],
-        token: message_body['Token']
-      )
-      true
-    rescue Aws::SNS::Errors::ServiceError => e
-      Rails.logger.info(e.message)
-      false
-    end
+    # def client
+    #   AWS_SNS_CLIENT.confirm_subscription(
+    #     topic_arn: message_body['TopicArn'],
+    #     token: message_body['Token']
+    #   )
+    #   true
+    # rescue Aws::SNS::Errors::ServiceError => e
+    #   Rails.logger.info(e.message)
+    #   false
+    # end
   end
 end
