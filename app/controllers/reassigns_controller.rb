@@ -7,8 +7,10 @@ class ReassignsController < ApplicationController
 
   def create
     reassign_to_self
+  rescue Assigning::CannotReassignUnlessAssigned
+    flash_and_redirect(:important, :unassigned_before_confirm)
   rescue Assigning::StateHasChanged
-    flash_and_redirect(:important, :state_has_changed)
+    flash_and_redirect(:important, :reassigned_to_someone_else)
   else
     flash_and_redirect(:success, :assigned_to_self)
   end

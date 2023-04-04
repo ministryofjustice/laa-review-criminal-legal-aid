@@ -36,7 +36,12 @@ en:
       user_deactivated: Email address has been deactivated
     important:
       title: Important
-      state_has_changed: This application has already been assigned to someone else.
+      reassigned_to_someone_else: 
+        - This application has not been assigned to you.
+        - It was assigned to someone else before you confirmed reassigning.
+      unassigned_before_confirm:
+        - This application has not been assigned to you.
+        - It was unassigned before you confirmed reassigning.
       no_next_to_assign: There are no new applications to be reviewed at this time. Please try again later.
       already_sent_back: This application has already been sent back to the provider.
       already_completed: This application has already been marked as complete.
