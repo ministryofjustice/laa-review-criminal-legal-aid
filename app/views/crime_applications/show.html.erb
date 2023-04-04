@@ -9,7 +9,7 @@
     <%= render partial: 'case_details', object: @crime_application.case_details %>
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
-    <%= render partial: 'interests_of_justice', object: @crime_application.interests_of_justice %>
+    <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
   </div>
 </div>
