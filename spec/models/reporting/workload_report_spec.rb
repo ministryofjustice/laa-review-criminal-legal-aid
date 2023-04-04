@@ -30,7 +30,7 @@ RSpec.describe Reporting::WorkloadReport do
 
     it 'has column headers' do
       expect(report.table.headers.map(&:content)).to eq(
-        ['Days passed', 'Open applications', 'Closed applications']
+        ['Business days since applications were received', 'Applications received', 'Applications still open']
       )
     end
 
@@ -44,25 +44,25 @@ RSpec.describe Reporting::WorkloadReport do
       expect(report.table.rows.size).to eq(4)
     end
 
-    it 'row headers with "0 days", "1 day", "2 days", and "3 or more days"' do
+    it 'row headers with "0 days", "1 day", "2 days", and "Between 3 and 9 days"' do
       expect(report.table.rows.map(&:first).map(&:content)).to eq(
-        ['0 days', '1 day', '2 days', '3 or more days']
+        ['0 days', '1 day', '2 days', 'Between 3 and 9 days']
       )
     end
 
     describe 'data' do
       subject(:columns) { report.table.rows.map { |r| r[1, 2] }.transpose }
 
-      describe 'open applications' do
-        subject(:open_counts) { columns.first.map(&:content) }
+      describe 'received applications' do
+        subject(:received_counts) { columns.first.map(&:content) }
 
-        it { is_expected.to eq([5, 0, 4, 3]) }
+        it { is_expected.to eq([10, 8, 5, 1054]) }
       end
 
-      describe 'closed applications' do
-        subject(:closed_counts) { columns.last.map(&:content) }
+      describe 'open applications' do
+        subject(:open_counts) { columns.last.map(&:content) }
 
-        it { is_expected.to eq([5, 8, 1, 1051]) }
+        it { is_expected.to eq([5, 0, 4, 3]) }
       end
     end
   end

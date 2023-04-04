@@ -111,7 +111,7 @@ en:
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
     reference: Ref. no.
-    days_passed: Days passed
+    days_passed: Business days since applications were received
     time_passed: Days passed
     received_at: Date received
     submitted_at: Date received
@@ -119,8 +119,8 @@ en:
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
-    open_applications_by_age: Open applications
-    closed_applications_by_age: Closed applications
+    open_applications_by_age: "Applications still\xA0open"
+    received_applications_by_age: Applications received 
     processed_on: Closed on
     applications_closed: Closed applications
 
@@ -161,7 +161,7 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-      last: "%{count} or more days"
+      last: "Between %{count} and 9 days"
     review_status:
       submitted: Open
       open: Open
@@ -197,7 +197,7 @@ en:
     search: Search
     unassign_from_self: Remove from your list
     view_all_open_applications: View all open applications
-    view_daily_count: View by days passed
+    view_daily_count: Check when applications were received 
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider

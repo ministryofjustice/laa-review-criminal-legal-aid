@@ -11,8 +11,8 @@ module Reporting
       Table.new(
         {
           days_passed:,
-          open_applications_by_age:,
-          closed_applications_by_age:
+          received_applications_by_age:,
+          open_applications_by_age:
         }
       )
     end
@@ -25,8 +25,8 @@ module Reporting
       reports.map { |report| Cell.new(report.total_open, numeric: true) }
     end
 
-    def closed_applications_by_age
-      reports.map { |report| Cell.new(report.total_closed, numeric: true) }
+    def received_applications_by_age
+      reports.map { |report| Cell.new(report.total_received, numeric: true) }
     end
 
     #
