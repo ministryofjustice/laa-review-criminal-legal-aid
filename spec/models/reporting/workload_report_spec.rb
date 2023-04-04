@@ -12,8 +12,9 @@ RSpec.describe Reporting::WorkloadReport do
       ['2023-01-03', 8, 8],
       ['2022-12-30', 5, 1],
       ['2022-12-29', 4, 3],
-      ['2021-01-04', 50, 49],
-      ['2020-01-04', 1000, 999]
+      ['2022-12-17', 50, 49],
+      ['2022-12-16', 1000, 999],
+      ['2022-12-15', 10_000, 1]
     ].map do |business_day, total_received, total_closed|
       { business_day:, total_received:, total_closed: }
     end
