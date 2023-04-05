@@ -12,7 +12,7 @@ module Assigning
     alias assignment_id id
 
     def assign_to_user(user_id:, to_whom_id:)
-      raise StateHasChanged unless assignee_id.nil?
+      raise CannotAssignWhenAssigned unless assignee_id.nil?
 
       apply AssignedToUser.new(
         data: { assignment_id:, user_id:, to_whom_id: }
@@ -20,6 +20,7 @@ module Assigning
     end
 
     def reassign_to_user(user_id:, from_whom_id:, to_whom_id:)
+      raise CannotReassignUnlessAssigned unless assigned?
       raise StateHasChanged unless assignee_id == from_whom_id
 
       apply ReassignedToUser.new(

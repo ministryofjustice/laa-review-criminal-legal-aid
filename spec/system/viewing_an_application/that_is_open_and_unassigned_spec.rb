@@ -40,6 +40,20 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).not_to have_content('Mark as completed')
   end
 
+  context 'with interest of justice reason' do
+    it 'shows reason' do
+      expect(page).to have_content('Loss of liberty')
+    end
+  end
+
+  context 'with ioj passport' do
+    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+
+    it 'shows passport reason' do
+      expect(page).to have_content('Client is under 18')
+    end
+  end
+
   context 'with optional fields not provided' do
     let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
 
@@ -52,11 +66,15 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       expect(page).to have_content('Unique reference number Not provided')
     end
 
+    it 'shows that other names were not provided' do
+      expect(page).to have_content('Other names Not provided')
+    end
+
     it 'shows that the client telephone number was not provided' do
       expect(page).to have_content('UK Telephone number Not provided')
     end
 
-    it 'shows that the client homw address was not provided' do
+    it 'shows that the client home address was not provided' do
       expect(page).to have_content('Home address Not provided')
     end
   end

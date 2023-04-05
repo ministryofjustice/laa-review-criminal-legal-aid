@@ -21,6 +21,14 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
+      <%= t(:other_names, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= client_details.applicant.other_names.presence || t(:not_provided, scope: 'crime_applications.values') %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
       <%= t(:date_of_birth, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
@@ -40,11 +48,7 @@
       <%= t(:telephone_number, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <% if client_details.applicant.telephone_number.present? %>
-        <%= client_details.applicant.telephone_number %>
-      <% else %>
-        <%= t(:not_provided, scope: 'crime_applications.values') %>
-      <% end %>
+      <%= client_details.applicant.telephone_number.presence || t(:not_provided, scope: 'crime_applications.values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
