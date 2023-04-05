@@ -21,7 +21,7 @@ en:
       timestamp: '%A %-d %b %H:%M'  # Monday 21 Nov 12:20
 
   phase_banner:
-    text: This is an MVP. Some things may not work as expected. 
+    text: This is an MVP. Some things may not work as expected.
     alpha: alpha
   flash:
     success:
@@ -50,10 +50,10 @@ en:
       cannot_send_back_when_marked_as_ready: This application has already been marked as ready for assessment.
       cannot_access: Only authorised users can access the admin page.
     # flash.notice is only used by Devise and is treated as success.
-    notice: 
+    notice:
       title: Success
     # flash.notice is only used by Devise and is treated as important.
-    alert: 
+    alert:
       title: Important
 
   primary_navigation:
@@ -187,6 +187,7 @@ en:
       duplicate_application: Duplicate application
       case_concluded: Case has already concluded
       provider_request: Provider request
+      split_case: The case has been split, so we need justification for all offences
     color:
       submitted: default
       open: default
@@ -299,7 +300,7 @@ en:
         buttons:
           add_new_user: Add new user
           edit: Edit
-          deactivate: Deactivate 
+          deactivate: Deactivate
         table:
           caption: Existing users
           headings:
@@ -320,7 +321,7 @@ en:
             hint_text: "Enter the user's DOM1 email"
           checkbox:
             label: Give access to manage other users
-      edit: 
+      edit:
         page_title: Edit a user
         heading: Edit a user
         email: Email
@@ -371,4 +372,3 @@ en:
   pagination:
     previous: Previous
     next: Next
-
