@@ -26,6 +26,7 @@
       "correspondence_address_type": "home_address"
     }
   },
+  "ioj_passport": [],
   "interests_of_justice": [
     {
       "reason": "Justification provided by provider.",
@@ -49,7 +50,7 @@
     ],
     "hearing_court_name": "Caernarfon Crown Court",
     "hearing_date": "2023-12-12",
-    "urn": null
+    "urn": ""
   },
   "application_type": "initial_application"
 }

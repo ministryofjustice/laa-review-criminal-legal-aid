@@ -36,7 +36,12 @@ en:
       user_deactivated: Email address has been deactivated
     important:
       title: Important
-      state_has_changed: This application has already been assigned to someone else.
+      reassigned_to_someone_else: 
+        - This application has not been assigned to you.
+        - It was assigned to someone else before you confirmed reassigning.
+      unassigned_before_confirm:
+        - This application has not been assigned to you.
+        - It was unassigned before you confirmed reassigning.
       no_next_to_assign: There are no new applications to be reviewed at this time. Please try again later.
       already_sent_back: This application has already been sent back to the provider.
       already_completed: This application has already been marked as complete.
@@ -79,6 +84,7 @@ en:
     end_on: Date to
     first_name: First name
     last_name: Last name
+    other_names: Other names
     case_type: Case type
     national_insurance_number: National Insurance number
     date_of_birth: Date of birth
@@ -111,16 +117,16 @@ en:
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant
     reference: Ref. no.
-    days_passed: Days passed
+    days_passed: Business days since applications were received
     time_passed: Days passed
     received_at: Date received
     submitted_at: Date received
-    reviewed_at: Date reviewed
+    reviewed_at: Date closed
     caseworker: Caseworker
-    reviewer: Reviewed by
+    closed_by: Closed by
     status: Status
-    open_applications_by_age: Open applications
-    closed_applications_by_age: Closed applications
+    open_applications_by_age: "Applications still\xA0open"
+    received_applications_by_age: Applications received 
     processed_on: Closed on
     applications_closed: Closed applications
 
@@ -154,6 +160,8 @@ en:
     expert_examination: Expert examination
     interest_of_another: Interest of another
     other: Other
+    passported: Passported
+    on_age_under18: Client is under 18
     today: Today
     yesterday: Yesterday
     day_before_yesterday: Day before yesterday
@@ -161,7 +169,7 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-      last: "%{count} or more days"
+      last: "Between %{count} and 9 days"
     review_status:
       submitted: Open
       open: Open
@@ -198,7 +206,7 @@ en:
     search: Search
     unassign_from_self: Remove from your list
     view_all_open_applications: View all open applications
-    view_daily_count: View by days passed
+    view_daily_count: Check when applications were received 
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider

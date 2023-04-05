@@ -7,8 +7,11 @@ RSpec.describe 'Workload Report' do
   end
 
   it 'shows the correct column headers' do
+    expected_column_headers = 'Business days since applications ' \
+                              'were received Applications received Applications still open'
+
     within('table thead tr') do
-      expect(page).to have_content 'Days passed Open applications Closed applications'
+      expect(page).to have_content expected_column_headers
     end
   end
 
@@ -32,7 +35,7 @@ RSpec.describe 'Workload Report' do
 
   it 'shows the correct row headers for the last row' do
     within all('table tbody th')[3] do
-      expect(page).to have_content '3 or more days'
+      expect(page).to have_content 'Between 3 and 9 days'
     end
   end
 end
