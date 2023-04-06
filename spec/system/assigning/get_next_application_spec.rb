@@ -22,4 +22,25 @@ RSpec.describe 'Assigning an application to myself' do
       expect(page).to have_content('There are no new applications to be reviewed')
     end
   end
+
+  context 'when multiple caseworkes "get next" the same appliction' do
+    let(:stubbed_search_results) do
+      [
+        ApplicationSearchResult.new(
+          applicant_name: 'Kit Pound',
+          resource_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
+          reference: 120_398_120,
+          status: 'submitted',
+          submitted_at: '2022-10-27T14:09:11.000+00:00'
+        )
+      ]
+    end
+
+    it 'shows an error when there is no next application' do
+      visit '/'
+      click_on 'Get next application'
+      expect(page).to have_content('Your list')
+      expect(page).to have_content('There are no new applications to be reviewed')
+    end
+  end
 end
