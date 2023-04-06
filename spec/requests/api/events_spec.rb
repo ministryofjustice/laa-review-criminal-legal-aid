@@ -38,11 +38,11 @@ RSpec.describe 'Api::Events' do
   end
 
   def public_key_cert
-    @public_key_cert ||= Rails.root.join('spec/fixtures/files/certs/certificate.pem').read
+    @public_key_cert ||= Rails.root.join('spec/fixtures/files/certs/sns_certificate.pem').read
   end
 
   def private_key_cert
-    @private_key_cert ||= Rails.root.join('spec/fixtures/files/certs/key.pem').read
+    @private_key_cert ||= Rails.root.join('spec/fixtures/files/certs/sns_key.pem').read
   end
 
   def standard_sns_message
