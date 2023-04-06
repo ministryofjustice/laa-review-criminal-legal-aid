@@ -78,7 +78,9 @@ module Api
     end
 
     def verify_request_authenticity
-      head :unauthorized if request_body.blank? || !message_verifier.authenticate!(request_body.to_json)
+      return head :unauthorized if request_body.blank?
+
+      message_verifier.authenticate!(request_body.to_json)
     end
 
     def raw_request_delivery?
