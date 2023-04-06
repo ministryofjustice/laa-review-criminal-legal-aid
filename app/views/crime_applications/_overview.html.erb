@@ -28,11 +28,7 @@
       <%= t(:urn, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <% if overview.case_details.urn %>
-        <%= overview.case_details.urn %>
-      <% else %>
-        <%= t(:not_provided, scope: 'crime_applications.values') %>
-      <% end %>
+      <%= overview.case_details.urn.presence || t(:not_provided, scope: 'crime_applications.values') %>
     </dd>
   </div>
 

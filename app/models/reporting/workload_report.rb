@@ -2,31 +2,32 @@ module Reporting
   class WorkloadReport
     include Reportable
 
-    def initialize(number_of_days: 4, day_zero: Time.zone.now.to_date)
+    def initialize(number_of_days: 4, day_zero: Time.zone.now.to_date, last_row_limit_in_days: 10)
       @number_of_days = number_of_days
       @day_zero = day_zero
+      @last_row_limit_in_days = last_row_limit_in_days
     end
 
     def table
       Table.new(
         {
           days_passed:,
-          open_applications_by_age:,
-          closed_applications_by_age:
+          received_applications_by_age:,
+          open_applications_by_age:
         }
       )
     end
 
     private
 
-    attr_reader :number_of_days, :day_zero
+    attr_reader :number_of_days, :day_zero, :last_row_limit_in_days
 
     def open_applications_by_age
       reports.map { |report| Cell.new(report.total_open, numeric: true) }
     end
 
-    def closed_applications_by_age
-      reports.map { |report| Cell.new(report.total_closed, numeric: true) }
+    def received_applications_by_age
+      reports.map { |report| Cell.new(report.total_received, numeric: true) }
     end
 
     #
@@ -36,7 +37,7 @@ module Reporting
     # 0 days
     # 1 day
     # 2 days
-    # 3 or more days
+    # between 3(#number_of_days) and (#last_row_limit_in_days)
     #
     #
     def days_passed
@@ -72,12 +73,27 @@ module Reporting
       end
     end
 
+    # The date of the youngest business day not included in the last
+    # row counts.
+    def last_row_cut_off_date
+      @last_row_cut_off_date ||= BusinessDay.new(
+        age_in_business_days: last_row_limit_in_days + 1,
+        day_zero: day_zero
+      ).date
+    end
+
     #
     # The last row of the report differs from the preceding rows in that it
-    # includes the counts for all earlier dates.
+    # includes the counts for the previous business days up to and including the
+    # #number_of_days_limit business day period.
     #
     def last_day_or_more_report
-      scope = Reporting::ReceivedOnReport.where('business_day <= ?', business_days.last.date)
+      scope = Reporting::ReceivedOnReport.where(
+        'business_day > ? AND business_day <= ? ',
+        last_row_cut_off_date,
+        business_days.last.date
+      )
+
       total_received = scope.sum(:total_received)
       total_closed = scope.sum(:total_closed)
 
