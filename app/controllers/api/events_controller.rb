@@ -6,7 +6,6 @@ module Api
 
     #
     # TODO extract to middleware if we go down this route....
-    # TODO: verify message
     #
     def create
       #
@@ -78,24 +77,14 @@ module Api
       @request_body ||= JSON.parse(request.body.read)
     end
 
+    # TODO: Should verify_request_authenticity throw an exception if the message is unverified
+    # or is it better not to let a would-be attacker know the reason for rejection?
     def verify_request_authenticity
-      puts "IS AUTHENTIC? #{message_verifier.authentic?(request_body.to_json)}"
       head :unauthorized if request_body.blank? || !message_verifier.authentic?(request_body.to_json)
     end
 
     def message_verifier
       @message_verifier ||= Aws::SNS::MessageVerifier.new
     end
-
-    # def client
-    #   AWS_SNS_CLIENT.confirm_subscription(
-    #     topic_arn: message_body['TopicArn'],
-    #     token: message_body['Token']
-    #   )
-    #   true
-    # rescue Aws::SNS::Errors::ServiceError => e
-    #   Rails.logger.info(e.message)
-    #   false
-    # end
   end
 end
