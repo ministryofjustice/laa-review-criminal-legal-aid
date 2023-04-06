@@ -208,7 +208,7 @@ RSpec.describe 'Api::Events' do
 
     let(:body) { {} }
 
-    it 'throws exception' do
+    it 'returns unauthorized' do
       post('/api/events', params: body.to_json, headers: headers)
       expect(response).to have_http_status :unauthorized
     end
