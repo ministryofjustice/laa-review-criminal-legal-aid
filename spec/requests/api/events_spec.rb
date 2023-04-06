@@ -1,19 +1,9 @@
 require 'rails_helper'
 require 'base64'
+require 'aws-sdk-sns'
 
 RSpec.describe 'Api::Events' do
   include_context 'with review'
-
-  AWS_SNS_SIGNABLE_KEYS = [
-    'Message',
-    'MessageId',
-    'Subject',
-    'SubscribeURL',
-    'Timestamp',
-    'Token',
-    'TopicArn',
-    'Type'
-  ].freeze
 
   let(:sns_message_id) { SecureRandom.uuid }
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
@@ -37,28 +27,49 @@ RSpec.describe 'Api::Events' do
     post('/api/events', params: body.to_json, headers: headers)
   end
 
-  # Signature generation algorithm borrowed from AWS SDK v3
+  # Signature generation on verify:
   # https://github.com/aws/aws-sdk-ruby/blob/version-3/gems/aws-sdk-sns/lib/aws-sdk-sns/message_verifier.rb
-  def canonical_string(m)
-    AWS_SNS_SIGNABLE_KEYS.map { |k| "#{k}\n#{m[k]}\n" if m[k].present? }.join
+  def canonical_string(dict)
+    aws_message_verifier.send(:canonical_string, dict)
+  end
+
+  def aws_message_verifier
+    @aws_message_verifier ||= Aws::SNS::MessageVerifier.new
   end
 
   def public_key_cert
-    @public_key_cert ||= File.read("#{Rails.root}/spec/fixtures/files/certs/certificate.pem")
+    @public_key_cert ||= Rails.root.join('spec/fixtures/files/certs/certificate.pem').read
   end
 
   def private_key_cert
-    @private_key_cert ||= File.read("#{Rails.root}/spec/fixtures/files/certs/key.pem")
+    @private_key_cert ||= Rails.root.join('spec/fixtures/files/certs/key.pem').read
+  end
+
+  def standard_sns_message
+    {
+      'Type' => nil,
+      'Token' => '2336412f37f',
+      'MessageId' => nil,
+      'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
+      'Subject' => nil,
+      'Message' => '',
+      'Timestamp' => '2012-05-02T00:54:06.655Z',
+      'SignatureVersion' => '1',
+      'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem',
+      'UnsubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:123456789012:MyTopic:c9135db0-26c4-47ec-8998-413945fb5a96'
+    }
   end
 
   before do
-    stub_request(:get, 'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem').with(
-      headers: {
-        'Accept' => '*/*',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'User-Agent' => 'Ruby'
-      }
+    stub_request(
+      :get,
+      'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem'
     ).to_return(status: 200, body: public_key_cert, headers: {})
+
+    stub_request(
+      :get,
+      'https://sns.us-west-2.amazonaws.com/BAD-PUBLIC-CERT.pem'
+    ).to_return(status: 200, body: nil, headers: {})
   end
 
   describe 'SNS Nofification callback' do
@@ -70,17 +81,12 @@ RSpec.describe 'Api::Events' do
     end
 
     let(:body) do
-      {
+      standard_sns_message.merge(
         'Type' => 'Notification',
-        'MessageId' => sns_message_id,
         'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
         'Subject' => 'apply.submission',
-        'Message' => message.to_json,
-        'Timestamp' => '2012-05-02T00:54:06.655Z',
-        'SignatureVersion' => '1',
-        'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem',
-        'UnsubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:123456789012:MyTopic:c9135db0-26c4-47ec-8998-413945fb5a96'
-      }
+        'Message' => message.to_json
+      )
     end
 
     it 'creates an ApplicationReceived event' do
@@ -97,6 +103,8 @@ RSpec.describe 'Api::Events' do
     end
   end
 
+  # NOTE: When raw message delivery is enabled all SNS metadata is stripped
+  # https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html
   describe 'SNS Nofification callback with raw_message_delivery' do
     let(:headers) do
       {
@@ -126,18 +134,12 @@ RSpec.describe 'Api::Events' do
     end
 
     let(:body) do
-      {
+      standard_sns_message.merge(
         'Type' => 'SubscriptionConfirmation',
         'MessageId' => sns_message_id,
-        'Token' => '2336412f37f...',
-        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
-        'Message' => 'You have chosen to subscribe to the topic arn:aws:sns:us-west-2:123456789012:MyTopic.',
-        'SubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&TopicArn=arn:aws:sns:us-west-2:123456789012:MyTopic&Token=2336412f37',
-        'Timestamp' => '2012-04-26T20:45:04.751Z',
-        'SignatureVersion' => '1',
-        'Signature' => 'EXAMPLEpH+...',
-        'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem'
-      }
+        'Message' => message.to_json,
+        'SubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:us-west-2:123456789012:MyTopic'
+      )
     end
 
     it 'confirms the subscription' do
@@ -160,22 +162,55 @@ RSpec.describe 'Api::Events' do
     end
 
     let(:body) do
-      {
+      standard_sns_message.merge(
         'Type' => 'UnsubscribeConfirmation',
         'MessageId' => sns_message_id,
-        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
-        'Subject' => 'apply.submission',
-        'Message' => message.to_json,
-        'Timestamp' => '2012-05-02T00:54:06.655Z',
-        'SignatureVersion' => '1',
-        'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem',
-        'UnsubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:123456789012:MyTopic:c9135db0-26c4-47ec-8998-413945fb5a96'
-      }
+        'Message' => {}.to_json
+      )
     end
 
     it 'returns okay' do
       do_request
       expect(response).to have_http_status :ok
+    end
+  end
+
+  describe 'SNS message unverified' do
+    let(:headers) do
+      {
+        'x-amz-sns-message-type' => 'Notification',
+        'x-amz-sns-message-id' => sns_message_id
+      }
+    end
+
+    let(:body) do
+      standard_sns_message.merge(
+        'Type' => 'Notification',
+        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
+        'Subject' => 'apply.submission',
+        'Message' => message.to_json,
+        'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/BAD-PUBLIC-CERT.pem'
+      )
+    end
+
+    it 'throws exception' do
+      expect { do_request }.to raise_error Aws::SNS::MessageVerifier::VerificationError
+    end
+  end
+
+  describe 'SNS message empty' do
+    let(:headers) do
+      {
+        'x-amz-sns-message-type' => 'Notification',
+        'x-amz-sns-message-id' => sns_message_id
+      }
+    end
+
+    let(:body) { {} }
+
+    it 'throws exception' do
+      post('/api/events', params: body.to_json, headers: headers)
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

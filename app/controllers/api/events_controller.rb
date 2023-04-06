@@ -2,7 +2,7 @@ require 'aws-sdk-sns'
 
 module Api
   class EventsController < ActionController::API
-    before_action :verify_request_authenticity
+    before_action :verify_request_authenticity, unless: :raw_request_delivery?
 
     #
     # TODO extract to middleware if we go down this route....
@@ -62,7 +62,7 @@ module Api
     end
 
     def message
-      if request.headers['x-amz-sns-rawdelivery'] == 'true'
+      if raw_request_delivery?
         request_body
       else
         JSON.parse(request_body.fetch('Message'))
@@ -77,10 +77,12 @@ module Api
       @request_body ||= JSON.parse(request.body.read)
     end
 
-    # TODO: Should verify_request_authenticity throw an exception if the message is unverified
-    # or is it better not to let a would-be attacker know the reason for rejection?
     def verify_request_authenticity
-      head :unauthorized if request_body.blank? || !message_verifier.authentic?(request_body.to_json)
+      head :unauthorized if request_body.blank? || !message_verifier.authenticate!(request_body.to_json)
+    end
+
+    def raw_request_delivery?
+      request.headers['x-amz-sns-rawdelivery'] == 'true'
     end
 
     def message_verifier
