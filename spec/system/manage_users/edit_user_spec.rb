@@ -68,7 +68,11 @@ RSpec.describe 'Edit users from manage users dashboard' do
     before do
       check 'Give access to manage other users'
       click_button 'Save'
-      first(:link, 'Edit').click
+
+      within(user_row) do
+        click_link 'Edit'
+      end
+
       uncheck 'Give access to manage other users'
       click_button 'Save'
     end
