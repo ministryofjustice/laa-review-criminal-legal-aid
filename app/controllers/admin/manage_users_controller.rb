@@ -6,7 +6,8 @@ module Admin
 
     def index
       page = (index_params[:page].presence || 1)
-      @users = User.all.order(first_name: :asc, last_name: :asc).page(page).per(5).padding(0)
+      per_page = Rails.configuration.x.pagination.per_page
+      @users = User.all.order(first_name: :asc, last_name: :asc).page(page).per(per_page)
     end
 
     def new
@@ -30,6 +31,7 @@ module Admin
 
     def update
       can_manage_others = params[:can_manage_others] ? true : false
+      @return_url = params[:return_url]
 
       @user = User.find(params[:id])
 
@@ -45,7 +47,11 @@ module Admin
     def flash_and_redirect(key, message)
       flash[key] = I18n.t(message, scope: [:flash, key])
 
-      redirect_to admin_manage_users_path
+      if @return_url.present? && @return_url.start_with?(root_url)
+        redirect_to @return_url
+      else
+        redirect_to admin_manage_users_path
+      end
     end
 
     def user_params

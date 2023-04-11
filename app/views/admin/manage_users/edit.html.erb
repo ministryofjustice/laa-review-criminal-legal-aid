@@ -24,6 +24,9 @@
                           checked: @user.can_manage_others,
                           label: { text: t('.fields.checkbox.label') } %>
   </div>
+
+  <%= f.hidden_field :return_url, value: @return_url %>
+
   <div class="govuk-button-group">
     <%= f.submit 'Save', class: 'govuk-button govuk-button--primary' %>
     <%= link_to t('.cancel'),
