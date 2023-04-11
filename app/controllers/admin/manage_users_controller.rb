@@ -66,7 +66,7 @@ module Admin
     end
 
     def index_params
-      params.permit(:page, :per_page, sorting: Sorting.attribute_names)
+      params.permit(:page)
     end
   end
 end
