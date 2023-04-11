@@ -5,7 +5,8 @@ module Admin
     before_action :require_user_manager!
 
     def index
-      @users = User.all.order(first_name: :asc, last_name: :asc)
+      page = (index_params[:page].presence || 1)
+      @users = User.all.order(first_name: :asc, last_name: :asc).page(page).per(5).padding(0)
     end
 
     def new
@@ -13,6 +14,7 @@ module Admin
     end
 
     def edit
+      @return_url = params[:return_url]
       @user = User.find(params[:id])
     end
 
@@ -55,6 +57,10 @@ module Admin
 
       flash[:important] = I18n.t('flash.important.cannot_access')
       redirect_to authenticated_root_path
+    end
+
+    def index_params
+      params.permit(:page, :per_page, sorting: Sorting.attribute_names)
     end
   end
 end

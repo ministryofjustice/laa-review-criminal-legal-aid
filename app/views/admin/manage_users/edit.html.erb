@@ -27,7 +27,7 @@
   <div class="govuk-button-group">
     <%= f.submit 'Save', class: 'govuk-button govuk-button--primary' %>
     <%= link_to t('.cancel'),
-                admin_manage_users_path,
+                (@return_url.presence || admin_manage_users_path),
                 class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
   </div>
 <% end %>
