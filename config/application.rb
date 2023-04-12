@@ -51,5 +51,8 @@ module LaaReviewCriminalLegalAid
     # The maximum period of inactivity before a user is
     # automatically signed out.
     config.x.auth.timeout_in = 15.minutes
+
+    # Default page size for paging results
+    config.x.admin.pagination_per_page = 20
   end
 end

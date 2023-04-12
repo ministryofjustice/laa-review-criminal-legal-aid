@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Edit users from manage users dashboard' do
   include_context 'with a logged in admin user'
   include_context 'with an existing user'
+  include_context 'with many other users'
 
   before do
+    make_users(50)
+
     user
     visit '/'
-    visit '/admin/manage_users'
+    visit '/admin/manage_users?page=3'
     within(user_row) do
       click_link 'Edit'
     end
@@ -23,7 +26,10 @@ RSpec.describe 'Edit users from manage users dashboard' do
   it 'allows a users to cancel the editing of a user' do
     click_link 'Cancel'
     heading = first('h1').text
+    current_page = first('.govuk-pagination__item--current').text
+
     expect(heading).to have_text('Manage users')
+    expect(current_page).to have_text('3')
   end
 
   context 'when update fails' do
@@ -46,7 +52,7 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'redirects to the correct page' do
-      expect(page).to have_current_path('/admin/manage_users')
+      expect(page).to have_current_path('/admin/manage_users?page=3')
     end
 
     it 'shows correct success flash message' do
@@ -62,13 +68,17 @@ RSpec.describe 'Edit users from manage users dashboard' do
     before do
       check 'Give access to manage other users'
       click_button 'Save'
-      first(:link, 'Edit').click
+
+      within(user_row) do
+        click_link 'Edit'
+      end
+
       uncheck 'Give access to manage other users'
       click_button 'Save'
     end
 
     it 'redirects to the correct page' do
-      expect(page).to have_current_path('/admin/manage_users')
+      expect(page).to have_current_path('/admin/manage_users?page=3')
     end
 
     it 'shows correct success flash message' do
@@ -76,7 +86,30 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'updates can manage others value to No' do
+      visit '/admin/manage_users?page=3'
       expect(user_row).to have_text("#{user.email} No")
+    end
+  end
+
+  context 'with bad return_url' do
+    let(:bad_urls) do
+      [
+        "/admin/manage_users/#{user.id}/edit?return_url=http%3A%3A%2F%2Fl33thax0r.com%2Fvirus",
+        "/admin/manage_users/#{user.id}/edit?return_url=[page 1002]",
+        "/admin/manage_users/#{user.id}/edit?return_url=/"
+      ]
+    end
+
+    let(:current_page) { first('.govuk-pagination__item--current').text }
+
+    it 'returns to manage users page 1', aggregate_failures: true do
+      bad_urls.each do |url|
+        visit url
+        click_button 'Save'
+
+        expect(page).to have_current_path('/admin/manage_users')
+        expect(current_page).to have_text('1')
+      end
     end
   end
 end

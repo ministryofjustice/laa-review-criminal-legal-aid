@@ -3,9 +3,12 @@ module Admin
     layout 'manage_users'
 
     before_action :require_user_manager!
+    before_action :set_return_url, only: [:edit, :update]
 
     def index
-      @users = User.all.order(first_name: :asc, last_name: :asc)
+      page = (index_params[:page].presence || 1)
+      per_page = Rails.configuration.x.admin.pagination_per_page
+      @users = User.all.order(first_name: :asc, last_name: :asc).page(page).per(per_page)
     end
 
     def new
@@ -43,7 +46,11 @@ module Admin
     def flash_and_redirect(key, message)
       flash[key] = I18n.t(message, scope: [:flash, key])
 
-      redirect_to admin_manage_users_path
+      if @return_url.present?
+        redirect_to @return_url
+      else
+        redirect_to admin_manage_users_path
+      end
     end
 
     def user_params
@@ -55,6 +62,19 @@ module Admin
 
       flash[:important] = I18n.t('flash.important.cannot_access')
       redirect_to authenticated_root_path
+    end
+
+    def index_params
+      params.permit(:page)
+    end
+
+    def set_return_url
+      return if params[:return_url].blank?
+
+      @return_url = URI.parse(params[:return_url]).to_s
+      @return_url = nil unless @return_url.start_with?(root_url)
+    rescue URI::InvalidURIError
+      @return_url = nil
     end
   end
 end

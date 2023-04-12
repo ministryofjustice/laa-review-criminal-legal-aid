@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Manage Users Dashboard' do
   include_context 'with a logged in user'
+  include_context 'with many other users'
 
   context 'when user does not have access manage other users' do
     before do
@@ -69,6 +70,27 @@ RSpec.describe 'Manage Users Dashboard' do
       it 'is ordered by first name, last name' do
         expect(page.all('tbody tr td:first-child').map(&:text)).to eq expected_order
       end
+    end
+  end
+
+  context 'with pagination' do
+    let(:last_auth_at) { Time.zone.now }
+
+    before do
+      make_users(100)
+      visit '/'
+      User.update(current_user_id, can_manage_others: true, last_auth_at: last_auth_at)
+      visit '/admin/manage_users?page=5'
+    end
+
+    it 'shows the correct page number' do
+      current_page = first('.govuk-pagination__item--current').text
+
+      expect(current_page).to have_text('5')
+    end
+
+    it 'shows 20 entries per page' do
+      expect(page).to have_selector('.govuk-table__body > .govuk-table__row', count: 20)
     end
   end
 end
