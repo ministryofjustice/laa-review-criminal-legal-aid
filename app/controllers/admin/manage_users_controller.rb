@@ -7,7 +7,7 @@ module Admin
 
     def index
       page = (index_params[:page].presence || 1)
-      per_page = Rails.configuration.x.pagination.per_page
+      per_page = Rails.configuration.x.admin.pagination_per_page
       @users = User.all.order(first_name: :asc, last_name: :asc).page(page).per(per_page)
     end
 
