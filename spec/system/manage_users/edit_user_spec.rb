@@ -90,4 +90,22 @@ RSpec.describe 'Edit users from manage users dashboard' do
       expect(user_row).to have_text("#{user.email} No")
     end
   end
+
+  context 'with bad return_url' do
+    before do
+      visit '/'
+      visit "/admin/manage_users/#{user.id}/edit?return_url=http%3A%2F%2Fl33thax0r.com%2Fvirus"
+      click_button 'Save'
+    end
+
+    it 'loads the edit page' do
+      heading = first('h1').text
+
+      expect(heading).to have_content 'Edit a user'
+    end
+
+    it 'returns to manage users page 1' do
+      expect(page).to have_current_path('/admin/manage_users?page=1')
+    end
+  end
 end
