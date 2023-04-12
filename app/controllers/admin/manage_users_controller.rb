@@ -3,7 +3,7 @@ module Admin
     layout 'manage_users'
 
     before_action :require_user_manager!
-    before_action :protect_return_url, only: [:edit, :update]
+    before_action :set_return_url, only: [:edit, :update]
 
     def index
       page = (index_params[:page].presence || 1)
@@ -68,7 +68,7 @@ module Admin
       params.permit(:page)
     end
 
-    def protect_return_url
+    def set_return_url
       return if params[:return_url].blank?
 
       @return_url = URI.parse(params[:return_url]).to_s
