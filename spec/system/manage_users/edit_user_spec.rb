@@ -91,10 +91,10 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
   end
 
-  context 'with bad return_url' do
+  context 'with malicious return_url' do
     before do
       visit '/'
-      visit "/admin/manage_users/#{user.id}/edit?return_url=http%3A%2F%2Fl33thax0r.com%2Fvirus"
+      visit "/admin/manage_users/#{user.id}/edit?return_url=http%3A%3A%2F%2Fl33thax0r.com%2Fvirus"
       click_button 'Save'
     end
 
