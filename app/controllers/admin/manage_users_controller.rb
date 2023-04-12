@@ -3,6 +3,7 @@ module Admin
     layout 'manage_users'
 
     before_action :require_user_manager!
+    before_action :protect_return_url, only: [:edit, :update]
 
     def index
       page = (index_params[:page].presence || 1)
@@ -15,7 +16,6 @@ module Admin
     end
 
     def edit
-      @return_url = params[:return_url]
       @user = User.find(params[:id])
     end
 
@@ -31,7 +31,6 @@ module Admin
 
     def update
       can_manage_others = params[:can_manage_others] ? true : false
-      @return_url = params[:return_url]
 
       @user = User.find(params[:id])
 
@@ -47,7 +46,7 @@ module Admin
     def flash_and_redirect(key, message)
       flash[key] = I18n.t(message, scope: [:flash, key])
 
-      if @return_url.present? && @return_url.start_with?(root_url)
+      if @return_url.present?
         redirect_to @return_url
       else
         redirect_to admin_manage_users_path
@@ -67,6 +66,15 @@ module Admin
 
     def index_params
       params.permit(:page)
+    end
+
+    def protect_return_url
+      return if params[:return_url].blank?
+
+      @return_url = URI.parse(params[:return_url]).to_s
+      @return_url = nil unless @return_url.start_with?(root_url)
+    rescue URI::InvalidURIError
+      @return_url = nil
     end
   end
 end
