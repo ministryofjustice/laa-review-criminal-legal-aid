@@ -91,21 +91,25 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
   end
 
-  context 'with malicious return_url' do
-    before do
-      visit '/'
-      visit "/admin/manage_users/#{user.id}/edit?return_url=http%3A%3A%2F%2Fl33thax0r.com%2Fvirus"
-      click_button 'Save'
+  context 'with bad return_url' do
+    let(:bad_urls) do
+      [
+        "/admin/manage_users/#{user.id}/edit?return_url=http%3A%3A%2F%2Fl33thax0r.com%2Fvirus",
+        "/admin/manage_users/#{user.id}/edit?return_url=[page 1002]",
+        "/admin/manage_users/#{user.id}/edit?return_url=/"
+      ]
     end
 
-    it 'loads the edit page' do
-      heading = first('h1').text
+    let(:current_page) { first('.govuk-pagination__item--current').text }
 
-      expect(heading).to have_content 'Edit a user'
-    end
+    it 'returns to manage users page 1', aggregate_failures: true do
+      bad_urls.each do |url|
+        visit url
+        click_button 'Save'
 
-    it 'returns to manage users page 1' do
-      expect(page).to have_current_path('/admin/manage_users?page=1')
+        expect(page).to have_current_path('/admin/manage_users')
+        expect(current_page).to have_text('1')
+      end
     end
   end
 end
