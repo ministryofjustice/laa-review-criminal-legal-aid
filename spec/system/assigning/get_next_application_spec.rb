@@ -6,7 +6,7 @@ RSpec.describe 'Assigning an application to myself' do
 
     it 'allows you to get the next application' do
       visit '/'
-      click_on 'Get next application'
+      click_on 'Review next application'
       expect(page).to have_content('Kit Pound')
       expect(page).to have_content('Remove from your list')
     end
@@ -17,13 +17,13 @@ RSpec.describe 'Assigning an application to myself' do
 
     it 'shows an error when there is no next application' do
       visit '/'
-      click_on 'Get next application'
+      click_on 'Review next application'
       expect(page).to have_content('Your list')
       expect(page).to have_content('There are no new applications to be reviewed')
     end
   end
 
-  context 'when multiple caseworkes "get next" the same appliction' do
+  context 'when multiple caseworkers attempt to request the same next application to review' do
     let(:stubbed_search_results) do
       [
         ApplicationSearchResult.new(
@@ -38,7 +38,7 @@ RSpec.describe 'Assigning an application to myself' do
 
     it 'shows an error when there is no next application' do
       visit '/'
-      click_on 'Get next application'
+      click_on 'Review next application'
       expect(page).to have_content('Your list')
       expect(page).to have_content('There are no new applications to be reviewed')
     end
