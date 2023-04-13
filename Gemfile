@@ -41,6 +41,7 @@ gem 'dry-schema'
 gem 'dry-struct'
 
 gem 'devise'
+gem 'omniauth'
 gem 'omniauth_openid_connect'
 gem 'omniauth-rails_csrf_protection'
 

@@ -10,8 +10,10 @@ module Users
       end
     end
 
-    def failure
-      redirect_to forbidden_path
+    private
+
+    def after_omniauth_failure_path_for(_scope)
+      forbidden_path
     end
   end
 end

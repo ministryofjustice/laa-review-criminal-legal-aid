@@ -1,3 +1,7 @@
+require 'host_env'
+require 'feature_flags'
+require 'omni_auth/strategies/dev_auth'
+
 Devise.setup do |config|
   require 'devise/orm/active_record'
 
@@ -19,7 +23,7 @@ Devise.setup do |config|
   # If you have any extra navigational formats, like :iphone or :mobile, you
   # should add them to the navigational formats lists.
   #
-  # The "*/*" below is required to match Internet Explorer requests.
+  # The "*/*" below s required to match Internet Explorer requests.
   config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
@@ -30,7 +34,12 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   #
-  config.omniauth :openid_connect, 
+  # Uses the DevAuth strategy if local and ENV["DEV_AUTH_ENABLED"] is true
+
+  strategy_class = FeatureFlags.dev_auth.enabled? ? OmniAuth::Strategies::DevAuth : OmniAuth::Strategies::OpenIDConnect
+
+  config.omniauth(
+    :openid_connect,
     {
       name: :azure_ad,
       scope: [:openid, :email, :profile],
@@ -42,6 +51,10 @@ Devise.setup do |config|
       },
       discovery: true,
       pkce: true,
-      issuer: "https://login.microsoftonline.com/#{ENV.fetch('OMNIAUTH_AZURE_TENANT_ID', nil)}/v2.0"
+      issuer: "https://login.microsoftonline.com/#{ENV.fetch('OMNIAUTH_AZURE_TENANT_ID', nil)}/v2.0",
+      strategy_class: strategy_class
     }
+  )
+
+  OmniAuth.config.logger = Rails.logger
 end

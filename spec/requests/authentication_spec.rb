@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentication Session Initialisation' do
+  before do
+    OmniAuth.config.test_mode = true
+  end
+
+  after do
+    OmniAuth.config.test_mode = false
+  end
+
   include Devise::Test::IntegrationHelpers
 
   let(:auth_callback) do

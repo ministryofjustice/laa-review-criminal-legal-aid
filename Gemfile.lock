@@ -542,6 +542,7 @@ DEPENDENCIES
   kaminari (~> 1.2)
   laa-criminal-applications-datastore-api-client!
   laa-criminal-legal-aid-schemas!
+  omniauth
   omniauth-rails_csrf_protection
   omniauth_openid_connect
   pg (~> 1.4)
