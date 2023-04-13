@@ -54,6 +54,20 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
   end
 
+  context 'with offence class not provided' do
+    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+
+    it 'does not show the offence class' do
+      expect(page).not_to have_content('Class')
+    end
+  end
+
+  context 'with offence class provided' do
+    it 'does show the offence class' do
+      expect(page).to have_content('Class C')
+    end
+  end
+
   context 'with optional fields not provided' do
     let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
 
