@@ -37,18 +37,18 @@ en:
     important:
       title: Important
       reassigned_to_someone_else: 
-        - This application has not been assigned to you.
+        - This application has not been assigned to you
         - It was assigned to someone else before you confirmed reassigning.
       unassigned_before_confirm:
-        - This application has not been assigned to you.
+        - This application has not been assigned to you
         - It was unassigned before you confirmed reassigning.
-      no_next_to_assign: There are no new applications to be reviewed at this time. Please try again later.
-      already_sent_back: This application has already been sent back to the provider.
-      already_completed: This application has already been marked as complete.
-      already_marked_as_ready: The application has already been marked as ready for assessment.
-      cannot_send_back_when_completed: This application has already been marked as complete.
-      cannot_send_back_when_marked_as_ready: This application has already been marked as ready for assessment.
-      cannot_access: Only authorised users can access the admin page.
+      no_next_to_assign: There are no new applications to be reviewed at this time
+      already_sent_back: This application has already been sent back to the provider
+      already_completed: This application has already been marked as complete
+      already_marked_as_ready: The application has already been marked as ready for assessment
+      cannot_send_back_when_completed: This application has already been marked as complete
+      cannot_send_back_when_marked_as_ready: This application has already been marked as ready for assessment
+      cannot_access: Only authorised users can access the admin page
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success

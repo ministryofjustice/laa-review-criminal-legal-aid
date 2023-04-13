@@ -67,7 +67,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       click_on('Yes, reassign')
 
       expect(page).to have_notification_banner(
-        text: 'This application has not been assigned to you.',
+        text: 'This application has not been assigned to you',
         details: 'It was assigned to someone else before you confirmed reassigning.'
       )
     end
@@ -104,7 +104,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       click_on('Yes, reassign')
 
       expect(page).to have_notification_banner(
-        text: 'This application has not been assigned to you.',
+        text: 'This application has not been assigned to you',
         details: 'It was unassigned before you confirmed reassigning.'
       )
     end
