@@ -19,10 +19,12 @@
         <tr class="govuk-table__row">
           <td scope="row" class="govuk-table__cell">
             <%= offence.name %>
-            <span class='govuk-caption-m'>
-              <%= t('crime_applications.values.class') %>
-              <%= offence.offence_class %>
-            </span>
+            <% if offence.offence_class.present? %>
+              <span class='govuk-caption-m'>
+                <%= t('crime_applications.values.class') %>
+                <%= offence.offence_class %>
+              </span>
+            <% end %>
           </td>
           <td class="govuk-table__cell">
               <%= l date.date_from, format: :compact %>
