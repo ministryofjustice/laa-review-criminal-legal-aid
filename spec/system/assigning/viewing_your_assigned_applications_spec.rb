@@ -15,7 +15,7 @@ RSpec.describe 'Viewing your assigned application' do
     end
 
     it 'shows shows how many assignments' do
-      expect(page).to have_content '0 saved applications'
+      expect(page).to have_content 'No applications are assigned to you for review.'
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe 'Viewing your assigned application' do
     end
 
     it 'shows how many assignments' do
-      expect(page).to have_content '0 saved applications'
+      expect(page).to have_content 'No applications are assigned to you for review.'
       expect(page).to have_content 'Your list (0)'
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe 'Viewing your assigned application' do
     end
 
     it 'shows shows how many assignments' do
-      expect(page).to have_content '1 saved application'
+      expect(page).to have_content '1 application is assigned to you for review.'
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe 'Viewing your assigned application' do
     end
 
     it 'shows shows how many assignments' do
-      expect(page).to have_content '2 saved application'
+      expect(page).to have_content '2 applications are assigned to you for review.'
     end
 
     describe 'sortable table headers' do
@@ -121,7 +121,7 @@ RSpec.describe 'Viewing your assigned application' do
 
     it 'shows the assignment in the counts' do
       expect(page).to have_content 'Your list (1)'
-      expect(page).to have_content '1 saved application'
+      expect(page).to have_content '1 application is assigned to you for review.'
     end
   end
 end
