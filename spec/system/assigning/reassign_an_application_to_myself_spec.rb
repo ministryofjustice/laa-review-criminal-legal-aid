@@ -31,9 +31,9 @@ RSpec.describe 'Reassigning an application to myself' do
     expect(page).to have_content("Assigned to: #{assignee.name}")
   end
 
-  describe 'clicking on "Reassign to myself"' do
+  describe 'clicking on "Reassign to your list"' do
     before do
-      click_on('Reassign to myself')
+      click_on('Reassign to your list')
     end
 
     it 'prompts to confirm the action' do

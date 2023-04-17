@@ -26,7 +26,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     visit '/'
     click_on 'All open applications'
     click_on('Kit Pound')
-    click_on('Reassign to myself')
+    click_on('Reassign to your list')
   end
 
   describe 'reloading the confirm page after a assignment has been unassigned' do
