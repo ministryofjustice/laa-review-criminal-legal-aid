@@ -50,7 +50,7 @@ RSpec.describe 'Api::Events' do
       'Type' => nil,
       'Token' => '2336412f37f',
       'MessageId' => nil,
-      'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
+      'TopicArn' => 'arn:aws:sns:eu-west-2:444455556666:ImportantMaatTopic',
       'Subject' => nil,
       'Message' => '',
       'Timestamp' => '2012-05-02T00:54:06.655Z',
@@ -83,7 +83,6 @@ RSpec.describe 'Api::Events' do
     let(:body) do
       standard_sns_message.merge(
         'Type' => 'Notification',
-        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
         'Subject' => 'apply.submission',
         'Message' => message.to_json
       )
@@ -186,7 +185,6 @@ RSpec.describe 'Api::Events' do
     let(:body) do
       standard_sns_message.merge(
         'Type' => 'Notification',
-        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
         'Subject' => 'apply.submission',
         'Message' => message.to_json,
         'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/BAD-PUBLIC-CERT.pem'
@@ -210,6 +208,16 @@ RSpec.describe 'Api::Events' do
 
     it 'returns unauthorized' do
       post('/api/events', params: body.to_json, headers: headers)
+      expect(response).to have_http_status :unauthorized
+    end
+  end
+
+  describe 'Unrecognised TopicArn' do
+    let(:body) { standard_sns_message.merge('TopicArn' => 'arn:NotAMaatTopic') }
+
+    it 'returns unauthorized' do
+      do_request
+
       expect(response).to have_http_status :unauthorized
     end
   end

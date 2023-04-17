@@ -79,8 +79,19 @@ module Api
 
     def verify_request_authenticity
       return head :unauthorized if request_body.blank?
+      return head :unauthorized unless valid_topic?
 
       message_verifier.authenticate!(request_body.to_json)
+    end
+
+    def valid_topic?
+      raise ArgumentError, 'Environment MAAT_SNS_TOPIC_ARN not set' if ENV['MAAT_SNS_TOPIC_ARN'].blank?
+
+      topic_arn.present? && (topic_arn == ENV['MAAT_SNS_TOPIC_ARN'].strip)
+    end
+
+    def topic_arn
+      @topic_arn ||= request_body.fetch('TopicArn', '').strip
     end
 
     def raw_request_delivery?
