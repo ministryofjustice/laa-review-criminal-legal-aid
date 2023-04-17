@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing your assigned application' do
   include_context 'with stubbed search'
+  let(:assign_cta) { 'Assign to your list' }
 
   before do
     visit '/'
@@ -46,7 +47,7 @@ RSpec.describe 'Viewing your assigned application' do
     before do
       click_on 'All open applications'
       click_on('Kit Pound')
-      click_on('Assign to myself')
+      click_on(assign_cta)
       visit '/'
     end
 
@@ -59,11 +60,11 @@ RSpec.describe 'Viewing your assigned application' do
     before do
       click_on 'All open applications'
       click_on('Kit Pound')
-      click_on('Assign to myself')
+      click_on(assign_cta)
       click_on 'All open applications'
 
       click_on('Don JONES')
-      click_on('Assign to myself')
+      click_on(assign_cta)
       visit '/'
     end
 

@@ -199,7 +199,7 @@ en:
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     abandon_deactivation: No, do not deactivate
-    assign_to_self: Assign to myself
+    assign_to_self: Assign to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
     confirm_deactivation: Yes, deactivate

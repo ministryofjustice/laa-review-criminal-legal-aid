@@ -6,7 +6,7 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   before do
     visit '/'
     visit crime_application_path(application_id)
-    click_button 'Assign to myself'
+    click_button 'Assign to your list'
   end
 
   it 'includes the name of the assigned user' do
