@@ -26,7 +26,7 @@ RSpec.describe 'Viewing an application that is assigned to someone else' do
   end
 
   it 'includes button to reassign' do
-    expect(page).to have_content('Reassign to myself')
+    expect(page).to have_content('Reassign to your list')
   end
 
   it 'does not show the review buttons' do
