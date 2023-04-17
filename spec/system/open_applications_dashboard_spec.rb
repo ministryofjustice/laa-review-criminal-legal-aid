@@ -15,8 +15,10 @@ RSpec.describe 'Open Applications Dashboard' do
   it 'includes the correct headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
-    expect(column_headings).to eq('Applicant Ref. no. Date received Days passed Caseworker')
+    # rubocop:disable Layout/LineLength
+    expect(column_headings).to eq('Applicants name Reference number Date received Business days since application was received Caseworker')
   end
+  # rubocop:enable Layout/LineLength
 
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
