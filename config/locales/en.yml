@@ -344,8 +344,8 @@ en:
     show:
       page_title: Application
       heading: Application
-      view_history: View application history
-      view_your_list: View your list
+      view_history: Check application history
+      view_your_list: Go to your list
     history:
       page_title: Application history
       heading: Application history
