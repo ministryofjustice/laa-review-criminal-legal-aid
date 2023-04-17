@@ -4,23 +4,13 @@ module OmniAuth
       # IMPORTANT NOTE: This OmniAuth strategy is intended for local
       # development purposes only.
       #
-      # When a user clicks the "Sign in" button with this strategy,
-      # they are directed to the DevAuth form where they can select
-      # the email of an existing user to log in as. To add an admin
-      # user, run "bundle exec rails db:seed" if it has not been
-      # done already.
-      #
-      # The list of user emails includes a Non Authorised user's
-      # email (NO_AUTH_EMAIL), which developers can use to simulate
-      # a non-authorised authenticated user.
-      #
       # During the callback phase, this strategy searches for a user
       # with the given email address in the local database. If a user
-      # with a matching email address is found and is authenticated,
+      # with a matching email address is found and is authorised,
       # the strategy constructs an auth hash based on the user's
       # information in the database.
       #
-      # In cases where the strategy is unable to find an authenticated
+      # In cases where the strategy is unable to find an authorised
       # user with the given email address, it sets an auth_subject_id
       # and guesses the user's first and last name based on the email
       # address.
@@ -33,6 +23,7 @@ module OmniAuth
       credentials { { expires_in: 12.hours } }
       info { { email:, first_name:, last_name: } }
 
+      # Redirect to the dev_auth form, so that a user can be selected.
       def request_phase
         redirect('/dev_auth')
       end
