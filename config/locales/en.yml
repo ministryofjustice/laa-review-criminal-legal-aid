@@ -202,6 +202,7 @@ en:
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
     confirm_deactivation: Yes, deactivate
+    copy: Copy reference number
     reassign_to_self: Reassign to myself
     search: Search
     unassign_from_self: Remove from your list
@@ -249,8 +250,9 @@ en:
       get_next: Review next application
       open_applications: View all open applications
       your_assignments:
-        one: 1 saved application
-        other: "%{count} saved applications"
+        zero: No applications are assigned to you for review.
+        one: 1 application is assigned to you for review.
+        other: "%{count} applications are assigned to you for review."
     application_table:
       table_headings:
         <<: *TABLE_HEADINGS

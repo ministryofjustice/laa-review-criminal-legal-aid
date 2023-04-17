@@ -1,10 +1,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <p class="govuk-body-l govuk-!-margin-bottom-2">
-      <span id="reference-number">
+      <span class="govuk-!-margin-right-2" id="reference-number">
         <%= crime_application.reference %>
       </span>
-      <%=link_to 'Copy', '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
+      <%=link_to t('calls_to_action.copy'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
     </p>
 
     <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
