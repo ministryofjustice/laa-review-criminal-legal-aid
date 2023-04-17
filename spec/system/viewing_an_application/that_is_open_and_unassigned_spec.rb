@@ -33,7 +33,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'shows that the application is unassigned' do
-    expect(page).to have_content('Assigned to: Unassigned')
+    expect(page).to have_content('Assigned to: no one')
   end
 
   it 'includes button to assign' do
