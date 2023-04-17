@@ -10,9 +10,9 @@ RSpec.describe 'Assigning an application to myself' do
     click_on('Kit Pound')
   end
 
-  it 'shows "Assigned to Unassigned"' do
+  it 'shows "Assigned to: no one"' do
     expect(page).to have_content(
-      'Assigned to: Unassigned'
+      'Assigned to: no one'
     )
   end
 
