@@ -249,8 +249,9 @@ en:
       get_next: Review next application
       open_applications: View all open applications
       your_assignments:
-        one: 1 saved application
-        other: "%{count} saved applications"
+        zero: No applications are assigned to you for review.
+        one: 1 application is assigned to you for review.
+        other: "%{count} applications are assigned to you for review."
     application_table:
       table_headings:
         <<: *TABLE_HEADINGS
