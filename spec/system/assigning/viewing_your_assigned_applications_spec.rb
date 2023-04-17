@@ -89,7 +89,7 @@ RSpec.describe 'Viewing your assigned application' do
     end
   end
 
-  context 'when using the all applications link' do
+  context 'when using the check all applications link' do
     before do
       click_on('Check all open applications')
     end
