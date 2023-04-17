@@ -135,6 +135,7 @@ en:
     "false": "No"
     not_provided: Not provided
     deleted_user_name: '[deleted]'
+    no_one: no one
     initial_application: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
