@@ -135,6 +135,7 @@ en:
     "false": "No"
     not_provided: Not provided
     deleted_user_name: '[deleted]'
+    no_one: no one
     initial_application: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
@@ -206,7 +207,7 @@ en:
     reassign_to_self: Reassign to your list
     search: Search
     unassign_from_self: Remove from your list
-    view_all_open_applications: View all open applications
+    view_all_open_applications: Check all open applications
     view_daily_count: Check when applications were received 
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
@@ -248,7 +249,7 @@ en:
       page_title: Your list
       heading: Your list
       get_next: Review next application
-      open_applications: View all open applications
+      open_applications: Check all open applications
       your_assignments:
         zero: No applications are assigned to you for review.
         one: 1 application is assigned to you for review.

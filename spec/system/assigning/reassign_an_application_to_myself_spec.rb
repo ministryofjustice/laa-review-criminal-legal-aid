@@ -27,7 +27,7 @@ RSpec.describe 'Reassigning an application to myself' do
     click_on('Kit Pound')
   end
 
-  it 'shows "Assigned to Assignee Name"' do
+  it 'shows "Assigned to: Assignee Name"' do
     expect(page).to have_content("Assigned to: #{assignee.name}")
   end
 

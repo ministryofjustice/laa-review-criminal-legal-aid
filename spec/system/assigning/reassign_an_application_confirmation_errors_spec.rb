@@ -113,7 +113,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       unassign
 
       click_on('Yes, reassign')
-      expect(page).to have_content 'Assigned to: Unassigned'
+      expect(page).to have_content 'Assigned to: no one'
     end
   end
 end
