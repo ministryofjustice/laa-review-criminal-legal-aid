@@ -89,13 +89,13 @@ RSpec.describe 'Viewing your assigned application' do
     end
   end
 
-  context 'when using the all applications link' do
+  context 'when using the check all applications link' do
     before do
-      click_on('View all open applications')
+      click_on('Check all open applications')
     end
 
     it 'proceeds to the correct page' do
-      expect(page).to have_content 'All open applications'
+      expect(page).to have_content 'Check all open applications'
     end
   end
 
