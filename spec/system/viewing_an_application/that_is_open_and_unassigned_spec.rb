@@ -20,6 +20,10 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content I18n.t('crime_applications.show.page_title')
   end
 
+  it 'includes the copy reference link' do
+    expect(page).to have_content('Copy reference number')
+  end
+
   it 'includes the applicant details' do
     expect(page).to have_content('AJ123456C')
   end
