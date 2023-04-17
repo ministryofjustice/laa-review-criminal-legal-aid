@@ -115,10 +115,10 @@ en:
     application_status: Status
 
   table_headings: &TABLE_HEADINGS
-    applicant_name: Applicant
-    reference: Ref. no.
-    days_passed: Business days since applications were received
-    time_passed: Days passed
+    applicant_name: Applicant’s name
+    reference: Reference number
+    days_passed: Business days since application was received
+    time_passed: Business days since application was received
     received_at: Date received
     submitted_at: Date received
     reviewed_at: Date closed
