@@ -41,6 +41,16 @@ You can also compile assets manually with `rails dartsass:build` at any time, an
 
 If you ever feel something is not right with the CSS or JS, run `rails assets:clobber` to purge the local cache.
 
+**5. Authenticating a user locally**
+
+After clicking "Sign in," you will be shown a list of all users in the local database. Select one to sign in as that user.
+
+To add users, select a user that can manage others and use the user management interface. A seed admin user is created by default (run ```bundle exec rails db:seed``` if none are listed). To ensure that the user's name is set correctly on first authorization, use the format "Firstname.Lastname@example.com."
+
+The last user in the list is "Not.Authorised@example.com." Select this user to simulate a non-authorized authenticated user.
+
+This authentication strategy can be disabled locally by setting ```DEV_AUTH_ENABLED=false```
+
 ## Local development with the temporary API gem
 
 The app utilises [puma-dev](https://github.com/puma/puma-dev) for local development.
