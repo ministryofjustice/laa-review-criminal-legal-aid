@@ -5,7 +5,7 @@ RSpec.describe 'Sub navigation' do
 
   before do
     visit '/'
-    click_on 'Check all open applications'
+    click_on 'All open applications'
     click_on('Kit Pound')
   end
 
