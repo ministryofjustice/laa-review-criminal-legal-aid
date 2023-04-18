@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Assigning an application to myself' do
   include_context 'with an existing application'
-  let(:assign_cta) { 'Assign to myself' }
+  let(:assign_cta) { 'Assign to your list' }
 
   before do
     visit '/'
@@ -16,7 +16,7 @@ RSpec.describe 'Assigning an application to myself' do
     )
   end
 
-  describe 'clicking on "Assign to myself"' do
+  describe 'clicking on "Assign to your list"' do
     before do
       click_on(assign_cta)
     end
@@ -27,7 +27,7 @@ RSpec.describe 'Assigning an application to myself' do
       )
     end
 
-    it 'the "Assign to myself" button is not present' do
+    it 'the "Assign to your list" button is not present' do
       expect(page).not_to have_content(assign_cta)
     end
   end

@@ -37,7 +37,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'includes button to assign' do
-    expect(page).to have_content('Assign to myself')
+    expect(page).to have_content('Assign to your list')
   end
 
   it 'does not show the CTAs' do
