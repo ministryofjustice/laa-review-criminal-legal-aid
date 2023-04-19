@@ -18,7 +18,7 @@ RSpec.describe 'Primary navigation' do
       before do
         click_on 'All open applications'
         click_on('Kit Pound')
-        click_on('Assign to myself')
+        click_on('Assign to your list')
         click_on 'All open applications'
       end
 

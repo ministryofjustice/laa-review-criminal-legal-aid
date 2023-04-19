@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing application history' do
   include_context 'with an existing application'
+  let(:assign_cta) { 'Assign to your list' }
 
   before do
     visit '/'
@@ -22,7 +23,7 @@ RSpec.describe 'Viewing application history' do
 
   context 'with an assigned application' do
     before do
-      click_on('Assign to myself')
+      click_on(assign_cta)
       click_on('Application history')
     end
 
@@ -34,7 +35,7 @@ RSpec.describe 'Viewing application history' do
 
   context 'with an unassigned application' do
     before do
-      click_on('Assign to myself')
+      click_on(assign_cta)
       first(:button, 'Remove from your list').click
       click_on 'All open applications'
       click_on('Kit Pound')

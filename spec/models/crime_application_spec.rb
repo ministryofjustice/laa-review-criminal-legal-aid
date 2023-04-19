@@ -10,7 +10,7 @@ RSpec.describe CrimeApplication do
   describe '#applicant_date_of_birth' do
     subject(:applicant_date_of_birth) { application.applicant_date_of_birth }
 
-    it { is_expected.to eq Date.parse('2011-06-09') }
+    it { is_expected.to eq Date.parse('2001-06-09') }
   end
 
   describe '#applicant_name' do
