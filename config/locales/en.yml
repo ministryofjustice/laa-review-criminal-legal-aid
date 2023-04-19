@@ -115,20 +115,21 @@ en:
     application_status: Status
 
   table_headings: &TABLE_HEADINGS
-    applicant_name: Applicants name
+    applicant_name: Applicant's name
     reference: Reference number
-    days_passed: Business days since application was received
-    time_passed: Business days since application was received
+    time_passed: "Business days since <br>application\xA0was\xA0received"
     received_at: Date received
     submitted_at: Date received
     reviewed_at: Date closed
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
-    open_applications_by_age: "Applications still\xA0open"
-    received_applications_by_age: Applications received 
-    processed_on: Closed on
-    applications_closed: Closed applications
+    workload_report:
+      days_passed: Business days since applications were received
+      received_applications_by_age: Applications received 
+      open_applications_by_age: "Applications still\xA0open"
+      processed_on: Closed on
+      applications_closed: Closed applications
 
   values: &VALUES
     "true": "Yes"

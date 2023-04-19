@@ -7,8 +7,8 @@ RSpec.describe 'Workload Report' do
   end
 
   it 'shows the correct column headers' do
-    expected_column_headers = 'Business days since application ' \
-                              'was received Applications received Applications still open'
+    expected_column_headers = 'Business days since applications ' \
+                              'were received Applications received Applications still open'
     within('table thead tr') do
       expect(page).to have_content expected_column_headers
     end

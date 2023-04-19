@@ -31,7 +31,7 @@ RSpec.describe Reporting::WorkloadReport do
 
     it 'has column headers' do
       expect(report.table.headers.map(&:content)).to eq(
-        ['Business days since application was received', 'Applications received', 'Applications still open']
+        ['Business days since applications were received', 'Applications received', 'Applications still open']
       )
     end
 

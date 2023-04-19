@@ -22,7 +22,7 @@ RSpec.describe 'Search Page' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
     expect(column_headings).to eq(
-      'Applicants name Reference number Date received Date closed Caseworker Status'
+      "Applicant's name Reference number Date received Date closed Caseworker Status"
     )
   end
 
