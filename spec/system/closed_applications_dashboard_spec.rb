@@ -60,7 +60,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'has the correct count' do
-    expect(page).to have_content('1 application')
+    expect(page).to have_content('There is 1 closed application that has been completed or sent back to the provider.')
   end
 
   it 'can be used to navigate to an application' do

@@ -344,6 +344,13 @@ en:
       total:
         one: 1 application
         other: "%{count} applications"
+      total_open: 
+        zero: There are no open applications that need to be reviewed.
+        one: There is 1 open application that needs to be reviewed.
+        other: "There are %{count} open applications that need to be reviewed."
+      total_closed: 
+        one: There is 1 closed application that has been completed or sent back to the provider.
+        other: "There are %{count} closed applications that have been completed or sent back to the provider."
     show:
       page_title: Application
       heading: Application
