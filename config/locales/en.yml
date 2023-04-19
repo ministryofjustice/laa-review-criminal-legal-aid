@@ -205,7 +205,7 @@ en:
     confirm_reassign_to_self: Yes, reassign
     confirm_deactivation: Yes, deactivate
     copy: Copy reference number
-    reassign_to_self: Reassign to myself
+    reassign_to_self: Reassign to your list
     search: Search
     unassign_from_self: Remove from your list
     view_all_open_applications: Check all open applications
