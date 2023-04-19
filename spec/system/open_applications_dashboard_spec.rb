@@ -32,7 +32,7 @@ RSpec.describe 'Open Applications Dashboard' do
   end
 
   it 'has the correct count' do
-    expect(page).to have_content('2 applications')
+    expect(page).to have_content('There are 2 open applications that need to be reviewed.')
   end
 
   it 'can be used to navigate to an application' do
