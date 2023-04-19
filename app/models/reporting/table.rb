@@ -13,7 +13,7 @@ module Reporting
     def headers
       @headers ||= table_hash.keys.map do |header|
         Cell.new(
-          I18n.t(header, scope: :table_headings),
+          I18n.t(header, scope: 'table_headings.workload_report'),
           header: true,
           numeric: numeric_column?(header)
         )

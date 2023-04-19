@@ -72,6 +72,14 @@ RSpec.describe 'Viewing your assigned application' do
       expect(page).to have_content '2 applications are assigned to you for review.'
     end
 
+    it 'includes the correct headings' do
+      column_headings = page.first('.app-dashboard-table thead tr').text.squish
+
+      # rubocop:disable Layout/LineLength
+      expect(column_headings).to eq("Applicant's name Reference number Date received Business days since application was received")
+      # rubocop:enable Layout/LineLength
+    end
+
     describe 'sortable table headers' do
       subject(:column_sort) do
         page.find('thead tr th#submitted_at')['aria-sort']
