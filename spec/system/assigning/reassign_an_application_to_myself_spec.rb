@@ -61,7 +61,7 @@ RSpec.describe 'Reassigning an application to myself' do
         click_on('Yes, reassign')
 
         within('.govuk-notification-banner--success') do
-          expect(page).to have_content('This application has been assigned to you')
+          expect(page).to have_content('You assigned this application to your list')
         end
       end
 
