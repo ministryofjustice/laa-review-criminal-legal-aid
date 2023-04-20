@@ -82,7 +82,7 @@ RSpec.describe 'Send an application back to the provider' do
 
         it 'redirects to "Your list" and notifies the caseworker' do
           click_button(send_back_cta)
-          expect(page).to have_content 'The application has been sent back to the provider'
+          expect(page).to have_content 'You sent the application back to the provider'
           expect(page).to have_current_path assigned_applications_path
         end
 
@@ -161,7 +161,7 @@ RSpec.describe 'Send an application back to the provider' do
     describe 'AlreadySentBack' do
       let(:error_class) { Reviewing::AlreadySentBack }
       let(:message) do
-        'This application has already been sent back to the provider'
+        'This application was already sent back to the provider'
       end
 
       it 'notifies that the application has already been sent back' do
@@ -171,9 +171,9 @@ RSpec.describe 'Send an application back to the provider' do
 
     describe 'CannotSendBackWhenCompleted' do
       let(:error_class) { Reviewing::CannotSendBackWhenCompleted }
-      let(:message) { 'This application has already been marked as complete' }
+      let(:message) { 'This application was already marked as complete' }
 
-      it 'notifies that the application has already been completed' do
+      it 'notifies that the application was already completed' do
         expect(page).to have_content message
       end
     end

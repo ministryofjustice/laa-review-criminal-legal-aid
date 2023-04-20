@@ -17,7 +17,7 @@ RSpec.describe 'Unassign an application from myself' do
 
   it 'a success notice is shown' do
     expect(page).to have_content(
-      'The application has been removed from your list'
+      'You removed the application from your list'
     )
   end
 end

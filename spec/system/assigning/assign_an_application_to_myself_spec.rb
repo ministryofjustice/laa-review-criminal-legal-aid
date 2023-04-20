@@ -23,7 +23,7 @@ RSpec.describe 'Assigning an application to myself' do
 
     it 'shows success notice' do
       expect(page).to have_content(
-        'This application has been assigned to you'
+        'You assigned this application to your list'
       )
     end
 

@@ -26,29 +26,33 @@ en:
   flash:
     success:
       title: Success
-      assigned_to_self: This application has been assigned to you
-      unassigned_from_self: The application has been removed from your list
-      sent_back: The application has been sent back to the provider
-      completed: The application has been marked as complete
-      marked_as_ready: The application has been marked as ready for assessment
+      assigned_to_self: You assigned this application to your list
+      unassigned_from_self: You removed the application from your list
+      sent_back: You sent the application back to the provider
+      completed: You marked the application as complete
+      marked_as_ready: You marked the application as ready for assessment
       new_user_created: Email address has been added
       user_updated: Email address has been updated
       user_deactivated: Email address has been deactivated
     important:
       title: Important
       reassigned_to_someone_else: 
-        - This application has not been assigned to you
-        - It was assigned to someone else before you confirmed reassigning.
+        - This application could not be reassigned to your list
+        - This is because it was reassigned to %{reassigned_to_user} instead.
       unassigned_before_confirm:
-        - This application has not been assigned to you
-        - It was unassigned before you confirmed reassigning.
-      no_next_to_assign: There are no new applications to be reviewed at this time
-      already_sent_back: This application has already been sent back to the provider
-      already_completed: This application has already been marked as complete
-      already_marked_as_ready: The application has already been marked as ready for assessment
-      cannot_send_back_when_completed: This application has already been marked as complete
-      cannot_send_back_when_marked_as_ready: This application has already been marked as ready for assessment
-      cannot_access: Only authorised users can access the admin page
+        - This application could not be reassigned to your list
+        - There was an error. Try again to reassign the application to your list.
+      no_next_to_assign: 
+        - There are no new applications to be reviewed
+        - You can check again later
+      already_sent_back: This application was already sent back to the provider
+      already_completed: This application was already marked as complete
+      already_marked_as_ready: This application was already marked as ready for assessment
+      cannot_send_back_when_completed: This application was already marked as complete
+      cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
+      cannot_access:
+        - You do not have access to that page
+        - Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success
