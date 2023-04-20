@@ -36,7 +36,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
     it 'shows success flash message' do
       click_button(ready_for_assessment_cta)
-      expect(page).to have_content('The application has been marked as ready for assessment')
+      expect(page).to have_content('You marked the application as ready for assessment')
     end
 
     context 'with errors Reviewing::' do
@@ -55,7 +55,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
       describe 'AlreadyMarkedAsReady' do
         let(:error_class) { Reviewing::AlreadyMarkedAsReady }
         let(:message) do
-          'The application has already been marked as ready for assessment'
+          'This application was already marked as ready for assessment'
         end
 
         it 'notifies that the application has already been marked as ready for assessment' do
@@ -65,7 +65,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
       describe 'CannotMarkAsReadyWhenSentBack' do
         let(:error_class) { Reviewing::CannotMarkAsReadyWhenSentBack }
-        let(:message) { 'This application has already been sent back to the provider' }
+        let(:message) { 'This application was already sent back to the provider' }
 
         it 'notifies that the application has already been sent back' do
           expect(page).to have_content message
@@ -74,7 +74,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
       describe 'CannotMarkAsReadyWhenCompleted' do
         let(:error_class) { Reviewing::CannotMarkAsReadyWhenCompleted }
-        let(:message) { 'This application has already been marked as complete' }
+        let(:message) { 'This application was already marked as complete' }
 
         it 'notifies that the application has already been complete' do
           expect(page).to have_content message

@@ -1,8 +1,15 @@
 <strong>
-  <% if event_is_for_current_version %>
-    <%= t('reviewing.application_received', scope: 'event.description') %>
+  <% if event_is_for_lastest_version_of_many %>
+    <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
+    <%= link_to t('reviewing.latest_application', scope: 'event.description'),
+                crime_application_path(application.id) %>
   <% else %>
-    <%= link_to t('reviewing.application_received', scope: 'event.description'),
+    <% if event_is_for_initial_submission %>
+      <%= t('reviewing.application_received', scope: 'event.description') %> <br>
+    <% else %>
+      <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
+    <% end %>
+    <%= link_to t('reviewing.selected_application', scope: 'event.description'),
                 crime_application_path(application.id) %>
   <% end %>
 </strong>

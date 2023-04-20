@@ -1,8 +1,6 @@
 class ReassignsController < ApplicationController
   def new
-    @current_assignment = CurrentAssignment.find_by!(
-      assignment_id: params[:crime_application_id]
-    )
+    @current_assignment = current_assignment
   end
 
   def create
@@ -10,7 +8,8 @@ class ReassignsController < ApplicationController
   rescue Assigning::CannotReassignUnlessAssigned
     flash_and_redirect(:important, :unassigned_before_confirm)
   rescue Assigning::StateHasChanged
-    flash_and_redirect(:important, :reassigned_to_someone_else)
+    flash_and_redirect(:important, :reassigned_to_someone_else,
+                       reassigned_to_user: User.name_for(current_assignment.user_id))
   else
     flash_and_redirect(:success, :assigned_to_self)
   end
@@ -26,8 +25,14 @@ class ReassignsController < ApplicationController
     ).call
   end
 
-  def flash_and_redirect(key, message)
-    flash[key] = I18n.t(message, scope: [:flash, key])
+  def flash_and_redirect(key, message, options = {})
+    flash[key] = I18n.t(message, scope: [:flash, key], **options)
     redirect_to crime_application_path(params[:crime_application_id])
+  end
+
+  def current_assignment
+    CurrentAssignment.find_by!(
+      assignment_id: params[:crime_application_id]
+    )
   end
 end
