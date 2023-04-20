@@ -243,6 +243,9 @@ en:
       reviewing:
         sent_back: Application sent back to provider
         application_received: Application submitted
+        application_resubmitted: Application resubmitted
+        selected_application: Go to this version
+        latest_application: Go to the latest version
         completed: Application completed
         marked_as_ready: Application marked as ready for assessment
 
