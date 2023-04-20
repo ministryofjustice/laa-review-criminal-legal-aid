@@ -29,7 +29,8 @@
           <td class="govuk-table__cell">
               <%= l date.date_from, format: :compact %>
               <% if date.date_to %>
-                - <%= l date.date_to, format: :compact %>
+              <%= t('crime_applications.values.to') %>
+              <%= l date.date_to, format: :compact %>
               <% end %>
           </td>
         </tr>
