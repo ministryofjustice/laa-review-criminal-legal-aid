@@ -31,7 +31,12 @@
                      layout: 'history_item',
                      as: :item,
                      locals: {
-                       event_is_for_current_version: @crime_application.id == history.application.id,
+                       event_is_for_lastest_version_of_many: (
+                         history.application.id == @crime_application.all_histories.first.application.id
+                       ),
+                       event_is_for_initial_submission: (
+                         history.application.id == @crime_application.all_histories.last.application.id
+                       ),
                        application: history.application
                      } %>
         <% end %>
