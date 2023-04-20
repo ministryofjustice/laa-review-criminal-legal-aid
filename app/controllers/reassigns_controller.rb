@@ -8,10 +8,8 @@ class ReassignsController < ApplicationController
   rescue Assigning::CannotReassignUnlessAssigned
     flash_and_redirect(:important, :unassigned_before_confirm)
   rescue Assigning::StateHasChanged
-    @current_assignment = current_assignment
-
     flash_and_redirect(:important, :reassigned_to_someone_else,
-                       reassigned_to_user: User.name_for(@current_assignment.user_id))
+                       reassigned_to_user: User.name_for(current_assignment.user_id))
   else
     flash_and_redirect(:success, :assigned_to_self)
   end
@@ -27,8 +25,8 @@ class ReassignsController < ApplicationController
     ).call
   end
 
-  def flash_and_redirect(key, message, reassigned_to_user: nil)
-    flash[key] = I18n.t(message, scope: [:flash, key], reassigned_to_user: reassigned_to_user)
+  def flash_and_redirect(key, message, options = {})
+    flash[key] = I18n.t(message, scope: [:flash, key], **options)
     redirect_to crime_application_path(params[:crime_application_id])
   end
 
