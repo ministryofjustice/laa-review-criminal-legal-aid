@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Marking an application as ready for assessment' do
   include_context 'with an existing application'
 
-  let(:ready_for_assessment_cta) { 'Mark as ready' }
+  let(:ready_for_assessment_cta) { 'Mark as ready for MAAT' }
 
   before do
     visit '/'
@@ -26,15 +26,12 @@ RSpec.describe 'Marking an application as ready for assessment' do
       click_on 'Kit Pound'
     end
 
-    it 'has a visable "Mark as ready" CTA' do
-      expect(page).to have_content('Mark as ready')
+    it 'has a visable "Mark as ready for MAAT" CTA' do
+      expect(page).to have_content('Mark as ready for MAAT')
     end
 
     it 'redirects to the correct page' do
-      expect { click_button(ready_for_assessment_cta) }.to change { page.current_path }
-        .from(crime_application_path(crime_application_id)).to(
-          assigned_applications_path
-        )
+      expect { click_button(ready_for_assessment_cta) }.not_to(change { page.current_path })
     end
 
     it 'shows success flash message' do
