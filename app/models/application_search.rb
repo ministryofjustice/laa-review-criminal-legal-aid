@@ -7,7 +7,19 @@ class ApplicationSearch
 
   def results
     @results ||= datastore_search_response.map do |result|
-      ApplicationSearchResult.new result
+      application = ApplicationSearchResult.new(result)
+
+      # Receive the application if it has not yet been received.
+      #
+      # In production, Review is notified of new applications via SNS,
+      # and, as such, the application should be received by this point.
+      #
+      # receive_if_required! is user here to:
+      # 1. support other environments that do not have SNS set up,
+      # 2. act as a failsafe should an application be returned by
+      # the datastore before its SNS event message has been processed.
+
+      application.receive_if_required!
     end
   end
 

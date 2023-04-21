@@ -1,6 +1,6 @@
 module Reviewable
   def review
-    @review ||= load_review!
+    @review ||= Reviewing::LoadReview.call(application_id: id)
   end
 
   delegate :reviewed_at, :reviewer_id, :reviewed?, to: :review
@@ -15,16 +15,16 @@ module Reviewable
     User.name_for(reviewer_id)
   end
 
-  def load_review!
-    review = Reviewing::LoadReview.call(application_id: id)
+  def receive_if_required!
+    return self if review.received?
 
-    unless review.received?
-      Reviewing::ReceiveApplication.call(
-        application_id: id,
-        submitted_at: submitted_at
-      )
-    end
+    Reviewing::ReceiveApplication.call(
+      application_id: id,
+      submitted_at: submitted_at
+    )
 
-    review
+    @review = nil
+
+    self
   end
 end
