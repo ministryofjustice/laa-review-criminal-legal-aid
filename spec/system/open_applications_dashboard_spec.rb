@@ -31,6 +31,14 @@ RSpec.describe 'Open Applications Dashboard' do
     expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days")
   end
 
+  it 'receives the application if not already received' do
+    returned_application = CrimeApplication.find(
+      stubbed_search_results.first.resource_id
+    )
+
+    expect(returned_application.review_status).to be(:open)
+  end
+
   it 'has the correct count' do
     expect(page).to have_content('There are 2 open applications that need to be reviewed.')
   end

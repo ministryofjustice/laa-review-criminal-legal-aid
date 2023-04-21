@@ -7,6 +7,7 @@ RSpec.describe 'Marking an application as complete' do
 
   before do
     visit '/'
+    click_on 'All open applications'
   end
 
   context 'when assigned to the application' do

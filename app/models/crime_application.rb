@@ -39,11 +39,23 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   class << self
     def find(id)
-      resource = DatastoreApi::Requests::GetApplication.new(
-        application_id: id
-      ).call
+      application = new(
+        DatastoreApi::Requests::GetApplication.new(
+          application_id: id
+        ).call
+      )
 
-      new(resource)
+      # Receive the application if it has not yet been received.
+      #
+      # In production, Review is notified of new applications via SNS,
+      # and, as such, the application should be received by this point.
+      #
+      # receive_if_required! is user here to:
+      # 1. support other environments that do not have SNS set up,
+      # 2. act as a failsafe should an application be returned by
+      # the datastore before its SNS event message has been processed.
+
+      application.receive_if_required!
     end
   end
 
