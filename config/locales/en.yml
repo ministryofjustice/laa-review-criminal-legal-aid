@@ -218,7 +218,7 @@ en:
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider
-    mark_as_ready: Mark as ready
+    mark_as_ready: Mark as ready for MAAT
     sign_out: Sign out
     sign_in: Sign in
   confirmations:
