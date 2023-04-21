@@ -60,12 +60,4 @@ RSpec.describe "Viewing a resubmitted application's history" do
         .to(crime_application_path(parent_id))
     end
   end
-
-  it 'includes a link to the current version of the application in the application history' do
-    within('tbody.govuk-table__body') do
-      expect { click_on('Go to the latest version') }.to change { page.current_path }
-        .from(history_crime_application_path(application_id))
-        .to(crime_application_path(application_id))
-    end
-  end
 end

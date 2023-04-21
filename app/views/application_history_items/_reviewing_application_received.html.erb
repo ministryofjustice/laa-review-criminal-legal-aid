@@ -1,15 +1,17 @@
-<strong>
-  <% if event_is_for_lastest_version_of_many %>
-    <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
-    <%= link_to t('reviewing.latest_application', scope: 'event.description'),
-                crime_application_path(application.id) %>
+
+  <% if event_is_for_current_version %>
+    <strong>
+      <%= t("reviewing.#{submission_type}", scope: 'event.description') %>
+    </strong>
   <% else %>
-    <% if event_is_for_initial_submission %>
-      <%= t('reviewing.application_received', scope: 'event.description') %> <br>
-    <% else %>
-      <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
-    <% end %>
+    <strong>
+      <% if event_is_for_initial_submission %>
+        <%= t('reviewing.application_received', scope: 'event.description') %> <br>
+      <% else %>
+        <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
+      <% end %>
+    </strong>
     <%= link_to t('reviewing.selected_application', scope: 'event.description'),
-                crime_application_path(application.id) %>
+                crime_application_path(application.id),
+                class: 'govuk-link--no-visited-state' %>
   <% end %>
-</strong>
