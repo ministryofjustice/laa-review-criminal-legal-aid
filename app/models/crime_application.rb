@@ -12,7 +12,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     return if applicant.nino.nil?
 
     # Remove all spaces
-    formatted_nino = applicant.nino.gsub(/\s+/, '')
+    formatted_nino = applicant.nino.gsub(/\s+/, '').upcase
     [2, 5, 8, 11].each { |i| formatted_nino.insert i, ' ' } if formatted_nino.length == 9
     formatted_nino
   end
