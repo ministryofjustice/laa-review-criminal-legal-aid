@@ -5,7 +5,12 @@
   <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-9">
     <%= render partial: 'shared/subnavigation', locals: { crime_application: @crime_application } %>
     <%= render partial: 'overview', object: @crime_application %>
-    <%= render partial: 'client_details', object: @crime_application.client_details %>
+    <%= render partial: 'client_details',
+               locals: {
+                 applicant: @crime_application.client_details.applicant,
+                 nino: @crime_application.formatted_applicant_nino,
+                 applicant_tel: @crime_application.formatted_applicant_telephone_number
+               } %>
     <%= render partial: 'case_details', object: @crime_application.case_details %>
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>

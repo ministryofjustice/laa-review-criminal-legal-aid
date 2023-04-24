@@ -119,7 +119,7 @@ RSpec.describe 'Send an application back to the provider' do
       end
 
       it 'includes the applicant details' do
-        expect(page).to have_content('AJ123456C')
+        expect(page).to have_content('AJ 12 34 56 C')
       end
 
       it 'does not show the CTAs' do

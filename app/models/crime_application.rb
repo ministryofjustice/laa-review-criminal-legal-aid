@@ -8,6 +8,21 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     applicant.full_name
   end
 
+  def formatted_applicant_nino
+    return if applicant.nino.nil?
+
+    # Remove all spaces
+    formatted_nino = applicant.nino.gsub(/\s+/, '')
+    [2, 5, 8, 11].each { |i| formatted_nino.insert i, ' ' } if formatted_nino.length == 9
+    formatted_nino
+  end
+
+  def formatted_applicant_telephone_number
+    return if applicant.telephone_number.nil?
+
+    format_telephone_number(applicant.telephone_number)
+  end
+
   def legal_rep_name
     [
       provider_details.legal_rep_first_name,
@@ -80,4 +95,26 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   def applicant
     client_details.applicant
   end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+  def format_telephone_number(number)
+    # Remove all spaces
+    formatted_tel = number.gsub(/\s+/, '')
+
+    case formatted_tel
+    when /\A07\d{9}\z/ # Mobile number with exactly 11 digits
+      [5, 9].each { |i| formatted_tel.insert i, ' ' }
+    when /\A\+447\d{9}\z/ #+44 mobile number format without initial 0
+      [3, 8, 12].each { |i| formatted_tel.insert i, ' ' }
+    when /\A\+4407\d{9}\z/ #+44 mobile number format with initial 0
+      [3, 9, 13].each { |i| formatted_tel.insert i, ' ' }
+    when /\A\+44\(0\)7\d{9}\z/ #+44 mobile numberformat with initial 0 in parentheses
+      [3, 7, 12, 16].each { |i| formatted_tel.insert i, ' ' }
+    else
+      formatted_tel = applicant.telephone_number
+    end
+
+    formatted_tel
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 end
