@@ -24,12 +24,20 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('Copy reference number')
   end
 
-  it 'includes the applicant details' do
-    expect(page).to have_content('AJ123456C')
-  end
-
   it 'includes the date received' do
     expect(page).to have_content('Date received: 24/10/2022')
+  end
+
+  context 'when date stamp is earlier than date received' do
+    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+
+    it 'includes the correct date stamp' do
+      expect(page).to have_content('Date stamp 21/11/2022')
+    end
+  end
+
+  it 'includes the applicant details' do
+    expect(page).to have_content('AJ123456C')
   end
 
   it 'shows that the application is unassigned' do
