@@ -1,6 +1,5 @@
 class ReturnsController < ApplicationController
   before_action :set_crime_application
-  after_action :send_returned_notification_email, on: :create
 
   def new
     @return_details = ReturnDetails.new
@@ -29,10 +28,6 @@ class ReturnsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   private
-
-  def send_returned_notification_email
-    NotifyMailer.application_returned_email(@crime_application).deliver_now
-  end
 
   def flash_and_redirect(key, message)
     flash[key] = I18n.t(message, scope: [:flash, key])

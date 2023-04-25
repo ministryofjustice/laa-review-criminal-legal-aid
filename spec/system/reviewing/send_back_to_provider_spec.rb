@@ -87,8 +87,8 @@ RSpec.describe 'Send an application back to the provider' do
         end
 
         it 'calls the NotifyMailer which would send an email to a provider' do
-          expect(NotifyMailer).to have_received(:application_returned_email)
-            .with(an_instance_of(CrimeApplication))
+          click_button(send_back_cta)
+          expect(NotifyMailer).to have_received(:application_returned_email).with(crime_application_id)
           expect(mailer_double).to have_received(:deliver_now)
         end
       end
@@ -160,12 +160,17 @@ RSpec.describe 'Send an application back to the provider' do
 
     describe 'AlreadySentBack' do
       let(:error_class) { Reviewing::AlreadySentBack }
+
       let(:message) do
         'This application was already sent back to the provider'
       end
 
       it 'notifies that the application has already been sent back' do
         expect(page).to have_content message
+      end
+
+      it 'does not send the notification email' do
+        expect(NotifyMailer).not_to have_received(:application_returned_email)
       end
     end
 
@@ -175,6 +180,10 @@ RSpec.describe 'Send an application back to the provider' do
 
       it 'notifies that the application was already completed' do
         expect(page).to have_content message
+      end
+
+      it 'does not send the notification email' do
+        expect(NotifyMailer).not_to have_received(:application_returned_email)
       end
     end
   end
