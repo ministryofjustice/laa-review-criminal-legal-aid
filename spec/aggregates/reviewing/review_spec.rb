@@ -132,10 +132,9 @@ describe Reviewing::Review do
       )
     end
 
-    it 'cannot then be sent back' do
-      expect do
-        review.send_back(user_id:, reason:)
-      end.to raise_error Reviewing::CannotSendBackWhenMarkedAsReady
+    it 'can then be sent back' do
+      review.send_back(user_id:, reason:)
+      expect(review.state).to eq :sent_back
     end
   end
 end
