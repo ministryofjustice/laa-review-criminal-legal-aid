@@ -5,6 +5,8 @@ RSpec.describe Reviewing::SendBack do
     described_class.new(application_id:, user_id:, return_details:)
   end
 
+  include_context 'with a stubbed mailer'
+
   before do
     Reviewing::ReceiveApplication.call(
       application_id: application_id, submitted_at: 1.day.ago.to_s
@@ -62,6 +64,34 @@ RSpec.describe Reviewing::SendBack do
     it 'does not call datastore' do
       expect { command.call }.to raise_error(/has invalid type for :reason/)
       expect(return_request).not_to have_received(:call)
+    end
+  end
+
+  context 'when a subscribed notifications fails' do
+    before do
+      allow(NotifyMailer).to receive(:application_returned_email).and_raise(StandardError)
+    end
+
+    it 'the return is still recorded' do
+      expect { command.call }.to change { review.return_reason }
+        .from(nil).to('evidence_issue')
+    end
+  end
+
+  context 'when the datastore save fails' do
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
+        {
+          application_id: application_id,
+          payload: { return_details: },
+          member: :return
+        }
+      ).and_raise(DatastoreApi::Errors::InvalidRequest)
+    end
+
+    it 'the return is not recorded' do
+      expect { command.call }.to raise_error DatastoreApi::Errors::InvalidRequest
+      expect(review.return_reason).to be_nil
     end
   end
 end
