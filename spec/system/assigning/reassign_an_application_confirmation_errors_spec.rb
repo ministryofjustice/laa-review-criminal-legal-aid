@@ -98,6 +98,12 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       ).call
     end
 
+    it 'redirects to the application details' do
+      expect { click_on('Yes, reassign') }.to change { page.current_path }
+        .from(confirm_path)
+        .to(crime_application_path(crime_application_id))
+    end
+
     it 'notifies that the application was unassigned before they attempted reassignment' do
       unassign
 
@@ -113,6 +119,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       unassign
 
       click_on('Yes, reassign')
+
       expect(page).to have_content 'Assigned to: no one'
     end
   end
