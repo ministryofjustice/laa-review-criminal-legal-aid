@@ -35,7 +35,7 @@ module LaaReviewCriminalLegalAid
 
     # Load the templates set (refer to `config/govuk_notify_templates.yml` for details)
     config.govuk_notify_templates = config_for(
-      :govuk_notify_templates, env: :production
+      :govuk_notify_templates, env: ENV.fetch('GOVUK_NOTIFY_ENV', 'non-production')
     ).with_indifferent_access
 
     config.generators do |g|

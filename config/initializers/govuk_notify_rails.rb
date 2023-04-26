@@ -3,4 +3,3 @@ ActionMailer::Base.add_delivery_method(
   GovukNotifyRails::Delivery,
   api_key: ENV.fetch('GOVUK_NOTIFY_API_KEY')
 )
-
