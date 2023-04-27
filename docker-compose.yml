@@ -18,6 +18,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgresql://postgres@db/laa-review-criminal-legal-aid
       SECRET_KEY_BASE: f22760a0bd78a9191ba4c247e23a281cb251461cdba6b5215043ca11b694d734
+      GOVUK_NOTIFY_API_KEY: notify-api-key
       RAILS_SERVE_STATIC_FILES: "1"
       DATABASE_SSLMODE: disable
       DISABLE_HTTPS: "1"
