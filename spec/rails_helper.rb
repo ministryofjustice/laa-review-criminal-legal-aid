@@ -43,6 +43,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include_context 'with a logged in user', type: :system
+  config.include_context 'with a stubbed mailer', type: :system
 
   # Use the faster rack test by default for system specs
   config.before(:each, type: :system) do |_example|

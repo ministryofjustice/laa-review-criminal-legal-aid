@@ -11,10 +11,11 @@ class NotifyMailer < GovukNotifyRails::Mailer
   end
   # :nocov:
 
-  def application_returned_email(crime_application)
-    provider_email = crime_application.provider_details.provider_email
-    applicant_name = crime_application.applicant_name
-    application_reference = crime_application.reference.to_s
+  def application_returned_email(application_id)
+    application = CrimeApplication.find(application_id)
+    provider_email = application.provider_details.provider_email
+    applicant_name = application.applicant_name
+    application_reference = application.reference.to_s
 
     set_template(:application_returned_email)
 
@@ -33,4 +34,19 @@ class NotifyMailer < GovukNotifyRails::Mailer
     super(@template_ids.fetch(name))
   end
   # rubocop:enable Naming/AccessorMethodName
+  #
+
+  class Configuration
+    def call(event_store)
+      event_store.subscribe(to: [Reviewing::SentBack]) do |event|
+        application_id = event.data.fetch(:application_id)
+        NotifyMailer.application_returned_email(application_id).deliver_now
+
+      # Rescue and report exceptions
+      # Notifying should not block an application from being sent back.
+      rescue StandardError => e
+        Sentry.capture_exception(e)
+      end
+    end
+  end
 end

@@ -8,11 +8,15 @@ RSpec.describe NotifyMailer do
     allow(Rails.configuration).to receive(:govuk_notify_templates).and_return(
       application_returned_email: 'application_returned_email_template_id'
     )
+
+    allow(CrimeApplication).to receive(:find)
+      .with(crime_application.id)
+      .and_return(crime_application)
   end
 
   describe '#application_returned_email' do
     let(:mail) do
-      described_class.application_returned_email(crime_application)
+      described_class.application_returned_email(crime_application.id)
     end
 
     it_behaves_like 'a Notify mailer', template_id: 'application_returned_email_template_id'

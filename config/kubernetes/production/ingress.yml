@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-production
+  namespace: laa-review-criminal-legal-aid-production
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: ingress-production-laa-review-criminal-legal-aid-production-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location = /.well-known/security.txt {
+        auth_basic off;
+        return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
+      }
+spec:
+  ingressClassName: default
+  tls:
+  - hosts:
+    - laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: service-production
+            port:
+              number: 80

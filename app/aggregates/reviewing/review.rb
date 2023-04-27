@@ -28,7 +28,6 @@ module Reviewing
       raise NotReceived unless received?
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
-      raise CannotSendBackWhenMarkedAsReady if @state.equal?(:marked_as_ready)
 
       apply SentBack.new(
         data: { application_id:, user_id:, reason: }

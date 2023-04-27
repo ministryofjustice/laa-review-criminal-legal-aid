@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-staging
-  namespace: laa-review-criminal-legal-aid-staging
+  name: deployment-production
+  namespace: laa-review-criminal-legal-aid-production
 spec:
-  replicas: 2
+  replicas: 4
   revisionHistoryLimit: 5
   strategy:
     type: RollingUpdate
@@ -13,11 +13,11 @@ spec:
       maxSurge: 100%
   selector:
     matchLabels:
-      app: review-criminal-legal-aid-web-staging
+      app: review-criminal-legal-aid-web-production
   template:
     metadata:
       labels:
-        app: review-criminal-legal-aid-web-staging
+        app: review-criminal-legal-aid-web-production
         tier: frontend
     spec:
       containers:
@@ -57,9 +57,9 @@ spec:
           periodSeconds: 10
         envFrom:
           - configMapRef:
-              name: configmap-staging
+              name: configmap-production
           - secretRef:
-              name: secrets-staging
+              name: secrets-production
         env:
           # secrets created by terraform
           - name: DATABASE_URL
