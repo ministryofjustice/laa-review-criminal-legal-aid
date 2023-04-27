@@ -70,7 +70,8 @@ class ApplicationSearchFilter < ApplicationStruct
     when 'assigned'
       all_assigned_application_ids
     else
-      CurrentAssignment.where(user: assigned_status).pluck(:assignment_id)
+      CurrentAssignment.where(user: assigned_status).pluck(:assignment_id) +
+      Review.where(reviewer_id: assigned_status).pluck(:application_id)
     end
   end
 
