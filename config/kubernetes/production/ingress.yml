@@ -16,8 +16,21 @@ spec:
   tls:
   - hosts:
     - laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
+  - hosts:
+    - review-criminal-legal-aid.service.justice.gov.uk
+    secretName: domain-tls-certificate-production
   rules:
   - host: laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: service-production
+            port:
+              number: 80
+  - host: review-criminal-legal-aid.service.justice.gov.uk
     http:
       paths:
       - path: /
