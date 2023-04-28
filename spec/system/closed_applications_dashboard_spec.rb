@@ -12,7 +12,8 @@ RSpec.describe 'Closed Applications Dashboard' do
         reference: 6_000_002,
         status: 'returned',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
-        reviewed_at: '2022-12-15T16:58:15.000+00:00'
+        reviewed_at: '2022-12-15T16:58:15.000+00:00',
+        parent_id: nil
       )
     ]
   end

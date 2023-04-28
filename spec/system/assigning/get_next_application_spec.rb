@@ -31,7 +31,8 @@ RSpec.describe 'Assigning an application to myself' do
           resource_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
           reference: 120_398_120,
           status: 'submitted',
-          submitted_at: '2022-10-27T14:09:11.000+00:00'
+          submitted_at: '2022-10-27T14:09:11.000+00:00',
+          parent_id: nil
         )
       ]
     end

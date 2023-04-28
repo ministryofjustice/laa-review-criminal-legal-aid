@@ -20,11 +20,16 @@ module Reviewable
 
     Reviewing::ReceiveApplication.call(
       application_id: id,
-      submitted_at: submitted_at
+      submitted_at: submitted_at,
+      parent_id: parent_id
     )
 
     @review = nil
 
     self
+  end
+
+  def status?(status)
+    review_status == status
   end
 end

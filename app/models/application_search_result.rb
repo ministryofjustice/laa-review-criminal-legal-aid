@@ -4,6 +4,7 @@ class ApplicationSearchResult < ApplicationStruct
   attribute :reference, Types::Integer
   attribute :resource_id, Types::Uuid
   attribute :status, Types::String
+  attribute? :parent_id, Types::Uuid.optional
 
   include Assignable
   include Reviewable

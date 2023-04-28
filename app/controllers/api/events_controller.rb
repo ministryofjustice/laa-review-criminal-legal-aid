@@ -35,8 +35,8 @@ module Api
     def handle_notification!
       Reviewing::ReceiveApplication.call(
         application_id:,
-        correlation_id:,
         causation_id:,
+        parent_id:,
         submitted_at:
       )
 
@@ -53,8 +53,8 @@ module Api
       message.dig('data', 'submitted_at') || Time.zone.now.to_s
     end
 
-    def correlation_id
-      message.fetch('data').fetch('parent_id', application_id)
+    def parent_id
+      message.fetch('data').fetch('parent_id', nil)
     end
 
     def causation_id

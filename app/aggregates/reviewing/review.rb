@@ -10,17 +10,18 @@ module Reviewing
       @reviewed_at = nil
       @received_at = nil
       @submitted_at = nil
+      @parent_id = nil
     end
 
-    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at
+    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at, :parent_id
 
     alias application_id id
 
-    def receive_application(submitted_at:)
+    def receive_application(submitted_at:, parent_id: nil)
       raise AlreadyReceived if received?
 
       apply ApplicationReceived.new(
-        data: { application_id:, submitted_at: }
+        data: { application_id:, submitted_at:, parent_id: }
       )
     end
 
@@ -59,6 +60,7 @@ module Reviewing
       @state = :open
       @received_at = event.timestamp
       @submitted_at = event.data[:submitted_at]
+      @parent_id = event.data[:parent_id]
     end
 
     on SentBack do |event|

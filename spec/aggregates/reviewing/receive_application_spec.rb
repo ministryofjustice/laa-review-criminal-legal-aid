@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Reviewing::ReceiveApplication do
   subject(:command) do
     described_class.new(
-      application_id: application_id, submitted_at: Time.zone.now.to_s
+      application_id: application_id, submitted_at: Time.zone.now.to_s, parent_id: nil
     )
   end
 
