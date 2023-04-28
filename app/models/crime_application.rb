@@ -48,10 +48,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     !reviewed? && assigned_to?(user_id)
   end
 
-  def status?(status)
-    review_status == status
-  end
-
   class << self
     def find(id)
       application = new(

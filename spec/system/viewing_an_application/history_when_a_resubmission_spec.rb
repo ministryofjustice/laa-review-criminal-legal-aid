@@ -18,6 +18,7 @@ RSpec.describe "Viewing a resubmitted application's history" do
 
     Reviewing::ReceiveApplication.new(
       application_id: parent_id,
+      parent_id: nil,
       submitted_at: Time.zone.now.to_s
     ).call
 
