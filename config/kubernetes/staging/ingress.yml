@@ -16,8 +16,21 @@ spec:
   tls:
   - hosts:
     - laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
+  - hosts:
+    - staging.review-criminal-legal-aid.service.justice.gov.uk
+    secretName: domain-tls-certificate-staging
   rules:
   - host: laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: service-staging
+            port:
+              number: 80
+  - host: staging.review-criminal-legal-aid.service.justice.gov.uk
     http:
       paths:
       - path: /
