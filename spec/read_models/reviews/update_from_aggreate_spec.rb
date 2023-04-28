@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Reviews::UpdateFromAggregate' do
   describe '#call' do
     let(:application_id) { SecureRandom.uuid }
-    let(:submitted_at) { Time.zone.now }
+    let(:submitted_at) { '2023-04-25' }
     let(:state) { 'received' }
     let(:parent_id) { SecureRandom.uuid }
     let(:reviewer_id) { SecureRandom.uuid }
