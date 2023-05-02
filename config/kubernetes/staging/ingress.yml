@@ -7,6 +7,9 @@ metadata:
     external-dns.alpha.kubernetes.io/set-identifier: ingress-staging-laa-review-criminal-legal-aid-staging-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/server-snippet: |
+      if ($host = 'laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk') {
+        return 301 https://staging.review-criminal-legal-aid.service.justice.gov.uk;
+      }
       location = /.well-known/security.txt {
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
