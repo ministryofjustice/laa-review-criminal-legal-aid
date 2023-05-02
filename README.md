@@ -139,6 +139,7 @@ Read [how to connect the cluster](https://user-guide.cloud-platform.service.just
 
 **Namespaces for this service:**
 * [staging namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-staging)
+* [production namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-production)
 
 ### Encode secrets in Base64
 
