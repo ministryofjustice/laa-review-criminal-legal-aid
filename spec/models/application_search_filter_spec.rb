@@ -5,39 +5,7 @@ RSpec.describe ApplicationSearchFilter do
 
   let(:params) { {} }
 
-  let(:david) do
-    User.create!(
-      auth_oid: '35d581ba-b1f5-4d96-8b1d-233bfe67dfe5',
-      first_name: 'David',
-      last_name: 'Brown',
-      email: 'David.Browneg@justice.gov.uk'
-    )
-  end
-
-  let(:john) do
-    User.create!(
-      auth_oid: '992c1667-745f-4eda-848b-eec7cd92d7fa',
-      first_name: 'John',
-      last_name: 'Deere',
-      email: 'John.Deereeg@justice.gov.uk'
-    )
-  end
-
-  before do
-    [SecureRandom.uuid, SecureRandom.uuid].each do |assignment_id|
-      Assigning::AssignToUser.new(
-        assignment_id: assignment_id,
-        user_id: john.id,
-        to_whom_id: john.id
-      ).call
-    end
-
-    Assigning::AssignToUser.new(
-      assignment_id: SecureRandom.uuid,
-      user_id: david.id,
-      to_whom_id: david.id
-    ).call
-  end
+  include_context 'with stubbed assignments and reviews'
 
   describe '#assigned_status_options' do
     subject(:assigned_status_options) { new.assigned_status_options }
@@ -82,7 +50,7 @@ RSpec.describe ApplicationSearchFilter do
       let(:expected_datastore_params) do
         {
           applicant_date_of_birth: Date.parse('1970-10-10'),
-          application_id_in: david.current_assignments.pluck(:assignment_id),
+          application_id_in: davids_applications,
           submitted_after: Date.parse('2022-12-22'),
           submitted_before: Date.parse('2022-12-21'),
           search_text: 'David 100003',
@@ -104,10 +72,8 @@ RSpec.describe ApplicationSearchFilter do
     context 'when a user is specified' do
       let(:params) { { assigned_status: john.id } }
 
-      it 'sets "application_id_in" to user\'s "assignment_id"s' do
-        expect(application_id_in).to eq(
-          john.current_assignments.pluck(:assignment_id)
-        )
+      it 'sets "application_id_in" to user\'s "assignment_id"s and "reviewed_id"s' do
+        expect(application_id_in).to eq(johns_applications)
 
         expect(application_id_not_in).to be_empty
       end
@@ -117,7 +83,7 @@ RSpec.describe ApplicationSearchFilter do
       let(:params) { { assigned_status: 'assigned' } }
 
       it 'sets "application_id_in" to all assignment_ids' do
-        expect(application_id_in).to eq(CurrentAssignment.pluck(:assignment_id))
+        expect(application_id_in).to eq current_assignment_ids
         expect(application_id_not_in).to be_empty
       end
     end
@@ -126,7 +92,7 @@ RSpec.describe ApplicationSearchFilter do
       let(:params) { { assigned_status: 'unassigned' } }
 
       it 'sets "application_id_not_in" to user\'s "assignment_id"s' do
-        expect(application_id_not_in).to eq(CurrentAssignment.pluck(:assignment_id))
+        expect(application_id_not_in).to eq current_assignment_ids
         expect(application_id_in).to be_empty
       end
     end
