@@ -17,10 +17,6 @@ class ApplicationHistory < ApplicationStruct
 
   private
 
-  #
-  # TODO: Refactor as part of CRIMRE-180
-  # Assignment and Review will be combined into a single stream / aggregate.
-  #
   def load_from_events
     RailsEventStore::Projection
       .from_stream(streams)
