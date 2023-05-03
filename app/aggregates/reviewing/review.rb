@@ -10,10 +10,13 @@ module Reviewing
       @reviewed_at = nil
       @received_at = nil
       @submitted_at = nil
+      @superseded_at = nil
+      @superseded_by = nil
       @parent_id = nil
     end
 
-    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at, :parent_id
+    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
+                :submitted_at, :superseded_by, :superseded_at, :parent_id
 
     alias application_id id
 
@@ -32,6 +35,12 @@ module Reviewing
 
       apply SentBack.new(
         data: { application_id:, user_id:, reason: }
+      )
+    end
+
+    def supersede(superseded_at:, superseded_by:)
+      apply Superseded.new(
+        data: { application_id:, superseded_at:, superseded_by: }
       )
     end
 
@@ -68,6 +77,11 @@ module Reviewing
       @return_reason = event.data.fetch(:reason, nil)
       @reviewer_id = event.data.fetch(:user_id)
       @reviewed_at = event.timestamp
+    end
+
+    on Superseded do |event|
+      @superseded_at = event.data.fetch(:superseded_at)
+      @superseded_by = event.data.fetch(:superseded_by)
     end
 
     on Completed do |event|
