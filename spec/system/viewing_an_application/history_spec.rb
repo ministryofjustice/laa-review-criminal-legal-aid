@@ -87,7 +87,7 @@ RSpec.describe 'Viewing application history' do
     before do
       stub_request(
         :put,
-        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/#{crime_application_id}/return"
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/return"
       ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
 
       user = User.create(
@@ -125,7 +125,7 @@ RSpec.describe 'Viewing application history' do
     before do
       stub_request(
         :put,
-        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/#{crime_application_id}/complete"
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/complete"
       ).to_return(body: LaaCrimeSchemas.fixture(1.0).read, status: 200)
 
       user = User.create(

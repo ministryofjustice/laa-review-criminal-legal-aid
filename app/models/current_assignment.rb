@@ -8,4 +8,11 @@ class CurrentAssignment < ApplicationRecord
   def readonly?
     true
   end
+
+  class << self
+    # returns an array of crime application ids currently assigned to the user_id.
+    def assigned_to_ids(user_id:)
+      where(user_id:).pluck(:assignment_id)
+    end
+  end
 end
