@@ -1,11 +1,24 @@
 class User < ApplicationRecord
   devise :omniauthable, :timeoutable
+
   include Reauthable
+
+  before_create do
+    self.invitation_expires_at = Rails.configuration.x.auth.reauthenticate_in.from_now
+  end
+
+  scope :pending_activation, lambda {
+    where('auth_subject_id IS NULL AND invitation_expires_at > ?', Time.zone.now)
+  }
+
+  scope :active, lambda {
+    where('auth_subject_id IS NOT NULL AND deactivated_at IS NULL')
+  }
 
   has_many :current_assignments, dependent: :destroy
 
   def name
-    [first_name, last_name].flatten.join(' ')
+    [first_name, last_name].compact.join(' ')
   end
 
   def deactivated?
@@ -16,7 +29,11 @@ class User < ApplicationRecord
     update!(deactivated_at: Time.zone.now)
   end
 
-  def pending_authentication?
+  def activated?
+    !auth_subject_id.nil?
+  end
+
+  def pending_activation?
     auth_subject_id.nil? && first_auth_at.nil?
   end
 
