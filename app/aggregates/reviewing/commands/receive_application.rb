@@ -10,6 +10,15 @@ module Reviewing
       with_review do |review|
         review.receive_application(submitted_at:, parent_id:)
       end
+
+      return unless parent_id
+
+      # Supersede parent application if one exists
+      Reviewing::Supersede.call(
+        application_id: parent_id,
+        superseded_at: submitted_at,
+        superseded_by: application_id
+      )
     end
   end
 end
