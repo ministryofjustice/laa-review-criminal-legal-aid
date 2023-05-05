@@ -83,7 +83,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       it 'sets the current user name' do
         expect { auth_callback }.to(
-          change { user.reload.name }.from(' ').to('Ben EXAMPLE')
+          change { user.reload.name }.from('').to('Ben EXAMPLE')
         )
       end
     end
@@ -131,7 +131,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       it 'sets the current user name' do
         expect { auth_callback }.to(
-          change { user.reload.name }.from(' ').to('Ben EXAMPLE')
+          change { user.reload.name }.from('').to('Ben EXAMPLE')
         )
       end
     end

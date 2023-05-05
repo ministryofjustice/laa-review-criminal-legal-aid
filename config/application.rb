@@ -44,6 +44,9 @@ module LaaReviewCriminalLegalAid
 
     # Authentication, authorization, and session configuration
 
+    # Length of time before a user account invitation expires
+    config.x.auth.invitation_ttl = 48.hours 
+
     # The maximum time since a users was last authenticated on DOM1 before
     # they are automatically signed out.
     config.x.auth.reauthenticate_in = 12.hours
