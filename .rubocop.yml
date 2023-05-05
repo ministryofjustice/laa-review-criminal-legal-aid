@@ -46,6 +46,9 @@ Layout/HashAlignment:
 RSpec/AnyInstance:
   Enabled: false
 
+Style/RescueModifier:
+  Enabled: false
+
 # Enabled but tweaked cops
 ##########################
 
