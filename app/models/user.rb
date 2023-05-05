@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include Reauthable
 
   before_create do
-    self.invitation_expires_at = Rails.configuration.x.auth.reauthenticate_in.from_now
+    self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
   end
 
   scope :pending_activation, lambda {
@@ -27,10 +27,6 @@ class User < ApplicationRecord
 
   def deactivate!
     update!(deactivated_at: Time.zone.now)
-  end
-
-  def activated?
-    !auth_subject_id.nil?
   end
 
   def pending_activation?

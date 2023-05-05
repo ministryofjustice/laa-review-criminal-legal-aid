@@ -34,6 +34,54 @@ RSpec.describe User do
     end
   end
 
+  describe '#invitation_expires_at' do
+    it 'is set to 48 hours from now on create' do
+      expect(described_class.create.invitation_expires_at).to(
+        be_within(1.second).of(48.hours.from_now)
+      )
+    end
+  end
+
+  describe '.pending_activation' do
+    subject(:pending_activation) { described_class.pending_activation }
+
+    let(:user) { described_class.create(email: 'test@example.com') }
+
+    it 'returns an array of invited users pending activation' do
+      expect(pending_activation).to include(user)
+    end
+
+    it 'excludes users with expired invitations' do
+      user.update(invitation_expires_at: Time.zone.now)
+      expect(pending_activation).not_to include(user)
+    end
+
+    it 'excludes activated users' do
+      user.update(auth_subject_id: SecureRandom.uuid)
+      expect(pending_activation).not_to include(user)
+    end
+  end
+
+  describe '.active' do
+    subject(:active) { described_class.active }
+
+    let(:user) { described_class.create(email: 'test@example.com') }
+
+    it 'excludes users pending activation' do
+      expect(active).not_to include(user)
+    end
+
+    it 'includes activated users' do
+      user.update(auth_subject_id: SecureRandom.uuid)
+      expect(active).to include(user)
+    end
+
+    it 'excludes deactivated users' do
+      user.deactivate!
+      expect(active).not_to include(user)
+    end
+  end
+
   describe '#auth_subject_id' do
     let(:auth_subject_id) { SecureRandom.uuid }
     let(:user) { described_class.create!(auth_subject_id:) }

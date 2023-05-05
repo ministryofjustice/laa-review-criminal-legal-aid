@@ -86,12 +86,6 @@ RSpec.describe UserAuthenticate do
         user
       end
 
-      it 'activates the user' do
-        expect { authenticate! }.to(
-          change { user.reload.activated? }.from(false).to(true)
-        )
-      end
-
       it 'returns the active user' do
         expect(authenticate!).to eq user
       end
