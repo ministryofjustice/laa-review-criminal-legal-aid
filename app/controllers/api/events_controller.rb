@@ -4,61 +4,41 @@ module Api
   class EventsController < ActionController::API
     before_action :verify!
 
-    # NOTE: Raw messages are currently unsupported
-    def verify!
-      if sns_service.raw_request_delivery?
-        head status: 451
-      elsif sns_service.invalid?
-        head :unauthorized
-      end
-
-      true
-    end
-
     def create
-      sns_service.call(on_notfication: handle_notification)
-
-      head status: sns_service.result.to_sym
+      head status: handle_notification.to_sym
     end
 
     private
 
-    # NOTE: callback must return valid HTTP status code/name
     def handle_notification
-      Reviewing::ReceiveApplication.call(
-        application_id:,
-        correlation_id:,
-        causation_id:,
-        submitted_at:
-      )
+      sns_service.call
 
       :created
     rescue Reviewing::AlreadyReceived
       :ok
     end
 
-    def application_id
-      message.dig('data', 'id')
+    def sns_service(sns_event)
+      @sns_service ||= Aws::SnsService.new(sns_event:)
     end
 
-    def submitted_at
-      message.dig('data', 'submitted_at') || Time.zone.now.to_s
+    def sns_event
+      @sns_event ||= ReceiveApplicationSnsEvent.new(
+        sns_message: request.body.read,
+        headers: request.headers
+      )
     end
 
-    def correlation_id
-      message['data']&.fetch('parent_id', application_id)
-    end
+    def verify!
+      if sns_service.raw?
+        head status: 451 # Unavailable for legal reasons!
+      elsif sns_service.disallowed?
+        head :unauthorized
+      elsif sns_event.invalid?
+        head :forbidden
+      end
 
-    def causation_id
-      sns_service.message_id
-    end
-
-    def message
-      sns_service.message
-    end
-
-    def sns_service
-      @sns_service ||= AAWS::SNSService.new(raw_message: request.body.read)
+      true
     end
   end
 end
