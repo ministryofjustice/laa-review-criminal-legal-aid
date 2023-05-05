@@ -10,7 +10,7 @@ class ReceiveApplicationSnsEvent
   def create!
     Reviewing::ReceiveApplication.call(
       application_id:,
-      correlation_id:,
+      parent_id:,
       causation_id:,
       submitted_at:
     )
@@ -31,7 +31,7 @@ class ReceiveApplicationSnsEvent
     message.dig('data', 'submitted_at') || Time.zone.now.to_s
   end
 
-  def correlation_id
+  def parent_id
     message['data']&.fetch('parent_id', application_id)
   end
 
