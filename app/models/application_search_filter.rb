@@ -11,7 +11,8 @@ class ApplicationSearchFilter < ApplicationStruct
   #
   # Includes "Unassigned", "All assigned" prepended to a list of all user names.
   # Values can be "unassigned", "assigned" or a user id.
-  # If a user is specified, only applications assinged to that user are returned.
+  # If a user is specified, only applications assinged to or reviewed by that
+  # user are returned.
   #
   def assigned_status_options
     status_options = Types::ASSIGNED_STATUSES.map do |status|
@@ -26,6 +27,7 @@ class ApplicationSearchFilter < ApplicationStruct
   #
   # Includes 'Open', 'Completed', 'Sent back to provider' or 'All applications'
   # Values can be "open", "completed", "sent_back", "all"
+  #
   def application_status_options
     Types::REVIEW_STATUS_GROUPS.keys.map do |status|
       [I18n.t(status, scope: 'values.review_status'), status]
@@ -59,10 +61,13 @@ class ApplicationSearchFilter < ApplicationStruct
     end
   end
 
+  # Returns the value of the DatastoreApi Search "application_id_in" constraint
+  # according to the #assigned_status. Assigned status can be either nil, 'unassigned',
+  # 'assigned' or a user_id.
   #
-  # returns the value of the DatastoreApi Search "application_id_in" constraint
-  # according to the #assigned_status
-  #
+  # When assigned_status is a user_id, it returns the application_ids of those
+  # applications that are either currently assigned to or were reviewed by
+  # the given user.
   def application_id_in
     case assigned_status
     when nil, 'unassigned'
@@ -70,8 +75,13 @@ class ApplicationSearchFilter < ApplicationStruct
     when 'assigned'
       all_assigned_application_ids
     else
-      CurrentAssignment.where(user: assigned_status).pluck(:assignment_id)
+      application_ids_for_user(assigned_status)
     end
+  end
+
+  def application_ids_for_user(user_id)
+    CurrentAssignment.assigned_to_ids(user_id:) +
+      Review.reviewed_by_ids(user_id:)
   end
 
   #

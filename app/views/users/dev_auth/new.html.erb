@@ -1,0 +1,7 @@
+<% title t('landing.page_title') %>
+
+<%= govuk_warning_text(text: 'This is a mock sign in page for use in local development only') %>
+<%= form_with url: user_azure_ad_omniauth_callback_path, data: { turbo: 'false' } do |f| %>
+  <%= f.govuk_select(:email, @emails, label: { text: 'Pick an account:' }) %>
+  <%= f.govuk_submit t('calls_to_action.sign_in') %>
+<% end %>

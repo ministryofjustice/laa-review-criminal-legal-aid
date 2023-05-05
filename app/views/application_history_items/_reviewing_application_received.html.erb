@@ -1,8 +1,13 @@
 <strong>
-  <% if event_is_for_current_version %>
-    <%= t('reviewing.application_received', scope: 'event.description') %>
+  <% if application.parent_id.nil? %>
+    <%= t('reviewing.application_received', scope: 'event.description') %> <br>
   <% else %>
-    <%= link_to t('reviewing.application_received', scope: 'event.description'),
-                crime_application_path(application.id) %>
+    <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
   <% end %>
 </strong>
+
+<% unless event_is_for_current_version %>
+  <%= link_to t('reviewing.selected_application', scope: 'event.description'),
+              crime_application_path(application.id),
+              class: 'govuk-link--no-visited-state' %>
+<% end %>

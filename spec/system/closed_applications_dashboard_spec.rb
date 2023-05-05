@@ -12,7 +12,8 @@ RSpec.describe 'Closed Applications Dashboard' do
         reference: 6_000_002,
         status: 'returned',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
-        reviewed_at: '2022-12-15T16:58:15.000+00:00'
+        reviewed_at: '2022-12-15T16:58:15.000+00:00',
+        parent_id: nil
       )
     ]
   end
@@ -21,6 +22,7 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   before do
     visit '/'
+    click_on 'All open applications'
 
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,
@@ -50,7 +52,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   it 'includes the correct headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
-    expect(column_headings).to eq('Applicant Ref. no. Date received Date closed Closed by Status')
+    expect(column_headings).to eq("Applicant's name Reference number Date received Date closed Closed by Status")
   end
 
   it 'shows the correct information' do
@@ -60,7 +62,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'has the correct count' do
-    expect(page).to have_content('1 application')
+    expect(page).to have_content('There is 1 closed application that has been completed or sent back to the provider.')
   end
 
   it 'can be used to navigate to an application' do

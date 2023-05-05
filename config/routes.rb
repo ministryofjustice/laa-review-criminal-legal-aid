@@ -2,20 +2,24 @@ Rails.application.routes.draw do
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
 
-  get 'users/auth/failure', to: 'errors#forbidden'
-
   get 'application_not_found', to: 'errors#application_not_found'
   get 'unhandled', to: 'errors#unhandled'
   get 'forbidden', to: 'errors#forbidden'
 
-  devise_for :users,
+  devise_for(
+    :users,
     controllers: {
       omniauth_callbacks: 'users/omniauth_callbacks'
     }
+  )
 
   devise_scope :user do
     unauthenticated :user do
       root 'users/sessions#new', as: :unauthenticated_root
+
+      if FeatureFlags.dev_auth.enabled?
+        get 'dev_auth', to: 'users/dev_auth#new'
+      end
     end
 
     authenticated :user do

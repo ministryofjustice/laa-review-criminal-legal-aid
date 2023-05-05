@@ -27,13 +27,13 @@ RSpec.describe 'Reassigning an application to myself' do
     click_on('Kit Pound')
   end
 
-  it 'shows "Assigned to Assignee Name"' do
+  it 'shows "Assigned to: Assignee Name"' do
     expect(page).to have_content("Assigned to: #{assignee.name}")
   end
 
-  describe 'clicking on "Reassign to myself"' do
+  describe 'clicking on "Reassign to your list"' do
     before do
-      click_on('Reassign to myself')
+      click_on('Reassign to your list')
     end
 
     it 'prompts to confirm the action' do
@@ -61,7 +61,7 @@ RSpec.describe 'Reassigning an application to myself' do
         click_on('Yes, reassign')
 
         within('.govuk-notification-banner--success') do
-          expect(page).to have_content('This application has been assigned to you')
+          expect(page).to have_content('You assigned this application to your list')
         end
       end
 

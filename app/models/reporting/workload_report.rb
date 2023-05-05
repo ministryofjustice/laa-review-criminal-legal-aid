@@ -31,7 +31,7 @@ module Reporting
     end
 
     #
-    # Days passed header column for table.
+    # Business days since application were received header column for table.
     # Returns an array of header cells with contents:
     #
     # 0 days

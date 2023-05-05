@@ -8,7 +8,7 @@
       <%= t(:first_name, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.applicant.first_name %>
+      <%= applicant.first_name %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -16,7 +16,7 @@
       <%= t(:last_name, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.applicant.last_name %>
+      <%= applicant.last_name %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -24,7 +24,7 @@
       <%= t(:other_names, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.applicant.other_names.presence || t(:not_provided, scope: 'crime_applications.values') %>
+      <%= applicant.other_names.presence || t(:not_provided, scope: 'crime_applications.values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -32,7 +32,7 @@
       <%= t(:date_of_birth, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l client_details.applicant.date_of_birth, format: :compact %>
+      <%= l applicant.date_of_birth, format: :compact %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -40,7 +40,7 @@
       <%= t(:national_insurance_number, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.applicant.nino %>
+      <%= nino.presence || t(:not_provided, scope: 'crime_applications.values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -48,7 +48,7 @@
       <%= t(:telephone_number, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= client_details.applicant.telephone_number.presence || t(:not_provided, scope: 'crime_applications.values') %>
+      <%= applicant_tel.presence || t(:not_provided, scope: 'crime_applications.values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -56,8 +56,8 @@
       <%= t(:home_address, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <% if client_details.applicant.home_address %>
-        <%= render 'crime_applications/address', address: client_details.applicant.home_address %>
+      <% if applicant.home_address %>
+        <%= render 'crime_applications/address', address: applicant.home_address %>
       <% else %>
         <%= t(:not_provided, scope: 'crime_applications.values') %>
       <% end %>
@@ -68,10 +68,10 @@
       <%= t(:correspondence_address, scope: 'crime_applications.labels') %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <% if client_details.applicant.correspondence_address_type == 'other_address' %>
-        <%= render 'crime_applications/address', address: client_details.applicant.correspondence_address %>
+      <% if applicant.correspondence_address_type == 'other_address' %>
+        <%= render 'crime_applications/address', address: applicant.correspondence_address %>
       <% else %>
-        <%= t(client_details.applicant.correspondence_address_type, scope: 'values') %>
+        <%= t(applicant.correspondence_address_type, scope: 'values') %>
       <% end %>
     </dd>
   </div>

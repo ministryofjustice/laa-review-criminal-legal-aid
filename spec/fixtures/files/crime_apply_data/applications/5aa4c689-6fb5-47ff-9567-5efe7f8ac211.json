@@ -44,7 +44,7 @@
     "codefendants": [],
     "offences": [
       {
-        "class": "Class C or B",
+        "class": null,
         "dates": [
           {
             "date_from": "2020-12-12",

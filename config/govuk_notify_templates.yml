@@ -1,2 +1,17 @@
+# Notify Service Configuration
+#
+# We use two different Notify environments: "production" and "non-production".
+# The production environment is used by the live service, while non-production
+# environments are used for testing and development.
+#
+# The Notify environment is determined by the value of the environment
+# variable 'GOVUK_NOTIFY_ENV'. If this variable is not set, the default environment
+# is 'non-production'.
+#
+# The Notify API key, set by "GOVUK_NOTIFY_API_KEY", must correspond to the Notify
+# Service of the template set used by the environment.
+#
 production:
-  application_returned_email: 'a9fba603-33c2-4597-a190-e32f0b01967d'
+  application_returned_email: 'd0d8768b-2122-40a2-ba01-b4550f36805b'
+non-production:
+  application_returned_email: 'cfee931f-6588-4814-a2e2-ad025946922f'

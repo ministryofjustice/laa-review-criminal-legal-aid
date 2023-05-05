@@ -15,7 +15,9 @@ RSpec.describe 'Open Applications Dashboard' do
   it 'includes the correct headings' do
     column_headings = page.first('.app-dashboard-table thead tr').text.squish
 
-    expect(column_headings).to eq('Applicant Ref. no. Date received Days passed Caseworker')
+    # rubocop:disable Layout/LineLength
+    expect(column_headings).to eq("Applicant's name Reference number Date received Business days since application was received Caseworker")
+    # rubocop:enable Layout/LineLength
   end
 
   it 'shows the correct information' do
@@ -29,8 +31,16 @@ RSpec.describe 'Open Applications Dashboard' do
     expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days")
   end
 
+  it 'receives the application if not already received' do
+    returned_application = CrimeApplication.find(
+      stubbed_search_results.first.resource_id
+    )
+
+    expect(returned_application.review_status).to be(:open)
+  end
+
   it 'has the correct count' do
-    expect(page).to have_content('2 applications')
+    expect(page).to have_content('There are 2 open applications that need to be reviewed.')
   end
 
   it 'can be used to navigate to an application' do

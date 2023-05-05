@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentication Session Initialisation' do
+  before do
+    OmniAuth.config.test_mode = true
+  end
+
+  after do
+    OmniAuth.config.test_mode = false
+  end
+
   include Devise::Test::IntegrationHelpers
 
   let(:auth_callback) do
@@ -75,7 +83,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       it 'sets the current user name' do
         expect { auth_callback }.to(
-          change { user.reload.name }.from(' ').to('Ben EXAMPLE')
+          change { user.reload.name }.from('').to('Ben EXAMPLE')
         )
       end
     end
@@ -123,7 +131,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       it 'sets the current user name' do
         expect { auth_callback }.to(
-          change { user.reload.name }.from(' ').to('Ben EXAMPLE')
+          change { user.reload.name }.from('').to('Ben EXAMPLE')
         )
       end
     end

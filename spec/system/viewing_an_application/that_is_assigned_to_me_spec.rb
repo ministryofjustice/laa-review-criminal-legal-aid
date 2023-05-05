@@ -6,7 +6,7 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   before do
     visit '/'
     visit crime_application_path(application_id)
-    click_button 'Assign to myself'
+    click_button 'Assign to your list'
   end
 
   it 'includes the name of the assigned user' do
@@ -18,8 +18,8 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   end
 
   describe 'Conditional display of review buttons' do
-    it 'displays mark as ready button as default' do
-      expect(page).to have_content('Mark as ready')
+    it 'displays mark as ready for MAAT button as default' do
+      expect(page).to have_content('Mark as ready for MAAT')
       expect(page).not_to have_content('Mark as completed')
     end
 
@@ -28,13 +28,13 @@ RSpec.describe 'Viewing an application that is assigned to me' do
         allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
           .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-        click_button 'Mark as ready'
+        click_button 'Mark as ready for MAAT'
         visit crime_application_path(application_id)
       end
 
       it 'displays mark as completed button if application is marked as ready' do
         expect(page).to have_content('Mark as completed')
-        expect(page).not_to have_content('Mark as ready')
+        expect(page).not_to have_content('Mark as ready for MAAT')
       end
     end
   end

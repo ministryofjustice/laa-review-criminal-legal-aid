@@ -26,8 +26,9 @@ class FeatureFlags
 
   def initialize
     @env_name = HostEnv.env_name
-    @config = YAML.load_file(
-      Rails.root.join('config/settings.yml')
+
+    @config = YAML.load(
+      ERB.new(settings_file).result
     ).fetch('feature_flags', {}).with_indifferent_access.freeze
   end
 
@@ -45,5 +46,11 @@ class FeatureFlags
 
   def respond_to_missing?(name, _include_private = false)
     config.key?(name) || super
+  end
+
+  private
+
+  def settings_file
+    Rails.root.join('config/settings.yml').read
   end
 end

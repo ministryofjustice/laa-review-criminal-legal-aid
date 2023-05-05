@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_162458) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_142944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -53,6 +53,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_162458) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reviews", id: false, force: :cascade do |t|
+    t.uuid "application_id", null: false
+    t.string "state"
+    t.uuid "reviewer_id"
+    t.uuid "parent_id"
+    t.datetime "submitted_at", precision: nil
+    t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
+    t.index ["parent_id"], name: "index_reviews_on_parent_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
+    t.index ["state"], name: "index_reviews_on_state"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "auth_oid"
     t.citext "email"
@@ -65,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_162458) do
     t.string "auth_subject_id"
     t.boolean "can_manage_others", default: false, null: false
     t.datetime "deactivated_at", precision: nil
-    t.datetime "auth_expires_at"
+    t.datetime "invitation_expires_at"
     t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end

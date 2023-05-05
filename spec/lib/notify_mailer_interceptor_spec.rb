@@ -9,30 +9,33 @@ describe NotifyMailerInterceptor do
   end
 
   before do
-    allow(HostEnv).to receive(:env_name).and_return('staging')
-    allow(ENV).to receive(:fetch)
-      .with('STAGING_GROUP_INBOX', nil)
-      .and_return('staging-group-inbox@example.com')
+    described_class.delivering_email(message)
   end
 
-  context 'with different environments' do
-    describe 'staging' do
-      it 'reroutes emails to staging inbox' do
-        described_class.delivering_email(message)
-        expect(message.to).to eq(['staging-group-inbox@example.com'])
-      end
-
-      it 'performs deliveries' do
-        expect(message.perform_deliveries).to be(true)
-      end
+  context 'when an intercept email is set' do
+    before do
+      allow(ENV).to receive(:fetch)
+        .with('INTERCEPT_EMAIL_ADDRESS', nil)
+        .and_return('staging-group-inbox@example.com')
     end
 
-    describe 'development' do
-      it 'reroutes emails to staging inbox' do
-        allow(HostEnv).to receive(:env_name).and_return('development')
-        described_class.delivering_email(message)
-        expect(message.to).to eq(['recipient@example.com'])
-      end
+    it 'reroutes emails to the intercept email address' do
+      described_class.delivering_email(message)
+      expect(message.to).to eq(['staging-group-inbox@example.com'])
+    end
+
+    it 'performs deliveries' do
+      expect(message.perform_deliveries).to be(true)
+    end
+  end
+
+  context 'when an intercept email is not set' do
+    it 'does not inercept' do
+      expect(message.to).to eq(['recipient@example.com'])
+    end
+
+    it 'performs deliveries' do
+      expect(message.perform_deliveries).to be(true)
     end
   end
 end

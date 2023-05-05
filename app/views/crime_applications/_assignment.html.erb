@@ -1,12 +1,12 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-6">
   <div class="govuk-grid-column-one-half">
     <div class="govuk-body-l govuk-!-margin-bottom-0">
-      <% if crime_application.reviewer_name %>
+      <% if crime_application.reviewed? %>
         <strong><%= t(:closed_by, scope: 'crime_applications.labels') %></strong>
         <%= crime_application.reviewer_name %>
       <% else %>
         <strong><%= t(:assigned_to, scope: 'crime_applications.labels') %></strong>
-        <%= crime_application.assignee_name || t(:unassigned, scope: 'values.assigned_status') %>
+        <%= crime_application.assignee_name || t(:no_one, scope: 'values') %>
       <% end %>
     </div>
 

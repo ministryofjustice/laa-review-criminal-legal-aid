@@ -4,7 +4,11 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do
-    Reviewing::ReceiveApplication.call(application_id: application_id, submitted_at: '2022-10-24T09:50:04.000+00:00')
+    Reviewing::ReceiveApplication.call(
+      application_id: application_id,
+      submitted_at: '2022-10-24T09:50:04.000+00:00',
+      parent_id: nil
+    )
 
     visit '/'
     visit crime_application_path(application_id)
@@ -20,20 +24,32 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content I18n.t('crime_applications.show.page_title')
   end
 
-  it 'includes the applicant details' do
-    expect(page).to have_content('AJ123456C')
+  it 'includes the copy reference link' do
+    expect(page).to have_content('Copy reference number')
   end
 
   it 'includes the date received' do
     expect(page).to have_content('Date received: 24/10/2022')
   end
 
+  context 'when date stamp is earlier than date received' do
+    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+
+    it 'includes the correct date stamp' do
+      expect(page).to have_content('Date stamp 21/11/2022')
+    end
+  end
+
+  it 'includes the applicant details' do
+    expect(page).to have_content('AJ 12 34 56 C')
+  end
+
   it 'shows that the application is unassigned' do
-    expect(page).to have_content('Assigned to: Unassigned')
+    expect(page).to have_content('Assigned to: no one')
   end
 
   it 'includes button to assign' do
-    expect(page).to have_content('Assign to myself')
+    expect(page).to have_content('Assign to your list')
   end
 
   it 'does not show the CTAs' do
@@ -53,6 +69,28 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       expect(page).to have_content('Client is under 18')
     end
   end
+
+  # rubocop:disable Layout/LineLength
+  context 'with offence class not provided' do
+    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+
+    it 'does not show the offence class caption' do
+      table_body = find(:xpath,
+                        "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tbody[contains(tr[1], 'Robbery')]")
+
+      expect(table_body).not_to have_content('Class')
+    end
+  end
+
+  context 'with offence class provided' do
+    it 'does show the offence class' do
+      row = first(:xpath,
+                  "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tr[contains(td[1], 'Attempt robbery')]")
+
+      expect(row).to have_content('Class C')
+    end
+  end
+  # rubocop:enable Layout/LineLength
 
   context 'with optional fields not provided' do
     let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }

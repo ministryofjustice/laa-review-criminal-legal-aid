@@ -15,8 +15,10 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(heading_text).to eq('Your list')
     end
 
+    # rubocop:disable Layout/LineLength
     it 'show access denied flash message' do
-      expect(page).to have_content('Only authorised users can access the admin page')
+      expect(page).to have_content("You do not have access to that page\nContact laa-crime-apply@digital.justice.gov.uk if you think this wrong")
+      # rubocop:enable Layout/LineLength
     end
   end
 

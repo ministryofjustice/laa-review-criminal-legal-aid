@@ -7,6 +7,7 @@ RSpec.describe 'Marking an application as complete' do
 
   before do
     visit '/'
+    click_on 'All open applications'
   end
 
   context 'when assigned to the application' do
@@ -44,7 +45,7 @@ RSpec.describe 'Marking an application as complete' do
 
     it 'shows success flash message' do
       click_button(complete_cta)
-      expect(page).to have_content('The application has been marked as complete')
+      expect(page).to have_content('You marked the application as complete')
     end
 
     it 'removes the application from "Your list"' do
@@ -71,7 +72,7 @@ RSpec.describe 'Marking an application as complete' do
       describe 'AlreadyCompleted' do
         let(:error_class) { Reviewing::AlreadyCompleted }
         let(:message) do
-          'This application has already been marked as complete'
+          'This application was already marked as complete'
         end
 
         it 'notifies that the application has already been completed' do
@@ -81,7 +82,7 @@ RSpec.describe 'Marking an application as complete' do
 
       describe 'CannotCompleteWhenSentBack' do
         let(:error_class) { Reviewing::CannotCompleteWhenSentBack }
-        let(:message) { 'This application has already been sent back to the provider' }
+        let(:message) { 'This application was already sent back to the provider' }
 
         it 'notifies that the application has already been sent back' do
           expect(page).to have_content message

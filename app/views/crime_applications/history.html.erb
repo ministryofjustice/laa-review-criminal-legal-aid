@@ -25,13 +25,19 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
+      <% if @crime_application.superseded? %>
+        <%= render partial: @crime_application.superseding_history_item, as: :item, layout: 'history_item' %>
+      <% end %>
+
       <% @crime_application.all_histories.each do |history| %>
         <% history.items.each do |item| %>
           <%= render partial: item,
                      layout: 'history_item',
                      as: :item,
                      locals: {
-                       event_is_for_current_version: @crime_application.id == history.application.id,
+                       event_is_for_current_version: (
+                         @crime_application.id == history.application.id
+                       ),
                        application: history.application
                      } %>
         <% end %>

@@ -26,7 +26,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     visit '/'
     click_on 'All open applications'
     click_on('Kit Pound')
-    click_on('Reassign to myself')
+    click_on('Reassign to your list')
   end
 
   describe 'reloading the confirm page after a assignment has been unassigned' do
@@ -67,8 +67,8 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       click_on('Yes, reassign')
 
       expect(page).to have_notification_banner(
-        text: 'This application has not been assigned to you',
-        details: 'It was assigned to someone else before you confirmed reassigning.'
+        text: 'This application could not be reassigned to your list',
+        details: 'This is because it was reassigned to Fast Janeeg instead.'
       )
     end
 
@@ -98,14 +98,20 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       ).call
     end
 
+    it 'redirects to the application details' do
+      expect { click_on('Yes, reassign') }.to change { page.current_path }
+        .from(confirm_path)
+        .to(crime_application_path(crime_application_id))
+    end
+
     it 'notifies that the application was unassigned before they attempted reassignment' do
       unassign
 
       click_on('Yes, reassign')
 
       expect(page).to have_notification_banner(
-        text: 'This application has not been assigned to you',
-        details: 'It was unassigned before you confirmed reassigning.'
+        text: 'This application could not be reassigned to your list',
+        details: 'There was an error. Try again to reassign the application to your list.'
       )
     end
 
@@ -113,7 +119,8 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       unassign
 
       click_on('Yes, reassign')
-      expect(page).to have_content 'Assigned to: Unassigned'
+
+      expect(page).to have_content 'Assigned to: no one'
     end
   end
 end

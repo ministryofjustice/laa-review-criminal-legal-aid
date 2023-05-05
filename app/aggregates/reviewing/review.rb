@@ -10,17 +10,21 @@ module Reviewing
       @reviewed_at = nil
       @received_at = nil
       @submitted_at = nil
+      @superseded_at = nil
+      @superseded_by = nil
+      @parent_id = nil
     end
 
-    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at
+    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
+                :submitted_at, :superseded_by, :superseded_at, :parent_id
 
     alias application_id id
 
-    def receive_application(submitted_at:)
+    def receive_application(submitted_at:, parent_id: nil)
       raise AlreadyReceived if received?
 
       apply ApplicationReceived.new(
-        data: { application_id:, submitted_at: }
+        data: { application_id:, submitted_at:, parent_id: }
       )
     end
 
@@ -28,10 +32,15 @@ module Reviewing
       raise NotReceived unless received?
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
-      raise CannotSendBackWhenMarkedAsReady if @state.equal?(:marked_as_ready)
 
       apply SentBack.new(
         data: { application_id:, user_id:, reason: }
+      )
+    end
+
+    def supersede(superseded_at:, superseded_by:)
+      apply Superseded.new(
+        data: { application_id:, superseded_at:, superseded_by: }
       )
     end
 
@@ -60,6 +69,7 @@ module Reviewing
       @state = :open
       @received_at = event.timestamp
       @submitted_at = event.data[:submitted_at]
+      @parent_id = event.data[:parent_id]
     end
 
     on SentBack do |event|
@@ -67,6 +77,11 @@ module Reviewing
       @return_reason = event.data.fetch(:reason, nil)
       @reviewer_id = event.data.fetch(:user_id)
       @reviewed_at = event.timestamp
+    end
+
+    on Superseded do |event|
+      @superseded_at = event.data.fetch(:superseded_at)
+      @superseded_by = event.data.fetch(:superseded_by)
     end
 
     on Completed do |event|

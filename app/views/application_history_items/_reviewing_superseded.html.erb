@@ -1,0 +1,7 @@
+<strong>
+  <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
+</strong>
+
+<%= link_to t('reviewing.selected_application', scope: 'event.description'),
+            crime_application_path(item.event_data.fetch(:superseded_by)),
+            class: 'govuk-link--no-visited-state' %>

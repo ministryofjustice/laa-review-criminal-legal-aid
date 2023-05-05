@@ -3,3 +3,7 @@ feature_flags:
     local: true
     staging: true
     production: false
+  dev_auth:
+    local: <%= ENV.fetch("DEV_AUTH_ENABLED", false) %>
+    staging: false
+    production: false

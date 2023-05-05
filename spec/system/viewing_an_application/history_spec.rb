@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing application history' do
   include_context 'with an existing application'
+  let(:assign_cta) { 'Assign to your list' }
 
   before do
     visit '/'
@@ -22,7 +23,7 @@ RSpec.describe 'Viewing application history' do
 
   context 'with an assigned application' do
     before do
-      click_on('Assign to myself')
+      click_on(assign_cta)
       click_on('Application history')
     end
 
@@ -34,7 +35,7 @@ RSpec.describe 'Viewing application history' do
 
   context 'with an unassigned application' do
     before do
-      click_on('Assign to myself')
+      click_on(assign_cta)
       first(:button, 'Remove from your list').click
       click_on 'All open applications'
       click_on('Kit Pound')
@@ -64,7 +65,7 @@ RSpec.describe 'Viewing application history' do
 
       click_on 'All open applications'
       click_on('Kit Pound')
-      click_on('Reassign to myself')
+      click_on('Reassign to your list')
       click_on('Yes, reassign')
       click_on('Application history')
     end
@@ -86,7 +87,7 @@ RSpec.describe 'Viewing application history' do
     before do
       stub_request(
         :put,
-        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/#{crime_application_id}/return"
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/return"
       ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
 
       user = User.create(
@@ -124,7 +125,7 @@ RSpec.describe 'Viewing application history' do
     before do
       stub_request(
         :put,
-        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v2/applications/#{crime_application_id}/complete"
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/complete"
       ).to_return(body: LaaCrimeSchemas.fixture(1.0).read, status: 200)
 
       user = User.create(

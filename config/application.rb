@@ -35,7 +35,7 @@ module LaaReviewCriminalLegalAid
 
     # Load the templates set (refer to `config/govuk_notify_templates.yml` for details)
     config.govuk_notify_templates = config_for(
-      :govuk_notify_templates, env: :production
+      :govuk_notify_templates, env: ENV.fetch('GOVUK_NOTIFY_ENV', 'non-production')
     ).with_indifferent_access
 
     config.generators do |g|
@@ -43,6 +43,9 @@ module LaaReviewCriminalLegalAid
     end
 
     # Authentication, authorization, and session configuration
+
+    # Length of time before a user account invitation expires
+    config.x.auth.invitation_ttl = 48.hours 
 
     # The maximum time since a users was last authenticated on DOM1 before
     # they are automatically signed out.
