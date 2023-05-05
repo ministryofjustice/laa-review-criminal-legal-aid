@@ -2,37 +2,29 @@ require 'aws-sdk-sns'
 
 module Api
   class EventsController < ActionController::API
-    before_action :verify_request_authenticity, unless: :raw_request_delivery?
+    before_action :verify!
 
-    #
-    # TODO extract to middleware if we go down this route....
-    #
-    def create
-      #
-      # Return 204 for a succesfull notification
-      # Return 200 for other types
-      # Return confirm endpoint status for subscription confirm.
-      #
-
-      case request.headers.fetch('x-amz-sns-message-type')
-      when 'SubscriptionConfirmation'
-        confirm_subscription!
-      when 'Notification'
-        handle_notification!
-      else
-        head :ok
+    # NOTE: Raw messages are currently unsupported
+    def verify!
+      if sns_service.raw_request_delivery?
+        head status: 451
+      elsif sns_service.invalid?
+        head :unauthorized
       end
+
+      true
+    end
+
+    def create
+      sns_service.call(on_notfication: handle_notification)
+
+      head status: sns_service.result.to_sym
     end
 
     private
 
-    def confirm_subscription!
-      response = Faraday.get(confirm_url)
-
-      head response.status
-    end
-
-    def handle_notification!
+    # NOTE: callback must return valid HTTP status code/name
+    def handle_notification
       Reviewing::ReceiveApplication.call(
         application_id:,
         correlation_id:,
@@ -40,9 +32,9 @@ module Api
         submitted_at:
       )
 
-      head :created
+      :created
     rescue Reviewing::AlreadyReceived
-      head :ok
+      :ok
     end
 
     def application_id
@@ -54,52 +46,19 @@ module Api
     end
 
     def correlation_id
-      message.fetch('data').fetch('parent_id', application_id)
+      message['data']&.fetch('parent_id', application_id)
     end
 
     def causation_id
-      request.headers.fetch('x-amz-sns-message-id')
+      sns_service.message_id
     end
 
     def message
-      if raw_request_delivery?
-        request_body
-      else
-        JSON.parse(request_body.fetch('Message'))
-      end
+      sns_service.message
     end
 
-    def confirm_url
-      request_body.fetch('SubscribeURL')
-    end
-
-    def request_body
-      @request_body ||= JSON.parse(request.body.read)
-    end
-
-    def verify_request_authenticity
-      return head :unauthorized if request_body.blank?
-      return head :unauthorized unless valid_topic?
-
-      message_verifier.authenticate!(request_body.to_json)
-    end
-
-    def valid_topic?
-      raise ArgumentError, 'Environment MAAT_SNS_TOPIC_ARN not set' if ENV['MAAT_SNS_TOPIC_ARN'].blank?
-
-      topic_arn.present? && (topic_arn == ENV['MAAT_SNS_TOPIC_ARN'].strip)
-    end
-
-    def topic_arn
-      @topic_arn ||= request_body.fetch('TopicArn', '').strip
-    end
-
-    def raw_request_delivery?
-      request.headers['x-amz-sns-rawdelivery'] == 'true'
-    end
-
-    def message_verifier
-      @message_verifier ||= Aws::SNS::MessageVerifier.new
+    def sns_service
+      @sns_service ||= AAWS::SNSService.new(raw_message: request.body.read)
     end
   end
 end
