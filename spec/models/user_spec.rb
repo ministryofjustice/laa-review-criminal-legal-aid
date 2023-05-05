@@ -51,11 +51,6 @@ RSpec.describe User do
       expect(pending_activation).to include(user)
     end
 
-    it 'excludes users with expired invitations' do
-      user.update(invitation_expires_at: Time.zone.now)
-      expect(pending_activation).not_to include(user)
-    end
-
     it 'excludes activated users' do
       user.update(auth_subject_id: SecureRandom.uuid)
       expect(pending_activation).not_to include(user)

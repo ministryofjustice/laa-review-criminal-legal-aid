@@ -1,7 +1,7 @@
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def azure_ad
-      @user = UserAuthenticate.new(request.env['omniauth.auth']).authenticate!
+      @user = UserAuthenticate.new(request.env['omniauth.auth']).authenticate
 
       if @user
         sign_in_and_redirect @user, event: :authentication

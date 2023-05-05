@@ -54,6 +54,10 @@ module LaaReviewCriminalLegalAid
     # The maximum period of inactivity before a user is
     # automatically signed out.
     config.x.auth.timeout_in = 15.minutes
+    
+    # The maximum period of inactivity before a user is
+    # considered dormant.
+    config.x.auth.dormant_account_threshold = 6.months
 
     # Default page size for paging results
     config.x.admin.pagination_per_page = 20

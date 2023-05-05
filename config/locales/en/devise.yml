@@ -12,6 +12,12 @@ en:
           - You have been signed out
           - Your session automatically ends if you do not access the service for more than 15 minutes.
         unauthenticated: ""
+        dormant: 
+          - Your access to this service has been restricted
+          - It has been more than 6 months since you last accessed the service. Your account will need to be re-activated before you can sign in.
+        invitation_expired: 
+          - Your invitation has expired 
+          - Invitations to access this service automatically expire after 48 hours.
     sessions:
       user:
         signed_in: ""
