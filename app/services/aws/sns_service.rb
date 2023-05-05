@@ -12,14 +12,15 @@ module Aws
 
     # NOTE: only supports '#create!' for now
     def call
-      @result =
-        if confirmation?
-          sns_event.confirm!
-        elsif notification?
-          sns_event.create!
-        else
-          :forbidden
-        end
+      if sns_event.confirmation? && confirmation_allowed?
+        sns_event.confirm!
+        :ok
+      elsif sns_event.notification?
+        sns_event.create!
+        :created
+      else
+        :forbidden
+      end
     end
 
     def allowed?
@@ -33,10 +34,18 @@ module Aws
     end
 
     def topic_allowed?
-      return false if sns_message.topic_arn.blank?
+      return false if sns_event.topic_arn.blank?
 
-      ALLOWED_AWS_ACCOUNTS.any? { |arn| topic_arn.starts_with?(arn) }
+      ALLOWED_AWS_ACCOUNTS.any? { |arn| sns_event.topic_arn.starts_with?(arn) }
     end
+
+    def confirmation_allowed?
+      return false if sns_event.subscribe_url.blank?
+
+      ALLOWED_AWS_ACCOUNTS.any? { |arn| sns_event.subscribe_url.include?(arn) }
+    end
+
+    private
 
     def message_verifier
       @message_verifier ||= Aws::SNS::MessageVerifier.new

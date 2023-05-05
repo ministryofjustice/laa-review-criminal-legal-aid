@@ -19,7 +19,7 @@ class ReceiveApplicationSnsEvent
   def confirm!
     raise ArgumentError, 'Cannot confirm SNS topic subscription without valid SubscribeURL' if subscribe_url.blank?
 
-    response = Faraday.get(sns_event.subscribe_url)
+    response = Faraday.get(subscribe_url)
     response.status
   end
 
