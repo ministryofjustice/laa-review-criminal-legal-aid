@@ -10,7 +10,7 @@ module Aws
       @sns_event = sns_event
     end
 
-    # @return [symbol] rails HTTP status names
+    # @return [Symbol] rails HTTP status names
     def call
       if sns_event.confirmation? && confirmation_allowed?
         sns_event.confirm!
