@@ -10,7 +10,7 @@ module Aws
       @sns_event = sns_event
     end
 
-    # NOTE: only supports '#create!' for now
+    # @return [symbol] rails HTTP status names
     def call
       if sns_event.confirmation? && confirmation_allowed?
         sns_event.confirm!
