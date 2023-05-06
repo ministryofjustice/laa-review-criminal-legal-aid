@@ -17,7 +17,7 @@ module Api
     end
 
     def sns_event
-      @sns_event ||= ReceiveApplicationSnsEvent.new(
+      @sns_event ||= SnsEvent::ReceiveApplicationEvent.new(
         sns_message: request.body.read,
         headers: request.headers
       )
