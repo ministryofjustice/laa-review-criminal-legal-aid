@@ -26,7 +26,7 @@ Rails.application.configure do
 
   config.lograge.custom_payload do |controller|
     {
-      user_id: controller.current_user_id.to_param,
+      user_id: controller.current_user.to_param,
     }
   end
 end
