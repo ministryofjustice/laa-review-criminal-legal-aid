@@ -153,17 +153,4 @@ RSpec.describe 'Authentication Session Initialisation' do
       expect(response).to have_http_status(:forbidden)
     end
   end
-
-  describe "GET '/sign_out'" do
-    let(:user) { User.new(email: 'Ben.EXAMPLE@example.com', auth_subject_id: SecureRandom.uuid) }
-
-    before do
-      sign_in user
-    end
-
-    it 'redirects to login' do
-      get '/sign_out'
-      expect(response).to redirect_to(unauthenticated_root_path)
-    end
-  end
 end

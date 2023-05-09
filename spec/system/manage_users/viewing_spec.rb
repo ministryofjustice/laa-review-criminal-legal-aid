@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Manage Users Dashboard' do
-  include_context 'with a logged in user'
   include_context 'with many other users'
 
   context 'when user does not have access manage other users' do
@@ -15,19 +14,20 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(heading_text).to eq('Your list')
     end
 
-    # rubocop:disable Layout/LineLength
     it 'show access denied flash message' do
-      expect(page).to have_content("You do not have access to that page\nContact laa-crime-apply@digital.justice.gov.uk if you think this wrong")
-      # rubocop:enable Layout/LineLength
+      expect(page).to have_notification_banner(
+        text: 'You do not have access to that page',
+        details: 'Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong'
+      )
     end
   end
 
   context 'when user does have access to manage other users' do
+    include_context 'when logged in user is admin'
+
     let(:last_auth_at) { Time.zone.now }
 
     before do
-      visit '/'
-      User.update(current_user_id, can_manage_others: true, last_auth_at: last_auth_at)
       visit '/admin/manage_users'
     end
 

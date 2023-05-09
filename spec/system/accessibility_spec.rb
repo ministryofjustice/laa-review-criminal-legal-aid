@@ -13,8 +13,6 @@ RSpec.describe 'Accessibility' do
   end
 
   describe 'pages that require an authenticated user' do
-    include_context 'with a logged in admin user'
-
     it 'viewing assigned applications page has no axe detectible accessibility issues' do
       expect(page).to be_axe_clean.according_to accessibility_standards
     end

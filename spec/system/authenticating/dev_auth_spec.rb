@@ -1,17 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Authenticating with the DevAuth strategy' do
-  before do
-    # With system specs, the current_users is logged in by default.
-    sign_out(current_user)
-  end
+  include_context 'when not logged in'
+  before { user }
 
   let(:user) { nil }
 
   describe 'clicking the "Sign in" button' do
     before do
-      user
-      visit '/'
       click_button 'Sign in'
     end
 

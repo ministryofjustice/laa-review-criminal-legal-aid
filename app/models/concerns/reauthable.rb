@@ -1,7 +1,9 @@
+# A Devise style module to enforce the maximum time that can pass between
+# authentications regardless of user activity.
+#
+
 require 'warden_hooks/reauthable'
 
-# Enforce the maximum time that can pass between authentications
-# regardless of user activity.
 module Reauthable
   extend ActiveSupport::Concern
 
