@@ -22,18 +22,19 @@ Rails.application.config.filter_parameters += %i[
   name
   first_name
   last_name
+  other_names
   address
   telephone_number
   date_of_birth
   address_line_one
   address_line_two
-  county
+  country
   postcode
   urn
   hearing_court_name
   hearing_date
   reason
-  national_insurance_number
+  nino
   application_start_date
   submission_date
 ]
