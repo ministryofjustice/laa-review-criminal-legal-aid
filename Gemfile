@@ -16,6 +16,9 @@ gem 'govuk_notify_rails'
 
 gem 'kaminari', '~> 1.2'
 
+gem 'lograge'
+gem 'logstash-event'
+
 gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client'
 
