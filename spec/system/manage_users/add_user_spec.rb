@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Add users from manage users dashboard' do
-  include_context 'with a logged in admin user'
+  include_context 'when logged in user is admin'
 
   before do
     visit '/'

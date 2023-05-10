@@ -2,35 +2,28 @@ class UserAuthenticate
   def initialize(auth_hash)
     @auth_subject_id = auth_hash.uid
     @last_auth_at = Time.zone.now
-    @auth_info = auth_hash.info
+    @email = auth_hash.info.email
   end
 
-  def authenticate!
+  # Returns the local user if an active or invited user is found using
+  # the details in the auth hash.
+  #
+  # Deactivated users are not returned. Users with expired invitations or
+  # dormant accounts are returend but are blocked from signing in by Devise
+  # see (User#active_for_authentication?)
+  #
+  def authenticate
     return nil unless user
-
-    activate_user if user.pending_activation?
-
-    user.update(
-      first_name:, last_name:, email:, last_auth_at:
-    )
 
     user
   end
 
-  def user
-    @user ||= find_active_user || find_invited_user
-  end
-
   private
 
-  attr_reader :auth_info, :auth_subject_id, :last_auth_at
+  attr_reader :auth_subject_id, :email
 
-  alias first_auth_at last_auth_at
-
-  delegate :email, :first_name, :last_name, to: :@auth_info
-
-  def activate_user
-    user.assign_attributes(first_auth_at:, auth_subject_id:)
+  def user
+    @user ||= find_active_user || find_invited_user
   end
 
   def find_active_user

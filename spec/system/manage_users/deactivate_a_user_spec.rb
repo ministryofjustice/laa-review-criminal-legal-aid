@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Deactivate a user from the manage users dashboard' do
-  include_context 'with a logged in admin user'
+  include_context 'when logged in user is admin'
   include_context 'with an existing user'
 
   before do
