@@ -88,7 +88,9 @@ RSpec.describe 'Send an application back to the provider' do
 
         it 'calls the NotifyMailer which would send an email to a provider' do
           click_button(send_back_cta)
-          expect(NotifyMailer).to have_received(:application_returned_email).with(crime_application_id)
+          expect(NotifyMailer).to have_received(:application_returned_email).with(
+            crime_application_id, 'duplicate_application'
+          )
           expect(mailer_double).to have_received(:deliver_now)
         end
       end
