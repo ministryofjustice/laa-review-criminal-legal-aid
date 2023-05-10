@@ -153,9 +153,10 @@ en:
     appeal_to_crown_court: Appeal to crown court
     appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
     class: Class
+    class_not_determined: "Class\xA0not\xA0determined"
     to: to
     conflict_of_interest:
-      "yes": CONFLICT
+      "yes": Conflict
       "no": ''
     loss_of_liberty: Loss of liberty
     suspended_sentence: Suspended sentence
