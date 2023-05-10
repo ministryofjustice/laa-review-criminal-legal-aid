@@ -6,8 +6,8 @@ module SnsEvent
       raise ArgumentError, 'Headers must be an Enumerable type' unless headers.respond_to?(:key?)
 
       @headers = headers
-      @request_body = JSON.parse(sns_message) rescue {}
-      @message = JSON.parse(@request_body.fetch('Message')) rescue {}
+      @request_body = json(from: sns_message)
+      @message = json(from: request_body['Message'])
     end
 
     def create!
@@ -78,6 +78,13 @@ module SnsEvent
 
     def invalid?
       !valid?
+    end
+
+    def json(from:)
+      JSON.parse(from)
+    rescue StandardError => e
+      Rails.logger.error("Error parsing JSON [#{e.class}] `#{e.message}`")
+      {}
     end
 
     def to_json(*args)
