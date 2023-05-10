@@ -160,12 +160,12 @@ en:
     loss_of_liberty: Loss of liberty
     suspended_sentence: Suspended sentence
     loss_of_livelihood: Loss of livelihood
-    reputation: Reputation
+    reputation: Damage to reputation
     question_of_law: Question of Law
-    understanding: understanding
+    understanding: Unable to represent themselves
     witness_tracing: Witness tracing
-    expert_examination: Expert examination
-    interest_of_another: Interest of another
+    expert_examination: Expert cross-examination
+    interest_of_another: Interest of another person
     other: Other
     passported: Passported
     on_age_under18: Client is under 18
