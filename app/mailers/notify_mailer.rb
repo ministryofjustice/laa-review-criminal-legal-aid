@@ -11,17 +11,19 @@ class NotifyMailer < GovukNotifyRails::Mailer
   end
   # :nocov:
 
-  def application_returned_email(application_id)
+  def application_returned_email(application_id, return_reason)
     application = CrimeApplication.find(application_id)
     provider_email = application.provider_details.provider_email
     applicant_name = application.applicant_name
     application_reference = application.reference.to_s
+    return_reason = I18n.t("values.return_reason.#{return_reason}")
 
     set_template(:application_returned_email)
 
     set_personalisation(
       applicant_name:,
-      application_reference:
+      application_reference:,
+      return_reason:
     )
 
     mail(to: provider_email)
@@ -40,7 +42,9 @@ class NotifyMailer < GovukNotifyRails::Mailer
     def call(event_store)
       event_store.subscribe(to: [Reviewing::SentBack]) do |event|
         application_id = event.data.fetch(:application_id)
-        NotifyMailer.application_returned_email(application_id).deliver_now
+        return_reason = event.data.fetch(:reason)
+
+        NotifyMailer.application_returned_email(application_id, return_reason).deliver_now
 
       # Rescue and report exceptions
       # Notifying should not block an application from being sent back.
