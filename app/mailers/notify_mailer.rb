@@ -16,7 +16,7 @@ class NotifyMailer < GovukNotifyRails::Mailer
     provider_email = application.provider_details.provider_email
     applicant_name = application.applicant_name
     application_reference = application.reference.to_s
-    return_reason = I18n.t("values.return_reason.#{return_reason}")
+    return_reason = I18n.t("emails_text.application_returned.#{return_reason}")
 
     set_template(:application_returned_email)
 
