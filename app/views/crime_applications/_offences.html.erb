@@ -5,11 +5,13 @@
 <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">
         <%= t('crime_applications.labels.offence') %>
       </th>
-      <th scope="col" class="govuk-table__header">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">
         <%= t('crime_applications.labels.offence_date') %>
+      </th>
+      <th scope="col" class="govuk-table__header">
       </th>
     </tr>
   </thead>
@@ -32,6 +34,13 @@
               <%= t('crime_applications.values.to') %>
               <%= l date.date_to, format: :compact %>
               <% end %>
+          </td>
+          <td class="govuk-table__cell govuk-!-text-align-right">
+            <% if offence.offence_class.blank? %>
+              <span class="moj-badge moj-badge--red">
+                <%= t('crime_applications.values.class_not_determined') %>
+              </span>
+            <% end %>
           </td>
         </tr>
       <% end %>
