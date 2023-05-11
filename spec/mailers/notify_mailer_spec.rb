@@ -19,7 +19,17 @@ RSpec.describe NotifyMailer do
     end
 
     let(:mail) do
-      described_class.application_returned_email(crime_application.id)
+      described_class.application_returned_email(
+        crime_application.id, :clarification_required
+      )
+    end
+
+    let(:personalisation) do
+      {
+        applicant_name: 'Kit Pound',
+        application_reference: '6000001',
+        return_reason: 'clarification is required'
+      }
     end
 
     it_behaves_like 'a Notify mailer', template_id: 'application_returned_email_template_id'
@@ -27,12 +37,7 @@ RSpec.describe NotifyMailer do
     it { expect(mail.to).to eq(['provider@example.com']) }
 
     it 'has the right personalisation' do
-      expect(mail.govuk_notify_personalisation).to eq(
-        {
-          applicant_name: 'Kit Pound',
-          application_reference: '6000001'
-        }
-      )
+      expect(mail.govuk_notify_personalisation).to eq(personalisation)
     end
   end
 

@@ -74,11 +74,11 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   context 'with offence class not provided' do
     let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
 
-    it 'does not show the offence class caption' do
+    it 'does shows the class not determined badge' do
       table_body = find(:xpath,
                         "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tbody[contains(tr[1], 'Robbery')]")
 
-      expect(table_body).not_to have_content('Class')
+      expect(table_body).to have_content('Class not determined')
     end
   end
 

@@ -2,7 +2,7 @@
 <%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-9">
+  <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-9">
     <%= render partial: 'shared/subnavigation', locals: { crime_application: @crime_application } %>
     <%= render partial: 'overview', object: @crime_application %>
     <%= render partial: 'client_details',
@@ -20,7 +20,7 @@
 </div>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-three-quarters">
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <% if @crime_application.status?(:marked_as_ready) %>
