@@ -50,13 +50,13 @@ RSpec.describe 'Api::Events' do
       'Type' => nil,
       'Token' => '2336412f37f',
       'MessageId' => nil,
-      'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
+      'TopicArn' => 'arn:aws:sns:eu-west-2:754256621582:ImportantMaatTopic',
       'Subject' => nil,
       'Message' => '',
       'Timestamp' => '2012-05-02T00:54:06.655Z',
       'SignatureVersion' => '1',
       'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem',
-      'UnsubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:123456789012:MyTopic:c9135db0-26c4-47ec-8998-413945fb5a96'
+      'UnsubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-2:754256621582:MyTopic:c9135db0-26c4-47ec-8998-413945fb5a96'
     }
   end
 
@@ -83,7 +83,6 @@ RSpec.describe 'Api::Events' do
     let(:body) do
       standard_sns_message.merge(
         'Type' => 'Notification',
-        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
         'Subject' => 'apply.submission',
         'Message' => message.to_json
       )
@@ -117,12 +116,10 @@ RSpec.describe 'Api::Events' do
 
     let(:body) { message }
 
-    it 'creates an ApplicationReceived event' do
-      expect { do_request }
-        .to change { review.state }.from(nil).to(:open)
-        .and change { review.submitted_at }.from(nil).to DateTime.parse('2022-10-27T14:09:11')
+    it 'is rejected' do
+      expect { do_request }.not_to(change { review.state })
 
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unavailable_for_legal_reasons
     end
   end
 
@@ -134,23 +131,46 @@ RSpec.describe 'Api::Events' do
       }
     end
 
-    let(:body) do
-      standard_sns_message.merge(
-        'Type' => 'SubscriptionConfirmation',
-        'MessageId' => sns_message_id,
-        'Message' => message.to_json,
-        'SubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:us-west-2:123456789012:MyTopic'
-      )
+    context 'with allowed SubscribeURL' do
+      let(:body) do
+        standard_sns_message.merge(
+          'Type' => 'SubscriptionConfirmation',
+          'MessageId' => sns_message_id,
+          'Message' => message.to_json,
+          'SubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:eu-west-2:754256621582:MyTopic'
+        )
+      end
+
+      it 'confirms the subscription' do
+        stub = stub_request(:get, 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:eu-west-2:754256621582:MyTopic').to_return(
+          status: 200, body: '', headers: {}
+        )
+        do_request
+
+        expect(stub).to have_been_requested
+        expect(response).to have_http_status :ok
+      end
     end
 
-    it 'confirms the subscription' do
-      stub = stub_request(:get, 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:us-west-2:123456789012:MyTopic').to_return(
-        status: 200, body: '', headers: {}
-      )
+    context 'with disallowed SubscribeURL' do
+      let(:body) do
+        standard_sns_message.merge(
+          'Type' => 'SubscriptionConfirmation',
+          'MessageId' => sns_message_id,
+          'Message' => message.to_json,
+          'SubscribeURL' => 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:eu-west-2:1234444:BadARN!'
+        )
+      end
 
-      do_request
-      expect(stub).to have_been_requested
-      expect(response).to have_http_status :ok
+      it 'does not confirm the subscription' do
+        stub = stub_request(:get, 'https://sns.us-west-2.amazonaws.com/?Action=ConfirmSubscription&Token=2336412f37&TopicArn=arn:aws:sns:eu-west-4:123999:BadTopicARN!').to_return(
+          status: 200, body: '', headers: {}
+        )
+        do_request
+
+        expect(stub).not_to have_been_requested
+        expect(response).to have_http_status :forbidden
+      end
     end
   end
 
@@ -170,9 +190,9 @@ RSpec.describe 'Api::Events' do
       )
     end
 
-    it 'returns okay' do
+    it 'returns forbidden' do
       do_request
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :forbidden
     end
   end
 
@@ -187,7 +207,6 @@ RSpec.describe 'Api::Events' do
     let(:body) do
       standard_sns_message.merge(
         'Type' => 'Notification',
-        'TopicArn' => 'arn:aws:sns:us-west-2:123456789012:MyTopic',
         'Subject' => 'apply.submission',
         'Message' => message.to_json,
         'SigningCertURL' => 'https://sns.us-west-2.amazonaws.com/BAD-PUBLIC-CERT.pem'
@@ -209,8 +228,18 @@ RSpec.describe 'Api::Events' do
 
     let(:body) { {} }
 
-    it 'returns unauthorized' do
+    it 'returns unprocessable entity' do
       post('/api/events', params: body.to_json, headers: headers)
+      expect(response).to have_http_status :unprocessable_entity
+    end
+  end
+
+  describe 'Unrecognised TopicArn' do
+    let(:body) { standard_sns_message.merge('TopicArn' => 'arn:NotAMaatTopic') }
+
+    it 'returns unauthorized' do
+      do_request
+
       expect(response).to have_http_status :unauthorized
     end
   end
