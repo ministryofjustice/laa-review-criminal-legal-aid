@@ -27,6 +27,12 @@ class NotifyMailer < GovukNotifyRails::Mailer
     mail(to: provider_email)
   end
 
+  def access_granted_email(email)
+    set_template(:access_granted_email)
+
+    mail(to: email)
+  end
+
   protected
 
   # rubocop:disable Naming/AccessorMethodName

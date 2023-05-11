@@ -35,8 +35,7 @@ RSpec.describe Admin::NewUserForm, type: :model do
         end
 
         it 'errors when email is not unique (i.e. user already exists)' do
-          allow(user_class).to receive(:new).with(valid_params).and_return(user)
-          allow(user).to receive(:save).and_raise(ActiveRecord::RecordNotUnique)
+          allow(user_class).to receive(:create!).with(valid_params).and_raise(ActiveRecord::RecordNotUnique)
 
           form = described_class.new(valid_params)
           form.save
@@ -48,25 +47,56 @@ RSpec.describe Admin::NewUserForm, type: :model do
   end
 
   describe '#save' do
+    subject(:save) { described_class.new(valid_params).save }
+
     before do
-      allow(user_class).to receive(:new).with(valid_params).and_return(user)
+      allow(user_class).to receive(:create!).with(valid_params).and_return(user)
+      allow(NotifyMailer).to receive(:access_granted_email) {
+        instance_double(ActionMailer::MessageDelivery, deliver_now: true)
+      }
     end
 
     context 'with valid params' do
-      it 'creates a new user' do
-        described_class.new(valid_params).save
+      before do
+        allow(user_class).to receive(:create!).with(valid_params).and_return(user)
+      end
 
-        expect(user_class).to have_received(:new)
-          .with(valid_params)
-        expect(user).to have_received(:save)
+      it { is_expected.to be true }
+
+      it 'creates a new user' do
+        save
+        expect(user_class).to have_received(:create!).with(valid_params)
+        expect(NotifyMailer).to have_received(:access_granted_email).with(valid_params[:email])
       end
     end
 
     context 'with invalid params' do
-      it 'does not create a new user' do
-        described_class.new(invalid_params).save
+      subject(:save) { described_class.new(invalid_params).save }
 
-        expect(user_class).not_to have_received(:new)
+      before { allow(user_class).to receive(:create!) }
+
+      it { is_expected.to be false }
+
+      it 'does not create a new user' do
+        save
+        expect(user_class).not_to have_received(:create!)
+        expect(NotifyMailer).not_to have_received(:access_granted_email)
+      end
+    end
+
+    context 'when an active record error is raised' do
+      before do
+        allow(user_class).to receive(:create!) {
+          raise ActiveRecord::RecordNotUnique
+        }
+      end
+
+      it { is_expected.to be false }
+
+      it 'does not create a new user' do
+        save
+        expect(user_class).to have_received(:create!)
+        expect(NotifyMailer).not_to have_received(:access_granted_email)
       end
     end
   end

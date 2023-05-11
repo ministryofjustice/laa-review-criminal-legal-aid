@@ -4,6 +4,9 @@ RSpec.describe 'Add users from manage users dashboard' do
   include_context 'when logged in user is admin'
 
   before do
+    allow(NotifyMailer).to receive(:access_granted_email) {
+      instance_double(ActionMailer::MessageDelivery, deliver_now: true)
+    }
     visit '/'
     visit '/admin/manage_users'
     click_on 'Add new user'

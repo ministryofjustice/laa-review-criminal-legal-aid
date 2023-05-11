@@ -6,15 +6,18 @@ RSpec.describe NotifyMailer do
 
   before do
     allow(Rails.configuration).to receive(:govuk_notify_templates).and_return(
-      application_returned_email: 'application_returned_email_template_id'
+      application_returned_email: 'application_returned_email_template_id',
+      access_granted_email: 'access_granted_email_template_id'
     )
-
-    allow(CrimeApplication).to receive(:find)
-      .with(crime_application.id)
-      .and_return(crime_application)
   end
 
   describe '#application_returned_email' do
+    before do
+      allow(CrimeApplication).to receive(:find)
+        .with(crime_application.id)
+        .and_return(crime_application)
+    end
+
     let(:mail) do
       described_class.application_returned_email(crime_application.id)
     end
@@ -31,5 +34,15 @@ RSpec.describe NotifyMailer do
         }
       )
     end
+  end
+
+  describe '#access_granted_email' do
+    let(:mail) do
+      described_class.access_granted_email('test@example.com')
+    end
+
+    it_behaves_like 'a Notify mailer', template_id: 'access_granted_email_template_id'
+
+    it { expect(mail.to).to eq(['test@example.com']) }
   end
 end
