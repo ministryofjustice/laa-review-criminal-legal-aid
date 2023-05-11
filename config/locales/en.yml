@@ -20,6 +20,15 @@ en:
       datetime: '%-l:%M%P %-d %b %Y'  # 2:45pm 3 Jan 2019
       timestamp: '%A %-d %b %H:%M'  # Monday 21 Nov 12:20
 
+  emails_text:
+    application_returned:
+      clarification_required: clarification is required
+      evidence_issue: there is an evidence issue
+      duplicate_application: it is a duplicate
+      case_concluded: the case has already concluded
+      provider_request: you requested it be returned
+      split_case: the case has been split, so we need justification for all offences
+
   phase_banner:
     text: This is an MVP. Some things may not work as expected.
     alpha: alpha
@@ -36,13 +45,13 @@ en:
       user_deactivated: Email address has been deactivated
     important:
       title: Important
-      reassigned_to_someone_else: 
+      reassigned_to_someone_else:
         - This application could not be reassigned to your list
         - This is because it was reassigned to %{reassigned_to_user} instead.
       unassigned_before_confirm:
         - This application could not be reassigned to your list
         - There was an error. Try again to reassign the application to your list.
-      no_next_to_assign: 
+      no_next_to_assign:
         - There are no new applications to be reviewed
         - You can check again later
       already_sent_back: This application was already sent back to the provider
@@ -130,7 +139,7 @@ en:
     status: Status
     workload_report:
       days_passed: Business days since applications were received
-      received_applications_by_age: Applications received 
+      received_applications_by_age: Applications received
       open_applications_by_age: "Applications still\xA0open"
       processed_on: Closed on
       applications_closed: Closed applications
@@ -215,7 +224,7 @@ en:
     search: Search
     unassign_from_self: Remove from your list
     view_all_open_applications: Check all open applications
-    view_daily_count: Check when applications were received 
+    view_daily_count: Check when applications were received
     view_closed_on_count: View by date closed
     mark_complete: Mark as completed
     send_back: Send back to provider
@@ -351,11 +360,11 @@ en:
       total:
         one: 1 application
         other: "%{count} applications"
-      total_open: 
+      total_open:
         zero: There are no open applications that need to be reviewed.
         one: There is 1 open application that needs to be reviewed.
         other: "There are %{count} open applications that need to be reviewed."
-      total_closed: 
+      total_closed:
         one: There is 1 closed application that has been completed or sent back to the provider.
         other: "There are %{count} closed applications that have been completed or sent back to the provider."
     show:
