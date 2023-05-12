@@ -50,7 +50,7 @@
     "codefendants": [],
     "offences": [
       {
-        "class": "Class C or B",
+        "offence_class": "C",
         "dates": [
           {
             "date_from": "2020-12-12",
@@ -62,7 +62,8 @@
     ],
     "hearing_court_name": "Caernarfon Crown Court",
     "hearing_date": "2023-12-12",
-    "urn": "12AB3456789"
+    "urn": "12AB3456789",
+    "offence_class": "C"
   },
   "return_details": {
     "reason": "clarification_required",
