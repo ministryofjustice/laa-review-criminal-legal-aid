@@ -115,6 +115,7 @@ en:
     codefendants: Co-defendants
     offence: Offence
     offence_date: Offence date
+    overall_offence_class: Overall offence class
     interests_of_justice_type: Criteria
     justification: Justification
     office_account_number: Office account number
@@ -126,6 +127,7 @@ en:
     who: Who
     what: What
     application_status: Status
+    undetermined: Undetermined
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name

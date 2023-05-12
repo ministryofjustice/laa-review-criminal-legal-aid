@@ -80,14 +80,29 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
       expect(table_body).to have_content('Class not determined')
     end
+
+    it 'displays undetermined overall offence class' do
+      expect(page).to have_content('Overall offence class Undetermined')
+    end
   end
 
   context 'with offence class provided' do
+    let(:application_id) { '148df27d-4710-4c5b-938c-bb132eb040ca' }
+
+    before do
+      visit '/'
+      visit crime_application_path(application_id)
+    end
+
     it 'does show the offence class' do
       row = first(:xpath,
-                  "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tr[contains(td[1], 'Attempt robbery')]")
+                  "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tr[contains(td[1], 'Robbery')]")
 
       expect(row).to have_content('Class C')
+    end
+
+    it 'displays calculated overall offence class' do
+      expect(page).to have_content('Overall offence class Class C')
     end
   end
   # rubocop:enable Layout/LineLength
