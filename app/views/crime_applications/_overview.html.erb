@@ -40,4 +40,22 @@
       <%= l(overview.date_stamp, format: :compact) %>
     </dd>
   </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= t(:overall_offence_class, scope: 'crime_applications.labels') %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <% if overview.case_details.offence_class %>
+        <span class="moj-badge moj-badge--blue">
+          <%= t('crime_applications.values.class') %>
+          <%= overview.case_details.offence_class %>
+        </span>
+      <% else %>
+        <span class="moj-badge moj-badge--red">
+          <%= t('crime_applications.labels.undetermined') %>
+        </span>
+      <% end %>
+    </dd>
+  </div>
 </dl>
