@@ -29,7 +29,11 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    update!(deactivated_at: Time.zone.now)
+    num_otheradmins = User.where(can_manage_others: true, deactivated_at: nil).where.not(id: self).size
+
+    if num_otheradmins >1
+      update!(deactivated_at: Time.zone.now)
+    end
   end
 
   def pending_activation?
