@@ -27,8 +27,9 @@ Rails.application.configure do
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
-  # We are pre-compiling assets, so on production these will always be present, however
-  # for this to work this flag needs to be `true`. Seems like a Rails bug to me.
+  # We are pre-compiling assets, so on production these will always be present and this should be set to false
+  # However, some assets won't be found, so for this to work this flag needs to be `true`
+  # This could be revisited to find an alternative solution
   config.assets.compile = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
