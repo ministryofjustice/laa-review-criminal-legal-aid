@@ -28,9 +28,21 @@ class ApplicationController < ActionController::Base
     )
 
     @search = ApplicationSearch.new(
-      filter:,
-      sorting:,
-      pagination:
+      filter:, sorting:, pagination:
     )
+  end
+
+  def set_flash(message_key, options = {})
+    success = options.delete(:success) || true
+    flash_key = success ? :success : :important
+
+    message = I18n.t(
+      message_key, scope: [text_namespace, :flash, flash_key].compact,
+      **options
+    )
+
+    # rubocop:disable Rails/ActionControllerFlashBeforeRender
+    flash[flash_key] = message
+    # rubocop:enable Rails/ActionControllerFlashBeforeRender
   end
 end

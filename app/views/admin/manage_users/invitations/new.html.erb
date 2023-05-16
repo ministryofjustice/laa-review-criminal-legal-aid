@@ -7,25 +7,24 @@
   </div>
 </div>
 
-<%= form_with model: @new_user_form, url: admin_manage_users_path do |f| %>
+<%= form_with model: @new_user_form, url: admin_manage_users_invitations_path do |f| %>
 
   <div class="govuk-form-group">
     <%= f.govuk_text_field :email,
                            class: 'govuk-!-width-one-third',
-                           label: { text: t('.fields.email.label') },
-                           hint: { text: t('.fields.email.hint_text') },
+                           label: { text: label_text(:email) },
+                           hint: { text: hint_text(:email) },
                            autocomplete: 'off' %>
 
     <%= f.govuk_check_box :can_manage_others,
                           true,
                           multiple: false,
-                          label: { text: t('.fields.checkbox.label') } %>
+                          label: { text: label_text(:can_manage_others) } %>
   </div>
 
   <div class="govuk-button-group">
-    <%= f.submit 'Add user', class: 'govuk-button govuk-button--primary' %>
-    <%= link_to t('.cancel'),
-                admin_manage_users_path,
+    <%= f.submit 'Invite', class: 'govuk-button govuk-button--primary' %>
+    <%= link_to action_text(:cancel), admin_manage_users_invitations_path,
                 class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
   </div>
 <% end %>

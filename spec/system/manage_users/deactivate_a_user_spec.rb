@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Deactivate a user from the manage users dashboard' do
   include_context 'when logged in user is admin'
   include_context 'with an existing user'
+  let(:confirm_path) { new_admin_manage_users_deactivated_user_path }
 
   before do
     active_user
@@ -34,7 +35,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     describe 'clicking on "Yes, deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('Yes, deactivate') }.to(
-          change { page.current_path }.from(confirm_path).to(admin_manage_users_path)
+          change { page.current_path }.from(confirm_path).to(admin_manage_users_root_path)
         )
       end
 
@@ -42,7 +43,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
         click_on('Yes, deactivate')
 
         within('.govuk-notification-banner--success') do
-          expect(page).to have_content('Email address has been deactivated')
+          expect(page).to have_content('Zoe Blogs has been deactivated')
         end
       end
 
@@ -56,7 +57,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     describe 'clicking on "No, do not deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('No, do not deactivate') }.to(
-          change { page.current_path }.from(confirm_path).to(admin_manage_users_path)
+          change { page.current_path }.from(confirm_path).to(admin_manage_users_root_path)
         )
       end
 

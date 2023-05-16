@@ -1,0 +1,10 @@
+<ul class="govuk-summary-list__actions-list">
+  <li class="govuk-summary-list__actions-list-item">
+    <%= link_to('Delete', admin_manage_users_invitation_path(user), method: :delete, data: { turbo: true, turbo_method: :delete, turbo_confirm: confirm_text(:delete_invitation, email: user.email) }, secondary: true) %>
+  </li>
+  <% if user.invitation_expired? %>
+    <li class="govuk-summary-list__actions-list-item">
+      <%= link_to('Renew', admin_manage_users_invitation_path(user), method: :put, data: { turbo: true, turbo_method: :delete, turbo_confirm: confirm_text(:renew_invitation, email: user.email) }, secondary: true) %>
+    </li>
+  <% end %>
+</li>

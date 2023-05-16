@@ -1,0 +1,62 @@
+en:
+  manage_users:
+    flash:
+      success:
+        invitation_deleted: Invitation to %{email} has been deleted 
+        invitation_renewed: Invitation to %{email} has been renewed 
+        user_deactivated: "%{user_name} has been deactivated"
+        user_invited: "%{email} has been invited"
+        user_updated: "%{user_name} has been updated"
+
+    confirmations:
+      deactivate_user: Are you sure you want to deactivate %{user_name}?
+      delete_invitation: "Are you sure you want to delete %{email}'s invitation?"
+      renew_invitation: "Are you sure you want to extend %{email}'s invitation?"
+
+    warnings:
+      deactivate_user: This will mean %{user_name} can no longer access this service.
+
+    # user for buttons or links
+    actions:
+      add_new_user: Invite a user
+      cancel: Cancel
+      deactivate: Deactivate
+      edit: Edit
+      abandon_deactivation: No, do not deactivate
+      confirm_deactivation: Yes, deactivate
+
+    table_headings:
+      actions: Actions
+      email: Email
+      invitation_expires_at: Invitations expires 
+      last_auth_at: Last authentication
+      manage_others: Manage other users
+      name: Name
+
+    labels:
+      can_manage_others: Give access to manage other users
+      email: Email
+
+    hint_texts:
+      email: "Enter the user's DOM1 email"
+
+  admin:
+    manage_users:
+      index:
+        page_title: Manage users
+        heading: Manage users
+      active_users:
+        edit:
+          page_title: Edit a user
+          heading: Edit a user
+      invitations:
+        index:
+          page_title: Invited users
+          heading: Add a new user
+          table:
+        new:
+          page_title: Invite a user
+          heading: Invite a user
+      deactivated_users:
+        new:
+          page_title: Confirm deactivation

@@ -1,0 +1,33 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      <%= confirm_text(:deactivate_user, user_name: @user.name) %>
+    </h1>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        <%= warning_text(:deactivate_user, user_name: @user.name) %>
+      </strong>
+    </div>
+
+    <div class="govuk-button-group">
+      <%= form_with(
+            url: admin_manage_users_deactivate_user_path(@user),
+            method: :post
+          ) do |f| %>
+        <%= f.submit action_text(:confirm_deactivation), class: 'govuk-button'%>
+      <% end %>
+
+      <%= button_to(
+            action_text(:abandon_deactivation),
+            admin_manage_users_root_path,
+            method: :get,
+            class: 'govuk-button govuk-button--warning'
+          ) %>
+    </div>
+  </div>
+</div>

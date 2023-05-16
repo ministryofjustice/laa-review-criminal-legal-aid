@@ -1,11 +1,18 @@
 class User < ApplicationRecord
+  class CannotDestroyIfActive < StandardError; end
+  class CannotRenewIfActive < StandardError; end
+
+  paginates_per 50
+
   devise :omniauthable, :timeoutable
 
   include AuthUpdateable
   include Reauthable
 
-  before_create do
-    self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
+  before_create :set_invitation_expires_at
+
+  before_destroy do
+    raise CannotDestroyIfActive if activated?
   end
 
   scope :pending_activation, -> { where(auth_subject_id: nil, deactivated_at: nil) }
@@ -38,6 +45,17 @@ class User < ApplicationRecord
 
   def invitation_expired?
     pending_activation? && invitation_expires_at < Time.zone.now
+  end
+
+  def renew_invitation!
+    raise CannotRenewIfActive if activated?
+
+    set_invitation_expires_at
+    save!
+  end
+
+  def set_invitation_expires_at
+    self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
   end
 
   def dormant?
