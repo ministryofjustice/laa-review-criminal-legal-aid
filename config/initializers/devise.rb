@@ -42,7 +42,7 @@ Devise.setup do |config|
     :openid_connect,
     {
       name: :azure_ad,
-      scope: [:openid, :email, :profile],
+      scope: [:openid, :email],
       response_type: :code,
       client_options: {
         identifier: ENV.fetch('OMNIAUTH_AZURE_CLIENT_ID', nil),
