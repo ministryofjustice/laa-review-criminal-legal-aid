@@ -35,7 +35,7 @@ RSpec.describe ApplicationHelper do
     end
   end
 
-  describe '#app_banner_colour' do
+  describe '#app_banner_tag' do
     before do
       allow(ENV).to receive(:fetch).with('ENV_NAME').and_return(env_name)
     end
@@ -49,7 +49,6 @@ RSpec.describe ApplicationHelper do
       end
 
       it { expect(helper.app_banner_tag).to eq('dev') }
-      it { expect(helper.app_banner_colour).to eq('green') }
     end
 
     context 'when in staging environment' do
@@ -61,7 +60,6 @@ RSpec.describe ApplicationHelper do
       end
 
       it { expect(helper.app_banner_tag).to eq('staging') }
-      it { expect(helper.app_banner_colour).to eq('orange') }
     end
 
     context 'when in prod environment' do
@@ -73,7 +71,6 @@ RSpec.describe ApplicationHelper do
       end
 
       it { expect(helper.app_banner_tag).to eq('alpha') }
-      it { expect(helper.app_banner_colour).to eq('blue') }
     end
   end
 end

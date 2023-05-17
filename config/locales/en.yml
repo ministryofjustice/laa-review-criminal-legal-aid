@@ -34,10 +34,6 @@ en:
       local: dev
       staging: staging
       production: alpha
-    colour:
-      local: green
-      staging: orange
-      production: blue
     text: This is an MVP. Some things may not work as expected.
   flash:
     success:

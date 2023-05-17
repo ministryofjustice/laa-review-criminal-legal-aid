@@ -13,16 +13,6 @@ module ApplicationHelper
     end
   end
 
-  def app_banner_colour
-    if HostEnv.local?
-      t('phase_banner.colour.local')
-    elsif HostEnv.staging?
-      t('phase_banner.colour.staging')
-    else
-      t('phase_banner.colour.production')
-    end
-  end
-
   def title(page_title)
     content_for(
       :page_title, [page_title.presence, service_name, 'GOV.UK'].compact.join(' - ')
