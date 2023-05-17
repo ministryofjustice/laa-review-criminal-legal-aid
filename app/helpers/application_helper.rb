@@ -3,6 +3,17 @@ module ApplicationHelper
     t('service.name')
   end
 
+  def app_banner_colour
+    case
+    when HostEnv.local?
+      t('phase_banner.colour.local')
+    when HostEnv.staging?
+      t('phase_banner.colour.staging')
+    else
+      t('phase_banner.colour.production')
+    end
+  end
+
   def title(page_title)
     content_for(
       :page_title, [page_title.presence, service_name, 'GOV.UK'].compact.join(' - ')

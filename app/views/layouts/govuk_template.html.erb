@@ -34,7 +34,7 @@
 
   <div class="app-phase-banner-wrapper" role="status">
     <div class="govuk-width-container">
-      <%= govuk_phase_banner(tag: { text: Rails.configuration.x.phase_banner.tag }, text: t('phase_banner.text'), classes: "app-banner-#{Rails.configuration.x.phase_banner.colour}") %>
+      <%= govuk_phase_banner(tag: { text: t("phase_banner.tag.#{HostEnv.env_name}") }, text: t('phase_banner.text'), classes: "app-banner-#{app_banner_colour}") %>
     </div>
   </div>
 

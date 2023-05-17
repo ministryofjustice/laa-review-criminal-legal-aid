@@ -1,4 +1,4 @@
-<%= govuk_header(service_name: t('service.name'), classes: ["app-banner-#{Rails.configuration.x.phase_banner.colour}"]) do |header| %>
+<%= govuk_header(service_name: t('service.name'), classes: ["app-banner-#{app_banner_colour}"]) do |header| %>
   <%= header.navigation_item(text: current_user.name) %>
   <% if current_user.can_manage_others %>
     <%= header.with_navigation_item(text: t('.manage_users'), href: admin_manage_users_path) %>

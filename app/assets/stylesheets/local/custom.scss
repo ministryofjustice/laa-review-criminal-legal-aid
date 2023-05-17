@@ -21,22 +21,3 @@ form.search {
 p.help-text {
   color: govuk-colour("dark-grey");
 }
-
-// Phase banner styling
-$app-prod-colour: govuk-colour("blue");
-$app-staging-colour: govuk-colour("orange");
-$app-dev-colour: govuk-colour("green");
-
-$colours: ("blue": $app-prod-colour, "orange": $app-staging-colour, "green": $app-dev-colour);
-
-@each $key, $colour in $colours {
-  .app-banner-#{$key} {
-    .govuk-header__container {
-      border-bottom-color: $colour;
-    }
-
-    .govuk-tag.govuk-phase-banner__content__tag {
-      background-color: $colour;
-    }
-  }
-}

@@ -61,9 +61,5 @@ module LaaReviewCriminalLegalAid
 
     # Default page size for paging results
     config.x.admin.pagination_per_page = 20
-
-    # Default phase banner styling
-    config.x.phase_banner.tag = ENV.fetch("PHASE_BANNER_TAG", 'alpha')
-    config.x.phase_banner.colour = ENV.fetch("PHASE_BANNER_COLOUR", 'blue')
   end
 end

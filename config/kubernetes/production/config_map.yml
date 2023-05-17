@@ -14,5 +14,3 @@ data:
   OMNIAUTH_AZURE_CLIENT_ID: 7dfb0abc-3b2e-41cf-a2ae-639c5f6b54ba
   OMNIAUTH_AZURE_TENANT_ID: c6874728-71e6-41fe-a9e1-2e8c36776ad8
   OMNIAUTH_AZURE_REDIRECT_URI: https://review-criminal-legal-aid.service.justice.gov.uk/users/auth/azure_ad/callback
-  PHASE_BANNER_TAG: alpha
-  PHASE_BANNER_COLOUR: blue

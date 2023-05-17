@@ -30,8 +30,15 @@ en:
       split_case: the case has been split, so we need justification for all offences
 
   phase_banner:
+    tag:
+      local: dev
+      staging: staging
+      production: alpha
+    colour:
+      local: green
+      staging: orange
+      production: blue
     text: This is an MVP. Some things may not work as expected.
-    alpha: alpha
   flash:
     success:
       title: Success
