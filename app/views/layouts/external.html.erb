@@ -1,7 +1,7 @@
 <% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
 
 <% content_for(:header) do %>
-  <%= govuk_header(service_name: t('service.name'), classes: ['app-header']) %>
+  <%= govuk_header(service_name: t('service.name'), classes: ["app-banner-#{Rails.configuration.x.phase_banner.colour}"]) %>
 <% end %>
 
 <% content_for(:content) do %>
