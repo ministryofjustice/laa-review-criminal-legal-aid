@@ -48,6 +48,7 @@ RSpec.describe ApplicationHelper do
         allow(Rails.env).to receive(:local?).and_return(true)
       end
 
+      it { expect(helper.app_banner_tag).to eq('dev') }
       it { expect(helper.app_banner_colour).to eq('green') }
     end
 
@@ -59,6 +60,7 @@ RSpec.describe ApplicationHelper do
         allow(Rails.env).to receive(:staging?).and_return(true)
       end
 
+      it { expect(helper.app_banner_tag).to eq('staging') }
       it { expect(helper.app_banner_colour).to eq('orange') }
     end
 
@@ -70,6 +72,7 @@ RSpec.describe ApplicationHelper do
         allow(Rails.env).to receive(:production?).and_return(true)
       end
 
+      it { expect(helper.app_banner_tag).to eq('alpha') }
       it { expect(helper.app_banner_colour).to eq('blue') }
     end
   end

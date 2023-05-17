@@ -3,6 +3,16 @@ module ApplicationHelper
     t('service.name')
   end
 
+  def app_banner_tag
+    if HostEnv.local?
+      t('phase_banner.tag.local')
+    elsif HostEnv.staging?
+      t('phase_banner.tag.staging')
+    else
+      t('phase_banner.tag.production')
+    end
+  end
+
   def app_banner_colour
     if HostEnv.local?
       t('phase_banner.colour.local')
