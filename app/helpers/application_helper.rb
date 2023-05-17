@@ -4,10 +4,9 @@ module ApplicationHelper
   end
 
   def app_banner_colour
-    case
-    when HostEnv.local?
+    if HostEnv.local?
       t('phase_banner.colour.local')
-    when HostEnv.staging?
+    elsif HostEnv.staging?
       t('phase_banner.colour.staging')
     else
       t('phase_banner.colour.production')
