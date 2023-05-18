@@ -34,4 +34,43 @@ RSpec.describe ApplicationHelper do
       expect(helper).to have_received(:title).with('')
     end
   end
+
+  describe '#app_banner_tag' do
+    before do
+      allow(ENV).to receive(:fetch).with('ENV_NAME').and_return(env_name)
+    end
+
+    context 'when in local environment' do
+      let(:env_name) { HostEnv::LOCAL }
+
+      before do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('local'))
+        allow(Rails.env).to receive(:local?).and_return(true)
+      end
+
+      it { expect(helper.app_banner_tag).to eq('dev') }
+    end
+
+    context 'when in staging environment' do
+      let(:env_name) { HostEnv::STAGING }
+
+      before do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('staging'))
+        allow(Rails.env).to receive(:staging?).and_return(true)
+      end
+
+      it { expect(helper.app_banner_tag).to eq('staging') }
+    end
+
+    context 'when in prod environment' do
+      let(:env_name) { HostEnv::PRODUCTION }
+
+      before do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+        allow(Rails.env).to receive(:production?).and_return(true)
+      end
+
+      it { expect(helper.app_banner_tag).to eq('alpha') }
+    end
+  end
 end

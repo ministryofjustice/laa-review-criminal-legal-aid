@@ -34,7 +34,7 @@
 
   <div class="app-phase-banner-wrapper" role="status">
     <div class="govuk-width-container">
-      <%= govuk_phase_banner(tag: { text: t('phase_banner.alpha') }, text: t('phase_banner.text'), classes: ['app-phase-banner']) %>
+      <%= govuk_phase_banner(tag: { text: app_banner_tag }, text: t('phase_banner.text'), classes: "app-banner-#{HostEnv.env_name}") %>
     </div>
   </div>
 
