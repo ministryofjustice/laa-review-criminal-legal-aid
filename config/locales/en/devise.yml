@@ -11,7 +11,9 @@ en:
         timeout: 
           - You have been signed out
           - Your session automatically ends if you do not access the service for more than 15 minutes.
-        unauthenticated: ""
+        unauthenticated:
+          - You are not authorised to view this page
+          - Access to this service is restricted if a user is not signed in
         dormant: 
           - Your access to this service has been restricted
           - It has been more than 6 months since you last accessed the service. Your account will need to be re-activated before you can sign in.
