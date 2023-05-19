@@ -29,10 +29,26 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    num_otheradmins = User.where(can_manage_others: true, deactivated_at: nil).where.not(id: self).size
+    num_otheradmins = User.where(
+      can_manage_others: true,
+      deactivated_at: nil
+    ).where.not(id: self).size
 
     if num_otheradmins >1
       update!(deactivated_at: Time.zone.now)
+    end
+  end
+
+  def allow_deactivate?
+    num_otheradmins = User.where(
+      can_manage_others: true,
+      deactivated_at: nil
+    ).where.not(id: self).size
+
+    if num_otheradmins >1
+      return true
+    else
+      return false
     end
   end
 
