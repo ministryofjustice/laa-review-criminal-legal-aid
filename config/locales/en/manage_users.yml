@@ -10,20 +10,27 @@ en:
 
     confirmations:
       deactivate_user: Are you sure you want to deactivate %{user_name}?
-      delete_invitation: "Are you sure you want to delete %{email}'s invitation?"
-      renew_invitation: "Are you sure you want to extend %{email}'s invitation?"
+      destroy_invitation: "Are you sure you want to delete %{email}'s invitation?"
+      renew_invitation: "Are you sure you want to extend %{email}'s invitation for 48 hours?"
 
     warnings:
       deactivate_user: This will mean %{user_name} can no longer access this service.
+      destroy_invitation: This will mean %{email} can no longer activate their account.
 
     # user for buttons or links
     actions:
+      abandon_deactivation: No, do not deactivate
+      abandon_renew: No, do not renew the invitation
+      abandon_destroy: No, do not delete the invitation
       add_new_user: Invite a user
       cancel: Cancel
-      deactivate: Deactivate
-      edit: Edit
-      abandon_deactivation: No, do not deactivate
       confirm_deactivation: Yes, deactivate
+      confirm_destroy: Yes, delete the invitation
+      confirm_renew: Yes, renew the invitation
+      deactivate: Deactivate
+      delete: Delete
+      edit: Edit
+      renew: Renew
 
     table_headings:
       actions: Actions
@@ -57,6 +64,10 @@ en:
         new:
           page_title: Invite a user
           heading: Invite a user
+        confirm_destroy:
+          page_title: Delete invitation
+        confirm_renew:
+          page_title: Renew invitation
       deactivated_users:
         new:
           page_title: Confirm deactivation
