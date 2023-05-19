@@ -69,10 +69,8 @@ en:
     alert:
       title: Important
       user_deactivated: Unable to deactivate user. There must be at least two users who can manage others
-
     error:
       title: Error in application
-      
   primary_navigation:
     your_list: "Your list (%{count})"
     search: Search
