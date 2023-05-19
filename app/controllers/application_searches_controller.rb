@@ -1,4 +1,4 @@
-class ApplicationSearchesController < ApplicationController
+class ApplicationSearchesController < ServiceController
   def new
     @filter = ApplicationSearchFilter.new
   end

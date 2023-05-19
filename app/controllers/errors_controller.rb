@@ -1,5 +1,4 @@
-class ErrorsController < ApplicationController
-  skip_before_action :authenticate_user!, only: :forbidden
+class ErrorsController < BareApplicationController
   layout 'external'
 
   def application_not_found

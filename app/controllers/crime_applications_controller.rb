@@ -1,4 +1,4 @@
-class CrimeApplicationsController < ApplicationController
+class CrimeApplicationsController < ServiceController
   before_action :set_crime_application, only: %i[show history complete ready]
 
   def open
