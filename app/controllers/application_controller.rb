@@ -28,9 +28,7 @@ class ApplicationController < ActionController::Base
     )
 
     @search = ApplicationSearch.new(
-      filter:,
-      sorting:,
-      pagination:
+      filter:, sorting:, pagination:
     )
   end
 end

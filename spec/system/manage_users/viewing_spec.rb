@@ -36,15 +36,10 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(heading_text).to eq('Manage users')
     end
 
-    it 'includes the button to add new user' do
-      add_new_user_button = page.first('.govuk-button').text
-      expect(add_new_user_button).to have_content 'Add new user'
-    end
-
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Email Last authentication Manage other users Actions')
+      expect(column_headings).to eq('Email Manage other users Last authentication Actions')
     end
 
     it 'shows the correct table content' do

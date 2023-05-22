@@ -6,7 +6,8 @@ RSpec.shared_context 'with an existing user', shared_context: :metadata do
     User.create!(
       first_name: 'Zoe',
       last_name: 'Blogs',
-      email: 'Zoe.Blogs@example.com'
+      email: 'Zoe.Blogs@example.com',
+      auth_subject_id: SecureRandom.uuid
     )
   end
 
