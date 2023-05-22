@@ -46,8 +46,6 @@ en:
       sent_back: You sent the application back to the provider
       completed: You marked the application as complete
       marked_as_ready: You marked the application as ready for assessment
-      new_user_created: Email address has been added
-      user_updated: Email address has been updated
       user_deactivated: Email address has been deactivated
     important:
       title: Important

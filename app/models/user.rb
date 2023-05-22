@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  paginates_per Rails.configuration.x.admin.pagination_per_page
+
   devise :omniauthable, :timeoutable
 
   include AuthUpdateable

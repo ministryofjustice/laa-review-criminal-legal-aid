@@ -31,4 +31,28 @@ class ApplicationController < ActionController::Base
       filter:, sorting:, pagination:
     )
   end
+
+  # Sets the full flash message based on the message key.
+  #
+  # Like the AppTextHelper#named_text, it will scope locales according
+  # to the text_namespace set on the controller. If none is set, it will
+  # use root.
+  #
+  # Defaults to "success: true", pass option "success: false" to override.
+  #
+  # Any other options will be passed to I18n.translate.
+  #
+  def set_flash(message_key, options = {})
+    success = options.fetch(:success, true)
+    flash_key = success ? :success : :important
+
+    message = I18n.t(
+      message_key, scope: [try(:text_namespace), :flash, flash_key].compact,
+      **options
+    )
+
+    # rubocop:disable Rails/ActionControllerFlashBeforeRender
+    flash[flash_key] = message
+    # rubocop:enable Rails/ActionControllerFlashBeforeRender
+  end
 end
