@@ -9,7 +9,7 @@ RSpec.describe 'Add users from manage users dashboard' do
     }
     visit '/'
     visit '/admin/manage_users'
-    click_on 'Add new user'
+    click_on 'Invite a user'
   end
 
   it 'loads the correct page' do
@@ -76,7 +76,7 @@ RSpec.describe 'Add users from manage users dashboard' do
     def add_two_of_the_same_user
       fill_in 'Email', with: 'jane@example.com'
       click_button 'Add user'
-      click_on 'Add new user'
+      click_on 'Invite a user'
       fill_in 'Email', with: 'jane@example.com'
       click_button 'Add user'
     end

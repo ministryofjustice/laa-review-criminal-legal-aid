@@ -1,0 +1,15 @@
+en:
+  manage_users:
+    actions:
+      add_new_user: Invite a user
+      deactivate: Deactivate 
+      edit: Edit 
+      cancel: Cancel
+      existing_users: Existing users 
+      invited_users: Invited users 
+
+    table_headings:
+      actions: Actions
+      email: Email
+      last_auth_at: Last authentication
+      manage_others: Manage other users
