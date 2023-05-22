@@ -35,6 +35,9 @@ en:
       staging: staging
       production: alpha
     text: This is an MVP. Some things may not work as expected.
+  warning_text:
+    title: Warning
+    resubmitted: This application has been resubmitted.
   flash:
     success:
       title: Success
@@ -68,6 +71,7 @@ en:
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success
+
     # flash.notice is only used by Devise and is treated as important.
     alert:
       title: Important
@@ -225,6 +229,7 @@ en:
     confirm_reassign_to_self: Yes, reassign
     confirm_deactivation: Yes, deactivate
     copy: Copy reference number
+    go_to_latest: Go to the latest version
     reassign_to_self: Reassign to your list
     search: Search
     unassign_from_self: Remove from your list

@@ -88,6 +88,16 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     @parent ||= CrimeApplication.find(parent_id)
   end
 
+  def latest_application_id
+    crime_application = self
+
+    until crime_application.superseded_by.nil?
+      crime_application = CrimeApplication.find(crime_application.superseded_by)
+    end
+
+    crime_application.id
+  end
+
   def all_histories
     return @all_histories if @all_histories
 
