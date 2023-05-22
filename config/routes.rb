@@ -48,12 +48,6 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-<<<<<<< HEAD
-    resources :manage_users, only: [:index, :new, :create, :edit, :update] do
-      root 'manage_users#index'
-      
-      resource :deactivate_users, only: [:new, :create]
-=======
     namespace :manage_users do
       root 'active_users#index'
       resources :active_users, only: [:index, :edit, :update]
@@ -64,7 +58,6 @@ Rails.application.routes.draw do
         end
       end
       resources :deactivated_users, only: [:index, :new, :create]
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
     end
   end
 

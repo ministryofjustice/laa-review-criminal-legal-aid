@@ -1,12 +1,8 @@
 class User < ApplicationRecord
-<<<<<<< HEAD
-  paginates_per Rails.configuration.x.admin.pagination_per_page
-=======
   class CannotDestroyIfActive < StandardError; end
   class CannotRenewIfActive < StandardError; end
 
-  paginates_per 50
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
+  paginates_per Rails.configuration.x.admin.pagination_per_page
 
   devise :omniauthable, :timeoutable
 

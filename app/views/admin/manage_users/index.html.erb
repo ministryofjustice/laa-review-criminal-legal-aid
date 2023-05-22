@@ -11,11 +11,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-3">
     <%= link_to action_text(:add_new_user),
-<<<<<<< HEAD
-                new_admin_manage_user_path,
-=======
                 new_admin_manage_users_invitation_path,
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
                 class: 'govuk-button govuk-button--primary' %>
   </div>
 </div>
@@ -23,28 +19,16 @@
 <nav class="moj-sub-navigation" aria-label="Sub navigation">
   <ul class="moj-sub-navigation__list">
     <li class="moj-sub-navigation__item">
-<<<<<<< HEAD
-        <%= govuk_link_to action_text(:existing_users),
-                          admin_manage_users_path,
-                          class: 'moj-sub-navigation__link',
-                          aria: { current: 'page' } %>
+      <%= link_to action_text(:existing_users),
+                  admin_manage_users_active_users_path,
+                  class: 'moj-sub-navigation__link',
+                  aria: { current: current_page?(admin_manage_users_active_users_path) || current_page?(admin_manage_users_root_path) ? 'page' : nil } %>
     </li>
     <li class="moj-sub-navigation__item">
-      <%= govuk_link_to action_text(:invited_users),
-                        '#',
-                        class: 'moj-sub-navigation__link' %>
-=======
-        <%= link_to 'Existing users',
-                    admin_manage_users_active_users_path,
-                    class: 'moj-sub-navigation__link',
-                    aria: { current: current_page?(admin_manage_users_active_users_path) || current_page?(admin_manage_users_root_path) ? 'page' : nil } %>
-    </li>
-    <li class="moj-sub-navigation__item">
-      <%= link_to 'Invited users',
+      <%= link_to action_text(:invited_users),
                   admin_manage_users_invitations_path,
                   class: 'moj-sub-navigation__link',
                   aria: { current: current_page?(admin_manage_users_invitations_path) ? 'page' : nil } %>
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
     </li>
   </ul>
 </nav>
@@ -54,13 +38,7 @@
     <table class="govuk-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-<<<<<<< HEAD
-          <th scope="col" class="govuk-table__header"><%= thead_text :email %></th>
-          <th scope="col" class="govuk-table__header"><%= thead_text :manage_others %></th>
-          <th scope="col" class="govuk-table__header"><%= thead_text :last_auth_at %></th>
-=======
           <%= render partial: 'table_headers' %>
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
           <th scope="col" class="govuk-table__header"><%= thead_text :actions %></th>
         </tr>
       </thead>
@@ -69,22 +47,7 @@
           <tr class="govuk-table__row">
             <%= render partial: 'table_cells', locals: { user: } %>
             <td class="govuk-table__cell">
-<<<<<<< HEAD
-              <% unless user.id == current_user_id %>
-                <ul class="govuk-summary-list__actions-list">
-                  <% unless user.dormant? %>
-                    <li class="govuk-summary-list__actions-list-item">
-                      <%= govuk_link_to action_text(:edit), edit_admin_manage_user_path(user, return_url: request.original_url) %>
-                    </li>
-                  <% end %>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <%= govuk_link_to action_text(:deactivate), new_admin_manage_user_deactivate_users_path(user) %>
-                  </li>
-                </ul>
-              <% end %>
-=======
               <%= render partial: 'actions', locals: { user: } %>
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
             </td>
           </tr>
         <% end %>

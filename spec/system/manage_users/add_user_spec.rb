@@ -75,11 +75,7 @@ RSpec.describe 'Invites from manage users dashboard' do
 
     def add_two_of_the_same_user
       fill_in 'Email', with: 'jane@example.com'
-<<<<<<< HEAD
-      click_button 'Add user'
-=======
       click_button 'Invite'
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
       click_on 'Invite a user'
       fill_in 'Email', with: 'jane@example.com'
       click_button 'Invite'

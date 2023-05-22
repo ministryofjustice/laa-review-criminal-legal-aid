@@ -45,10 +45,6 @@ en:
       sent_back: You sent the application back to the provider
       completed: You marked the application as complete
       marked_as_ready: You marked the application as ready for assessment
-<<<<<<< HEAD
-      user_deactivated: Email address has been deactivated
-=======
->>>>>>> 094a05b (CRIMRE-320-manage-invitations)
     important:
       title: Important
       reassigned_to_someone_else:
@@ -65,9 +61,6 @@ en:
       already_marked_as_ready: This application was already marked as ready for assessment
       cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
-      cannot_access:
-        - You do not have access to that page
-        - Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success
