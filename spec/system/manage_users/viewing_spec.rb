@@ -16,7 +16,7 @@ RSpec.describe 'Manage Users Dashboard' do
     it 'show access denied flash message' do
       expect(page).to have_notification_banner(
         text: 'You do not have access to that page',
-        details: 'Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong'
+        details: 'Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong'
       )
     end
   end

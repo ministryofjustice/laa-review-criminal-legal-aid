@@ -9,7 +9,8 @@ module Admin
     before_action :require_user_manager!
 
     def index
-      @users = User.all.order(first_name: :asc, last_name: :asc).page(params[:page])
+      @users = User.all.order(first_name: :asc, last_name: :asc)
+                   .page(params[:page])
     end
 
     def new

@@ -17,7 +17,7 @@ en:
         title: Important
         cannot_access:
           - You do not have access to that page
-          - Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong
+          - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
 
     table_headings:
       actions: Actions
