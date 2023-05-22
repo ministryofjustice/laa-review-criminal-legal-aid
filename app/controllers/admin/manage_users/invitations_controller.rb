@@ -1,10 +1,10 @@
 module Admin
   module ManageUsers
     class InvitationsController < ManageUsersController
+      before_action :set_user, except: %i[index new create]
+
       def index
-        @users = user_scope.order(first_name: :asc, last_name: :asc).page(
-          params[:page]
-        )
+        @users = user_scope.order(first_name: :asc, last_name: :asc).page(params[:page])
       end
 
       def new
@@ -23,18 +23,19 @@ module Admin
       end
 
       def update
-        user = user_scope.find(params[:id])
-        user.renew_invitation!
+        @user.renew_invitation!
 
-        set_flash(:invitation_renewed, email: user.email)
+        set_flash(:invitation_renewed, email: @user.email)
         redirect_to admin_manage_users_invitations_path
       end
 
-      def destroy
-        user = user_scope.find(params[:id])
-        user.destroy
+      def confirm_destroy; end
+      def confirm_renew; end
 
-        set_flash(:invitation_deleted, success: true, email: user.email)
+      def destroy
+        @user.destroy
+
+        set_flash :invitation_deleted, success: true, email: @user.email
         redirect_to admin_manage_users_invitations_path
       end
 
@@ -42,6 +43,10 @@ module Admin
 
       def user_params
         params.require(:admin_new_user_form).permit(:email, :can_manage_others)
+      end
+
+      def set_user
+        @user = user_scope.find(params[:id])
       end
 
       def user_scope

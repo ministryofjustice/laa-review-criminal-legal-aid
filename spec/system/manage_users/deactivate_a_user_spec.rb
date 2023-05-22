@@ -27,7 +27,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     it 'warns about the impact of deactivating' do
       within('div.govuk-warning-text') do
         expect(page).to have_content(
-          '! Warning This will mean Zoe Blogs can no longer access this service.'
+          '!WarningThis will mean Zoe Blogs can no longer access this service.'
         )
       end
     end

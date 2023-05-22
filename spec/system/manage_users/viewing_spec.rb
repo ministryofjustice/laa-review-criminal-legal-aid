@@ -54,12 +54,29 @@ RSpec.describe 'Manage Users Dashboard' do
 
     describe 'ordering of users in the list' do
       before do
-        User.create(first_name: 'Hassan', last_name: 'Example', email: 'hassan.example@example.com',
-                    auth_subject_id: SecureRandom.uuid)
-        User.create(first_name: 'Hassan', last_name: 'Sample', email: 'hassan.sample@example.com',
-                    auth_subject_id: SecureRandom.uuid)
-        User.create(first_name: 'Arthur', last_name: 'Sample', email: 'arthur.sample@example.com',
-                    auth_subject_id: SecureRandom.uuid)
+        users = [
+          {
+            first_name: 'Hassan',
+            last_name: 'Example',
+            email: 'hassan.example@example.com',
+            auth_subject_id: SecureRandom.uuid
+          },
+          {
+            first_name: 'Hassan',
+            last_name: 'Sample',
+            email: 'hassan.sample@example.com',
+            auth_subject_id: SecureRandom.uuid
+          },
+          {
+            first_name: 'Arthur',
+            last_name: 'Sample',
+            email: 'arthur.sample@example.com',
+            auth_subject_id: SecureRandom.uuid
+          }
+        ]
+
+        User.insert_all(users) # rubocop:disable Rails/SkipsModelValidations
+
         visit admin_manage_users_root_path
       end
 
