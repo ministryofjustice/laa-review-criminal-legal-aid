@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get :ping,   to: 'healthcheck#ping'
 
   get 'application_not_found', to: 'errors#application_not_found'
+  get 'not_found', to: 'errors#not_found'
   get 'unhandled', to: 'errors#unhandled'
   get 'forbidden', to: 'errors#forbidden'
 
@@ -59,4 +60,10 @@ Rails.application.routes.draw do
 
   mount RailsEventStore::Browser => "/event_browser" if Rails.env.development?
   root 'assigned_applications#index'
+
+  # catch-all route
+  # :nocov:
+  match '*path', to: 'errors#not_found', via: :all, constraints:
+    lambda { |_request| !Rails.application.config.consider_all_requests_local }
+  # :nocov:
 end
