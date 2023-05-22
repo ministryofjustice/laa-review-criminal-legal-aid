@@ -94,6 +94,21 @@ jobs:
             --build-arg APP_GIT_COMMIT=${{ github.sha }} \
             -t app .
 
+      - name: Snyk scan Docker image
+        uses: snyk/actions/docker@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: app
+          args: --file=Dockerfile --severity-threshold=medium
+
+      - name: Upload Snyk sarif report from code scan
+        uses: github/codeql-action/upload-sarif@v2
+        continue-on-error: true
+        with:
+          sarif_file: snyk.sarif
+
       - name: Push to ECR
         id: ecr
         uses: jwalton/gh-ecr-push@b10a019116283fff10914554dfe85bfb1c21d41b
