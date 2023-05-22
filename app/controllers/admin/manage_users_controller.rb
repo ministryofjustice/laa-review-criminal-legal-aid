@@ -2,6 +2,7 @@ module Admin
   class ManageUsersController < ApplicationController
     layout 'manage_users'
 
+<<<<<<< HEAD
     def text_namespace
       'manage_users'
     end
@@ -53,6 +54,17 @@ module Admin
       params.require(:admin_new_user_form).permit(:email, :can_manage_others)
     end
 
+=======
+    # Scope for I18n locale, used by _text helpers.
+    def text_namespace
+      :manage_users
+    end
+
+    before_action :require_user_manager!
+
+    private
+
+>>>>>>> 094a05b (CRIMRE-320-manage-invitations)
     def require_user_manager!
       return if current_user.can_manage_others?
 

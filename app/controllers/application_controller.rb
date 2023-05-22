@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     )
   end
 
+<<<<<<< HEAD
   # Sets the full flash message based on the message key.
   #
   # Like the AppTextHelper#named_text, it will scope locales according
@@ -48,6 +49,14 @@ class ApplicationController < ActionController::Base
 
     message = I18n.t(
       message_key, scope: [try(:text_namespace), :flash, flash_key].compact,
+=======
+  def set_flash(message_key, options = {})
+    success = options.delete(:success) || true
+    flash_key = success ? :success : :important
+
+    message = I18n.t(
+      message_key, scope: [text_namespace, :flash, flash_key].compact,
+>>>>>>> 094a05b (CRIMRE-320-manage-invitations)
       **options
     )
 

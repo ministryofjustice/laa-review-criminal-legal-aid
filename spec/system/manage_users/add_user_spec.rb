@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Add users from manage users dashboard' do
+RSpec.describe 'Invites from manage users dashboard' do
   include_context 'when logged in user is admin'
 
   before do
@@ -15,7 +15,7 @@ RSpec.describe 'Add users from manage users dashboard' do
   it 'loads the correct page' do
     heading = first('h1').text
 
-    expect(heading).to have_content 'Add a new user'
+    expect(heading).to have_content 'Invite a user'
   end
 
   it 'allows a users to cancel the adding of a new user' do
@@ -28,29 +28,29 @@ RSpec.describe 'Add users from manage users dashboard' do
     fill_in 'Email', with: 'john@example.com'
     check 'Give access to manage other users'
 
-    click_button 'Add user'
+    click_button 'Invite'
 
     row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], 'john@example.com')]")
 
-    expect(page).to have_text('Email address has been added')
+    expect(page).to have_text('john@example.com has been invited')
     expect(row).to have_text('john@example.com Yes')
   end
 
   it 'allows a user without management access to be added' do
     fill_in 'Email', with: 'jane@example.com'
 
-    click_button 'Add user'
+    click_button 'Invite'
 
     row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], 'jane@example.com')]")
 
-    expect(page).to have_text('Email address has been added')
+    expect(page).to have_text('jane@example.com has been invited')
     expect(row).to have_text('jane@example.com No')
   end
 
   describe 'validations' do
     it 'errors when no email is provided' do
       check 'Give access to manage other users'
-      click_button 'Add user'
+      click_button 'Invite'
 
       error_message = first('#admin-new-user-form-email-error').text.squish
 
@@ -60,7 +60,7 @@ RSpec.describe 'Add users from manage users dashboard' do
     it 'errors when email is in the wrong format' do
       fill_in 'Email', with: 'WRONG FORMAT'
       check 'Give access to manage other users'
-      click_button 'Add user'
+      click_button 'Invite'
 
       error_message = first('#admin-new-user-form-email-error').text.squish
 
@@ -75,10 +75,14 @@ RSpec.describe 'Add users from manage users dashboard' do
 
     def add_two_of_the_same_user
       fill_in 'Email', with: 'jane@example.com'
+<<<<<<< HEAD
       click_button 'Add user'
+=======
+      click_button 'Invite'
+>>>>>>> 094a05b (CRIMRE-320-manage-invitations)
       click_on 'Invite a user'
       fill_in 'Email', with: 'jane@example.com'
-      click_button 'Add user'
+      click_button 'Invite'
     end
   end
 end

@@ -5,7 +5,11 @@ RSpec.describe 'Edit users from manage users dashboard' do
   include_context 'with an existing user'
   include_context 'with many other users'
 
+<<<<<<< HEAD
   let(:confirm_path) { edit_admin_manage_user_path(user) }
+=======
+  let(:confirm_path) { edit_admin_manage_users_active_user_path(user) }
+>>>>>>> 094a05b (CRIMRE-320-manage-invitations)
 
   before do
     user
@@ -35,7 +39,11 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'rerenders the edit page' do
+<<<<<<< HEAD
       expect(page).to have_current_path admin_manage_user_path(user)
+=======
+      expect(page).to have_current_path admin_manage_users_active_user_path(user)
+>>>>>>> 094a05b (CRIMRE-320-manage-invitations)
     end
   end
 
@@ -50,7 +58,7 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'shows correct success flash message' do
-      expect(page).to have_content('Email address has been updated')
+      expect(page).to have_content('Zoe Blogs has been updated')
     end
 
     it 'updates can manage others value to Yes' do
@@ -76,7 +84,7 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
 
     it 'shows correct success flash message' do
-      expect(page).to have_content('Email address has been updated')
+      expect(page).to have_content('Zoe Blogs has been updated')
     end
 
     it 'updates can manage others value to No' do

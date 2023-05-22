@@ -58,8 +58,11 @@ module LaaReviewCriminalLegalAid
     # The maximum period of inactivity before a user is
     # considered dormant.
     config.x.auth.dormant_account_threshold = 6.months
+<<<<<<< HEAD
 
     # Default page size for paging results
     config.x.admin.pagination_per_page = 50
+=======
+>>>>>>> 094a05b (CRIMRE-320-manage-invitations)
   end
 end

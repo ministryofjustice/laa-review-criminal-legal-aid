@@ -35,23 +35,32 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(heading_text).to eq('Manage users')
     end
 
+    it 'includes the button to add new user' do
+      add_new_user_button = page.first('.govuk-button').text
+      expect(add_new_user_button).to have_content 'Invite a user'
+    end
+
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Email Manage other users Last authentication Actions')
+      expect(column_headings).to eq('Name Email Manage other users Last authentication Actions')
     end
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq([current_user.email, I18n.l(last_auth_at, format: :timestamp), 'Yes'].join(' '))
+      expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes',
+                                    I18n.l(last_auth_at, format: :timestamp)].join(' '))
     end
 
     describe 'ordering of users in the list' do
       before do
-        User.create(first_name: 'Hassan', last_name: 'Example', email: 'hassan.example@example.com')
-        User.create(first_name: 'Hassan', last_name: 'Sample', email: 'hassan.sample@example.com')
-        User.create(first_name: 'Arthur', last_name: 'Sample', email: 'arthur.sample@example.com')
-        visit '/admin/manage_users'
+        User.create(first_name: 'Hassan', last_name: 'Example', email: 'hassan.example@example.com',
+                    auth_subject_id: SecureRandom.uuid)
+        User.create(first_name: 'Hassan', last_name: 'Sample', email: 'hassan.sample@example.com',
+                    auth_subject_id: SecureRandom.uuid)
+        User.create(first_name: 'Arthur', last_name: 'Sample', email: 'arthur.sample@example.com',
+                    auth_subject_id: SecureRandom.uuid)
+        visit admin_manage_users_root_path
       end
 
       let(:expected_order) do
@@ -64,7 +73,7 @@ RSpec.describe 'Manage Users Dashboard' do
       end
 
       it 'is ordered by first name, last name' do
-        expect(page.all('tbody tr td:first-child').map(&:text)).to eq expected_order
+        expect(page.all('tbody tr td:nth-child(2)').map(&:text)).to eq expected_order
       end
     end
   end

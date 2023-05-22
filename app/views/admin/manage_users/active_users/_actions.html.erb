@@ -1,0 +1,12 @@
+<% unless user.id == current_user_id %>
+  <ul class="govuk-summary-list__actions-list">
+    <% unless user.dormant? %>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= link_to action_text(:edit), edit_admin_manage_users_active_user_path(user, return_url: request.original_url), class: 'govuk-link' %>
+      </li>
+    <% end %>
+    <li class="govuk-summary-list__actions-list-item">
+      <%= link_to action_text(:deactivate), new_admin_manage_users_deactivated_user_path(active_user_id: user), class: 'govuk-link' %>
+    </li>
+  </ul>
+<% end %>

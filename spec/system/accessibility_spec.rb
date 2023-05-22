@@ -58,22 +58,27 @@ RSpec.describe 'Accessibility' do
     end
 
     it 'manage user page has no axe detectible accessibility issues' do
-      visit admin_manage_users_path
+      visit admin_manage_users_root_path
+      expect(page).to be_axe_clean.according_to accessibility_standards
+    end
+
+    it 'manage user invitations page has no axe detectible accessibility issues' do
+      visit admin_manage_users_invitations_path
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 
     it 'add new user page has no axe detectible accessibility issues' do
-      visit new_admin_manage_user_path
+      visit new_admin_manage_users_invitation_path
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 
     it 'deactivate user page has no axe detectible accessibility issues' do
-      visit new_admin_manage_user_deactivate_users_path(active_user)
+      visit new_admin_manage_users_deactivated_user_path(active_user_id: active_user)
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 
     it 'edit user page has no axe detectible accessibility issues' do
-      visit edit_admin_manage_user_path(active_user)
+      visit edit_admin_manage_users_active_user_path(active_user)
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 
