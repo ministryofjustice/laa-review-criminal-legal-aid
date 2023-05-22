@@ -49,10 +49,16 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :manage_users, only: [:index, :new, :create, :edit, :update] do
-      root 'manage_users#index'
-      
-      resource :deactivate_users, only: [:new, :create]
+    namespace :manage_users do
+      root 'active_users#index'
+      resources :active_users, only: [:index, :edit, :update]
+      resources :invitations, only: [:index, :new, :destroy, :create, :update] do
+        member do
+          get 'confirm_destroy'
+          get 'confirm_renew'
+        end
+      end
+      resources :deactivated_users, only: [:index, :new, :create]
     end
   end
 

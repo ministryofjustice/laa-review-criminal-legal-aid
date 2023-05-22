@@ -10,27 +10,24 @@
 <div class="govuk-grid-column-full govuk-!-font-size-24 govuk-!-margin-bottom-2">
   <div class="govuk-grid-row">
     <p class="govuk-body">
-      <%= t '.email' %><br>
+      <%= label_text(:email) %><br>
       <%= @user.email %>
     </p>
   </div>
 </div>
 
-<%= form_with url: admin_manage_user_path(@user.id), method: :put do |f| %>
+<%= form_with url: admin_manage_users_active_user_path(@user.id), method: :put do |f| %>
   <div class="govuk-form-group govuk-!-margin-bottom-8">
     <%= f.govuk_check_box :can_manage_others,
                           true,
                           multiple: false,
                           checked: @user.can_manage_others,
-                          label: { text: t('.fields.checkbox.label') } %>
+                          label: { text: label_text(:can_manage_others) } %>
   </div>
-
-  <%= f.hidden_field :return_url, value: @return_url %>
 
   <div class="govuk-button-group">
     <%= f.submit 'Save', class: 'govuk-button govuk-button--primary' %>
-    <%= link_to t('.cancel'),
-                (@return_url || admin_manage_users_path),
+    <%= link_to action_text(:cancel), admin_manage_users_root_path,
                 class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
   </div>
 <% end %>

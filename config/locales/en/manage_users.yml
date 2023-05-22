@@ -1,26 +1,80 @@
 en:
   manage_users:
     actions:
+      abandon_deactivation: No, do not deactivate
+      abandon_destroy: No, do not delete the invitation
+      abandon_renew: No, do not renew the invitation
       add_new_user: Invite a user
-      deactivate: Deactivate 
-      edit: Edit 
       cancel: Cancel
+      confirm_deactivation: Yes, deactivate
+      confirm_destroy: Yes, delete the invitation
+      confirm_renew: Yes, renew the invitation
+      deactivate: Deactivate
+      delete: Delete
+      edit: Edit
       existing_users: Existing users 
       invited_users: Invited users 
+      renew: Renew
 
     flash:
       success:
-        title: Success
-        new_user_created: Email address has been added
-        user_updated: Email address has been updated
+        invitation_deleted: Invitation to %{email} has been deleted 
+        invitation_renewed: Invitation to %{email} has been renewed 
+        user_deactivated: "%{user_name} has been deactivated"
+        user_invited: "%{email} has been invited"
+        user_updated: "%{user_name} has been updated"
       important:
         title: Important
         cannot_access:
           - You do not have access to that page
           - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
 
+    confirmations:
+      deactivate_user: Are you sure you want to deactivate %{user_name}?
+      destroy_invitation: "Are you sure you want to delete %{email}'s invitation?"
+      renew_invitation: "Are you sure you want to extend %{email}'s invitation for 48 hours?"
+
+    warnings:
+      deactivate_user: This will mean %{user_name} can no longer access this service.
+      destroy_invitation: This will mean %{email} can no longer activate their account.
+
+
     table_headings:
       actions: Actions
       email: Email
+      invitation_expires_at: Invitations expires 
       last_auth_at: Last authentication
       manage_others: Manage other users
+      name: Name
+
+    labels:
+      can_manage_others: Give access to manage other users
+      email: Email
+
+    hint_texts:
+      email: "Enter the user's DOM1 email"
+
+  admin:
+    manage_users:
+      index:
+        page_title: Manage users
+        heading: Manage users
+      active_users:
+        edit:
+          page_title: Edit a user
+          heading: Edit a user
+      invitations:
+        index:
+          page_title: Invited users
+          heading: Add a new user
+          table:
+        new:
+          page_title: Invite a user
+          heading: Invite a user
+        confirm_destroy:
+          page_title: Delete invitation
+        confirm_renew:
+          page_title: Renew invitation
+      deactivated_users:
+        new:
+          page_title: Confirm deactivation

@@ -1,0 +1,10 @@
+<ul class="govuk-summary-list__actions-list">
+  <li class="govuk-summary-list__actions-list-item">
+    <%= govuk_link_to 'Delete', confirm_destroy_admin_manage_users_invitation_path(user) %>
+  </li>
+  <% if user.invitation_expired? %>
+    <li class="govuk-summary-list__actions-list-item">
+      <%= govuk_link_to 'Renew', confirm_renew_admin_manage_users_invitation_path(user) %>
+    </li>
+  <% end %>
+</li>

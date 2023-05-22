@@ -6,13 +6,7 @@
       <%= t 'confirmations.reassign_to_self_html', from_whom_name: User.name_for(@current_assignment.user_id) %>
     </h1>
 
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        <%= t 'warnings.reassign_to_self' %>
-      </strong>
-    </div>
+    <%= govuk_warning_text text: t('warnings.reassign_to_self') %>
 
     <div class="govuk-button-group">
       <%= form_with(
