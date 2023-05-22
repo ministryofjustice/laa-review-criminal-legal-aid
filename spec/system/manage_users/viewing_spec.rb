@@ -5,8 +5,7 @@ RSpec.describe 'Manage Users Dashboard' do
 
   context 'when user does not have access manage other users' do
     before do
-      visit '/'
-      visit '/admin/manage_users'
+      visit admin_manage_users_root_path
     end
 
     it 'redirects to Your list page' do
@@ -28,7 +27,7 @@ RSpec.describe 'Manage Users Dashboard' do
     let(:last_auth_at) { Time.zone.now }
 
     before do
-      visit '/admin/manage_users'
+      visit admin_manage_users_root_path
     end
 
     it 'includes the page heading' do
@@ -77,17 +76,17 @@ RSpec.describe 'Manage Users Dashboard' do
       make_users(100)
       visit '/'
       User.update(current_user_id, can_manage_others: true, last_auth_at: last_auth_at)
-      visit '/admin/manage_users?page=5'
+      visit '/admin/manage_users?page=2'
     end
 
     it 'shows the correct page number' do
       current_page = first('.govuk-pagination__item--current').text
 
-      expect(current_page).to have_text('5')
+      expect(current_page).to have_text('2')
     end
 
-    it 'shows 20 entries per page' do
-      expect(page).to have_selector('.govuk-table__body > .govuk-table__row', count: 20)
+    it 'shows 50 entries per page' do
+      expect(page).to have_selector('.govuk-table__body > .govuk-table__row', count: 50)
     end
   end
 end

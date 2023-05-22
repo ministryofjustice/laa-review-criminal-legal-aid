@@ -8,6 +8,17 @@ en:
       existing_users: Existing users 
       invited_users: Invited users 
 
+    flash:
+      success:
+        title: Success
+        new_user_created: Email address has been added
+        user_updated: Email address has been updated
+      important:
+        title: Important
+        cannot_access:
+          - You do not have access to that page
+          - Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong
+
     table_headings:
       actions: Actions
       email: Email
