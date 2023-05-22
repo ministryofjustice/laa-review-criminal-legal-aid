@@ -6,16 +6,35 @@
       </span>
     </div>
 
-    <p class="govuk-body-l govuk-!-margin-bottom-2">
+    <% if crime_application.superseded? %>
+      <% id = 'superseded_' %>
+    <% end %>
+
+    <p class="govuk-body-l govuk-!-margin-bottom-2" id="<%= id %>style">
       <span class="govuk-!-margin-right-2" id="reference-number">
         <%= crime_application.reference %>
       </span>
-      <%=link_to t('calls_to_action.copy'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
+      <% unless crime_application.superseded? %>
+        <%=link_to t('calls_to_action.copy'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
+      <% end %>
     </p>
 
-    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
+    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4" id="<%= id %>style">
       <%= crime_application.applicant_name %>
     </h2>
+
+    <% if crime_application.superseded? %>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive"><%= t('warning_text.title') %></span>
+          <%= t('warning_text.resubmitted') %>
+          <%= link_to t('calls_to_action.go_to_latest'),
+                      crime_application_path(crime_application.latest_application_id),
+                      class: 'govuk-link--no-visited-state' %>
+        </strong>
+      </div>
+    <%end%>
 
     <%= render partial: 'assignment', locals: { crime_application: } %>
   </div>

@@ -2,6 +2,10 @@ module Admin
   class ManageUsersController < ApplicationController
     layout 'manage_users'
 
+    def text_namespace
+      'manage_users'
+    end
+
     before_action :require_user_manager!
     before_action :set_return_url, only: [:edit, :update]
 
