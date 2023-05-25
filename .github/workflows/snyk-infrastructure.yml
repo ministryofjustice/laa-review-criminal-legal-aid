@@ -15,9 +15,6 @@ name: Snyk Infrastructure as Code
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "main" ]
   schedule:
     - cron: '30 21 * * 1' # at 21:30 on Monday evening
 
