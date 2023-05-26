@@ -8,4 +8,6 @@ feature_flags:
     staging: false
     production: false
   allow_user_managers_service_access:
+    local: false
     staging: true
+    production: false

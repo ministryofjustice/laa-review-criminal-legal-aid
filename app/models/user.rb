@@ -58,6 +58,10 @@ class User < ApplicationRecord
     self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
   end
 
+  def service_user?
+    !can_manage_others?
+  end
+
   def dormant?
     activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
   end
