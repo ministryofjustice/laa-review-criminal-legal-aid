@@ -1,5 +1,6 @@
 class ErrorsController < BareApplicationController
   layout 'external'
+  before_action :authenticate_user!, except: [:forbidden]
 
   def application_not_found
     respond_with_status(:not_found)

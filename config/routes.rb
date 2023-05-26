@@ -70,8 +70,9 @@ Rails.application.routes.draw do
   root 'assigned_applications#index'
 
   # catch-all route
-  # :nocov:
+  # which, because errors#not_found is authenticated, results in an
+  # unauthenticated user being redirect to the sign in page.
+
   match '*path', to: 'errors#not_found', via: :all, constraints:
     lambda { |_request| !Rails.application.config.consider_all_requests_local }
-  # :nocov:
 end

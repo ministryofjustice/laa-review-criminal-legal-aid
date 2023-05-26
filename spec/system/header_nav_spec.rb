@@ -56,20 +56,30 @@ RSpec.describe 'Header navigation' do
     end
   end
 
-  context 'when user does have access to manage other users is allowed service access' do
+  context 'when a user has access to manage other users' do
     before do
       User.update(current_user_id, can_manage_others: true)
-      # Override allow_user_managers_service_access as per staging
-      allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-      }
       visit '/'
     end
 
-    it 'shows the "Manage users" link and can follow it' do
-      expect { click_link('Manage users') }.to change {
-                                                 page.first('.govuk-heading-xl').text
-                                               }.from('Your list').to('Manage users')
+    it 'they are redirected to the admin manage users route by default' do
+      expect { click_link('Manage users') }.not_to change { page.first('.govuk-heading-xl').text }.from('Manage users')
+    end
+
+    context 'when user managers are allowed to access the service' do
+      before do
+        # Override allow_user_managers_service_access as per staging
+        allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        }
+        visit '/'
+      end
+
+      it 'shows the "Manage users" link and can follow it' do
+        expect { click_link('Manage users') }.to change {
+                                                   page.first('.govuk-heading-xl').text
+                                                 }.from('Your list').to('Manage users')
+      end
     end
   end
 end
