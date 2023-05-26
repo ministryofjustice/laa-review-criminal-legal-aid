@@ -8,7 +8,7 @@ RSpec.describe 'Manage Users Dashboard' do
       visit admin_manage_users_root_path
     end
 
-    it 'redirects to Your list page' do
+    it 'redirects to "Page not" found' do
       heading_text = page.first('.govuk-heading-xl').text
       expect(heading_text).to eq('Page not found')
     end
