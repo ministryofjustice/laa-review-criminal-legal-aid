@@ -84,7 +84,7 @@ RSpec.describe 'Authorisation' do
       end
     end
 
-    it 'is redirected to "sign in" for a none existent url' do
+    it 'is redirected to "sign in" for a non-existent url' do
       get '/this_is_not_a/route'
 
       expect(response).to redirect_to(unauthenticated_root_path)
