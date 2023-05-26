@@ -1,4 +1,4 @@
-class ReturnsController < ApplicationController
+class ReturnsController < ServiceController
   before_action :set_crime_application
 
   def new

@@ -8,16 +8,9 @@ RSpec.describe 'Manage Users Dashboard' do
       visit admin_manage_users_root_path
     end
 
-    it 'redirects to Your list page' do
+    it 'redirects to "Page not" found' do
       heading_text = page.first('.govuk-heading-xl').text
-      expect(heading_text).to eq('Your list')
-    end
-
-    it 'show access denied flash message' do
-      expect(page).to have_notification_banner(
-        text: 'You do not have access to that page',
-        details: 'Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong'
-      )
+      expect(heading_text).to eq('Page not found')
     end
   end
 

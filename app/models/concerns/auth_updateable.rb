@@ -13,6 +13,8 @@ module AuthUpdateable
 
   def update_from_auth_hash!(request)
     auth_hash = request.env['omniauth.auth']
+    return unless auth_hash
+
     activate_from_auth_hash(auth_hash) if pending_activation?
     update_from_auth_hash(auth_hash)
 

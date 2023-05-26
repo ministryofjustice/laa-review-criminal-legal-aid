@@ -1,4 +1,4 @@
-class AssignedApplicationsController < ApplicationController
+class AssignedApplicationsController < ServiceController
   def index
     return unless assignments_count.positive?
 
