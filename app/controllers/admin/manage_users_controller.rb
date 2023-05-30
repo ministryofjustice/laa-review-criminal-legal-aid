@@ -14,9 +14,7 @@ module Admin
     def require_user_manager!
       return if current_user.can_manage_others?
 
-      set_flash(:cannot_access, success: false)
-
-      redirect_to authenticated_root_path
+      redirect_to not_found_path
     end
   end
 end
