@@ -17,7 +17,7 @@ on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '30 22 * * 1' # at 22:30 on Monday evening
+    - cron: '30 22 * * 1,4' # At 22:30 on Monday and Thursday.
 
 permissions:
   contents: read
