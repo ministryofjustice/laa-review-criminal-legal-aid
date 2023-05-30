@@ -34,12 +34,6 @@ jobs:
     - name: Build a Docker image
       run: |
         docker build \
-          --label build.git.sha=${{ github.sha }} \
-          --label build.git.branch=${{ github.ref }} \
-          --label build.date=${{ env.BUILD_DATE }} \
-          --build-arg APP_BUILD_DATE=${{ env.BUILD_DATE }} \
-          --build-arg APP_BUILD_TAG=${{ github.ref }} \
-          --build-arg APP_GIT_COMMIT=${{ github.sha }} \
           -t app .
     - name: Run Snyk to check Docker image for vulnerabilities
       # Snyk can be used to break the build when it detects vulnerabilities.
