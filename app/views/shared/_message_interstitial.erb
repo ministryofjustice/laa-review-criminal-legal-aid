@@ -1,0 +1,21 @@
+<% flash.each do |key, message| %>
+  <%# Ignore Devise timedout flash messages %>
+  <% next if key == 'timedout' %>
+
+  <%#
+      If the flash message is an array, display the first item as the heading.
+      Subsequent items are displayed as paragraphs. (See Devise locales
+      'devise.failure.user.reauthenticate' for example.)
+
+      If the message is not an array, display it as the heading.
+  %>
+
+  <% details = Array[*message] %>
+  <% text = details.delete_at(0) %>
+
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-3"><%=text%></h1>
+ 
+  <% details.each do |detail| %>
+    <p class="govuk-body"><%= sanitize detail%></p>
+  <% end %>
+<% end %>

@@ -13,11 +13,18 @@ RSpec.describe 'Authenticating a dormant user' do
     expect(page).not_to have_content 'Your list'
   end
 
-  it 'informs the user that their invitation has expired' do
-    expect(page).to have_notification_banner(
-      text: 'Your access to this service has been restricted',
-      details: 'It has been more than 6 months since you last accessed the service. ' \
-               'Your account will need to be re-activated before you can sign in.'
-    )
+  it 'shows the correct title' do
+    expect(page).to have_css('h1.govuk-heading-xl', text: 'You cannot access this service')
+  end
+
+  it 'shows the correct body' do
+    expect(page).to have_css('p.govuk-body',
+                             text: 'This is because you have not signed in to the service for more than 6 months.')
+    expect(page).to have_css('p.govuk-body',
+                             text: 'Contact LAAapplyonboarding@justice.gov.uk to reactivate your account.')
+  end
+
+  it 'does not show the sign in button' do
+    expect(page).not_to have_button('Sign in')
   end
 end

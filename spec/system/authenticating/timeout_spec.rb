@@ -28,11 +28,13 @@ RSpec.describe 'Session timeout' do
       expect(page).not_to have_content 'Your list'
     end
 
-    it 'shows the notification banner' do
-      expect(page).to have_notification_banner(
-        text: 'You have been signed out',
-        details: 'Your session automatically ends if you do not access the service for more than 15 minutes.'
-      )
+    it 'shows the correct notification page' do
+      expect(page).to have_css('h1.govuk-heading-xl', text: 'For your security, we signed you out')
+      expect(page).to have_css('p.govuk-body', text: 'This is becasue you were inactive for 15 minutes.')
+    end
+
+    it 'shows the sign in button' do
+      expect(page).to have_button('Sign in')
     end
   end
 end

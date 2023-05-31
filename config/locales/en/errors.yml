@@ -26,7 +26,9 @@ en:
     not_found:
       page_title: Page not found
       heading: Page not found
-      lead_text: If you copied a web address, please check it’s correct.
+      body_1: If you typed the web address, check it is correct.
+      body_2: If you pasted the web address, check you copied the entire address.
+      body_3: If the web address is correct or you selected a link or button, contact %{url} for help
     unhandled:
       page_title: Unexpected error
       heading: Sorry, something went wrong with our service

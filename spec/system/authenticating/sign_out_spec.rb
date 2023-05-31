@@ -10,9 +10,8 @@ RSpec.describe 'Sign out' do
     expect(page).not_to have_content 'Your list'
   end
 
-  it 'shows the notification banner' do
-    expect(page).to have_success_notification_banner(
-      text: 'You have been signed out'
-    )
+  it 'shows the sign out confirmation page' do
+    expect(page).to have_css('h1.govuk-heading-xl', text: 'You have signed out')
+    expect(page).to have_button('Sign in')
   end
 end

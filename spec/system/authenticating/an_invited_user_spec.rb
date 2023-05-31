@@ -5,14 +5,14 @@ RSpec.describe 'Authenticating an invited user' do
 
   let(:invited_user) { User.create(email: 'Invited.Test@example.com') }
 
-  context 'when an invited users signs in for the first time' do
+  context 'when an invited user signs in for the first time' do
     before do
       invited_user
       click_button 'Sign in'
       select invited_user.email
     end
 
-    it 'the users is signed in' do
+    it 'the user is signed in' do
       click_button 'Sign in'
       expect(page).to have_content 'Your list'
     end
@@ -29,17 +29,25 @@ RSpec.describe 'Authenticating an invited user' do
         click_button 'Sign in'
       end
 
-      it 'informs the user that their invitation has expired' do
-        expect(page).to have_notification_banner(
-          text: 'Your invitation has expired',
-          details: 'Invitations to access this service automatically expire after 48 hours.'
-        )
-      end
-
       it 'the user is not activated' do
+        visit '/'
         expect { click_button 'Sign in' }.not_to(
           change { invited_user.reload.activated? }
         )
+      end
+
+      it 'the page has the correct title' do
+        expect(page).to have_css('h1.govuk-heading-xl', text: 'You cannot access this service')
+      end
+
+      it 'the page has the correct body' do
+        expect(page).to have_css('p.govuk-body', text: 'Your invitation to access this service has expired.')
+        expect(page).to have_css('p.govuk-body',
+                                 text: 'Contact LAAapplyonboarding@justice.gov.uk for a new invitation.')
+      end
+
+      it 'the page does not show the sign in button' do
+        expect(page).not_to have_button('Sign in')
       end
     end
   end

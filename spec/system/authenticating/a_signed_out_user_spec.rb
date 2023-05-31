@@ -3,17 +3,31 @@ require 'rails_helper'
 RSpec.describe 'Authenticating a signed out user' do
   before do
     click_link 'Sign out'
-    visit '/assigned_applications'
   end
 
-  it 'the cannot access their list' do
-    expect(page).not_to have_content 'Your list'
+  context 'when trying to access an existent path' do
+    before do
+      visit '/assigned_applications'
+    end
+
+    it 'the cannot access their list' do
+      expect(page).not_to have_content 'Your list'
+    end
+
+    it 'informs the user that they need to be signed to access the page requested' do
+      expect(page).to have_css('h1.govuk-heading-xl', text: 'Sign in to view this page')
+      expect(page).to have_button('Sign in')
+    end
   end
 
-  it 'informs the user that they need to be singed to access the page requested' do
-    expect(page).to have_notification_banner(
-      text: 'You are not authorised to view this page',
-      details: 'Access to this service is restricted if a user is not signed in'
-    )
+  context 'when trying to access an non-existent path' do
+    before do
+      visit '/foo'
+    end
+
+    it 'informs the user that they need to be signed to access the page requested' do
+      expect(page).to have_css('h1.govuk-heading-xl', text: 'Sign in to view this page')
+      expect(page).to have_button('Sign in')
+    end
   end
 end

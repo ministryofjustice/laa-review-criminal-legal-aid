@@ -26,11 +26,17 @@ RSpec.describe 'Reauthentication' do
       expect(page).not_to have_content 'Your list'
     end
 
-    it 'shows the notification banner' do
-      expect(page).to have_notification_banner(
-        text: 'You have been signed out',
-        details: 'Your session automatically ends if it has been more than 12 hours since you last signed in.'
-      )
+    it 'shows the correct title' do
+      expect(page).to have_css('h1.govuk-heading-xl', text: 'For your security, we signed you out')
+    end
+
+    it 'shows the correct body' do
+      expect(page).to have_css('p.govuk-body', text: 'This is becasue you were signed in for more than 12 hours.')
+      expect(page).to have_css('p.govuk-body', text: 'Sign in again to continue using the service.')
+    end
+
+    it 'shows the sign in button' do
+      expect(page).to have_button('Sign in')
     end
   end
 end

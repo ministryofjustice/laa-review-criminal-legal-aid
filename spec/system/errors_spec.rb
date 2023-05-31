@@ -18,6 +18,6 @@ RSpec.describe 'Error pages' do
 
   it 'shows not found error page' do
     visit '/foo'
-    expect(page).to have_content 'If you copied a web address, please check it’s correct'
+    expect(page).to have_content 'If you typed the web address, check it is correct.'
   end
 end
