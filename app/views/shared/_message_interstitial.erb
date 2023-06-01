@@ -14,7 +14,7 @@
   <% text = details.delete_at(0) %>
 
   <h1 class="govuk-heading-xl govuk-!-margin-bottom-3"><%=text%></h1>
- 
+
   <% details.each do |detail| %>
     <p class="govuk-body"><%= sanitize detail%></p>
   <% end %>

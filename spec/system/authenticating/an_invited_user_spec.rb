@@ -36,6 +36,10 @@ RSpec.describe 'Authenticating an invited user' do
         )
       end
 
+      it 'the user cannot see the nav' do
+        expect(page).not_to have_content 'Closed applications'
+      end
+
       it 'the page has the correct title' do
         expect(page).to have_css('h1.govuk-heading-xl', text: 'You cannot access this service')
       end

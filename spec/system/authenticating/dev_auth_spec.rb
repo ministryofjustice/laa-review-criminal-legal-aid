@@ -26,6 +26,10 @@ RSpec.describe 'Authenticating with the DevAuth strategy' do
         expect(page).to have_content 'Access to this service is restricted'
         expect(page).to have_current_path '/forbidden'
       end
+
+      it 'the user cannot see the nav' do
+        expect(page).not_to have_content 'Closed applications'
+      end
     end
 
     context 'when an authorised, but not yet authenticated, user is selected' do

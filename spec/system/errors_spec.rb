@@ -11,13 +11,15 @@ RSpec.describe 'Error pages' do
     expect(page).to have_content 'Sorry, something went wrong with our service'
   end
 
-  it 'shows application not found error page' do
+  it 'shows application not found error page with nav' do
     visit '/applications/123'
-    expect(page).to have_content 'If you’re looking for a specific application, go to all open applications'
+    expect(page).to have_content "If you're looking for a specific application, go to all open applications."
+    expect(page).to have_content 'Closed applications'
   end
 
-  it 'shows not found error page' do
+  it 'shows not found error page with nav' do
     visit '/foo'
     expect(page).to have_content 'If you typed the web address, check it is correct.'
+    expect(page).to have_content 'Closed applications'
   end
 end
