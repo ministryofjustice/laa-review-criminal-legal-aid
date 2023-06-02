@@ -1,14 +1,10 @@
 module Admin
   class DeactivateUsersController < ApplicationController
     before_action :set_user
-    before_action :deactivatable?
+    before_action :allow_deactivation?
 
     def create
-      if @user.deactivate!
-        flash[:success] = I18n.t('flash.success.user_deactivated')
-      else
-        flash[:alert] = I18n.t('flash.alert.user_deactivated')
-      end
+      flash[:success] = I18n.t('flash.success.user_deactivated') if @user.deactivate!
 
       redirect_to admin_manage_users_path
     end
@@ -19,8 +15,8 @@ module Admin
       @user = User.find(params[:manage_user_id])
     end
 
-    def deactivatable?
-      return if @user.allow_deactivate?
+    def allow_deactivation?
+      return if @user.deactivatable?
 
       flash[:alert] = I18n.t('flash.alert.user_deactivated')
       redirect_to admin_manage_users_path

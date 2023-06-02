@@ -4,34 +4,40 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
   include_context 'when logged in user is admin'
   include_context 'with an existing user'
 
-  before do
+  def do_deactivate_journey
     active_user
     visit '/'
     visit '/admin/manage_users'
+
+    within user_row do
+      click_on('Deactivate')
+    end
   end
 
-  describe 'clicking on "Deactivate"' do
+  describe 'when there are at least 2 other admins' do
     before do
-      within user_row do
-        click_on('Deactivate')
-      end
+      # NOTE: at least 2 other admin user exists including current_user
+      User.create!(can_manage_others: true)
+      do_deactivate_journey
     end
 
-    it 'prompts to confirm the action' do
-      expect(page).to have_content(
-        'Are you sure you want to deactivate Zoe Blogs?'
-      )
-    end
-
-    it 'warns about the impact of deactivating' do
-      within('div.govuk-warning-text') do
+    context 'when clicking "deactivate" shows warning page' do
+      it 'prompts to confirm the action' do
         expect(page).to have_content(
-          '! Warning This will mean Zoe Blogs can no longer access this service.'
+          'Are you sure you want to deactivate Zoe Blogs?'
         )
       end
+
+      it 'warns about the impact of deactivating' do
+        within('div.govuk-warning-text') do
+          expect(page).to have_content(
+            '! Warning This will mean Zoe Blogs can no longer access this service.'
+          )
+        end
+      end
     end
 
-    describe 'clicking on "Yes, deactivate"' do
+    context 'when clicking "Yes, deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('Yes, deactivate') }.to(
           change { page.current_path }.from(confirm_path).to(admin_manage_users_path)
@@ -53,7 +59,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
       end
     end
 
-    describe 'clicking on "No, do not deactivate"' do
+    context 'when clicking "No, do not deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('No, do not deactivate') }.to(
           change { page.current_path }.from(confirm_path).to(admin_manage_users_path)
@@ -63,6 +69,21 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
       it 'does not deactivate the user' do
         expect { click_on('No, do not deactivate') }.not_to(
           change { active_user.reload.deactivated? }.from(false)
+        )
+      end
+    end
+  end
+
+  describe 'when there are less than 2 other admins' do
+    before do
+      # NOTE: only 1 admin user exists - the current_user
+      do_deactivate_journey
+    end
+
+    it 'shows error message on manage users page' do
+      within('div.govuk-notification-banner__heading') do
+        expect(page).to have_content(
+          'Unable to deactivate user. There must be at least two users who can manage others'
         )
       end
     end

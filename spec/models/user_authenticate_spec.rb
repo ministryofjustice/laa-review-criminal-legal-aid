@@ -38,7 +38,13 @@ RSpec.describe UserAuthenticate do
       end
 
       context 'when the user is deactivated' do
-        before { user.deactivate! }
+        before do
+          # NOTE: Require at least 2 admins to deactivate another user
+          User.create!(can_manage_others: true)
+          User.create!(can_manage_others: true)
+
+          user.deactivate!
+        end
 
         it 'returns nil' do
           expect(authenticate).to be_nil
