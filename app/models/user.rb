@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def invitation_expired?
-    pending_activation? && invitation_expires_at < Time.zone.now
+    pending_activation? && invitation_expires_at && (invitation_expires_at < Time.zone.now)
   end
 
   def renew_invitation!
