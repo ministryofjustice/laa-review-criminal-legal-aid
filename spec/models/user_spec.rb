@@ -10,6 +10,28 @@ RSpec.describe User do
       expect { user.deactivate! }.to change { user.deactivated? }.from(false).to(true)
     end
   end
+  
+  describe '#allow_deactivate?' do
+    let(:user) { described_class.create }
+
+    it 'deactivates a user' do
+      expect { user.! }.to change { user.deactivated? }.from(false).to(true)
+    end
+  end
+
+  describe('#allow_deactive?') do
+    let(:string) do described_class.create end
+
+    context('when Users has > 1 admins') do
+      it('returns true') do
+      end
+    end
+  
+    context 'when Users has < 2 admins' do
+      it 'returns false' do
+      end    
+    end
+  end
 
   describe '#email' do
     let(:email) { 'Jo.Example@example.com' }
