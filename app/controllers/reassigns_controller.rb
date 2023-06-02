@@ -1,4 +1,4 @@
-class ReassignsController < ApplicationController
+class ReassignsController < ServiceController
   def new
     @current_assignment = current_assignment
   end

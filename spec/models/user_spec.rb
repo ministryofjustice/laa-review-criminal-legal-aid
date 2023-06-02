@@ -1,10 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe User do
+  let(:activated_user) do
+    described_class.create(auth_subject_id: SecureRandom.uuid, email: 'active.example@example.com',
+                           first_auth_at: Time.zone.now)
+  end
+  let(:invited_user) { described_class.create(email: 'invited.example@example.com') }
+
   it_behaves_like 'a reauthable model'
 
   describe '#deactivate!' do
-    let(:user) { described_class.create }
+    let(:user) { activated_user }
 
     context 'when database has at least 2 other admin users' do
       it 'deactivates a user' do
@@ -51,7 +57,7 @@ RSpec.describe User do
 
   describe '#invitation_expires_at' do
     it 'is set to 48 hours from now on create' do
-      expect(described_class.create.invitation_expires_at).to(
+      expect(invited_user.invitation_expires_at).to(
         be_within(1.second).of(48.hours.from_now)
       )
     end
@@ -60,7 +66,7 @@ RSpec.describe User do
   describe '.pending_activation' do
     subject(:pending_activation) { described_class.pending_activation }
 
-    let(:user) { described_class.create(email: 'test@example.com') }
+    let(:user) { invited_user }
 
     it 'returns an array of invited users pending activation' do
       expect(pending_activation).to include(user)
@@ -75,7 +81,7 @@ RSpec.describe User do
   describe '.active' do
     subject(:active) { described_class.active }
 
-    let(:user) { described_class.create(email: 'test@example.com') }
+    let(:user) { invited_user }
 
     it 'excludes users pending activation' do
       expect(active).not_to include(user)
@@ -93,16 +99,62 @@ RSpec.describe User do
   end
 
   describe '#auth_subject_id' do
-    let(:auth_subject_id) { SecureRandom.uuid }
-    let(:user) { described_class.create!(auth_subject_id:) }
+    let(:auth_subject_id) { user.auth_subject_id }
+    let(:user) { activated_user }
 
     before { user }
 
     it 'has uniqueness enforced by the db' do
       expect { described_class.create!(auth_subject_id:) }.to(
-        raise_error(ActiveRecord::RecordNotUnique,
-                    /Key \(auth_subject_id\)=\(#{auth_subject_id}\) already exists./)
+        raise_error(
+          ActiveRecord::RecordNotUnique,
+          /Key \(auth_subject_id\)=\(#{auth_subject_id}\) already exists./
+        )
       )
+    end
+  end
+
+  describe '#destroy' do
+    context 'with a user pending_activation' do
+      before { invited_user }
+
+      it 'deletes the record' do
+        expect { invited_user.destroy }.to change { described_class.count }.by(-1)
+      end
+    end
+
+    context 'with an activated user' do
+      it 'raises an error if user is acticated' do
+        expect { activated_user.destroy }.to raise_error(User::CannotDestroyIfActive)
+      end
+
+      it 'does not delete the record' do
+        expect { invited_user.destroy }.not_to(change { described_class.count })
+      end
+    end
+  end
+
+  describe '#renew_invitation!' do
+    context 'with an expired invitation' do
+      before { invited_user.update(invitation_expires_at: 1.hour.ago) }
+
+      it 'updates the #invitation_expires_at' do
+        expect { invited_user.renew_invitation! }.to(
+          change { invited_user.invitation_expired? }.from(true).to(false)
+        )
+
+        expect(invited_user.invitation_expires_at).to(
+          be_within(1.second).of(48.hours.from_now)
+        )
+      end
+    end
+
+    context 'with an activated user' do
+      it 'raises an error if user is acticated' do
+        expect { activated_user.renew_invitation! }.to(
+          raise_error User::CannotRenewIfActive
+        )
+      end
     end
   end
 

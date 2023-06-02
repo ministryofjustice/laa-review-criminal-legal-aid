@@ -5,9 +5,10 @@ metadata:
   namespace: laa-review-criminal-legal-aid-production
 data:
   ENV_NAME: production
+  GOVUK_NOTIFY_ENV: production
   RACK_ENV: production
   RAILS_ENV: production
-  GOVUK_NOTIFY_ENV: production
+  RAILS_LOG_TO_STDOUT: enabled
   RAILS_SERVE_STATIC_FILES: enabled
   DATASTORE_API_ROOT: http://service-production.laa-criminal-applications-datastore-production.svc.cluster.local
   OMNIAUTH_AZURE_CLIENT_ID: 7dfb0abc-3b2e-41cf-a2ae-639c5f6b54ba

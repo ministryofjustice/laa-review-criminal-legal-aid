@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Authenticating a dormant' do
+RSpec.describe 'Authenticating a dormant user' do
   before do
     click_link 'Sign out'
     current_user.update(last_auth_at: Rails.configuration.x.auth.dormant_account_threshold.ago)
@@ -9,7 +9,7 @@ RSpec.describe 'Authenticating a dormant' do
     click_button 'Sign in'
   end
 
-  it 'the users is not signed in' do
+  it 'the user is not signed in' do
     expect(page).not_to have_content 'Your list'
   end
 

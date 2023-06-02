@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/laa-criminal-legal-aid-schemas.git
-  revision: 5f18ff9ac519360826fda2f5373ffb8da2d8336c
-  tag: v0.1.6
+  revision: d9802d263c9a0fb34c6cfdb10473567c592f34a9
+  tag: v0.1.9
   specs:
-    laa-criminal-legal-aid-schemas (0.1.6)
+    laa-criminal-legal-aid-schemas (0.1.9)
       dry-struct
       json-schema (~> 3.0.0)
 
@@ -230,8 +230,7 @@ GEM
     hashie (5.0.0)
     html-attributes-utils (0.9.2)
       activesupport (>= 6.1.4.4)
-    httpclient (2.8.3)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     importmap-rails (1.1.5)
@@ -309,25 +308,27 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    omniauth_openid_connect (0.6.1)
+    omniauth_openid_connect (0.7.1)
       omniauth (>= 1.9, < 3)
-      openid_connect (~> 1.1)
-    openid_connect (1.4.2)
+      openid_connect (~> 2.2)
+    openid_connect (2.2.0)
       activemodel
       attr_required (>= 1.0.0)
-      json-jwt (>= 1.15.0)
+      faraday (~> 2.0)
+      faraday-follow_redirects
+      json-jwt (>= 1.16)
       net-smtp
-      rack-oauth2 (~> 1.21)
-      swd (~> 1.3)
+      rack-oauth2 (~> 2.2)
+      swd (~> 2.0)
       tzinfo
       validate_email
       validate_url
-      webfinger (~> 1.2)
+      webfinger (~> 2.0)
     orm_adapter (0.5.0)
     pagy (5.10.1)
       activesupport
-    parallel (1.22.1)
-    parser (3.2.1.1)
+    parallel (1.23.0)
+    parser (3.2.2.1)
       ast (~> 2.4.1)
     pg (1.4.6)
     pry (0.14.2)
@@ -338,10 +339,11 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.4)
-    rack-oauth2 (1.21.3)
+    rack-oauth2 (2.2.0)
       activesupport
       attr_required
-      httpclient
+      faraday (~> 2.0)
+      faraday-follow_redirects
       json-jwt (>= 1.11.0)
       rack (>= 2.1.0)
     rack-protection (3.0.5)
@@ -387,7 +389,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.7.0)
+    regexp_parser (2.8.0)
     reline (0.3.3)
       io-console (~> 0.5)
     request_store (1.5.1)
@@ -413,17 +415,17 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
-    rubocop (1.48.1)
+    rubocop (1.51.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.26.0, < 2.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.28.0)
+    rubocop-ast (1.28.1)
       parser (>= 3.2.1.0)
     rubocop-capybara (2.17.1)
       rubocop (~> 1.41)
@@ -471,10 +473,11 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    swd (1.3.0)
+    swd (2.0.2)
       activesupport (>= 3)
       attr_required (>= 0.0.5)
-      httpclient (>= 2.4)
+      faraday (~> 2.0)
+      faraday-follow_redirects
     thor (1.2.1)
     thread_safe (0.3.6)
     timeout (0.3.2)
@@ -510,9 +513,10 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
-    webfinger (1.2.0)
+    webfinger (2.1.2)
       activesupport
-      httpclient (>= 2.4)
+      faraday (~> 2.0)
+      faraday-follow_redirects
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -553,9 +557,8 @@ DEPENDENCIES
   laa-criminal-legal-aid-schemas!
   lograge
   logstash-event
-  omniauth
   omniauth-rails_csrf_protection
-  omniauth_openid_connect
+  omniauth_openid_connect (= 0.7.1)
   pg (~> 1.4)
   pry
   puma
@@ -577,7 +580,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.1p31
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.4.6

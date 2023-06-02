@@ -48,15 +48,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     !reviewed? && assigned_to?(user_id)
   end
 
-  # NOTE: This code is intended for temporary use during user research on the
-  # staging environment from 3-4 May. The code is not part of the final
-  # implementation and should not be used in production.
-  #
-  # In production, the events stream will provide up-to-date events. However,
-  # as the supserseding events are not available on the staging data user for
-  # user testing, we are artificially generating the events for testing purposes only.
-
-  # TODO: remove after 4 May
   def superseding_history_item
     return nil unless superseded_by
 
@@ -67,27 +58,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
       event_data: { superseded_by: }
     )
   end
-
-  # TODO: remove after 4 May
-  def superseded?
-    superseded_by.present?
-  end
-
-  # TODO: remove after 4 May
-  def superseding_review
-    @superseding_review ||= Review.find_by(parent_id: id)
-  end
-
-  # TODO: remove after 4 May
-  def superseded_by
-    superseding_review&.application_id
-  end
-
-  # TODO: remove after 4 May
-  def superseded_at
-    superseding_review&.submitted_at
-  end
-  # END user research temporary code
 
   class << self
     def find(id)
@@ -116,6 +86,16 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     return nil if parent_id == id
 
     @parent ||= CrimeApplication.find(parent_id)
+  end
+
+  def latest_application_id
+    crime_application = self
+
+    until crime_application.superseded_by.nil?
+      crime_application = CrimeApplication.find(crime_application.superseded_by)
+    end
+
+    crime_application.id
   end
 
   def all_histories

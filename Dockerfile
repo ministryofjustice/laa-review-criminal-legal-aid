@@ -1,4 +1,4 @@
-FROM ruby:3.2.1-alpine
+FROM ruby:3.2.2-alpine3.18
 MAINTAINER LAA Crime Apply Team
 
 RUN apk --no-cache add --virtual build-deps \

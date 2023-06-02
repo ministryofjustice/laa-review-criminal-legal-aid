@@ -45,7 +45,7 @@ RSpec.describe 'Reassigning an application to myself' do
     it 'warns about the impact of reassigning' do
       within('div.govuk-warning-text') do
         expect(page).to have_content(
-          "! Warning This will remove the application from your colleague's list"
+          "!WarningThis will remove the application from your colleague's list"
         )
       end
     end

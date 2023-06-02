@@ -28,10 +28,15 @@ en:
       case_concluded: the case has already concluded
       provider_request: you requested it be returned
       split_case: the case has been split, so we need justification for all offences
-
   phase_banner:
+    tag:
+      local: dev
+      staging: staging
+      production: alpha
     text: This is an MVP. Some things may not work as expected.
-    alpha: alpha
+  warning_text:
+    title: Warning
+    resubmitted: This application has been resubmitted.
   flash:
     success:
       title: Success
@@ -40,9 +45,6 @@ en:
       sent_back: You sent the application back to the provider
       completed: You marked the application as complete
       marked_as_ready: You marked the application as ready for assessment
-      new_user_created: Email address has been added
-      user_updated: Email address has been updated
-      user_deactivated: Email address has been deactivated
     important:
       title: Important
       reassigned_to_someone_else:
@@ -59,12 +61,10 @@ en:
       already_marked_as_ready: This application was already marked as ready for assessment
       cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
-      cannot_access:
-        - You do not have access to that page
-        - Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success
+
     # flash.notice is only used by Devise and is treated as important.
     alert:
       title: Important
@@ -218,12 +218,11 @@ en:
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
-    abandon_deactivation: No, do not deactivate
     assign_to_self: Assign to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
-    confirm_deactivation: Yes, deactivate
     copy: Copy reference number
+    go_to_latest: Go to the latest version
     reassign_to_self: Reassign to your list
     search: Search
     unassign_from_self: Remove from your list
@@ -237,10 +236,8 @@ en:
     sign_in: Sign in
   confirmations:
     reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
-    deactivate_user: Are you sure you want to deactivate %{user_name}?
   warnings:
     reassign_to_self: This will remove the application from your colleague's list
-    deactivate_user: This will mean %{user_name} can no longer access this service.
 
   shared:
     subnavigation:
@@ -313,47 +310,6 @@ en:
     search_results_table:
       table_headings:
         <<: *TABLE_HEADINGS
-
-  admin:
-    deactivate_users:
-      new:
-        page_title: Confirm deactivation
-    manage_users:
-      index:
-        page_title: Manage users
-        heading: Manage users
-        buttons:
-          add_new_user: Add new user
-          edit: Edit
-          deactivate: Deactivate
-        table:
-          caption: Existing users
-          headings:
-            email: Email
-            last_auth_at: Last authentication
-            manage_others: Manage other users
-            actions: Actions
-          body:
-            can_manage_others:
-              <<: *VALUES
-      new:
-        page_title: Add a new user
-        heading: Add a new user
-        cancel: Cancel
-        fields:
-          email:
-            label: Email
-            hint_text: "Enter the user's DOM1 email"
-          checkbox:
-            label: Give access to manage other users
-      edit:
-        page_title: Edit a user
-        heading: Edit a user
-        email: Email
-        cancel: Cancel
-        fields:
-          checkbox:
-            label: Give access to manage other users
 
   crime_applications:
     index:

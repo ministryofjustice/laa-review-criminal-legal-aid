@@ -1,4 +1,4 @@
-class ReportsController < ApplicationController
+class ReportsController < ServiceController
   def show
     case params[:id]
     when /workload_report/
