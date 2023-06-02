@@ -29,9 +29,12 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    update!(deactivated_at: Time.zone.now) if allow_deactivate?
+    return unless allow_deactivate?
+
+    update!(deactivated_at: Time.zone.now)
   end
 
+  # Must have at least 2 other admins
   def allow_deactivate?
     num_other_admins = User.where(
       can_manage_others: true,
