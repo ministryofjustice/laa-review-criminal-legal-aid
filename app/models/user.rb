@@ -42,7 +42,7 @@ class User < ApplicationRecord
   end
 
   def deactivatable?
-    num_other_admins = User.where(
+    num_other_admins = User.active.where(
       can_manage_others: true,
       deactivated_at: nil
     ).where.not(id: self).size

@@ -12,19 +12,19 @@ RSpec.describe User do
   describe '#deactivate!' do
     let(:user) { activated_user }
 
-    context 'when database has at least 2 other admin users' do
+    context 'when database has at least 2 other active admin users' do
       it 'deactivates a user' do
-        described_class.create!(can_manage_others: true)
-        described_class.create!(can_manage_others: true)
+        2.times { |_| described_class.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid) }
 
         expect { user.deactivate! }.to change { user.deactivated? }.from(false).to(true)
       end
     end
 
-    context 'when database has fewer than 2 other admin users' do
+    context 'when database has fewer than 2 other active admin users' do
       it 'does not deactivate a user' do
         described_class.create!(can_manage_others: false)
         described_class.create!(can_manage_others: true)
+        described_class.create!(can_manage_others: true, deactivated_at: Time.zone.now)
         user.deactivate!
 
         expect(user.deactivated?).to be false

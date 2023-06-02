@@ -15,10 +15,10 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
   end
 
-  describe 'when there are at least 2 other admins' do
+  describe 'when there are at least 2 other active admins' do
     before do
       # NOTE: at least 2 other admin user exists including current_user
-      User.create!(can_manage_others: true)
+      User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
       do_deactivate_journey
     end
 
@@ -75,9 +75,10 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
   end
 
-  describe 'when there are less than 2 other admins' do
+  describe 'when there are less than 2 other active admins' do
     before do
       # NOTE: only 1 admin user exists - the current_user
+      User.create!(can_manage_others: true, deactivated_at: Time.zone.now)
       do_deactivate_journey
     end
 

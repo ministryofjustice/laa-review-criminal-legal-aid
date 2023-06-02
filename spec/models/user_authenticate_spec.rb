@@ -40,8 +40,7 @@ RSpec.describe UserAuthenticate do
       context 'when the user is deactivated' do
         before do
           # NOTE: Require at least 2 admins to deactivate another user
-          User.create!(can_manage_others: true)
-          User.create!(can_manage_others: true)
+          2.times { |_| User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid) }
 
           user.deactivate!
         end
