@@ -19,6 +19,13 @@ RSpec.describe User do
     end
   end
 
+  describe '#' do
+    let:(user) {}
+    it '' do
+      expect {}
+  end
+end
+
   describe('#allow_deactive?') do
     let(:string) do described_class.create end
 
