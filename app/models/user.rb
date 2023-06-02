@@ -33,16 +33,12 @@ class User < ApplicationRecord
   end
 
   def allow_deactivate?
-    num_otheradmins = User.where(
+    num_other_admins = User.where(
       can_manage_others: true,
       deactivated_at: nil
     ).where.not(id: self).size
 
-    if num_otheradmins >1
-      return true
-    else
-      return false
-    end
+    num_other_admins > 1
   end
 
   def pending_activation?
