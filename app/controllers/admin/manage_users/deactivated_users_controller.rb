@@ -19,7 +19,7 @@ module Admin
         return if @user.deactivatable?
 
         flash[:alert] = I18n.t('flash.alert.user_deactivated')
-        admin_manage_users_root_path      
+        redirect_to admin_manage_users_root_path
       end
     end
   end
