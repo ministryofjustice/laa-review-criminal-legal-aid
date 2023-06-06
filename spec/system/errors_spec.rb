@@ -27,6 +27,6 @@ RSpec.describe 'Error pages' do
   it 'shows the forbidden page' do
     visit '/forbidden'
     expect(page).to have_content 'Access to this service is restricted'
-    expect(page).not_to have_css('nav.moj-primary-navigation')
+    expect(page).to have_css('nav.moj-primary-navigation')
   end
 end

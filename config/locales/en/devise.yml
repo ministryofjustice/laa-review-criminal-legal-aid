@@ -12,6 +12,7 @@ en:
         timeout: 
           - For your security, we signed you out
           - This is because you were inactive for 15 minutes.
+          - Sign in again to continue using the service.
         unauthenticated:
           - Sign in to view this page
         dormant: 

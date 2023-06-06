@@ -1,5 +1,5 @@
-class ErrorsController < BareApplicationController
-  layout 'external'
+class ErrorsController < ApplicationController
+  layout 'application'
   before_action :authenticate_user!, except: [:forbidden]
   helper_method :assignments_count
   def application_not_found
