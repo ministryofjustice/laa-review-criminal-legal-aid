@@ -12,7 +12,7 @@ RSpec.describe 'Sign out' do
 
   it 'shows the notification banner' do
     expect(page).to have_success_notification_banner(
-      text: 'You have been signed out'
+      text: 'You have signed out'
     )
   end
 end

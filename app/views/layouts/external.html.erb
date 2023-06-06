@@ -1,8 +1,10 @@
 <% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
 
-<% content_for(:header) do %>
+<% if content_for(:header) %>
+  <%= yield govuk_header(service_name: t('service.name'), classes: ["app-banner-#{HostEnv.env_name}"]) %>
+<% else %>
   <%= govuk_header(service_name: t('service.name'), classes: ["app-banner-#{HostEnv.env_name}"]) %>
-<% end %>
+<%end%>
 
 <% content_for(:content) do %>
   <%= render partial: 'shared/flash_banner' %>
