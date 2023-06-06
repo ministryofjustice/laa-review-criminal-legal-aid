@@ -1,6 +1,5 @@
-require_relative './aggregate_loader'
 module Assigning
-  extend AggregateLoader
-
-  load_module_files('assigning', 'assignment')
+  class CannotAssignWhenAssigned < StandardError; end
+  class CannotReassignUnlessAssigned < StandardError; end
+  class StateHasChanged < StandardError; end
 end
