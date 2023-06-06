@@ -9,7 +9,9 @@ describe Reporting::ProcessedReport do
     end
 
     it 'includes column headers' do
-      expect(report.table.headers.map(&:content)).to eq(['Closed on', 'Closed applications'])
+      expect(report.table.headers.map(&:content)).to eq(
+        ['When applications were closed', 'Number of closed applications']
+      )
     end
 
     it 'includes 3 rows' do
