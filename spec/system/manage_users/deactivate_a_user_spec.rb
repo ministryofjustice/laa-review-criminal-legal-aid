@@ -15,7 +15,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
   end
 
-  describe 'with at least 2 other active admins' do
+  describe 'with at least 2 active admins' do
     before do
       User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
       do_deactivate_journey
@@ -78,7 +78,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
   end
 
-  describe 'with fewer than 2 other active admins' do
+  describe 'with fewer than 2 active admins' do
     before do
       User.create!(can_manage_others: true, deactivated_at: Time.zone.now)
       do_deactivate_journey
