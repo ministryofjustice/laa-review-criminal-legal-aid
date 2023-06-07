@@ -1,5 +1,4 @@
-require 'aggregates_helper'
-require_relative '../../../app/aggregates/assigning'
+require 'rails_helper'
 
 describe Assigning::Assignment do
   subject(:assignment) { described_class.new(SecureRandom.uuid) }
