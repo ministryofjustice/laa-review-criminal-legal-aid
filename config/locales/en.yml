@@ -145,8 +145,8 @@ en:
       days_passed: Business days since applications were received
       received_applications_by_age: Applications received
       open_applications_by_age: "Applications still\xA0open"
-      processed_on: Closed on
-      applications_closed: Closed applications
+      processed_on: When applications were closed
+      applications_closed: Number of closed applications
 
   values: &VALUES
     "true": "Yes"
@@ -228,7 +228,7 @@ en:
     unassign_from_self: Remove from your list
     view_all_open_applications: Check all open applications
     view_daily_count: Check when applications were received
-    view_closed_on_count: View by date closed
+    view_closed_on_count: Check when applications were closed
     mark_complete: Mark as completed
     send_back: Send back to provider
     mark_as_ready: Mark as ready for MAAT

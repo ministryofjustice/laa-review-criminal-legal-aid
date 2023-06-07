@@ -8,7 +8,7 @@ RSpec.describe 'Processed Report' do
 
   it 'shows the correct column headers' do
     within('table thead tr') do
-      expect(page).to have_content 'Closed on Closed applications'
+      expect(page).to have_content 'When applications were closed Number of closed applications'
     end
   end
 
