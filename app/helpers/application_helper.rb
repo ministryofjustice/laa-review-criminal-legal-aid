@@ -13,6 +13,14 @@ module ApplicationHelper
     end
   end
 
+  def top_level_path?
+    current_page?(assigned_applications_path) ||
+      current_page?(open_crime_applications_path) ||
+      current_page?(closed_crime_applications_path) ||
+      current_page?(search_application_searches_path) ||
+      current_page?(new_application_searches_path)
+  end
+
   def title(page_title)
     content_for(
       :page_title, [page_title.presence, service_name, 'GOV.UK'].compact.join(' - ')
