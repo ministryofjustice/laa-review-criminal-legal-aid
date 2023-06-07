@@ -9,7 +9,12 @@ RSpec.describe 'Edit users from manage users dashboard' do
 
   describe 'with at least 2 other active admins' do
     before do
-      User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
+      User.create!(
+        can_manage_others: true,
+        auth_subject_id: SecureRandom.uuid,
+        email: 'test2@eg.com'
+      )
+
       user
       visit admin_manage_users_root_path
 

@@ -17,7 +17,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
 
   describe 'with at least 2 other active admins' do
     before do
-      User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
+      User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid, email: 'test2@eg.com')
       do_deactivate_journey
     end
 
@@ -64,6 +64,24 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
       end
     end
 
+    describe 'logging the deactivation in the user\'s account history' do
+      before do
+        click_on('Yes, deactivate')
+        visit admin_manage_users_deactivated_users_path
+        click_link 'Zoe Blogs'
+      end
+
+      let(:cells) { page.first('table tbody tr').all('td') }
+
+      it 'describes the event' do
+        expect(cells[1]).to have_content 'Account deactivated'
+      end
+
+      it 'includes the manager\'s name' do
+        expect(cells.last).to have_content 'Joe EXAMPLE'
+      end
+    end
+
     context 'when clicking "No, do not deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('No, do not deactivate') }.to(
@@ -81,7 +99,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
 
   describe 'with only 2 active admins' do
     before do
-      User.create!(can_manage_others: true, deactivated_at: Time.zone.now) # Inactive
+      User.create!(can_manage_others: true, deactivated_at: Time.zone.now, email: 'test3@eg.com') # Inactive
       active_user.update(can_manage_others: true)
 
       do_deactivate_journey

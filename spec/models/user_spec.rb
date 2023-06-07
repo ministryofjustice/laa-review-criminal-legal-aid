@@ -14,7 +14,10 @@ RSpec.describe User do
 
     context 'when database has at least 2 other active admin users' do
       it 'deactivates a user' do
-        2.times { |_| described_class.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid) }
+        2.times do |i|
+          described_class.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid,
+                                  email: "test2#{i}@example.com")
+        end
 
         expect { user.deactivate! }.to change { user.deactivated? }.from(false).to(true)
       end
@@ -22,9 +25,9 @@ RSpec.describe User do
 
     context 'when database has fewer than 2 other active admin users' do
       it 'does not deactivate a user' do
-        described_class.create!(can_manage_others: false)
-        described_class.create!(can_manage_others: true)
-        described_class.create!(can_manage_others: true, deactivated_at: Time.zone.now)
+        described_class.create!(can_manage_others: false, email: 'test31@example.com')
+        described_class.create!(can_manage_others: true, email: 'test32@example.com')
+        described_class.create!(can_manage_others: true, deactivated_at: Time.zone.now, email: 'test33@example.com')
         user.deactivate!
 
         expect(user.deactivated?).to be false
@@ -48,9 +51,17 @@ RSpec.describe User do
     end
 
     it 'has case insensitive uniqueness enforced by the db' do
-      expect { described_class.create!(email: email.downcase) }.to(
+      invalid_user = described_class.new(email: email.downcase)
+      expect { invalid_user.save(validate: false) }.to(
         raise_error(ActiveRecord::RecordNotUnique,
                     /Key \(email\)=\(jo.example@example.com\) already exists/)
+      )
+    end
+
+    it 'validates uniqueness' do
+      invalid_user = described_class.new(email: email.downcase)
+      expect { invalid_user.save! }.to(
+        raise_error(ActiveRecord::RecordInvalid)
       )
     end
   end
@@ -105,7 +116,7 @@ RSpec.describe User do
     before { user }
 
     it 'has uniqueness enforced by the db' do
-      expect { described_class.create!(auth_subject_id:) }.to(
+      expect { described_class.create!(auth_subject_id: auth_subject_id, email: 'test@eg.com') }.to(
         raise_error(
           ActiveRecord::RecordNotUnique,
           /Key \(auth_subject_id\)=\(#{auth_subject_id}\) already exists./
@@ -173,6 +184,7 @@ RSpec.describe User do
           id: user_id,
           auth_oid: SecureRandom.uuid,
           auth_subject_id: SecureRandom.uuid,
+          email: 'John.Deere@eg.com',
           first_name: 'John',
           last_name: 'Deere'
         )

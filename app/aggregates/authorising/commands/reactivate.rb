@@ -1,0 +1,18 @@
+module Authorising
+  class Reactivate < Command
+    attribute :user_manager_id, Types::Uuid
+
+    def call
+      user.transaction do
+        user.reactivate!
+        event_store.publish(event, stream_name:)
+      end
+    end
+
+    private
+
+    def event
+      Reactivated.new(data: { user_id:, user_manager_id: })
+    end
+  end
+end

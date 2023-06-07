@@ -90,7 +90,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
     describe 'when the user is an activated user' do
       let(:user) do
-        User.create(auth_subject_id:)
+        User.create(auth_subject_id: auth_subject_id, email: 'test@eg.com')
       end
 
       before { user }

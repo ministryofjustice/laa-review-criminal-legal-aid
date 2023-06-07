@@ -15,6 +15,11 @@ class User < ApplicationRecord
     raise CannotDestroyIfActive if activated?
   end
 
+  attr_readonly :email
+
+  validates :email, uniqueness: true, on: :create
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
   scope :pending_activation, -> { where(auth_subject_id: nil, deactivated_at: nil) }
 
   scope :active, lambda {
@@ -33,6 +38,16 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
+  def name_or_email
+    return name unless pending_activation?
+
+    email
+  end
+
+  def history
+    @history ||= AuthorisationHistory.new(user_id: id)
+  end
+
   def deactivated?
     deactivated_at.present?
   end
@@ -42,7 +57,7 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    return unless deactivatable?
+    return false unless deactivatable?
 
     update!(deactivated_at: Time.zone.now)
   end

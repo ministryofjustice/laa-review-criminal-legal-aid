@@ -14,16 +14,24 @@ module Admin
       def new; end
 
       def create
-        set_flash :user_deactivated, user_name: @user.name if @user.deactivate!
+        Authorising::Deactivate.new(
+          user: @user, user_manager_id: current_user_id
+        ).call
+
+        set_flash :user_deactivated, user_name: @user.name
+      ensure
         redirect_to admin_manage_users_root_path
       end
 
       def confirm_reactivate; end
 
       def reactivate
-        @user.reactivate!
+        Authorising::Reactivate.new(
+          user: @user, user_manager_id: current_user_id
+        ).call
 
         set_flash(:user_reactivated, user_name: @user.name)
+      ensure
         redirect_to admin_manage_users_root_path
       end
 

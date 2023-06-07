@@ -1,0 +1,11 @@
+<tr class="govuk-table__row">
+  <td scope="row" class="govuk-table__cell">
+    <%= l item.timestamp, format: :timestamp %>
+  </td>
+  <td class="govuk-table__cell">
+    <%= item.user_name %>
+  </td>
+  <td class="govuk-table__cell">
+    <%= yield %>
+  </td>
+</tr>
