@@ -4,6 +4,8 @@ module Admin
       before_action :set_user
       before_action :allow_deactivation?
 
+      def new; end
+
       def create
         set_flash :user_deactivated, user_name: @user.name if @user.deactivate!
         redirect_to admin_manage_users_root_path
@@ -18,7 +20,7 @@ module Admin
       def allow_deactivation?
         return if @user.deactivatable?
 
-        flash[:alert] = I18n.t('flash.alert.user_deactivated')
+        flash[:alert] = I18n.t('flash.alert.user_deactivation_denied')
         redirect_to admin_manage_users_root_path
       end
     end

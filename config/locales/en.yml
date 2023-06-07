@@ -68,7 +68,7 @@ en:
     # flash.notice is only used by Devise and is treated as important.
     alert:
       title: Important
-      user_deactivated: Unable to deactivate user. There must be at least two users who can manage others
+      user_deactivation_denied: Unable to deactivate user. There must be at least two users who can manage others
     error:
       title: Error in application
   primary_navigation:

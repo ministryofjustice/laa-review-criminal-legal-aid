@@ -21,6 +21,8 @@ class User < ApplicationRecord
     where('auth_subject_id IS NOT NULL AND deactivated_at IS NULL')
   }
 
+  scope :admins, -> { active.where(can_manage_others: true) }
+
   has_many :current_assignments, dependent: :destroy
 
   def name
@@ -90,6 +92,12 @@ class User < ApplicationRecord
     elsif dormant?
       :dormant
     end
+  end
+
+  def allow_admin_right_change?(new_can_manage_others_value)
+    return true if new_can_manage_others_value
+
+    deactivatable?
   end
 
   class << self
