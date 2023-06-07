@@ -42,7 +42,9 @@
   <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-width-container">
 
-      <%= yield(:back_link) %>
+      <% unless top_level_path? %>
+        <%= yield(:back_link) %>
+      <% end %>
       <%= yield(:content) %>
     </div>
   </main>

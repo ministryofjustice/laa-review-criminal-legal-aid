@@ -13,6 +13,12 @@ module ApplicationHelper
     end
   end
 
+  def top_level_path?
+    (controller_name == 'crime_applications' && %w[open closed].include?(params[:action])) ||
+      (controller_name == 'application_searches' && %w[search new].include?(params[:action])) ||
+      (controller_name == 'assigned_applications' && %w[index].include?(params[:action]))
+  end
+
   def title(page_title)
     content_for(
       :page_title, [page_title.presence, service_name, 'GOV.UK'].compact.join(' - ')
