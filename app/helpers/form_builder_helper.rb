@@ -5,11 +5,9 @@
 module FormBuilderHelper
   def search_date_field(attribute_name, **kwargs, &block)
     GOVUKDesignSystemFormBuilder::Elements::Inputs::SearchDate.new(
-      self,
-      object_name,
-      attribute_name,
+      self, object_name, attribute_name,
       hint: {}, label: {}, caption: {}, width: nil, form_group: {}, prefix_text: nil, suffix_text: nil,
-      **kwargs, &block
+      extra_letter_spacing: false, **kwargs, &block
     ).html
   end
 

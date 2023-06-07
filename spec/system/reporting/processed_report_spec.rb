@@ -7,8 +7,12 @@ RSpec.describe 'Processed Report' do
   end
 
   it 'shows the correct column headers' do
-    within('table thead tr') do
-      expect(page).to have_content 'When applications were closed Number of closed applications'
+    expected_headers = [
+      'When applications were closed', 'Number of closed applications'
+    ]
+
+    page.all('table thead tr th').each_with_index do |el, i|
+      expect(el).to have_content expected_headers[i]
     end
   end
 
