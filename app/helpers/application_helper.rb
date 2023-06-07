@@ -14,9 +14,9 @@ module ApplicationHelper
   end
 
   def top_level_path?
-    (controller_name == 'crime_applications' && %w[open closed].include?(params[:action])) ||
-      (controller_name == 'application_searches' && %w[search new].include?(params[:action])) ||
-      (controller_name == 'assigned_applications' && %w[index].include?(params[:action]))
+    (controller_name == 'crime_applications' && %w[open closed].include?(action_name)) ||
+      (controller_name == 'application_searches' && %w[search new].include?(action_name)) ||
+      (controller_name == 'assigned_applications' && %w[index].include?(action_name))
   end
 
   def title(page_title)
