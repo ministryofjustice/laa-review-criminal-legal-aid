@@ -15,14 +15,15 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
   end
 
-  describe 'with at least 2 active admins' do
+  describe 'with at least 2 other active admins' do
     before do
       User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
       do_deactivate_journey
     end
 
-    it 'has 2 active admins' do
+    it 'has 2 other active admins' do
       expect(User.admins.size).to eq 2
+      expect(active_user.can_manage_others).to be false
     end
 
     context 'when clicking "deactivate" shows warning page' do
@@ -78,14 +79,16 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
   end
 
-  describe 'with fewer than 2 active admins' do
+  describe 'with only 2 active admins' do
     before do
-      User.create!(can_manage_others: true, deactivated_at: Time.zone.now)
+      User.create!(can_manage_others: true, deactivated_at: Time.zone.now) # Inactive
+      active_user.update(can_manage_others: true)
+
       do_deactivate_journey
     end
 
     it 'has 2 active admins' do
-      expect(User.admins.size).to be < 2
+      expect(User.admins.size).to eq 2
     end
 
     it 'shows error message on manage users page' do

@@ -7,9 +7,8 @@ RSpec.describe 'Edit users from manage users dashboard' do
 
   let(:confirm_path) { edit_admin_manage_users_active_user_path(user) }
 
-  describe 'with at least 2 active admins' do
+  describe 'with at least 2 other active admins' do
     before do
-      User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
       User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
       user
       visit admin_manage_users_root_path
@@ -19,8 +18,9 @@ RSpec.describe 'Edit users from manage users dashboard' do
       end
     end
 
-    it 'has > 2 active admins' do
-      expect(User.admins.size).to be > 2
+    it 'has 2 other active admins' do
+      expect(User.admins.size).to eq 2
+      expect(user.can_manage_others).to be false
     end
 
     it 'loads the correct page' do
@@ -94,7 +94,7 @@ RSpec.describe 'Edit users from manage users dashboard' do
     end
   end
 
-  describe 'with fewer than 2 active admins' do
+  describe 'with only 2 active admins' do
     before do
       other_admin
       user
