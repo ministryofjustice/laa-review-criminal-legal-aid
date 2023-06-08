@@ -6,21 +6,24 @@ en:
     failure:
       user:
         reauthenticate:
-          - You have been signed out
-          - Your session automatically ends if it has been more than 12 hours since you last signed in.
+          - For your security, we signed you out
+          - This is because you were signed in for more than 12 hours.
+          - Sign in again to continue using the service.
         timeout: 
-          - You have been signed out
-          - Your session automatically ends if you do not access the service for more than 15 minutes.
+          - For your security, we signed you out
+          - This is because you were inactive for 15 minutes.
+          - Sign in again to continue using the service.
         unauthenticated:
-          - You are not authorised to view this page
-          - Access to this service is restricted if a user is not signed in
+          - Sign in to view this page
         dormant: 
-          - Your access to this service has been restricted
-          - It has been more than 6 months since you last accessed the service. Your account will need to be re-activated before you can sign in.
+          - You cannot access this service
+          - This is because you have not signed in to the service for more than 6 months.
+          - Contact <a mailto=LAAapplyonboarding@justice.gov.uk>LAAapplyonboarding@justice.gov.uk</a> to reactivate your account.
         invitation_expired: 
-          - Your invitation has expired 
-          - Invitations to access this service automatically expire after 48 hours.
+          - You cannot access this service
+          - Your invitation to access this service has expired.
+          - "Contact <a mailto=LAAapplyonboarding@justice.gov.uk>LAAapplyonboarding@justice.gov.uk</a> for a new invitation."
     sessions:
       user:
         signed_in: ""
-        signed_out: You have been signed out
+        signed_out: You have signed out

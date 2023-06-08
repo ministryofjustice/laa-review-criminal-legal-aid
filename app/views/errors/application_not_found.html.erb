@@ -5,5 +5,7 @@
     <h1 class="govuk-heading-xl"><%=t '.heading' %></h1>
     <p class="govuk-body-l"><%=t '.body_1' %></p>
     <p class="govuk-body-l"><%=t '.body_2' %></p>
+    <% url = link_to t('.link_text'), open_crime_applications_path %>
+    <p class="govuk-body-l"><%= sanitize t('.body_3', url:) %></p>
   </div>
 </div>

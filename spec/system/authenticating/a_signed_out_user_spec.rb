@@ -12,8 +12,7 @@ RSpec.describe 'Authenticating a signed out user' do
 
   it 'informs the user that they need to be singed to access the page requested' do
     expect(page).to have_notification_banner(
-      text: 'You are not authorised to view this page',
-      details: 'Access to this service is restricted if a user is not signed in'
+      text: 'Sign in to view this page'
     )
   end
 end

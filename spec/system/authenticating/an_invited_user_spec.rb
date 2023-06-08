@@ -31,8 +31,8 @@ RSpec.describe 'Authenticating an invited user' do
 
       it 'informs the user that their invitation has expired' do
         expect(page).to have_notification_banner(
-          text: 'Your invitation has expired',
-          details: 'Invitations to access this service automatically expire after 48 hours.'
+          text: 'You cannot access this service',
+          details: 'Your invitation to access this service has expired.'
         )
       end
 
