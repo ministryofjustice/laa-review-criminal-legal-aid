@@ -6,7 +6,7 @@ class ReportsController < ServiceController
     when /processed_report/
       @report = Reporting::ProcessedReport.new
     else
-      redirect_to application_not_found_path
+      redirect_to not_found_path
     end
   end
 end

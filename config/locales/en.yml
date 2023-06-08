@@ -61,6 +61,7 @@ en:
       already_marked_as_ready: This application was already marked as ready for assessment
       cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
+
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success

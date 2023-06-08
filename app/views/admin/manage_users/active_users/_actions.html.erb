@@ -1,12 +1,16 @@
 <% unless user.id == current_user_id %>
   <ul class="govuk-summary-list__actions-list">
-    <% unless user.dormant? %>
+    <% if user.dormant? %>
       <li class="govuk-summary-list__actions-list-item">
-        <%= govuk_link_to action_text(:edit), edit_admin_manage_users_active_user_path(user) %>
+        <%= govuk_link_to action_text(:revive), '#', { no_visited_state: true } %>
+      </li>
+    <% else  %>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to action_text(:edit), edit_admin_manage_users_active_user_path(user), { no_visited_state: true } %>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to action_text(:deactivate), new_admin_manage_users_deactivated_user_path(id: user), { no_visited_state: true } %>
       </li>
     <% end %>
-    <li class="govuk-summary-list__actions-list-item">
-      <%= govuk_link_to action_text(:deactivate), new_admin_manage_users_deactivated_user_path(active_user_id: user) %>
-    </li>
   </ul>
 <% end %>
