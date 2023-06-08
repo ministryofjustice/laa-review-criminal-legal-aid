@@ -1,7 +1,7 @@
 class ErrorsController < ApplicationController
   layout 'application'
   before_action :authenticate_user!, except: [:forbidden]
-  helper_method :assignments_count
+
   def application_not_found
     respond_with_status(:not_found)
   end
@@ -25,11 +25,5 @@ class ErrorsController < ApplicationController
       format.html { render status: }
       format.all  { head status }
     end
-  end
-
-  def assignments_count
-    @assignments_count ||= CurrentAssignment.where(
-      user_id: current_user.id
-    ).count
   end
 end
