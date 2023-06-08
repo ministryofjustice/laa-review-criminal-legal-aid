@@ -21,6 +21,8 @@ class User < ApplicationRecord
     where('auth_subject_id IS NOT NULL AND deactivated_at IS NULL')
   }
 
+  scope :admins, -> { active.where(can_manage_others: true) }
+
   has_many :current_assignments, dependent: :destroy
 
   def name
@@ -36,7 +38,15 @@ class User < ApplicationRecord
   end
 
   def deactivate!
+    return unless deactivatable?
+
     update!(deactivated_at: Time.zone.now)
+  end
+
+  def deactivatable?
+    num_other_admins = User.active.where(can_manage_others: true).where.not(id: self).size
+
+    num_other_admins > 1
   end
 
   def pending_activation?
@@ -44,7 +54,7 @@ class User < ApplicationRecord
   end
 
   def invitation_expired?
-    pending_activation? && invitation_expires_at < Time.zone.now
+    pending_activation? && invitation_expires_at && invitation_expires_at < Time.zone.now
   end
 
   def renew_invitation!
@@ -79,6 +89,12 @@ class User < ApplicationRecord
     elsif dormant?
       :dormant
     end
+  end
+
+  def allow_admin_right_change?(new_can_manage_others_value)
+    return true if new_can_manage_others_value
+
+    deactivatable?
   end
 
   class << self
