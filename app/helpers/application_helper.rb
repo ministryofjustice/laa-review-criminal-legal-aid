@@ -14,11 +14,16 @@ module ApplicationHelper
   end
 
   def top_level_path?
-    current_page?(assigned_applications_path) ||
-      current_page?(open_crime_applications_path) ||
-      current_page?(closed_crime_applications_path) ||
-      current_page?(search_application_searches_path) ||
-      current_page?(new_application_searches_path)
+    top_level_paths = [
+      authenticated_root_path,
+      assigned_applications_path,
+      open_crime_applications_path,
+      closed_crime_applications_path,
+      search_application_searches_path,
+      new_application_searches_path
+    ]
+
+    top_level_paths.include?(request.path)
   end
 
   def title(page_title)
