@@ -28,8 +28,8 @@ RSpec.describe 'Reauthentication' do
 
     it 'shows the notification banner' do
       expect(page).to have_notification_banner(
-        text: 'You have been signed out',
-        details: 'Your session automatically ends if it has been more than 12 hours since you last signed in.'
+        text: 'For your security, we signed you out',
+        details: 'This is because you were signed in for more than 12 hours.'
       )
     end
   end

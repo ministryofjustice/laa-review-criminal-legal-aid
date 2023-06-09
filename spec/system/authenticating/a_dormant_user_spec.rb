@@ -15,9 +15,8 @@ RSpec.describe 'Authenticating a dormant user' do
 
   it 'informs the user that their invitation has expired' do
     expect(page).to have_notification_banner(
-      text: 'Your access to this service has been restricted',
-      details: 'It has been more than 6 months since you last accessed the service. ' \
-               'Your account will need to be re-activated before you can sign in.'
+      text: 'You cannot access this service',
+      details: 'This is because you have not signed in to the service for more than 6 months.'
     )
   end
 end
