@@ -23,6 +23,10 @@ class User < ApplicationRecord
 
   scope :admins, -> { active.where(can_manage_others: true) }
 
+  scope :deactivated, lambda {
+    where('auth_subject_id IS NOT NULL AND deactivated_at IS NOT NULL')
+  }
+
   has_many :current_assignments, dependent: :destroy
 
   def name
@@ -47,6 +51,10 @@ class User < ApplicationRecord
     num_other_admins = User.active.where(can_manage_others: true).where.not(id: self).size
 
     num_other_admins > 1
+  end
+
+  def reactivate!
+    update!(deactivated_at: nil)
   end
 
   def pending_activation?

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Authenticating a signed out user' do
   before do
-    click_link 'Sign out'
+    click_on 'Sign out'
     visit '/assigned_applications'
   end
 

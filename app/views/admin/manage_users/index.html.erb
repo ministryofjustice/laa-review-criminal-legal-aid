@@ -30,6 +30,12 @@
                   class: 'moj-sub-navigation__link',
                   aria: { current: current_page?(admin_manage_users_invitations_path) ? 'page' : nil } %>
     </li>
+    <li class="moj-sub-navigation__item">
+      <%= link_to action_text(:deactivated_users),
+                  admin_manage_users_deactivated_users_path,
+                  class: 'moj-sub-navigation__link',
+                  aria: { current: current_page?(admin_manage_users_deactivated_users_path) ? 'page' : nil } %>
+    </li>
   </ul>
 </nav>
 
