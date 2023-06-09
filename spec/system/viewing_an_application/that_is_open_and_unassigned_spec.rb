@@ -32,6 +32,10 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('Date received: 24/10/2022')
   end
 
+  it 'includes the application type' do
+    expect(page).to have_content('Initial application')
+  end
+
   context 'when date stamp is earlier than date received' do
     let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
 
