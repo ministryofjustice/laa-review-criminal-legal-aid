@@ -30,8 +30,8 @@ RSpec.describe 'Session timeout' do
 
     it 'shows the notification banner' do
       expect(page).to have_notification_banner(
-        text: 'You have been signed out',
-        details: 'Your session automatically ends if you do not access the service for more than 15 minutes.'
+        text: 'For your security, we signed you out',
+        details: 'This is because you were inactive for 15 minutes.'
       )
     end
   end
