@@ -148,9 +148,7 @@ RSpec.describe 'Authentication Session Initialisation' do
     it 'redirects the user to the "Not authorised" page' do
       auth_callback
 
-      follow_redirect!
-
-      expect(response).to have_http_status(:forbidden)
+      expect(response).to redirect_to('/forbidden')
     end
   end
 end

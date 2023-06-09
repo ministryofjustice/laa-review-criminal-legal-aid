@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get :ping,   to: 'healthcheck#ping'
 
   get 'application_not_found', to: 'errors#application_not_found'
+  get 'not_found', to: 'errors#not_found'
   get 'unhandled', to: 'errors#unhandled'
   get 'forbidden', to: 'errors#forbidden'
 
@@ -48,8 +49,16 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :manage_users, only: [:index, :new, :create, :edit, :update] do
-      resource :deactivate_users, only: [:new, :create]
+    namespace :manage_users do
+      root 'active_users#index'
+      resources :active_users, only: [:index, :edit, :update]
+      resources :invitations, only: [:index, :new, :destroy, :create, :update] do
+        member do
+          get 'confirm_destroy'
+          get 'confirm_renew'
+        end
+      end
+      resources :deactivated_users, only: [:index, :new, :create]
     end
   end
 
@@ -59,4 +68,11 @@ Rails.application.routes.draw do
 
   mount RailsEventStore::Browser => "/event_browser" if Rails.env.development?
   root 'assigned_applications#index'
+
+  # catch-all route
+  # which, because errors#not_found is authenticated, results in an
+  # unauthenticated user being redirect to the sign in page.
+
+  match '*path', to: 'errors#not_found', via: :all, constraints:
+    lambda { |_request| !Rails.application.config.consider_all_requests_local }
 end

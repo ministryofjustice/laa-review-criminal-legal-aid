@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Authenticating a dormant' do
+RSpec.describe 'Authenticating a dormant user' do
   before do
     click_link 'Sign out'
     current_user.update(last_auth_at: Rails.configuration.x.auth.dormant_account_threshold.ago)
@@ -9,15 +9,14 @@ RSpec.describe 'Authenticating a dormant' do
     click_button 'Sign in'
   end
 
-  it 'the users is not signed in' do
+  it 'the user is not signed in' do
     expect(page).not_to have_content 'Your list'
   end
 
   it 'informs the user that their invitation has expired' do
     expect(page).to have_notification_banner(
-      text: 'Your access to this service has been restricted',
-      details: 'It has been more than 6 months since you last accessed the service. ' \
-               'Your account will need to be re-activated before you can sign in.'
+      text: 'You cannot access this service',
+      details: 'This is because you have not signed in to the service for more than 6 months.'
     )
   end
 end

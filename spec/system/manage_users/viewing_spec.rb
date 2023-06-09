@@ -5,20 +5,12 @@ RSpec.describe 'Manage Users Dashboard' do
 
   context 'when user does not have access manage other users' do
     before do
-      visit '/'
-      visit '/admin/manage_users'
+      visit admin_manage_users_root_path
     end
 
-    it 'redirects to Your list page' do
+    it 'redirects to "Page not" found' do
       heading_text = page.first('.govuk-heading-xl').text
-      expect(heading_text).to eq('Your list')
-    end
-
-    it 'show access denied flash message' do
-      expect(page).to have_notification_banner(
-        text: 'You do not have access to that page',
-        details: 'Contact laa-crime-apply@digital.justice.gov.uk if you think this wrong'
-      )
+      expect(heading_text).to eq('Page not found')
     end
   end
 
@@ -28,7 +20,7 @@ RSpec.describe 'Manage Users Dashboard' do
     let(:last_auth_at) { Time.zone.now }
 
     before do
-      visit '/admin/manage_users'
+      visit admin_manage_users_root_path
     end
 
     it 'includes the page heading' do
@@ -38,26 +30,47 @@ RSpec.describe 'Manage Users Dashboard' do
 
     it 'includes the button to add new user' do
       add_new_user_button = page.first('.govuk-button').text
-      expect(add_new_user_button).to have_content 'Add new user'
+      expect(add_new_user_button).to have_content 'Invite a user'
     end
 
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Email Last authentication Manage other users Actions')
+      expect(column_headings).to eq('Name Email Manage other users Last authentication Actions')
     end
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq([current_user.email, I18n.l(last_auth_at, format: :timestamp), 'Yes'].join(' '))
+      expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes',
+                                    I18n.l(last_auth_at, format: :timestamp)].join(' '))
     end
 
     describe 'ordering of users in the list' do
       before do
-        User.create(first_name: 'Hassan', last_name: 'Example', email: 'hassan.example@example.com')
-        User.create(first_name: 'Hassan', last_name: 'Sample', email: 'hassan.sample@example.com')
-        User.create(first_name: 'Arthur', last_name: 'Sample', email: 'arthur.sample@example.com')
-        visit '/admin/manage_users'
+        users = [
+          {
+            first_name: 'Hassan',
+            last_name: 'Example',
+            email: 'hassan.example@example.com',
+            auth_subject_id: SecureRandom.uuid
+          },
+          {
+            first_name: 'Hassan',
+            last_name: 'Sample',
+            email: 'hassan.sample@example.com',
+            auth_subject_id: SecureRandom.uuid
+          },
+          {
+            first_name: 'Arthur',
+            last_name: 'Sample',
+            email: 'arthur.sample@example.com',
+            auth_subject_id: SecureRandom.uuid
+          }
+        ]
+
+        User.insert_all(users) # rubocop:disable Rails/SkipsModelValidations
+
+        visit admin_manage_users_root_path
       end
 
       let(:expected_order) do
@@ -70,7 +83,7 @@ RSpec.describe 'Manage Users Dashboard' do
       end
 
       it 'is ordered by first name, last name' do
-        expect(page.all('tbody tr td:first-child').map(&:text)).to eq expected_order
+        expect(page.all('tbody tr td:nth-child(2)').map(&:text)).to eq expected_order
       end
     end
   end
@@ -82,17 +95,17 @@ RSpec.describe 'Manage Users Dashboard' do
       make_users(100)
       visit '/'
       User.update(current_user_id, can_manage_others: true, last_auth_at: last_auth_at)
-      visit '/admin/manage_users?page=5'
+      visit '/admin/manage_users?page=2'
     end
 
     it 'shows the correct page number' do
       current_page = first('.govuk-pagination__item--current').text
 
-      expect(current_page).to have_text('5')
+      expect(current_page).to have_text('2')
     end
 
-    it 'shows 20 entries per page' do
-      expect(page).to have_selector('.govuk-table__body > .govuk-table__row', count: 20)
+    it 'shows 50 entries per page' do
+      expect(page).to have_selector('.govuk-table__body > .govuk-table__row', count: 50)
     end
   end
 end

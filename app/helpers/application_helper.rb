@@ -3,6 +3,29 @@ module ApplicationHelper
     t('service.name')
   end
 
+  def app_banner_tag
+    if HostEnv.local?
+      t('phase_banner.tag.local')
+    elsif HostEnv.staging?
+      t('phase_banner.tag.staging')
+    else
+      t('phase_banner.tag.production')
+    end
+  end
+
+  def top_level_path?
+    top_level_paths = [
+      authenticated_root_path,
+      assigned_applications_path,
+      open_crime_applications_path,
+      closed_crime_applications_path,
+      search_application_searches_path,
+      new_application_searches_path
+    ]
+
+    top_level_paths.include?(request.path)
+  end
+
   def title(page_title)
     content_for(
       :page_title, [page_title.presence, service_name, 'GOV.UK'].compact.join(' - ')

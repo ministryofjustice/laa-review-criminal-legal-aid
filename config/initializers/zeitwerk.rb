@@ -1,4 +1,4 @@
-# aggegates and read_models are loaded by the initializers
-Rails.autoloaders.main.ignore(
-  Rails.root.join("app/aggregates")
+Rails.autoloaders.main.collapse(
+  "#{Rails.root}/app/aggregates/*/events",
+  "#{Rails.root}/app/aggregates/*/commands"
 )

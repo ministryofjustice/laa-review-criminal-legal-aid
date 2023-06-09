@@ -60,6 +60,9 @@ module LaaReviewCriminalLegalAid
     config.x.auth.dormant_account_threshold = 6.months
 
     # Default page size for paging results
-    config.x.admin.pagination_per_page = 20
+    config.x.admin.pagination_per_page = 50
+
+    #Onboarding email address for user contact
+    config.x.admin.onboarding_email = 'LAAapplyonboarding@justice.gov.uk'
   end
 end

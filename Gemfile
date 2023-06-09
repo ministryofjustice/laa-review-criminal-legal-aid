@@ -9,8 +9,8 @@ gem 'turbo-rails'
 
 gem 'business'
 gem 'faraday'
-gem 'govuk-components'
-gem 'govuk_design_system_formbuilder', '~> 3.1.0'
+gem 'govuk-components', '~> 4.0.0'
+gem 'govuk_design_system_formbuilder', '~> 4.0.0'
 
 gem 'govuk_notify_rails'
 
@@ -23,7 +23,7 @@ gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client'
 
 gem 'laa-criminal-legal-aid-schemas',
-    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v0.1.6'
+    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v0.1.9'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -44,8 +44,7 @@ gem 'dry-schema'
 gem 'dry-struct'
 
 gem 'devise'
-gem 'omniauth'
-gem 'omniauth_openid_connect'
+gem 'omniauth_openid_connect', '0.7.1'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'aws-sdk-sns', '~> 1.60', require: false

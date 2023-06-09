@@ -1,11 +1,18 @@
 class User < ApplicationRecord
+  class CannotDestroyIfActive < StandardError; end
+  class CannotRenewIfActive < StandardError; end
+
+  paginates_per Rails.configuration.x.admin.pagination_per_page
+
   devise :omniauthable, :timeoutable
 
   include AuthUpdateable
   include Reauthable
 
-  before_create do
-    self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
+  before_create :set_invitation_expires_at
+
+  before_destroy do
+    raise CannotDestroyIfActive if activated?
   end
 
   scope :pending_activation, -> { where(auth_subject_id: nil, deactivated_at: nil) }
@@ -13,6 +20,8 @@ class User < ApplicationRecord
   scope :active, lambda {
     where('auth_subject_id IS NOT NULL AND deactivated_at IS NULL')
   }
+
+  scope :admins, -> { active.where(can_manage_others: true) }
 
   has_many :current_assignments, dependent: :destroy
 
@@ -29,11 +38,15 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    num_otheradmins = User.where(can_manage_others: true, deactivated_at: nil).where.not(id: self).size
+    return unless deactivatable?
 
-    if num_otheradmins >1
-      update!(deactivated_at: Time.zone.now)
-    end
+    update!(deactivated_at: Time.zone.now)
+  end
+
+  def deactivatable?
+    num_other_admins = User.active.where(can_manage_others: true).where.not(id: self).size
+
+    num_other_admins > 1
   end
 
   def pending_activation?
@@ -41,7 +54,22 @@ class User < ApplicationRecord
   end
 
   def invitation_expired?
-    pending_activation? && invitation_expires_at < Time.zone.now
+    pending_activation? && invitation_expires_at && invitation_expires_at < Time.zone.now
+  end
+
+  def renew_invitation!
+    raise CannotRenewIfActive if activated?
+
+    set_invitation_expires_at
+    save!
+  end
+
+  def set_invitation_expires_at
+    self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
+  end
+
+  def service_user?
+    !can_manage_others?
   end
 
   def dormant?
@@ -61,6 +89,12 @@ class User < ApplicationRecord
     elsif dormant?
       :dormant
     end
+  end
+
+  def allow_admin_right_change?(new_can_manage_others_value)
+    return true if new_can_manage_others_value
+
+    deactivatable?
   end
 
   class << self

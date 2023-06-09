@@ -1,5 +1,4 @@
-require 'aggregates_helper'
-require_relative '../../../app/aggregates/reviewing'
+require 'rails_helper'
 
 describe Reviewing::Review do
   subject(:review) { described_class.new(SecureRandom.uuid) }
@@ -10,7 +9,7 @@ describe Reviewing::Review do
 
   let(:submitted_at) { Time.zone.now }
 
-  describe '#recieve_application' do
+  describe '#receive_application' do
     before do
       review.receive_application(submitted_at:)
     end
