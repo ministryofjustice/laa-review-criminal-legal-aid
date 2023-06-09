@@ -8,10 +8,10 @@
 
     <%= govuk_warning_text text: warning_text(:deactivate_user, user_name: @user.name) %>
 
-    <%= form_with(url: admin_manage_users_deactivated_users_path(active_user_id: @user)) do |f| %>
+    <%= form_with(url: admin_manage_users_deactivated_users_path(id: @user)) do |f| %>
       <div class="govuk-button-group">
-        <%= f.govuk_submit action_text(:confirm_deactivation) %>
-        <%= govuk_link_to action_text(:abandon_deactivation), admin_manage_users_root_path  %>
+        <%= f.govuk_submit action_text(:confirm_deactivate) %>
+        <%= govuk_link_to action_text(:abandon_deactivate), admin_manage_users_root_path, { no_visited_state: true }  %>
       </div>
     <% end %>
   </div>

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Authenticating a dormant user' do
   before do
-    click_link 'Sign out'
+    click_on 'Sign out'
     current_user.update(last_auth_at: Rails.configuration.x.auth.dormant_account_threshold.ago)
     click_button 'Sign in'
     select current_user.email

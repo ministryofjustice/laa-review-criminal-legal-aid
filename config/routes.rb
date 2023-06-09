@@ -58,7 +58,12 @@ Rails.application.routes.draw do
           get 'confirm_renew'
         end
       end
-      resources :deactivated_users, only: [:index, :new, :create]
+      resources :deactivated_users, only: [:index, :new, :create] do
+        member do
+          get 'confirm_reactivate'
+          patch 'reactivate'
+        end
+      end
     end
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Sign out' do
   before do
     visit '/'
-    click_link 'Sign out'
+    click_on('Sign out')
   end
 
   it 'signs the user out' do

@@ -1,26 +1,32 @@
 en:
   manage_users:
     actions:
-      abandon_deactivation: No, do not deactivate
+      abandon_deactivate: No, do not deactivate
+      abandon_reactivate: No, do not reactivate
       abandon_destroy: No, do not delete the invitation
       abandon_renew: No, do not renew the invitation
       add_new_user: Invite a user
       cancel: Cancel
-      confirm_deactivation: Yes, deactivate
+      confirm_deactivate: Yes, deactivate
       confirm_destroy: Yes, delete the invitation
       confirm_renew: Yes, renew the invitation
+      confirm_reactivate: Yes, reactivate
       deactivate: Deactivate
+      deactivated_users: Deactivated users 
       delete: Delete
       edit: Edit
       existing_users: Existing users 
       invited_users: Invited users 
+      reactivate: Reactivate
       renew: Renew
+      revive: Revive
 
     flash:
       success:
         invitation_deleted: Invitation to %{email} has been deleted 
         invitation_renewed: Invitation to %{email} has been renewed 
         user_deactivated: "%{user_name} has been deactivated"
+        user_reactivated: "%{user_name} has been reactivated"
         user_invited: "%{email} has been invited"
         user_updated: "%{user_name} has been updated"
       important:
@@ -33,6 +39,7 @@ en:
       deactivate_user: Are you sure you want to deactivate %{user_name}?
       destroy_invitation: "Are you sure you want to delete %{email}'s invitation?"
       renew_invitation: "Are you sure you want to extend %{email}'s invitation for 48 hours?"
+      reactivate_user: "Are you sure you want to reactivate %{user_name}'s account?"
 
     warnings:
       deactivate_user: This will mean %{user_name} can no longer access this service.
@@ -43,6 +50,7 @@ en:
       actions: Actions
       email: Email
       invitation_expires_at: Invitations expires 
+      deactivated_at: Deactivated 
       last_auth_at: Last authentication
       manage_others: Manage other users
       name: Name
@@ -78,3 +86,5 @@ en:
       deactivated_users:
         new:
           page_title: Confirm deactivation
+        confirm_reactivate:
+          page_title: Confirm reactivation
