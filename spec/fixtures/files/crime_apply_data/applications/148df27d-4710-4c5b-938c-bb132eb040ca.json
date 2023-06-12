@@ -8,10 +8,11 @@
   "date_stamp": "2022-11-21T16:19:00.000+00:00",
   "submitted_at": "2023-01-14T16:58:15.000+00:00",
   "provider_details": {
-    "office_code": "1",
-    "legal_rep_first_name": "Jack",
-    "legal_rep_last_name": "Wagyu",
-    "legal_rep_telephone": "07098765602"
+    "office_code": "1A123B",
+    "provider_email": "provider@example.com",
+    "legal_rep_first_name": "John",
+    "legal_rep_last_name": "Doe",
+    "legal_rep_telephone": "123456789"
   },
   "client_details": {
     "applicant": {
@@ -46,11 +47,15 @@
     }
   ],
   "case_details": {
+    "appeal_maat_id": null,
+    "appeal_with_changes_maat_id": null,
+    "appeal_with_changes_details": null,
     "case_type": "summary_only",
     "codefendants": [],
     "offences": [
       {
         "offence_class": "C",
+        "passportable": true,
         "dates": [
           {
             "date_from": "2020-12-12",
