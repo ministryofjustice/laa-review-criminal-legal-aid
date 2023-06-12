@@ -1,5 +1,6 @@
 {
   "id": "1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc",
+  "parent_id": null,
   "reference": "22340980",
   "schema_version": "1.0",
   "status": "submitted",
@@ -9,10 +10,11 @@
   "submitted_at": "2022-11-14T16:58:15.000+00:00",
   "reviewed_at": "2022-11-16T11:58:15.000+00:00",
   "provider_details": {
-    "office_code": "1",
-    "legal_rep_first_name": "Jack",
-    "legal_rep_last_name": "Wagyu",
-    "legal_rep_telephone": "07098765602"
+    "office_code": "1A123B",
+    "provider_email": "provider@example.com",
+    "legal_rep_first_name": "John",
+    "legal_rep_last_name": "Doe",
+    "legal_rep_telephone": "123456789"
   },
   "client_details": {
     "applicant": {
@@ -23,7 +25,8 @@
       "nino": "NC123458A",
       "date_of_birth": "1980-06-01",
       "telephone_number": null,
-      "correspondence_address_type": "home_address"
+      "correspondence_address_type": "providers_office_address",
+      "correspondence_address": null
     }
   },
   "ioj_passport": [],
@@ -34,11 +37,15 @@
     }
   ],
   "case_details": {
+    "appeal_maat_id": null,
+    "appeal_with_changes_maat_id": null,
+    "appeal_with_changes_details": null,
     "case_type": "summary_only",
     "codefendants": [],
     "offences": [
       {
-        "offence_class": "Class C or B",
+        "offence_class": "C",
+        "passportable": true,
         "dates": [
           {
             "date_from": "2020-12-12",
