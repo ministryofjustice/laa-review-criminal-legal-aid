@@ -10,6 +10,6 @@
 <%= form_with(url: admin_manage_users_invitation_path(@user), method: :patch) do |f| %>
   <div class="govuk-button-group">
     <%= f.govuk_submit action_text(:confirm_renew) %>
-    <%= govuk_link_to action_text(:abandon_renew), admin_manage_users_invitations_path %>
+    <%= govuk_link_to action_text(:abandon_renew), admin_manage_users_invitations_path, { no_visited_state: true } %>
   </div>
 <% end %>

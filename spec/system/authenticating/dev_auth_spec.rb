@@ -23,7 +23,7 @@ RSpec.describe 'Authenticating with the DevAuth strategy' do
       end
 
       it 'redirects to the forbidden page' do
-        expect(page).to have_current_path '/forbidden'
+        expect(page).to have_content 'Access to this service is restricted'
       end
 
       it 'shows the forbidden page' do

@@ -61,6 +61,7 @@ en:
       already_marked_as_ready: This application was already marked as ready for assessment
       cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
+
     # flash.notice is only used by Devise and is treated as success.
     notice:
       title: Success
@@ -154,7 +155,7 @@ en:
     not_provided: Not provided
     deleted_user_name: '[deleted]'
     no_one: no one
-    initial_application: Initial application
+    initial: Initial application
     home_address: Same as home address
     provider_address: Same as provider address
     providers_office_address: Same as provider address
