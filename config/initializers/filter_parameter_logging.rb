@@ -6,33 +6,27 @@
 Rails.application.config.filter_parameters += [
   :_key, :certificate, :client_id, :client_secret,
   :oid, :otp, :passw, :pkce, :salt, :secret, :ssn,
-  :tenant_id, :token,
+  :tenant_id, :token, :crypt,
 
   # Attributes relating to an application
   # It does partial matching (i.e. `telephone_number` is covered by `phone`)
-  :address,
-  :address_line_one,
-  :address_line_two,
-  :application_start_date,
+  :address_line,
   :city,
   :code,
   :country,
-  :crypt,
   :date_of_birth,
-  :details,
   :description,
+  :details,
   :email,
   :first_name,
   :hearing_court_name,
   :hearing_date,
   :last_name,
   :lookup_id,
-  :name,
   :nino,
   :other_names,
   :phone,
   :postcode,
   :reason,
-  :submission_date,
   :urn
 ]
