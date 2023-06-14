@@ -28,7 +28,7 @@ module LaaReviewCriminalLegalAid
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "London"
     # config.eager_load_paths << Rails.root.join("extras")
     config.force_ssl = true
     config.ssl_options = { redirect: { exclude: ->(request) { request.path =~ /health|ping/ } } }
