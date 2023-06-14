@@ -34,6 +34,7 @@ en:
         cannot_access:
           - You do not have access to that page
           - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
+        reactivation_denied: You cannot reactivate yourself
 
     confirmations:
       deactivate_user: Are you sure you want to deactivate %{user_name}?

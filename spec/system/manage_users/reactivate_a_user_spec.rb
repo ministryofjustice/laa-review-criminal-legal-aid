@@ -61,4 +61,48 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
       end
     end
   end
+
+  describe 'current_user deactivated' do
+    before do
+      current_user.update!(deactivated_at: Time.zone.now)
+    end
+
+    context 'when viewing deactivated users' do
+      before do
+        visit admin_manage_users_deactivated_users_path
+      end
+
+      let(:current_user_row) do
+        find(
+          :xpath,
+          "//table[@class='govuk-table']//tr[contains(td[2], '#{current_user.email}')]"
+        )
+      end
+
+      it 'shows current_user in deactivated list' do
+        expect(current_user_row).to be_present
+      end
+
+      it 'does not have the `Reactivate` link' do
+        expect(current_user_row.text.downcase.include?('reactivate')).to be false
+      end
+    end
+
+    context 'when reactivating themselves' do
+      before do
+        visit confirm_reactivate_admin_manage_users_deactivated_user_path(current_user)
+      end
+
+      it 'denies action', aggregate_failures: true do
+        expect(page).to have_current_path(admin_manage_users_deactivated_users_path)
+        expect(current_user.deactivated?).to be true
+      end
+
+      it 'shows error message' do
+        within('div.govuk-notification-banner__heading') do
+          expect(page).to have_content('You cannot reactivate yourself')
+        end
+      end
+    end
+  end
 end

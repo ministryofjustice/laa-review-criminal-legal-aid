@@ -1,5 +1,10 @@
 <ul class="govuk-summary-list__actions-list">
   <li class="govuk-summary-list__actions-list-item">
-    <%= govuk_link_to action_text(:reactivate), confirm_reactivate_admin_manage_users_deactivated_user_path(user), { no_visited_state: true } %>
+    <%= gov_link_to_unless_current_user(
+          user: user,
+          text: action_text(:reactivate),
+          path: confirm_reactivate_admin_manage_users_deactivated_user_path(user),
+          html_options: { no_visited_state: true }
+        )%>
   </li>
 </li>
