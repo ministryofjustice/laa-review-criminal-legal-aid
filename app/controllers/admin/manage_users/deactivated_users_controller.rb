@@ -1,8 +1,11 @@
 module Admin
   module ManageUsers
     class DeactivatedUsersController < ManageUsersController
-      before_action :set_user, only: [:new, :create]
+      before_action :set_active_user, only: [:new, :create]
       before_action :allow_deactivation?, only: [:new, :create]
+
+      before_action :set_deactivated_user, only: [:confirm_reactivate, :reactivate]
+      before_action :allow_reactivation?, only: [:confirm_reactivate, :reactivate]
 
       def index
         @users = User.deactivated.page(params[:page])
@@ -15,22 +18,23 @@ module Admin
         redirect_to admin_manage_users_root_path
       end
 
-      def confirm_reactivate
-        @user = User.deactivated.find(params[:id])
-      end
+      def confirm_reactivate; end
 
       def reactivate
-        user = User.deactivated.find(params[:id])
-        user.reactivate!
+        @user.reactivate!
 
-        set_flash(:user_reactivated, user_name: user.name)
+        set_flash(:user_reactivated, user_name: @user.name)
         redirect_to admin_manage_users_root_path
       end
 
       private
 
-      def set_user
+      def set_active_user
         @user = User.active.find(params[:id])
+      end
+
+      def set_deactivated_user
+        @user = User.deactivated.find(params[:id])
       end
 
       def allow_deactivation?
@@ -38,6 +42,13 @@ module Admin
 
         flash[:alert] = I18n.t('flash.alert.user_deactivation_denied')
         redirect_to admin_manage_users_root_path
+      end
+
+      def allow_reactivation?
+        return if @user != current_user
+
+        set_flash(:reactivation_denied, success: false)
+        redirect_to admin_manage_users_deactivated_users_path
       end
     end
   end

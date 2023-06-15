@@ -56,4 +56,12 @@ module ApplicationHelper
 
     render headers, base_params:, sort_form_method:
   end
+
+  # Rails link_to_if and variants still render the link text hence custom implementation
+  # https://govuk-components.netlify.app/helpers/link/#input-erb-class-helpers
+  def gov_link_to_unless_current_user(user:, **options)
+    return '' if current_user == user
+
+    govuk_link_to options[:text], options[:path], options[:html_options]
+  end
 end
