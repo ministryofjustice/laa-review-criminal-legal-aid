@@ -65,6 +65,22 @@ RSpec.describe ApplicationSearchFilter do
     end
   end
 
+  describe 'datastore date params' do
+    it 'BST dates can be correctly converted to UCT' do
+      date = Date.parse('2023-07-01')
+      report = described_class.new(submitted_after: date, submitted_before: date)
+      expect(report.datastore_params.fetch(:submitted_after)).to eq Time.iso8601('2023-06-30T23:00:00Z')
+      expect(report.datastore_params.fetch(:submitted_before)).to eq Time.iso8601('2023-06-30T23:00:00Z')
+    end
+
+    it 'GMT dates can be correctly converted to UCT' do
+      date = Date.parse('2023-01-01')
+      report = described_class.new(submitted_after: date, submitted_before: date)
+      expect(report.datastore_params.fetch(:submitted_after)).to eq Time.iso8601('2023-01-01T00:00:00Z')
+      expect(report.datastore_params.fetch(:submitted_before)).to eq Time.iso8601('2023-01-01T00:00:00Z')
+    end
+  end
+
   describe 'translating the assigned_status into search params' do
     let(:application_id_in) { new.datastore_params.fetch(:application_id_in) }
     let(:application_id_not_in) { new.datastore_params.fetch(:application_id_not_in) }

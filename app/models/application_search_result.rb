@@ -12,7 +12,10 @@ class ApplicationSearchResult < ApplicationStruct
   alias id resource_id
 
   def days_passed
-    Calendar.new.business_days_between(submitted_at, Time.zone.now.to_date)
+    @days_passed ||= Calendar.new.business_days_between(
+      submitted_at.in_time_zone('London').to_date,
+      Time.current.in_time_zone('London').to_date
+    )
   end
 
   def caseworker_name

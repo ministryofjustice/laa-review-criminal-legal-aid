@@ -24,8 +24,7 @@ RSpec.describe 'Open Applications Dashboard' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
 
     days_ago = Calendar.new.business_days_between(
-      DateTime.parse('2022-10-27T14:09:11.000+00:00'),
-      Time.zone.now.to_date
+      Date.parse('2022-10-27'), Time.current.in_time_zone('London')
     )
 
     expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days")

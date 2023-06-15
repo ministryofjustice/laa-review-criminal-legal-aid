@@ -12,8 +12,7 @@ RSpec.describe 'Closed Applications Dashboard' do
         reference: 6_000_002,
         status: 'returned',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
-        reviewed_at: '2022-12-15T16:58:15.000+00:00',
-        parent_id: nil
+        reviewed_at: '2022-12-15T16:58:15.000+00:00'
       )
     ]
   end
@@ -57,7 +56,7 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   it 'shows the correct information' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
-    reviewed_at = I18n.l(Time.zone.now.to_date)
+    reviewed_at = I18n.l(Time.current.in_time_zone('London'))
     expect(first_row_text).to eq("John Potter 6000002 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
   end
 

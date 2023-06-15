@@ -1,4 +1,13 @@
 module ApplicationHelper
+  # Convert to the London time zone before localizing.
+  def tz_l(timestamp, options = {})
+    time_zone = options.fetch(:time_zone, 'London')
+
+    I18n.l(timestamp.in_time_zone(time_zone), **options)
+  end
+
+  alias l tz_l
+
   def service_name
     t('service.name')
   end
