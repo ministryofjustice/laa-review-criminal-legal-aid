@@ -7,7 +7,7 @@ RSpec.describe "Viewing a resubmitted application's history" do
     visit history_crime_application_path(application_id)
   end
 
-  context 'when testing' do
+  context 'when viewing the resubmitted application\'s history' do
     let(:application_data) { super().deep_merge('parent_id' => parent_id) }
 
     it 'includes a link to the previous version of the application in the application history' do
