@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application that is superseded' do
-  let(:application_id) { '148df27d-4710-4c5b-938c-bb132eb040ca' }
-  let(:parent_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+  let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  let(:parent_id) { '47a93336-7da6-48ec-b139-808ddd555a41' }
   let(:latest_application_url) { "/applications/#{application_id}" }
 
   let(:return_details) do
@@ -13,11 +13,21 @@ RSpec.describe 'Viewing an application that is superseded' do
   end
 
   before do
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0).read, status: 200)
+
     Reviewing::ReceiveApplication.call(
       application_id: parent_id,
       submitted_at: '2022-10-24T09:50:04.000+00:00',
       parent_id: nil
     )
+
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{parent_id}"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned'), status: 200)
 
     stub_request(
       :put,

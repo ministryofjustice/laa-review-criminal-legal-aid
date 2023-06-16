@@ -1,13 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe "Viewing a resubmitted application's history" do
-  let(:parent_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
-  let(:application_id) { '148df27d-4710-4c5b-938c-bb132eb040ca' }
+  let(:parent_id) { '47a93336-7da6-48ec-b139-808ddd555a41' }
+  let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
 
   before do
     visit '/'
 
     travel_to Time.zone.now.yesterday
+
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+    ).to_return(body: application_data.to_json, status: 200)
+
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{parent_id}"
+    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned'), status: 200)
 
     user = User.create(
       first_name: 'Fred',
@@ -16,11 +27,11 @@ RSpec.describe "Viewing a resubmitted application's history" do
       email: 'Fred.Smitheg@justice.gov.uk'
     )
 
-    Reviewing::ReceiveApplication.new(
+    Reviewing::ReceiveApplication.call(
       application_id: parent_id,
       parent_id: nil,
       submitted_at: Time.zone.now.to_s
-    ).call
+    )
 
     Assigning::AssignToUser.new(
       user_id: user.id,
@@ -45,20 +56,24 @@ RSpec.describe "Viewing a resubmitted application's history" do
 
     travel_back
 
-    Reviewing::ReceiveApplication.new(
+    Reviewing::ReceiveApplication.call(
       application_id: application_id,
       parent_id: parent_id,
       submitted_at: Time.zone.now.to_s
-    ).call
+    )
 
     visit history_crime_application_path(application_id)
   end
 
-  it 'includes a link to the previous version of the application in the application history' do
-    within('tbody.govuk-table__body') do
-      expect { click_on('Go to this version') }.to change { page.current_path }
-        .from(history_crime_application_path(application_id))
-        .to(crime_application_path(parent_id))
+  context 'when testing' do
+    let(:application_data) { super().deep_merge('parent_id' => parent_id) }
+
+    it 'includes a link to the previous version of the application in the application history' do
+      within('tbody.govuk-table__body') do
+        expect { click_on('Go to this version') }.to change { page.current_path }
+          .from(history_crime_application_path(application_id))
+          .to(crime_application_path(parent_id))
+      end
     end
   end
 

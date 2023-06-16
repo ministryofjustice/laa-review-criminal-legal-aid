@@ -2,8 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing an application unassigned, open application' do
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
+  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
 
   before do
+    stub_request(
+      :get,
+      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+    ).to_return(body: application_data.to_json, status: 200)
+
     Reviewing::ReceiveApplication.call(
       application_id: application_id,
       submitted_at: '2022-10-24T09:50:04.000+00:00',
@@ -37,7 +43,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   context 'when date stamp is earlier than date received' do
-    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+    let(:application_data) { super().deep_merge('date_stamp' => '2022-11-21T16:57:51.000+00:00') }
 
     it 'includes the correct date stamp' do
       expect(page).to have_content('Date stamp 21/11/2022')
@@ -67,7 +73,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   context 'with ioj passport' do
-    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
+    let(:application_data) { super().deep_merge('ioj_passport' => ['on_age_under18']) }
 
     it 'shows passport reason' do
       expect(page).to have_content('Client is under 18')
@@ -76,11 +82,9 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
   # rubocop:disable Layout/LineLength
   context 'with offence class not provided' do
-    let(:application_id) { '5aa4c689-6fb5-47ff-9567-5efe7f8ac211' }
-
     it 'does shows the class not determined badge' do
       table_body = find(:xpath,
-                        "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tbody[contains(tr[1], 'Robbery')]")
+                        "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tr[contains(td[1], 'Non-listed offence, manually entered')]")
 
       expect(table_body).to have_content('Class not determined')
     end
@@ -91,11 +95,15 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   context 'with offence class provided' do
-    let(:application_id) { '148df27d-4710-4c5b-938c-bb132eb040ca' }
-
-    before do
-      visit '/'
-      visit crime_application_path(application_id)
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'offence_class' => 'C',
+                                              'offences' => [{ 'name' => 'Robbery',
+                                                              'offence_class' => 'C',
+                                                              'passportable' => true,
+                                                              'dates' => [{
+                                                                'date_from' => '2020-12-12',
+                                                                      'date_to' => nil
+                                                              }] }] })
     end
 
     it 'does show the offence class' do
@@ -112,11 +120,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   # rubocop:enable Layout/LineLength
 
   context 'with optional fields not provided' do
-    let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
-
-    before do
-      visit '/'
-      visit crime_application_path(application_id)
+    let(:application_data) do
+      super().deep_merge('client_details' => { 'applicant' => { 'home_address' => nil, 'telephone_number' => nil } })
     end
 
     it 'shows that the URN was not provided' do

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Viewing your assigned application' do
   include_context 'with stubbed search'
   let(:assign_cta) { 'Assign to your list' }
+  let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
+  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
 
   before do
     visit '/'
@@ -21,10 +23,6 @@ RSpec.describe 'Viewing your assigned application' do
   end
 
   context 'when no application are assigned' do
-    before do
-      visit '/'
-    end
-
     it 'shows how many assignments' do
       expect(page).to have_content 'No applications are assigned to you for review.'
       expect(page).to have_content 'Your list (0)'
@@ -32,19 +30,6 @@ RSpec.describe 'Viewing your assigned application' do
   end
 
   context 'when one application is assigned' do
-    let(:stubbed_search_results) do
-      [
-        ApplicationSearchResult.new(
-          applicant_name: 'Kit Pound',
-          resource_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
-          reference: 120_398_120,
-          status: 'submitted',
-          submitted_at: '2022-10-27T14:09:11.000+00:00',
-          parent_id: nil
-        )
-      ]
-    end
-
     before do
       click_on 'All open applications'
       click_on('Kit Pound')
@@ -58,7 +43,17 @@ RSpec.describe 'Viewing your assigned application' do
   end
 
   context 'when multiple applications are assigned' do
+    let(:application_data) do
+      super().deep_merge('id' => application_id.to_s,
+                         'client_details' => { 'applicant' => { 'first_name' => 'Don', 'last_name' => 'JONES' } })
+    end
+
     before do
+      stub_request(
+        :get,
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+      ).to_return(body: application_data.to_json, status: 200)
+
       click_on 'All open applications'
       click_on('Kit Pound')
       click_on(assign_cta)
