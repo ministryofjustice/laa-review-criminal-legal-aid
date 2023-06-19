@@ -28,7 +28,12 @@ module LaaReviewCriminalLegalAid
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    config.time_zone = "London"
+    # UTC is used as the application time_zone across Crime apply services. This
+    # means that all times must be converted to TZ London before formatting or 
+    # converting to dates.
+    #
+    config.time_zone = "UTC"
+
     # config.eager_load_paths << Rails.root.join("extras")
     config.force_ssl = true
     config.ssl_options = { redirect: { exclude: ->(request) { request.path =~ /health|ping/ } } }

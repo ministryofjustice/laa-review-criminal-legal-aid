@@ -43,13 +43,13 @@ class ApplicationSearchFilter < ApplicationStruct
   #
   def datastore_params
     {
-      applicant_date_of_birth:,
-      application_id_in:,
-      application_id_not_in:,
-      review_status:,
-      submitted_after:,
-      submitted_before:,
-      search_text:
+      applicant_date_of_birth: applicant_date_of_birth,
+      application_id_in: application_id_in,
+      application_id_not_in: application_id_not_in,
+      review_status: review_status,
+      submitted_after: submitted_after&.in_time_zone('London'),
+      submitted_before: submitted_before&.in_time_zone('London'),
+      search_text: search_text
     }
   end
 

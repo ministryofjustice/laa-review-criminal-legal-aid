@@ -2,9 +2,9 @@ module Reporting
   class WorkloadReport
     include Reportable
 
-    def initialize(number_of_days: 4, day_zero: Time.zone.now.to_date, last_row_limit_in_days: 10)
+    def initialize(number_of_days: 4, day_zero: Time.current, last_row_limit_in_days: 10)
       @number_of_days = number_of_days
-      @day_zero = day_zero
+      @day_zero = day_zero.in_time_zone('London').to_date
       @last_row_limit_in_days = last_row_limit_in_days
     end
 
