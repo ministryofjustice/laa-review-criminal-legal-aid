@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Search by submitted date' do
   include_context 'when search results are returned'
 
-  let(:after_date) { Date.parse('2011-06-08') }
-  let(:before_date) { Date.parse('2011-06-09') }
+  let(:after_date) { Date.parse('2023-06-08') }
+  let(:before_date) { Date.parse('2023-01-09') }
 
   before do
     visit '/'
