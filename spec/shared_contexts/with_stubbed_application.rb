@@ -1,4 +1,4 @@
-RSpec.shared_context 'with stubbed application', shared_context: :metadata do
+RSpec.shared_context 'with stubbed application' do
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
 
