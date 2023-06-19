@@ -1,22 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application unassigned, open application' do
-  let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
+  include_context 'with stubbed application'
 
   before do
-    stub_request(
-      :get,
-      "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
-    ).to_return(body: application_data.to_json, status: 200)
-
-    Reviewing::ReceiveApplication.call(
-      application_id: application_id,
-      submitted_at: '2022-10-24T09:50:04.000+00:00',
-      parent_id: nil
-    )
-
-    visit '/'
     visit crime_application_path(application_id)
   end
 
