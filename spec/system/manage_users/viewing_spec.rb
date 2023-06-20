@@ -42,7 +42,7 @@ RSpec.describe 'Manage Users Dashboard' do
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
       expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes',
-                                    I18n.l(last_auth_at, format: :timestamp)].join(' '))
+                                    I18n.l(last_auth_at.in_time_zone('London'), format: :timestamp)].join(' '))
     end
 
     describe 'ordering of users in the list' do

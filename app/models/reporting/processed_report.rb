@@ -2,8 +2,8 @@ module Reporting
   class ProcessedReport
     include Reportable
 
-    def initialize(day_zero: Time.zone.now.to_date)
-      @day_zero = day_zero
+    def initialize(day_zero: Time.current)
+      @day_zero = day_zero.in_time_zone('London').to_date
     end
 
     def table
