@@ -8,7 +8,7 @@ RSpec.describe 'Authenticating with the DevAuth strategy' do
 
   describe 'clicking the "Sign in" button' do
     before do
-      click_button 'Sign in'
+      click_button 'Start now'
     end
 
     it 'shows the dev auth page' do
