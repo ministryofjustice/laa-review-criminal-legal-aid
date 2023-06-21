@@ -7,7 +7,7 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
   let(:deactivated_user) { active_user }
 
   before do
-    User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid)
+    User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid, email: 'test1@eg.com')
     active_user.deactivate!
     visit admin_manage_users_deactivated_users_path
   end
@@ -44,6 +44,23 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
         expect { click_on('Yes, reactivate') }.to(
           change { active_user.reload.deactivated? }.from(true).to(false)
         )
+      end
+
+      describe 'viewing the deactivation in the user\'s account history' do
+        before do
+          click_on('Yes, reactivate')
+          click_link 'Zoe Blogs'
+        end
+
+        let(:cells) { page.first('table tbody tr').all('td') }
+
+        it 'describes the event' do
+          expect(cells[1]).to have_content 'Account reactivated'
+        end
+
+        it 'includes the manager\'s name' do
+          expect(cells.last).to have_content 'Joe EXAMPLE'
+        end
       end
     end
 
@@ -91,6 +108,8 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
     context 'when reactivating themselves' do
       before do
         visit confirm_reactivate_admin_manage_users_deactivated_user_path(current_user)
+
+        click_on('Yes, reactivate')
       end
 
       it 'denies action', aggregate_failures: true do

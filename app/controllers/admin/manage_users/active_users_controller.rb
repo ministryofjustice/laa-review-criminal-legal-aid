@@ -18,7 +18,7 @@ module Admin
           set_flash(:user_updated, user_name: @user.name)
           redirect_to admin_manage_users_root_path
         else
-          flash[:alert] = I18n.t('flash.alert.user_deactivation_denied')
+          set_flash(:deactivation_denied, success: false)
           redirect_to edit_admin_manage_users_active_user_path(@user)
         end
       end

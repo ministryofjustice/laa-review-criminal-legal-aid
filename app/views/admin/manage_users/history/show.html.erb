@@ -1,0 +1,64 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">
+      <%= t '.heading', user_name_or_email: @user.name_or_email %>
+    </h1>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+      <% if @user.pending_activation? %>
+        <p>
+          <strong><%= label_text(:invitation_expires_at) %>:</strong>
+          <%= l(@user.invitation_expires_at, format: :datetime) %>
+        </p>
+      <% else %>
+        <p>
+          <strong><%= label_text(:email) %>:</strong>
+          <%= @user.email %>
+        <br>
+          <strong><%= label_text(:last_auth_at) %>:</strong>
+          <%= l(@user.last_auth_at, format: :datetime) %>
+        </p>
+      <% end %>
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-full">
+    <table class="govuk-table app-dashboard-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">
+            <%= thead_text(:when) %>
+          </th>
+          <th scope="col" class="govuk-table__header">
+            <%= thead_text(:what) %>
+          </th>
+          <th scope="col" class="govuk-table__header">
+            <%= thead_text(:manager) %>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <% @user.history.items.each do |event| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <%= l event.timestamp, format: :datetime %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= event.description %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= event.user_manager_name %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% content_for(:back_link) do %>
+  <%= link_to 'Back', 'javascript:history.back()', class: 'govuk-back-link'  %>
+<% end %>

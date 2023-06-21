@@ -15,10 +15,14 @@ module AuthUpdateable
     auth_hash = request.env['omniauth.auth']
     return unless auth_hash
 
-    activate_from_auth_hash(auth_hash) if pending_activation?
-    update_from_auth_hash(auth_hash)
+    if pending_activation?
+      activate_from_auth_hash(auth_hash)
 
-    save!
+      Authorising::Activate.new(user: self, auth_subject_id: auth_subject_id).call
+    else
+      update_from_auth_hash(auth_hash)
+      save!
+    end
   end
 
   private
@@ -33,6 +37,7 @@ module AuthUpdateable
   def activate_from_auth_hash(auth_hash)
     raise 'AlreadyActivated' unless pending_activation?
 
+    update_from_auth_hash(auth_hash)
     self.first_auth_at = Time.zone.now
     self.auth_subject_id = auth_hash.uid
   end
