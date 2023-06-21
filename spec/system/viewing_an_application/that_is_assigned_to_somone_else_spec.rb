@@ -6,9 +6,10 @@ RSpec.describe 'Viewing an application that is assigned to someone else' do
   before do
     visit '/'
 
-    user = User.create(
+    user = User.create!(
       first_name: 'Fred',
       last_name: 'Smitheg',
+      email: 'Fred.Smitheg@eg.com',
       auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa'
     )
 

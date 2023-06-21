@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<%= form_with model: @new_user_form, url: admin_manage_users_invitations_path do |f| %>
+<%= form_with model: @user, url: admin_manage_users_invitations_path do |f| %>
 
   <div class="govuk-form-group">
     <%= f.govuk_text_field :email,
@@ -19,7 +19,7 @@
     <%= f.govuk_check_box :can_manage_others,
                           true,
                           multiple: false,
-                          label: { text: label_text(:can_manage_others) } %>
+                          label: { text: action_text(:give_access_to_manage_others) } %>
   </div>
 
   <div class="govuk-button-group">

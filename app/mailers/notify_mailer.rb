@@ -43,20 +43,4 @@ class NotifyMailer < GovukNotifyRails::Mailer
   end
   # rubocop:enable Naming/AccessorMethodName
   #
-
-  class Configuration
-    def call(event_store)
-      event_store.subscribe(to: [Reviewing::SentBack]) do |event|
-        application_id = event.data.fetch(:application_id)
-        return_reason = event.data.fetch(:reason)
-
-        NotifyMailer.application_returned_email(application_id, return_reason).deliver_now
-
-      # Rescue and report exceptions
-      # Notifying should not block an application from being sent back.
-      rescue StandardError => e
-        Sentry.capture_exception(e)
-      end
-    end
-  end
 end

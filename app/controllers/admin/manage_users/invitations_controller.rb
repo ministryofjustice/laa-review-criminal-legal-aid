@@ -8,22 +8,31 @@ module Admin
       end
 
       def new
-        @new_user_form = Admin::NewUserForm.new
+        @user = User.new
       end
 
       def create
-        @new_user_form = Admin::NewUserForm.new(user_params)
+        user = User.new(user_params)
 
-        if @new_user_form.save
-          set_flash(:user_invited, email: @new_user_form.email)
+        if user.valid?
+          Authorising::Invite.call(
+            user: user,
+            user_manager_id: current_user.id
+          )
+
+          set_flash(:user_invited, email: user.email)
           redirect_to admin_manage_users_invitations_path
         else
+          @user = user
           render :new
         end
       end
 
       def update
-        @user.renew_invitation!
+        Authorising::RenewInvite.call(
+          user: @user,
+          user_manager_id: current_user.id
+        )
 
         set_flash(:invitation_renewed, email: @user.email)
         redirect_to admin_manage_users_invitations_path
@@ -33,7 +42,10 @@ module Admin
       def confirm_renew; end
 
       def destroy
-        @user.destroy
+        Authorising::RevokeInvite.call(
+          user: @user,
+          user_manager_id: current_user.id
+        )
 
         set_flash :invitation_deleted, success: true, email: @user.email
         redirect_to admin_manage_users_invitations_path
@@ -42,7 +54,7 @@ module Admin
       private
 
       def user_params
-        params.require(:admin_new_user_form).permit(:email, :can_manage_others)
+        params.require(:user).permit(:email, :can_manage_others)
       end
 
       def set_user

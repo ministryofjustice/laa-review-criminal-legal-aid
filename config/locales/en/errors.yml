@@ -11,7 +11,7 @@ en:
       email:
         blank: Please enter an email
         invalid: Invalid email format
-        uniqueness: User already exists
+        taken: User already exists
 
     error_summary:
       heading: There is a problem on this page

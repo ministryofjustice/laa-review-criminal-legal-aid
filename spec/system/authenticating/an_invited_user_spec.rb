@@ -23,6 +23,24 @@ RSpec.describe 'Authenticating an invited user' do
       )
     end
 
+    describe 'viewing the activation in the user\'s account history' do
+      before do
+        invited_user.update(can_manage_others: true)
+        click_on 'Sign in'
+        click_on 'Invited Test'
+      end
+
+      let(:cells) { page.first('table tbody tr').all('td') }
+
+      it 'describes the event' do
+        expect(cells[1]).to have_content 'Account activated'
+      end
+
+      it 'has no associated manager' do
+        expect(cells.last).to have_content '-'
+      end
+    end
+
     context 'when the invitation has expired' do
       before do
         invited_user.update(invitation_expires_at: Rails.configuration.x.auth.invitation_ttl.ago)
