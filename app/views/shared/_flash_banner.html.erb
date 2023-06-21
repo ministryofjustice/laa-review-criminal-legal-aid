@@ -2,23 +2,5 @@
   <%# Ignore Devise timedout flash messages %>
   <% next if key == 'timedout' %>
 
-  <%#
-      If the flash message is an array, display the first item as the heading.
-      Subsiquent items are displayed as paragraphs. (See Devise locales
-      'devise.failure.user.reauthenticate' for example.)
-
-      If the message is not an array, display it as the heading.
-  %>
-
-  <% details = Array[*message] %>
-  <% text = details.delete_at(0) %>
-  <% success = %i[success notice].include? key.to_sym %>
-  <% title_text = t(:title, scope: "flash.#{key}") %>
-
-  <%= govuk_notification_banner(title_text:, success:) do |banner| %>
-    <% banner.with_heading(text:) %>
-    <% details.each do |detail| %>
-      <p><%= sanitize(detail, tags: %w[a], attributes: %w[href]) %></p>
-    <% end %>
-  <% end %>
+  <%= render FlashNotice.new(key, message) %>
 <% end %>
