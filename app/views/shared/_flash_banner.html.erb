@@ -18,7 +18,7 @@
   <%= govuk_notification_banner(title_text:, success:) do |banner| %>
     <% banner.with_heading(text:) %>
     <% details.each do |detail| %>
-      <p><%= detail %></p>
+      <p><%= sanitize(detail, tags: %w[a], attributes: %w[href]) %></p>
     <% end %>
   <% end %>
 <% end %>

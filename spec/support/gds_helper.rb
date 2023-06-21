@@ -6,11 +6,11 @@ module GdsHelper
       assertion = have_selector('h2', text: title_text)
                   .and(have_selector('div', text:))
 
-      if details
-        assertion.and(have_selector('p', text: details))
-      else
-        assertion
+      [details].flatten.each do |detail|
+        assertion = assertion.and(have_selector('p', text: detail))
       end
+
+      assertion
     end
   end
 
