@@ -5,7 +5,7 @@ module Authorising
     def call
       user.transaction do
         user.deactivate!
-        event_store.publish(event, stream_name:)
+        publish_event!
       end
     end
 

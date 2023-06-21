@@ -10,13 +10,18 @@ module Authorising
 
     private
 
-    def event_store
-      Rails.configuration.event_store
+    def publish_event!
+      Rails.configuration.event_store.publish(
+        event,
+        stream_name: Authorising.stream_name(user_id)
+      )
     end
 
-    def stream_name
-      "Authorisation$#{user_id}"
+    # :nocov:
+    def event
+      raise 'define event in subclasses'
     end
+    # :nocov:
 
     def user_id
       user.id

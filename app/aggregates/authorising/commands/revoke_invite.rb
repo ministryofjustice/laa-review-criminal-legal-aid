@@ -5,9 +5,11 @@ module Authorising
     def call
       user.transaction do
         user.destroy
-        event_store.publish(event, stream_name:)
+        publish_event!
       end
     end
+
+    private
 
     def event
       InviteRevoked.new(data: { user_id:, user_manager_id: })

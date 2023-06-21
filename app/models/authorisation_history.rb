@@ -8,10 +8,6 @@ class AuthorisationHistory < ApplicationStruct
   private
 
   def events
-    event_store.read.stream("Authorisation$#{user_id}").backward
-  end
-
-  def event_store
-    Rails.application.config.event_store
+    Authorising.user_events(user_id).backward
   end
 end
