@@ -1,0 +1,6 @@
+<%= govuk_notification_banner(title_text: flash_notice.title_text, success: flash_notice.success?) do |banner| %>
+  <% banner.with_heading(text: flash_notice.text) %>
+  <% flash_notice.details.each do |detail| %>
+    <p><%= sanitize(detail, tags: %w[a]) %></p>
+  <% end %>
+<% end %>

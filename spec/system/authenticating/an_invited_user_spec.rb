@@ -32,7 +32,10 @@ RSpec.describe 'Authenticating an invited user' do
       it 'informs the user that their invitation has expired' do
         expect(page).to have_notification_banner(
           text: 'You cannot access this service',
-          details: 'Your invitation to access this service has expired.'
+          details: [
+            'Your invitation to access this service has expired.',
+            "Contact #{Rails.application.config.x.admin.onboarding_email} for a new invitation."
+          ]
         )
       end
 

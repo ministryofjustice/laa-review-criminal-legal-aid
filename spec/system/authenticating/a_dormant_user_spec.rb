@@ -16,7 +16,10 @@ RSpec.describe 'Authenticating a dormant user' do
   it 'informs the user that their invitation has expired' do
     expect(page).to have_notification_banner(
       text: 'You cannot access this service',
-      details: 'This is because you have not signed in to the service for more than 6 months.'
+      details: [
+        'This is because you have not signed in to the service for more than 6 months.',
+        "Contact #{Rails.application.config.x.admin.onboarding_email} to reactivate your account."
+      ]
     )
   end
 end
