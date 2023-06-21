@@ -18,11 +18,11 @@ en:
         dormant: 
           - You cannot access this service
           - This is because you have not signed in to the service for more than 6 months.
-          - Contact <a mailto=LAAapplyonboarding@justice.gov.uk>LAAapplyonboarding@justice.gov.uk</a> to reactivate your account.
+          - Contact ONBOARDING_EMAIL_LINK to reactivate your account.
         invitation_expired: 
           - You cannot access this service
           - Your invitation to access this service has expired.
-          - "Contact <a mailto=LAAapplyonboarding@justice.gov.uk>LAAapplyonboarding@justice.gov.uk</a> for a new invitation."
+          - Contact ONBOARDING_EMAIL_LINK for a new invitation.
     sessions:
       user:
         signed_in: ""
