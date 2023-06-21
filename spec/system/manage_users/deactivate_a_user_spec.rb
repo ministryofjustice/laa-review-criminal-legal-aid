@@ -103,6 +103,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
       active_user.update(can_manage_others: true)
 
       do_deactivate_journey
+      click_on('Yes, deactivate')
     end
 
     it 'has 2 active admins' do

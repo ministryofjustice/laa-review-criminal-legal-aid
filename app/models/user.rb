@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   class CannotDestroyIfActive < StandardError; end
   class CannotRenewIfActive < StandardError; end
+  class CannotDeactivate < StandardError; end
+  class CannotReactivate < StandardError; end
 
   paginates_per Rails.configuration.x.admin.pagination_per_page
 
@@ -57,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    return false unless deactivatable?
+    raise CannotDeactivate unless deactivatable?
 
     update!(deactivated_at: Time.zone.now)
   end
@@ -69,6 +71,8 @@ class User < ApplicationRecord
   end
 
   def reactivate!
+    raise CannotReactivate unless deactivated?
+
     update!(deactivated_at: nil)
   end
 

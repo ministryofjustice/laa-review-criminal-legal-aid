@@ -108,6 +108,8 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
     context 'when reactivating themselves' do
       before do
         visit confirm_reactivate_admin_manage_users_deactivated_user_path(current_user)
+
+        click_on('Yes, reactivate')
       end
 
       it 'denies action', aggregate_failures: true do

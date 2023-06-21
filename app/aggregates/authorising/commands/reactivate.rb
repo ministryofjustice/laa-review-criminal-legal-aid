@@ -3,6 +3,8 @@ module Authorising
     attribute :user_manager_id, Types::Uuid
 
     def call
+      raise User::CannotReactivate if user.id == user_manager_id
+
       user.transaction do
         user.reactivate!
         publish_event!

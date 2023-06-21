@@ -28,7 +28,8 @@ RSpec.describe User do
         described_class.create!(can_manage_others: false, email: 'test31@example.com')
         described_class.create!(can_manage_others: true, email: 'test32@example.com')
         described_class.create!(can_manage_others: true, deactivated_at: Time.zone.now, email: 'test33@example.com')
-        user.deactivate!
+
+        expect { user.deactivate! }.to raise_error(User::CannotDeactivate)
 
         expect(user.deactivated?).to be false
       end
@@ -104,7 +105,7 @@ RSpec.describe User do
     end
 
     it 'excludes deactivated users' do
-      user.deactivate!
+      user.update!(deactivated_at: Time.zone.now)
       expect(active).not_to include(user)
     end
   end
