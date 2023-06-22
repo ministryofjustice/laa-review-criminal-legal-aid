@@ -7,6 +7,9 @@ en:
   service:
     name: Review criminal legal aid applications
 
+  urls:
+    eforms_url: 'https://portal.legalservices.gov.uk/oamfed/idp/initiatesso?providerid=eForms'
+
   layouts:
     header:
       manage_users: Manage users
@@ -236,6 +239,7 @@ en:
     mark_as_ready: Mark as ready for MAAT
     sign_out: Sign out
     sign_in: Sign in
+    start_now: Start now
   confirmations:
     reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
   warnings:

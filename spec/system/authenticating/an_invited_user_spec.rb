@@ -8,7 +8,7 @@ RSpec.describe 'Authenticating an invited user' do
   context 'when an invited users signs in for the first time' do
     before do
       invited_user
-      click_button 'Sign in'
+      click_button 'Start now'
       select invited_user.email
     end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Authenticating an invited user' do
       end
 
       it 'the user is not activated' do
-        expect { click_button 'Sign in' }.not_to(
+        expect { click_button 'Start now' }.not_to(
           change { invited_user.reload.activated? }
         )
       end

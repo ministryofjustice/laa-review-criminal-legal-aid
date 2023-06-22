@@ -2,7 +2,7 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   before do
     current_user
     visit '/'
-    click_button 'Sign in'
+    click_button 'Start now'
     select current_user.email
     click_button 'Sign in'
   end
