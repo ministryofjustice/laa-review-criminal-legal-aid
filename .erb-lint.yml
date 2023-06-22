@@ -8,6 +8,8 @@ exclude:
   - 'vendor/**/*'
 
 linters:
+  NoJavascriptTagHelper:
+    enabled: false
   SpaceAroundErbTag:
     enabled: false
   PartialInstanceVariable:
