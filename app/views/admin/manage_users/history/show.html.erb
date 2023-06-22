@@ -60,5 +60,5 @@
 </div>
 
 <% content_for(:back_link) do %>
-  <%= link_to 'Back', 'javascript:history.back()', class: 'govuk-back-link'  %>
+  <%= govuk_back_link href: :back %>
 <% end %>
