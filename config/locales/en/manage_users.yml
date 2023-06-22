@@ -16,6 +16,7 @@ en:
       delete: Delete
       edit: Edit
       existing_users: Existing users 
+      give_access_to_manage_others: 'Give access to manage other users'
       invited_users: Invited users 
       reactivate: Reactivate
       renew: Renew
@@ -34,6 +35,7 @@ en:
         cannot_access:
           - You do not have access to that page
           - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
+        deactivation_denied: Unable to deactivate user. There must be at least two users who can manage others
         reactivation_denied: You cannot reactivate yourself
 
     confirmations:
@@ -49,19 +51,31 @@ en:
 
     table_headings:
       actions: Actions
-      email: Email
-      invitation_expires_at: Invitations expires 
       deactivated_at: Deactivated 
+      email: Email
+      invitation_expires_at: Invitation expires 
       last_auth_at: Last authentication
       manage_others: Manage other users
+      manager: Manager
       name: Name
+      what: What
+      when: When
 
     labels:
-      can_manage_others: Give access to manage other users
+      invitation_expires_at: Invitation expires
+      can_manage_others: 'Can manage other users?'
       email: Email
+      last_auth_at: Most recent authentication
 
     hint_texts:
       email: "Enter the user's DOM1 email"
+
+    event_descriptions:
+      invited: User invited 
+      activated: Account activated 
+      deactivated: Account deactivated 
+      reactivated: Account reactivated 
+
 
   admin:
     manage_users:
@@ -89,3 +103,7 @@ en:
           page_title: Confirm deactivation
         confirm_reactivate:
           page_title: Confirm reactivation
+      history:
+        show:
+          page_title: Authorisation history
+          heading: "%{user_name_or_email}'s account history"

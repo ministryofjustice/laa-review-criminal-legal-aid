@@ -3,10 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Invites from manage users dashboard' do
   include_context 'when logged in user is admin'
 
+  let(:mail_double) do
+    instance_double(ActionMailer::MessageDelivery, deliver_now: true)
+  end
+
   before do
-    allow(NotifyMailer).to receive(:access_granted_email) {
-      instance_double(ActionMailer::MessageDelivery, deliver_now: true)
-    }
+    allow(NotifyMailer).to receive(:access_granted_email) { mail_double }
+
     visit '/'
     visit '/admin/manage_users'
     click_on 'Invite a user'
@@ -36,6 +39,16 @@ RSpec.describe 'Invites from manage users dashboard' do
     expect(row).to have_text('john@example.com Yes')
   end
 
+  it 'notifies the invitee' do
+    email = 'jane@example.com'
+    fill_in 'Email', with: email
+
+    click_button 'Invite'
+
+    expect(NotifyMailer).to have_received(:access_granted_email).with(email)
+    expect(mail_double).to have_received(:deliver_now)
+  end
+
   it 'allows a user without management access to be added' do
     fill_in 'Email', with: 'jane@example.com'
 
@@ -47,12 +60,31 @@ RSpec.describe 'Invites from manage users dashboard' do
     expect(row).to have_text('jane@example.com No')
   end
 
+  describe 'logging the invitation in the users account history' do
+    before do
+      email = 'jane@example.com'
+      fill_in 'Email', with: email
+      click_button 'Invite'
+      click_link email
+    end
+
+    let(:cells) { page.first('table tbody tr').all('td') }
+
+    it 'describes the event' do
+      expect(cells[1]).to have_content 'User invited'
+    end
+
+    it 'includes the managers name' do
+      expect(cells.last).to have_content 'Joe EXAMPLE'
+    end
+  end
+
   describe 'validations' do
     it 'errors when no email is provided' do
       check 'Give access to manage other users'
       click_button 'Invite'
 
-      error_message = first('#admin-new-user-form-email-error').text.squish
+      error_message = first('#user-email-error').text.squish
 
       expect(error_message).to have_text('Please enter an email')
     end
@@ -62,14 +94,14 @@ RSpec.describe 'Invites from manage users dashboard' do
       check 'Give access to manage other users'
       click_button 'Invite'
 
-      error_message = first('#admin-new-user-form-email-error').text.squish
+      error_message = first('#user-email-error').text.squish
 
       expect(error_message).to have_text('Invalid email format')
     end
 
     it 'errors if the user is not unique / already exists' do
       add_two_of_the_same_user
-      error_message = first('#admin-new-user-form-email-error').text.squish
+      error_message = first('#user-email-error').text.squish
       expect(error_message).to have_text('User already exists')
     end
 

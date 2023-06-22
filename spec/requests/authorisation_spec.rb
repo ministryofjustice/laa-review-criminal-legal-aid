@@ -29,6 +29,7 @@ RSpec.describe 'Authorisation' do
       admin_manage_users_active_user
       admin_manage_users_active_users
       admin_manage_users_deactivated_users
+      admin_manage_users_history
       admin_manage_users_invitation
       admin_manage_users_invitations
       admin_manage_users_root

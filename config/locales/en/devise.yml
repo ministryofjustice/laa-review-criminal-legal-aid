@@ -17,7 +17,7 @@ en:
           - Sign in to view this page
         dormant: 
           - You cannot access this service
-          - This is because you have not signed in to the service for more than 6 months.
+          - This is because you have not signed in to the service for more than 90&nbsp;days.
           - Contact ONBOARDING_EMAIL_LINK to reactivate your account.
         invitation_expired: 
           - You cannot access this service
