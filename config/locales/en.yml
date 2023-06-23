@@ -35,8 +35,8 @@ en:
     tag:
       local: dev
       staging: staging
-      production: alpha
-    text: This is an MVP. Some things may not work as expected.
+      production: beta
+    text: This is a new service – your feedback will help us to improve it.
   warning_text:
     title: Warning
     resubmitted: This application has been resubmitted.
