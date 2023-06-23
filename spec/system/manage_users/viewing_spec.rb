@@ -36,13 +36,12 @@ RSpec.describe 'Manage Users Dashboard' do
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Name Email Manage other users Last authentication Actions')
+      expect(column_headings).to eq('Name Email Manage other users Actions')
     end
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes',
-                                    I18n.l(last_auth_at.in_time_zone('London'), format: :timestamp)].join(' '))
+      expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes'].join(' '))
     end
 
     describe 'ordering of users in the list' do

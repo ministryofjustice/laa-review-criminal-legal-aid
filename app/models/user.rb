@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   class CannotDestroyIfActive < StandardError; end
   class CannotRenewIfActive < StandardError; end
+  class CannotDeactivate < StandardError; end
+  class CannotReactivate < StandardError; end
 
   paginates_per Rails.configuration.x.admin.pagination_per_page
 
@@ -14,6 +16,11 @@ class User < ApplicationRecord
   before_destroy do
     raise CannotDestroyIfActive if activated?
   end
+
+  attr_readonly :email
+
+  validates :email, uniqueness: true, on: :create
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   scope :pending_activation, -> { where(auth_subject_id: nil, deactivated_at: nil) }
 
@@ -33,6 +40,16 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
+  def name_or_email
+    return name unless pending_activation?
+
+    email
+  end
+
+  def history
+    @history ||= AuthorisationHistory.new(user_id: id)
+  end
+
   def deactivated?
     deactivated_at.present?
   end
@@ -42,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def deactivate!
-    return unless deactivatable?
+    raise CannotDeactivate unless deactivatable?
 
     update!(deactivated_at: Time.zone.now)
   end
@@ -54,6 +71,8 @@ class User < ApplicationRecord
   end
 
   def reactivate!
+    raise CannotReactivate unless deactivated?
+
     update!(deactivated_at: nil)
   end
 

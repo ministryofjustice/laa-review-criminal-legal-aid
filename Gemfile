@@ -5,7 +5,6 @@ ruby File.read('.ruby-version').chomp
 gem 'pg', '~> 1.4'
 gem 'puma'
 gem 'rails', '~> 7.0.3'
-gem 'turbo-rails'
 
 gem 'business'
 gem 'faraday'
@@ -30,6 +29,7 @@ gem 'sprockets-rails'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
+gem 'turbo-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false

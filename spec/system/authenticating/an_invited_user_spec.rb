@@ -8,7 +8,7 @@ RSpec.describe 'Authenticating an invited user' do
   context 'when an invited users signs in for the first time' do
     before do
       invited_user
-      click_button 'Sign in'
+      click_button 'Start now'
       select invited_user.email
     end
 
@@ -23,6 +23,24 @@ RSpec.describe 'Authenticating an invited user' do
       )
     end
 
+    describe 'viewing the activation in the user\'s account history' do
+      before do
+        invited_user.update(can_manage_others: true)
+        click_on 'Sign in'
+        click_on 'Invited Test'
+      end
+
+      let(:cells) { page.first('table tbody tr').all('td') }
+
+      it 'describes the event' do
+        expect(cells[1]).to have_content 'Account activated'
+      end
+
+      it 'has no associated manager' do
+        expect(cells.last).to have_content '-'
+      end
+    end
+
     context 'when the invitation has expired' do
       before do
         invited_user.update(invitation_expires_at: Rails.configuration.x.auth.invitation_ttl.ago)
@@ -32,12 +50,15 @@ RSpec.describe 'Authenticating an invited user' do
       it 'informs the user that their invitation has expired' do
         expect(page).to have_notification_banner(
           text: 'You cannot access this service',
-          details: 'Your invitation to access this service has expired.'
+          details: [
+            'Your invitation to access this service has expired.',
+            "Contact #{Rails.application.config.x.admin.onboarding_email} for a new invitation."
+          ]
         )
       end
 
       it 'the user is not activated' do
-        expect { click_button 'Sign in' }.not_to(
+        expect { click_button 'Start now' }.not_to(
           change { invited_user.reload.activated? }
         )
       end
