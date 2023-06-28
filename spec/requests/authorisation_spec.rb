@@ -83,7 +83,7 @@ RSpec.describe 'Authorisation' do
 
         expect(response).to redirect_to(unauthenticated_root_path)
         follow_redirect!
-        expect(response.body).to include('Sign in to view this page')
+        expect(response.body).to include('Sign in to access the service')
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe 'Authorisation' do
 
       expect(response).to redirect_to(unauthenticated_root_path)
       follow_redirect!
-      expect(response.body).to include('Sign in to view this page')
+      expect(response.body).to include('Sign in to access the service')
     end
   end
 
