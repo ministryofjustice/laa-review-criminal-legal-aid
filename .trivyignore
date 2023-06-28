@@ -1,5 +1,6 @@
 # CVEs that are outside of our control
 #
-CVE-2023-2253
-CVE-2023-28840
-CVE-2023-30551
+# Accept all risks until 2023-09-28 - may have been resolved by cloud platform
+CVE-2023-2253 exp:2023-09-28
+CVE-2023-28840 exp:2023-09-28
+CVE-2023-30551 exp:2023-09-28
