@@ -5,7 +5,7 @@ module ReceivedOnReports
     ].freeze
 
     CLOSING_EVENTS = [
-      Reviewing::SendBack, Reviewing::Completed
+      Reviewing::SentBack, Reviewing::Completed
     ].freeze
 
     def call(event_store)
