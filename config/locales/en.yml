@@ -186,8 +186,8 @@ en:
     interest_of_another: Interest of another person
     other: Other
     passported: Passported
-    on_age_under18: Client is under 18
-    on_offence: On offence
+    on_age_under18: Not needed because the client is under 18 years old
+    on_offence: Not needed based on offence
     today: Today
     yesterday: Yesterday
     day_before_yesterday: Day before yesterday

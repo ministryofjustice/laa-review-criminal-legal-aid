@@ -2,19 +2,19 @@
   <%= t(:interests_of_justice, scope: 'crime_applications.section.headings') %>
 </h2>
 
-<table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">
-        <%= t('crime_applications.labels.interests_of_justice_type') %>
-      </th>
-      <th scope="col" class="govuk-table__header">
-        <%= t('crime_applications.labels.justification') %>
-      </th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <% if crime_application.interests_of_justice.present? %>
+<% if crime_application.interests_of_justice.present? %>
+  <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">
+          <%= t('crime_applications.labels.interests_of_justice_type') %>
+        </th>
+        <th scope="col" class="govuk-table__header">
+          <%= t('crime_applications.labels.justification') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
       <% crime_application.interests_of_justice.each do |interest_of_justice| %>
         <tr class="govuk-table__row">
           <td scope="row" class="govuk-table__cell">
@@ -25,17 +25,19 @@
           </td>
         </tr>
       <% end %>
-    <% else %>
-      <% crime_application.ioj_passport.each do |passport| %>
-        <tr class="govuk-table__row">
-          <td scope="row" class="govuk-table__cell">
-            <%= t(passport, scope: 'crime_applications.values') %>
-          </td>
-          <td class="govuk-table__cell">
-            <span class="moj-badge moj-badge--blue"><%= t(:passported, scope: 'crime_applications.values') %></span>
-          </td>
-        </tr>
-      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <% crime_application.ioj_passport.each do |passport| %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t(:justification, scope: 'crime_applications.labels') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(passport, scope: 'crime_applications.values') %>
+        </dd>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </dl>
+<% end %>
