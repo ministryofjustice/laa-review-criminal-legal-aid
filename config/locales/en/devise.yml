@@ -14,7 +14,7 @@ en:
           - This is because you were inactive for 15 minutes.
           - Sign in again to continue using the service.
         unauthenticated:
-          - Sign in to view this page
+          - Sign in to access the service
         dormant: 
           - You cannot access this service
           - This is because you have not signed in to the service for more than 90&nbsp;days.

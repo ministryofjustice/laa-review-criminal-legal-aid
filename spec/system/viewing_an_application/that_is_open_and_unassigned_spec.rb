@@ -59,11 +59,26 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
   end
 
-  context 'with ioj passport' do
-    let(:application_data) { super().deep_merge('ioj_passport' => ['on_age_under18']) }
+  context 'with ioj passport and no ioj reason' do
+    let(:application_data) do
+      super().deep_merge(
+        'ioj_passport' => ['on_age_under18'],
+        'interests_of_justice' => nil
+      )
+    end
 
     it 'shows passport reason' do
       expect(page).to have_content('Client is under 18')
+    end
+  end
+
+  context 'when a passported application is a split case and resubmitted with ioj passport' do
+    let(:application_data) do
+      super().deep_merge('ioj_passport' => ['on_age_under18'])
+    end
+
+    it 'shows passport reason' do
+      expect(page).to have_content('More details about loss of liberty.')
     end
   end
 
