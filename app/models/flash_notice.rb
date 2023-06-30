@@ -8,7 +8,7 @@ class FlashNotice
   include ActionView::Helpers::UrlHelper
 
   def initialize(key, message)
-    content = Array[*message]
+    content = [*message]
 
     @text = content.delete_at(0)
     @key = key
