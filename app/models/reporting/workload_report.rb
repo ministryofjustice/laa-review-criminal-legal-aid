@@ -36,13 +36,12 @@ module Reporting
 
     #
     # Business days since application were received header column for table.
-    # Returns an array of header cells with contents:
+    # With current defaults, returns an array of header cells with contents:
     #
     # 0 days
     # 1 day
     # 2 days
-    # between 3(#number_of_rows) and (#last_row_limit_in_days)
-    #
+    # Between 3 and 9 days
     #
     def days_passed
       # All bar last row header
