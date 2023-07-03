@@ -2,8 +2,12 @@ module Reporting
   class WorkloadReport
     include Reportable
 
-    def initialize(number_of_days: 4, day_zero: Time.current, last_row_limit_in_days: 10)
-      @number_of_days = number_of_days
+    # Builds a Workload Report table with 'n' number of rows. The first row corresponds
+    # to applications that were received zero business days ago. The second row
+    # applications received one business day ago, and so on, until the last row, which
+    # includes a count up to the specified 'last_row_limit_in_days'.
+    def initialize(number_of_rows: 4, day_zero: Time.current, last_row_limit_in_days: 9)
+      @number_of_rows = number_of_rows
       @day_zero = day_zero.in_time_zone('London').to_date
       @last_row_limit_in_days = last_row_limit_in_days
     end
@@ -20,7 +24,7 @@ module Reporting
 
     private
 
-    attr_reader :number_of_days, :day_zero, :last_row_limit_in_days
+    attr_reader :number_of_rows, :day_zero, :last_row_limit_in_days
 
     def open_applications_by_age
       reports.map { |report| Cell.new(report.total_open, numeric: true) }
@@ -32,28 +36,27 @@ module Reporting
 
     #
     # Business days since application were received header column for table.
-    # Returns an array of header cells with contents:
+    # With current defaults, returns an array of header cells with contents:
     #
     # 0 days
     # 1 day
     # 2 days
-    # between 3(#number_of_days) and (#last_row_limit_in_days)
-    #
+    # Between 3 and 9 days
     #
     def days_passed
-      # All bar last header
-      row_headers = Array.new(number_of_days - 1) do |day|
+      # All bar last row header
+      row_headers = Array.new(number_of_rows - 1) do |day|
         I18n.t('values.days_passed', count: day)
       end
 
-      # Add the last header.
-      row_headers << I18n.t('values.days_passed.last', count: number_of_days - 1)
+      # Add the last row header.
+      row_headers << last_row_header_text
 
       row_headers.map { |text| Cell.new(text, header: true, numeric: false) }
     end
 
     def business_days
-      @business_days ||= Array.new(number_of_days) do |age_in_business_days|
+      @business_days ||= Array.new(number_of_rows) do |age_in_business_days|
         BusinessDay.new(
           age_in_business_days:,
           day_zero:
@@ -74,7 +77,8 @@ module Reporting
     end
 
     # The date of the youngest business day not included in the last
-    # row counts.
+    # row counts -- all applications in the last row must have a business
+    # date younger than this date.
     def last_row_cut_off_date
       @last_row_cut_off_date ||= BusinessDay.new(
         age_in_business_days: last_row_limit_in_days + 1,
@@ -82,10 +86,18 @@ module Reporting
       ).date
     end
 
+    def last_row_header_text
+      I18n.t(
+        'values.days_passed.last',
+        count: number_of_rows - 1,
+        limit: last_row_limit_in_days
+      )
+    end
+
     #
     # The last row of the report differs from the preceding rows in that it
     # includes the counts for the previous business days up to and including the
-    # #number_of_days_limit business day period.
+    # #last_row_limit_in_days business day period.
     #
     def last_day_or_more_report
       scope = Reporting::ReceivedOnReport.where(

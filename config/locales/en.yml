@@ -195,7 +195,7 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-      last: "Between %{count} and 9 days"
+      last: "Between %{count} and %{limit} days"
     review_status:
       submitted: Open
       open: Open
