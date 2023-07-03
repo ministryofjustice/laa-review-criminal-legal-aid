@@ -53,9 +53,13 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).not_to have_content('Mark as completed')
   end
 
-  context 'with interest of justice reason' do
-    it 'shows reason' do
-      expect(page).to have_content('Loss of liberty')
+  context 'with interest of justice reason only' do
+    it 'shows a table with ioj reason' do
+      ioj_table = find(:xpath,
+                       "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+                       //tr[contains(td[1], 'Loss of liberty')]")
+
+      expect(ioj_table).to have_content('More details about loss of liberty.')
     end
   end
 
@@ -67,8 +71,12 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       )
     end
 
-    it 'shows passport reason' do
-      expect(page).to have_content('Client is under 18')
+    it 'shows a summary list with passport reason' do
+      summary_list = find(:xpath,
+                          "//dl[@class='govuk-summary-list govuk-!-margin-bottom-9']
+                          //div[contains(dt[1], 'Justification')]")
+
+      expect(summary_list).to have_content('Not needed because the client is under 18 years old')
     end
   end
 
@@ -77,16 +85,20 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       super().deep_merge('ioj_passport' => ['on_age_under18'])
     end
 
-    it 'shows passport reason' do
-      expect(page).to have_content('More details about loss of liberty.')
+    it 'shows a table with ioj reason' do
+      ioj_table = find(:xpath,
+                       "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+                       //tr[contains(td[1], 'Loss of liberty')]")
+
+      expect(ioj_table).to have_content('More details about loss of liberty.')
     end
   end
 
-  # rubocop:disable Layout/LineLength
   context 'with offence class not provided' do
     it 'does shows the class not determined badge' do
       table_body = find(:xpath,
-                        "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tr[contains(td[1], 'Non-listed offence, manually entered')]")
+                        "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+                        //tr[contains(td[1], 'Non-listed offence, manually entered')]")
 
       expect(table_body).to have_content('Class not determined')
     end
@@ -110,7 +122,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
     it 'does show the offence class' do
       row = first(:xpath,
-                  "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']//tr[contains(td[1], 'Robbery')]")
+                  "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+                  //tr[contains(td[1], 'Robbery')]")
 
       expect(row).to have_content('Class C')
     end
@@ -119,7 +132,6 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       expect(page).to have_content('Overall offence class Class C')
     end
   end
-  # rubocop:enable Layout/LineLength
 
   context 'with optional fields not provided' do
     let(:application_data) do
