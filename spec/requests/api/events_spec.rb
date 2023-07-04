@@ -214,7 +214,9 @@ RSpec.describe 'Api::Events' do
     end
 
     it 'throws exception' do
-      expect { do_request }.to raise_error Aws::SNS::MessageVerifier::VerificationError
+      do_request
+
+      expect(response).to have_http_status :internal_server_error
     end
   end
 
