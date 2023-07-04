@@ -70,7 +70,7 @@ RSpec.describe ApplicationHelper do
         allow(Rails.env).to receive(:production?).and_return(true)
       end
 
-      it { expect(helper.app_banner_tag).to eq('alpha') }
+      it { expect(helper.app_banner_tag).to eq('beta') }
     end
   end
 end

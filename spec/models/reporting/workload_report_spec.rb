@@ -12,9 +12,9 @@ RSpec.describe Reporting::WorkloadReport do
       ['2023-01-03', 8, 8],
       ['2022-12-30', 5, 1],
       ['2022-12-29', 4, 3],
-      ['2022-12-17', 50, 49],
-      ['2022-12-16', 1000, 999],
-      ['2022-12-15', 10_000, 1]
+      ['2022-12-18', 50, 49],
+      ['2022-12-17', 1000, 999],
+      ['2022-12-16', 10_000, 1]
     ].map do |business_day, total_received, total_closed|
       { business_day:, total_received:, total_closed: }
     end
@@ -69,7 +69,7 @@ RSpec.describe Reporting::WorkloadReport do
   end
 
   describe 'number of rows can be configured using :number_of_days' do
-    subject(:report) { described_class.new(number_of_days: 7) }
+    subject(:report) { described_class.new(number_of_rows: 7) }
 
     it 'returns the counts for the four working days up to and including day_zero' do
       expect(report.table.rows.size).to be 7

@@ -13,8 +13,8 @@
     <%= form_with model: @return_details, url: crime_application_return_path(@crime_application.id), scope: :return_details, method: :post do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_radio_buttons_fieldset(:reason, legend: { text: t(:select_return_reason, scope: 'labels') }) do %>
-        <% ReturnDetails::RETURN_REASONS.each do |reason| %>
-          <%= f.govuk_radio_button :reason, reason, label: { text: t(reason, scope: 'values.return_reason') } %>
+        <% ReturnDetails::RETURN_REASONS.each_with_index do |reason, index| %>
+          <%= f.govuk_radio_button :reason, reason, label: { text: t(reason, scope: 'values.return_reason') }, link_errors: index.zero? %>
         <% end %>
       <% end %>
 

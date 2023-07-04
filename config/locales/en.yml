@@ -35,8 +35,8 @@ en:
     tag:
       local: dev
       staging: staging
-      production: alpha
-    text: This is an MVP. Some things may not work as expected.
+      production: beta
+    text: This is a new service – your feedback will help us to improve it.
   warning_text:
     title: Warning
     resubmitted: This application has been resubmitted.
@@ -186,8 +186,8 @@ en:
     interest_of_another: Interest of another person
     other: Other
     passported: Passported
-    on_age_under18: Client is under 18
-    on_offence: On offence
+    on_age_under18: Not needed because the client is under 18 years old
+    on_offence: Not needed based on offence
     today: Today
     yesterday: Yesterday
     day_before_yesterday: Day before yesterday
@@ -195,7 +195,7 @@ en:
     days_passed:
       one: 1 day
       other: "%{count} days"
-      last: "Between %{count} and 9 days"
+      last: "Between %{count} and %{limit} days"
     review_status:
       submitted: Open
       open: Open
