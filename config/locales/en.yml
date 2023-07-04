@@ -110,6 +110,9 @@ en:
     last_name: Last name
     other_names: Other names
     case_type: Case type
+    date_appeal_lodged: Date the appeal was lodged
+    financial_change_details: Details of changes in financial circumstances
+    previous_maat_id: Previous MAAT ID
     national_insurance_number: National Insurance number
     date_of_birth: Date of birth
     application_type: Application type
