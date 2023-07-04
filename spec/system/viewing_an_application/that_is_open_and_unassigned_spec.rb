@@ -133,6 +133,38 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
   end
 
+  context 'with correct codefendant information' do
+    context 'when there is no codefendant' do
+      let(:application_data) do
+        super().deep_merge('case_details' => { 'codefendants' => [] })
+      end
+
+      it 'says there is no codefendant' do
+        expect(page).to have_content('Co-defendants No')
+      end
+    end
+
+    context 'when there is a codefendant' do
+      context 'with a conflict' do
+        it 'shows the conflict badge' do
+          expect(page).to have_content('Co-defendant 1 Zoe Blogs Conflict')
+        end
+      end
+
+      context 'with no conflict' do
+        let(:application_data) do
+          super().deep_merge('case_details' => { 'codefendants' => [{ 'first_name' => 'Billy',
+                                                                  'last_name' => 'Bates',
+                                                                  'conflict_of_interest' => 'no', }] })
+        end
+
+        it 'has no badge' do
+          expect(page).not_to have_content('Conflict')
+        end
+      end
+    end
+  end
+
   context 'with optional fields not provided' do
     let(:application_data) do
       super().deep_merge('client_details' => { 'applicant' => { 'home_address' => nil, 'telephone_number' => nil } })
