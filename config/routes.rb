@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     }
   )
 
+  get "users/auth/failure", to: "errors#forbidden"
+
   devise_scope :user do
     unauthenticated :user do
       root 'users/sessions#new', as: :unauthenticated_root
