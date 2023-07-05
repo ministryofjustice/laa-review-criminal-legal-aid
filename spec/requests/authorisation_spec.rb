@@ -54,6 +54,7 @@ RSpec.describe 'Authorisation' do
       preview_view_components
       root
       unauthenticated_root
+      users_auth_failure
     ]
   end
 
@@ -65,15 +66,27 @@ RSpec.describe 'Authorisation' do
     ]
   end
 
+  def expected_status(route_name)
+    case route_name
+    when 'users_auth_failure', 'forbidden'
+      :forbidden
+    when 'unhandled'
+      :internal_server_error
+    when 'not_found', 'application_not_found'
+      :not_found
+    else
+      :ok
+    end
+  end
+
   describe 'an unauthenticated user' do
     it 'can access all unauthenticated routes' do
       configured_routes.each do |route|
         next unless unauthenticated_routes.include?(route.name)
 
         visit_configured_route(route)
-        status = route.name == 'forbidden' ? :forbidden : :ok
 
-        expect(response).to have_http_status(status)
+        expect(response).to have_http_status(expected_status(route.name))
       end
     end
 

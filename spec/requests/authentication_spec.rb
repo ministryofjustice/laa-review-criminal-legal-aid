@@ -42,9 +42,10 @@ RSpec.describe 'Authentication Session Initialisation' do
     end
 
     describe 'when the user does not exist in the review database' do
-      it 'redirects the user to the "Not authorised" page' do
+      it 'responds with "Access to this service is restricted' do
         auth_callback
-        expect(response).to redirect_to('/forbidden')
+
+        expect(response.body).to include 'Access to this service is restricted'
       end
     end
 
@@ -145,10 +146,10 @@ RSpec.describe 'Authentication Session Initialisation' do
       OmniAuth.config.mock_auth[:azure_ad] = :access_denied
     end
 
-    it 'redirects the user to the "Not authorised" page' do
+    it 'redirects to the omniauth failure endpoint' do
       auth_callback
 
-      expect(response).to redirect_to('/forbidden')
+      expect(response.body).to include 'Access to this service is restricted'
     end
   end
 end
