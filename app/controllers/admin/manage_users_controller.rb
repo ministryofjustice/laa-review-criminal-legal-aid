@@ -15,8 +15,7 @@ module Admin
     def require_user_manager!
       return if current_user.can_manage_others?
 
-      render status: :not_found, template: 'errors/not_found'
-      false
+      render_not_found
     end
   end
 end

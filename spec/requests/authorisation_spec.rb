@@ -132,13 +132,13 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'returns "not found" for all service routes' do
+    it 'is redirected to "admin manage users root" for all service routes' do
       configured_routes.each do |route|
         next unless service_user_routes.include?(route.name)
 
         visit_configured_route(route)
-        expect(response).to have_http_status :not_found
-        expect(response.body).to include('Page not found')
+
+        expect(response).to redirect_to(admin_manage_users_root_path)
       end
     end
 

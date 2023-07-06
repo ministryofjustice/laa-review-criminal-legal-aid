@@ -1,7 +1,11 @@
 class ErrorsController < ApplicationController
   before_action :set_response_format
 
-  # show is is configured as the Rails "exceptions_app"
+  # The show action is configured as the Rails "exceptions_app" in /config/application.rb
+  # config.exceptions_app = ->(env) {
+  #   ErrorsController.action(:show).call(env)
+  # }
+  #
   def show
     render error_page, status:
   end

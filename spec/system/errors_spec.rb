@@ -89,6 +89,12 @@ RSpec.describe 'Error pages' do
         visit '/admin/manage_users/history/n0tan1d'
         expect(page).to have_content expected_content
       end
+
+      it 'uses the errors layout' do
+        visit "/admin/manage_users/history/#{user.id}"
+        expect(page).not_to have_css '#navigation'
+        expect(page).not_to have_content 'Sign out'
+      end
     end
   end
 
@@ -136,17 +142,17 @@ RSpec.describe 'Error pages' do
     end
   end
 
-  context 'when logged in admin' do
+  context 'when logged in as user that can maange others' do
     include_context 'when logged in user is admin'
 
     context 'when visiting a link to an application' do
       include_context 'with an existing application'
 
-      it 'shows a standard 404 even if application exists' do
+      it 'redirects to admin even if application does not exists' do
         visit "/applications/#{crime_application_id}"
-        expect(page).to have_content 'Page not found'
+        expect(page).to have_current_path admin_manage_users_root_path
         visit '/applications/n0tan1d'
-        expect(page).to have_content 'Page not found'
+        expect(page).to have_current_path admin_manage_users_root_path
       end
     end
 

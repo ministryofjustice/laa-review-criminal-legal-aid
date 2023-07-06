@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
     super
   end
 
+  def render_not_found
+    render status: :not_found, template: 'errors/not_found', layout: 'errors'
+    false
+  end
+
   # Sets the full flash message based on the message key.
   #
   # Like the AppTextHelper#named_text, it will scope locales according

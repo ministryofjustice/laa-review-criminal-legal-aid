@@ -18,8 +18,7 @@ class ServiceController < ApplicationController
     return if current_user.service_user?
     return if FeatureFlags.allow_user_managers_service_access.enabled?
 
-    render status: :not_found, template: 'errors/not_found'
-    false
+    redirect_to admin_manage_users_root_path
   end
 
   def assignments_count
