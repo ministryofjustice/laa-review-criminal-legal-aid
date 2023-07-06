@@ -14,16 +14,18 @@ services:
   web:
     build: .
     environment:
-      ENV_NAME: staging # or `production` in the future
+      ENV_NAME: production
       RAILS_ENV: production
       DATABASE_URL: postgresql://postgres@db/laa-review-criminal-legal-aid
       SECRET_KEY_BASE: f22760a0bd78a9191ba4c247e23a281cb251461cdba6b5215043ca11b694d734
       GOVUK_NOTIFY_API_KEY: notify-api-key
       RAILS_SERVE_STATIC_FILES: "1"
+      ENABLE_PROMETHEUS_EXPORTER: "true"
       RAILS_LOG_TO_STDOUT: "1"
       DATABASE_SSLMODE: disable
       DISABLE_HTTPS: "1"
     ports:
-      - "3000:3000"
+      - "3003:3003" # puma server (rails app)
+      - "9394:9394" # prometheus exporter `/metrics` endpoint
     depends_on:
       - db

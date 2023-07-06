@@ -12,3 +12,18 @@ spec:
     targetPort: 3000
   selector:
     app: review-criminal-legal-aid-web-production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service-staging
+  namespace: review-criminal-legal-aid-web-production
+  labels:
+    app: review-criminal-legal-aid-web-production
+spec:
+  ports:
+  - port: 9394
+    name: metrics
+    targetPort: 9394
+  selector:
+    app: review-criminal-legal-aid-web-production
