@@ -24,13 +24,13 @@ RSpec.describe 'Authenticating an invited user' do
     end
 
     describe 'viewing the activation in the user\'s account history' do
+      let(:invited_user) { User.create(email: 'Invited.Test@example.com', can_manage_others: true) }
+      let(:cells) { page.first('table tbody tr').all('td') }
+
       before do
-        invited_user.update(can_manage_others: true)
         click_on 'Sign in'
         click_on 'Invited Test'
       end
-
-      let(:cells) { page.first('table tbody tr').all('td') }
 
       it 'describes the event' do
         expect(cells[1]).to have_content 'Account activated'
