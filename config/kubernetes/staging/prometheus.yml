@@ -6,14 +6,14 @@
 # in both, staging and production environments.
 #
 # To see the current alerts in this namespace:
-#   kubectl describe prometheusrule -n laa-review-criminal-legal-aid-staging
+#   kubectl describe prometheusrule -n laa-review-criminal-legal-aid-*
 #
 # Alerts will be sent to the slack channel: #laa-crime-apply-alerts
 #
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: prometheus-staging
+  name: review-prometheus-rules
   namespace: laa-review-criminal-legal-aid-staging
   labels:
     role: alert-rules
@@ -116,7 +116,7 @@ spec:
 
     - alert: CrimeApplyReview-PrometheusExporterFailure
       expr: >-
-        ruby_collector_working{namespace=~"^laa-review-criminal-legal-aid-*"} != 1
+        ruby_collector_working{namespace=~"^laa-review-criminal-legal-aid.*"} != 1
       for: 30m
       labels:
         severity: laa-crime-apply-alerts
