@@ -11,10 +11,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   def formatted_applicant_nino
     return if applicant.nino.nil?
 
-    # Remove all spaces
-    formatted_nino = applicant.nino.gsub(/\s+/, '').upcase
-    [2, 5, 8, 11].each { |i| formatted_nino.insert i, ' ' } if formatted_nino.length == 9
-    formatted_nino
+    applicant.nino
   end
 
   def formatted_applicant_telephone_number
