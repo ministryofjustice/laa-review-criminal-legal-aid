@@ -6,7 +6,7 @@ class ReportsController < ServiceController
     when /processed_report/
       @report = Reporting::ProcessedReport.new
     else
-      redirect_to not_found_path
+      raise ActiveRecord::RecordNotFound, 'Report not found'
     end
   end
 end

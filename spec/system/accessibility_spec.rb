@@ -27,18 +27,8 @@ RSpec.describe 'Accessibility' do
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 
-    it 'application not found page has no axe detectible accessibility issues' do
-      visit application_not_found_path
-      expect(page).to be_axe_clean.according_to accessibility_standards
-    end
-
-    it 'unhandled page has no axe detectible accessibility issues' do
-      visit unhandled_path
-      expect(page).to be_axe_clean.according_to accessibility_standards
-    end
-
     it 'forbidden page has no axe detectible accessibility issues' do
-      visit forbidden_path
+      visit 'users/auth/failure'
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 

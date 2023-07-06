@@ -1,29 +1,38 @@
 class ErrorsController < ApplicationController
-  layout 'application'
-  before_action :authenticate_user!, except: [:forbidden]
+  before_action :set_response_format
 
-  def application_not_found
-    respond_with_status(:not_found)
+  # show is is configured as the Rails "exceptions_app"
+  def show
+    render error_page, status:
   end
 
-  def not_found
-    respond_with_status(:not_found)
-  end
-
+  # Used by Warden/Devise as the recall action
   def forbidden
-    respond_with_status(:forbidden)
-  end
-
-  def unhandled
-    respond_with_status(:internal_server_error)
+    render status: :forbidden
   end
 
   private
 
-  def respond_with_status(status)
-    respond_to do |format|
-      format.html { render status: }
-      format.all  { head status }
-    end
+  # Respond to all request formats with HTML
+  # Otherwise errors from request for missing assets (.css, .js etc) will fail
+  def set_response_format
+    request.format = :html
+  end
+
+  # Determine the error page to render based on the status
+  def error_page
+    return :internal_server_error if status >= 500
+    return :forbidden if status == 403
+
+    :not_found
+  end
+
+  # Return status from path or set status to 404 if path is not an error status
+  def status
+    status_from_path = request.path_info[1..].to_i
+
+    return 404 unless (400..511).cover?(status_from_path)
+
+    status_from_path
   end
 end

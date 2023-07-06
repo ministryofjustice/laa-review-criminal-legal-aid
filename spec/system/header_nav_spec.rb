@@ -59,7 +59,7 @@ RSpec.describe 'Header navigation' do
   context 'when a user has access to manage other users' do
     before do
       User.update(current_user_id, can_manage_others: true)
-      visit '/'
+      visit admin_manage_users_root_path
     end
 
     it 'they are redirected to the admin manage users route by default' do

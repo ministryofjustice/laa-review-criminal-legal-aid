@@ -69,5 +69,9 @@ module LaaReviewCriminalLegalAid
 
     #Onboarding email address for user contact
     config.x.admin.onboarding_email = 'LAAapplyonboarding@justice.gov.uk'
+
+    config.exceptions_app = ->(env) {
+      ErrorsController.action(:show).call(env)
+    }
   end
 end

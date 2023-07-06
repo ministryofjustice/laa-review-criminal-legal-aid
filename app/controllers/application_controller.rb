@@ -1,9 +1,5 @@
 class ApplicationController < ActionController::Base
-  include ErrorHandling
-
-  before_action :authenticate_user!
   helper_method :current_user_id
-  helper_method :assignments_count
 
   private
 
@@ -16,12 +12,6 @@ class ApplicationController < ActionController::Base
     return admin_manage_users_root_path if user.can_manage_others?
 
     super
-  end
-
-  def assignments_count
-    @assignments_count ||= CurrentAssignment.where(
-      user_id: current_user_id
-    ).count
   end
 
   # Sets the full flash message based on the message key.
