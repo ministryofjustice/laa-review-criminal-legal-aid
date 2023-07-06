@@ -4,6 +4,7 @@ RSpec.describe 'Authorisation' do
 
   let(:service_user_routes) do
     %w[
+      application_not_found
       assigned_application
       assigned_applications
       closed_crime_applications
@@ -58,14 +59,6 @@ RSpec.describe 'Authorisation' do
     ]
   end
 
-  let(:authenticated_routes) do
-    %w[
-      application_not_found
-      not_found
-      unhandled
-    ]
-  end
-
   def expected_status(route_name)
     case route_name
     when 'users_auth_failure', 'forbidden'
@@ -99,14 +92,6 @@ RSpec.describe 'Authorisation' do
         expect(response.body).to include('Sign in to access the service')
       end
     end
-
-    it 'is redirected to "sign in" for a non-existent url' do
-      get '/this_is_not_a/route'
-
-      expect(response).to redirect_to(unauthenticated_root_path)
-      follow_redirect!
-      expect(response.body).to include('Sign in to access the service')
-    end
   end
 
   describe 'an authenticated service user' do
@@ -122,13 +107,14 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'is redirected to "Not found" for all user manager routes' do
+    it 'returns "Not found" for all user manager routes' do
       configured_routes.each do |route|
         next unless user_manager_routes.include?(route.name)
 
         visit_configured_route(route)
 
-        expect(response).to redirect_to(not_found_path)
+        expect(response).to have_http_status :not_found
+        expect(response.body).to include('Page not found')
       end
     end
   end
@@ -178,7 +164,7 @@ RSpec.describe 'Authorisation' do
 
   it 'all configured routes are tested' do
     configured_routes.each do |route|
-      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes + authenticated_routes
+      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes
 
       expect(tested_routes.include?(route.name)).to be(true), "\"#{route.name}\" is not tested"
     end

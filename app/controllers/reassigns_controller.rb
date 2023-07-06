@@ -5,13 +5,17 @@ class ReassignsController < ServiceController
 
   def create
     reassign_to_self
-  rescue Assigning::CannotReassignUnlessAssigned
-    flash_and_redirect(:important, :unassigned_before_confirm)
+    set_flash(:assigned_to_self)
+  rescue Assigning::CannotReassignUnlessAssigned, ActiveRecord::RecordNotFound
+    set_flash(:unassigned_before_confirm, success: false)
   rescue Assigning::StateHasChanged
-    flash_and_redirect(:important, :reassigned_to_someone_else,
-                       reassigned_to_user: User.name_for(current_assignment.user_id))
-  else
-    flash_and_redirect(:success, :assigned_to_self)
+    set_flash(
+      :reassigned_to_someone_else,
+      reassigned_to_user: User.name_for(current_assignment.user_id),
+      success: false
+    )
+  ensure
+    redirect_to crime_application_path(params[:crime_application_id])
   end
 
   private
@@ -23,11 +27,6 @@ class ReassignsController < ServiceController
       from_whom_id: params[:from_whom_id],
       to_whom_id: current_user_id
     ).call
-  end
-
-  def flash_and_redirect(key, message, options = {})
-    flash[key] = I18n.t(message, scope: [:flash, key], **options)
-    redirect_to crime_application_path(params[:crime_application_id])
   end
 
   def current_assignment

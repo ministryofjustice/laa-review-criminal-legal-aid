@@ -2,6 +2,12 @@ class ServiceController < ApplicationController
   before_action :authenticate_user!
   before_action :require_service_user!
 
+  helper_method :assignments_count
+
+  rescue_from DatastoreApi::Errors::NotFoundError do
+    render status: :not_found, template: 'errors/application_not_found'
+  end
+
   private
 
   #
@@ -13,6 +19,12 @@ class ServiceController < ApplicationController
     return if FeatureFlags.allow_user_managers_service_access.enabled?
 
     redirect_to admin_manage_users_root_path
+  end
+
+  def assignments_count
+    @assignments_count ||= CurrentAssignment.where(
+      user_id: current_user_id
+    ).count
   end
 
   def set_search(filter: ApplicationSearchFilter.new, sorting: {})
