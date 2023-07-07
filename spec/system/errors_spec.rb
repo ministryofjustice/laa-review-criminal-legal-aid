@@ -45,7 +45,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'shows the application' do
-        expect(page).to have_content 'AJ 12 34 56'
+        expect(page).to have_content 'AJ123456'
       end
     end
 
