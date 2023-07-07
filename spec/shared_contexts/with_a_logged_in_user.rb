@@ -14,9 +14,12 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
       last_name: 'EXAMPLE',
       auth_subject_id: current_user_auth_subject_id,
       first_auth_at: 1.month.ago,
-      last_auth_at: 1.hour.ago
+      last_auth_at: 1.hour.ago,
+      can_manage_others: current_user_can_manage_others
     )
   end
+
+  let(:current_user_can_manage_others) { false }
 
   let(:current_user_id) { current_user.id }
 
