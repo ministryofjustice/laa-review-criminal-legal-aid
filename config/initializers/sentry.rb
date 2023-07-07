@@ -4,6 +4,11 @@ Rails.application.config.to_prepare do
     config.rails.report_rescued_exceptions = true
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]
     config.environment = HostEnv.env_name
+    
+    # Contrary to what is stated in https://edgeguides.rubyonrails.org/error_reporting.html,
+    # Sentry currently requires explicit configuration in order to register as a subscriber.
+    # See discussion on GitHub at https://github.com/rails/rails/pull/43625#issuecomment-1072514175.
+    config.rails.register_error_subscriber = true
 
     # Filtering
     # https://docs.sentry.io/platforms/ruby/guides/rails/configuration/filtering/
