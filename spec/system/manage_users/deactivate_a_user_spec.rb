@@ -98,9 +98,10 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
   end
 
   describe 'with only 2 active admins' do
+    let(:user_can_manage_others) { true }
+
     before do
       User.create!(can_manage_others: true, deactivated_at: Time.zone.now, email: 'test3@eg.com') # Inactive
-      active_user.update(can_manage_others: true)
 
       do_deactivate_journey
       click_on('Yes, deactivate')

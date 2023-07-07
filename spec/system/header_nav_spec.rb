@@ -57,8 +57,8 @@ RSpec.describe 'Header navigation' do
   end
 
   context 'when a user has access to manage other users' do
+    include_context 'when logged in user is admin'
     before do
-      User.update(current_user_id, can_manage_others: true)
       visit admin_manage_users_root_path
     end
 

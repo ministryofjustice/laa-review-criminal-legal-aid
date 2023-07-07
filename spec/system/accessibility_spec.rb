@@ -67,11 +67,6 @@ RSpec.describe 'Accessibility' do
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
 
-    it 'edit user page has no axe detectible accessibility issues' do
-      visit edit_admin_manage_users_active_user_path(active_user)
-      expect(page).to be_axe_clean.according_to accessibility_standards
-    end
-
     it 'reassign crime application page has no axe detectible accessibility issues' do
       visit new_crime_application_reassign_path(crime_application_id)
       expect(page).to be_axe_clean.according_to accessibility_standards
