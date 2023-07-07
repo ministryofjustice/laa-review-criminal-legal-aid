@@ -46,7 +46,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'includes the applicant details' do
-    expect(page).to have_content('AJ 12 34 56 C')
+    expect(page).to have_content('AJ123456C')
   end
 
   context 'with case details' do
