@@ -31,11 +31,12 @@ class CrimeApplicationsController < ServiceController
       application_id: @crime_application.id,
       user_id: current_user_id
     ).call
-    flash_and_redirect :success, :completed
-  rescue Reviewing::AlreadyCompleted
-    flash_and_redirect :important, :already_completed
-  rescue Reviewing::CannotCompleteWhenSentBack
-    flash_and_redirect :important, :already_sent_back
+
+    set_flash :completed
+    redirect_to assigned_applications_path
+  rescue Reviewing::Error => e
+    set_flash(e.message_key, success: false)
+    redirect_to crime_application_path(@crime_application)
   end
 
   def ready
@@ -43,13 +44,12 @@ class CrimeApplicationsController < ServiceController
       application_id: @crime_application.id,
       user_id: current_user_id
     ).call
-    flash_and_redirect :success, :marked_as_ready
-  rescue Reviewing::AlreadyMarkedAsReady
-    flash_and_redirect :important, :already_marked_as_ready
-  rescue Reviewing::CannotMarkAsReadyWhenSentBack
-    flash_and_redirect :important, :already_sent_back
-  rescue Reviewing::CannotMarkAsReadyWhenCompleted
-    flash_and_redirect :important, :already_completed
+
+    set_flash :marked_as_ready
+  rescue Reviewing::Error => e
+    set_flash(e.message_key, success: false)
+  ensure
+    redirect_to crime_application_path(@crime_application)
   end
 
   private
@@ -64,14 +64,5 @@ class CrimeApplicationsController < ServiceController
       :per_page,
       sorting: Sorting.attribute_names
     )
-  end
-
-  def flash_and_redirect(key, message)
-    flash[key] = I18n.t(message, scope: [:flash, key])
-    if key == :success && message == :completed
-      redirect_to assigned_applications_path
-    else
-      redirect_to crime_application_path(@crime_application.id)
-    end
   end
 end

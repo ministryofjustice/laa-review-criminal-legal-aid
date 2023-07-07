@@ -81,10 +81,9 @@ module SnsEvent
     end
 
     def json(from:)
-      JSON.parse(from)
-    rescue StandardError => e
-      Rails.logger.error("Error parsing JSON [#{e.class}] `#{e.message}`")
-      {}
+      Rails.error.handle(fallback: -> { {} }) do
+        JSON.parse(from)
+      end
     end
 
     def to_json(*args)

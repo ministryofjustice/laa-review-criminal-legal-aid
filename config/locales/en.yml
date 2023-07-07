@@ -62,6 +62,11 @@ en:
       already_sent_back: This application was already sent back to the provider
       already_completed: This application was already marked as complete
       already_marked_as_ready: This application was already marked as ready for assessment
+      cannot_complete_when_sent_back: This application was already sent back to the provider
+      cannot_mark_as_ready_when_completed: This application was already marked as complete
+      cannot_mark_as_ready_when_sent_back: This application was already sent back to the provider
+      cannot_send_back_when_completed: This application was already marked as complete
+      cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
       cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
 
@@ -105,6 +110,9 @@ en:
     last_name: Last name
     other_names: Other names
     case_type: Case type
+    date_appeal_lodged: Date the appeal was lodged
+    financial_change_details: Details of changes in financial circumstances
+    previous_maat_id: Previous MAAT ID
     national_insurance_number: National Insurance number
     date_of_birth: Date of birth
     application_type: Application type

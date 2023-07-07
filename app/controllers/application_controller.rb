@@ -1,9 +1,5 @@
 class ApplicationController < ActionController::Base
-  include ErrorHandling
-
-  before_action :authenticate_user!
   helper_method :current_user_id
-  helper_method :assignments_count
 
   private
 
@@ -11,25 +7,16 @@ class ApplicationController < ActionController::Base
     current_user&.id
   end
 
-  def assignments_count
-    @assignments_count ||= CurrentAssignment.where(
-      user_id: current_user_id
-    ).count
+  # Redirect user managers to manage users' admin on sign in
+  def after_sign_in_path_for(user)
+    return admin_manage_users_root_path if user.can_manage_others?
+
+    super
   end
 
-  def set_search(filter: ApplicationSearchFilter.new, sorting: {})
-    sorting = Sorting.new(
-      permitted_params[:sorting] || sorting.to_h
-    )
-
-    pagination = Pagination.new(
-      current_page: permitted_params[:page],
-      limit_value: permitted_params[:per_page]
-    )
-
-    @search = ApplicationSearch.new(
-      filter:, sorting:, pagination:
-    )
+  def render_not_found
+    render status: :not_found, template: 'errors/not_found', layout: 'errors'
+    false
   end
 
   # Sets the full flash message based on the message key.

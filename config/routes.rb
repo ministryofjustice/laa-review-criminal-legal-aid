@@ -2,17 +2,14 @@ Rails.application.routes.draw do
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
 
-  get 'application_not_found', to: 'errors#application_not_found'
-  get 'not_found', to: 'errors#not_found'
-  get 'unhandled', to: 'errors#unhandled'
-  get 'forbidden', to: 'errors#forbidden'
-
   devise_for(
     :users,
     controllers: {
       omniauth_callbacks: 'users/omniauth_callbacks'
     }
   )
+
+  get "users/auth/failure", to: "errors#forbidden"
 
   devise_scope :user do
     unauthenticated :user do
@@ -76,11 +73,4 @@ Rails.application.routes.draw do
 
   mount RailsEventStore::Browser => "/event_browser" if Rails.env.development?
   root 'assigned_applications#index'
-
-  # catch-all route
-  # which, because errors#not_found is authenticated, results in an
-  # unauthenticated user being redirect to the sign in page.
-
-  match '*path', to: 'errors#not_found', via: :all, constraints:
-    lambda { |_request| !Rails.application.config.consider_all_requests_local }
 end

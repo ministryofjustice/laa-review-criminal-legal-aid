@@ -1,6 +1,7 @@
 Rails.application.config.to_prepare do
   # Sentry is enabled if SENTRY_DSN environment variable is set
   Sentry.init do |config|
+    config.rails.report_rescued_exceptions = true
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]
     config.environment = HostEnv.env_name
 

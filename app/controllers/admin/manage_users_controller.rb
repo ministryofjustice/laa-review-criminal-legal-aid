@@ -1,5 +1,8 @@
 module Admin
   class ManageUsersController < ApplicationController
+    before_action :authenticate_user!
+    before_action :require_user_manager!
+
     layout 'manage_users'
 
     # Scope for I18n locale, used by _text helpers.
@@ -7,14 +10,12 @@ module Admin
       :manage_users
     end
 
-    before_action :require_user_manager!
-
     private
 
     def require_user_manager!
       return if current_user.can_manage_others?
 
-      redirect_to not_found_path
+      render_not_found
     end
   end
 end
