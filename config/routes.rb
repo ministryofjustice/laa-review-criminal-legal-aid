@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   namespace :admin do
     namespace :manage_users do
       root 'active_users#index'
-      resources :active_users, only: [:index, :edit, :update]
+      resources :active_users, only: [:index]
       resources :history, only: [:show], controller: :history
 
       resources :invitations, only: [:index, :new, :destroy, :create, :update] do

@@ -6,9 +6,12 @@ RSpec.shared_context 'with an existing user', shared_context: :metadata do
       first_name: 'Zoe',
       last_name: 'Blogs',
       email: 'Zoe.Blogs@example.com',
-      auth_subject_id: SecureRandom.uuid
+      auth_subject_id: SecureRandom.uuid,
+      can_manage_others: user_can_manage_others
     )
   end
+
+  let(:user_can_manage_others) { false }
 
   let(:user_row) do
     find(

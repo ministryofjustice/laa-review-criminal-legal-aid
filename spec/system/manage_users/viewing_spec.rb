@@ -88,12 +88,11 @@ RSpec.describe 'Manage Users Dashboard' do
   end
 
   context 'with pagination' do
+    include_context 'when logged in user is admin'
     let(:last_auth_at) { Time.zone.now }
 
     before do
       make_users(100)
-      visit '/'
-      User.update(current_user_id, can_manage_others: true, last_auth_at: last_auth_at)
       visit '/admin/manage_users?page=2'
     end
 
