@@ -22,7 +22,7 @@ RSpec.describe CrimeApplication do
   describe '#formatted_applicant_nino' do
     subject(:formatted_applicant_nino) { application.formatted_applicant_nino }
 
-    it { is_expected.to eq 'AJ 12 34 56 C' }
+    it { is_expected.to eq 'AJ123456C' }
   end
 
   describe '#formatted_applicant_telephone_number' do
