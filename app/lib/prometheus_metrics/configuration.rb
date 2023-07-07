@@ -8,7 +8,7 @@ module PrometheusMetrics
     SERVER_BINDING_PORT = 9394
 
     CUSTOM_COLLECTORS = [
-      PrometheusMetrics::ApplicationsCountCollector
+      # Add custom collector classes here
     ].freeze
 
     # :nocov:
@@ -55,6 +55,7 @@ module PrometheusMetrics
       # Metrics will be prefixed, for example `ruby_http_requests_total`
       PrometheusExporter::Metric::Base.default_prefix = DEFAULT_PREFIX
 
+      # This reports stats per request like HTTP status and timings
       Rails.application.middleware.unshift PrometheusExporter::Middleware
 
       # This reports basic process stats like RSS and GC info, type master
