@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: prometheus-service-staging
+  name: prometheus-service-production
   namespace: review-criminal-legal-aid-web-production
   labels:
     app: review-criminal-legal-aid-web-production

@@ -8,7 +8,7 @@ module PrometheusMetrics
     SERVER_BINDING_PORT = 9394
 
     CUSTOM_COLLECTORS = [
-      # Add custom collector classes here
+      PrometheusMetrics::ApplicationsCountCollector
     ].freeze
 
     # :nocov:
@@ -48,17 +48,14 @@ module PrometheusMetrics
       return unless start_server
 
       require 'prometheus_exporter/instrumentation'
-      require_relative 'grape_middleware'
+      require 'prometheus_exporter/middleware'
 
       Rails.logger.info '[PrometheusExporter] Initialising instrumentation middleware...'
 
       # Metrics will be prefixed, for example `ruby_http_requests_total`
       PrometheusExporter::Metric::Base.default_prefix = DEFAULT_PREFIX
 
-      # This reports stats per request like HTTP status and timings
-      # NOTE: as this is a Grape application, some custom labels are required
-      # so we implemented a custom middleware just for that
-      Rails.application.middleware.unshift PrometheusMetrics::GrapeMiddleware
+      Rails.application.middleware.unshift PrometheusExporter::Middleware
 
       # This reports basic process stats like RSS and GC info, type master
       # means it is instrumenting the master process
