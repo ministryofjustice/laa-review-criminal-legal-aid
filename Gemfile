@@ -4,16 +4,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('.ruby-version').chomp
 gem 'pg', '~> 1.4'
 gem 'puma'
-gem 'rails', '~> 7.0.3'
+gem 'rails'
 
 gem 'business'
 gem 'faraday'
-gem 'govuk-components', '~> 4.0.0'
-gem 'govuk_design_system_formbuilder', '~> 4.0.0'
+gem 'govuk-components'
+gem 'govuk_design_system_formbuilder'
 
 gem 'govuk_notify_rails'
 
-gem 'kaminari', '~> 1.2'
+gem 'kaminari'
 
 gem 'lograge'
 gem 'logstash-event'
@@ -22,7 +22,7 @@ gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client'
 
 gem 'laa-criminal-legal-aid-schemas',
-    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v0.6.0'
+    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v0.6.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -51,6 +51,9 @@ gem 'aws-sdk-sns', '~> 1.60', require: false
 
 gem 'aggregate_root'
 gem 'rails_event_store'
+
+# Monitoring
+gem 'prometheus_exporter'
 
 group :development, :test do
   gem 'debug'
