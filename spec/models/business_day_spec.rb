@@ -26,9 +26,18 @@ RSpec.describe BusinessDay do
       let(:day_zero) { '2023-07-07T23:04:35.351Z' }
       let(:age_in_business_days) { 0 }
 
-      it 'converts the time to the corresponding date in TZ London' do
-        expect(described_class.new(day_zero: '2023-07-07T23:04:35.351Z').date).to eq(Date.parse('2023-07-10'))
-        expect(described_class.new(day_zero: '2023-07-07T22:59:35.351Z').date).to eq(Date.parse('2023-07-07'))
+      context 'when BST' do
+        it 'converts the time to the corresponding date in TZ London' do
+          expect(described_class.new(day_zero: '2023-07-07T23:04:35.351Z').date).to eq(Date.parse('2023-07-10'))
+          expect(described_class.new(day_zero: '2023-07-07T22:59:35.351Z').date).to eq(Date.parse('2023-07-07'))
+        end
+      end
+
+      context 'when GMT' do
+        it 'converts the time to the corresponding date in TZ London' do
+          expect(described_class.new(day_zero: '2022-12-31T00:00:35.351Z').date).to eq(Date.parse('2023-01-03'))
+          expect(described_class.new(day_zero: '2022-12-30T23:59:35.351Z').date).to eq(Date.parse('2022-12-30'))
+        end
       end
     end
 

@@ -13,6 +13,10 @@ class BusinessDay
     calendar.subtract_business_days(day_zero, age_in_business_days)
   end
 
+  def business_days_since_day_zero
+    calendar.business_days_between(day_zero, Time.current.in_time_zone('London').to_date)
+  end
+
   private
 
   attr_reader :calendar, :day_zero
