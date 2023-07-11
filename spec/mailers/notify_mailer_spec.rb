@@ -7,7 +7,8 @@ RSpec.describe NotifyMailer do
   before do
     allow(Rails.configuration).to receive(:govuk_notify_templates).and_return(
       application_returned_email: 'application_returned_email_template_id',
-      access_granted_email: 'access_granted_email_template_id'
+      access_granted_email: 'access_granted_email_template_id',
+      onboarding_reply_to_address: 'onboarding_reply_to_address'
     )
   end
 
@@ -49,5 +50,6 @@ RSpec.describe NotifyMailer do
     it_behaves_like 'a Notify mailer', template_id: 'access_granted_email_template_id'
 
     it { expect(mail.to).to eq(['test@example.com']) }
+    it { expect(mail.govuk_notify_email_reply_to).to eq('onboarding_reply_to_address') }
   end
 end
