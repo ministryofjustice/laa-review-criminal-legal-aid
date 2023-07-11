@@ -19,6 +19,7 @@ RSpec.describe 'Error pages' do
 
       it 'uses the simplified error page layout' do
         expect(page).not_to have_css('nav.moj-primary-navigation')
+        expect(page).not_to have_link('Sign out')
       end
     end
 
@@ -34,18 +35,77 @@ RSpec.describe 'Error pages' do
 
       it 'uses the system user layout with navigation' do
         expect(page).to have_css('nav.moj-primary-navigation')
+        expect(page).to have_link('Sign out')
       end
     end
 
-    context 'when crime application is found' do
-      include_context 'with an existing application'
-
+    context 'when a datastore api error exists' do
       before do
-        visit "/applications/#{crime_application_id}"
+        stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
+          .to_raise error
+
+        visit '/'
       end
 
-      it 'shows the application' do
-        expect(page).to have_content 'AJ123456'
+      ['Review next application', 'All open applications', 'Closed applications'].each do |step|
+        let(:error) { DatastoreApi::Errors::Unauthorized.new }
+
+        context "when '#{step}' is clicked on" do
+          before do
+            allow(Rails.error).to receive(:report)
+            click_on step
+          end
+
+          it 'reports the exception' do
+            expect(Rails.error).to have_received(:report).with(error, hash_including(handled: true, severity: :error))
+          end
+
+          it 'shows an error message' do
+            expect(page).to have_content 'Sorry, something went wrong with our service'
+            expect(page).to have_content 'We cannot connect to our database'
+          end
+
+          it 'returns a 500 error status' do
+            expect(page).to have_http_status :internal_server_error
+          end
+
+          it 'uses the system user layout with navigation' do
+            expect(page).to have_css('nav.moj-primary-navigation')
+            expect(page).to have_link('Sign out')
+          end
+        end
+      end
+    end
+
+    context 'when viewing a crime application with a datastore error' do
+      before do
+        allow(Rails.error).to receive(:report)
+
+        stub_request(:get,
+                     "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}").to_raise(error)
+
+        visit crime_application_path(id: application_id)
+      end
+
+      let(:error) { DatastoreApi::Errors::ConnectionError.new }
+      let(:application_id) { SecureRandom.uuid }
+
+      it 'reports the exception' do
+        expect(Rails.error).to have_received(:report).with(error, hash_including(handled: true, severity: :error))
+      end
+
+      it 'shows an error message' do
+        expect(page).to have_content 'Sorry, something went wrong with our service'
+        expect(page).to have_content 'We cannot connect to our database'
+      end
+
+      it 'returns a 500 error status' do
+        expect(page).to have_http_status :internal_server_error
+      end
+
+      it 'uses the system user layout with navigation' do
+        expect(page).to have_css('nav.moj-primary-navigation')
+        expect(page).to have_link('Sign out')
       end
     end
 

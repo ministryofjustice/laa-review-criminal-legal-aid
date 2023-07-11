@@ -4,6 +4,12 @@ class ServiceController < ApplicationController
 
   helper_method :assignments_count
 
+  rescue_from DatastoreApi::Errors::ApiError do |e|
+    Rails.error.report(e, handled: true, severity: :error)
+
+    render status: :internal_server_error, template: 'errors/datastore_error'
+  end
+
   rescue_from DatastoreApi::Errors::NotFoundError do
     render status: :not_found, template: 'errors/application_not_found'
   end
