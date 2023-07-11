@@ -1,7 +1,7 @@
 class BusinessDay
   def initialize(day_zero:, age_in_business_days: 0, calendar: Calendar.new)
     @age_in_business_days = age_in_business_days
-    @day_zero = day_zero
+    @day_zero = day_zero.in_time_zone('London').to_date
     @calendar = calendar
   end
 
@@ -13,23 +13,11 @@ class BusinessDay
     calendar.subtract_business_days(day_zero, age_in_business_days)
   end
 
-  #
-  # The start of the date period whithin which an event's age in business days
-  # should be counted as #age_in_business_days.
-  #
-  def period_starts_on
-    previous_business_day.tomorrow
-  end
-
-  def period_ends_before
-    date.tomorrow
+  def business_days_since_day_zero
+    calendar.business_days_between(day_zero, Time.current.in_time_zone('London').to_date)
   end
 
   private
 
   attr_reader :calendar, :day_zero
-
-  def previous_business_day
-    calendar.subtract_business_days(day_zero, age_in_business_days + 1)
-  end
 end

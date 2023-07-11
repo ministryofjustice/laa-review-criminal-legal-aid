@@ -22,6 +22,25 @@ RSpec.describe BusinessDay do
       expect(business_day.date).to eq(Date.parse('2022-12-30'))
     end
 
+    context 'when date_zero is given as a time' do
+      let(:day_zero) { '2023-07-07T23:04:35.351Z' }
+      let(:age_in_business_days) { 0 }
+
+      context 'when BST' do
+        it 'converts the time to the corresponding date in TZ London' do
+          expect(described_class.new(day_zero: '2023-07-07T23:04:35.351Z').date).to eq(Date.parse('2023-07-10'))
+          expect(described_class.new(day_zero: '2023-07-07T22:59:35.351Z').date).to eq(Date.parse('2023-07-07'))
+        end
+      end
+
+      context 'when GMT' do
+        it 'converts the time to the corresponding date in TZ London' do
+          expect(described_class.new(day_zero: '2022-12-31T00:00:35.351Z').date).to eq(Date.parse('2023-01-03'))
+          expect(described_class.new(day_zero: '2022-12-30T23:59:35.351Z').date).to eq(Date.parse('2022-12-30'))
+        end
+      end
+    end
+
     describe '#date' do
       context 'when "age_in_business_days" is twenty' do
         let(:age_in_business_days) { 20 }
@@ -47,31 +66,6 @@ RSpec.describe BusinessDay do
           expect(business_day.date).not_to eq(day_zero)
           expect(business_day.date).to eq(Date.parse('2023-01-03'))
         end
-      end
-    end
-
-    describe '#period_starts_on' do
-      context 'when the previous day is a business day' do
-        let(:age_in_business_days) { 2 }
-
-        it 'returns the date' do
-          expect(business_day.period_starts_on).to eq(business_day.date)
-        end
-      end
-
-      context 'when the previous day is a non-business day' do
-        let(:age_in_business_days) { 1 }
-
-        it 'returns the date of the first non-business day after the prevous business day' do
-          expect(business_day.period_starts_on).not_to eq(business_day.date)
-          expect(business_day.period_starts_on).to eq(Date.parse('2022-12-31'))
-        end
-      end
-    end
-
-    describe '#period_ends_before' do
-      it 'the first date after the last day in the period' do
-        expect(business_day.period_ends_before).to eq(business_day.date.tomorrow)
       end
     end
   end
