@@ -17,7 +17,7 @@ class User < ApplicationRecord
     raise CannotDestroyIfActive if activated?
   end
 
-  attr_readonly :email
+  attr_readonly :email, :can_manage_others
 
   validates :email, uniqueness: true, on: :create
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -116,12 +116,6 @@ class User < ApplicationRecord
     elsif dormant?
       :dormant
     end
-  end
-
-  def allow_admin_right_change?(new_can_manage_others_value)
-    return true if new_can_manage_others_value
-
-    deactivatable?
   end
 
   class << self

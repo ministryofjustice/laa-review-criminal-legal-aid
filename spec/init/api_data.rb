@@ -25,16 +25,6 @@ RSpec.configure do |config|
     ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read, status: 200)
 
     #
-    # All DatastoreApi search requests are stubbed to return empty result sets by default.
-    # To return anything other than that include the shared_context "with stubbed search".
-    #
-    stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
-      .to_return(
-        body: { pagination: {}, records: [], sort: {} }.to_json,
-        status: 201
-      )
-
-    #
     # For an application not found on the datastore
     #
     stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/123")

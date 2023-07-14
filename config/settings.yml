@@ -1,12 +1,8 @@
 feature_flags:
-  developer_tools:
-    local: true
-    staging: true
-    production: false
   dev_auth:
     local: <%= ENV.fetch("DEV_AUTH_ENABLED", false) %>
     staging: false
-    production: false
+    production: false # must never be enabled in the live service
   allow_user_managers_service_access:
     local: false
     staging: true

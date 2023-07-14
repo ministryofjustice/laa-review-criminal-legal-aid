@@ -31,6 +31,7 @@ class NotifyMailer < GovukNotifyRails::Mailer
 
   def access_granted_email(email)
     set_template(:access_granted_email)
+    set_email_reply_to(:onboarding_reply_to_address)
 
     mail(to: email)
   end
@@ -39,6 +40,10 @@ class NotifyMailer < GovukNotifyRails::Mailer
 
   # rubocop:disable Naming/AccessorMethodName
   def set_template(name)
+    super(@template_ids.fetch(name))
+  end
+
+  def set_email_reply_to(name)
     super(@template_ids.fetch(name))
   end
   # rubocop:enable Naming/AccessorMethodName
