@@ -6,4 +6,4 @@ feature_flags:
   allow_user_managers_service_access:
     local: false
     staging: true
-    production: true
+    production: false # user managers should not access the service in production
