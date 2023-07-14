@@ -33,7 +33,8 @@ RSpec.describe 'Viewing an applications address details' do
                                                                     'address_line_two' => 'Second Road',
                                                                     'city' => 'London',
                                                                     'country' => 'London',
-                                                                    'postcode' => 'EC2A 2AA'
+                                                                    'postcode' => 'EC2A 2AA',
+                                                                    'lookup_id' => '1'
                                                                   } } })
       end
 

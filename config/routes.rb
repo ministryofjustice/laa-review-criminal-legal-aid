@@ -71,6 +71,5 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
-  mount RailsEventStore::Browser => "/event_browser" if Rails.env.development?
   root 'assigned_applications#index'
 end

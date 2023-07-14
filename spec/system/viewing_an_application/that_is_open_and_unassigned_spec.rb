@@ -99,7 +99,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'shows changes to details' do
-          expect(page).to have_content('Details of changes in financial circumstances Some details')
+          expect(page).to have_content('Changes in the client’s financial circumstances Some details')
         end
 
         it 'shows that previous maat id was not provided' do
@@ -113,7 +113,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'shows changes to details' do
-          expect(page).to have_content('Details of changes in financial circumstances Some details')
+          expect(page).to have_content('Changes in the client’s financial circumstances Some details')
         end
 
         it 'shows previous maat id' do
@@ -143,7 +143,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         super().deep_merge('case_details' => { 'offence_class' => 'C',
                                                 'offences' => [{ 'name' => 'Robbery',
                                                                 'offence_class' => 'C',
-                                                                'passportable' => true,
+                                                                'slipstreamable' => true,
                                                                 'dates' => [{
                                                                   'date_from' => '2020-12-12',
                                                                         'date_to' => nil
