@@ -143,7 +143,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         super().deep_merge('case_details' => { 'offence_class' => 'C',
                                                 'offences' => [{ 'name' => 'Robbery',
                                                                 'offence_class' => 'C',
-                                                                'passportable' => true,
+                                                                'slipstreamable' => true,
                                                                 'dates' => [{
                                                                   'date_from' => '2020-12-12',
                                                                         'date_to' => nil
