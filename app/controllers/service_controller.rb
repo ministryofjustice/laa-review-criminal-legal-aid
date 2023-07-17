@@ -1,6 +1,7 @@
 class ServiceController < ApplicationController
   before_action :authenticate_user!
   before_action :require_service_user!
+  before_action :set_security_headers
 
   helper_method :assignments_count
 
