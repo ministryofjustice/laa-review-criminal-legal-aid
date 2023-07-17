@@ -27,6 +27,7 @@ en:
         invitation_deleted: Invitation to %{email} has been deleted 
         invitation_renewed: Invitation to %{email} has been renewed 
         user_deactivated: "%{user_name} has been deactivated"
+        user_revived: "%{user_name} has been notified to revive their account"
         user_reactivated: "%{user_name} has been reactivated"
         user_invited: "%{email} has been invited"
         user_updated: "%{user_name} has been updated"

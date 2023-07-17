@@ -1,10 +1,17 @@
 module Admin
   module ManageUsers
     class ReviveUsersController < ManageUsersController
-      def edit
-        puts "REVIVE USERS CONTROLLER -> NEW"
+      before_action :set_active_user, only: [:edit]
 
-        redirect_to :back
+      def edit
+        set_flash :user_revived, user_name: @user.name
+        redirect_to admin_manage_users_root_path
+      end
+
+      private
+
+      def set_active_user
+        @user = User.active.find(params[:id])
       end
     end
   end
