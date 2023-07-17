@@ -2,6 +2,7 @@ module Admin
   class ManageUsersController < ApplicationController
     before_action :authenticate_user!
     before_action :require_user_manager!
+    before_action :set_security_headers
 
     layout 'manage_users'
 
