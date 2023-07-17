@@ -8,12 +8,14 @@ RSpec.describe ApplicationSearchFilter do
   include_context 'with stubbed assignments and reviews'
 
   describe '#assigned_status_options' do
-    subject(:assigned_status_options) { new.assigned_status_options }
+    subject(:assigned_status_options) { new.assigned_status_options.map(&:first) }
 
-    it 'list of unassigned, all_assigned, then all assignees sorted by name' do
-      expect(assigned_status_options.map(&:first)).to eq(
-        ['Unassigned', 'All assigned', 'David Brown', 'John Deere']
-      )
+    before do
+      User.create!(email: 'Not.Started@example.com', first_name: 'Not', last_name: 'Started')
+    end
+
+    it 'list of unassigned, all_assigned, then all caseworkers with assignments or reviews sorted by name' do
+      expect(assigned_status_options).to eq(['Unassigned', 'All assigned', 'David Brown', 'John Deere'])
     end
   end
 
