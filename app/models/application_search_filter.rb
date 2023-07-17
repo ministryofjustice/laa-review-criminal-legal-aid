@@ -56,9 +56,11 @@ class ApplicationSearchFilter < ApplicationStruct
   private
 
   def assigned_to_user_options
-    User.order(:first_name, :last_name).pluck(:id).map do |id|
-      [User.name_for(id), id]
-    end
+    user_ids = (
+      CurrentAssignment.distinct.pluck(:user_id) + Review.distinct.pluck(:reviewer_id)
+    ).uniq
+
+    user_ids.map { |id| [User.name_for(id), id] }.sort
   end
 
   # Returns the value of the DatastoreApi Search "application_id_in" constraint

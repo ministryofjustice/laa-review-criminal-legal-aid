@@ -18,34 +18,18 @@ RSpec.shared_context 'with stubbed assignments and reviews', shared_context: :me
   end
 
   let(:johns_applications) { [SecureRandom.uuid, SecureRandom.uuid] }
-  let(:davids_applications) { [SecureRandom.uuid, SecureRandom.uuid] }
+  let(:davids_applications) { [SecureRandom.uuid] }
 
   let(:current_assignment_ids) do
-    [
-      johns_applications.first, johns_applications.last,
-      davids_applications.first, davids_applications.last,
-    ]
+    [johns_applications.first, davids_applications.first]
   end
 
   before do
-    allow(CurrentAssignment).to receive(:assigned_to_ids).with(user_id: john.id) {
-      [johns_applications.first]
-    }
+    # rubocop:disable Rails/SkipsModelValidations
+    CurrentAssignment.insert({ user_id: john.id, assignment_id: johns_applications.first })
+    CurrentAssignment.insert({ user_id: david.id, assignment_id: davids_applications.first })
 
-    allow(CurrentAssignment).to receive(:assigned_to_ids).with(user_id: david.id) {
-      [davids_applications.first]
-    }
-
-    allow(Review).to receive(:reviewed_by_ids).with(user_id: john.id) {
-      [johns_applications.last]
-    }
-
-    allow(Review).to receive(:reviewed_by_ids).with(user_id: david.id) {
-      [davids_applications.last]
-    }
-
-    allow(CurrentAssignment).to receive(:pluck).with(:assignment_id) {
-      current_assignment_ids
-    }
+    Review.insert({ reviewer_id: john.id, application_id: johns_applications.last })
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end
