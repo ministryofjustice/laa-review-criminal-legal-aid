@@ -37,3 +37,7 @@ en:
     forbidden:
       page_title: Not authorised
       heading: Access to this service is restricted
+    datastore_error:
+      page_title: Unexpected error
+      heading: Sorry, something went wrong with our service
+      body_1: We cannot connect to our database. This means you cannot view, search, or review applications.

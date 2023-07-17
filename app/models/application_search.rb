@@ -51,8 +51,6 @@ class ApplicationSearch
   end
 
   def datastore_response
-    Rails.error.handle(DatastoreApi::Errors::BadRequest, fallback: -> { { records: [], pagination: {} } }) do
-      http_client.post('/searches', datastore_params)
-    end
+    http_client.post('/searches', datastore_params)
   end
 end

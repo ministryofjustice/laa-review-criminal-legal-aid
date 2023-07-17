@@ -36,6 +36,10 @@ Devise.setup do |config|
   #
   # Uses the DevAuth strategy if local and ENV["DEV_AUTH_ENABLED"] is true
 
+  if !HostEnv.local? && FeatureFlags.dev_auth.enabled?
+    raise "The DevAuth strategy must not be used in this environment"
+  end
+
   strategy_class = FeatureFlags.dev_auth.enabled? ? OmniAuth::Strategies::DevAuth : OmniAuth::Strategies::OpenIDConnect
 
   config.omniauth(
