@@ -2,7 +2,7 @@
   <ul class="govuk-summary-list__actions-list">
     <% if user.dormant? %>
       <li class="govuk-summary-list__actions-list-item">
-        <%= govuk_link_to action_text(:revive), '#', { no_visited_state: true } %>
+        <%= govuk_link_to action_text(:revive), new_admin_manage_users_revive_user_path(id: user), { no_visited_state: true } %>
       </li>
     <% else  %>
       <li class="govuk-summary-list__actions-list-item">

@@ -1,7 +1,7 @@
 module Admin
   module ManageUsers
     class ReviveUsersController < ManageUsersController
-      def new
+      def edit
         puts "REVIVE USERS CONTROLLER -> NEW"
 
         redirect_to :back
