@@ -30,6 +30,9 @@ RSpec.shared_context 'with stubbed assignments and reviews', shared_context: :me
     CurrentAssignment.insert({ user_id: david.id, assignment_id: davids_applications.first })
 
     Review.insert({ reviewer_id: john.id, application_id: johns_applications.last })
+
+    # Add a non reviewed application
+    Review.insert({ application_id: SecureRandom.uuid })
     # rubocop:enable Rails/SkipsModelValidations
   end
 end
