@@ -36,6 +36,13 @@ class NotifyMailer < GovukNotifyRails::Mailer
     mail(to: email)
   end
 
+  def revive_account_email(email)
+    set_template(:revive_account_email)
+    set_email_reply_to(:onboarding_reply_to_address)
+
+    mail(to: email)
+  end
+
   protected
 
   # rubocop:disable Naming/AccessorMethodName
