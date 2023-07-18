@@ -103,6 +103,10 @@ class User < ApplicationRecord
     activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
   end
 
+  def awaiting_revival?
+    dormant? && revive_until.present?
+  end
+
   # Overwrite the Devise model's #active_for_authentication? to return false
   # if the account is dormant or the invitation has exipired.
   def active_for_authentication?
