@@ -51,6 +51,7 @@ module LaaReviewCriminalLegalAid
 
     # Length of time before a user account invitation expires
     config.x.auth.invitation_ttl = 48.hours 
+    config.x.auth.invitation_ttl = 48.hours
 
     # The maximum time since a users was last authenticated on DOM1 before
     # they are automatically signed out.
@@ -59,15 +60,18 @@ module LaaReviewCriminalLegalAid
     # The maximum period of inactivity before a user is
     # automatically signed out.
     config.x.auth.timeout_in = 15.minutes
-    
+
     # The maximum period of inactivity before a user is
     # considered dormant.
     config.x.auth.dormant_account_threshold = 90.days
 
+    # Length of time before a dormant user account revive request expires.
+    config.x.auth.dormant_account_revive_ttl = 48.hours
+
     # Default page size for paging results
     config.x.admin.pagination_per_page = 50
 
-    #Onboarding email address for user contact
+    # Onboarding email address for user contact
     config.x.admin.onboarding_email = 'LAAapplyonboarding@justice.gov.uk'
 
     config.exceptions_app = ->(env) {

@@ -5,7 +5,7 @@ module Admin
 
       def edit
         if @user.dormant?
-          @user.revive_until = 48.hours.from_now
+          @user.revive_until = Rails.configuration.x.auth.dormant_account_revive_ttl.from_now
           @user.save!
           # send email to dormant user
           set_flash :user_revive, user_name: @user.name
