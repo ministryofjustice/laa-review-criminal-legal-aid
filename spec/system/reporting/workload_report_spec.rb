@@ -33,9 +33,15 @@ RSpec.describe 'Workload Report' do
     end
   end
 
-  it 'shows the correct row headers for the last row' do
+  it 'shows the correct row headers for three days' do
     within all('table tbody th')[3] do
-      expect(page).to have_content 'Between 3 and 9 days'
+      expect(page).to have_content '3 days'
+    end
+  end
+
+  it 'shows the correct row headers for the last row' do
+    within all('table tbody th')[4] do
+      expect(page).to have_content 'Between 4 and 9 days'
     end
   end
 end
