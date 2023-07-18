@@ -40,6 +40,11 @@ class NotifyMailer < GovukNotifyRails::Mailer
     set_template(:revive_account_email)
     set_email_reply_to(:onboarding_reply_to_address)
 
+    set_personalisation(
+      num_hours: Rails.configuration.x.auth.dormant_account_revive_ttl.in_hours.round,
+      onboarding_email: Rails.configuration.x.admin.onboarding_email
+    )
+
     mail(to: email)
   end
 

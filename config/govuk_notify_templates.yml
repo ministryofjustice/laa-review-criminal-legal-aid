@@ -15,8 +15,10 @@ production:
   application_returned_email: 'd0d8768b-2122-40a2-ba01-b4550f36805b'
   access_granted_email: '28ddb4dc-ac53-4298-ad55-ea32bc852ffb'
   onboarding_reply_to_address: 'ab9aa707-25c5-43ea-b079-be65e4aa5765'
+  revive_account_email: '' # TODO: Setup production template
 
 non-production:
   application_returned_email: 'cfee931f-6588-4814-a2e2-ad025946922f'
   access_granted_email: 'f2704460-a16c-46f0-ab6b-d868421c621a'
   onboarding_reply_to_address: '37a1aa3d-214a-40db-a44a-57a4631536a3'
+  revive_account_email: 'c21fcd2d-5135-4b0c-bd36-b412ed07681b'

@@ -8,7 +8,7 @@ module Admin
           @user.revive_until = Rails.configuration.x.auth.dormant_account_revive_ttl.from_now
           @user.save!
 
-          # send email to dormant user
+          NotifyMailer.revive_account_email(@user.email).deliver_now
           set_flash :user_revive, user_name: @user.name
         else
           set_flash :revive_denied, success: false, user_name: @user.name
