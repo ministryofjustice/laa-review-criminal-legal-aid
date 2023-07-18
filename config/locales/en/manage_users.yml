@@ -21,6 +21,7 @@ en:
       reactivate: Reactivate
       renew: Renew
       revive: Revive
+      awaiting_revival: Awaiting revival
 
     flash:
       success:
