@@ -271,11 +271,11 @@ en:
         completed: Application completed
         marked_as_ready: Application marked as ready for assessment
       authorising:
-        invited: User invited 
+        invited: User invited
         invite_renewed: Invitation renewed
-        activated: Account activated 
-        deactivated: Account deactivated 
-        reactivated: Account reactivated 
+        activated: Account activated
+        deactivated: Account deactivated
+        reactivated: Account reactivated
 
 
 
