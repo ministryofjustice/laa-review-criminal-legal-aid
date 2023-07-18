@@ -5,15 +5,14 @@ module Admin
 
       def edit
         if @user.dormant?
-          @user.revive_until = Time.zone.now + 48.hours
-          # set revive_until equal to today = today +48 hours
+          @user.revive_until = 48.hours.from_now
+          @user.save!
           # send email to dormant user
           set_flash :user_revive, user_name: @user.name
-          redirect_to admin_manage_users_root_path
         else
           set_flash :revive_denied, success: false, user_name: @user.name
-          redirect_to admin_manage_users_root_path
         end
+        redirect_to admin_manage_users_root_path
       end
 
       private
