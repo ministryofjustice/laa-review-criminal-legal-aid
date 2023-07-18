@@ -104,7 +104,7 @@ class User < ApplicationRecord
   end
 
   def awaiting_revival?
-    dormant? && revive_until.present?
+    dormant? && revive_until.present? && revive_until < Time.zone.now
   end
 
   # Overwrite the Devise model's #active_for_authentication? to return false
