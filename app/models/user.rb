@@ -100,7 +100,11 @@ class User < ApplicationRecord
   end
 
   def dormant?
-    activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
+    if activated? && revive_until.present? && revive_until > Time.zone.now
+      false
+    else
+      activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
+    end
   end
 
   def awaiting_revival?
