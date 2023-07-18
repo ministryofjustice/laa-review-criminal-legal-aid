@@ -29,7 +29,7 @@ module LaaReviewCriminalLegalAid
     # in config/environments, which are processed later.
     #
     # UTC is used as the application time_zone across Crime apply services. This
-    # means that all times must be converted to TZ London before formatting or 
+    # means that all times must be converted to TZ London before formatting or
     # converting to dates.
     #
     config.time_zone = "UTC"
@@ -50,7 +50,6 @@ module LaaReviewCriminalLegalAid
     # Authentication, authorization, and session configuration
 
     # Length of time before a user account invitation expires
-    config.x.auth.invitation_ttl = 48.hours 
     config.x.auth.invitation_ttl = 48.hours
 
     # The maximum time since a users was last authenticated on DOM1 before
