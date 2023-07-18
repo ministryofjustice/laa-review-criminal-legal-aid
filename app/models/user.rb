@@ -100,7 +100,7 @@ class User < ApplicationRecord
   end
 
   def dormant?
-    if activated? && revive_until.present? && revive_until > Time.zone.now
+    if awaiting_revival?
       false
     else
       activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
@@ -108,7 +108,7 @@ class User < ApplicationRecord
   end
 
   def awaiting_revival?
-    dormant? && revive_until.present? && revive_until < Time.zone.now
+    activated? && revive_until.present? && revive_until > Time.zone.now
   end
 
   # Overwrite the Devise model's #active_for_authentication? to return false
