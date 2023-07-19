@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   include AuthUpdateable
   include Reauthable
+  include Revivable
 
   before_create :set_invitation_expires_at
 
@@ -99,20 +100,6 @@ class User < ApplicationRecord
 
   def service_user?
     !can_manage_others?
-  end
-
-  def dormant?
-    return false if awaiting_revival? # Give dormant user opportunity to log in
-
-    revivable?
-  end
-
-  def revivable?
-    activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
-  end
-
-  def awaiting_revival?
-    revivable? && revive_until.present? && revive_until > Time.zone.now
   end
 
   # Overwrite the Devise model's #active_for_authentication? to return false

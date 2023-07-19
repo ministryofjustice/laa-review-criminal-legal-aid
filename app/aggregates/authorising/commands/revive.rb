@@ -3,8 +3,6 @@ module Authorising
     attribute :user_manager_id, Types::Uuid
 
     def call
-      return if user.revive_until.blank?
-
       user.transaction do
         user.update!(revive_until: nil)
 
