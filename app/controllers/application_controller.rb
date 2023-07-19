@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   # Redirect user managers to manage users' admin on sign in
   def after_sign_in_path_for(user)
+    user.revive
+
     return admin_manage_users_root_path if user.can_manage_others?
 
     super

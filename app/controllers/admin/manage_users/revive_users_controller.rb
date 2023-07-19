@@ -3,6 +3,7 @@ module Admin
     class ReviveUsersController < ManageUsersController
       before_action :set_active_user, only: [:edit]
 
+      # TODO: Generate RevivalAwaited Event
       def edit
         if @user.dormant?
           @user.revive_until = Rails.configuration.x.auth.dormant_account_revive_ttl.from_now

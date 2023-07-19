@@ -113,6 +113,11 @@ class User < ApplicationRecord
     revivable? && revive_until.present? && revive_until > Time.zone.now
   end
 
+  # TODO: Generate Revived Event
+  def revive
+    update!(revive_until: nil) if revive_until.present?
+  end
+
   # Overwrite the Devise model's #active_for_authentication? to return false
   # if the account is dormant or the invitation has exipired.
   def active_for_authentication?
