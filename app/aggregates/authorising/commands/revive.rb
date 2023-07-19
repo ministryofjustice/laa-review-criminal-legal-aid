@@ -1,7 +1,5 @@
 module Authorising
   class Revive < Command
-    attribute :user_manager_id, Types::Uuid
-
     def call
       user.transaction do
         user.update!(revive_until: nil)
@@ -13,7 +11,7 @@ module Authorising
     private
 
     def event
-      Revived.new(data: { user_id:, user_manager_id: })
+      Revived.new(data: { user_id: })
     end
   end
 end
