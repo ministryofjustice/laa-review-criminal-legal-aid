@@ -3,17 +3,20 @@ module Admin
     class ReviveUsersController < ManageUsersController
       before_action :set_active_user, only: [:edit]
 
-      # TODO: Generate RevivalAwaited Event
       def edit
         if @user.dormant?
-          @user.revive_until = Rails.configuration.x.auth.dormant_account_revive_ttl.from_now
-          @user.save!
+          Authorising::AwaitRevival.new(
+            user: @user,
+            user_manager_id: current_user_id
+          ).call
 
-          NotifyMailer.revive_account_email(@user.email).deliver_now
           set_flash :user_revive, user_name: @user.name
         else
           set_flash :revive_denied, success: false, user_name: @user.name
         end
+      rescue User::CannotAwaitRevival
+        set_flash :revive_denied, success: false, user_name: @user.name
+      ensure
         redirect_to admin_manage_users_root_path
       end
 

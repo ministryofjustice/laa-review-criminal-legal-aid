@@ -3,6 +3,8 @@ class User < ApplicationRecord
   class CannotRenewIfActive < StandardError; end
   class CannotDeactivate < StandardError; end
   class CannotReactivate < StandardError; end
+  class CannotAwaitRevival < StandardError; end
+  class CannotRevive < StandardError; end
 
   paginates_per Rails.configuration.x.admin.pagination_per_page
 
