@@ -1,6 +1,4 @@
-# A Devise style module to enforce the maximum time that can pass between
-# authentications regardless of user activity.
-#
+# A Devise style module to describe `revive` conditions for `dormant` users
 
 require 'warden_hooks/revivable'
 
