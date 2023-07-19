@@ -279,7 +279,7 @@ en:
         deactivated: Account deactivated
         reactivated: Account reactivated
         revival_awaited: Account revival requested
-
+        revived: Account revived
 
 
   landing:
