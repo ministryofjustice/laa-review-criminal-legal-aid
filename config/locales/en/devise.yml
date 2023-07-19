@@ -1,5 +1,5 @@
-# For Devise flash notices. 
-# Where the value is an array, the first item is used as the notification 
+# For Devise flash notices.
+# Where the value is an array, the first item is used as the notification
 # banner header, and subsequenty items as paragraphs.
 en:
   devise:
@@ -9,17 +9,17 @@ en:
           - For your security, we signed you out
           - This is because you were signed in for more than 12 hours.
           - Sign in again to continue using the service.
-        timeout: 
+        timeout:
           - For your security, we signed you out
-          - This is because you were inactive for 15 minutes.
+          - This is because you were inactive for 30 minutes.
           - Sign in again to continue using the service.
         unauthenticated:
           - Sign in to access the service
-        dormant: 
+        dormant:
           - You cannot access this service
           - This is because you have not signed in to the service for more than 90&nbsp;days.
           - Contact ONBOARDING_EMAIL_LINK to reactivate your account.
-        invitation_expired: 
+        invitation_expired:
           - You cannot access this service
           - Your invitation to access this service has expired.
           - Contact ONBOARDING_EMAIL_LINK for a new invitation.

@@ -12,12 +12,12 @@ en:
       confirm_renew: Yes, renew the invitation
       confirm_reactivate: Yes, reactivate
       deactivate: Deactivate
-      deactivated_users: Deactivated users 
+      deactivated_users: Deactivated users
       delete: Delete
       edit: Edit
-      existing_users: Existing users 
+      existing_users: Existing users
       give_access_to_manage_others: 'Give access to manage other users'
-      invited_users: Invited users 
+      invited_users: Invited users
       reactivate: Reactivate
       renew: Renew
       revive: Revive
@@ -25,8 +25,8 @@ en:
 
     flash:
       success:
-        invitation_deleted: Invitation to %{email} has been deleted 
-        invitation_renewed: Invitation to %{email} has been renewed 
+        invitation_deleted: Invitation to %{email} has been deleted
+        invitation_renewed: Invitation to %{email} has been renewed
         user_deactivated: "%{user_name} has been deactivated"
         user_revive: "%{user_name} has been notified to revive their account"
         user_reactivated: "%{user_name} has been reactivated"
@@ -54,9 +54,9 @@ en:
 
     table_headings:
       actions: Actions
-      deactivated_at: Deactivated 
+      deactivated_at: Deactivated
       email: Email
-      invitation_expires_at: Invitation expires 
+      invitation_expires_at: Invitation expires
       last_auth_at: Last authentication
       manage_others: Manage other users
       manager: Manager
@@ -74,10 +74,10 @@ en:
       email: "Enter the user's DOM1 email"
 
     event_descriptions:
-      invited: User invited 
-      activated: Account activated 
-      deactivated: Account deactivated 
-      reactivated: Account reactivated 
+      invited: User invited
+      activated: Account activated
+      deactivated: Account deactivated
+      reactivated: Account reactivated
 
 
   admin:
