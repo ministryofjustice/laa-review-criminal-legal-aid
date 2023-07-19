@@ -5,6 +5,8 @@ module Authorising
   class Activated < RailsEventStore::Event; end
   class Deactivated < RailsEventStore::Event; end
   class Reactivated < RailsEventStore::Event; end
+
+  # TODO: CRIMRE-416 new revival events
   class RevivalAwaited < RailsEventStore::Event; end
   class Revived < RailsEventStore::Event; end
 
