@@ -58,7 +58,7 @@ module LaaReviewCriminalLegalAid
 
     # The maximum period of inactivity before a user is
     # automatically signed out.
-    config.x.auth.timeout_in = 15.minutes
+    config.x.auth.timeout_in = 30.minutes
 
     # The maximum period of inactivity before a user is
     # considered dormant.

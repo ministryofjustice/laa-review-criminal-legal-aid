@@ -67,8 +67,6 @@ en:
       cannot_mark_as_ready_when_sent_back: This application was already sent back to the provider
       cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
-      cannot_send_back_when_completed: This application was already marked as complete
-      cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
 
     # flash.notice is only used by Devise and is treated as success.
     notice:
@@ -273,11 +271,11 @@ en:
         completed: Application completed
         marked_as_ready: Application marked as ready for assessment
       authorising:
-        invited: User invited 
+        invited: User invited
         invite_renewed: Invitation renewed
-        activated: Account activated 
-        deactivated: Account deactivated 
-        reactivated: Account reactivated 
+        activated: Account activated
+        deactivated: Account deactivated
+        reactivated: Account reactivated
 
 
 

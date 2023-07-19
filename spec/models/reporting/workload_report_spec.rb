@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Reporting::WorkloadReport do
-  subject(:report) { described_class.new day_zero: }
+  subject(:report) { described_class.new day_zero: day_zero, number_of_rows: 4 }
 
   let(:day_zero) { Date.parse('2023-01-04') }
 
@@ -68,11 +68,7 @@ RSpec.describe Reporting::WorkloadReport do
     end
   end
 
-  describe 'number of rows can be configured using :number_of_days' do
-    subject(:report) { described_class.new(number_of_rows: 7) }
-
-    it 'returns the counts for the four working days up to and including day_zero' do
-      expect(report.table.rows.size).to be 7
-    end
+  it 'number of rows defaults to 5' do
+    expect(described_class.new.table.rows.size).to be 5
   end
 end
