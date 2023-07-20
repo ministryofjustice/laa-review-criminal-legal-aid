@@ -36,7 +36,7 @@ Devise.setup do |config|
   #
   # Uses the DevAuth strategy if local and ENV["DEV_AUTH_ENABLED"] is true
 
-  if !HostEnv.local? && FeatureFlags.dev_auth.enabled?
+  if HostEnv.production? && FeatureFlags.dev_auth.enabled?
     raise "The DevAuth strategy must not be used in this environment"
   end
 
