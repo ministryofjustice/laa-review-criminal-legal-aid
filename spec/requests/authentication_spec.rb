@@ -152,4 +152,12 @@ RSpec.describe 'Authentication Session Initialisation' do
       expect(response.body).to include 'Access to this service is restricted'
     end
   end
+
+  context 'when a get request is made to the user auth path' do
+    it 'redirects to sign in page' do
+      get user_azure_ad_omniauth_authorize_path
+
+      expect(response).to redirect_to(unauthenticated_root_path)
+    end
+  end
 end

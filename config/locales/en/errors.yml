@@ -41,3 +41,8 @@ en:
       page_title: Unexpected error
       heading: Sorry, something went wrong with our service
       body_1: We cannot connect to our database. This means you cannot view, search, or review applications.
+    unprocessable_entity:
+      page_title: Request error
+      heading: Sorry, there is a problem with your request
+      body_1: You can go back, refresh the page, and try again.
+      body_2: If this problem continues, contact %{url} for help.
