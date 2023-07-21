@@ -8,7 +8,8 @@ RSpec.describe NotifyMailer do
     allow(Rails.configuration).to receive(:govuk_notify_templates).and_return(
       application_returned_email: 'application_returned_email_template_id',
       access_granted_email: 'access_granted_email_template_id',
-      onboarding_reply_to_address: 'onboarding_reply_to_address'
+      onboarding_reply_to_address: 'onboarding_reply_to_address',
+      revive_account_email: 'revive_account_email_template_id'
     )
   end
 
@@ -51,5 +52,24 @@ RSpec.describe NotifyMailer do
 
     it { expect(mail.to).to eq(['test@example.com']) }
     it { expect(mail.govuk_notify_email_reply_to).to eq('onboarding_reply_to_address') }
+  end
+
+  describe '#revive_account_email' do
+    let(:mail) do
+      described_class.revive_account_email('test@example.com')
+    end
+
+    let(:personalisation) do
+      {
+        num_hours: 48,
+        onboarding_email: 'LAAapplyonboarding@justice.gov.uk'
+      }
+    end
+
+    it_behaves_like 'a Notify mailer', template_id: 'revive_account_email_template_id'
+
+    it { expect(mail.to).to eq(['test@example.com']) }
+    it { expect(mail.govuk_notify_email_reply_to).to eq('onboarding_reply_to_address') }
+    it { expect(mail.govuk_notify_personalisation).to eq(personalisation) }
   end
 end
