@@ -172,8 +172,8 @@ RSpec.describe 'Revive a user' do
     end
   end
 
-  def login_as(user, skip_signout: false)
-    visit '/sign_out' unless skip_signout
+  def login_as(user)
+    visit '/sign_out'
     click_button 'Start now'
     select user.email
     click_button 'Sign in'
