@@ -21,12 +21,14 @@ en:
       reactivate: Reactivate
       renew: Renew
       revive: Revive
+      awaiting_revival: Awaiting revival
 
     flash:
       success:
         invitation_deleted: Invitation to %{email} has been deleted
         invitation_renewed: Invitation to %{email} has been renewed
         user_deactivated: "%{user_name} has been deactivated"
+        user_revive: "%{user_name} has been notified to revive their account"
         user_reactivated: "%{user_name} has been reactivated"
         user_invited: "%{email} has been invited"
         user_updated: "%{user_name} has been updated"
@@ -37,6 +39,7 @@ en:
           - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
         deactivation_denied: Unable to deactivate user. There must be at least two users who can manage others
         reactivation_denied: You cannot reactivate yourself
+        revive_denied: "%{user_name} does not have a dormant account"
 
     confirmations:
       deactivate_user: Are you sure you want to deactivate %{user_name}?

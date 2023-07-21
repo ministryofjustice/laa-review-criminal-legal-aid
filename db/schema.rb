@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_142944) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_17_115703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_142944) do
     t.boolean "can_manage_others", default: false, null: false
     t.datetime "deactivated_at", precision: nil
     t.datetime "invitation_expires_at"
+    t.datetime "revive_until"
     t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end

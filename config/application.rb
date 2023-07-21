@@ -64,10 +64,13 @@ module LaaReviewCriminalLegalAid
     # considered dormant.
     config.x.auth.dormant_account_threshold = 90.days
 
+    # Length of time before a dormant user account revive request expires.
+    config.x.auth.dormant_account_revive_ttl = 48.hours
+
     # Default page size for paging results
     config.x.admin.pagination_per_page = 50
 
-    #Onboarding email address for user contact
+    # Onboarding email address for user contact
     config.x.admin.onboarding_email = 'LAAapplyonboarding@justice.gov.uk'
 
     config.exceptions_app = ->(env) {

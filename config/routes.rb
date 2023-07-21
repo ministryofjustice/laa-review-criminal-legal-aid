@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       root 'active_users#index'
       resources :active_users, only: [:index]
       resources :history, only: [:show], controller: :history
+      resources :revive_users, only: [:edit]
 
       resources :invitations, only: [:index, :new, :destroy, :create, :update] do
         member do

@@ -37,6 +37,7 @@ RSpec.describe 'Authorisation' do
       confirm_destroy_admin_manage_users_invitation
       confirm_reactivate_admin_manage_users_deactivated_user
       confirm_renew_admin_manage_users_invitation
+      edit_admin_manage_users_revive_user
       edit_admin_manage_users_active_user
       new_admin_manage_users_deactivated_user
       new_admin_manage_users_invitation
