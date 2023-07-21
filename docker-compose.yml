@@ -25,6 +25,7 @@ services:
       DATABASE_SSLMODE: disable
       DISABLE_HTTPS: "1"
       DEV_AUTH_ENABLED: "true"
+      IS_LOCAL_DOCKER_ENV: "true"
     ports:
       - "3000:3000" # puma server (rails app)
       - "9394:9394" # prometheus exporter `/metrics` endpoint
