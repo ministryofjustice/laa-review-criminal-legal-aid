@@ -15,8 +15,6 @@ module Reviews
       update_from_aggregate(review_aggregate)
     end
 
-    private
-
     def update_from_aggregate(review_aggregate)
       Review.upsert(
         {
@@ -25,6 +23,7 @@ module Reviews
           submitted_at: review_aggregate.submitted_at,
           reviewer_id: review_aggregate.reviewer_id,
           parent_id: review_aggregate.parent_id,
+          business_day: review_aggregate.business_day
         },
         unique_by: :application_id
       )
