@@ -15,10 +15,6 @@ module ReceivedOnReports
     end
     # :nocov:
 
-    private
-
-    def business_day
-      @business_day = BusinessDay.new(day_zero: @review.submitted_at).date
-    end
+    delegate :business_day, to: :@review
   end
 end

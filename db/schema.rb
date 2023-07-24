@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_17_115703) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_24_092947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -59,7 +59,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_115703) do
     t.uuid "reviewer_id"
     t.uuid "parent_id"
     t.datetime "submitted_at", precision: nil
+    t.date "business_day"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
+    t.index ["business_day"], name: "index_reviews_on_business_day"
     t.index ["parent_id"], name: "index_reviews_on_parent_id"
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
     t.index ["state"], name: "index_reviews_on_state"
