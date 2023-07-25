@@ -40,6 +40,8 @@ RSpec.describe 'Error pages' do
     end
 
     context 'when a datastore api error exists' do
+      include_context 'with stubbed assignments and reviews'
+
       before do
         stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
           .to_raise error

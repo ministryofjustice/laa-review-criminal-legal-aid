@@ -71,6 +71,9 @@ Naming/BlockForwarding:
 RSpec/MultipleExpectations:
   Max: 2
 
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
+
 Rails/SkipsModelValidations:
   Exclude:
     - '**/app/read_models/**/*'

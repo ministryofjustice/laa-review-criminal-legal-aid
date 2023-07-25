@@ -38,8 +38,8 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'shows only closed applications' do
-    assert_api_searched_with_filter(
-      { application_status: 'closed' },
+    expect_datastore_to_have_been_searched_with(
+      { review_status: Types::REVIEW_STATUS_GROUPS['closed'] },
       sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
   end
