@@ -181,6 +181,7 @@ RSpec.describe 'Authorisation' do
     %w[
       _system_test_entrypoint
       api_events
+      datastore_api_health_engine
       destroy_user_session
       turbo_recede_historical_location
       turbo_refresh_historical_location
