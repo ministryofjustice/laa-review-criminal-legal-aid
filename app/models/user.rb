@@ -13,6 +13,7 @@ class User < ApplicationRecord
   include AuthUpdateable
   include Reauthable
   include Revivable
+  include UserRole
 
   before_create :set_invitation_expires_at
 
