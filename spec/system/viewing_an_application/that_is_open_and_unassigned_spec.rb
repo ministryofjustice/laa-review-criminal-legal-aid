@@ -261,7 +261,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
 
     it 'shows that the client home address was not provided' do
-      expect(page).to have_content('Home address Not provided')
+      expect(page).to have_content('Home address Does not have a home address')
     end
   end
 end

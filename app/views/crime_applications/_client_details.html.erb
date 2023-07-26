@@ -59,7 +59,7 @@
       <% if applicant.home_address %>
         <%= render 'crime_applications/address', address: applicant.home_address %>
       <% else %>
-        <%= t(:not_provided, scope: 'crime_applications.values') %>
+        <%= t(:no_home_address, scope: 'crime_applications.values') %>
       <% end %>
     </dd>
   </div>
