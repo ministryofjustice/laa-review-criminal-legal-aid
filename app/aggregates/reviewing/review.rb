@@ -99,7 +99,7 @@ module Reviewing
     end
 
     def received?
-      state != false
+      state != nil
     end
 
     def business_day
