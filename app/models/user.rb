@@ -13,7 +13,7 @@ class User < ApplicationRecord
   include AuthUpdateable
   include Reauthable
   include Revivable
-  include UserRole
+  include Capable
 
   before_create :set_invitation_expires_at
 
@@ -97,10 +97,6 @@ class User < ApplicationRecord
 
   def set_invitation_expires_at
     self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
-  end
-
-  def service_user?
-    !can_manage_others?
   end
 
   # Overwrite the Devise model's #active_for_authentication? to return false

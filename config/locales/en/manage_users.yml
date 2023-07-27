@@ -1,12 +1,15 @@
 en:
   manage_users:
     actions:
+      abandon_change_role: No, do not change role
       abandon_deactivate: No, do not deactivate
       abandon_reactivate: No, do not reactivate
       abandon_destroy: No, do not delete the invitation
       abandon_renew: No, do not renew the invitation
       add_new_user: Invite a user
       cancel: Cancel
+      change_role: Change role
+      confirm_change: Yes, change to %{new_role}
       confirm_deactivate: Yes, deactivate
       confirm_destroy: Yes, delete the invitation
       confirm_renew: Yes, renew the invitation
@@ -27,6 +30,7 @@ en:
       success:
         invitation_deleted: Invitation to %{email} has been deleted
         invitation_renewed: Invitation to %{email} has been renewed
+        user_change_role: "%{user_name}'s role has been changed from %{old_role} to %{new_role}"
         user_deactivated: "%{user_name} has been deactivated"
         user_revive: "%{user_name} has been notified to revive their account"
         user_reactivated: "%{user_name} has been reactivated"
@@ -42,12 +46,14 @@ en:
         revive_denied: "%{user_name} does not have a dormant account"
 
     confirmations:
+      change_role: "Are you sure you want to change %{user_name}'s role from %{current_role} to %{new_role}?"
       deactivate_user: Are you sure you want to deactivate %{user_name}?
       destroy_invitation: "Are you sure you want to delete %{email}'s invitation?"
       renew_invitation: "Are you sure you want to extend %{email}'s invitation for 48 hours?"
       reactivate_user: "Are you sure you want to reactivate %{user_name}'s account?"
 
     warnings:
+      change_role: This could mean %{user_name} may not be able to carry out all their duties or have too much visibility of sensitive information.
       deactivate_user: This will mean %{user_name} can no longer access this service.
       destroy_invitation: This will mean %{email} can no longer activate their account.
 
@@ -61,6 +67,7 @@ en:
       manage_others: Manage other users
       manager: Manager
       name: Name
+      role: Role
       what: What
       when: When
 
@@ -110,3 +117,7 @@ en:
         show:
           page_title: Authorisation history
           heading: "%{user_name_or_email}'s account history"
+      change_roles:
+        edit:
+          page_title: Change user role
+          heading: "Change %{user_name_or_email}'s current role"

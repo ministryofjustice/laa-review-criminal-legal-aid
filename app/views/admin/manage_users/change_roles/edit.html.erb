@@ -1,0 +1,18 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= confirm_text(:change_role, user_name: @user.name, current_role: @user.role.humanize.capitalize, new_role: @user.change_role_to.capitalize) %>
+    </h1>
+
+    <%= govuk_warning_text text: warning_text(:change_role, user_name: @user.name) %>
+
+    <%= form_with(url: admin_manage_users_change_role_path(id: @user), method: :patch) do |f| %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit action_text(:confirm_change, new_role: @user.change_role_to.capitalize) %>
+        <%= govuk_link_to action_text(:abandon_change_role), admin_manage_users_root_path, { no_visited_state: true }  %>
+      </div>
+    <% end %>
+  </div>
+</div>

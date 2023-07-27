@@ -12,6 +12,9 @@
       <li class="govuk-summary-list__actions-list-item">
         <%= govuk_link_to action_text(:deactivate), new_admin_manage_users_deactivated_user_path(id: user), { no_visited_state: true } %>
       </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to action_text(:change_role), edit_admin_manage_users_change_role_path(id: user), { no_visited_state: true } %>
+      </li>
     <% end %>
   </ul>
 <% end %>
