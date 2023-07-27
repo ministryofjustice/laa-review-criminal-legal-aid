@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_220616) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "user_role", ["caseworker", "supervisor", "user_manager"]
+  create_enum "user_role", ["caseworker", "supervisor"]
 
   create_table "current_assignments", id: false, force: :cascade do |t|
     t.uuid "user_id", null: false
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_220616) do
     t.datetime "deactivated_at", precision: nil
     t.datetime "invitation_expires_at"
     t.datetime "revive_until"
+    t.boolean "can_manage_others", default: false, null: false
     t.enum "role", default: "caseworker", null: false, enum_type: "user_role"
     t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
