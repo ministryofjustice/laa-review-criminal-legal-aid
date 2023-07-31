@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Reviews::UpdateFromAggregate' do
-  describe '#call' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+  describe '#call' do
     let(:application_id) { SecureRandom.uuid }
     let(:submitted_at) { '2023-04-22' }
     let(:business_day) { BusinessDay.new(day_zero: submitted_at).date }
@@ -26,7 +26,7 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
       Reviews::UpdateFromAggregate.new.call(event)
     end
 
-    describe 'the read model' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    describe 'the read model' do
       subject(:read_model) { Review.find_by(application_id:) }
 
       %i[application_id state submitted_at reviewer_id parent_id business_day].each do |attribute|

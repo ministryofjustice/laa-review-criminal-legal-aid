@@ -6,6 +6,10 @@ class ApplicationSearch
   end
 
   def results
+    # If the result set from the local Review database query is empty, we know we do not need to perform a
+    # datastore search.
+    return [] if @filter.datastore_results_will_be_empty?
+
     @results ||= datastore_search_response.map do |result|
       application = ApplicationSearchResult.new(result)
 

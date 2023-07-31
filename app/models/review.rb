@@ -1,4 +1,15 @@
 class Review < ApplicationRecord
+  scope :closed, -> { where.not(reviewer_id: nil) }
+  scope :open, -> { where(reviewer_id: nil) }
+
+  scope :unassigned, lambda {
+    open.where.not(application_id: CurrentAssignment.pluck(:assignment_id))
+  }
+
+  scope :by_age_in_business_days, lambda { |age|
+    where(business_day: BusinessDay.new(age_in_business_days: age).date)
+  }
+
   #
   # Review is a CQRS read model. It is configured by the
   # Reviews::Configuration class
