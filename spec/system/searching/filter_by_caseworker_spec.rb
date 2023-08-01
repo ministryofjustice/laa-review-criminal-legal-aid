@@ -2,15 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'Search applications casewoker filter' do
   include_context 'when search results are returned'
+  include_context 'with stubbed assignments and reviews'
+
+  let(:stubbed_search_results) { [] }
+
   let(:assigned_status_field) { 'filter-assigned-status-field' }
 
   before do
     visit '/'
-
-    user_id = User.last.id
-    Assigning::AssignToUser.new(
-      assignment_id: SecureRandom.uuid, user_id: user_id, to_whom_id: user_id
-    ).call
 
     click_link 'Search'
   end
@@ -22,9 +21,10 @@ RSpec.describe 'Search applications casewoker filter' do
     end
 
     it 'excludes assigned applications from the search' do
-      assert_api_searched_with_filter(
-        :assigned_status, 'unassigned'
-      )
+      expect_datastore_to_have_been_searched_with({
+                                                    review_status: Types::REVIEW_STATUS_GROUPS['open'],
+        application_id_in: unassigned_application_ids
+                                                  })
     end
 
     it 'remains selected on the results page' do
@@ -39,9 +39,10 @@ RSpec.describe 'Search applications casewoker filter' do
     end
 
     it 'excludes unassigned applications from the search' do
-      assert_api_searched_with_filter(
-        :assigned_status, 'assigned'
-      )
+      expect_datastore_to_have_been_searched_with({
+                                                    review_status: Types::REVIEW_STATUS_GROUPS['open'],
+        application_id_in: current_assignment_ids
+                                                  })
     end
 
     it 'remains selected on the results page' do
@@ -49,9 +50,27 @@ RSpec.describe 'Search applications casewoker filter' do
     end
   end
 
+  context 'when a user with assigned applications is selected' do
+    before do
+      select 'David Brown', from: assigned_status_field
+      click_button 'Search'
+    end
+
+    it 'excludes unassigned applications from the search' do
+      expect_datastore_to_have_been_searched_with({
+                                                    review_status: Types::REVIEW_STATUS_GROUPS['open'],
+        application_id_in: davids_applications
+                                                  })
+    end
+
+    it 'remains selected on the results page' do
+      expect(page).to have_select(assigned_status_field, selected: 'David Brown')
+    end
+  end
+
   describe 'options for selecting assigned status' do
     it 'can choose from "", "Unassigned", "All assigned", and caseworkers' do
-      choices = ['', 'Unassigned', 'All assigned', 'Joe EXAMPLE']
+      choices = ['', 'Unassigned', 'All assigned', 'David Brown', 'John Deere']
       expect(page).to have_select(assigned_status_field, options: choices)
     end
   end

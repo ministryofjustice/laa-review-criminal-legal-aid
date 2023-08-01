@@ -32,7 +32,9 @@ RSpec.describe 'Search applications status filter' do
       end
 
       it 'filters by status "completed"' do
-        assert_api_searched_with_filter(:application_status, 'sent_back')
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['sent_back'] }
+        )
         expect(page).to have_select(filter_field, selected: 'Sent back to provider')
       end
     end
@@ -44,7 +46,9 @@ RSpec.describe 'Search applications status filter' do
       end
 
       it 'filters by all statuses"' do
-        assert_api_searched_with_filter(:application_status, 'all')
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['all'] }
+        )
         expect(page).to have_select(filter_field, selected: 'All applications')
       end
     end

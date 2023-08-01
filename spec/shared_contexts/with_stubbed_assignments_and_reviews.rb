@@ -24,6 +24,8 @@ RSpec.shared_context 'with stubbed assignments and reviews', shared_context: :me
     [johns_applications.first, davids_applications.first]
   end
 
+  let(:unassigned_application_ids) { [SecureRandom.uuid] }
+
   before do
     # rubocop:disable Rails/SkipsModelValidations
     CurrentAssignment.insert({ user_id: john.id, assignment_id: johns_applications.first })
@@ -31,8 +33,14 @@ RSpec.shared_context 'with stubbed assignments and reviews', shared_context: :me
 
     Review.insert({ reviewer_id: john.id, application_id: johns_applications.last })
 
-    # Add a non reviewed application
-    Review.insert({ application_id: SecureRandom.uuid })
+    # Add non reviewed applications
+    unassigned_application_ids.each do |application_id|
+      Review.insert({
+                      application_id: application_id,
+        submitted_at: Time.current,
+        business_day: BusinessDay.new(day_zero: Time.current).date
+                    })
+    end
     # rubocop:enable Rails/SkipsModelValidations
   end
 end

@@ -1,5 +1,5 @@
 class BusinessDay
-  def initialize(day_zero:, age_in_business_days: 0, calendar: Calendar.new)
+  def initialize(day_zero: Time.current, age_in_business_days: 0, calendar: Calendar.new)
     @age_in_business_days = age_in_business_days
     @day_zero = day_zero.in_time_zone('London').to_date
     @calendar = calendar

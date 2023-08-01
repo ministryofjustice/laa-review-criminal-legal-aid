@@ -11,3 +11,7 @@ feature_flags:
     local: true
     staging: true
     production: false
+  filter_search_by_age_in_business_days:
+    local: true
+    staging: false
+    production: false

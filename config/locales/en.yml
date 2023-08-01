@@ -88,58 +88,58 @@ en:
     manage_users: Manage users
 
   labels: &LABELS
-    select_return_reason: Select the reason for returning this application
-    return_reason_details_legend: Give further details
-    return_reason_details: We'll share this information with the provider
+    age_in_business_days: Business days since received
+    applicant_date_of_birth: Applicant's date of birth
+    application_information: Application information
+    application_start_date: Date stamp
+    application_status: Status
+    application_type: Application type
     assigned_to: 'Assigned to:'
+    case_type: Case type
+    caseworker: Caseworker
     closed_by: 'Closed by:'
-    date_received: 'Date received:'
+    codefendant: Co-defendant %{number}
+    codefendants: Co-defendants
+    correspondence_address: Correspondence address
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
-
-    application_information: Application information
-    search_criteria: Search criteria
-    applicant_date_of_birth: Applicant's date of birth
-    caseworker: Caseworker
-    start_on: Date from
-    end_on: Date to
-    first_name: First name
-    last_name: Last name
-    other_names: Other names
-    case_type: Case type
     date_appeal_lodged: Date the appeal was lodged
-    financial_change_details: Changes in the client’s financial circumstances
-    previous_maat_id: Previous MAAT ID
-    national_insurance_number: National Insurance number
     date_of_birth: Date of birth
-    application_type: Application type
-    means_type: Means type
-    urn: Unique reference number
-    application_start_date: Date stamp
-    telephone_number: UK Telephone number
-    partner: Partner
+    date_received: 'Date received:'
+    end_on: Date to
+    financial_change_details: Changes in the client’s financial circumstances
+    first_name: First name
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
-    correspondence_address: Correspondence address
-    codefendant: Co-defendant %{number}
-    codefendants: Co-defendants
-    offence: Offence
-    offence_date: Offence date
-    overall_offence_class: Overall offence class
     interests_of_justice_type: Criteria
     justification: Justification
-    office_account_number: Office account number
+    last_name: Last name
     legal_representative: Legal representative
-    provider_phone_number: Phone
+    means_type: Means type
+    national_insurance_number: National Insurance number
+    offence: Offence
+    offence_date: Offence date
+    office_account_number: Office account number
+    other_names: Other names
+    overall_offence_class: Overall offence class
+    partner: Partner
+    previous_maat_id: Previous MAAT ID
     provider_email: Email address
+    provider_phone_number: Phone
+    return_reason_details: We'll share this information with the provider
+    return_reason_details_legend: Give further details
+    search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
+    select_return_reason: Select the reason for returning this application
+    start_on: Date from
+    telephone_number: UK Telephone number
+    undetermined: Undetermined
+    urn: Unique reference number
+    what: What
     when: When
     who: Who
-    what: What
-    application_status: Status
-    undetermined: Undetermined
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
@@ -165,6 +165,7 @@ en:
     deleted_user_name: '[deleted]'
     no_one: no one
     initial: Initial application
+    no_home_address: Does not have a home address
     home_address: Same as home address
     provider_address: Same as provider address
     providers_office_address: Same as provider address
@@ -339,6 +340,7 @@ en:
       closed_title: Closed applications
       open_heading: All open applications
       closed_heading: Closed applications
+      closed_body: These applications have been completed or sent back to the provider.
       total:
         one: 1 application
         other: "%{count} applications"
@@ -346,9 +348,6 @@ en:
         zero: There are no open applications that need to be reviewed.
         one: There is 1 open application that needs to be reviewed.
         other: "There are %{count} open applications that need to be reviewed."
-      total_closed:
-        one: There is 1 closed application that has been completed or sent back to the provider.
-        other: "There are %{count} closed applications that have been completed or sent back to the provider."
     show:
       page_title: Application
       heading: Application

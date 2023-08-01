@@ -38,14 +38,18 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'shows only closed applications' do
-    assert_api_searched_with_filter(
-      { application_status: 'closed' },
+    expect_datastore_to_have_been_searched_with(
+      { review_status: Types::REVIEW_STATUS_GROUPS['closed'] },
       sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
   end
 
   it 'includes the page title' do
     expect(page).to have_content I18n.t('crime_applications.index.closed_title')
+  end
+
+  it 'has the correct body' do
+    expect(page).to have_content('These applications have been completed or sent back to the provider.')
   end
 
   it 'includes the correct headings' do
@@ -58,10 +62,6 @@ RSpec.describe 'Closed Applications Dashboard' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
     reviewed_at = I18n.l(Time.current.in_time_zone('London'))
     expect(first_row_text).to eq("John Potter 6000002 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
-  end
-
-  it 'has the correct count' do
-    expect(page).to have_content('There is 1 closed application that has been completed or sent back to the provider.')
   end
 
   it 'can be used to navigate to an application' do

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Assigning an application to myself' do
   context 'when there is a next application' do
+    include_context 'with stubbed assignments and reviews'
     include_context 'when search results are returned'
 
     it 'allows you to get the next application' do

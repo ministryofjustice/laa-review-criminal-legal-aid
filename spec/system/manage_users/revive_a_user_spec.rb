@@ -102,7 +102,7 @@ RSpec.describe 'Revive a user' do
     end
   end
 
-  describe 'when user is not dormant' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+  describe 'when user is not dormant' do
     let(:normal_user) do
       User.create!(
         auth_subject_id: SecureRandom.uuid,
@@ -153,7 +153,7 @@ RSpec.describe 'Revive a user' do
     end
   end
 
-  describe 'when dormant user is deactivated' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+  describe 'when dormant user is deactivated' do
     let!(:inactive_user) do
       User.create!(
         auth_subject_id: SecureRandom.uuid,
