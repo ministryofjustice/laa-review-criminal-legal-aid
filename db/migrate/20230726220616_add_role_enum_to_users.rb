@@ -1,17 +1,15 @@
 class AddRoleEnumToUsers < ActiveRecord::Migration[7.0]
   def up
-    return unless FeatureFlags.basic_user_roles.enabled?
+    roles = Types::UserRole.values.map { |r| "'#{r}'" }.join(', ')
 
     execute <<-SQL
-      CREATE TYPE user_role AS ENUM ('caseworker', 'supervisor');
+      CREATE TYPE user_role AS ENUM (#{roles});
     SQL
 
     add_column :users, :role, :user_role, null: false, default: 'caseworker', index: true
   end
 
   def down
-    return unless FeatureFlags.basic_user_roles.enabled?
-
     remove_column :users, :role
 
     execute <<-SQL
