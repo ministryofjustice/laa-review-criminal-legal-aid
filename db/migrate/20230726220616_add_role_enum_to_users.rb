@@ -1,12 +1,15 @@
 class AddRoleEnumToUsers < ActiveRecord::Migration[7.0]
   def up
-    roles = Types::UserRole.values.map { |r| "'#{r}'" }.join(', ')
+    roles = [
+      Types::UserRole['caseworker'],
+      Types::UserRole['supervisor']
+    ].map { |r| "'#{r}'" }.join(', ')
 
     execute <<-SQL
       CREATE TYPE user_role AS ENUM (#{roles});
     SQL
 
-    add_column :users, :role, :user_role, null: false, default: 'caseworker', index: true
+    add_column :users, :role, :user_role, null: false, default: Types::UserRole['caseworker'], index: true
   end
 
   def down
