@@ -12,15 +12,15 @@ module UserRole
   end
 
   def can_read_application?
-    [CASEWORKER, SUPERVISOR].include?(@role)
+    [CASEWORKER, SUPERVISOR].include?(role)
   end
 
   def can_write_application?
-    [SUPERVISOR].include?(@role)
+    [SUPERVISOR].include?(role)
   end
 
   def service_user?
-    [CASEWORKER, SUPERVISOR].include?(@role) && !can_manage_others?
+    [CASEWORKER, SUPERVISOR].include?(role) && !can_manage_others?
   end
 
   def user_manager?
