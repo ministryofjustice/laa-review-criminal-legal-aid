@@ -64,7 +64,7 @@ RSpec.describe UserRole do
       it 'returns true for caseworker or supervisor' do
         user.can_manage_others = false
 
-        %w[caseworker supervisor].each do |role|
+        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
           user.role = role
           expect(user.service_user?).to be true
         end
@@ -75,7 +75,7 @@ RSpec.describe UserRole do
       it 'returns false for caseworker or supervisor' do
         user.can_manage_others = true
 
-        ['caseworker', 'supervisor'].each do |role|
+        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
           user.role = role
           expect(user.service_user?).to be false
         end
