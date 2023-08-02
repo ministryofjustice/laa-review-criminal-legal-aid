@@ -103,14 +103,19 @@ RSpec.describe 'Change user role' do
         instance_double(FeatureFlags::EnabledFeature, enabled?: false)
       }
       active_user
-      visit '/admin/manage_users/active_users'
 
+      visit '/admin/manage_users/active_users'
+    end
+
+    it 'does not show Change role action' do
       within user_row do
-        click_on('Change role')
+        expect(page).not_to have_content 'Change role'
       end
     end
 
-    it 'shows warning' do
+    it 'denies role change if forced via URL' do
+      visit "/admin/manage_users/change_roles/#{user.id}/edit"
+
       expect(page).to have_notification_banner(
         text: "Unable to change #{user.name}'s role",
         details: []
