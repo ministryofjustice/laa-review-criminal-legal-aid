@@ -13,5 +13,5 @@ feature_flags:
     production: false
   filter_search_by_age_in_business_days:
     local: true
-    staging: false
+    staging: true
     production: false
