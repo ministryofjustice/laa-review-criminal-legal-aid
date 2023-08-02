@@ -96,4 +96,40 @@ RSpec.describe 'Change user role' do
       end
     end
   end
+
+  describe 'when feature is disabled' do
+    before do
+      allow(FeatureFlags).to receive(:basic_user_roles) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+      active_user
+      visit '/admin/manage_users/active_users'
+
+      within user_row do
+        click_on('Change role')
+      end
+    end
+
+    it 'shows warning' do
+      expect(page).to have_notification_banner(
+        text: "Unable to change #{user.name}'s role",
+        details: []
+      )
+    end
+  end
+
+  describe 'when admin manipulates the URL' do
+    context 'with their own user id' do
+      before do
+        visit "/admin/manage_users/change_roles/#{current_user.id}/edit"
+        click_on 'Yes, change to Supervisor'
+      end
+
+      it 'shows warning' do
+        expect(page).to have_notification_banner(
+          text: "Unable to change #{current_user.name}'s role"
+        )
+      end
+    end
+  end
 end
