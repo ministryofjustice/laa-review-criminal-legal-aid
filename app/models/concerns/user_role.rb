@@ -29,10 +29,11 @@ module UserRole
 
   # TODO: Any reason to not allow supervisor to be 'downgraded' to caseworker?
   def can_change_role?
-    return false if dormant?
     return false unless activated?
+    return false if deactivated?
+    return false if dormant?
 
-    FeatureFlags.basic_user_roles.enabled? && activated?
+    FeatureFlags.basic_user_roles.enabled?
   end
 
   def toggle_role
