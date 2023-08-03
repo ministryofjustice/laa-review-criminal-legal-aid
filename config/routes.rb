@@ -53,6 +53,7 @@ Rails.application.routes.draw do
       resources :active_users, only: [:index]
       resources :history, only: [:show], controller: :history
       resources :revive_users, only: [:edit]
+      resources :change_roles, only: [:edit, :update]
 
       resources :invitations, only: [:index, :new, :destroy, :create, :update] do
         member do

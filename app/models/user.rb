@@ -5,6 +5,7 @@ class User < ApplicationRecord
   class CannotReactivate < StandardError; end
   class CannotAwaitRevival < StandardError; end
   class CannotRevive < StandardError; end
+  class CannotChangeRole < StandardError; end
 
   paginates_per Rails.configuration.x.admin.pagination_per_page
 

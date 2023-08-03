@@ -7,6 +7,7 @@ module Authorising
   class Reactivated < RailsEventStore::Event; end
   class RevivalAwaited < RailsEventStore::Event; end
   class Revived < RailsEventStore::Event; end
+  class RoleChanged < RailsEventStore::Event; end
 
   class << self
     def user_events(user_id)

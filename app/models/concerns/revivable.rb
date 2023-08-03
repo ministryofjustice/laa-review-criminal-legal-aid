@@ -12,7 +12,7 @@ module Revivable
   end
 
   def revivable?
-    activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
+    activated? && last_auth_at.present? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
   end
 
   def awaiting_revival?

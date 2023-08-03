@@ -47,7 +47,10 @@ RSpec.describe 'Deleting an invitation' do
     context 'when the invitation has expired' do
       before do
         user.update(invitation_expires_at: 1.hour.ago)
-        click_on('Delete')
+
+        within user_row do
+          click_on('Delete')
+        end
       end
 
       it 'shows the confirm page without the warning' do
