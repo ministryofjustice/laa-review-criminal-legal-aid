@@ -8,33 +8,30 @@
   </div>
 
   <div class="govuk-grid-column-one-half">
-      <% if @user.pending_activation? %>
-        <p>
-          <strong><%= label_text(:invitation_expires_at) %>:</strong>
-          <%= l(@user.invitation_expires_at, format: :datetime) %>
-        </p>
-      <% else %>
-        <p>
-          <strong><%= label_text(:email) %>:</strong>
-          <%= @user.email %>
-        <br>
-          <strong><%= label_text(:last_auth_at) %>:</strong>
-          <%= l(@user.last_auth_at, format: :datetime) %>
-        </p>
-      <% end %>
-    </p>
+    <% if @user.pending_activation? %>
+      <p>
+        <strong><%= label_text(:invitation_expires_at) %>:</strong>
+        <%= l(@user.invitation_expires_at, format: :datetime) %>
+      </p>
+    <% else %>
+      <p>
+        <strong><%= label_text(:email) %>:</strong>
+        <%= @user.email %>
+      <br>
+        <strong><%= label_text(:last_auth_at) %>:</strong>
+        <%= l(@user.last_auth_at, format: :datetime) %>
+      </p>
+    <% end %>
   </div>
 
   <div class="govuk-grid-column-full">
-    <div class="govuk-button-group">
-      <% if @user.activated? %>
-        <%= render partial: '/admin/manage_users/active_users/actions', locals: { user: @user } %>
-      <% elsif @user.deactivated? %>
-        <%= render partial: '/admin/manage_users/deactivated_users/actions', locals: { user: @user } %>
-      <% elsif @user.pending_activation? %>
-        <%= render partial: '/admin/manage_users/invitations/actions', locals: { user: @user } %>
-      <% end %>
-    </div>
+    <%= render partial: 'actions', locals: { user: @user } %>
+  </div>
+
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m">
+      Log
+    </h2>
 
     <table class="govuk-table app-dashboard-table">
       <thead class="govuk-table__head">
