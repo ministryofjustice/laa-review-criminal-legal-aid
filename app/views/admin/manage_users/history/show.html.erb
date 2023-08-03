@@ -26,6 +26,16 @@
   </div>
 
   <div class="govuk-grid-column-full">
+    <div class="govuk-button-group">
+      <% if @user.activated? %>
+        <%= render partial: '/admin/manage_users/active_users/actions', locals: { user: @user } %>
+      <% elsif @user.deactivated? %>
+        <%= render partial: '/admin/manage_users/deactivated_users/actions', locals: { user: @user } %>
+      <% elsif @user.pending_activation? %>
+        <%= render partial: '/admin/manage_users/invitations/actions', locals: { user: @user } %>
+      <% end %>
+    </div>
+
     <table class="govuk-table app-dashboard-table">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
