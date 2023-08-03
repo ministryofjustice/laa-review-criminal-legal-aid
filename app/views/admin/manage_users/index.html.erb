@@ -45,7 +45,6 @@
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <%= render partial: 'table_headers' %>
-          <th scope="col" class="govuk-table__header"><%= thead_text :actions %></th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -55,9 +54,6 @@
               <%= govuk_link_to(user.name_or_email, admin_manage_users_history_path(id: user), { no_visited_state: true }) %>
             </td>
             <%= render partial: 'table_cells', locals: { user: } %>
-            <td class="govuk-table__cell">
-              <%= render partial: 'actions', locals: { user: } %>
-            </td>
           </tr>
         <% end %>
       </tbody>
