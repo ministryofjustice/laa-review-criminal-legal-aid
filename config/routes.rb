@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :performance_tracking, only: [:index]
+
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :next_application, on: :collection
   end
