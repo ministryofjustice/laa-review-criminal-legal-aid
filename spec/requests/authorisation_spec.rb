@@ -164,7 +164,7 @@ RSpec.describe 'Authorisation' do
     include_context 'with stubbed search'
 
     before do
-      user = User.create(email: 'Ben.EXAMPLE@example.com', can_manage_others: true, role: Types::CASEWORKER_ROLE)
+      user = User.create(email: 'Ben.EXAMPLE@example.com', can_manage_others: true)
       sign_in user
     end
 
