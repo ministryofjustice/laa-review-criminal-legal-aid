@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Performance Tracking Dashboard' do
+RSpec.describe 'Performance Tracking' do
   describe 'User does not have access to performance tracking' do
     include_context 'when logged in user is admin'
 
