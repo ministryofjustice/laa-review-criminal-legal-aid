@@ -81,7 +81,7 @@ RSpec.describe 'Header navigation' do
                                                  }.from('Your list').to('Manage users')
       end
 
-      it 'shows the "Performance tracking" link and can follow it' do
+      it 'shows the "Performance tracking" link and it can be followed' do
         expect { click_link('Performance tracking') }.to change {
           page.first('.govuk-heading-xl').text
         }.from('Your list').to('Performance tracking')

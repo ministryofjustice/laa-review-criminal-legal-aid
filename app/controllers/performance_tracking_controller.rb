@@ -5,8 +5,7 @@ class PerformanceTrackingController < ServiceController
 
   private
 
-  # Users that can manage others are only allowed to access this page on staging.
-  # This is configured by the allow_user_managers_service_access feature flag.
+  # Users that can manage others can access this on staging for testing purposes.
   def require_supervisor!
     return if current_user.supervisor? && FeatureFlags.basic_user_roles.enabled?
     return if FeatureFlags.allow_user_managers_service_access.enabled?

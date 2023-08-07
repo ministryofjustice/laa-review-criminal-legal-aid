@@ -45,7 +45,6 @@ RSpec.describe 'Performance Tracking' do
 
     context 'when user managers are logged in on staging' do
       before do
-        # Override allow_user_managers_service_access as per staging
         allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
           instance_double(FeatureFlags::EnabledFeature, enabled?: true)
         }
