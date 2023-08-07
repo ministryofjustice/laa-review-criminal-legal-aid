@@ -89,7 +89,7 @@ en:
     manage_users: Manage users
 
   labels: &LABELS
-    age_in_business_days: Business days since received
+    age_in_business_days: Business days since application was received
     applicant_date_of_birth: Applicant's date of birth
     application_information: Application information
     application_start_date: Date stamp
