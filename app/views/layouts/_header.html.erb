@@ -2,7 +2,8 @@
   <%= header.with_navigation_item(text: current_user.name) %>
   <% if current_user.can_manage_others %>
     <%= header.with_navigation_item(text: t('.manage_users'), href: admin_manage_users_root_path) %>
-  <% elsif current_user.supervisor? && FeatureFlags.basic_user_roles.enabled? %>
+  <%end%>
+  <% if (current_user.supervisor? && FeatureFlags.basic_user_roles.enabled?) || FeatureFlags.allow_user_managers_service_access.enabled? %>
     <%= header.with_navigation_item(text: t('.performance_tracking'), href: performance_tracking_index_path) %>
   <% end %>
   <%= header.with_navigation_item(text: t('calls_to_action.sign_out'), href: destroy_user_session_path) %>
