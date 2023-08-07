@@ -14,7 +14,10 @@ RSpec.describe 'Search applications applicant date of birth filter' do
   end
 
   it 'searches by applicant date of birth' do
-    assert_api_searched_with_filter(:applicant_date_of_birth, dob)
+    expect_datastore_to_have_been_searched_with({
+                                                  applicant_date_of_birth: '2011-06-09',
+      review_status: Types::REVIEW_STATUS_GROUPS['open']
+                                                })
   end
 
   it 'remains selected on the results page' do

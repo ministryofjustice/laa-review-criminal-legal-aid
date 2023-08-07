@@ -10,7 +10,8 @@ class AuthorisationHistoryItem
   def description
     I18n.t(
       event_type.demodulize.underscore,
-      scope: 'event.description.authorising'
+      scope: 'event.description.authorising',
+      **data
     )
   end
 

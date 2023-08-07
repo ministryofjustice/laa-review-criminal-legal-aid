@@ -34,12 +34,13 @@ module Types
     *REVIEW_STATUS_GROUPS.keys
   )
 
-  USER_ROLES = %w[
-    caseworker
-    supervisor
+  CASEWORKER_ROLE = 'caseworker'.freeze
+  SUPERVISOR_ROLE = 'supervisor'.freeze
+  USER_ROLES = [
+    CASEWORKER_ROLE,
+    SUPERVISOR_ROLE
   ].freeze
-  UserRole = String.enum(*USER_ROLES)
-  UserRoles = Array.of(UserRole)
+  UserRole = String.default(CASEWORKER_ROLE).enum(*USER_ROLES)
 
   ASSIGNED_STATUSES = %w[
     unassigned

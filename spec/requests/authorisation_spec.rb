@@ -29,6 +29,7 @@ RSpec.describe 'Authorisation' do
     %w[
       admin_manage_users_active_user
       admin_manage_users_active_users
+      admin_manage_users_change_role
       admin_manage_users_deactivated_users
       admin_manage_users_history
       admin_manage_users_invitation
@@ -38,6 +39,8 @@ RSpec.describe 'Authorisation' do
       confirm_reactivate_admin_manage_users_deactivated_user
       confirm_renew_admin_manage_users_invitation
       edit_admin_manage_users_active_user
+      edit_admin_manage_users_change_role
+      edit_admin_manage_users_revive_user
       new_admin_manage_users_deactivated_user
       new_admin_manage_users_invitation
       reactivate_admin_manage_users_deactivated_user
@@ -56,6 +59,12 @@ RSpec.describe 'Authorisation' do
       root
       unauthenticated_root
       users_auth_failure
+    ]
+  end
+
+  let(:supervisor_routes) do
+    %w[
+      performance_tracking_index
     ]
   end
 
@@ -94,7 +103,7 @@ RSpec.describe 'Authorisation' do
     end
   end
 
-  describe 'an authenticated service user' do
+  describe 'an authenticated service user (caseworker)' do
     include_context 'with stubbed search'
     before do
       user = User.create(email: 'Ben.EXAMPLE@example.com')
@@ -107,14 +116,46 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'returns "Not found" for all user manager routes' do
+    it 'returns "Not found" for all user manager and supervisor routes' do
       configured_routes.each do |route|
-        next unless user_manager_routes.include?(route.name)
+        next unless (user_manager_routes & supervisor_routes).include?(route.name)
 
         visit_configured_route(route)
 
         expect(response).to have_http_status :not_found
         expect(response.body).to include('Page not found')
+      end
+    end
+  end
+
+  describe 'an authenticated service user (supervisor)' do
+    include_context 'with stubbed search'
+    before do
+      user = User.create(email: 'Ben.EXAMPLE@example.com', role: UserRole::SUPERVISOR)
+      sign_in user
+    end
+
+    it 'can access the service' do
+      get open_crime_applications_path
+
+      expect(response).to have_http_status :ok
+    end
+
+    context 'when supervisor service user' do
+      it 'returns "Not found" for all user manager routes' do
+        configured_routes.each do |route|
+          next unless user_manager_routes.include?(route.name)
+
+          visit_configured_route(route)
+
+          expect(response).to have_http_status :not_found
+          expect(response.body).to include('Page not found')
+        end
+      end
+
+      it 'can access performance tracking page' do
+        get performance_tracking_index_path
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -132,9 +173,9 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'is redirected to "admin manage users root" for all service routes' do
+    it 'is redirected to "admin manage users root" for all service and supervisor routes' do
       configured_routes.each do |route|
-        next unless service_user_routes.include?(route.name)
+        next unless (service_user_routes & supervisor_routes).include?(route.name)
 
         visit_configured_route(route)
 
@@ -164,7 +205,7 @@ RSpec.describe 'Authorisation' do
 
   it 'all configured routes are tested' do
     configured_routes.each do |route|
-      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes
+      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes + supervisor_routes
 
       expect(tested_routes.include?(route.name)).to be(true), "\"#{route.name}\" is not tested"
     end
@@ -180,6 +221,7 @@ RSpec.describe 'Authorisation' do
     %w[
       _system_test_entrypoint
       api_events
+      datastore_api_health_engine
       destroy_user_session
       turbo_recede_historical_location
       turbo_refresh_historical_location

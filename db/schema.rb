@@ -10,11 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_142944) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_220616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "user_role", ["caseworker", "supervisor"]
 
   create_table "current_assignments", id: false, force: :cascade do |t|
     t.uuid "user_id", null: false
@@ -59,7 +63,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_142944) do
     t.uuid "reviewer_id"
     t.uuid "parent_id"
     t.datetime "submitted_at", precision: nil
+    t.date "business_day"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
+    t.index ["business_day"], name: "index_reviews_on_business_day"
     t.index ["parent_id"], name: "index_reviews_on_parent_id"
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
     t.index ["state"], name: "index_reviews_on_state"
@@ -75,9 +81,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_142944) do
     t.datetime "last_auth_at", precision: nil
     t.datetime "first_auth_at", precision: nil
     t.string "auth_subject_id"
-    t.boolean "can_manage_others", default: false, null: false
     t.datetime "deactivated_at", precision: nil
     t.datetime "invitation_expires_at"
+    t.datetime "revive_until"
+    t.boolean "can_manage_others", default: false, null: false
+    t.enum "role", default: "caseworker", null: false, enum_type: "user_role"
     t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end

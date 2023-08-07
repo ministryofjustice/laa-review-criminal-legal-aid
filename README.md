@@ -51,6 +51,9 @@ The last user in the list is "Not.Authorised@example.com." Select this user to s
 
 This authentication strategy can be disabled locally by setting ```DEV_AUTH_ENABLED=false```
 
+**NOTE:** The dev_auth authentication strategy has been enabled for local development and docker-compose by setting ```DEV_AUTH_ENABLED=true``` and ```IS_LOCAL_DOCKER_ENV=true```.
+This must never be enabled in the live (staging/production) service in it's current form as it will expose sensitive information.
+
 ## Local development with the temporary API gem
 
 The app utilises [puma-dev](https://github.com/puma/puma-dev) for local development.

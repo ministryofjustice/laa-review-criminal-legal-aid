@@ -6,7 +6,7 @@ module Reporting
     # to applications that were received zero business days ago. The second row
     # applications received one business day ago, and so on, until the last row, which
     # includes a count up to the specified 'last_row_limit_in_days'.
-    def initialize(number_of_rows: 4, day_zero: Time.current, last_row_limit_in_days: 9)
+    def initialize(number_of_rows: 5, day_zero: Time.current, last_row_limit_in_days: 9)
       @number_of_rows = number_of_rows
       @day_zero = day_zero.in_time_zone('London').to_date
       @last_row_limit_in_days = last_row_limit_in_days

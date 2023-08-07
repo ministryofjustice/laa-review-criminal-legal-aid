@@ -37,4 +37,9 @@ class ApplicationController < ActionController::Base
     flash[flash_key] = message
     # rubocop:enable Rails/ActionControllerFlashBeforeRender
   end
+
+  def set_security_headers
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+  end
 end

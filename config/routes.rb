@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount DatastoreApi::HealthEngine::Engine => '/datastore'
+
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
 
@@ -41,6 +43,8 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :performance_tracking, only: [:index]
+
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :next_application, on: :collection
   end
@@ -50,6 +54,8 @@ Rails.application.routes.draw do
       root 'active_users#index'
       resources :active_users, only: [:index]
       resources :history, only: [:show], controller: :history
+      resources :revive_users, only: [:edit]
+      resources :change_roles, only: [:edit, :update]
 
       resources :invitations, only: [:index, :new, :destroy, :create, :update] do
         member do

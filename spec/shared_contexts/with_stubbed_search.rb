@@ -35,24 +35,23 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
   end
 
   before do
-    allow(http_client).to receive(:post) { datastore_response }
-    #
-    # Temporarily allow any instance of.
-    # TODO remove when datastore api client has been updated.
-    #
-    # rubocop:disable RSpec::AnyInstance
-    allow_any_instance_of(ApplicationSearch).to receive(:http_client) { http_client }
-    # rubocop:enable RSpec::AnyInstance
+    stub_request(
+      :post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches"
+    ).and_return(body: datastore_response.to_json)
   end
 
-  def assert_api_searched_with_filter(*params, sorting: Sorting.new, pagination: Pagination.new)
-    expect(http_client).to have_received(:post).with(
-      '/searches',
-      {
-        search: ApplicationSearchFilter.new(**Hash[*params]).datastore_params,
+  def expect_datastore_to_have_been_searched_with(*params, sorting: Sorting.new, pagination: Pagination.new)
+    expect(WebMock).to have_requested(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches").with(
+      body: {
+        search: Hash[*params],
         sorting: sorting.to_h,
         pagination: pagination.datastore_params
-      }
+      },
+      headers: { 'Content-Type' => 'application/json' }
     )
+  end
+
+  def expect_datastore_not_to_have_been_searched
+    expect(WebMock).not_to have_requested(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
   end
 end

@@ -99,7 +99,11 @@ module Reviewing
     end
 
     def received?
-      state != nil
+      !!state
+    end
+
+    def business_day
+      BusinessDay.new(day_zero: @submitted_at).date
     end
   end
 end

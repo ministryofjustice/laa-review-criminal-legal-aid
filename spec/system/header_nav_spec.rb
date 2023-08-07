@@ -82,4 +82,29 @@ RSpec.describe 'Header navigation' do
       end
     end
   end
+
+  context 'when user does not have access to the performance tracking tab' do
+    before do
+      visit '/'
+    end
+
+    it 'does not have a link to performance tracking' do
+      header = page.first('.govuk-header__navigation-list').text
+      expect(header).not_to include('Performance tracking')
+    end
+  end
+
+  context 'when a user has access to the performance tracking tab' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      visit '/'
+    end
+
+    it 'shows the "Performance tracking" link and can follow it' do
+      expect { click_link('Performance tracking') }.to change {
+        page.first('.govuk-heading-xl').text
+      }.from('Your list').to('Performance tracking')
+    end
+  end
 end

@@ -1,5 +1,12 @@
 RSpec.shared_context 'with an existing user', shared_context: :metadata do
-  let(:active_user) { user }
+  let(:active_user) do
+    user.update(
+      first_auth_at: rand(0...90).days.ago,
+      last_auth_at: rand(0...90).days.ago
+    )
+
+    user
+  end
 
   let(:user) do
     User.create!(

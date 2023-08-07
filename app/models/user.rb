@@ -3,6 +3,9 @@ class User < ApplicationRecord
   class CannotRenewIfActive < StandardError; end
   class CannotDeactivate < StandardError; end
   class CannotReactivate < StandardError; end
+  class CannotAwaitRevival < StandardError; end
+  class CannotRevive < StandardError; end
+  class CannotChangeRole < StandardError; end
 
   paginates_per Rails.configuration.x.admin.pagination_per_page
 
@@ -10,6 +13,8 @@ class User < ApplicationRecord
 
   include AuthUpdateable
   include Reauthable
+  include Revivable
+  include UserRole
 
   before_create :set_invitation_expires_at
 
@@ -93,14 +98,6 @@ class User < ApplicationRecord
 
   def set_invitation_expires_at
     self.invitation_expires_at = Rails.configuration.x.auth.invitation_ttl.from_now
-  end
-
-  def service_user?
-    !can_manage_others?
-  end
-
-  def dormant?
-    activated? && last_auth_at < Rails.configuration.x.auth.dormant_account_threshold.ago
   end
 
   # Overwrite the Devise model's #active_for_authentication? to return false

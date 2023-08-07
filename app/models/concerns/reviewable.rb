@@ -3,7 +3,8 @@ module Reviewable
     @review ||= Reviewing::LoadReview.call(application_id: id)
   end
 
-  delegate :reviewed_at, :reviewer_id, :reviewed?, :superseded_by, :superseded_at, to: :review
+  delegate :reviewed_at, :reviewer_id, :reviewed?, :superseded_by, :superseded_at,
+           :business_day, to: :review
 
   def review_status
     review.state

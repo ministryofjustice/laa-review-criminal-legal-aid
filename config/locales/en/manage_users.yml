@@ -1,32 +1,38 @@
 en:
   manage_users:
     actions:
+      abandon_change_role: No, do not change role
       abandon_deactivate: No, do not deactivate
       abandon_reactivate: No, do not reactivate
       abandon_destroy: No, do not delete the invitation
       abandon_renew: No, do not renew the invitation
       add_new_user: Invite a user
       cancel: Cancel
+      change_role: Change role
+      confirm_change: Yes, change to %{new_role}
       confirm_deactivate: Yes, deactivate
       confirm_destroy: Yes, delete the invitation
       confirm_renew: Yes, renew the invitation
       confirm_reactivate: Yes, reactivate
       deactivate: Deactivate
-      deactivated_users: Deactivated users 
+      deactivated_users: Deactivated users
       delete: Delete
       edit: Edit
-      existing_users: Existing users 
+      existing_users: Existing users
       give_access_to_manage_others: 'Give access to manage other users'
-      invited_users: Invited users 
+      invited_users: Invited users
       reactivate: Reactivate
       renew: Renew
       revive: Revive
+      awaiting_revival: Awaiting revival
 
     flash:
       success:
-        invitation_deleted: Invitation to %{email} has been deleted 
-        invitation_renewed: Invitation to %{email} has been renewed 
+        invitation_deleted: Invitation to %{email} has been deleted
+        invitation_renewed: Invitation to %{email} has been renewed
+        user_change_role: "%{user_name}'s role has been changed from %{from} to %{to}"
         user_deactivated: "%{user_name} has been deactivated"
+        user_revive: "%{user_name} has been notified to revive their account"
         user_reactivated: "%{user_name} has been reactivated"
         user_invited: "%{email} has been invited"
         user_updated: "%{user_name} has been updated"
@@ -35,29 +41,40 @@ en:
         cannot_access:
           - You do not have access to that page
           - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
+        change_role_denied: "Unable to change %{user_name}'s role"
         deactivation_denied: Unable to deactivate user. There must be at least two users who can manage others
         reactivation_denied: You cannot reactivate yourself
+        revive_denied: "%{user_name} does not have a dormant account"
 
     confirmations:
+      change_role: "Are you sure you want to change %{user_name}'s role from %{from} to %{to}?"
       deactivate_user: Are you sure you want to deactivate %{user_name}?
       destroy_invitation: "Are you sure you want to delete %{email}'s invitation?"
       renew_invitation: "Are you sure you want to extend %{email}'s invitation for 48 hours?"
       reactivate_user: "Are you sure you want to reactivate %{user_name}'s account?"
 
     warnings:
+      change_role: This could mean %{user_name} may not be able to carry out all their duties or have too much visibility of sensitive information.
       deactivate_user: This will mean %{user_name} can no longer access this service.
       destroy_invitation: This will mean %{email} can no longer activate their account.
 
+    exceptions:
+      commands:
+        change_role:
+          unchangeable: User roles are disabled
+          illegal: User cannot change own role
+          same: New role must be different
 
     table_headings:
       actions: Actions
-      deactivated_at: Deactivated 
+      deactivated_at: Deactivated
       email: Email
-      invitation_expires_at: Invitation expires 
+      invitation_expires_at: Invitation expires
       last_auth_at: Last authentication
       manage_others: Manage other users
       manager: Manager
       name: Name
+      role: Role
       what: What
       when: When
 
@@ -71,11 +88,10 @@ en:
       email: "Enter the user's DOM1 email"
 
     event_descriptions:
-      invited: User invited 
-      activated: Account activated 
-      deactivated: Account deactivated 
-      reactivated: Account reactivated 
-
+      invited: User invited
+      activated: Account activated
+      deactivated: Account deactivated
+      reactivated: Account reactivated
 
   admin:
     manage_users:
@@ -107,3 +123,7 @@ en:
         show:
           page_title: Authorisation history
           heading: "%{user_name_or_email}'s account history"
+      change_roles:
+        edit:
+          page_title: Change user role
+          heading: "Change %{user_name_or_email}'s current role"

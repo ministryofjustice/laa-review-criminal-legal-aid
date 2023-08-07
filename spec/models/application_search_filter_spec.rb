@@ -8,32 +8,36 @@ RSpec.describe ApplicationSearchFilter do
   include_context 'with stubbed assignments and reviews'
 
   describe '#assigned_status_options' do
-    subject(:assigned_status_options) { new.assigned_status_options }
+    subject(:assigned_status_options) { new.assigned_status_options.map(&:first) }
 
-    it 'list of unassigned, all_assigned, then all assignees sorted by name' do
-      expect(assigned_status_options.map(&:first)).to eq(
-        ['Unassigned', 'All assigned', 'David Brown', 'John Deere']
-      )
+    before do
+      User.create!(email: 'Not.Started@example.com', first_name: 'Not', last_name: 'Started')
+    end
+
+    it 'list of unassigned, all_assigned, then all caseworkers with assignments or reviews sorted by name' do
+      expect(assigned_status_options).to eq(['Unassigned', 'All assigned', 'David Brown', 'John Deere'])
+    end
+  end
+
+  describe '#age_in_business_days_options' do
+    subject(:age_in_business_days_options) { new.age_in_business_days_options }
+
+    it "lists options as '0 days', '1 day', '2 days', '3 days'" do
+      expect(age_in_business_days_options.map(&:first)).to eq(['0 days', '1 day', '2 days', '3 days'])
     end
   end
 
   describe '#datastore_params' do
     subject(:datastore_params) { new.datastore_params }
 
-    let(:expected_datastore_params) do
-      {
-        applicant_date_of_birth: nil,
-        application_id_in: [],
-        application_id_not_in: [],
-        review_status: %w[application_received ready_for_assessment],
-        submitted_after: nil,
-        submitted_before: nil,
-        search_text: nil
-      }
-    end
-
     context 'when the filter is empty' do
-      it 'returns the correct datastore api search params' do
+      let(:expected_datastore_params) do
+        {
+          review_status: %w[application_received ready_for_assessment],
+        }
+      end
+
+      it 'returns the correct datastore api search params for all open applications' do
         expect(datastore_params).to eq(expected_datastore_params)
       end
     end
@@ -54,13 +58,22 @@ RSpec.describe ApplicationSearchFilter do
           submitted_after: Date.parse('2022-12-22'),
           submitted_before: Date.parse('2022-12-21'),
           search_text: 'David 100003',
-          application_id_not_in: [],
           review_status: %w[returned_to_provider]
         }
       end
 
       it 'returns the correct datastore api search params' do
         expect(datastore_params).to eq expected_datastore_params
+      end
+    end
+
+    context 'when we know a datastore search result will be empty from the review filters' do
+      let(:params) do
+        { search_text: 'David 100003', assigned_status: SecureRandom.uuid }
+      end
+
+      it 'knows if a datastore search is required' do
+        expect(new.datastore_results_will_be_empty?).to be true
       end
     end
   end
@@ -81,17 +94,14 @@ RSpec.describe ApplicationSearchFilter do
     end
   end
 
-  describe 'translating the assigned_status into search params' do
+  describe 'translating the review filters into datastore search params' do
     let(:application_id_in) { new.datastore_params.fetch(:application_id_in) }
-    let(:application_id_not_in) { new.datastore_params.fetch(:application_id_not_in) }
 
     context 'when a user is specified' do
       let(:params) { { assigned_status: john.id } }
 
       it 'sets "application_id_in" to user\'s "assignment_id"s and "reviewed_id"s' do
         expect(application_id_in).to eq(johns_applications)
-
-        expect(application_id_not_in).to be_empty
       end
     end
 
@@ -100,16 +110,40 @@ RSpec.describe ApplicationSearchFilter do
 
       it 'sets "application_id_in" to all assignment_ids' do
         expect(application_id_in).to eq current_assignment_ids
-        expect(application_id_not_in).to be_empty
       end
     end
 
     context 'when unassigned is specified' do
       let(:params) { { assigned_status: 'unassigned' } }
 
-      it 'sets "application_id_not_in" to user\'s "assignment_id"s' do
-        expect(application_id_not_in).to eq current_assignment_ids
-        expect(application_id_in).to be_empty
+      it 'sets "application_id_in" to all unassigned application ids' do
+        expect(application_id_in).to eq unassigned_application_ids
+      end
+    end
+
+    describe 'when multiple review filters are set' do
+      context 'when at least one application satisfies both review filters' do
+        let(:params) { { assigned_status: 'unassigned', age_in_business_days: 0 } }
+
+        it 'sets the intersection as the "application_id_in"' do
+          expect(application_id_in).to eq unassigned_application_ids
+        end
+
+        it 'does not know that datastore_results_will_be_empty' do
+          expect(new.datastore_results_will_be_empty?).to be false
+        end
+      end
+
+      context 'when no application satisfies both review filters' do
+        let(:params) { { assigned_status: 'unassigned', age_in_business_days: 1 } }
+
+        it '"application_id_in" are empty' do
+          expect(application_id_in).to be_empty
+        end
+
+        it 'knows that the datastore_results_will_be_empty' do
+          expect(new.datastore_results_will_be_empty?).to be true
+        end
       end
     end
   end
