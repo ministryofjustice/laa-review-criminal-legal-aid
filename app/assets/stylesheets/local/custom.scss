@@ -16,6 +16,10 @@ form.search {
   input[type=date] {
     width: 8em;
   }
+
+  select#filter-age-in-business-days-field.govuk-select {
+    width: 100%;
+  }
 }
 
 p.help-text, #superseded_style  {
