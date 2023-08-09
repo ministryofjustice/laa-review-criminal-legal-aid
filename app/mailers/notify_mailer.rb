@@ -48,6 +48,21 @@ class NotifyMailer < GovukNotifyRails::Mailer
     mail(to: email)
   end
 
+  def role_changed_email(user)
+    admin_emails = User.admins.map(&:email).join('; ')
+
+    set_template(:role_changed_email)
+    set_email_reply_to(:onboarding_reply_to_address)
+
+    set_personalisation(
+      user_name: user.name,
+      role_name: user.role.humanize,
+      onboarding_email: Rails.configuration.x.admin.onboarding_email
+    )
+
+    mail(to: admin_emails)
+  end
+
   protected
 
   # rubocop:disable Naming/AccessorMethodName

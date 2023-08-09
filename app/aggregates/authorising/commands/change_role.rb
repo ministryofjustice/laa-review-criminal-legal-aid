@@ -12,6 +12,7 @@ module Authorising
       user.transaction do
         user.role = to
         user.save!
+        NotifyMailer.role_changed_email(user).deliver_now
 
         publish_event!
       end
