@@ -43,7 +43,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include_context 'with a logged in user', type: :system
-  config.include_context 'with a stubbed mailer', type: :system
 
   # Use the faster rack test by default for system specs
   config.before(:each, type: :system) do |_example|
@@ -53,6 +52,26 @@ RSpec.configure do |config|
   # For time travel.
   config.include ActiveSupport::Testing::TimeHelpers
   config.include GdsHelper
+
+  # Use a separate in-memory event store for each spec, instead of the
+  # event store configured by the initializer. Having a separate store
+  # for each spec reduces the surface area when working with events.
+  # And running an in-memory repository reduces hits to the database.
+  config.before do |_example|
+    Rails.configuration.event_store = RailsEventStore::Client.new(
+      repository: RubyEventStore::InMemoryRepository.new
+    )
+  end
+
+  # Subscribe handlers generally required for the system specs.
+  # Other handlers can be subscribed in a similar manner in the before
+  # block if a spec requires it.
+  config.before(:each, type: :system) do |_example|
+    event_store = Rails.configuration.event_store
+
+    CurrentAssignments::Configuration.new.call(event_store)
+    Reviews::Configuration.new.call(event_store)
+  end
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change
