@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user_id
+  helper_method :current_user_id, :allow_user_managers_service_access?
 
   private
 
   def current_user_id
     current_user&.id
+  end
+
+  def allow_user_managers_service_access?
+    FeatureFlags.allow_user_managers_service_access.enabled?
   end
 
   # Redirect user managers to manage users' admin on sign in
