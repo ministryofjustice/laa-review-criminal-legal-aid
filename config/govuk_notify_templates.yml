@@ -16,7 +16,7 @@ production:
   access_granted_email: '28ddb4dc-ac53-4298-ad55-ea32bc852ffb'
   onboarding_reply_to_address: 'ab9aa707-25c5-43ea-b079-be65e4aa5765'
   revive_account_email: 'ac8f4f2c-2066-4829-a853-b94323e6c831'
-  role_changed_email: 'UNSET'
+  role_changed_email: '5fcb1d47-283d-4c02-ace7-c257a6243885'
 
 non-production:
   application_returned_email: 'cfee931f-6588-4814-a2e2-ad025946922f'
