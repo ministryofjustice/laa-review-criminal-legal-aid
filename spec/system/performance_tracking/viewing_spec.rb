@@ -4,7 +4,7 @@ RSpec.describe 'Performance Tracking' do
   describe 'User does not have access to performance tracking' do
     include_context 'when logged in user is admin'
 
-    context 'when logged in as user manager (non staging)' do
+    context 'when logged in as a user manager' do
       before do
         visit performance_tracking_index_path
       end
@@ -15,7 +15,7 @@ RSpec.describe 'Performance Tracking' do
       end
     end
 
-    context 'when logged in as caseworker' do
+    context 'when logged in as a caseworker' do
       let(:current_user_can_manage_others) { false }
 
       before do
@@ -30,7 +30,7 @@ RSpec.describe 'Performance Tracking' do
   end
 
   describe 'User does have access to performance tracking' do
-    context 'when logged in as supervisor' do
+    context 'when logged in as a supervisor' do
       let(:current_user_role) { UserRole::SUPERVISOR }
 
       before do
