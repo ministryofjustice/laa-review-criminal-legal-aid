@@ -44,6 +44,8 @@ RSpec.describe 'Performance Tracking' do
     end
 
     context 'when user managers are logged in on staging' do
+      let(:current_user_can_manage_others) { true }
+
       before do
         allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
           instance_double(FeatureFlags::EnabledFeature, enabled?: true)
