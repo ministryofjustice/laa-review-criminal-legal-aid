@@ -23,7 +23,7 @@ class ServiceController < ApplicationController
   #
   def require_service_user!
     return if current_user.service_user?
-    return if FeatureFlags.allow_user_managers_service_access.enabled?
+    return if allow_user_managers_service_access?
 
     redirect_to admin_manage_users_root_path
   end
