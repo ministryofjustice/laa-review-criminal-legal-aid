@@ -42,5 +42,19 @@ RSpec.describe 'Performance Tracking' do
         expect(heading_text).to eq('Performance tracking')
       end
     end
+
+    context 'when user managers are logged in on staging' do
+      before do
+        allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        }
+        visit performance_tracking_index_path
+      end
+
+      it 'can access "Performance tracking" page' do
+        heading_text = page.first('.govuk-heading-xl').text
+        expect(heading_text).to eq('Performance tracking')
+      end
+    end
   end
 end
