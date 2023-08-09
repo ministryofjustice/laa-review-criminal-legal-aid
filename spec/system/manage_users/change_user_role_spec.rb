@@ -36,9 +36,11 @@ RSpec.describe 'Change user role' do
     end
 
     it 'sends notification email to all admin users' do
-      click_on 'Yes, change to Caseworker'
       admin_emails = [current_user.email, 'test2@eg.com']
+      click_on 'Yes, change to Caseworker'
+
       expect(NotifyMailer).to have_received(:role_changed_email).with(admin_emails, active_user)
+      expect(mail_double).to have_received(:deliver_now)
     end
   end
 

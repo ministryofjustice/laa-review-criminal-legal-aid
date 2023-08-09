@@ -48,7 +48,7 @@ class NotifyMailer < GovukNotifyRails::Mailer
     mail(to: email)
   end
 
-  def role_changed_email(email, user)
+  def role_changed_email(emails, user)
     set_template(:role_changed_email)
     set_email_reply_to(:onboarding_reply_to_address)
 
@@ -58,7 +58,7 @@ class NotifyMailer < GovukNotifyRails::Mailer
       onboarding_email: Rails.configuration.x.admin.onboarding_email
     )
 
-    mail(to: [email].flatten.compact.join(','))
+    mail(to: [emails].flatten.compact)
   end
 
   protected
