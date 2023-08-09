@@ -2,14 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Invites from manage users dashboard' do
   include_context 'when logged in user is admin'
-
-  let(:mail_double) do
-    instance_double(ActionMailer::MessageDelivery, deliver_now: true)
-  end
+  include_context 'with a stubbed mailer'
+  let(:notify_mailer_method) { :access_granted_email }
 
   before do
-    allow(NotifyMailer).to receive(:access_granted_email) { mail_double }
-
     visit '/'
     visit '/admin/manage_users'
     click_on 'Invite a user'
@@ -46,7 +42,7 @@ RSpec.describe 'Invites from manage users dashboard' do
     click_button 'Invite'
 
     expect(NotifyMailer).to have_received(:access_granted_email).with(email)
-    expect(mail_double).to have_received(:deliver_now)
+    expect(mailer_double).to have_received(:deliver_now)
   end
 
   it 'allows a user without management access to be added' do
