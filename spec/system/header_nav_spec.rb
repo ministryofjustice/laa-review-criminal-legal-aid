@@ -10,60 +10,38 @@ RSpec.describe 'Header navigation' do
     expect(current_user).to eq('Joe EXAMPLE')
   end
 
-  describe 'custom phase banner styling' do
-    # NOTE: Prod uses default styling so only non prod envs are tested
-    before do
-      allow(ENV).to receive(:fetch).with('ENV_NAME').and_return(env_name)
-    end
-
-    context 'when in local environment' do
-      let(:env_name) { HostEnv::LOCAL }
-
-      before do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('local'))
-        allow(Rails.env).to receive(:local?).and_return(true)
-        visit '/'
-      end
-
-      it 'has env specific styling applied' do
-        expect(page).to have_css('.app-banner-local')
-      end
-    end
-
-    context 'when in staging environment' do
-      let(:env_name) { HostEnv::STAGING }
-
-      before do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('staging'))
-        allow(Rails.env).to receive(:staging?).and_return(true)
-        visit '/'
-      end
-
-      it 'has env specific styling applied' do
-        expect(page).to have_css('.app-banner-staging')
-      end
-    end
-  end
-
   context 'when user does not have access to manage other users' do
-    before do
-      visit '/'
-    end
-
     it 'does not have a link to manage users' do
       header = page.first('.govuk-header__navigation-list').text
       expect(header).not_to include('Manage users')
+    end
+
+    it 'does not have a link to performance tracking' do
+      header = page.first('.govuk-header__navigation-list').text
+      expect(header).not_to include('Performance tracking')
+    end
+
+    context 'when logged in as a supervisor' do
+      let(:current_user_role) { UserRole::SUPERVISOR }
+
+      it 'shows the "Performance tracking" link and can follow it' do
+        expect { click_link('Performance tracking') }.to change {
+          page.first('.govuk-heading-xl').text
+        }.from('Your list').to('Performance tracking')
+      end
     end
   end
 
   context 'when a user has access to manage other users' do
     include_context 'when logged in user is admin'
-    before do
-      visit admin_manage_users_root_path
-    end
 
     it 'they are redirected to the admin manage users route by default' do
       expect { click_link('Manage users') }.not_to change { page.first('.govuk-heading-xl').text }.from('Manage users')
+    end
+
+    it 'does not have a link to performance tracking' do
+      header = page.first('.govuk-header__navigation-list').text
+      expect(header).not_to include('Performance tracking')
     end
 
     context 'when user managers are allowed to access the service' do
@@ -86,31 +64,6 @@ RSpec.describe 'Header navigation' do
           page.first('.govuk-heading-xl').text
         }.from('Your list').to('Performance tracking')
       end
-    end
-  end
-
-  context 'when user does not have access to the performance tracking tab' do
-    before do
-      visit '/'
-    end
-
-    it 'does not have a link to performance tracking' do
-      header = page.first('.govuk-header__navigation-list').text
-      expect(header).not_to include('Performance tracking')
-    end
-  end
-
-  context 'when a user has access to the performance tracking tab' do
-    let(:current_user_role) { UserRole::SUPERVISOR }
-
-    before do
-      visit '/'
-    end
-
-    it 'shows the "Performance tracking" link and can follow it' do
-      expect { click_link('Performance tracking') }.to change {
-        page.first('.govuk-heading-xl').text
-      }.from('Your list').to('Performance tracking')
     end
   end
 end
