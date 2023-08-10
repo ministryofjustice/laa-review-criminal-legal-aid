@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'Change user role' do
   include_context 'when logged in user is admin'
   include_context 'with an existing user'
+  include_context 'with a stubbed mailer'
 
-  let(:mail_double) { instance_double(ActionMailer::MessageDelivery, deliver_now: true) }
+  let(:notify_mailer_method) { :role_changed_email }
 
   describe 'when user is activated' do
     before do
-      allow(NotifyMailer).to receive(:role_changed_email) { mail_double }
       User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid, email: 'test2@eg.com')
 
       active_user.update(role: 'supervisor')
@@ -40,7 +40,7 @@ RSpec.describe 'Change user role' do
       click_on 'Yes, change to Caseworker'
 
       expect(NotifyMailer).to have_received(:role_changed_email).with(admin_emails, active_user)
-      expect(mail_double).to have_received(:deliver_now)
+      expect(mailer_double).to have_received(:deliver_now)
     end
   end
 
