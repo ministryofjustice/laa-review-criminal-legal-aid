@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
+  post :csp-violation, to: 'healthcheck#csp-violation'
 
   devise_for(
     :users,

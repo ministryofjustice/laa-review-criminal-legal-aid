@@ -7,6 +7,10 @@ class HealthcheckController < BareApplicationController
     render json: build_args, status: :ok
   end
 
+  def csp_violation
+    PrometheusMetrics::Collectors::CspViolation.new.metric.increment
+  end
+
   private
 
   def healthcheck_result
