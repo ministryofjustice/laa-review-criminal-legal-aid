@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Reporting::ReceivedOnReport do
+  before do
+    # Models specs do not have handers subscribed to the event store by default.
+    # Here we subscribe the ReceivedOnReports handlers to the event store.
+    ReceivedOnReports::Configuration.new.call(Rails.configuration.event_store)
+  end
+
   describe '#total_open' do
     subject(:total_open) { record.total_open }
 

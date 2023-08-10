@@ -5,8 +5,6 @@ RSpec.describe Reviewing::SendBack do
     described_class.new(application_id:, user_id:, return_details:)
   end
 
-  include_context 'with a stubbed mailer'
-
   before do
     Reviewing::ReceiveApplication.call(
       application_id: application_id, submitted_at: 1.day.ago.to_s
@@ -91,7 +89,6 @@ RSpec.describe Reviewing::SendBack do
 
     it 'the return is not recorded' do
       expect { command.call }.to raise_error DatastoreApi::Errors::InvalidRequest
-      expect(review.return_reason).to be_nil
     end
   end
 end

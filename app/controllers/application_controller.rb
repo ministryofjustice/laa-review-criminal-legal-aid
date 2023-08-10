@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def allow_user_managers_service_access?
-    FeatureFlags.allow_user_managers_service_access.enabled?
+    current_user.can_manage_others? && FeatureFlags.allow_user_managers_service_access.enabled?
   end
 
   # Redirect user managers to manage users' admin on sign in
