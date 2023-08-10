@@ -73,4 +73,7 @@ Rails.application.configure do
 
   # Allow connections from inside a docker container to this host machine
   config.hosts += %w[host.docker.internal]
+
+  # Provides the option to turn off SSL in localhost
+  config.force_ssl = ENV.key?('DISABLE_HTTPS') ? false : true
 end

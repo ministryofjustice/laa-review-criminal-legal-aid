@@ -41,6 +41,8 @@ You can also compile assets manually with `rails dartsass:build` at any time, an
 
 If you ever feel something is not right with the CSS or JS, run `rails assets:clobber` to purge the local cache.
 
+The option to run localhost without SSL can be configured locally by setting ```DISABLE_HTTPS=1```.
+
 **5. Authenticating a user locally**
 
 After clicking "Sign in," you will be shown a list of all users in the local database. Select one to sign in as that user.
