@@ -1,5 +1,7 @@
 module Reporting
   class CaseworkerReport
+    include Reportable
+
     def rows
       dataset.values.sort_by { |h| h[:user_name].upcase }
     end

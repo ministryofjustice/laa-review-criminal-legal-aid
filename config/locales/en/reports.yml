@@ -1,0 +1,9 @@
+en:
+  reports:
+    index:
+      page_title: Reporting 
+      heading: Reports
+  labels:
+    workload_report: Workload report
+    processed_report: Processed report
+    caseworker_report: Caseworker report

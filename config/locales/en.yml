@@ -13,7 +13,7 @@ en:
   layouts:
     header:
       manage_users: Manage users
-      performance_tracking: Performance tracking
+      reports: Reports 
 
   date:
     formats:
@@ -152,13 +152,6 @@ en:
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
-    workload_report:
-      days_passed: Business days since applications were received
-      received_applications_by_age: Applications received
-      open_applications_by_age: "Applications still\xA0open"
-      processed_on: When applications were closed
-      applications_closed: Number of closed applications
-
   values: &VALUES
     "true": "Yes"
     "false": "No"

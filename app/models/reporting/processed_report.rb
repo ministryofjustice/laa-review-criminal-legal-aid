@@ -6,8 +6,8 @@ module Reporting
       @day_zero = day_zero.in_time_zone('London').to_date
     end
 
-    def table
-      Table.new({ processed_on:, applications_closed: }, numeric_column_keys: [])
+    def rows
+      [processed_on, applications_closed].transpose
     end
 
     private
@@ -18,7 +18,7 @@ module Reporting
       Array.new(3) do |days_ago|
         date_from = day_zero - days_ago
         date_to = date_from.tomorrow
-        Cell.new(closing_events.between(date_from...date_to).count, numeric: false)
+        Cell.new(closing_events.between(date_from...date_to).count, numeric: true)
       end
     end
 

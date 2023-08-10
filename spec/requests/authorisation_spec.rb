@@ -21,6 +21,7 @@ RSpec.describe 'Authorisation' do
       open_crime_applications
       ready_crime_application
       report
+      reports
       search_application_searches
     ]
   end
@@ -63,9 +64,7 @@ RSpec.describe 'Authorisation' do
   end
 
   let(:supervisor_routes) do
-    %w[
-      performance_tracking_index
-    ]
+    %w[]
   end
 
   def expected_status(route_name)
@@ -124,38 +123,6 @@ RSpec.describe 'Authorisation' do
 
         expect(response).to have_http_status :not_found
         expect(response.body).to include('Page not found')
-      end
-    end
-  end
-
-  describe 'an authenticated service user (supervisor)' do
-    include_context 'with stubbed search'
-    before do
-      user = User.create(email: 'Ben.EXAMPLE@example.com', role: UserRole::SUPERVISOR)
-      sign_in user
-    end
-
-    it 'can access the service' do
-      get open_crime_applications_path
-
-      expect(response).to have_http_status :ok
-    end
-
-    context 'when supervisor service user' do
-      it 'returns "Not found" for all user manager routes' do
-        configured_routes.each do |route|
-          next unless user_manager_routes.include?(route.name)
-
-          visit_configured_route(route)
-
-          expect(response).to have_http_status :not_found
-          expect(response.body).to include('Page not found')
-        end
-      end
-
-      it 'can access performance tracking page' do
-        get performance_tracking_index_path
-        expect(response).to have_http_status :ok
       end
     end
   end

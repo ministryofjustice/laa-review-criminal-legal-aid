@@ -3,27 +3,23 @@ require 'rails_helper'
 describe Reporting::ProcessedReport do
   subject(:report) { described_class.new }
 
-  describe '#table' do
-    it 'returns a Table' do
-      expect(report.table).to be_a Reporting::Table
-    end
+  describe '#rows' do
+    subject(:rows) { report.rows }
 
-    it 'includes column headers' do
-      expect(report.table.headers.map(&:content)).to eq(
-        ['When applications were closed', 'Number of closed applications']
-      )
+    it 'all but the first column are numeric' do
+      expect(rows.first.map(&:numeric)).to eq [false, true]
     end
 
     it 'includes 3 rows' do
-      expect(report.table.rows.size).to eq(3)
+      expect(rows.size).to eq(3)
     end
 
-    it 'includes row headers' do
-      expect(report.table.rows.map(&:first).map(&:content)).to eq(['Today', 'Yesterday', 'Day before yesterday'])
+    it 'includes the row headers' do
+      expect(rows.map(&:first).map(&:content)).to eq(['Today', 'Yesterday', 'Day before yesterday'])
     end
 
     describe 'data' do
-      subject(:data) { report.table.rows.map(&:last).map(&:content) }
+      subject(:data) { rows.map(&:last).map(&:content) }
 
       before do
         event_store = Rails.configuration.event_store

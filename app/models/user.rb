@@ -15,6 +15,7 @@ class User < ApplicationRecord
   include Reauthable
   include Revivable
   include UserRole
+  include UserReports
 
   before_create :set_invitation_expires_at
 
