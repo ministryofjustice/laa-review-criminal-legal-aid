@@ -81,10 +81,18 @@ RSpec.describe 'Header navigation' do
                                                  }.from('Your list').to('Manage users')
       end
 
-      it 'shows the "Performance tracking" link and it can be followed' do
-        expect { click_link('Performance tracking') }.to change {
-          page.first('.govuk-heading-xl').text
-        }.from('Your list').to('Performance tracking')
+      it 'does not show the "Performance tracking" link' do
+        expect(page).not_to have_link('Performance tracking')
+      end
+
+      context 'when user managers are logged in as supervisors' do
+        let(:current_user_role) { UserRole::SUPERVISOR }
+
+        it 'shows the "Performance tracking" link and it can be followed' do
+          expect { click_link('Performance tracking') }.to change {
+                                                             page.first('.govuk-heading-xl').text
+                                                           }.from('Your list').to('Performance tracking')
+        end
       end
     end
   end

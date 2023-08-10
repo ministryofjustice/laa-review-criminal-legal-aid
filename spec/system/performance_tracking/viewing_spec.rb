@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Performance Tracking' do
   describe 'User does not have access to performance tracking' do
-    include_context 'when logged in user is admin'
-
     context 'when logged in as a user manager' do
+      include_context 'when logged in user is admin'
+
       before do
         visit performance_tracking_index_path
       end
@@ -13,16 +13,49 @@ RSpec.describe 'Performance Tracking' do
         heading_text = page.first('.govuk-heading-xl').text
         expect(heading_text).to eq('Manage users')
       end
+
+      it 'does not show the performance tracking nav link' do
+        expect(page).not_to have_link('Performance tracking')
+      end
+
+      context 'when user manager role is supervisor but without service access enabled' do
+        let(:current_user_role) { UserRole::SUPERVISOR }
+
+        it 'redirects to "Manage Users" dashboard' do
+          heading_text = page.first('.govuk-heading-xl').text
+          expect(heading_text).to eq('Manage users')
+        end
+
+        it 'does not show the performance tracking nav link' do
+          expect(page).not_to have_link('Performance tracking')
+        end
+      end
+
+      context 'when user manager role is caseworker and service access is enabled' do
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+          }
+          visit performance_tracking_index_path
+        end
+
+        it 'redirects to "Page not found"' do
+          heading_text = page.first('.govuk-heading-xl').text
+          expect(heading_text).to eq('Page not found')
+        end
+
+        it 'does not show the performance tracking nav link' do
+          expect(page).not_to have_link('Performance tracking')
+        end
+      end
     end
 
     context 'when logged in as a caseworker' do
-      let(:current_user_can_manage_others) { false }
-
       before do
         visit performance_tracking_index_path
       end
 
-      it 'redirects to "Page not" found' do
+      it 'redirects to "Page not found"' do
         heading_text = page.first('.govuk-heading-xl').text
         expect(heading_text).to eq('Page not found')
       end
@@ -34,7 +67,7 @@ RSpec.describe 'Performance Tracking' do
       let(:current_user_role) { UserRole::SUPERVISOR }
 
       before do
-        visit performance_tracking_index_path
+        click_link 'Performance tracking'
       end
 
       it 'can access "Performance tracking" page' do
@@ -43,26 +76,22 @@ RSpec.describe 'Performance Tracking' do
       end
     end
 
-    context 'when logged in on staging' do
+    context 'when logged in as a user manager and supervisor, and service access is enabled' do
+      include_context 'when logged in user is admin'
+
+      let(:current_user_role) { UserRole::SUPERVISOR }
+
       before do
         allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
           instance_double(FeatureFlags::EnabledFeature, enabled?: true)
         }
-        visit performance_tracking_index_path
+        visit '/'
+        click_link 'Performance tracking'
       end
 
-      it 'redirects to "Page not" found for caseworkers' do
+      it 'can access "Performance tracking" page as a user manager' do
         heading_text = page.first('.govuk-heading-xl').text
-        expect(heading_text).to eq('Page not found')
-      end
-
-      context 'when logged in as a user manager' do
-        let(:current_user_can_manage_others) { true }
-
-        it 'can access "Performance tracking" page as a user manager' do
-          heading_text = page.first('.govuk-heading-xl').text
-          expect(heading_text).to eq('Performance tracking')
-        end
+        expect(heading_text).to eq('Performance tracking')
       end
     end
   end
