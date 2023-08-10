@@ -3,9 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Change user role' do
   include_context 'when logged in user is admin'
   include_context 'with an existing user'
+  include_context 'with a stubbed mailer'
+
+  let(:notify_mailer_method) { :role_changed_email }
 
   describe 'when user is activated' do
     before do
+      User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid, email: 'test2@eg.com')
+
       active_user.update(role: 'supervisor')
       visit '/admin/manage_users/active_users'
 
@@ -28,6 +33,14 @@ RSpec.describe 'Change user role' do
       expect(page).to have_success_notification_banner(
         text: "Zoe Blogs's role has been changed from Supervisor to Caseworker"
       )
+    end
+
+    it 'sends notification email to all admin users' do
+      admin_emails = [current_user.email, 'test2@eg.com']
+      click_on 'Yes, change to Caseworker'
+
+      expect(NotifyMailer).to have_received(:role_changed_email).with(admin_emails, active_user)
+      expect(mailer_double).to have_received(:deliver_now)
     end
   end
 

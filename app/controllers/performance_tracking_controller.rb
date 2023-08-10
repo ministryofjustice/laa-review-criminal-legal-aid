@@ -1,7 +1,9 @@
 class PerformanceTrackingController < ServiceController
   before_action :require_supervisor!
 
-  def index; end
+  def index
+    @caseworker_report = Reporting::CaseworkerReport.new
+  end
 
   private
 

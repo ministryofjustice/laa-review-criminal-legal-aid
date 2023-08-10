@@ -1,0 +1,10 @@
+en:
+  table_headings:
+    user_name: Caseworker
+    total_assigned_to_user: Assigned
+    total_unassigned_from_user: Unassigned
+    total_closed_by_user: Closed
+  caseworker_report:
+    caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker
+  warnings:
+    experimental_data: This report is experimental and under active development. It may contain inaccurate information.

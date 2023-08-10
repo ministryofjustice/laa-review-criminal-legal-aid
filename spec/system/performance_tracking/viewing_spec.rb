@@ -74,6 +74,14 @@ RSpec.describe 'Performance Tracking' do
         heading_text = page.first('.govuk-heading-xl').text
         expect(heading_text).to eq('Performance tracking')
       end
+
+      it 'can view the caseworker report' do
+        within('div.govuk-warning-text') do
+          expect(page).to have_text(
+            'This report is experimental and under active development. It may contain inaccurate information.'
+          )
+        end
+      end
     end
 
     context 'when logged in as a user manager and supervisor, and service access is enabled' do

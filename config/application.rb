@@ -35,7 +35,6 @@ module LaaReviewCriminalLegalAid
     config.time_zone = "UTC"
 
     # config.eager_load_paths << Rails.root.join("extras")
-    config.force_ssl = true
     config.ssl_options = { redirect: { exclude: ->(request) { request.path =~ /health|ping/ } } }
 
     # Load the templates set (refer to `config/govuk_notify_templates.yml` for details)
