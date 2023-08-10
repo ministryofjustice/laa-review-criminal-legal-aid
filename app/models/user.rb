@@ -51,15 +51,6 @@ class User < ApplicationRecord
     email
   end
 
-  def service_user_supervisor?
-    FeatureFlags.basic_user_roles.enabled? && supervisor? && !can_manage_others?
-  end
-
-  # A dev only user state for debugging in staging, not found in production environments
-  def admin_user_supervisor?
-    FeatureFlags.basic_user_roles.enabled? && supervisor? && can_manage_others?
-  end
-
   def history
     @history ||= AuthorisationHistory.new(user_id: id)
   end

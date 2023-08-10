@@ -5,21 +5,16 @@ RSpec.describe 'Performance Tracking' do
     context 'when logged in as a user manager' do
       include_context 'when logged in user is admin'
 
-      before do
-        visit performance_tracking_index_path
-      end
-
-      it 'redirects to "Manage Users" dashboard' do
-        heading_text = page.first('.govuk-heading-xl').text
-        expect(heading_text).to eq('Manage users')
-      end
-
-      it 'does not show the performance tracking nav link' do
-        expect(page).not_to have_link('Performance tracking')
-      end
-
-      context 'when user manager role is supervisor but without service access enabled' do
+      context 'when service access feature flag is not enabled' do
+        # Irrespective of user_role, but as Caseworker is restricted regardless this test uses a Supervisor user_role
         let(:current_user_role) { UserRole::SUPERVISOR }
+
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+          }
+          visit performance_tracking_index_path
+        end
 
         it 'redirects to "Manage Users" dashboard' do
           heading_text = page.first('.govuk-heading-xl').text
@@ -31,7 +26,9 @@ RSpec.describe 'Performance Tracking' do
         end
       end
 
-      context 'when user manager role is caseworker and service access is enabled' do
+      context 'when service access is enabled but user manager holds caseworker role' do
+        let(:current_user_role) { UserRole::CASEWORKER }
+
         before do
           allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
             instance_double(FeatureFlags::EnabledFeature, enabled?: true)
@@ -84,7 +81,7 @@ RSpec.describe 'Performance Tracking' do
       end
     end
 
-    context 'when logged in as a user manager and supervisor, and service access is enabled' do
+    context 'when logged in as a user manager holding supervisor role, and service access is enabled' do
       include_context 'when logged in user is admin'
 
       let(:current_user_role) { UserRole::SUPERVISOR }

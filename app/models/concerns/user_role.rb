@@ -23,8 +23,17 @@ module UserRole
     [CASEWORKER, SUPERVISOR].include?(role) && !can_manage_others?
   end
 
+  def service_user_supervisor?
+    FeatureFlags.basic_user_roles.enabled? && [SUPERVISOR].include?(role) && !can_manage_others?
+  end
+
   def user_manager?
     can_manage_others?
+  end
+
+  # A dev only user state for debugging in staging, not found in production environments
+  def user_manager_supervisor?
+    user_manager? && FeatureFlags.basic_user_roles.enabled? && [SUPERVISOR].include?(role)
   end
 
   # TODO: Any reason to not allow supervisor to be 'downgraded' to caseworker?
