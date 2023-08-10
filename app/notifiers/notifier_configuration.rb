@@ -1,11 +1,14 @@
 class NotifierConfiguration
-  def call(event_store)
-    event_store.subscribe(
-      AccessGrantedNotifier, to: [Authorising::Invited]
-    )
+  SUBSCRIBERS = {
+    AccessGrantedNotifier => [Authorising::Invited],
+    SentBackNotifier => [Reviewing::SentBack],
+    RoleChangedNotifier => [Authorising::RoleChanged],
+    # TODO: RevivalAwaitedNotifier => [Authorising::RevivalAwaited],
+  }.freeze
 
-    event_store.subscribe(
-      SentBackNotifier, to: [Reviewing::SentBack]
-    )
+  def call(event_store)
+    SUBSCRIBERS.each do |subscriber, events|
+      event_store.subscribe(subscriber, to: events)
+    end
   end
 end
