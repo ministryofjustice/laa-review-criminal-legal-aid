@@ -13,15 +13,8 @@ RUN apk --no-cache add --virtual build-deps \
   linux-headers \
   xz-libs \
   tzdata \
-  yarn
-
-# Alpine does not have a glibc, and this is needed for dart-sass
-# Refer to: https://github.com/sgerrand/alpine-pkg-glibc
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
-RUN apk add --force-overwrite glibc-2.34-r0.apk
-RUN apk fix --force-overwrite alpine-baselayout-data
-
+  yarn \
+  gcompat
 
 # add non-root user and group with alpine first available uid, 1000
 RUN addgroup -g 1000 -S appgroup && \

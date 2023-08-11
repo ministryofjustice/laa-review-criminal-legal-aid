@@ -147,8 +147,9 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    dartsass-rails (0.4.1)
+    dartsass-rails (0.5.0)
       railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     date (3.3.3)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -215,6 +216,7 @@ GEM
     faraday-net_http (3.0.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    google-protobuf (3.24.0)
     govuk-components (4.0.0)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (~> 6.0)
@@ -460,6 +462,9 @@ GEM
       rack
       ruby_event_store (= 2.9.1)
     rubyzip (2.3.2)
+    sass-embedded (1.64.2)
+      google-protobuf (~> 3.23)
+      rake (>= 13.0.0)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -547,7 +552,7 @@ DEPENDENCIES
   brakeman
   business
   capybara
-  dartsass-rails (~> 0.4.0)
+  dartsass-rails (~> 0.5.0)
   debug
   devise
   dotenv-rails
