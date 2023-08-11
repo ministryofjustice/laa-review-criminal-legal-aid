@@ -19,9 +19,12 @@ services:
       PORT: 3001
       DATABASE_URL: postgresql://postgres@db/laa-review-criminal-legal-aid
       SECRET_KEY_BASE: f22760a0bd78a9191ba4c247e23a281cb251461cdba6b5215043ca11b694d734
+      DATASTORE_API_ROOT: http://host.docker.internal:3003
+      DATASTORE_API_AUTH_SECRET: foobar
       GOVUK_NOTIFY_API_KEY: notify-api-key
       RAILS_SERVE_STATIC_FILES: "1"
-      ENABLE_PROMETHEUS_EXPORTER: "true"
+      ENABLE_PROMETHEUS_EXPORTER: "false" # can be enabled for quick tests
+      PROMETHEUS_EXPORTER_PORT: 9395
       RAILS_LOG_TO_STDOUT: "1"
       DATABASE_SSLMODE: disable
       DISABLE_HTTPS: "1"
@@ -29,6 +32,6 @@ services:
       IS_LOCAL_DOCKER_ENV: "true"
     ports:
       - "3001:3001" # puma server (rails app)
-      - "9394:9394" # prometheus exporter `/metrics` endpoint
+      - "9395:9395" # prometheus exporter `/metrics` endpoint
     depends_on:
       - db

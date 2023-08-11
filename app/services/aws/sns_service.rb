@@ -55,7 +55,7 @@ module Aws
     private
 
     def local_bypass?
-      Rails.env.development?
+      Rails.env.development? || ENV.key?('IS_LOCAL_DOCKER_ENV')
     end
 
     def message_verifier
