@@ -13,7 +13,8 @@ RUN apk --no-cache add --virtual build-deps \
   linux-headers \
   xz-libs \
   tzdata \
-  yarn
+  yarn \
+  gcompat
 
 # Alpine does not have a glibc, and this is needed for dart-sass
 # Refer to: https://github.com/sgerrand/alpine-pkg-glibc
