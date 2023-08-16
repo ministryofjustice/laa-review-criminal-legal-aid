@@ -1,4 +1,6 @@
 class HealthcheckController < BareApplicationController
+  before_action :verify_csp_violation, only: :csp_violation
+
   def show
     render json: { healthcheck: healthcheck_result }, status: http_status
   end
@@ -8,10 +10,18 @@ class HealthcheckController < BareApplicationController
   end
 
   def csp_violation
-    PrometheusMetrics::Collectors::CspViolation.new.metric.increment
+    Raven.capture_message('CSP violation received', level: 'warning', extra: { report: params['csp-report'] || {} })
+
+    render json: { message: 'CSP violation logged' }, status: :ok
   end
 
   private
+
+  def verify_csp_violation
+    return if request.content_type == 'application/csp-report' && params['csp-report']
+
+    render json: { message: 'CSP violation received' }, status: :ok
+  end
 
   def healthcheck_result
     green? ? 'OK' : 'NOT OK'
