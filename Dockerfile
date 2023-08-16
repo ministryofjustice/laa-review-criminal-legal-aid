@@ -3,12 +3,12 @@ MAINTAINER LAA Crime Apply Team
 
 RUN apk --no-cache add --virtual build-deps \
   build-base \
-  postgresql-dev \
+  postgresql15-dev \
   git \
   bash \
   curl \
 && apk --no-cache add \
-  postgresql-client \
+  postgresql15-client \
   shared-mime-info \
   linux-headers \
   xz-libs \
