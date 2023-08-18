@@ -12,14 +12,8 @@ module Reporting
       @last_row_limit_in_days = last_row_limit_in_days
     end
 
-    def table
-      Table.new(
-        {
-          days_passed:,
-          received_applications_by_age:,
-          open_applications_by_age:
-        }
-      )
+    def rows
+      [days_passed, received_applications_by_age, open_applications_by_age].transpose
     end
 
     private

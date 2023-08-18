@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:show]
+  resources :reports, only: [:show, :index]
   resources :crime_applications, only: [:show], path: 'applications' do
     get :open, on: :collection
     get :closed, on: :collection
@@ -42,8 +42,6 @@ Rails.application.routes.draw do
   resource :application_searches, only: [:new] do
     get :search, on: :collection
   end
-
-  resources :performance_tracking, only: [:index]
 
   resources :assigned_applications, only: [:index, :destroy, :create] do
     post :next_application, on: :collection

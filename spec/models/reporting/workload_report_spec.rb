@@ -24,35 +24,25 @@ RSpec.describe Reporting::WorkloadReport do
     # rubocop:enable Rails/SkipsModelValidations
   end
 
-  describe '#table' do
-    it 'returns a table of report data' do
-      expect(report.table).to be_a Reporting::Table
-    end
+  describe '#rows' do
+    subject(:rows) { report.rows }
 
-    it 'has column headers' do
-      expect(report.table.headers.map(&:content)).to eq(
-        ['Business days since applications were received', 'Applications received', 'Applications still open']
-      )
-    end
-
-    it 'all but the first column\'s header are numeric' do
-      expect(report.table.headers.map(&:numeric)).to eq(
-        [false, true, true]
-      )
+    it 'all but the first column are numeric' do
+      expect(rows.first.map(&:numeric)).to eq [false, true, true]
     end
 
     it 'includes 4 rows of data' do
-      expect(report.table.rows.size).to eq(4)
+      expect(rows.size).to eq(4)
     end
 
     it 'row headers with "0 days", "1 day", "2 days", and "Between 3 and 9 days"' do
-      expect(report.table.rows.map(&:first).map(&:content)).to eq(
+      expect(rows.map(&:first).map(&:content)).to eq(
         ['0 days', '1 day', '2 days', 'Between 3 and 9 days']
       )
     end
 
     describe 'data' do
-      subject(:columns) { report.table.rows.map { |r| r[1, 2] }.transpose }
+      subject(:columns) { rows.map { |r| r[1, 2] }.transpose }
 
       describe 'received applications' do
         subject(:received_counts) { columns.first.map(&:content) }
@@ -69,6 +59,6 @@ RSpec.describe Reporting::WorkloadReport do
   end
 
   it 'number of rows defaults to 5' do
-    expect(described_class.new.table.rows.size).to be 5
+    expect(described_class.new.rows.size).to be 5
   end
 end
