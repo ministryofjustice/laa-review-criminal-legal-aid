@@ -56,8 +56,8 @@ module Types
   Report = String.enum('caseworker_report', 'processed_report', 'workload_report')
 
   USER_ROLE_REPORTS = {
-    CASEWORKER_ROLE => [Report['workload_report'], Report['processed_report']],
-    SUPERVISOR_ROLE => Report.values
+    UserRole[CASEWORKER_ROLE] => [Report['workload_report'], Report['processed_report']],
+    UserRole[SUPERVISOR_ROLE] => Report.values
   }.freeze
 
   SortDirection = String.default('ascending'.freeze).enum('descending', 'ascending')
