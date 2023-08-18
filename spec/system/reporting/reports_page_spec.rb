@@ -90,4 +90,18 @@ RSpec.describe 'Reports' do
       expect(page).to have_text('Workload report')
     end
   end
+
+  context 'when a user can access a report but the report is not supported on the dashboard' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      stub_const('Types::USER_ROLE_REPORTS', { Types::SUPERVISOR_ROLE => ['not_supported_report'] })
+      visit report_path('not_supported_report')
+    end
+
+    it 'shows page not found' do
+      expect(current_user.reports.include?('not_supported_report')).to be true  # confirm stub
+      expect(page).to have_text('Page not found')
+    end
+  end
 end

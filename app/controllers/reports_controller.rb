@@ -13,6 +13,8 @@ class ReportsController < ServiceController
       @report = Reporting::ProcessedReport.new
     when /caseworker_report/
       @report = Reporting::CaseworkerReport.new
+    else
+      raise ActiveRecord::RecordNotFound, 'Report not found'
     end
   end
 end
