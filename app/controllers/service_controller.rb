@@ -25,7 +25,7 @@ class ServiceController < ApplicationController
     return if current_user.service_user?
     return if allow_user_managers_service_access?
 
-    redirect_to admin_manage_users_root_path
+    raise ForbiddenError, 'Must be a service user'
   end
 
   def assignments_count

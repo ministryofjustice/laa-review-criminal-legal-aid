@@ -1,11 +1,11 @@
-class ReportsController < ServiceController
-  def index
-    raise ActiveRecord::RecordNotFound, 'Reports not found' unless current_user.can_access_reporting_dashboard?
-  end
+class ReportsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_reporting_user!
+  before_action :set_security_headers
+
+  def index; end
 
   def show
-    raise ActiveRecord::RecordNotFound, 'Report not found' unless current_user.reports.include?(params[:id])
-
     case params[:id]
     when /workload_report/
       @report = Reporting::WorkloadReport.new
@@ -16,5 +16,13 @@ class ReportsController < ServiceController
     else
       raise ActiveRecord::RecordNotFound, 'Report not found'
     end
+  end
+
+  private
+
+  def require_reporting_user!
+    return if current_user.reporting_user?
+
+    raise ForbiddenError, 'Must be a reporting user'
   end
 end

@@ -5,6 +5,7 @@ module UserRole
   # permissions checks for brevity and explicitness
   CASEWORKER = Types::CASEWORKER_ROLE
   SUPERVISOR = Types::SUPERVISOR_ROLE
+  DATA_ANALYST = Types::DATA_ANALYST_ROLE
 
   included do
     # NOTE: mapping to PostgreSQL enum type via dry-types definition
@@ -40,6 +41,10 @@ module UserRole
 
   def service_user?
     [CASEWORKER, SUPERVISOR].include?(role) && !can_manage_others?
+  end
+
+  def reporting_user?
+    [SUPERVISOR, DATA_ANALYST].include?(role) && !can_manage_others?
   end
 
   def user_manager?

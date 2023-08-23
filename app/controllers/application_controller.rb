@@ -1,6 +1,22 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user_id, :allow_user_managers_service_access?
 
+  class ForbiddenError < StandardError; end
+
+  rescue_from ForbiddenError do |_e|
+    render status: :forbidden, template: 'errors/forbidden'
+  end
+
+  def landing_page_for(user)
+    if user.user_manager?
+      admin_manage_users_root_path
+    elsif user.service_user?
+      assigned_applications_path
+    elsif user.reporting_user?
+      reports_path
+    end
+  end
+
   private
 
   def current_user_id
@@ -11,11 +27,10 @@ class ApplicationController < ActionController::Base
     current_user.can_manage_others? && FeatureFlags.allow_user_managers_service_access.enabled?
   end
 
-  # Redirect user managers to manage users' admin on sign in
   def after_sign_in_path_for(user)
-    return admin_manage_users_root_path if user.can_manage_others?
+    url = landing_page_for(user)
 
-    super
+    url.presence || super
   end
 
   # Sets the full flash message based on the message key.
