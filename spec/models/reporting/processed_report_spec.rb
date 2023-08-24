@@ -15,11 +15,11 @@ describe Reporting::ProcessedReport do
     end
 
     it 'includes the row headers' do
-      expect(rows.map(&:first).map(&:content)).to eq(['Today', 'Yesterday', 'Day before yesterday'])
+      expect(rows.map { |x| x.first.content }).to eq(['Today', 'Yesterday', 'Day before yesterday'])
     end
 
     describe 'data' do
-      subject(:data) { rows.map(&:last).map(&:content) }
+      subject(:data) { rows.map { |x| x.last.content } }
 
       before do
         event_store = Rails.configuration.event_store

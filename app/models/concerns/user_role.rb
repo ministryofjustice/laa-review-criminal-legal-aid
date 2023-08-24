@@ -24,7 +24,7 @@ module UserRole
   # By default, caseworkers can access their reports, but they are not presented with the full
   # reporting dashboard and navigation.
   def can_access_reporting_dashboard?
-    return true if supervisor?
+    return true if reporting_user?
     return true if user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
 
     false

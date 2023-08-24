@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_reporting_user!
+  before_action :require_dashboard_access!, only: [:index]
+  before_action :require_report_access!, only: [:show]
   before_action :set_security_headers
 
   def index; end
@@ -20,9 +21,13 @@ class ReportsController < ApplicationController
 
   private
 
-  def require_reporting_user!
-    return if current_user.reporting_user?
+  def require_dashboard_access!
+    return if current_user.can_access_reporting_dashboard?
 
     raise ForbiddenError, 'Must be a reporting user'
+  end
+
+  def require_report_access!
+    raise ForbiddenError, 'Report access denied' unless current_user.reports.include?(params[:id])
   end
 end

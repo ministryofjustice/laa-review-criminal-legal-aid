@@ -50,13 +50,13 @@ RSpec.describe 'Authentication Session Initialisation' do
     end
 
     describe 'when the user is pending authentication' do
-      let(:user) { User.create(email: 'Ben.EXAMPLE@example.com') }
+      let(:user) { User.create(email: 'Ben.EXAMPLE@example.com', role: UserRole::CASEWORKER) }
 
       before { user }
 
       it 'redirects to "Your list"' do
         auth_callback
-        expect(response).to redirect_to(authenticated_root_path)
+        expect(response).to redirect_to(assigned_applications_path)
       end
 
       it 'authenticates the user' do
@@ -96,11 +96,6 @@ RSpec.describe 'Authentication Session Initialisation' do
 
       before { user }
 
-      it 'redirects to "Your list"' do
-        auth_callback
-        expect(response).to redirect_to(authenticated_root_path)
-      end
-
       it 'authenticates the user' do
         auth_callback
         expect(request.env['warden'].authenticated?(:user)).to be true
@@ -118,7 +113,7 @@ RSpec.describe 'Authentication Session Initialisation' do
         )
       end
 
-      it 'does not cahnge the first_auth_at' do
+      it 'does not change the first_auth_at' do
         expect { auth_callback }.not_to(
           change { user.reload.first_auth_at }
         )
@@ -134,6 +129,50 @@ RSpec.describe 'Authentication Session Initialisation' do
         expect { auth_callback }.to(
           change { user.reload.name }.from('').to('Ben EXAMPLE')
         )
+      end
+
+      context 'when user is a `user_manager`' do
+        let(:user) do
+          User.create(auth_subject_id: auth_subject_id, email: 'test@eg.com', can_manage_others: true)
+        end
+
+        it 'redirects to "Manage Users"' do
+          auth_callback
+          expect(response).to redirect_to(admin_manage_users_root_path)
+        end
+      end
+
+      context 'when user is a `caseworker`' do
+        let(:user) do
+          User.create(auth_subject_id: auth_subject_id, email: 'test@eg.com', role: UserRole::CASEWORKER)
+        end
+
+        it 'redirects to "Your list"' do
+          auth_callback
+          expect(response).to redirect_to(assigned_applications_path)
+        end
+      end
+
+      context 'when user is a `supervisor`' do
+        let(:user) do
+          User.create(auth_subject_id: auth_subject_id, email: 'test@eg.com', role: UserRole::SUPERVISOR)
+        end
+
+        it 'redirects to "Your list"' do
+          auth_callback
+          expect(response).to redirect_to(assigned_applications_path)
+        end
+      end
+
+      context 'when user is a `data_analyst`' do
+        let(:user) do
+          User.create(auth_subject_id: auth_subject_id, email: 'test@eg.com', role: UserRole::DATA_ANALYST)
+        end
+
+        it 'redirects to "Your list"' do
+          auth_callback
+          expect(response).to redirect_to(reports_path)
+        end
       end
     end
   end
