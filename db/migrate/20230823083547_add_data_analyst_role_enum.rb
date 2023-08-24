@@ -7,7 +7,7 @@ class AddDataAnalystRoleEnum < ActiveRecord::Migration[7.0]
 
   def down
     data_analysts = User.unscoped.where(role: Types::DATA_ANALYST_ROLE)
-    puts "#{data_analysts.size} Data Analysts will be destroyed!"
+    puts "#{data_analysts.size} Data Analyst(s) will be destroyed!"
     data_analysts.destroy_all
 
     execute <<-SQL
