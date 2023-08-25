@@ -19,16 +19,18 @@ RSpec.describe 'Change user role' do
       end
     end
 
-    let(:confirmation_button) do
-      find(:xpath, "//button[@type='submit']")
+    it 'shows the confirmation page' do
+      expect(page).to have_content "Are you sure you want to change Zoe Blogs's role from Supervisor?"
     end
 
-    it 'shows the confirmation page' do
-      expect(page).to have_content "Are you sure you want to change Zoe Blogs's role from Supervisor to Caseworker?"
+    it 'shows other available roles' do
+      expect(page).to have_unchecked_field('Caseworker')
+      expect(page).to have_unchecked_field('Data analyst')
     end
 
     it 'shows notification' do
-      click_on 'Yes, change to Caseworker'
+      choose 'Caseworker'
+      click_on 'Save new role'
 
       expect(page).to have_success_notification_banner(
         text: "Zoe Blogs's role has been changed from Supervisor to Caseworker"
@@ -37,7 +39,8 @@ RSpec.describe 'Change user role' do
 
     it 'sends notification email to all admin users' do
       admin_emails = [current_user.email, 'test2@eg.com']
-      click_on 'Yes, change to Caseworker'
+      choose 'Caseworker'
+      click_on 'Save new role'
 
       expect(NotifyMailer).to have_received(:role_changed_email).with(admin_emails, active_user)
       expect(mailer_double).to have_received(:deliver_now)
@@ -136,11 +139,12 @@ RSpec.describe 'Change user role' do
     end
   end
 
-  describe 'when admin manipulates the URL' do
+  describe 'when admin manipulates the HTTP client' do
     context 'with their own user id' do
       before do
         visit "/admin/manage_users/change_roles/#{current_user.id}/edit"
-        click_on 'Yes, change to Supervisor'
+        choose 'Data analyst'
+        click_on 'Save new role'
       end
 
       it 'shows warning' do
@@ -148,6 +152,26 @@ RSpec.describe 'Change user role' do
           text: "Unable to change #{current_user.name}'s role"
         )
       end
+    end
+  end
+
+  describe 'when no new role is selected' do
+    before do
+      active_user
+      visit '/admin/manage_users/active_users'
+
+      within user_row do
+        click_on('Change role')
+      end
+
+      click_on 'Save new role'
+    end
+
+    it 'shows warning message' do
+      expect(page).to have_notification_banner(
+        text: "#{user.name}'s role was not changed",
+        details: []
+      )
     end
   end
 end

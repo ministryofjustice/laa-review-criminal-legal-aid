@@ -218,44 +218,6 @@ RSpec.describe UserRole do
     end
   end
 
-  describe '#toggle_role' do
-    context 'when user is caseworker' do
-      before do
-        user.role = 'caseworker'
-        user.save!
-        user.toggle_role
-      end
-
-      it 'sets role to supervisor but does not persist' do
-        expect(user.role).to eq 'supervisor'
-        expect(user.reload.role).to eq 'caseworker'
-      end
-
-      it 'always returns supervisor' do
-        user.toggle_role # second toggle
-        expect(user.role).to eq 'supervisor'
-      end
-    end
-
-    context 'when user is supervisor' do
-      before do
-        user.role = 'supervisor'
-        user.save!
-        user.toggle_role
-      end
-
-      it 'sets role to caseworker but does not persist' do
-        expect(user.role).to eq 'caseworker'
-        expect(user.reload.role).to eq 'supervisor'
-      end
-
-      it 'always returns caseworker' do
-        user.toggle_role # second toggle
-        expect(user.role).to eq 'caseworker'
-      end
-    end
-  end
-
   describe '#reports' do
     subject(:reports) { user.reports }
 
