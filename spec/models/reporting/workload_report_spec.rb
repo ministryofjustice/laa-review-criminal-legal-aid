@@ -36,7 +36,7 @@ RSpec.describe Reporting::WorkloadReport do
     end
 
     it 'row headers with "0 days", "1 day", "2 days", and "Between 3 and 9 days"' do
-      expect(rows.map(&:first).map(&:content)).to eq(
+      expect(rows.map { |row| row.first.content }).to eq(
         ['0 days', '1 day', '2 days', 'Between 3 and 9 days']
       )
     end
