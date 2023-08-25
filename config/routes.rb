@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:show]
+  resources :reports, only: [:show, :index]
   resources :crime_applications, only: [:show], path: 'applications' do
     get :open, on: :collection
     get :closed, on: :collection

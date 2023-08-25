@@ -1,0 +1,34 @@
+<%= govuk_warning_text text: warning_text(:experimental_data) %>
+
+<%= govuk_table do |table| %>
+  <%= table.with_caption(size: 'm', text: t('caseworker_report.caption')) %>
+  <%= table.with_head do |head|
+        head.with_row do |row|
+          row.with_cell(text: thead_text(:user_name), header: true)
+          row.with_cell(text: thead_text(:total_assigned_to_user), numeric: true, header: true)
+          row.with_cell(text: thead_text(:total_unassigned_from_user), numeric: true, header: true)
+          row.with_cell(text: thead_text(:total_closed_by_user), numeric: true, header: true)
+        end
+      end %>
+  <%= table.with_body do |body|
+        report.rows.each do |data_row|
+          body.with_row do |row|
+            row.with_cell(
+              text: data_row.fetch(:user_name)
+            )
+            row.with_cell(
+              text: data_row.fetch(:total_assigned_to_user),
+              numeric: true
+            )
+            row.with_cell(
+              text: data_row.fetch(:total_unassigned_from_user),
+              numeric: true
+            )
+            row.with_cell(
+              text: data_row.fetch(:total_closed_by_user),
+              numeric: true
+            )
+          end
+        end
+      end %>
+  <% end %>

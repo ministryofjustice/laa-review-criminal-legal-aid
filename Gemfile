@@ -35,7 +35,7 @@ gem 'turbo-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'dartsass-rails', '~> 0.4.0'
+gem 'dartsass-rails', '~> 0.5.0'
 
 # Exceptions notifications
 gem 'sentry-rails'

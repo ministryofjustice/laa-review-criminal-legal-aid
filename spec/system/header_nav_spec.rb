@@ -80,6 +80,50 @@ RSpec.describe 'Header navigation' do
                                                    page.first('.govuk-heading-xl').text
                                                  }.from('Your list').to('Manage users')
       end
+
+      it 'shows the "Reports" link and can follow it' do
+        expect { click_link('Reports') }.to change {
+          page.first('.govuk-heading-xl').text
+        }.from('Your list').to('Reports')
+      end
+    end
+  end
+
+  context 'when user is an admin' do
+    include_context 'when logged in user is admin'
+
+    before do
+      visit '/'
+    end
+
+    it 'does not have a link to reports' do
+      header = page.first('.govuk-header__navigation-list').text
+      expect(header).not_to include('Reports')
+    end
+  end
+
+  context 'when user is a caseworker' do
+    before do
+      visit '/'
+    end
+
+    it 'does not have a link to reports' do
+      header = page.first('.govuk-header__navigation-list').text
+      expect(header).not_to include('Reports')
+    end
+  end
+
+  context 'when user is a Supervisor' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      visit '/'
+    end
+
+    it 'shows the "Reports" link and can follow it' do
+      expect { click_link('Reports') }.to change {
+        page.first('.govuk-heading-xl').text
+      }.from('Your list').to('Reports')
     end
   end
 end
