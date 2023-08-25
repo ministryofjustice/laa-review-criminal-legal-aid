@@ -8,4 +8,5 @@ Rails.configuration.to_prepare do
   CurrentAssignments::Configuration.new.call(event_store)
   ReceivedOnReports::Configuration.new.call(event_store)
   Reviews::Configuration.new.call(event_store)
+  CaseworkerReports::Configuration.new.call(event_store)
 end
