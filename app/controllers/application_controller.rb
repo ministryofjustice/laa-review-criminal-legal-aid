@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   end
 
   def landing_page_for(user)
-    if user.user_manager?
-      admin_manage_users_root_path
-    elsif user.service_user?
+    if user.service_user?
       assigned_applications_path
+    elsif user.user_manager?
+      admin_manage_users_root_path
     elsif user.reporting_user?
       reports_path
     end

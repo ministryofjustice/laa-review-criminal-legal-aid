@@ -6,16 +6,6 @@ class AddDataAnalystRoleEnum < ActiveRecord::Migration[7.0]
   end
 
   def down
-    data_analysts = User.unscoped.where(role: Types::DATA_ANALYST_ROLE)
-    puts "#{data_analysts.size} Data Analyst(s) will be destroyed!"
-    data_analysts.destroy_all
-
-    execute <<-SQL
-      DELETE FROM pg_enum
-      WHERE enumlabel = 'data_analyst'
-      AND enumtypid = (
-        SELECT oid FROM pg_type WHERE typname = 'user_role'
-      )
-    SQL
+    raise ActiveRecord::IrreversibleMigration, 'STOP! Automatic removal of the `Data Analyst` role is not allowed'
   end
 end
