@@ -7,10 +7,10 @@ RSpec.describe 'Caseworker Report' do
   end
 
   context 'when logged in user is caseworker' do
-    it 'renders "Page not" found' do
+    it 'renders 403 forbidden' do
       heading_text = page.first('.govuk-heading-xl').text
-      expect(heading_text).to eq('Page not found')
-      expect(page).to have_http_status(:not_found)
+      expect(heading_text).to eq('Access to this service is restricted')
+      expect(page).to have_http_status(:forbidden)
     end
   end
 

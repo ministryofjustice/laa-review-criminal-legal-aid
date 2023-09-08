@@ -75,21 +75,13 @@ RSpec.describe 'Header navigation' do
         visit '/'
       end
 
-      it 'shows the "Manage users" link and can follow it' do
-        expect { click_link('Manage users') }.to change {
-                                                   page.first('.govuk-heading-xl').text
-                                                 }.from('Your list').to('Manage users')
-      end
-
-      it 'shows the "Reports" link and can follow it' do
-        expect { click_link('Reports') }.to change {
-          page.first('.govuk-heading-xl').text
-        }.from('Your list').to('Reports')
+      it 'they are redirected to the applications list' do
+        expect(page.first('.govuk-heading-xl').text).to include('Your list')
       end
     end
   end
 
-  context 'when user is an admin' do
+  context 'when user is an Admin' do
     include_context 'when logged in user is admin'
 
     before do
@@ -102,7 +94,7 @@ RSpec.describe 'Header navigation' do
     end
   end
 
-  context 'when user is a caseworker' do
+  context 'when user is a Caseworker' do
     before do
       visit '/'
     end
@@ -124,6 +116,25 @@ RSpec.describe 'Header navigation' do
       expect { click_link('Reports') }.to change {
         page.first('.govuk-heading-xl').text
       }.from('Your list').to('Reports')
+    end
+  end
+
+  context 'when user is a Data Analyst' do
+    let(:current_user_role) { UserRole::DATA_ANALYST }
+
+    before do
+      visit '/'
+    end
+
+    it 'they are redirected to the reports dashboard by default' do
+      expect { click_link('Reports') }.not_to change {
+        page.first('.govuk-heading-xl').text
+      }.from('Reports')
+    end
+
+    it 'does not have a link to manage users' do
+      header = page.first('.govuk-header__navigation-list').text
+      expect(header).not_to include('Manage users')
     end
   end
 end

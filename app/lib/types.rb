@@ -36,9 +36,11 @@ module Types
 
   CASEWORKER_ROLE = 'caseworker'.freeze
   SUPERVISOR_ROLE = 'supervisor'.freeze
+  DATA_ANALYST_ROLE = 'data_analyst'.freeze
   USER_ROLES = [
     CASEWORKER_ROLE,
-    SUPERVISOR_ROLE
+    SUPERVISOR_ROLE,
+    DATA_ANALYST_ROLE
   ].freeze
   UserRole = String.default(CASEWORKER_ROLE).enum(*USER_ROLES)
 
@@ -57,6 +59,7 @@ module Types
 
   USER_ROLE_REPORTS = {
     UserRole[CASEWORKER_ROLE] => [Report['workload_report'], Report['processed_report']],
+    UserRole[DATA_ANALYST_ROLE] => Report.values,
     UserRole[SUPERVISOR_ROLE] => Report.values
   }.freeze
 

@@ -39,3 +39,10 @@ def print_page
   formatted_html = doc.to_xhtml(indent: 2)
   puts formatted_html
 end
+
+def expect_forbidden
+  heading_text = page.first('.govuk-heading-xl').text
+
+  expect(heading_text).to eq('Access to this service is restricted')
+  expect(page).to have_http_status(:forbidden)
+end

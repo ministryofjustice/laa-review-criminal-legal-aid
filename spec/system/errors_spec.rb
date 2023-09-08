@@ -204,17 +204,18 @@ RSpec.describe 'Error pages' do
     end
   end
 
-  context 'when logged in as user that can maange others' do
+  context 'when logged in as user that can manage others' do
     include_context 'when logged in user is admin'
 
     context 'when visiting a link to an application' do
       include_context 'with an existing application'
 
-      it 'redirects to admin even if application does not exists' do
+      it 'denies access' do
         visit "/applications/#{crime_application_id}"
-        expect(page).to have_current_path admin_manage_users_root_path
+        expect_forbidden
+
         visit '/applications/n0tan1d'
-        expect(page).to have_current_path admin_manage_users_root_path
+        expect_forbidden
       end
     end
 
