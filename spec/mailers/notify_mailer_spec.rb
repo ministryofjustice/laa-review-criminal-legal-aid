@@ -9,7 +9,8 @@ RSpec.describe NotifyMailer do
       application_returned_email: 'application_returned_email_template_id',
       access_granted_email: 'access_granted_email_template_id',
       onboarding_reply_to_address: 'onboarding_reply_to_address',
-      revive_account_email: 'revive_account_email_template_id'
+      revive_account_email: 'revive_account_email_template_id',
+      role_changed_email: 'role_changed_email_template_id'
     )
   end
 
@@ -69,6 +70,33 @@ RSpec.describe NotifyMailer do
     it_behaves_like 'a Notify mailer', template_id: 'revive_account_email_template_id'
 
     it { expect(mail.to).to eq(['test@example.com']) }
+    it { expect(mail.govuk_notify_email_reply_to).to eq('onboarding_reply_to_address') }
+    it { expect(mail.govuk_notify_personalisation).to eq(personalisation) }
+  end
+
+  describe '#role_changed_email' do
+    user = User.new(
+      email: 'supervisor@example.com',
+      role: 'supervisor',
+      first_name: 'Homer',
+      last_name: 'Simpson'
+    )
+
+    let(:mail) do
+      described_class.role_changed_email(%w[test@example.com other_admin@example.com], user)
+    end
+
+    let(:personalisation) do
+      {
+        user_name: 'Homer Simpson',
+        role_name: 'Supervisor',
+        onboarding_email: 'LAAapplyonboarding@justice.gov.uk'
+      }
+    end
+
+    it_behaves_like 'a Notify mailer', template_id: 'role_changed_email_template_id'
+
+    it { expect(mail.to).to eq(%w[test@example.com other_admin@example.com]) }
     it { expect(mail.govuk_notify_email_reply_to).to eq('onboarding_reply_to_address') }
     it { expect(mail.govuk_notify_personalisation).to eq(personalisation) }
   end

@@ -59,25 +59,112 @@ RSpec.describe UserRole do
     end
   end
 
+  describe '#can_access_reporting_dashboard?' do
+    subject(:can_access_reporting_dashboard) { user.can_access_reporting_dashboard? }
+
+    context 'when user is supervisor' do
+      before { user.role = Types::UserRole['supervisor'] }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user is caseworker' do
+      before { user.role = Types::UserRole['caseworker'] }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when user is user manager' do
+      before { user.can_manage_others = true }
+
+      it { is_expected.to be false }
+
+      context 'when user managers are allowed service access' do
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+          }
+        end
+
+        it { is_expected.to be true }
+      end
+    end
+  end
+
   describe '#service_user?' do
     context 'when user is not a user manager' do
       it 'returns true for caseworker or supervisor' do
         user.can_manage_others = false
 
-        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR].each do |role|
           user.role = role
           expect(user.service_user?).to be true
         end
       end
+
+      it 'returns false for data_analyst' do
+        user.can_manage_others = false
+        user.role = UserRole::DATA_ANALYST
+
+        expect(user.service_user?).to be false
+      end
     end
 
     context 'when user is a user manager' do
-      it 'returns false for caseworker or supervisor' do
+      it 'returns false for all user roles' do
         user.can_manage_others = true
 
         Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
           user.role = role
           expect(user.service_user?).to be false
+        end
+      end
+
+      context 'when user managers are allowed service access' do
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+          }
+        end
+
+        it 'returns true for all user roles' do
+          user.can_manage_others = true
+
+          Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+            user.role = role
+            expect(user.service_user?).to be true
+          end
+        end
+      end
+    end
+  end
+
+  describe '#reporting_user?' do
+    context 'when user is not a user manager' do
+      it 'returns true for data_analyst or supervisor' do
+        user.can_manage_others = false
+
+        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR].each do |role|
+          user.role = role
+          expect(user.reporting_user?).to be true
+        end
+      end
+
+      it 'returns false for caseworker' do
+        user.can_manage_others = false
+        user.role = UserRole::CASEWORKER
+
+        expect(user.reporting_user?).to be false
+      end
+    end
+
+    context 'when user is a user manager' do
+      it 'returns false for all user roles' do
+        user.can_manage_others = true
+
+        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+          user.role = role
+          expect(user.reporting_user?).to be false
         end
       end
     end
@@ -182,6 +269,44 @@ RSpec.describe UserRole do
       it 'always returns caseworker' do
         user.toggle_role # second toggle
         expect(user.role).to eq 'caseworker'
+      end
+    end
+  end
+
+  describe '#reports' do
+    subject(:reports) { user.reports }
+
+    context 'when user is supervisor' do
+      before { user.role = Types::SUPERVISOR_ROLE }
+
+      it { is_expected.to eq %w[caseworker_report processed_report workload_report] }
+    end
+
+    context 'when user is caseworker' do
+      before { user.role = Types::CASEWORKER_ROLE }
+
+      it { is_expected.to eq %w[workload_report processed_report] }
+    end
+
+    context 'when user is data_analyst' do
+      before { user.role = Types::DATA_ANALYST_ROLE }
+
+      it { is_expected.to eq %w[caseworker_report processed_report workload_report] }
+    end
+
+    context 'when user is user manager' do
+      before { user.can_manage_others = true }
+
+      it { is_expected.to be_empty }
+
+      context 'when user managers are allowed service access' do
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+          }
+        end
+
+        it { is_expected.to eq %w[caseworker_report processed_report workload_report] }
       end
     end
   end

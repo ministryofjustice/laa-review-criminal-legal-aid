@@ -26,7 +26,6 @@ module ApplicationHelper
 
   def top_level_path?
     top_level_paths = [
-      authenticated_root_path,
       assigned_applications_path,
       open_crime_applications_path,
       closed_crime_applications_path,

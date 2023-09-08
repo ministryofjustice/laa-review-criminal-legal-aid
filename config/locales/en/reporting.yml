@@ -1,0 +1,16 @@
+en:
+  table_headings:
+    applications_closed: Number of closed applications
+    days_passed: Business days since applications were received
+    open_applications_by_age: "Applications still\xA0open"
+    processed_on: When applications were closed
+    received_applications_by_age: Applications received
+    total_assigned_to_user: Assigned
+    total_closed_by_user: Closed
+    total_unassigned_from_user: Unassigned
+    user_name: Caseworker
+
+  caseworker_report:
+    caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker
+  warnings:
+    experimental_data: This report is experimental and under active development. It may contain inaccurate information.

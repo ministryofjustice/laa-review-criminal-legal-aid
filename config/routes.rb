@@ -23,12 +23,11 @@ Rails.application.routes.draw do
     end
 
     authenticated :user do
-      root to: 'assigned_applications#index', as: :authenticated_root
       get 'sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
     end
   end
 
-  resources :reports, only: [:show]
+  resources :reports, only: [:show, :index]
   resources :crime_applications, only: [:show], path: 'applications' do
     get :open, on: :collection
     get :closed, on: :collection
@@ -75,5 +74,5 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
-  root 'assigned_applications#index'
+  root 'landing_page#index'
 end

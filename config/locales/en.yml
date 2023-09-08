@@ -13,6 +13,7 @@ en:
   layouts:
     header:
       manage_users: Manage users
+      reports: Reports 
 
   date:
     formats:
@@ -88,7 +89,7 @@ en:
     manage_users: Manage users
 
   labels: &LABELS
-    age_in_business_days: Business days since received
+    age_in_business_days: Business days since application was received
     applicant_date_of_birth: Applicant's date of birth
     application_information: Application information
     application_start_date: Date stamp
@@ -98,7 +99,6 @@ en:
     case_type: Case type
     caseworker: Caseworker
     closed_by: 'Closed by:'
-    codefendant: Co-defendant %{number}
     codefendants: Co-defendants
     correspondence_address: Correspondence address
     date:
@@ -118,6 +118,7 @@ en:
     last_name: Last name
     legal_representative: Legal representative
     means_type: Means type
+    name: Name
     national_insurance_number: National Insurance number
     offence: Offence
     offence_date: Offence date
@@ -151,13 +152,6 @@ en:
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
-    workload_report:
-      days_passed: Business days since applications were received
-      received_applications_by_age: Applications received
-      open_applications_by_age: "Applications still\xA0open"
-      processed_on: When applications were closed
-      applications_closed: Number of closed applications
-
   values: &VALUES
     "true": "Yes"
     "false": "No"
@@ -180,8 +174,11 @@ en:
     class_not_determined: "Class\xA0not\xA0determined"
     to: to
     conflict_of_interest:
+      "yes": Conflict of interest
+      "no": No conflict of interest
+    conflict_of_interest_badge:
       "yes": Conflict
-      "no": ''
+      "no": No conflict
     loss_of_liberty: Loss of liberty
     suspended_sentence: Suspended sentence
     loss_of_livelihood: Loss of livelihood

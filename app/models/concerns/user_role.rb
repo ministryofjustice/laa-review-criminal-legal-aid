@@ -5,6 +5,7 @@ module UserRole
   # permissions checks for brevity and explicitness
   CASEWORKER = Types::CASEWORKER_ROLE
   SUPERVISOR = Types::SUPERVISOR_ROLE
+  DATA_ANALYST = Types::DATA_ANALYST_ROLE
 
   included do
     # NOTE: mapping to PostgreSQL enum type via dry-types definition
@@ -19,12 +20,14 @@ module UserRole
     [SUPERVISOR].include?(role)
   end
 
-  def service_user?
-    [CASEWORKER, SUPERVISOR].include?(role) && !can_manage_others?
-  end
+  # Determines whether a user has permission to access the reporting dashboard (Reports#index).
+  # By default, caseworkers can access their reports, but they are not presented with the full
+  # reporting dashboard and navigation.
+  def can_access_reporting_dashboard?
+    return true if reporting_user?
+    return true if user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
 
-  def user_manager?
-    can_manage_others?
+    false
   end
 
   # TODO: Any reason to not allow supervisor to be 'downgraded' to caseworker?
@@ -36,7 +39,28 @@ module UserRole
     FeatureFlags.basic_user_roles.enabled?
   end
 
+  def service_user?
+    return true if can_manage_others? && FeatureFlags.allow_user_managers_service_access.enabled?
+
+    [CASEWORKER, SUPERVISOR].include?(role) && !can_manage_others?
+  end
+
+  def reporting_user?
+    [SUPERVISOR, DATA_ANALYST].include?(role) && !can_manage_others?
+  end
+
+  def user_manager?
+    can_manage_others?
+  end
+
   def toggle_role
     self.role = @toggle_role ||= ([CASEWORKER, SUPERVISOR] - [role]).first.to_s
+  end
+
+  def reports
+    return Types::Report.values if user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
+    return [] if user_manager?
+
+    Types::USER_ROLE_REPORTS.fetch(role)
   end
 end

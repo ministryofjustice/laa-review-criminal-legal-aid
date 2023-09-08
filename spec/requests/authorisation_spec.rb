@@ -21,6 +21,7 @@ RSpec.describe 'Authorisation' do
       open_crime_applications
       ready_crime_application
       report
+      reports
       search_application_searches
     ]
   end
@@ -62,6 +63,10 @@ RSpec.describe 'Authorisation' do
     ]
   end
 
+  let(:supervisor_routes) do
+    %w[]
+  end
+
   def expected_status(route_name)
     case route_name
     when 'users_auth_failure', 'forbidden'
@@ -97,7 +102,7 @@ RSpec.describe 'Authorisation' do
     end
   end
 
-  describe 'an authenticated service user' do
+  describe 'an authenticated service user (caseworker)' do
     include_context 'with stubbed search'
     before do
       user = User.create(email: 'Ben.EXAMPLE@example.com')
@@ -110,9 +115,9 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'returns "Not found" for all user manager routes' do
+    it 'returns "Not found" for all user manager and supervisor routes' do
       configured_routes.each do |route|
-        next unless user_manager_routes.include?(route.name)
+        next unless (user_manager_routes & supervisor_routes).include?(route.name)
 
         visit_configured_route(route)
 
@@ -135,9 +140,9 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'is redirected to "admin manage users root" for all service routes' do
+    it 'is redirected to "admin manage users root" for all service and supervisor routes' do
       configured_routes.each do |route|
-        next unless service_user_routes.include?(route.name)
+        next unless (service_user_routes & supervisor_routes).include?(route.name)
 
         visit_configured_route(route)
 
@@ -167,7 +172,7 @@ RSpec.describe 'Authorisation' do
 
   it 'all configured routes are tested' do
     configured_routes.each do |route|
-      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes
+      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes + supervisor_routes
 
       expect(tested_routes.include?(route.name)).to be(true), "\"#{route.name}\" is not tested"
     end
