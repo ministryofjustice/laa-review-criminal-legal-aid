@@ -4,10 +4,6 @@
   <% content_for(:header) do %>
     <% render partial: 'layouts/header' %>
   <% end %>
-
-  <% content_for(:primary_navgation) do %>
-    <%= render partial: 'layouts/primary_navigation' %>
-  <% end %>
 <% else %>
   <% content_for(:header) do %>
     <%= govuk_header(service_name: t('service.name'), classes: ["app-banner-#{HostEnv.env_name}"]) %>

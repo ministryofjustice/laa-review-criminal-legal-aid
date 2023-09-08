@@ -5,7 +5,7 @@ RSpec.describe 'Deleting an invitation' do
 
   before do
     user
-    visit admin_manage_users_invitations_path
+    visit manage_users_invitations_path
   end
 
   let(:user) { User.create(email: 'Zoe.Example@example.com') }
@@ -37,7 +37,7 @@ RSpec.describe 'Deleting an invitation' do
       it 'does not delete when abandoned' do
         expect { click_link 'No, do not delete the invitation' }.not_to(change { User.count })
 
-        expect(page).to have_current_path(admin_manage_users_invitations_path)
+        expect(page).to have_current_path(manage_users_invitations_path)
       end
     end
 

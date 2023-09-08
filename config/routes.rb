@@ -27,45 +27,49 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports, only: [:show, :index]
-  resources :crime_applications, only: [:show], path: 'applications' do
-    get :open, on: :collection
-    get :closed, on: :collection
-    get :history, on: :member
-    put :complete, on: :member
-    put :ready, on: :member
-    resource :reassign, only: [:new, :create]
-    resource :return, only: [:new, :create]
+  scope module: :casework do
+    resources :crime_applications, only: [:show], path: 'applications' do
+      get :open, on: :collection
+      get :closed, on: :collection
+      get :history, on: :member
+      put :complete, on: :member
+      put :ready, on: :member
+      resource :reassign, only: [:new, :create]
+      resource :return, only: [:new, :create]
+    end
+
+    resource :application_searches, only: [:new] do
+      get :search, on: :collection
+    end
+
+    resources :assigned_applications, only: [:index, :destroy, :create] do
+      post :next_application, on: :collection
+    end
   end
 
-  resource :application_searches, only: [:new] do
-    get :search, on: :collection
+  namespace :reporting do
+    root to: 'user_reports#index'
+    get ':report_type', to: 'user_reports#show', as: 'user_report'
   end
 
-  resources :assigned_applications, only: [:index, :destroy, :create] do
-    post :next_application, on: :collection
-  end
+  namespace :manage_users do
+    root 'active_users#index'
+    resources :active_users, only: [:index]
+    resources :history, only: [:show], controller: :history
+    resources :revive_users, only: [:edit]
+    resources :change_roles, only: [:edit, :update]
 
-  namespace :admin do
-    namespace :manage_users do
-      root 'active_users#index'
-      resources :active_users, only: [:index]
-      resources :history, only: [:show], controller: :history
-      resources :revive_users, only: [:edit]
-      resources :change_roles, only: [:edit, :update]
-
-      resources :invitations, only: [:index, :new, :destroy, :create, :update] do
-        member do
-          get 'confirm_destroy'
-          get 'confirm_renew'
-        end
+    resources :invitations, only: [:index, :new, :destroy, :create, :update] do
+      member do
+        get 'confirm_destroy'
+        get 'confirm_renew'
       end
+    end
 
-      resources :deactivated_users, only: [:index, :new, :create] do
-        member do
-          get 'confirm_reactivate'
-          patch 'reactivate'
-        end
+    resources :deactivated_users, only: [:index, :new, :create] do
+      member do
+        get 'confirm_reactivate'
+        patch 'reactivate'
       end
     end
   end

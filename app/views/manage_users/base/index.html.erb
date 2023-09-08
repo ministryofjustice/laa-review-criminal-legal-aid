@@ -1,0 +1,65 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= t '.heading' %>
+    </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-bottom-3">
+    <%= link_to action_text(:add_new_user),
+                new_manage_users_invitation_path,
+                class: 'govuk-button govuk-button--primary' %>
+  </div>
+</div>
+
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <%= link_to action_text(:existing_users),
+                  manage_users_active_users_path,
+                  class: 'moj-sub-navigation__link',
+                  aria: { current: current_page?(manage_users_active_users_path) || current_page?(manage_users_root_path) ? 'page' : nil } %>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <%= link_to action_text(:invited_users),
+                  manage_users_invitations_path,
+                  class: 'moj-sub-navigation__link',
+                  aria: { current: current_page?(manage_users_invitations_path) ? 'page' : nil } %>
+    </li>
+    <li class="moj-sub-navigation__item">
+      <%= link_to action_text(:deactivated_users),
+                  manage_users_deactivated_users_path,
+                  class: 'moj-sub-navigation__link',
+                  aria: { current: current_page?(manage_users_deactivated_users_path) ? 'page' : nil } %>
+    </li>
+  </ul>
+</nav>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <%= render partial: 'table_headers' %>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <% @users.each do |user| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <%= govuk_link_to(user.name_or_email, manage_users_history_path(id: user), { no_visited_state: true }) %>
+            </td>
+            <%= render partial: 'table_cells', locals: { user: } %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="govuk-grid-column-full">
+    <%= paginate @users %>
+  </div>
+</div>

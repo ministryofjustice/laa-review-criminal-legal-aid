@@ -1,8 +1,8 @@
 <%= govuk_header(service_name: t('service.name'), classes: ["app-banner-#{HostEnv.env_name}"]) do |header| %>
   <%= header.with_navigation_item(text: current_user.name) %>
   <% if current_user.can_manage_others %>
-    <%= header.with_navigation_item(text: t('.manage_users'), href: admin_manage_users_root_path) %>
+    <%= header.with_navigation_item(text: t('.manage_users'), href: manage_users_root_path) %>
   <% end %>
-  <%= header.with_navigation_item(text: t('.reports'), href: reports_path) if current_user.can_access_reporting_dashboard? %>
+  <%= header.with_navigation_item(text: t('.reports'), href: reporting_root_path) if current_user.can_access_reporting_dashboard? %>
   <%= header.with_navigation_item(text: t('calls_to_action.sign_out'), href: destroy_user_session_path) %>
 <% end %>

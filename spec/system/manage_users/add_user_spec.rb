@@ -7,7 +7,7 @@ RSpec.describe 'Invites from manage users dashboard' do
 
   before do
     visit '/'
-    visit '/admin/manage_users'
+    visit '/manage_users'
     click_on 'Invite a user'
   end
 

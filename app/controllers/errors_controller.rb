@@ -1,4 +1,6 @@
 class ErrorsController < ApplicationController
+  layout 'external'
+
   before_action :set_response_format
 
   # The show action is configured as the Rails "exceptions_app" in /config/application.rb

@@ -1,0 +1,7 @@
+<%= content_tag(:th, scope: 'col', class: 'govuk-table__header', id: table_header.column_name, aria: { sort: table_header.sort_state }) do %>
+  <% if table_header.sortable? %>
+    <%= button_to sanitize(table_header.name), nil, params: base_params.merge(table_header.sorting_params), method: sort_form_method %>
+  <% else %>
+    <%= sanitize table_header.name %>
+  <% end %>
+<% end %>

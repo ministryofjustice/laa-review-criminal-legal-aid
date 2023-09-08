@@ -1,0 +1,40 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "7ece50c9bc00efe79e83888eedb576a89f3650e9d51a799171c953abfed0e0f3",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/reporting/user_reports/show.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::Report), { :locals => ({ :report => report_type_report_mapping[params.require(:report_type).presence_in(*Types::Report)] }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Reporting::UserReportsController",
+          "method": "show",
+          "line": 12,
+          "file": "app/controllers/reporting/user_reports_controller.rb",
+          "rendered": {
+            "name": "reporting/user_reports/show",
+            "file": "app/views/reporting/user_reports/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reporting/user_reports/show"
+      },
+      "user_input": "params.require(:report_type).presence_in(*Types::Report)",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "Using types so safe"
+    }
+  ],
+  "updated": "2023-09-11 17:42:18 +0100",
+  "brakeman_version": "6.0.1"
+}

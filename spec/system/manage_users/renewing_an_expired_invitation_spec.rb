@@ -6,7 +6,7 @@ RSpec.describe 'Renewing an invitation' do
   before do
     user
     Authorising::Invite.call(user: user, user_manager_id: current_user.id)
-    visit admin_manage_users_invitations_path
+    visit manage_users_invitations_path
   end
 
   let(:user) { User.create(email: 'Zoe.Example@example.com') }
@@ -22,7 +22,8 @@ RSpec.describe 'Renewing an invitation' do
     context 'when the invitation has expired' do
       before do
         user.update(invitation_expires_at: 1.hour.ago)
-        visit admin_manage_users_invitations_path
+
+        visit manage_users_invitations_path
         click_on('Zoe.Example@example.com')
 
         within actions do
@@ -47,7 +48,7 @@ RSpec.describe 'Renewing an invitation' do
       it 'does not renew when abandoned' do
         expect { click_link 'No, do not renew the invitation' }.not_to(change { user.reload.invitation_expired? })
 
-        expect(page).to have_current_path(admin_manage_users_invitations_path)
+        expect(page).to have_current_path(manage_users_invitations_path)
       end
 
       describe 'logging the invitation renewal in the user\'s account history' do

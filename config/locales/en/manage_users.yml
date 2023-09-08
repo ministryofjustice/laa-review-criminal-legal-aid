@@ -95,37 +95,32 @@ en:
       deactivated: Account deactivated
       reactivated: Account reactivated
 
-  admin:
-    manage_users:
+    base:
       index:
         page_title: Manage users
         heading: Manage users
-      active_users:
-        edit:
-          page_title: Edit a user
-          heading: Edit a user
-      invitations:
-        index:
-          page_title: Invited users
-          heading: Add a new user
-          table:
-        new:
-          page_title: Invite a user
-          heading: Invite a user
-        confirm_destroy:
-          page_title: Delete invitation
-        confirm_renew:
-          page_title: Renew invitation
-      deactivated_users:
-        new:
-          page_title: Confirm deactivation
-        confirm_reactivate:
-          page_title: Confirm reactivation
-      history:
-        show:
-          page_title: Authorisation history
-          heading: "%{user_name_or_email}'s account"
-      change_roles:
-        edit:
-          page_title: Change user role
-          heading: "Change %{user_name_or_email}'s current role"
+    active_users:
+      edit:
+        page_title: Edit a user
+        heading: Edit a user
+    invitations:
+      new:
+        page_title: Invite a user
+        heading: Invite a user
+      confirm_destroy:
+        page_title: Delete invitation
+      confirm_renew:
+        page_title: Renew invitation
+    deactivated_users:
+      new:
+        page_title: Confirm deactivation
+      confirm_reactivate:
+        page_title: Confirm reactivation
+    history:
+      show:
+        page_title: Authorisation history
+        heading: "%{user_name_or_email}'s account history"
+    change_roles:
+      edit:
+        page_title: Change user role
+        heading: "Change %{user_name_or_email}'s current role"

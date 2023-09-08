@@ -3,17 +3,13 @@ class ApplicationController < ActionController::Base
 
   class ForbiddenError < StandardError; end
 
-  rescue_from ForbiddenError do |_e|
-    render status: :forbidden, template: 'errors/forbidden'
-  end
-
   def landing_page_for(user)
     if user.service_user?
       assigned_applications_path
     elsif user.user_manager?
-      admin_manage_users_root_path
+      manage_users_root_path
     elsif user.reporting_user?
-      reports_path
+      reporting_root_path
     end
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Workload Report' do
   before do
     visit '/'
-    visit report_path(:workload_report)
+    visit reporting_user_report_path(:workload_report)
   end
 
   it 'shows the correct column headers' do
