@@ -99,7 +99,6 @@ en:
     case_type: Case type
     caseworker: Caseworker
     closed_by: 'Closed by:'
-    codefendant: Co-defendant %{number}
     codefendants: Co-defendants
     correspondence_address: Correspondence address
     date:
@@ -119,6 +118,7 @@ en:
     last_name: Last name
     legal_representative: Legal representative
     means_type: Means type
+    name: Name
     national_insurance_number: National Insurance number
     offence: Offence
     offence_date: Offence date
@@ -174,8 +174,11 @@ en:
     class_not_determined: "Class\xA0not\xA0determined"
     to: to
     conflict_of_interest:
+      "yes": Conflict of interest
+      "no": No conflict of interest
+    conflict_of_interest_badge:
       "yes": Conflict
-      "no": ''
+      "no": No conflict
     loss_of_liberty: Loss of liberty
     suspended_sentence: Suspended sentence
     loss_of_livelihood: Loss of livelihood

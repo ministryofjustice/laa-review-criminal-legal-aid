@@ -177,8 +177,12 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
     context 'when there is a codefendant' do
       context 'with a conflict' do
-        it 'shows the conflict badge' do
-          expect(page).to have_content('Co-defendant 1 Zoe Blogs Conflict')
+        it 'has no badge' do
+          codefendant_row = find(:xpath,
+                                 "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+           //tr[contains(td[1], 'Conflict of interest')]")
+
+          expect(codefendant_row).not_to have_content('No conflict')
         end
       end
 
@@ -189,8 +193,18 @@ RSpec.describe 'Viewing an application unassigned, open application' do
                                                                   'conflict_of_interest' => 'no', }] })
         end
 
-        it 'has no badge' do
-          expect(page).not_to have_content('Conflict')
+        it 'shows the No conflict badge' do
+          badge = find(:xpath, "//span[@class='moj-badge moj-badge--red'][contains(text(), 'No conflict')]")
+
+          expect(badge).to have_content('No conflict')
+        end
+
+        it 'shows the correct conflict caption text' do
+          codefendant_row = find(:xpath,
+                                 "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+           //tr[contains(td[1], 'No conflict of interest')]")
+
+          expect(codefendant_row).to have_content('No conflict of interest')
         end
       end
     end
