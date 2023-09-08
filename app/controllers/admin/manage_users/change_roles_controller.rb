@@ -3,6 +3,7 @@ module Admin
     class ChangeRolesController < ManageUsersController
       before_action :set_user
       before_action :allow_change_role?
+      before_action :allow_new_role?, only: [:update]
 
       def edit; end
 
@@ -25,7 +26,7 @@ module Admin
           user: @user,
           user_manager_id: current_user_id,
           from: @user.role,
-          to: @user.toggle_role
+          to: params[:role]
         )
         command.call
 
@@ -41,6 +42,13 @@ module Admin
         return true if @user.can_change_role?
 
         denied
+        redirect_to admin_manage_users_root_path
+      end
+
+      def allow_new_role?
+        return true if params[:role].present?
+
+        set_flash(:change_role_failed, user_name: @user.name, success: false)
         redirect_to admin_manage_users_root_path
       end
 

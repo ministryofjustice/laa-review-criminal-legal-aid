@@ -18,8 +18,11 @@ class User < ApplicationRecord
 
   before_create :set_invitation_expires_at
 
+  # Allow data_analyst users to be deleted because they cannot
+  # be assigned another 'lesser' role - see AddDataAnalystRoleEnum
+  # migration which destroys data_analysts if DB is rolled back
   before_destroy do
-    raise CannotDestroyIfActive if activated?
+    raise CannotDestroyIfActive if activated? && !data_analyst?
   end
 
   attr_readonly :email, :can_manage_others
