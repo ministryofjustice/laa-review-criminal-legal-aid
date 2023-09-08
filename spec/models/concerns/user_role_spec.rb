@@ -170,37 +170,6 @@ RSpec.describe UserRole do
     end
   end
 
-  describe '#reporting_user?' do
-    context 'when user is not a user manager' do
-      it 'returns true for data_analyst or supervisor' do
-        user.can_manage_others = false
-
-        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR].each do |role|
-          user.role = role
-          expect(user.reporting_user?).to be true
-        end
-      end
-
-      it 'returns false for caseworker' do
-        user.can_manage_others = false
-        user.role = UserRole::CASEWORKER
-
-        expect(user.reporting_user?).to be false
-      end
-    end
-
-    context 'when user is a user manager' do
-      it 'returns false for all user roles' do
-        user.can_manage_others = true
-
-        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
-          user.role = role
-          expect(user.reporting_user?).to be false
-        end
-      end
-    end
-  end
-
   describe '#user_manager?' do
     context 'with can_manager_others attribute set to true' do
       it 'returns true' do
