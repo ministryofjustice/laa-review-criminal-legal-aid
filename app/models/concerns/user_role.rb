@@ -53,8 +53,8 @@ module UserRole
     can_manage_others?
   end
 
-  def toggle_role
-    self.role = @toggle_role ||= ([CASEWORKER, SUPERVISOR] - [role]).first.to_s
+  def available_roles
+    Types::USER_ROLES - [role]
   end
 
   def reports

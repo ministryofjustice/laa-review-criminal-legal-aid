@@ -3,14 +3,20 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
-      <%= confirm_text(:change_role, user_name: @user.name, from: @user.role.humanize, to: @user.toggle_role.humanize) %>
+      <%= confirm_text(:change_role, user_name: @user.name, from: @user.role.humanize) %>
     </h1>
 
     <%= govuk_warning_text text: warning_text(:change_role, user_name: @user.name) %>
 
     <%= form_with(url: admin_manage_users_change_role_path(id: @user), method: :patch) do |f| %>
+      <%= f.govuk_radio_buttons_fieldset(:role, legend: { text: action_text(:select_new_role, user_name: @user.name) }) do %>
+        <% @user.available_roles.each_with_index do |role, index| %>
+          <%= f.govuk_radio_button :role, role, label: { text: role.humanize }, link_errors: index.zero? %>
+        <% end %>
+      <% end %>
+
       <div class="govuk-button-group">
-        <%= f.govuk_submit action_text(:confirm_change, new_role: @user.toggle_role.humanize) %>
+        <%= f.govuk_submit action_text(:confirm_change) %>
         <%= govuk_link_to action_text(:abandon_change_role), admin_manage_users_root_path, { no_visited_state: true }  %>
       </div>
     <% end %>

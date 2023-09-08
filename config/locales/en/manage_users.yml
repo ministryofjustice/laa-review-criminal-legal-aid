@@ -9,7 +9,7 @@ en:
       add_new_user: Invite a user
       cancel: Cancel
       change_role: Change role
-      confirm_change: Yes, change to %{new_role}
+      confirm_change: Save new role
       confirm_deactivate: Yes, deactivate
       confirm_destroy: Yes, delete the invitation
       confirm_renew: Yes, renew the invitation
@@ -24,6 +24,7 @@ en:
       reactivate: Reactivate
       renew: Renew
       revive: Revive
+      select_new_role: "Select %{user_name}'s new role"
       awaiting_revival: Awaiting revival
 
     flash:
@@ -42,12 +43,13 @@ en:
           - You do not have access to that page
           - Contact laa-crime-apply@digital.justice.gov.uk if you think this is wrong
         change_role_denied: "Unable to change %{user_name}'s role"
+        change_role_failed: "%{user_name}'s role was not changed"
         deactivation_denied: Unable to deactivate user. There must be at least two users who can manage others
         reactivation_denied: You cannot reactivate yourself
         revive_denied: "%{user_name} does not have a dormant account"
 
     confirmations:
-      change_role: "Are you sure you want to change %{user_name}'s role from %{from} to %{to}?"
+      change_role: "Are you sure you want to change %{user_name}'s role from %{from}?"
       deactivate_user: Are you sure you want to deactivate %{user_name}?
       destroy_invitation: "Are you sure you want to delete %{email}'s invitation?"
       renew_invitation: "Are you sure you want to extend %{email}'s invitation for 48 hours?"
