@@ -75,15 +75,13 @@ RSpec.describe 'Header navigation' do
         visit '/'
       end
 
-      it 'shows the "Reports" link and can follow it' do
-        expect { click_link('Reports') }.to change {
-          page.first('.govuk-heading-xl').text
-        }.from('Manage users').to('Reports')
+      it 'they are redirected to the applications list' do
+        expect(page.first('.govuk-heading-xl').text).to include('Your list')
       end
     end
   end
 
-  context 'when user is an admin' do
+  context 'when user is an Admin' do
     include_context 'when logged in user is admin'
 
     before do
@@ -96,7 +94,7 @@ RSpec.describe 'Header navigation' do
     end
   end
 
-  context 'when user is a caseworker' do
+  context 'when user is a Caseworker' do
     before do
       visit '/'
     end

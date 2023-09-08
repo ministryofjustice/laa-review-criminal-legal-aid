@@ -119,6 +119,23 @@ RSpec.describe UserRole do
           expect(user.service_user?).to be false
         end
       end
+
+      context 'when user managers are allowed service access' do
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+          }
+        end
+
+        it 'returns true for all user roles' do
+          user.can_manage_others = true
+
+          Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+            user.role = role
+            expect(user.service_user?).to be true
+          end
+        end
+      end
     end
   end
 
