@@ -36,7 +36,7 @@ RSpec.describe 'Manage Users Dashboard' do
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Name Email Manage other users Role Actions')
+      expect(column_headings).to eq('Name Email Manage other users Role')
     end
 
     it 'shows the correct table content' do

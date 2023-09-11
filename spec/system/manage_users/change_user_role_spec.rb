@@ -14,9 +14,8 @@ RSpec.describe 'Change user role' do
       active_user.update(role: 'supervisor')
       visit '/admin/manage_users/active_users'
 
-      within user_row do
-        click_on('Change role')
-      end
+      click_on('Zoe Blogs')
+      click_on('Change role')
     end
 
     it 'shows the confirmation page' do
@@ -57,13 +56,12 @@ RSpec.describe 'Change user role' do
     context 'with UI based flow' do
       before do
         visit '/admin/manage_users/deactivated_users'
+        click_on('Zoe Blogs')
       end
 
       it 'does not show change role action' do
-        within user_row do
-          expect(page).not_to have_content 'Change role'
-          expect(page).to have_content 'Reactivate'
-        end
+        expect(page).not_to have_content 'Change role'
+        expect(page).to have_content 'Reactivate'
       end
     end
 
@@ -89,13 +87,12 @@ RSpec.describe 'Change user role' do
     context 'with UI based flow' do
       before do
         visit '/admin/manage_users/active_users'
+        click_on('Zoe Blogs')
       end
 
       it 'does not show change role action' do
-        within user_row do
-          expect(page).not_to have_content 'Change role'
-          expect(page).to have_content 'Revive'
-        end
+        expect(page).not_to have_content 'Change role'
+        expect(page).to have_content 'Revive'
       end
     end
 
@@ -121,12 +118,11 @@ RSpec.describe 'Change user role' do
       active_user
 
       visit '/admin/manage_users/active_users'
+      click_on('Zoe Blogs')
     end
 
     it 'does not show Change role action' do
-      within user_row do
-        expect(page).not_to have_content 'Change role'
-      end
+      expect(page).not_to have_content 'Change role'
     end
 
     it 'denies role change if forced via URL' do
@@ -159,10 +155,8 @@ RSpec.describe 'Change user role' do
     before do
       active_user
       visit '/admin/manage_users/active_users'
-
-      within user_row do
-        click_on('Change role')
-      end
+      click_on('Zoe Blogs')
+      click_on('Change role')
 
       click_on 'Save new role'
     end

@@ -14,9 +14,8 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
 
   describe 'reactivating a deactivated user' do
     before do
-      within user_row do
-        click_on('Reactivate')
-      end
+      click_on('Zoe Blogs')
+      click_on('Reactivate')
     end
 
     it 'prompts to confirm the action' do

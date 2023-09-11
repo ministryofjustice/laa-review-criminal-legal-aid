@@ -10,18 +10,9 @@ RSpec.describe 'Renewing an invitation' do
   end
 
   let(:user) { User.create(email: 'Zoe.Example@example.com') }
-
-  let(:user_row) do
-    find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], '#{user.email}')]")
-  end
+  let(:actions) { page.first('ul.govuk-summary-list__actions-list') }
 
   describe 'renew an invitation' do
-    let(:click_renew) do
-      within user_row do
-        click_on('Renew')
-      end
-    end
-
     context 'when the invitation is extant' do
       it 'does not show the renew button' do
         expect(page).not_to have_button 'Renew'
@@ -32,7 +23,11 @@ RSpec.describe 'Renewing an invitation' do
       before do
         user.update(invitation_expires_at: 1.hour.ago)
         visit admin_manage_users_invitations_path
-        click_renew
+        click_on('Zoe.Example@example.com')
+
+        within actions do
+          click_on('Renew')
+        end
       end
 
       it 'shows the confirm mage' do
