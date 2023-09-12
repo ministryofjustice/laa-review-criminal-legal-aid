@@ -19,11 +19,4 @@ RSpec.shared_context 'with an existing user', shared_context: :metadata do
   end
 
   let(:user_can_manage_others) { false }
-
-  let(:user_row) do
-    find(
-      :xpath,
-      "//table[@class='govuk-table']//tr[contains(td[2], '#{user.email}')]"
-    )
-  end
 end

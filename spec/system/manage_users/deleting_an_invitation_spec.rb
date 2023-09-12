@@ -9,20 +9,17 @@ RSpec.describe 'Deleting an invitation' do
   end
 
   let(:user) { User.create(email: 'Zoe.Example@example.com') }
-
-  let(:user_row) do
-    find(:xpath, "//table[@class='govuk-table']//tr[contains(td[1], '#{user.email}')]")
-  end
+  let(:actions) { page.first('ul.govuk-summary-list__actions-list') }
 
   describe 'deleting an invitation' do
-    let(:click_delete) do
-      within user_row do
-        click_on('Delete')
-      end
-    end
-
     context 'when the invitation is extant' do
-      before { click_delete }
+      before do
+        click_on('Zoe.Example@example.com')
+
+        within actions do
+          click_on('Delete')
+        end
+      end
 
       it 'shows the confirm page with warning' do
         expect(page).to have_text "Are you sure you want to delete #{user.email}'s invitation?"
@@ -47,8 +44,9 @@ RSpec.describe 'Deleting an invitation' do
     context 'when the invitation has expired' do
       before do
         user.update(invitation_expires_at: 1.hour.ago)
+        click_on('Zoe.Example@example.com')
 
-        within user_row do
+        within actions do
           click_on('Delete')
         end
       end

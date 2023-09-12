@@ -84,7 +84,7 @@ en:
       invitation_expires_at: Invitation expires
       can_manage_others: 'Can manage other users?'
       email: Email
-      last_auth_at: Most recent authentication
+      last_auth_at: Last signed in
 
     hint_texts:
       email: "Enter the user's DOM1 email"
@@ -124,7 +124,7 @@ en:
       history:
         show:
           page_title: Authorisation history
-          heading: "%{user_name_or_email}'s account history"
+          heading: "%{user_name_or_email}'s account"
       change_roles:
         edit:
           page_title: Change user role

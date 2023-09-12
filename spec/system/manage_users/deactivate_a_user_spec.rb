@@ -9,10 +9,8 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     active_user
     visit '/'
     visit '/admin/manage_users'
-
-    within user_row do
-      click_on('Deactivate')
-    end
+    click_on('Zoe Blogs')
+    click_on('Deactivate')
   end
 
   describe 'with at least 2 other active admins' do
