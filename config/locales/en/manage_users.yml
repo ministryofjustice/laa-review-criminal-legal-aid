@@ -84,7 +84,7 @@ en:
       invitation_expires_at: Invitation expires
       can_manage_others: 'Can manage other users?'
       email: Email
-      last_auth_at: Most recent authentication
+      last_auth_at: Last signed in
 
     hint_texts:
       email: "Enter the user's DOM1 email"
