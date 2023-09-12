@@ -1,11 +1,11 @@
 <h2 class="govuk-heading-m">
-  <%= t(:client_details, scope: 'crime_applications.section.headings') %>
+  <%= label_text(:client_details) %>
 </h2>
 
 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:first_name, scope: 'crime_applications.labels') %>
+      <%= label_text(:first_name) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= applicant.first_name %>
@@ -13,7 +13,7 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:last_name, scope: 'crime_applications.labels') %>
+      <%= label_text(:last_name) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= applicant.last_name %>
@@ -21,15 +21,15 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:other_names, scope: 'crime_applications.labels') %>
+      <%= label_text(:other_names) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= applicant.other_names.presence || t(:not_provided, scope: 'crime_applications.values') %>
+      <%= applicant.other_names.presence || t(:not_provided, scope: 'values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:date_of_birth, scope: 'crime_applications.labels') %>
+      <%= label_text(:date_of_birth) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= l applicant.date_of_birth, format: :compact %>
@@ -37,35 +37,35 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:national_insurance_number, scope: 'crime_applications.labels') %>
+      <%= label_text(:national_insurance_number) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= nino.presence || t(:not_provided, scope: 'crime_applications.values') %>
+      <%= nino.presence || t(:not_provided, scope: 'values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:telephone_number, scope: 'crime_applications.labels') %>
+      <%= label_text(:telephone_number) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= applicant_tel.presence || t(:not_provided, scope: 'crime_applications.values') %>
+      <%= applicant_tel.presence || t(:not_provided, scope: 'values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:home_address, scope: 'crime_applications.labels') %>
+      <%= label_text(:home_address) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <% if applicant.home_address %>
         <%= render 'address', address: applicant.home_address %>
       <% else %>
-        <%= t(:no_home_address, scope: 'crime_applications.values') %>
+        <%= t(:no_home_address, scope: 'values') %>
       <% end %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:correspondence_address, scope: 'crime_applications.labels') %>
+      <%= label_text(:correspondence_address) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <% if applicant.correspondence_address_type == 'other_address' %>
@@ -77,7 +77,7 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:partner, scope: 'crime_applications.labels') %>
+      <%= label_text(:partner) %>
     </dt>
     <dd class="govuk-summary-list__value">
     <%# TODO Update this when has_partner provided by datastore %>

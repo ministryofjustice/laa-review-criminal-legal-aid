@@ -1,15 +1,15 @@
 <h2 class="govuk-heading-m">
-  <%= t(:offence_details, scope: 'crime_applications.section.headings') %>
+  <%= label_text(:offence_details) %>
 </h2>
 
 <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header govuk-!-width-one-half">
-        <%= t('crime_applications.labels.offence') %>
+        <%= label_text(:offence) %>
       </th>
       <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">
-        <%= t('crime_applications.labels.offence_date') %>
+        <%= label_text(:offence_date) %>
       </th>
       <th scope="col" class="govuk-table__header">
       </th>
@@ -23,7 +23,7 @@
             <%= offence.name %>
             <% if offence.offence_class.present? %>
               <span class='govuk-caption-m'>
-                <%= t('crime_applications.values.class') %>
+                <%= t('values.class') %>
                 <%= offence.offence_class %>
               </span>
             <% end %>
@@ -31,14 +31,14 @@
           <td class="govuk-table__cell">
               <%= l date.date_from, format: :compact %>
               <% if date.date_to %>
-              <%= t('crime_applications.values.to') %>
+              <%= t('values.to') %>
               <%= l date.date_to, format: :compact %>
               <% end %>
           </td>
           <td class="govuk-table__cell govuk-!-text-align-right">
             <% if offence.offence_class.blank? %>
               <span class="moj-badge moj-badge--red">
-                <%= t('crime_applications.values.class_not_determined') %>
+                <%= t('values.class_not_determined') %>
               </span>
             <% end %>
           </td>

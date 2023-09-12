@@ -1,20 +1,20 @@
 <h2 class="govuk-heading-m">
-  <%= t(:case_details, scope: 'crime_applications.section.headings') %>
+  <%= label_text(:case_details) %>
 </h2>
 
 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:case_type, scope: 'crime_applications.labels') %>
+      <%= label_text(:case_type) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= t(case_details.case_type, scope: 'crime_applications.values') %>
+      <%= t(case_details.case_type, scope: 'values') %>
     </dd>
   </div>
   <% if case_details.case_type.include? 'appeal' %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= t(:date_appeal_lodged, scope: 'crime_applications.labels') %>
+        <%= label_text(:date_appeal_lodged) %>
       </dt>
       <dd class="govuk-summary-list__value">
         <%= l case_details.appeal_lodged_date, format: :compact %>
@@ -23,7 +23,7 @@
     <% if case_details.case_type == 'appeal_to_crown_court_with_changes' %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t(:financial_change_details, scope: 'crime_applications.labels') %>
+          <%= label_text(:financial_change_details) %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= case_details.appeal_with_changes_details %>
@@ -32,16 +32,16 @@
     <% end %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= t(:previous_maat_id, scope: 'crime_applications.labels') %>
+        <%= label_text(:previous_maat_id) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= case_details.appeal_maat_id.presence || t(:not_provided, scope: 'crime_applications.values') %>
+        <%= case_details.appeal_maat_id.presence || t(:not_provided, scope: 'values') %>
       </dd>
     </div>
   <% end%>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:hearing_court_name, scope: 'crime_applications.labels') %>
+      <%= label_text(:hearing_court_name) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= case_details.hearing_court_name %>
@@ -49,7 +49,7 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:hearing_date, scope: 'crime_applications.labels') %>
+      <%= label_text(:hearing_date) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= l case_details.hearing_date, format: :compact %>

@@ -14,7 +14,7 @@ RSpec.describe 'Viewing your assigned application' do
     let(:stubbed_search_results) { [] }
 
     it 'includes the page title' do
-      expect(page).to have_content I18n.t('assigned_applications.index.page_title')
+      expect(page).to have_content I18n.t('casework.assigned_applications.index.page_title')
     end
 
     it 'shows shows how many assignments' do

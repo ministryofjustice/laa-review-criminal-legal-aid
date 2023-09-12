@@ -8,7 +8,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'includes the page title' do
-    expect(page).to have_content I18n.t('crime_applications.show.page_title')
+    expect(page).to have_content I18n.t('casework.crime_applications.show.page_title')
   end
 
   it 'shows the open status badge' do

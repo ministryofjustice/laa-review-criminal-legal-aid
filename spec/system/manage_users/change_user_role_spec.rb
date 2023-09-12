@@ -56,6 +56,7 @@ RSpec.describe 'Change user role' do
     context 'with UI based flow' do
       before do
         visit '/manage_users/deactivated_users'
+        click_on('Zoe Blogs')
       end
 
       it 'does not show change role action' do
@@ -85,7 +86,8 @@ RSpec.describe 'Change user role' do
 
     context 'with UI based flow' do
       before do
-        visit '/admin/manage_users/active_users'
+        visit '/manage_users/active_users'
+        click_on('Zoe Blogs')
       end
 
       it 'does not show change role action' do
@@ -115,7 +117,7 @@ RSpec.describe 'Change user role' do
       }
       active_user
 
-      visit '/admin/manage_users/active_users'
+      visit '/manage_users/active_users'
     end
 
     it 'does not show Change role action' do

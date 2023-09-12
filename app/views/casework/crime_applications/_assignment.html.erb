@@ -2,16 +2,16 @@
   <div class="govuk-grid-column-one-half">
     <div class="govuk-body-l govuk-!-margin-bottom-0">
       <% if crime_application.reviewed? %>
-        <strong><%= t(:closed_by, scope: 'crime_applications.labels') %></strong>
+        <strong><%= label_text(:closed_by) %></strong>
         <%= crime_application.reviewer_name %>
       <% else %>
-        <strong><%= t(:assigned_to, scope: 'crime_applications.labels') %></strong>
+        <strong><%= label_text(:assigned_to) %></strong>
         <%= crime_application.assignee_name || t(:no_one, scope: 'values') %>
       <% end %>
     </div>
 
     <div class="govuk-body-l govuk-!-margin-bottom-0">
-      <strong><%= t(:date_received, scope: 'crime_applications.labels') %></strong>
+      <strong><%= label_text(:date_received) %></strong>
       <%= l crime_application.submitted_at, format: :compact %>
     </div>
 

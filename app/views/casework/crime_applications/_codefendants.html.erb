@@ -1,12 +1,12 @@
 <h2 class="govuk-heading-m">
-  <%= t(:codefendants, scope: 'crime_applications.section.headings') %>
+  <%= label_text(:codefendants) %>
 </h2>
 <% if codefendants.any? %>
   <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">
-          <%= t('crime_applications.labels.name') %>
+          <%= label_text('name') %>
         </th>
         <th scope="col" class="govuk-table__header">
         </th>
@@ -20,14 +20,14 @@
             <%= codefendant.last_name %>
             <% if codefendant.conflict_of_interest.present? %>
               <span class='govuk-caption-m'>
-                <%= t("crime_applications.values.conflict_of_interest.#{codefendant.conflict_of_interest}") %>
+                <%= t(codefendant.conflict_of_interest, scope: 'values.conflict_of_interest') %>
               </span>
             <% end %>
           </td>
           <td class="govuk-table__cell govuk-!-text-align-right">
             <% if codefendant.conflict_of_interest == 'no' %>
               <span class="moj-badge moj-badge--red">
-                <%= t("crime_applications.values.conflict_of_interest_badge.#{codefendant.conflict_of_interest}") %>
+                <%= t(codefendant.conflict_of_interest, scope: 'values.conflict_of_interest_badge') %>
               </span>
             <% end %>
           </td>
@@ -38,10 +38,10 @@
   <dl class="govuk-summary-list govuk-!-margin-bottom-9">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= t(:codefendants, scope: 'crime_applications.labels') %>
+        <%= label_text(:codefendants) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(false, scope: 'crime_applications.values') %>
+        <%= t(false, scope: 'values') %>
       </dd>
     </div>
   </dl>

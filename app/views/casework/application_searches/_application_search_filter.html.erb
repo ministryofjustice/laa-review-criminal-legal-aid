@@ -1,6 +1,6 @@
 <%= form_with url: search_application_searches_path, scope: :filter, method: :get, class: 'search', id: 'search_filter' do |f| %>
 
-  <p class="help-text"><%= t('application_searches.hint_text') %></p>
+  <p class="help-text"><%= t('.hint_text') %></p>
 
   <%= f.govuk_fieldset legend: { text: nil } do %>
     <label class="govuk-label govuk-label--s"><%= t('labels.application_information')%></label>

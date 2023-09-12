@@ -1,11 +1,11 @@
 <h2 class="govuk-heading-m">
-  <%= t(:provider_details, scope: 'crime_applications.section.headings') %>
+  <%= label_text(:provider_details) %>
 </h2>
 
 <dl class="govuk-summary-list">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:office_account_number, scope: 'crime_applications.labels') %>
+      <%= label_text(:office_account_number) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= provider_details.office_code %>
@@ -13,7 +13,7 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:legal_representative, scope: 'crime_applications.labels') %>
+      <%= label_text(:legal_representative) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= "#{provider_details.legal_rep_first_name} #{provider_details.legal_rep_last_name}" %>
@@ -21,7 +21,7 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:provider_phone_number, scope: 'crime_applications.labels') %>
+      <%= label_text(:provider_phone_number) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= provider_details.legal_rep_telephone %>
@@ -29,7 +29,7 @@
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      <%= t(:provider_email, scope: 'crime_applications.labels') %>
+      <%= label_text(:provider_email) %>
     </dt>
     <dd class="govuk-summary-list__value">
       <%= provider_details.provider_email %>

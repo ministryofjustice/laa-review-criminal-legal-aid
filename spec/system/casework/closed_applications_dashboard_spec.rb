@@ -45,7 +45,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'includes the page title' do
-    expect(page).to have_content I18n.t('crime_applications.index.closed_title')
+    expect(page).to have_content I18n.t('casework.crime_applications.index.closed_title')
   end
 
   it 'has the correct body' do
