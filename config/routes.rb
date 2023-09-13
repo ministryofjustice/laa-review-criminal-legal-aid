@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     root to: 'user_reports#index'
     get ':report_type', to: 'user_reports#show', as: 'user_report'
     get ':report_type/monthly/:month', to: 'monthly_reports#show', as: 'monthly_report'
+    get ':report_type/weekly/:week', to: 'weekly_reports#show', as: 'weekly_report'
   end
 
   namespace :manage_users do

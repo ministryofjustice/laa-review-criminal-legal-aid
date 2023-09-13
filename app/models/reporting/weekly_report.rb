@@ -1,12 +1,12 @@
 module Reporting
-  class MonthlyReport
+  class WeeklyReport
     include Reporting::Reportable
 
-    PARAM_FORMAT = '%Y-%B'.freeze
+    PARAM_FORMAT = '%G-%V'.freeze
 
     def initialize(date:, report_type:)
       @date = date
-      @report_type = Types::MonthlyReportType[report_type]
+      @report_type = Types::WeeklyReportType[report_type]
     end
 
     attr_reader :date, :report_type
@@ -15,20 +15,20 @@ module Reporting
       date.strftime(PARAM_FORMAT)
     end
 
-    def month_name
-      date.strftime('%B, %Y')
+    def week_name
+      date.strftime('Week %V, %G')
     end
 
     def title
-      report_text(:title, month_name:)
+      report_text(:title, week_name:)
     end
 
     def start_on
-      date.beginning_of_month
+      date.beginning_of_week
     end
 
     def end_on
-      date.end_of_month
+      date.end_of_week
     end
 
     private
@@ -36,21 +36,21 @@ module Reporting
     def stream_name
       return nil unless report_type == 'caseworker_report'
 
-      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch('monthly')
+      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch('weekly')
     end
 
     class << self
       def supported_report_types
-        Types::MonthlyReportType.values
+        Types::WeeklyReportType.values
       end
 
-      def from_param(report_type:, month:)
-        date = Date.strptime(month, PARAM_FORMAT)
+      def from_param(report_type:, week:)
+        date = Date.strptime(week, PARAM_FORMAT)
         new(report_type:, date:)
       end
 
       def _latest_date
-        _current_date << 1
+        _current_date - 7
       end
     end
   end

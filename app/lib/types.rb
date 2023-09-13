@@ -56,7 +56,7 @@ module Types
   )
 
   Report = String.enum('caseworker_report', 'processed_report', 'workload_report')
-  MonthlyReportType = String.enum(Report['caseworker_report'])
+  WeeklyReportType = MonthlyReportType = String.enum(Report['caseworker_report'])
 
   USER_ROLE_REPORTS = {
     UserRole[CASEWORKER_ROLE] => [Report['workload_report'], Report['processed_report']],
