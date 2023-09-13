@@ -1,4 +1,5 @@
 en:
+
   emails_text:
     application_returned:
       clarification_required: clarification is required
@@ -212,11 +213,6 @@ en:
   warnings:
     reassign_to_self: This will remove the application from your colleague's list
 
-  shared:
-    subnavigation:
-      application_details: Application details
-      application_history: Application history
-
   event:
     title:
     description:
@@ -243,6 +239,7 @@ en:
 
 
   casework:
+
     assigned_applications:
       index:
         page_title: Your list
@@ -301,6 +298,9 @@ en:
           zero: There are no open applications that need to be reviewed.
           one: There is 1 open application that needs to be reviewed.
           other: "There are %{count} open applications that need to be reviewed."
+      subnavigation:
+        application_details: Application details
+        application_history: Application history
       show:
         page_title: Application
         heading: Application
