@@ -10,15 +10,20 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+    <% if current_user.reports.include?('caseworker_report') %>
+      <h3 class='govuk-heading-m'>
+        <% report = Reporting::MonthlyCaseworkerReport.latest %>
+        <%= govuk_link_to(
+              report.report_name,
+              reporting_monthly_report_path(report_type: 'caseworker_report', month: report.to_param),
+              { no_visited_state: true }
+            ) %>
+      </h3>
+    <% end %>
     <% current_user.reports.each do |report_type| %>
       <h3 class='govuk-heading-m'>
         <%= govuk_link_to label_text(report_type), reporting_user_report_path(report_type), { no_visited_state: true } %>
       </h3>
     <% end %>
-
-    <% report = Reporting::MonthlyReport.latest(report_type: 'caseworker_report') %>
-    <h3 class='govuk-heading-m'>
-      <%= govuk_link_to report.title, reporting_monthly_report_path(report_type: report.report_type, month: report.to_param), { no_visited_state: true } %>
-      </h3>
   </div>
 </div>

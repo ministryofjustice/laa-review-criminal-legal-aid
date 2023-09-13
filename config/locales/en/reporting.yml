@@ -1,9 +1,13 @@
 en:
   reporting:
-      user_reports:
-        index:
-          page_title: Reporting 
-          heading: Reports
+    monthly_report:
+      caseworker_report:
+        title: Caseworker report, %{month_name}
+
+    user_reports:
+      index:
+        page_title: Reporting 
+        heading: Reports
   labels:
     workload_report: Workload report
     processed_report: Processed report

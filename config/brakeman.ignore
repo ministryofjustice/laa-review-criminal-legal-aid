@@ -3,13 +3,70 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "7ece50c9bc00efe79e83888eedb576a89f3650e9d51a799171c953abfed0e0f3",
+      "fingerprint": "14625053c6af830a4389c5625164c49264e4a6a99214579020462ae4e5c28890",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/reporting/monthly_reports/show.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::Report), { :locals => ({ :report => Reporting::MonthlyReport.from_param(:report_type => params.require(:report_type).presence_in(*Types::Report), :month => params[:month]) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Reporting::MonthlyReportsController",
+          "method": "show",
+          "line": 8,
+          "file": "app/controllers/reporting/monthly_reports_controller.rb",
+          "rendered": {
+            "name": "reporting/monthly_reports/show",
+            "file": "app/views/reporting/monthly_reports/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reporting/monthly_reports/show"
+      },
+      "user_input": "params.require(:report_type).presence_in(*Types::Report)",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "Parameter value restricted by Types::Report"
+    },
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "7aa3963024bcd6c1ddda1633d57dcb72dc0da4a1781b18b28dd325f039a04013",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `const_get` called with parameter value",
+      "file": "app/controllers/reporting/user_reports_controller.rb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "Reporting.const_get(params.require(:report_type).presence_in(*Types::Report).camelize)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Reporting::UserReportsController",
+        "method": "show"
+      },
+      "user_input": "params.require(:report_type).presence_in(*Types::Report).camelize",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": "Constant name restricted by Types:Report"
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "d37b8cb047d90de3cd8b996a18046a9f33d4898db1c333b6b70e2a9d22599624",
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/reporting/user_reports/show.html.erb",
       "line": 14,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => params.require(:report_type).presence_in(*Types::Report), { :locals => ({ :report => report_type_report_mapping[params.require(:report_type).presence_in(*Types::Report)] }) })",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::Report), { :locals => ({ :report => Reporting.const_get(params.require(:report_type).presence_in(*Types::Report).camelize).new }) })",
       "render_path": [
         {
           "type": "controller",
@@ -32,9 +89,9 @@
       "cwe_id": [
         22
       ],
-      "note": "Using types so safe"
+      "note": "Parameter value restricted by Types::Report"
     }
   ],
-  "updated": "2023-09-11 17:42:18 +0100",
+  "updated": "2023-09-13 14:27:47 +0100",
   "brakeman_version": "6.0.1"
 }

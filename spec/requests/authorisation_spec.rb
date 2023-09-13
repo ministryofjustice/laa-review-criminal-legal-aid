@@ -22,6 +22,7 @@ RSpec.describe 'Authorisation' do
       ready_crime_application
       reporting_user_report
       reporting_root
+      reporting_monthly_report
       search_application_searches
     ]
   end
@@ -210,6 +211,7 @@ RSpec.describe 'Authorisation' do
     path = '/'
     id = crime_application_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
     report_type = 'processed_report'
-    { id:, crime_application_id:, path:, report_type: }.slice(*route.required_keys.dup)
+    month = '2023-August'
+    { id:, crime_application_id:, path:, report_type:, month: }.slice(*route.required_keys.dup)
   end
 end

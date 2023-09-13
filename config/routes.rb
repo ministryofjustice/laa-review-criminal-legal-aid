@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   namespace :reporting do
     root to: 'user_reports#index'
     get ':report_type', to: 'user_reports#show', as: 'user_report'
+    get ':report_type/monthly/:month', to: 'monthly_reports#show', as: 'monthly_report'
   end
 
   namespace :manage_users do
