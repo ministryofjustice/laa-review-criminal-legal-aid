@@ -146,14 +146,14 @@ RSpec.describe 'Error pages' do
 
       it 'shows "Page not found" even if the user exists' do
         expected_content = 'Page not found'
-        visit "/admin/manage_users/history/#{user.id}"
+        visit "/manage_users/history/#{user.id}"
         expect(page).to have_content expected_content
-        visit '/admin/manage_users/history/n0tan1d'
+        visit '/manage_users/history/n0tan1d'
         expect(page).to have_content expected_content
       end
 
       it 'uses the errors layout' do
-        visit "/admin/manage_users/history/#{user.id}"
+        visit "/manage_users/history/#{user.id}"
         expect(page).not_to have_css '#navigation'
         expect(page).not_to have_content 'Sign out'
       end
@@ -188,9 +188,9 @@ RSpec.describe 'Error pages' do
 
       it 'redirects to sign in even if the user exists' do
         expected_content = 'Sign in to access the service'
-        visit "/admin/manage_users/history/#{user.id}"
+        visit "/manage_users/history/#{user.id}"
         expect(page).to have_content expected_content
-        visit '/admin/manage_users/history/n0tan1d'
+        visit '/manage_users/history/n0tan1d'
         expect(page).to have_content expected_content
       end
     end
@@ -221,7 +221,7 @@ RSpec.describe 'Error pages' do
 
     context 'when visiting a link to manage a non existent user' do
       it 'show page not found' do
-        visit '/admin/manage_users/history/n0tan1d'
+        visit '/manage_users/history/n0tan1d'
         expect(page).to have_content 'Page not found'
         expect(page).to have_http_status(:not_found)
       end

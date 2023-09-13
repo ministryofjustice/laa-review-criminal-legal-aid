@@ -20,31 +20,31 @@ RSpec.describe 'Authorisation' do
       next_application_assigned_applications
       open_crime_applications
       ready_crime_application
-      report
-      reports
+      reporting_user_report
+      reporting_root
       search_application_searches
     ]
   end
 
   let(:user_manager_routes) do
     %w[
-      admin_manage_users_active_user
-      admin_manage_users_active_users
-      admin_manage_users_change_role
-      admin_manage_users_deactivated_users
-      admin_manage_users_history
-      admin_manage_users_invitation
-      admin_manage_users_invitations
-      admin_manage_users_root
-      confirm_destroy_admin_manage_users_invitation
-      confirm_reactivate_admin_manage_users_deactivated_user
-      confirm_renew_admin_manage_users_invitation
-      edit_admin_manage_users_active_user
-      edit_admin_manage_users_change_role
-      edit_admin_manage_users_revive_user
-      new_admin_manage_users_deactivated_user
-      new_admin_manage_users_invitation
-      reactivate_admin_manage_users_deactivated_user
+      manage_users_active_user
+      manage_users_active_users
+      manage_users_change_role
+      manage_users_deactivated_users
+      manage_users_history
+      manage_users_invitation
+      manage_users_invitations
+      manage_users_root
+      confirm_destroy_manage_users_invitation
+      confirm_reactivate_manage_users_deactivated_user
+      confirm_renew_manage_users_invitation
+      edit_manage_users_active_user
+      edit_manage_users_change_role
+      edit_manage_users_revive_user
+      new_manage_users_deactivated_user
+      new_manage_users_invitation
+      reactivate_manage_users_deactivated_user
     ]
   end
 
@@ -136,7 +136,7 @@ RSpec.describe 'Authorisation' do
     end
 
     it 'can access admin manage users' do
-      get admin_manage_users_root_path
+      get manage_users_root_path
       expect(response).to have_http_status :ok
     end
 
@@ -146,7 +146,7 @@ RSpec.describe 'Authorisation' do
 
         visit_configured_route(route)
 
-        expect(response).to redirect_to(admin_manage_users_root_path)
+        expect(response).to redirect_to(manage_users_root_path)
       end
     end
 
@@ -159,7 +159,7 @@ RSpec.describe 'Authorisation' do
       end
 
       it 'can access admin manage users' do
-        get admin_manage_users_root_path
+        get manage_users_root_path
         expect(response).to have_http_status :ok
       end
 
@@ -209,6 +209,7 @@ RSpec.describe 'Authorisation' do
   def dummy_params(route)
     path = '/'
     id = crime_application_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
-    { id:, crime_application_id:, path: }.slice(*route.required_keys.dup)
+    report_type = 'processed_report'
+    { id:, crime_application_id:, path:, report_type: }.slice(*route.required_keys.dup)
   end
 end

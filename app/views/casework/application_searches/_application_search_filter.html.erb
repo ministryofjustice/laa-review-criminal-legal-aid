@@ -1,0 +1,60 @@
+<%= form_with url: search_application_searches_path, scope: :filter, method: :get, class: 'search', id: 'search_filter' do |f| %>
+
+  <p class="help-text"><%= t('.hint_text') %></p>
+
+  <%= f.govuk_fieldset legend: { text: nil } do %>
+    <label class="govuk-label govuk-label--s"><%= t('labels.application_information')%></label>
+    <div class="input-group">
+      <%= f.govuk_text_field(
+            :search_text,
+            label: { text: t('labels.search_text') },
+            autocomplete: 'off'
+          ) %>
+      <%= f.search_date_field(
+            :applicant_date_of_birth,
+            as: :date,
+            label: { text: t('labels.applicant_date_of_birth') }
+          ) %>
+    </div>
+
+    <label class="govuk-label govuk-label--s"><%= t('labels.search_criteria')%></label>
+
+    <div class="input-group">
+      <%= f.govuk_select(
+            :application_status,
+            application_search_filter.application_status_options,
+            label: { text: t('labels.application_status') }
+          ) %>
+
+      <%= f.govuk_select(
+            :assigned_status,
+            application_search_filter.assigned_status_options,
+            options: { include_blank: '' },
+            label: { text: t('labels.caseworker') }
+          ) %>
+    </div>
+    <div class="input-group">
+      <%= f.search_date_field(
+            :submitted_after,
+            as: :date,
+            label: { text: t('labels.start_on') }
+          ) %>
+      <%= f.search_date_field(
+            :submitted_before,
+            as: :date,
+            label: { text: t('labels.end_on') }
+          ) %>
+      <%= f.govuk_select(
+            :age_in_business_days,
+            application_search_filter.age_in_business_days_options,
+            options: { include_blank: '' },
+            label: { text: t('labels.age_in_business_days') }
+          ) %>
+    </div>
+
+    <div class="govuk-button-group">
+      <%= f.govuk_submit t('calls_to_action.search') %>
+      <%= link_to t('calls_to_action.clear_search'), new_application_searches_path, class: 'govuk-link' %>
+    </div>
+  <% end %>
+<% end %>

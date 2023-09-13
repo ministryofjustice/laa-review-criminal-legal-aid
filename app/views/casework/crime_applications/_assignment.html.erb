@@ -1,0 +1,52 @@
+<div class="govuk-grid-row govuk-!-margin-bottom-6">
+  <div class="govuk-grid-column-one-half">
+    <div class="govuk-body-l govuk-!-margin-bottom-0">
+      <% if crime_application.reviewed? %>
+        <strong><%= label_text(:closed_by) %></strong>
+        <%= crime_application.reviewer_name %>
+      <% else %>
+        <strong><%= label_text(:assigned_to) %></strong>
+        <%= crime_application.assignee_name || t(:no_one, scope: 'values') %>
+      <% end %>
+    </div>
+
+    <div class="govuk-body-l govuk-!-margin-bottom-0">
+      <strong><%= label_text(:date_received) %></strong>
+      <%= l crime_application.submitted_at, format: :compact %>
+    </div>
+
+    <% if crime_application.reviewed? %>
+      <div class="govuk-body-l govuk-!-margin-bottom-0">
+        <strong><%= t(crime_application.review_status, scope: 'labels.date') %></strong>
+        <%= l crime_application.reviewed_at, format: :compact %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <% unless crime_application.reviewed? %>
+      <% if crime_application.unassigned? %>
+        <%= button_to t('calls_to_action.assign_to_self'),
+                      assigned_applications_path(
+                        crime_application_id: crime_application.id
+                      ),
+                      method: :post,
+                      class: 'govuk-button govuk-button--secondary govuk-!-margin-top-1' %>
+      <% else %>
+        <% if crime_application.assigned_to?(current_user_id) %>
+          <%= button_to t('calls_to_action.unassign_from_self'),
+                        assigned_application_path(crime_application),
+                        method: :delete,
+                        class: 'govuk-button govuk-button--secondary' %>
+        <% else %>
+          <%= button_to t('calls_to_action.reassign_to_self'),
+                        new_crime_application_reassign_path(
+                          crime_application.id
+                        ),
+                        method: :get,
+                        class: 'govuk-button govuk-button--secondary' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

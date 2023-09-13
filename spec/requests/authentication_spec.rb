@@ -138,7 +138,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
         it 'redirects to "Manage Users"' do
           auth_callback
-          expect(response).to redirect_to(admin_manage_users_root_path)
+          expect(response).to redirect_to(manage_users_root_path)
         end
       end
 
@@ -171,7 +171,7 @@ RSpec.describe 'Authentication Session Initialisation' do
 
         it 'redirects to "Your list"' do
           auth_callback
-          expect(response).to redirect_to(reports_path)
+          expect(response).to redirect_to(reporting_root_path)
         end
       end
     end

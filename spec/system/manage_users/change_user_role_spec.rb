@@ -12,7 +12,7 @@ RSpec.describe 'Change user role' do
       User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid, email: 'test2@eg.com')
 
       active_user.update(role: 'supervisor')
-      visit '/admin/manage_users/active_users'
+      visit '/manage_users/active_users'
 
       click_on('Zoe Blogs')
       click_on('Change role')
@@ -55,7 +55,7 @@ RSpec.describe 'Change user role' do
 
     context 'with UI based flow' do
       before do
-        visit '/admin/manage_users/deactivated_users'
+        visit '/manage_users/deactivated_users'
         click_on('Zoe Blogs')
       end
 
@@ -67,7 +67,7 @@ RSpec.describe 'Change user role' do
 
     context 'with URL based flow' do
       before do
-        visit "/admin/manage_users/change_roles/#{user.id}/edit"
+        visit "/manage_users/change_roles/#{user.id}/edit"
       end
 
       it 'is not found' do
@@ -86,7 +86,7 @@ RSpec.describe 'Change user role' do
 
     context 'with UI based flow' do
       before do
-        visit '/admin/manage_users/active_users'
+        visit '/manage_users/active_users'
         click_on('Zoe Blogs')
       end
 
@@ -98,7 +98,7 @@ RSpec.describe 'Change user role' do
 
     context 'with URL based flow' do
       before do
-        visit "/admin/manage_users/change_roles/#{user.id}/edit"
+        visit "/manage_users/change_roles/#{user.id}/edit"
       end
 
       it 'shows warning' do
@@ -117,8 +117,7 @@ RSpec.describe 'Change user role' do
       }
       active_user
 
-      visit '/admin/manage_users/active_users'
-      click_on('Zoe Blogs')
+      visit '/manage_users/active_users'
     end
 
     it 'does not show Change role action' do
@@ -126,7 +125,7 @@ RSpec.describe 'Change user role' do
     end
 
     it 'denies role change if forced via URL' do
-      visit "/admin/manage_users/change_roles/#{user.id}/edit"
+      visit "/manage_users/change_roles/#{user.id}/edit"
 
       expect(page).to have_notification_banner(
         text: "Unable to change #{user.name}'s role",
@@ -138,7 +137,7 @@ RSpec.describe 'Change user role' do
   describe 'when admin manipulates the HTTP client' do
     context 'with their own user id' do
       before do
-        visit "/admin/manage_users/change_roles/#{current_user.id}/edit"
+        visit "/manage_users/change_roles/#{current_user.id}/edit"
         choose 'Data analyst'
         click_on 'Save new role'
       end
@@ -154,11 +153,10 @@ RSpec.describe 'Change user role' do
   describe 'when no new role is selected' do
     before do
       active_user
-      visit '/admin/manage_users/active_users'
+      visit '/manage_users/active_users'
       click_on('Zoe Blogs')
       click_on('Change role')
-
-      click_on 'Save new role'
+      click_on('Save new role')
     end
 
     it 'shows warning message' do

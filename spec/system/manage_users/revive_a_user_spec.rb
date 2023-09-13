@@ -26,7 +26,7 @@ RSpec.describe 'Revive a user' do
 
   describe 'when admin revives dormant user' do
     before do
-      visit '/admin/manage_users/active_users'
+      visit '/manage_users/active_users'
       click_on('Taylor Quick')
       click_on('Revive')
     end
@@ -78,7 +78,7 @@ RSpec.describe 'Revive a user' do
     context 'when the admin user views manage users dashboard' do
       before do
         login_as(current_user) # The admin user logs in
-        visit '/admin/manage_users/active_users'
+        visit '/manage_users/active_users'
         click_on('Taylor Quick')
       end
 
@@ -106,7 +106,7 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'denies revival attempt' do
-      visit edit_admin_manage_users_revive_user_path(id: normal_user.id)
+      visit edit_manage_users_revive_user_path(id: normal_user.id)
 
       expect(page).to have_notification_banner(
         text: 'Dave does not have a dormant account'
@@ -116,7 +116,7 @@ RSpec.describe 'Revive a user' do
 
   describe 'when dormant user misses revive deadline' do
     before do
-      visit '/admin/manage_users/active_users' # As admin
+      visit '/manage_users/active_users' # As admin
       click_on('Taylor Quick')
       click_on('Revive')
 
@@ -136,7 +136,7 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'allows admin to begin revive process again' do
-      visit '/admin/manage_users/active_users'
+      visit '/manage_users/active_users'
       click_on('Taylor Quick')
 
       within actions do
@@ -159,7 +159,7 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'does not allow revival process' do
-      visit '/admin/manage_users/deactivated_users'
+      visit '/manage_users/deactivated_users'
       click_on('Will I Am')
 
       within actions do
