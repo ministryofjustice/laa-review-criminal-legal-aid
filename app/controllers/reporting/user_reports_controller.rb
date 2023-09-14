@@ -5,7 +5,9 @@ module Reporting
     before_action :require_dashboard_access!, only: [:index]
     before_action :require_report_access!, only: [:show]
 
-    def index; end
+    def index
+      @monthly_reports = Reporting::MonthlyReport.latest(report_types: current_user.reports)
+    end
 
     def show
       @report = Reporting.const_get(@report_type.camelize).new

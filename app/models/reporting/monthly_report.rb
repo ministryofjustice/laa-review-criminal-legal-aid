@@ -6,7 +6,7 @@ module Reporting
 
     def initialize(date:, report_type:)
       @date = date
-      @report_type = Types::Report[report_type]
+      @report_type = Types::MonthlyReportType[report_type]
     end
 
     attr_reader :date, :report_type
@@ -32,15 +32,17 @@ module Reporting
     end
 
     class << self
+      def supported_report_types
+        Types::MonthlyReportType.values
+      end
+
       def from_param(report_type:, month:)
         date = Date.strptime(month, PARAM_FORMAT)
         new(report_type:, date:)
       end
 
-      def latest(report_type:)
-        current_date = Time.current.in_time_zone('London').to_date
-        date = current_date << 1
-        new(report_type:, date:)
+      def _latest_date
+        _current_date << 1
       end
     end
   end
