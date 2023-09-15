@@ -1,26 +1,16 @@
 module Reporting
   class MonthlyReport
-    include Reporting::Reportable
-
     PARAM_FORMAT = '%Y-%B'.freeze
+
+    include Reporting::Reportable
 
     def initialize(date:, report_type:)
       @date = date
       @report_type = Types::MonthlyReportType[report_type]
     end
 
-    attr_reader :date, :report_type
-
-    def to_param
-      date.strftime(PARAM_FORMAT)
-    end
-
-    def month_name
+    def epoch_name
       date.strftime('%B, %Y')
-    end
-
-    def title
-      report_text(:title, month_name:)
     end
 
     def start_on
@@ -29,6 +19,14 @@ module Reporting
 
     def end_on
       date.end_of_month
+    end
+
+    def next_report
+      self.class.new(report_type: report_type, date: date >> 1)
+    end
+
+    def previous_report
+      self.class.new(report_type: report_type, date: date << 1)
     end
 
     private
@@ -40,15 +38,6 @@ module Reporting
     end
 
     class << self
-      def supported_report_types
-        Types::MonthlyReportType.values
-      end
-
-      def from_param(report_type:, month:)
-        date = Date.strptime(month, PARAM_FORMAT)
-        new(report_type:, date:)
-      end
-
       def _latest_date
         _current_date << 1
       end

@@ -212,8 +212,7 @@ RSpec.describe 'Authorisation' do
     path = '/'
     id = crime_application_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
     report_type = 'processed_report'
-    month = '2023-August'
-    week = '2023-01'
-    { id:, crime_application_id:, path:, report_type:, month:, week: }.slice(*route.required_keys.dup)
+    epoch = '2023-August'
+    { id:, crime_application_id:, path:, report_type:, epoch: }.slice(*route.required_keys.dup)
   end
 end

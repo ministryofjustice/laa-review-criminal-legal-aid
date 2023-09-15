@@ -28,7 +28,7 @@ RSpec.describe 'Monthly Reports' do
 
     visit reporting_monthly_report_path(
       report_type: report.report_type,
-      month: report.to_param
+      epoch: report.to_param
     )
   end
 
@@ -52,5 +52,21 @@ RSpec.describe 'Monthly Reports' do
 
   it 'shows the caseworker report table for the given month' do
     expect(page).to have_text('Fred Smitheg')
+  end
+
+  it 'includes a link to the next month\'s report' do
+    expect { click_link 'Next' }.to change { page.first('h1').text }.from(
+      'Caseworker report: January, 2023'
+    ).to(
+      'Caseworker report: February, 2023'
+    )
+  end
+
+  it 'includes a link to the previous month\'s report' do
+    expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
+      'Caseworker report: January, 2023'
+    ).to(
+      'Caseworker report: December, 2022'
+    )
   end
 end
