@@ -1,0 +1,59 @@
+<% title t('.page_title') %>
+<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-9">
+    <%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
+    <%= render partial: 'overview', object: @crime_application %>
+    <%= render partial: 'client_details',
+               locals: {
+                 applicant: @crime_application.client_details.applicant,
+                 nino: @crime_application.formatted_applicant_nino,
+                 applicant_tel: @crime_application.formatted_applicant_telephone_number
+               } %>
+    <%= render partial: 'case_details', object: @crime_application.case_details %>
+    <%= render partial: 'offences', object: @crime_application.case_details.offences %>
+    <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
+    <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
+    <%= render partial: 'provider_details', object: @crime_application.provider_details %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <% if @crime_application.reviewable_by?(current_user_id) %>
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <% if @crime_application.status?(:marked_as_ready) %>
+        <%= button_to t('calls_to_action.mark_complete'),
+                      complete_crime_application_path(@crime_application),
+                      method: :put,
+                      class: 'govuk-button govuk-button' %>
+        <% else %>
+        <%= button_to t('calls_to_action.mark_as_ready'),
+                      ready_crime_application_path(@crime_application),
+                      method: :put,
+                      class: 'govuk-button govuk-button' %>
+        <% end %>
+        <%= button_to t('calls_to_action.send_back'),
+                      new_crime_application_return_path(@crime_application),
+                      method: :get,
+                      class: 'govuk-button govuk-button--warning' %>
+        <%= button_to t('calls_to_action.unassign_from_self'),
+                      assigned_application_path(@crime_application),
+                      method: :delete,
+                      class: 'govuk-button govuk-button--secondary' %>
+      </div>
+    <% end %>
+
+    <p>
+      <%= link_to t('.view_history'),
+                  history_crime_application_path(@crime_application),
+                  class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+    </p>
+    <p>
+      <%= link_to t('.view_your_list'),
+                  assigned_applications_path,
+                  class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+    </p>
+  </div>
+</div>

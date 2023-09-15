@@ -5,15 +5,15 @@ RSpec.describe 'Reports' do
     include_context 'when logged in user is admin'
 
     it 'denies access to the "Reports" page' do
-      visit reports_path
+      visit reporting_root_path
 
       expect_forbidden
     end
 
-    it 'denies access to report pages', aggregate_failures: true do
+    it 'is shown not found for report pages', aggregate_failures: true do
       %w[processed_report caseworker_report workload_report].each do |report|
-        visit report_path(report)
-        expect_forbidden
+        visit reporting_user_report_path(report)
+        expect(page).to have_http_status(:not_found)
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe 'Reports' do
         allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
           instance_double(FeatureFlags::EnabledFeature, enabled?: true)
         }
-        visit reports_path
+        visit reporting_root_path
       end
 
       it 'can access the "Reports" index page' do
@@ -49,22 +49,22 @@ RSpec.describe 'Reports' do
 
   context 'when logged in as a caseworker' do
     it 'cannot access reports dashboard' do
-      visit reports_path
+      visit reporting_root_path
       expect_forbidden
     end
 
     it 'cannot access the caseworker report' do
-      visit report_path('caseworker_report')
-      expect_forbidden
+      visit reporting_user_report_path('caseworker_report')
+      expect(page).to have_http_status(:not_found)
     end
 
     it 'can access the processed report' do
-      visit report_path('processed_report')
+      visit reporting_user_report_path('processed_report')
       expect(page).to have_text('Processed report')
     end
 
     it 'can access the workload report' do
-      visit report_path('workload_report')
+      visit reporting_user_report_path('workload_report')
       expect(page).to have_text('Workload report')
     end
   end
@@ -73,7 +73,7 @@ RSpec.describe 'Reports' do
     let(:current_user_role) { UserRole::SUPERVISOR }
 
     before do
-      visit reports_path
+      visit reporting_root_path
     end
 
     it 'can access the reports page' do
@@ -101,7 +101,7 @@ RSpec.describe 'Reports' do
     let(:current_user_role) { UserRole::DATA_ANALYST }
 
     before do
-      visit reports_path
+      visit reporting_root_path
     end
 
     it 'can access the reports page' do
@@ -130,7 +130,7 @@ RSpec.describe 'Reports' do
 
     before do
       stub_const('Types::USER_ROLE_REPORTS', { Types::SUPERVISOR_ROLE => ['not_supported_report'] })
-      visit report_path('not_supported_report')
+      visit reporting_user_report_path('not_supported_report')
     end
 
     it 'shows page not found' do

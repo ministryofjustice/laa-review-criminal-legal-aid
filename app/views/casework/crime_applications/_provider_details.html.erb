@@ -1,0 +1,38 @@
+<h2 class="govuk-heading-m">
+  <%= label_text(:provider_details) %>
+</h2>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:office_account_number) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= provider_details.office_code %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:legal_representative) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= "#{provider_details.legal_rep_first_name} #{provider_details.legal_rep_last_name}" %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:provider_phone_number) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= provider_details.legal_rep_telephone %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:provider_email) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= provider_details.provider_email %>
+    </dd>
+  </div>
+</dl>

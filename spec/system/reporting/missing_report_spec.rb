@@ -6,8 +6,8 @@ RSpec.describe 'Missing Report' do
 
   it 'shows a not found error' do
     visit '/'
-    visit report_path(:not_a_report)
+    visit reporting_user_report_path(:not_a_report)
 
-    expect_forbidden
+    expect(page).to have_http_status(:not_found)
   end
 end

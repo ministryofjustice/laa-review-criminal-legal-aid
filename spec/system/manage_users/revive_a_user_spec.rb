@@ -16,10 +16,8 @@ RSpec.describe 'Revive a user' do
   end
 
   let(:current_user_can_manage_others) { true } # System spec admin user
-  let(:cells) { page.first('table tbody tr').all('td') }
-  let(:dormant_user_row) do
-    find(:xpath, "//table[@class='govuk-table']//tr[contains(td[2], '#{dormant_user.email}')]")
-  end
+  let(:actions) { page.first('ul.govuk-summary-list__actions-list') }
+  let(:first_log_entry) { page.first('table tbody tr').all('td') }
 
   before do
     allow(NotifyMailer).to receive(:revive_account_email) { mail_double }
@@ -28,11 +26,9 @@ RSpec.describe 'Revive a user' do
 
   describe 'when admin revives dormant user' do
     before do
-      visit '/admin/manage_users/active_users'
-
-      within dormant_user_row do
-        click_on('Revive')
-      end
+      visit '/manage_users/active_users'
+      click_on('Taylor Quick')
+      click_on('Revive')
     end
 
     it 'shows notification' do
@@ -42,7 +38,9 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'shows Awaiting Revival status' do
-      within dormant_user_row do
+      click_on('Taylor Quick')
+
+      within actions do
         expect(page).to have_content 'Awaiting revival'
       end
     end
@@ -56,11 +54,8 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'shows an entry in user history' do
-      within dormant_user_row do
-        click_on('Taylor Quick')
-      end
-
-      expect(cells[1]).to have_content 'Account revival'
+      click_on('Taylor Quick')
+      expect(first_log_entry[1]).to have_content 'Account revival'
     end
   end
 
@@ -83,19 +78,16 @@ RSpec.describe 'Revive a user' do
     context 'when the admin user views manage users dashboard' do
       before do
         login_as(current_user) # The admin user logs in
-        visit '/admin/manage_users/active_users'
+        visit '/manage_users/active_users'
+        click_on('Taylor Quick')
       end
 
       it 'shows updated user history' do
-        within dormant_user_row do
-          click_on('Taylor Quick')
-        end
-
-        expect(cells[1]).to have_content 'Account revived'
+        expect(first_log_entry[1]).to have_content 'Account revived'
       end
 
       it 'no longer shows user as `Awaiting revival`' do
-        within dormant_user_row do
+        within actions do
           expect(page).to have_content 'Deactivate' # Back to normal actions
         end
       end
@@ -114,7 +106,7 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'denies revival attempt' do
-      visit edit_admin_manage_users_revive_user_path(id: normal_user.id)
+      visit edit_manage_users_revive_user_path(id: normal_user.id)
 
       expect(page).to have_notification_banner(
         text: 'Dave does not have a dormant account'
@@ -124,10 +116,9 @@ RSpec.describe 'Revive a user' do
 
   describe 'when dormant user misses revive deadline' do
     before do
-      visit '/admin/manage_users/active_users' # As admin
-      within dormant_user_row do
-        click_on('Revive')
-      end
+      visit '/manage_users/active_users' # As admin
+      click_on('Taylor Quick')
+      click_on('Revive')
 
       dormant_user.update!(revive_until: 4.days.ago) # Force premature expiration
     end
@@ -145,30 +136,35 @@ RSpec.describe 'Revive a user' do
     end
 
     it 'allows admin to begin revive process again' do
-      visit '/admin/manage_users/active_users'
+      visit '/manage_users/active_users'
+      click_on('Taylor Quick')
 
-      within dormant_user_row do
+      within actions do
         expect(page).to have_content 'Revive'
       end
     end
   end
 
   describe 'when dormant user is deactivated' do
-    let!(:inactive_user) do
+    before do
       User.create!(
         auth_subject_id: SecureRandom.uuid,
         last_auth_at: 100.days.ago,
         first_auth_at: nil,
         deactivated_at: Time.zone.now,
-        email: 'will.i.ams.inactive@example.com'
+        first_name: 'Will',
+        last_name: 'I Am',
+        email: 'will.i.am.inactive@example.com'
       )
     end
 
     it 'does not allow revival process' do
-      visit '/admin/manage_users/deactivated_users'
-      row = find(:xpath, "//table[@class='govuk-table']//tr[contains(td[2], '#{inactive_user.email}')]")
+      visit '/manage_users/deactivated_users'
+      click_on('Will I Am')
 
-      expect(row).not_to have_text('Revive')
+      within actions do
+        expect(page).not_to have_text('Revive')
+      end
     end
   end
 

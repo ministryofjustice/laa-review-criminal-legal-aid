@@ -1,0 +1,48 @@
+<% title t('.page_title') %>
+
+<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
+
+    <h2 class="govuk-heading-m">
+      <%= t('.page_title') %>
+    </h2>
+
+  <table class="govuk-table app-dashboard-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">
+          <%= t('labels.when') %>
+        </th>
+        <th scope="col" class="govuk-table__header">
+          <%= t('labels.who') %>
+        </th>
+        <th scope="col" class="govuk-table__header">
+          <%= t('labels.what') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <% if @crime_application.superseded? %>
+        <%= render partial: @crime_application.superseding_history_item, as: :item, layout: 'history_item' %>
+      <% end %>
+
+      <% @crime_application.all_histories.each do |history| %>
+        <% history.items.each do |item| %>
+          <%= render partial: item,
+                     layout: 'history_item',
+                     as: :item,
+                     locals: {
+                       event_is_for_current_version: (
+                         @crime_application.id == history.application.id
+                       ),
+                       application: history.application
+                     } %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>

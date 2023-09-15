@@ -1,4 +1,19 @@
 en:
+  reporting:
+    monthly_report:
+      caseworker_report:
+        title: "Caseworker report: %{epoch_name}"
+    weekly_report:
+      caseworker_report:
+        title: "Caseworker report: %{epoch_name}"
+    user_reports:
+      index:
+        page_title: Reporting 
+        heading: Reports
+  labels:
+    workload_report: Workload report
+    processed_report: Processed report
+    caseworker_report: Caseworker report
   table_headings:
     applications_closed: Number of closed applications
     days_passed: Business days since applications were received

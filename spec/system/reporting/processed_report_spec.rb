@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Processed Report' do
   before do
     visit '/'
-    visit report_path(:processed_report)
+    visit reporting_user_report_path(:processed_report)
   end
 
   it 'shows the correct column headers' do

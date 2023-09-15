@@ -1,0 +1,60 @@
+<h2 class="govuk-heading-m">
+  <%= label_text(:overview) %>
+</h2>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:application_type) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(overview.application_type, scope: 'values') %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:means_type) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+    <%# TODO implement means type once we handle it - currently hardcoded %>
+      <span class="moj-badge moj-badge--blue"><%= overview.means_type %></span>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:urn) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:application_start_date) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l(overview.date_stamp, format: :compact) %>
+    </dd>
+  </div>
+
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:overall_offence_class) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <% if overview.case_details.offence_class %>
+        <span class="moj-badge moj-badge--blue">
+          <%= t('values.class') %>
+          <%= overview.case_details.offence_class %>
+        </span>
+      <% else %>
+        <span class="moj-badge moj-badge--red">
+          <%= label_text('undetermined') %>
+        </span>
+      <% end %>
+    </dd>
+  </div>
+</dl>

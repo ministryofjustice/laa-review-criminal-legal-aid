@@ -5,7 +5,7 @@ RSpec.describe 'Manage Users Dashboard' do
 
   context 'when user does not have access manage other users' do
     before do
-      visit admin_manage_users_root_path
+      visit manage_users_root_path
     end
 
     it 'redirects to "Page not" found' do
@@ -20,7 +20,7 @@ RSpec.describe 'Manage Users Dashboard' do
     let(:last_auth_at) { Time.zone.now }
 
     before do
-      visit admin_manage_users_root_path
+      visit manage_users_root_path
     end
 
     it 'includes the page heading' do
@@ -36,7 +36,7 @@ RSpec.describe 'Manage Users Dashboard' do
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Name Email Manage other users Role Actions')
+      expect(column_headings).to eq('Name Email Manage other users Role')
     end
 
     it 'shows the correct table content' do
@@ -69,7 +69,7 @@ RSpec.describe 'Manage Users Dashboard' do
 
         User.insert_all(users) # rubocop:disable Rails/SkipsModelValidations
 
-        visit admin_manage_users_root_path
+        visit manage_users_root_path
       end
 
       let(:expected_order) do
@@ -93,7 +93,7 @@ RSpec.describe 'Manage Users Dashboard' do
 
     before do
       make_users(100)
-      visit '/admin/manage_users?page=2'
+      visit '/manage_users?page=2'
     end
 
     it 'shows the correct page number' do

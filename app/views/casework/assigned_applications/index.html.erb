@@ -1,0 +1,53 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-bottom-1">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-1"><%= t '.heading' %></h1>
+    <p><%= t '.your_assignments', count: assignments_count %></p>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= form_with url: next_application_assigned_applications_path do |f| %>
+      <div class="govuk-button-group">
+        <%= f.button t('.get_next'),
+                     class: 'govuk-button govuk-!-margin-bottom-1',
+                     data: { module: 'govuk-button' } %>
+
+        <%= link_to t('.open_applications'),
+                    open_crime_applications_path,
+                    class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if assignments_count > 0 %>
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <table class="govuk-table app-dashboard-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <%= table_headers(
+                    %w[
+                      applicant_name
+                      reference
+                      submitted_at
+                      time_passed
+                    ],
+                    search: @search
+                  ) %>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <%= render partial: 'crime_application',
+                       collection: @search.results,
+                       as: :crime_application %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%= paginate @search.pagination %>
+<% end %>

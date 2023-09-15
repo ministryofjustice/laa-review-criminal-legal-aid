@@ -59,7 +59,7 @@ RSpec.describe 'Header navigation' do
   context 'when a user has access to manage other users' do
     include_context 'when logged in user is admin'
     before do
-      visit admin_manage_users_root_path
+      visit manage_users_root_path
     end
 
     it 'they are redirected to the admin manage users route by default' do

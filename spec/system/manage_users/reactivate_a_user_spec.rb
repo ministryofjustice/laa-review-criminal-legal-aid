@@ -3,20 +3,19 @@ require 'rails_helper'
 RSpec.describe 'Reactivate a user from the manage users dashboard' do
   include_context 'when logged in user is admin'
   include_context 'with an existing user'
-  let(:confirm_path) { confirm_reactivate_admin_manage_users_deactivated_user_path(deactivated_user) }
+  let(:confirm_path) { confirm_reactivate_manage_users_deactivated_user_path(deactivated_user) }
   let(:deactivated_user) { active_user }
 
   before do
     User.create!(can_manage_others: true, auth_subject_id: SecureRandom.uuid, email: 'test1@eg.com')
     active_user.deactivate!
-    visit admin_manage_users_deactivated_users_path
+    visit manage_users_deactivated_users_path
   end
 
   describe 'reactivating a deactivated user' do
     before do
-      within user_row do
-        click_on('Reactivate')
-      end
+      click_on('Zoe Blogs')
+      click_on('Reactivate')
     end
 
     it 'prompts to confirm the action' do
@@ -28,7 +27,7 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
     describe 'clicking on "Yes, reactivate"' do
       it 'redirects to the manage users list' do
         expect { click_on('Yes, reactivate') }.to(
-          change { page.current_path }.from(confirm_path).to(admin_manage_users_root_path)
+          change { page.current_path }.from(confirm_path).to(manage_users_root_path)
         )
       end
 
@@ -67,7 +66,7 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
     describe 'clicking on "No, do not reactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('No, do not reactivate') }.to(
-          change { page.current_path }.from(confirm_path).to(admin_manage_users_deactivated_users_path)
+          change { page.current_path }.from(confirm_path).to(manage_users_deactivated_users_path)
         )
       end
 
@@ -86,7 +85,7 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
 
     context 'when viewing deactivated users' do
       before do
-        visit admin_manage_users_deactivated_users_path
+        visit manage_users_deactivated_users_path
       end
 
       let(:current_user_row) do
@@ -107,13 +106,13 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
 
     context 'when reactivating themselves' do
       before do
-        visit confirm_reactivate_admin_manage_users_deactivated_user_path(current_user)
+        visit confirm_reactivate_manage_users_deactivated_user_path(current_user)
 
         click_on('Yes, reactivate')
       end
 
       it 'denies action', aggregate_failures: true do
-        expect(page).to have_current_path(admin_manage_users_deactivated_users_path)
+        expect(page).to have_current_path(manage_users_deactivated_users_path)
         expect(current_user.deactivated?).to be true
       end
 

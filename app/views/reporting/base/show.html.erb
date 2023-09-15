@@ -1,0 +1,25 @@
+<% title @report.title %>
+
+<%= render partial: 'block_pagination', locals: { report: @report } %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= @report.title %>
+    </h1>
+
+    <h2 class="govuk-heading-m">
+      <%= l(@report.start_on, format: :long) %>
+      &mdash;
+      <%= l(@report.end_on, format: :long) %>
+    </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <%= turbo_frame_tag [@report_type, @report.to_param], data: { turbo: 'true' } do %>
+      <%= render partial: @report_type, locals: { report: @report } %>
+    <% end %>
+  </div>
+</div>

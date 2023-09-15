@@ -3,16 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Deactivate a user from the manage users dashboard' do
   include_context 'when logged in user is admin'
   include_context 'with an existing user'
-  let(:confirm_path) { new_admin_manage_users_deactivated_user_path }
+  let(:confirm_path) { new_manage_users_deactivated_user_path }
 
   def do_deactivate_journey
     active_user
     visit '/'
-    visit '/admin/manage_users'
-
-    within user_row do
-      click_on('Deactivate')
-    end
+    visit manage_users_root_path
+    click_on('Zoe Blogs')
+    click_on('Deactivate')
   end
 
   describe 'with at least 2 other active admins' do
@@ -45,7 +43,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     context 'when clicking "Yes, deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('Yes, deactivate') }.to(
-          change { page.current_path }.from(confirm_path).to(admin_manage_users_root_path)
+          change { page.current_path }.from(confirm_path).to(manage_users_root_path)
         )
       end
 
@@ -67,7 +65,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     describe 'logging the deactivation in the user\'s account history' do
       before do
         click_on('Yes, deactivate')
-        visit admin_manage_users_deactivated_users_path
+        visit manage_users_deactivated_users_path
         click_link 'Zoe Blogs'
       end
 
@@ -85,7 +83,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     context 'when clicking "No, do not deactivate"' do
       it 'redirects to the manage user list' do
         expect { click_on('No, do not deactivate') }.to(
-          change { page.current_path }.from(confirm_path).to(admin_manage_users_root_path)
+          change { page.current_path }.from(confirm_path).to(manage_users_root_path)
         )
       end
 

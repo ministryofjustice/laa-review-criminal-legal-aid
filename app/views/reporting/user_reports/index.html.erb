@@ -1,0 +1,43 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= t '.heading' %>
+    </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h2 class='govuk-heading-m'>Latest complete monthly reports<h2>
+
+    <% @monthly_reports.each do |report|%>
+      <h3 class='govuk-heading-s'>
+        <%= govuk_link_to(
+              report.title,
+              reporting_monthly_report_path(report_type: report.report_type, epoch: report.to_param),
+              { no_visited_state: true }
+            )%>
+      </h3>
+    <% end %>
+
+    <h2 class='govuk-heading-m'>Latest complete weekly reports<h2>
+    <% @weekly_reports.each do |report|%>
+      <h3 class='govuk-heading-s'>
+        <%= govuk_link_to(
+              report.title,
+              reporting_weekly_report_path(report_type: report.report_type, epoch: report.to_param),
+              { no_visited_state: true }
+            )%>
+      </h3>
+    <% end %>
+
+    <h2 class='govuk-heading-m'>Latest snapshots<h2>
+    <% current_user.reports.each do |report_type| %>
+      <h3 class='govuk-heading-s'>
+        <%= govuk_link_to label_text(report_type), reporting_user_report_path(report_type), { no_visited_state: true } %>
+      </h3>
+    <% end %>
+  </div>
+</div>

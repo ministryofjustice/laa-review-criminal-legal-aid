@@ -1,0 +1,19 @@
+<% title t('.page_title') %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= confirm_text(:destroy_invitation, email: @user.email) %>
+    </h1>
+
+    <% unless @user.invitation_expired? %>
+      <%= govuk_warning_text text: warning_text(:destroy_invitation, email: @user.email) %>
+    <% end %>
+
+    <%= form_with(url: manage_users_invitation_path(@user), method: :delete) do |f| %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit action_text(:confirm_destroy) %>
+        <%= govuk_link_to action_text(:abandon_destroy), manage_users_invitations_path, { no_visited_state: true } %>
+      </div>
+    <% end %>
+  </div>
+</div>

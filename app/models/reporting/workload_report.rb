@@ -1,7 +1,5 @@
 module Reporting
   class WorkloadReport
-    include Reportable
-
     # Builds a Workload Report table with 'n' number of rows. The first row corresponds
     # to applications that were received zero business days ago. The second row
     # applications received one business day ago, and so on, until the last row, which
