@@ -34,8 +34,6 @@ module Reporting
     private
 
     def stream_name
-      return nil unless report_type == 'caseworker_report'
-
       date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch('monthly')
     end
 
