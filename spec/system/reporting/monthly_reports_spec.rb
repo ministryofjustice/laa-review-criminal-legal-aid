@@ -4,8 +4,11 @@ RSpec.describe 'Monthly Reports' do
   include_context 'with an existing application'
 
   let(:current_user_role) { UserRole::DATA_ANALYST }
+  let(:date) { Date.new(2023, 0o1, 0o3) }
 
   before do
+    travel_to(date)
+
     user = User.create!(
       first_name: 'Fred',
       last_name: 'Smitheg',
@@ -20,8 +23,7 @@ RSpec.describe 'Monthly Reports' do
     ).call
 
     report = Reporting::MonthlyReport.new(
-      report_type: 'caseworker_report',
-      date: Time.current.in_time_zone('London').to_date
+      report_type: 'caseworker_report', date: date
     )
 
     visit reporting_monthly_report_path(
@@ -32,7 +34,12 @@ RSpec.describe 'Monthly Reports' do
 
   it 'shows the monthly report\'s title' do
     heading_text = page.first('.govuk-heading-xl').text
-    expect(heading_text).to eq('Caseworker report, September 2023')
+    expect(heading_text).to eq('Caseworker report: January, 2023')
+  end
+
+  it 'shows the reports date range' do
+    subheading_text = page.first('h2').text
+    expect(subheading_text).to eq('Sun 1 Jan 23 — Tue 31 Jan 23')
   end
 
   it 'warns that data is experimental' do

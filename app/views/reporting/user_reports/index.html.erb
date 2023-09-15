@@ -22,6 +22,17 @@
       </h3>
     <% end %>
 
+    <h2 class='govuk-heading-m'>Latest complete weekly reports<h2>
+    <% @weekly_reports.each do |report|%>
+      <h3 class='govuk-heading-s'>
+        <%= govuk_link_to(
+              report.title,
+              reporting_weekly_report_path(report_type: report.report_type, week: report.to_param),
+              { no_visited_state: true }
+            )%>
+      </h3>
+    <% end %>
+
     <h2 class='govuk-heading-m'>Latest snapshots<h2>
     <% current_user.reports.each do |report_type| %>
       <h3 class='govuk-heading-s'>

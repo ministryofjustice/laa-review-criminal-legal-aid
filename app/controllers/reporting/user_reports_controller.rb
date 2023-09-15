@@ -7,6 +7,7 @@ module Reporting
 
     def index
       @monthly_reports = Reporting::MonthlyReport.latest(report_types: current_user.reports)
+      @weekly_reports = Reporting::WeeklyReport.latest(report_types: current_user.reports)
     end
 
     def show
