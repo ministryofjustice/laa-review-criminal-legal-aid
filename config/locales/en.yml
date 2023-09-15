@@ -3,7 +3,7 @@ en:
     DATE_FORMATS: &DATE_FORMATS
       default: '%-d %b %Y'  # 3 Jan 2019
       compact: '%d/%m/%Y'   # 03/01/2019
-      long: '%a %-d %b %y'   # Fri 1 Sep 2023
+      long: '%a %-d %b %y'   # Thu 3 Jan 19
 
   service:
     name: Review criminal legal aid applications
@@ -23,7 +23,7 @@ en:
     formats:
       <<: *DATE_FORMATS
       datetime: '%-l:%M%P %-d %b %Y'  # 2:45pm 3 Jan 2019
-      timestamp: '%A %-d %b %H:%M'  # Monday 21 Nov 12:20
+      timestamp: '%A %-d %b %H:%M'  # Thursday 3 Jan 14:45
 
   phase_banner:
     tag:
