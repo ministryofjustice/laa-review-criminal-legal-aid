@@ -5,7 +5,7 @@ module Reporting
 
     def show
       @report = Reporting::WeeklyReport.from_param(
-        report_type: @report_type, week: params[:week]
+        report_type: @report_type, epoch: params[:epoch]
       )
     end
   end

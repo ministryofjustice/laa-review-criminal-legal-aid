@@ -16,7 +16,7 @@
       <h3 class='govuk-heading-s'>
         <%= govuk_link_to(
               report.title,
-              reporting_monthly_report_path(report_type: report.report_type, month: report.to_param),
+              reporting_monthly_report_path(report_type: report.report_type, epoch: report.to_param),
               { no_visited_state: true }
             )%>
       </h3>
@@ -27,7 +27,7 @@
       <h3 class='govuk-heading-s'>
         <%= govuk_link_to(
               report.title,
-              reporting_weekly_report_path(report_type: report.report_type, week: report.to_param),
+              reporting_weekly_report_path(report_type: report.report_type, epoch: report.to_param),
               { no_visited_state: true }
             )%>
       </h3>
