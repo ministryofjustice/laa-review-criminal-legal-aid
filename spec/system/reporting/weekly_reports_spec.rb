@@ -28,7 +28,7 @@ RSpec.describe 'Weekly Reports' do
 
     visit reporting_weekly_report_path(
       report_type: report.report_type,
-      week: report.to_param
+      epoch: report.to_param
     )
   end
 
@@ -44,5 +44,21 @@ RSpec.describe 'Weekly Reports' do
 
   it 'shows the caseworker report table for the given week' do
     expect(page).to have_text('Fred Smitheg')
+  end
+
+  it 'includes a link to the next weeks\'s report' do
+    expect { click_link 'Next' }.to change { page.first('h1').text }.from(
+      'Caseworker report: Week 52, 2022'
+    ).to(
+      'Caseworker report: Week 01, 2023'
+    )
+  end
+
+  it 'includes a link to the previous weeks\'s report' do
+    expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
+      'Caseworker report: Week 52, 2022'
+    ).to(
+      'Caseworker report: Week 51, 2022'
+    )
   end
 end

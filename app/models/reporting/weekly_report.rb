@@ -1,26 +1,16 @@
 module Reporting
   class WeeklyReport
-    include Reporting::Reportable
-
     PARAM_FORMAT = '%G-%V'.freeze
+
+    include Reporting::Reportable
 
     def initialize(date:, report_type:)
       @date = date
       @report_type = Types::WeeklyReportType[report_type]
     end
 
-    attr_reader :date, :report_type
-
-    def to_param
-      date.strftime(PARAM_FORMAT)
-    end
-
-    def week_name
+    def epoch_name
       date.strftime('Week %V, %G')
-    end
-
-    def title
-      report_text(:title, week_name:)
     end
 
     def start_on
@@ -31,6 +21,14 @@ module Reporting
       date.end_of_week
     end
 
+    def next_report
+      self.class.new(report_type: report_type, date: (date + 7))
+    end
+
+    def previous_report
+      self.class.new(report_type: report_type, date: (date - 7))
+    end
+
     private
 
     def stream_name
@@ -38,15 +36,6 @@ module Reporting
     end
 
     class << self
-      def supported_report_types
-        Types::WeeklyReportType.values
-      end
-
-      def from_param(report_type:, week:)
-        date = Date.strptime(week, PARAM_FORMAT)
-        new(report_type:, date:)
-      end
-
       def _latest_date
         _current_date - 7
       end
