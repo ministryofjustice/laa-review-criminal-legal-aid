@@ -9,9 +9,7 @@
     </h1>
 
     <h2 class="govuk-heading-m">
-      <%= l(@report.start_on, format: :long) %>
-      &mdash;
-      <%= l(@report.end_on, format: :long) %>
+      <%= @report.period_text %>
     </h1>
   </div>
 </div>

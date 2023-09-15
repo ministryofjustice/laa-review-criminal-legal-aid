@@ -1,43 +1,31 @@
 module Reporting
-  class WeeklyReport
+  class WeeklyReport < TemporalReport
     PARAM_FORMAT = '%G-%V'.freeze
+    INTERVAL = Types::TemporalInterval['week']
+    PERIOD_NAME_FORMAT = 'Week %-V, %G'.freeze
 
-    include Reporting::Reportable
-
-    def initialize(date:, report_type:)
-      @date = date
-      @report_type = Types::WeeklyReportType[report_type]
+    def period_text
+      [
+        I18n.l(period_starts_on, format: :reporting_long),
+        I18n.l(period_ends_on, format: :reporting_long)
+      ].join(' — ')
     end
 
-    def epoch_name
-      date.strftime('Week %V, %G')
-    end
-
-    def start_on
+    def period_starts_on
       date.beginning_of_week
     end
 
-    def end_on
+    def period_ends_on
       date.end_of_week
     end
 
-    def next_report
-      self.class.new(report_type: report_type, date: (date + 7))
-    end
-
-    def previous_report
-      self.class.new(report_type: report_type, date: (date - 7))
-    end
-
-    private
-
-    def stream_name
-      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch('weekly')
-    end
-
     class << self
-      def _latest_date
-        _current_date - 7
+      def next_date(date)
+        date + 7
+      end
+
+      def previous_date(date)
+        date - 7
       end
     end
   end

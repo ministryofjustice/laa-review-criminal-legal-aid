@@ -16,9 +16,7 @@ RSpec.describe 'Caseworker Report' do
     let(:current_user_role) { UserRole::SUPERVISOR }
 
     it 'renders the caseworker report' do
-      expect(page).to have_text(
-        'Number of times applications were assigned to, unassigned from, and closed by a given caseworker'
-      )
+      expect(page).to have_text 'Caseworker report'
       expect(page).to have_http_status(:ok)
     end
   end

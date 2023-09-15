@@ -2,10 +2,13 @@ en:
   reporting:
     monthly_report:
       caseworker_report:
-        title: "Caseworker report: %{epoch_name}"
+        title: "Caseworker monthly: %{period_name}"
     weekly_report:
       caseworker_report:
-        title: "Caseworker report: %{epoch_name}"
+        title: "Caseworker weekly: %{period_name}"
+    daily_report:
+      caseworker_report:
+        title: "Caseworker daily: %{period_name}"
     user_reports:
       index:
         page_title: Reporting 
