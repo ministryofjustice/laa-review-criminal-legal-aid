@@ -7,10 +7,6 @@ module Reporting
 
     private
 
-    def set_report_type
-      @report_type = params.require(:report_type).presence_in(*Types::Report)
-    end
-
     def require_dashboard_access!
       return if current_user.can_access_reporting_dashboard?
 

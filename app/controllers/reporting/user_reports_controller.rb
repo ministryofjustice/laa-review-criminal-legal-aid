@@ -14,5 +14,11 @@ module Reporting
     def show
       @report = Reporting.const_get(Types::Report[@report_type].camelize).new
     end
+
+    private
+
+    def set_report_type
+      @report_type = params.require(:report_type).presence_in(*Types::Report)
+    end
   end
 end

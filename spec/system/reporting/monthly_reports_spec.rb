@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Monthly Reports' do
   include_context 'when viewing a temporal report'
 
-  let(:interval) { Types::TemporalInterval['month'] }
+  let(:interval) { Types::TemporalInterval['monthly'] }
   let(:period) { '2023-January' }
 
   it 'shows the monthly report\'s title' do
@@ -47,5 +47,13 @@ RSpec.describe 'Monthly Reports' do
     ).to(
       'Caseworker monthly: December, 2022'
     )
+  end
+
+  context 'when period is not of correct format' do
+    let(:period) { '2023-01' }
+
+    it 'show page not found' do
+      expect(page).to have_http_status(:not_found)
+    end
   end
 end

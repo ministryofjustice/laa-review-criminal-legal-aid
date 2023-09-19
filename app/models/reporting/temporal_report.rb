@@ -78,6 +78,15 @@ module Reporting
       def from_param(report_type:, period:)
         date = Date.strptime(period, self::PARAM_FORMAT)
         new(report_type:, date:)
+      rescue Date::Error
+        raise Reporting::ReportNotFound
+      end
+
+      def klass_for_interval(interval)
+        klass_name = "#{Types::TemporalInterval[interval]}_report".camelize
+        Reporting.const_get(klass_name)
+      rescue Dry::Types::ConstraintError
+        raise Reporting::ReportNotFound
       end
 
       # Returns the latest full reports for supported report types.

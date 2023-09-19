@@ -35,4 +35,12 @@ RSpec.describe 'Weekly Reports' do
       'Caseworker weekly: Week 51, 2022'
     )
   end
+
+  context 'when period is not of correct format' do
+    let(:period) { '2023-54' }
+
+    it 'show page not found' do
+      expect(page).to have_http_status(:not_found)
+    end
+  end
 end

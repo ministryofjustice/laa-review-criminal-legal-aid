@@ -8,8 +8,12 @@ module Reporting
       '00:00—23:59'
     end
 
-    def current?
-      date == self.class._current_date
+    def period_starts_on
+      date
+    end
+
+    def period_ends_on
+      date
     end
 
     class << self

@@ -38,4 +38,12 @@ RSpec.describe 'Daily reports' do
       'Caseworker daily: Saturday 31 December 2022'
     )
   end
+
+  context 'when period is not of correct format' do
+    let(:period) { '2023-August' }
+
+    it 'show page not found' do
+      expect(page).to have_http_status(:not_found)
+    end
+  end
 end
