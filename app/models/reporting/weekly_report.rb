@@ -1,7 +1,7 @@
 module Reporting
   class WeeklyReport < TemporalReport
     PARAM_FORMAT = '%G-%V'.freeze
-    INTERVAL = Types::TemporalInterval['week']
+    INTERVAL = Types::TemporalInterval['weekly']
     PERIOD_NAME_FORMAT = 'Week %-V, %G'.freeze
 
     def period_text

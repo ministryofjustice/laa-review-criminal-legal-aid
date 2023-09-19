@@ -56,8 +56,8 @@ module Types
   )
 
   Report = String.enum('caseworker_report', 'processed_report', 'workload_report')
-  TemporalReportType = WeeklyReportType = MonthlyReportType = String.enum(Report['caseworker_report'])
-  TemporalInterval = String.enum('month', 'week', 'day')
+  TemporalReportType = String.enum(Report['caseworker_report'])
+  TemporalInterval = String.enum('monthly', 'weekly', 'daily')
 
   USER_ROLE_REPORTS = {
     UserRole[CASEWORKER_ROLE] => [Report['workload_report'], Report['processed_report']],

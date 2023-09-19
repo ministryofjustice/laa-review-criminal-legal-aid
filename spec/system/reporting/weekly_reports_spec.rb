@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe 'Weekly Reports' do
   include_context 'when viewing a temporal report'
 
-  let(:interval) { Types::TemporalInterval['week'] }
+  let(:interval) { Types::TemporalInterval['weekly'] }
   let(:period) { '2022-52' }
 
   it 'shows the weekly report\'s title' do
-    heading_text = page.first('.govuk-heading-xl').text
+    heading_text = page.first('h1').text
     expect(heading_text).to eq('Caseworker weekly: Week 52, 2022')
   end
 

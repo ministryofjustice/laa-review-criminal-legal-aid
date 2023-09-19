@@ -44,6 +44,12 @@ module Reporting
     end
     # :nocov:
 
+    def stream_name
+      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch(
+        self.class::INTERVAL
+      )
+    end
+
     private
 
     def read_model_klass
@@ -56,12 +62,6 @@ module Reporting
 
     def i18n_scope
       self.class.name.underscore.split('/') << report_type
-    end
-
-    def stream_name
-      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch(
-        self.class::INTERVAL
-      )
     end
 
     class << self

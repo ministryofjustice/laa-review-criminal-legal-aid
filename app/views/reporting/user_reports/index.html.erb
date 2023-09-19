@@ -17,7 +17,7 @@
         <%= govuk_link_to(
               report.title,
               reporting_temporal_report_path(
-                interval: :month,
+                interval: 'monthly',
                 report_type: report.report_type,
                 period: report.to_param
               ),
@@ -31,7 +31,7 @@
         <%= govuk_link_to(
               report.title,
               reporting_temporal_report_path(
-                interval: 'week',
+                interval: 'weekly',
                 report_type: report.report_type,
                 period: report.to_param
               ),
@@ -45,7 +45,7 @@
         <%= govuk_link_to(
               report.title,
               reporting_temporal_report_path(
-                interval: 'day',
+                interval: 'daily',
                 report_type: report.report_type,
                 period: report.to_param
               ),

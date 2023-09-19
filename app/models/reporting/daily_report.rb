@@ -1,7 +1,7 @@
 module Reporting
   class DailyReport < TemporalReport
     PARAM_FORMAT = '%Y-%m-%d'.freeze
-    INTERVAL = Types::TemporalInterval['day']
+    INTERVAL = Types::TemporalInterval['daily']
     PERIOD_NAME_FORMAT = '%A %-d %B %Y'.freeze
 
     def period_text

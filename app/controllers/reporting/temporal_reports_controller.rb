@@ -5,7 +5,7 @@ module Reporting
     before_action :require_report_access!
 
     def show
-      @report = temporal_report_klass.from_param(
+      @report = Reporting.const_get(Types::TemporalInterval[@interval].camelize).from_param(
         report_type: @report_type, period: params[:period]
       )
     end
@@ -16,17 +16,6 @@ module Reporting
       @interval = params.require(:interval).presence_in(
         *Types::TemporalInterval
       )
-    end
-
-    def temporal_report_klass
-      case @interval
-      when 'day'
-        Reporting::DailyReport
-      when 'week'
-        Reporting::WeeklyReport
-      when 'month'
-        Reporting::MonthlyReport
-      end
     end
   end
 end

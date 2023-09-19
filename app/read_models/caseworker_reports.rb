@@ -1,7 +1,7 @@
 module CaseworkerReports
   STREAM_NAME_FORMATS = ActiveSupport::HashWithIndifferentAccess.new(
-    month: 'MonthlyCaseworker$%Y-%m',
-    week: 'WeeklyCaseworker$%G-%V',
-    day: 'DailyCaseworker$%Y-%j'
+    monthly: 'MonthlyCaseworker$%Y-%m',
+    weekly: 'WeeklyCaseworker$%G-%V',
+    daily: 'DailyCaseworker$%Y-%j'
   ).freeze
 end

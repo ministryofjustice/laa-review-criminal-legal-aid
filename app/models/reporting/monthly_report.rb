@@ -1,10 +1,9 @@
 module Reporting
   class MonthlyReport < TemporalReport
     PARAM_FORMAT = '%Y-%B'.freeze
-    INTERVAL = Types::TemporalInterval['week']
+    INTERVAL = Types::TemporalInterval['monthly']
     PERIOD_NAME_FORMAT = '%B, %Y'.freeze
 
-    # e.g. Tuesday 1 — Thursday 31 August 2023
     def period_text
       period_starts_on.strftime('%A %-d — ') +
         period_ends_on.strftime('%A %-d %B %Y')

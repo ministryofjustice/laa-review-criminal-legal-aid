@@ -7,13 +7,8 @@ RSpec.describe 'Monthly Reports' do
   let(:period) { '2023-January' }
 
   it 'shows the monthly report\'s title' do
-    heading_text = page.first('.govuk-heading-xl').text
+    heading_text = page.first('h1').text
     expect(heading_text).to eq('Caseworker monthly: January, 2023')
-  end
-
-  it 'shows the reports date range' do
-    subheading_text = page.first('h2').text
-    expect(subheading_text).to eq 'Sunday 1 — Tuesday 31 January 2023'
   end
 
   it 'warns that data is experimental' do

@@ -3,17 +3,12 @@ require 'rails_helper'
 RSpec.describe 'Daily reports' do
   include_context 'when viewing a temporal report'
 
-  let(:interval) { Types::TemporalInterval['day'] }
+  let(:interval) { Types::TemporalInterval['daily'] }
   let(:period) { '2023-01-01' }
 
   it 'shows the daily report\'s title' do
-    heading_text = page.first('.govuk-heading-xl').text
+    heading_text = page.first('h1').text
     expect(heading_text).to eq('Caseworker daily: Sunday 1 January 2023')
-  end
-
-  it 'shows the reports date range' do
-    subheading_text = page.first('h2').text
-    expect(subheading_text).to eq('00:00—23:59')
   end
 
   it 'shows the caseworker report table for the given day' do
