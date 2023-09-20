@@ -4,6 +4,12 @@ module CaseworkerReports
   # Links caseworker report related events to day, week, and month streams.
   #
   class Configuration
+    STREAM_NAME_FORMATS = ActiveSupport::HashWithIndifferentAccess.new(
+      monthly: 'MonthlyCaseworker$%Y-%m',
+      weekly: 'WeeklyCaseworker$%G-%V',
+      daily: 'DailyCaseworker$%Y-%j'
+    ).freeze
+
     READ_MODEL_CHANGING_EVENTS = [
       Assigning::AssignedToUser,
       Assigning::ReassignedToUser,

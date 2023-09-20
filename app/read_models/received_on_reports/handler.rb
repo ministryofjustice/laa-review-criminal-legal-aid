@@ -6,11 +6,11 @@ module ReceivedOnReports
 
       @review = Reviewing::LoadReview.call(application_id:)
 
-      store_event!
+      process_event!
     end
 
     # :nocov:
-    def store_event!
+    def process_event!
       raise 'Implement in sub class.'
     end
     # :nocov:
