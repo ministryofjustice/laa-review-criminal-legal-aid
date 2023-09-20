@@ -1,43 +1,29 @@
 module Reporting
-  class MonthlyReport
+  class MonthlyReport < TemporalReport
     PARAM_FORMAT = '%Y-%B'.freeze
+    INTERVAL = Types::TemporalInterval['monthly']
+    PERIOD_NAME_FORMAT = '%B, %Y'.freeze
 
-    include Reporting::Reportable
-
-    def initialize(date:, report_type:)
-      @date = date
-      @report_type = Types::MonthlyReportType[report_type]
+    def period_text
+      period_starts_on.strftime('%A %-d — ') +
+        period_ends_on.strftime('%A %-d %B %Y')
     end
 
-    def epoch_name
-      date.strftime('%B, %Y')
-    end
-
-    def start_on
+    def period_starts_on
       date.beginning_of_month
     end
 
-    def end_on
+    def period_ends_on
       date.end_of_month
     end
 
-    def next_report
-      self.class.new(report_type: report_type, date: date >> 1)
-    end
-
-    def previous_report
-      self.class.new(report_type: report_type, date: date << 1)
-    end
-
-    private
-
-    def stream_name
-      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch('monthly')
-    end
-
     class << self
-      def _latest_date
-        _current_date << 1
+      def next_date(date)
+        date >> 1
+      end
+
+      def previous_date(date)
+        date << 1
       end
     end
   end

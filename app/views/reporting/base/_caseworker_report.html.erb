@@ -1,7 +1,6 @@
 <%= govuk_warning_text text: warning_text(:experimental_data) %>
 
 <%= govuk_table do |table| %>
-  <%= table.with_caption(size: 'm', text: t('caseworker_report.caption')) %>
   <%= table.with_head do |head|
         head.with_row do |row|
           row.with_cell(text: thead_text(:user_name), header: true)

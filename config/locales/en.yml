@@ -3,7 +3,6 @@ en:
     DATE_FORMATS: &DATE_FORMATS
       default: '%-d %b %Y'  # 3 Jan 2019
       compact: '%d/%m/%Y'   # 03/01/2019
-      long: '%a %-d %b %y'   # Thu 3 Jan 19
 
   service:
     name: Review criminal legal aid applications
@@ -19,6 +18,7 @@ en:
   date:
     formats:
       <<: *DATE_FORMATS
+      reporting_long: '%A %-d %B %Y'
   time:
     formats:
       <<: *DATE_FORMATS

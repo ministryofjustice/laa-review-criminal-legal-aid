@@ -4,15 +4,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
       <%= @report.title %>
     </h1>
 
-    <h2 class="govuk-heading-m">
-      <%= l(@report.start_on, format: :long) %>
-      &mdash;
-      <%= l(@report.end_on, format: :long) %>
-    </h1>
+    <% if @interval == ::Types::TemporalInterval['weekly'] %>
+      <h2 class="govuk-heading-m"><%= @report.period_text %></h2>
+    <% end %>
   </div>
 </div>
 

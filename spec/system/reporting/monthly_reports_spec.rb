@@ -1,45 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Monthly Reports' do
-  include_context 'with an existing application'
+  include_context 'when viewing a temporal report'
 
-  let(:current_user_role) { UserRole::DATA_ANALYST }
-  let(:date) { Date.new(2023, 0o1, 0o3) }
-
-  before do
-    travel_to(date)
-
-    user = User.create!(
-      first_name: 'Fred',
-      last_name: 'Smitheg',
-      auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa',
-      email: 'Fred.Smitheg@justice.gov.uk'
-    )
-
-    Assigning::AssignToUser.new(
-      user_id: user.id,
-      to_whom_id: user.id,
-      assignment_id: crime_application_id
-    ).call
-
-    report = Reporting::MonthlyReport.new(
-      report_type: 'caseworker_report', date: date
-    )
-
-    visit reporting_monthly_report_path(
-      report_type: report.report_type,
-      epoch: report.to_param
-    )
-  end
+  let(:interval) { Types::TemporalInterval['monthly'] }
+  let(:period) { '2023-January' }
 
   it 'shows the monthly report\'s title' do
-    heading_text = page.first('.govuk-heading-xl').text
-    expect(heading_text).to eq('Caseworker report: January, 2023')
-  end
-
-  it 'shows the reports date range' do
-    subheading_text = page.first('h2').text
-    expect(subheading_text).to eq('Sun 1 Jan 23 — Tue 31 Jan 23')
+    heading_text = page.first('h1').text
+    expect(heading_text).to eq('Caseworker monthly: January, 2023')
   end
 
   it 'warns that data is experimental' do
@@ -54,19 +23,37 @@ RSpec.describe 'Monthly Reports' do
     expect(page).to have_text('Fred Smitheg')
   end
 
-  it 'includes a link to the next month\'s report' do
-    expect { click_link 'Next' }.to change { page.first('h1').text }.from(
-      'Caseworker report: January, 2023'
-    ).to(
-      'Caseworker report: February, 2023'
-    )
+  context 'when on the latest complete month' do
+    let(:period) { '2022-December' }
+
+    it 'includes a link to the next month\'s report' do
+      expect { click_link 'Next' }.to change { page.first('h1').text }.from(
+        'Caseworker monthly: December, 2022'
+      ).to(
+        'Caseworker monthly: January, 2023'
+      )
+    end
+  end
+
+  context 'when on the current month' do
+    it 'does not show the next report link' do
+      expect(page).not_to have_content 'Next'
+    end
   end
 
   it 'includes a link to the previous month\'s report' do
     expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
-      'Caseworker report: January, 2023'
+      'Caseworker monthly: January, 2023'
     ).to(
-      'Caseworker report: December, 2022'
+      'Caseworker monthly: December, 2022'
     )
+  end
+
+  context 'when period is not of correct format' do
+    let(:period) { '2023-01' }
+
+    it 'show page not found' do
+      expect(page).to have_http_status(:not_found)
+    end
   end
 end

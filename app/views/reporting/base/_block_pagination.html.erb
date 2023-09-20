@@ -1,8 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters">
     <%= govuk_pagination(block_mode: true) do |p| %>
-      <%= p.with_next_page label_text: report.next_report.epoch_name, href: url_for(epoch: report.next_report)  %>
-      <%= p.with_previous_page label_text: report.previous_report.epoch_name, href: url_for(epoch: report.previous_report)  %>
+      <%= p.with_previous_page label_text: report.previous_report.period_name, href: url_for(period: report.previous_report)  %>
+
+      <% unless report.current? %>
+        <%= p.with_next_page label_text: report.next_report.period_name, href: url_for(period: report.next_report)  %>
+      <% end %>
     <% end %>
   </div>
 </div>
