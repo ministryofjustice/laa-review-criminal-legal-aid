@@ -20,7 +20,7 @@ RSpec.describe 'Weekly Reports' do
     expect(page).to have_text('Fred Smitheg')
   end
 
-  it 'includes a link to the next weeks\'s report' do
+  it 'includes a link to the next week\'s report' do
     expect { click_link 'Next' }.to change { page.first('h1').text }.from(
       'Caseworker weekly: Week 52, 2022'
     ).to(
@@ -28,7 +28,7 @@ RSpec.describe 'Weekly Reports' do
     )
   end
 
-  it 'includes a link to the previous weeks\'s report' do
+  it 'includes a link to the previous week\'s report' do
     expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
       'Caseworker weekly: Week 52, 2022'
     ).to(

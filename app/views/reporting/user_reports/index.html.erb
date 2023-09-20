@@ -12,40 +12,12 @@
   <div class="govuk-grid-column-full">
     <h2 class='govuk-heading-m'>Latest complete reports<h2>
 
-    <% @monthly_reports.each do |report|%>
+    <% @latest_temporal_reports.each do |report|%>
       <h3 class='govuk-heading-s'>
         <%= govuk_link_to(
               report.title,
               reporting_temporal_report_path(
-                interval: 'monthly',
-                report_type: report.report_type,
-                period: report.to_param
-              ),
-              { no_visited_state: true }
-            )%>
-      </h3>
-    <% end %>
-
-    <% @weekly_reports.each do |report|%>
-      <h3 class='govuk-heading-s'>
-        <%= govuk_link_to(
-              report.title,
-              reporting_temporal_report_path(
-                interval: 'weekly',
-                report_type: report.report_type,
-                period: report.to_param
-              ),
-              { no_visited_state: true }
-            )%>
-      </h3>
-    <% end %>
-
-    <% @daily_reports.each do |report|%>
-      <h3 class='govuk-heading-s'>
-        <%= govuk_link_to(
-              report.title,
-              reporting_temporal_report_path(
-                interval: 'daily',
+                interval: report.interval,
                 report_type: report.report_type,
                 period: report.to_param
               ),

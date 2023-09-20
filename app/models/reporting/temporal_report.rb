@@ -13,6 +13,10 @@ module Reporting
       date.strftime(self.class::PARAM_FORMAT)
     end
 
+    def interval
+      self.class::INTERVAL
+    end
+
     def period_name
       date.strftime(self.class::PERIOD_NAME_FORMAT)
     end
@@ -45,9 +49,7 @@ module Reporting
     # :nocov:
 
     def stream_name
-      date.strftime CaseworkerReports::STREAM_NAME_FORMATS.fetch(
-        self.class::INTERVAL
-      )
+      date.strftime(CaseworkerReports::STREAM_NAME_FORMATS.fetch(interval))
     end
 
     private
@@ -89,15 +91,8 @@ module Reporting
         raise Reporting::ReportNotFound
       end
 
-      # Returns the latest full reports for supported report types.
-      # Optionally takes an array of report_types which can be used to filter the
-      # report_types returned.
-      def latest(report_types:)
-        date = previous_date(_current_date)
-
-        (report_types & Types::TemporalReportType.values).map do |report_type|
-          new(report_type:, date:)
-        end
+      def latest_complete_report_date
+        previous_date(_current_date)
       end
 
       def _current_date
