@@ -29,8 +29,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   delegate :date_of_birth, to: :applicant, prefix: true
 
-  def means_type
-    :passported
+  def means_passported?
+    !means_passport.empty?
   end
 
   def history
