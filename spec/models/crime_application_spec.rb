@@ -95,7 +95,7 @@ RSpec.describe CrimeApplication do
 
     context 'when a re-submission' do
       let(:parent_id) { SecureRandom.uuid }
-      let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read).merge({ 'parent_id' => parent_id }) }
+      let(:attributes) { super().merge({ 'parent_id' => parent_id }) }
       let(:parent) { instance_double(described_class) }
 
       before do
@@ -107,9 +107,7 @@ RSpec.describe CrimeApplication do
 
     context 'when parent id is same as the id' do
       let(:attributes) do
-        JSON.parse(LaaCrimeSchemas.fixture(1.0).read).merge(
-          { 'parent_id' => '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-        )
+        super().merge({ 'parent_id' => '696dd4fd-b619-4637-ab42-a5f4565bcf4a' })
       end
 
       it { is_expected.to be_nil }
@@ -122,10 +120,28 @@ RSpec.describe CrimeApplication do
     it { is_expected.to eq 'John Doe' }
   end
 
-  describe '#means_type' do
-    subject(:means_type) { application.means_type }
+  describe '#means_passported?' do
+    subject(:means_passported?) { application.means_passported? }
 
-    it { is_expected.to eq :passported }
+    let(:attributes) { super().merge({ 'means_passport' => means_passport }) }
+
+    context 'when application is means passported on DWP' do
+      let(:means_passport) { [Types::MeansPassportType['on_benefit_check']] }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when application is means passported on DWP and under 18' do
+      let(:means_passport) { Types::MeansPassportType.values }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when application is not means passported' do
+      let(:means_passport) { [] }
+
+      it { is_expected.to be false }
+    end
   end
 
   describe '#reviewable_by?' do

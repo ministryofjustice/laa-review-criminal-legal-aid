@@ -37,6 +37,28 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('Initial application')
   end
 
+  describe 'showing the means type' do
+    subject(:means_type_badge) do
+      find('.govuk-summary-list__key', text: 'Means type').sibling('.govuk-summary-list__value')
+    end
+
+    context 'when the application is means passported' do
+      it 'shows the blue passported badge' do
+        expect(means_type_badge).to have_content('Passported')
+        expect(means_type_badge).to have_css('.moj-badge--blue')
+      end
+    end
+
+    context 'when the application is not means passported' do
+      let(:application_data) { super().merge('means_passport' => []) }
+
+      it 'shows the red undetermined badge' do
+        expect(means_type_badge).to have_content('Undetermined')
+        expect(means_type_badge).to have_css('.moj-badge--red')
+      end
+    end
+  end
+
   context 'when date stamp is earlier than date received' do
     let(:application_data) { super().deep_merge('date_stamp' => '2022-11-21T16:57:51.000+00:00') }
 

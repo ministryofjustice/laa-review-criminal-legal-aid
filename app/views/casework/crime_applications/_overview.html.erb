@@ -17,8 +17,11 @@
       <%= label_text(:means_type) %>
     </dt>
     <dd class="govuk-summary-list__value">
-    <%# TODO implement means type once we handle it - currently hardcoded %>
-      <span class="moj-badge moj-badge--blue"><%= overview.means_type %></span>
+      <% if overview.means_passported? %>
+        <span class="moj-badge moj-badge--blue"><%= t(:passported, scope: 'values') %></span>
+      <% else %>
+        <span class="moj-badge moj-badge--red"><%= label_text('undetermined') %></span>
+      <% end %>
     </dd>
   </div>
 
