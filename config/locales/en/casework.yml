@@ -53,6 +53,7 @@ en:
     application_start_date: Date stamp
     application_status: Status
     application_type: Application type
+    passporting_benefit: Passporting Benefit
     assigned_to: 'Assigned to:'
     case_details: Case details
     case_type: Case type
@@ -120,9 +121,15 @@ en:
     "true": "Yes"
     "false": "No"
     not_provided: Not provided
+    not_requested: Not requested
     deleted_user_name: '[deleted]'
     no_one: no one
     initial: Initial application
+    universal_credit: Universal Credit
+    guarantee_pension: Guarantee Credit element of Pension Credit
+    jsa: Income-based Jobseeker's Allowance (JSA)
+    esa: Income-related Employment and Support Allowance (ESA)
+    income_support: Income Support
     no_home_address: Does not have a home address
     home_address: Same as home address
     provider_address: Same as provider address

@@ -25,6 +25,17 @@
     </dd>
   </div>
 
+  <% if overview.passporting_benefit? %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:passporting_benefit) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(overview.benefit_type.presence, scope: 'values') || t(:not_requested, scope: 'values') %>
+      </dd>
+    </div>
+  <% end %>
+
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       <%= label_text(:urn) %>

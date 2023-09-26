@@ -144,6 +144,50 @@ RSpec.describe CrimeApplication do
     end
   end
 
+  describe '#passporting_benefit?' do
+    subject(:passporting_benefit?) { application.passporting_benefit? }
+
+    let(:attributes) { super().merge({ 'means_passport' => means_passport }) }
+
+    context 'when application is passported on benefits' do
+      let(:means_passport) { [Types::MeansPassportType['on_benefit_check']] }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when application is passported on age' do
+      let(:means_passport) { [Types::MeansPassportType['on_age_under18']] }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when application has no means passport' do
+      let(:means_passport) { [] }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#benefit_type' do
+    subject(:benefit_type) { application.benefit_type }
+
+    let(:attributes) do
+      super().deep_merge({ 'client_details' => { 'applicant' => { 'benefit_type' => passporting_benefit_type } } })
+    end
+
+    context 'when application has a benefit type' do
+      let(:passporting_benefit_type) { Types::BenefitType['universal_credit'] }
+
+      it { is_expected.to eq 'universal_credit' }
+    end
+
+    context 'when application does not have a benefit type' do
+      let(:passporting_benefit_type) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#reviewable_by?' do
     subject(:reviewable_by?) { application.reviewable_by?(user_id) }
 

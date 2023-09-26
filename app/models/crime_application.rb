@@ -33,6 +33,12 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     !means_passport.empty?
   end
 
+  def passporting_benefit?
+    means_passport.include?('on_benefit_check')
+  end
+
+  delegate :benefit_type, to: :applicant
+
   def history
     @history ||= ApplicationHistory.new(application: self)
   end
