@@ -121,7 +121,7 @@ en:
     "true": "Yes"
     "false": "No"
     not_provided: Not provided
-    not_requested: Not requested
+    not_asked: Not asked when this application was submitted
     deleted_user_name: '[deleted]'
     no_one: no one
     initial: Initial application

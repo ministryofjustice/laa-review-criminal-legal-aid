@@ -65,13 +65,13 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         expect(page).to have_content('Passporting Benefit Universal Credit')
       end
 
-      context 'when it was not requested at time of application' do
+      context 'when it was not asked at time of application' do
         let(:application_data) do
           super().deep_merge('client_details' => { 'applicant' => { 'benefit_type' => nil } })
         end
 
-        it 'shows `Not requested`' do
-          expect(page).to have_content('Passporting Benefit Not requested')
+        it 'shows `Not asked`' do
+          expect(page).to have_content('Passporting Benefit Not asked when this application was submitted')
         end
       end
     end
