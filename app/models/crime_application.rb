@@ -27,14 +27,14 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     ].join ' '
   end
 
-  delegate :date_of_birth, to: :applicant, prefix: true
+  delegate :date_of_birth, :benefit_type, to: :applicant, prefix: true
 
   def means_passported?
     !means_passport.empty?
   end
 
   def passporting_benefit?
-    means_passport.include?('on_benefit_check')
+    means_passport.include?(Types::MeansPassportType['on_benefit_check'])
   end
 
   delegate :benefit_type, to: :applicant
