@@ -59,6 +59,32 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
   end
 
+  describe 'showing the passporting benefit' do
+    context 'when the application has a passporting benefit' do
+      it 'shows the benefit type' do
+        expect(page).to have_content('Passporting Benefit Universal Credit')
+      end
+
+      context 'when it was not asked at time of application' do
+        let(:application_data) do
+          super().deep_merge('client_details' => { 'applicant' => { 'benefit_type' => nil } })
+        end
+
+        it 'shows `Not asked`' do
+          expect(page).to have_content('Passporting Benefit Not asked when this application was submitted')
+        end
+      end
+    end
+
+    context 'when the applicant is under 18' do
+      let(:application_data) { super().merge('means_passport' => ['on_age_under18']) }
+
+      it 'does not show the passporting benefit row' do
+        expect(page).not_to have_content('Passporting Benefit')
+      end
+    end
+  end
+
   context 'when date stamp is earlier than date received' do
     let(:application_data) { super().deep_merge('date_stamp' => '2022-11-21T16:57:51.000+00:00') }
 
