@@ -27,17 +27,6 @@
       <% end %>
     </tbody>
   </table>
-<% elsif crime_application.ioj_passport.include?('on_age_under18') %>
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:justification) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t('on_age_under18', scope: 'values') %>
-      </dd>
-    </div>
-  </dl>
 <% else %>
   <dl class="govuk-summary-list govuk-!-margin-bottom-9">
     <div class="govuk-summary-list__row">
@@ -45,7 +34,11 @@
         <%= label_text(:justification) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t('on_offence', scope: 'values') %>
+        <% if crime_application.ioj_passport.include?('on_age_under18') %>
+          <%= t('on_age_under18', scope: 'values') %>
+        <% else %>
+          <%= t(crime_application.ioj_passport.first, scope: 'values') %>
+        <% end %>
       </dd>
     </div>
   </dl>
