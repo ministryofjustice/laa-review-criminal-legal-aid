@@ -7,10 +7,13 @@ module CaseworkerReports
     def call(event)
       date = event.timestamp.in_time_zone('London').to_date
 
-      STREAM_NAME_FORMATS.each_value do |format|
-        stream_name = date.strftime(format)
-        @event_store.link [event.event_id], stream_name:
+      stream_name_formats.each_value do |format|
+        @event_store.link [event.event_id], stream_name: date.strftime(format)
       end
+    end
+
+    def stream_name_formats
+      CaseworkerReports::Configuration::STREAM_NAME_FORMATS
     end
   end
 end
