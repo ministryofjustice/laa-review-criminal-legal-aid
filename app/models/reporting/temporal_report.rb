@@ -49,7 +49,7 @@ module Reporting
     # :nocov:
 
     def stream_name
-      date.strftime(CaseworkerReports::STREAM_NAME_FORMATS.fetch(interval))
+      date.strftime(CaseworkerReports::Configuration::STREAM_NAME_FORMATS.fetch(interval))
     end
 
     private

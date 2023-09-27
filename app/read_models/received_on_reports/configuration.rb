@@ -1,5 +1,7 @@
 module ReceivedOnReports
   class Configuration
+    STREAM_NAME_FORMAT = 'ReceivedOn$%Y-%j'.freeze
+
     OPENING_EVENTS = [
       Reviewing::ApplicationReceived
     ].freeze
@@ -15,6 +17,10 @@ module ReceivedOnReports
 
       event_store.subscribe(
         ReceivedOnReports::CloseApplication, to: CLOSING_EVENTS
+      )
+
+      event_store.subscribe(
+        ReceivedOnReports::LinkToReceivedOnStream, to: OPENING_EVENTS + CLOSING_EVENTS
       )
     end
   end
