@@ -75,6 +75,8 @@ RSpec.describe UserRole do
     end
 
     context 'when user is user manager' do
+      include_context 'when logged in user is admin'
+
       before { user.can_manage_others = true }
 
       it { is_expected.to be false }
@@ -111,6 +113,8 @@ RSpec.describe UserRole do
     end
 
     context 'when user is a user manager' do
+      include_context 'when logged in user is admin'
+
       it 'returns false for all user roles' do
         user.can_manage_others = true
 
@@ -257,6 +261,8 @@ RSpec.describe UserRole do
     end
 
     context 'when user is user manager' do
+      include_context 'when logged in user is admin'
+
       before { user.can_manage_others = true }
 
       it { is_expected.to be_empty }

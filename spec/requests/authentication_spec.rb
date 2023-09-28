@@ -132,6 +132,8 @@ RSpec.describe 'Authentication Session Initialisation' do
       end
 
       context 'when user is a `user_manager`' do
+        include_context 'when logged in user is admin'
+
         let(:user) do
           User.create(auth_subject_id: auth_subject_id, email: 'test@eg.com', can_manage_others: true)
         end

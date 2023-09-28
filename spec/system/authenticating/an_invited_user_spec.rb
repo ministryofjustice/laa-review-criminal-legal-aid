@@ -24,6 +24,8 @@ RSpec.describe 'Authenticating an invited user' do
     end
 
     describe 'viewing the activation in the user\'s account history' do
+      include_context 'when logged in user is admin'
+
       let(:invited_user) { User.create(email: 'Invited.Test@example.com', can_manage_others: true) }
       let(:cells) { page.first('table tbody tr').all('td') }
 
