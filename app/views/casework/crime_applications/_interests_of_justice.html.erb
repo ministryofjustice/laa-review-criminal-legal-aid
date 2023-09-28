@@ -34,11 +34,7 @@
         <%= label_text(:justification) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <% if crime_application.ioj_passport.include?('on_age_under18') %>
-          <%= t('on_age_under18', scope: 'values') %>
-        <% else %>
-          <%= t(crime_application.ioj_passport.first, scope: 'values') %>
-        <% end %>
+        <%= t(crime_application.relevant_ioj_passport, scope: 'values') %>
       </dd>
     </div>
   </dl>

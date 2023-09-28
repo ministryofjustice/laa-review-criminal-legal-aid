@@ -169,7 +169,7 @@ RSpec.describe CrimeApplication do
   end
 
   describe '#benefit_type' do
-    subject(:benefit_type) { application.benefit_type }
+    subject(:benefit_type) { application.applicant_benefit_type }
 
     let(:attributes) do
       super().deep_merge({ 'client_details' => { 'applicant' => { 'benefit_type' => passporting_benefit_type } } })

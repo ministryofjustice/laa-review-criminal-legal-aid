@@ -37,7 +37,14 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     means_passport.include?(Types::MeansPassportType['on_benefit_check'])
   end
 
-  delegate :benefit_type, to: :applicant
+  def relevant_ioj_passport
+    # Being under 18 trumps any other interest of justice
+    if ioj_passport.include?('on_age_under18')
+      'on_age_under18'
+    elsif ioj_passport == ['on_offence']
+      'on_offence'
+    end
+  end
 
   def history
     @history ||= ApplicationHistory.new(application: self)
