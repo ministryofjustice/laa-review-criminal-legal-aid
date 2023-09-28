@@ -261,42 +261,61 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   context 'with ioj reasons' do
     context 'with ioj reason only' do
       it 'shows a table with ioj reason' do
-        ioj_table = find(:xpath,
-                         "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+        ioj_row = find(:xpath,
+                       "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
                         //tr[contains(td[1], 'Loss of liberty')]")
 
-        expect(ioj_table).to have_content('More details about loss of liberty.')
+        expect(ioj_row).to have_content('More details about loss of liberty.')
       end
     end
 
     context 'with ioj passport and no ioj reason' do
-      let(:application_data) do
-        super().deep_merge(
-          'ioj_passport' => ['on_age_under18'],
-          'interests_of_justice' => nil
-        )
+      context 'with only an `on_offence` passport' do
+        let(:application_data) do
+          super().deep_merge(
+            'ioj_passport' => ['on_offence'],
+            'interests_of_justice' => nil
+          )
+        end
+
+        it 'shows a summary list with the correct passport reason' do
+          ioj_row = find(:xpath,
+                         "//dl[@class='govuk-summary-list govuk-!-margin-bottom-9']
+                              //div[contains(dt[1], 'Justification')]")
+
+          expect(ioj_row).to have_content('Not needed based on offence')
+        end
       end
 
-      it 'shows a summary list with passport reason' do
-        summary_list = find(:xpath,
-                            "//dl[@class='govuk-summary-list govuk-!-margin-bottom-9']
-                            //div[contains(dt[1], 'Justification')]")
+      context 'with both ioj passports' do
+        let(:application_data) do
+          super().deep_merge(
+            'ioj_passport' => %w[on_age_under18 on_offence],
+            'interests_of_justice' => nil
+          )
+        end
 
-        expect(summary_list).to have_content('Not needed because the client is under 18 years old')
+        it 'shows a summary list with the correct passport reason' do
+          ioj_row = find(:xpath,
+                         "//dl[@class='govuk-summary-list govuk-!-margin-bottom-9']
+                              //div[contains(dt[1], 'Justification')]")
+
+          expect(ioj_row).to have_content('Not needed because the client is under 18 years old')
+        end
       end
     end
 
     context 'when a passported application is a split case and resubmitted with ioj passport' do
       let(:application_data) do
-        super().deep_merge('ioj_passport' => ['on_age_under18'])
+        super().deep_merge('ioj_passport' => ['on_offence'])
       end
 
       it 'shows a table with ioj reason' do
-        ioj_table = find(:xpath,
-                         "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+        ioj_row = find(:xpath,
+                       "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
                         //tr[contains(td[1], 'Loss of liberty')]")
 
-        expect(ioj_table).to have_content('More details about loss of liberty.')
+        expect(ioj_row).to have_content('More details about loss of liberty.')
       end
     end
   end
