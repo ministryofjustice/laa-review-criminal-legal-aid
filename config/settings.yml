@@ -11,3 +11,7 @@ feature_flags:
     local: true
     staging: true
     production: false
+  evidence_upload:
+    local: true
+    staging: true
+    production: false
