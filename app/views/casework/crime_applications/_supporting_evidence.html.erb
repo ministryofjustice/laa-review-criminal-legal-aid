@@ -6,7 +6,7 @@
   <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">
+        <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">
           <%= label_text(:file_name) %>
         </th>
         <th scope="col" class="govuk-table__header">
@@ -16,10 +16,10 @@
     <tbody class="govuk-table__body">
       <% crime_application.supporting_evidence.each do |evidence| %>
         <tr class="govuk-table__row">
-          <td scope="row" class="govuk-table__cell">
+          <td scope="row" class="govuk-table__cell file-name">
             <%= evidence.filename %>
           </td>
-          <td class="govuk-table__cell">
+          <td class="govuk-table__cell govuk-!-text-align-right">
               <%= t(:download_file, scope: 'values', content_type: crime_application.file_type(evidence.content_type), file_size: number_to_human_size(evidence.file_size)) %>
           </td>
         </tr>
