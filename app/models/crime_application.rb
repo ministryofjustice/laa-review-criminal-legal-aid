@@ -1,8 +1,20 @@
 require 'laa_crime_schemas'
 
+# rubocop:disable Metrics/ClassLength
 class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include Assignable
   include Reviewable
+
+  def file_type(content_type)
+    formatted_content_type = content_type
+
+    case content_type
+    when 'application/pdf'
+      formatted_content_type = 'pdf'
+    end
+
+    formatted_content_type
+  end
 
   def applicant_name
     applicant.full_name
@@ -145,3 +157,4 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   end
   # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 end
+# rubocop:enable Metrics/ClassLength

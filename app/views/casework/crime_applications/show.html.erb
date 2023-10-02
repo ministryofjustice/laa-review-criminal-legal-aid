@@ -16,6 +16,7 @@
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
     <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
+    <%= render partial: 'supporting_evidence',  locals: { crime_application: @crime_application } %>
   </div>
 </div>
 
