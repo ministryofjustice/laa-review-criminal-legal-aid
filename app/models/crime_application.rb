@@ -6,14 +6,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include Reviewable
 
   def file_type(content_type)
-    formatted_content_type = content_type
-
-    case content_type
-    when 'application/pdf'
-      formatted_content_type = 'pdf'
-    end
-
-    formatted_content_type
+    Types::FILE_TYPES[content_type]
   end
 
   def applicant_name
