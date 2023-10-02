@@ -1,8 +1,8 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:supporting_evidence) %>
-</h2>
-
 <% if crime_application.supporting_evidence.present? %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:supporting_evidence) %>
+  </h2>
+
   <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
@@ -26,5 +26,4 @@
       <% end %>
     </tbody>
   </table>
-<% else %>
 <% end %>
