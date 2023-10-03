@@ -39,6 +39,16 @@
       </dd>
     </div>
   <% end%>
+
+  <!-- Court hearing -->
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:hearing_date) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l case_details.hearing_date, format: :compact %>
+    </dd>
+  </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       <%= label_text(:hearing_court_name) %>
@@ -57,12 +67,4 @@
       </dd>
     </div>
   <% end %>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:hearing_date) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <%= l case_details.hearing_date, format: :compact %>
-    </dd>
-  </div>
 </dl>

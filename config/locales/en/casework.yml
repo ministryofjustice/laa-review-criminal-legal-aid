@@ -74,7 +74,7 @@ en:
     first_name: First name
     first_court_hearing_name: Initial court
     hearing_court_name: Court hearing the case
-    hearing_date: Next court hearing
+    hearing_date: Next court hearing date
     home_address: Home address
     interests_of_justice: Interest of Justice
     interests_of_justice_type: Criteria
