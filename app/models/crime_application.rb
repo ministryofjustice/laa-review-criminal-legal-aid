@@ -5,8 +5,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include Assignable
   include Reviewable
 
-  def file_type(filename)
-    File.extname(filename).delete_prefix('.')
+  def supporting_evidence
+    super.map { |d| Document.new(d.attributes) }
   end
 
   def applicant_name
