@@ -6,7 +6,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include Reviewable
 
   def supporting_evidence
-    super.map { |d| Document.new(d.attributes) }
+    super.map { |document| Document.new(document.attributes) }
   end
 
   def applicant_name
