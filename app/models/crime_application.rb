@@ -5,8 +5,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include Assignable
   include Reviewable
 
-  def file_type(content_type)
-    Types::FILE_TYPES[content_type]
+  def file_type(filename)
+    File.extname(filename).delete_prefix('.')
   end
 
   def applicant_name

@@ -74,19 +74,4 @@ module Types
     applicant_name
   ].freeze
   SortBy = String.default('submitted_at'.freeze).enum(*SORTABLE_COLUMNS)
-
-  FILE_TYPES = {
-    'application/msword' => 'doc',
-    'application/pdf' => 'pdf',
-    'application/rtf' => 'rtf',
-    'text/rtf' => 'rtf',
-    'application/vnd.oasis.opendocument.text' => 'odt',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
-    'image/bmp' => 'bmp',
-    'image/png' => 'png',
-    'image/tiff' => 'tiff',
-    'image/jpeg' => 'jpg',
-    'text/csv' => 'csv',
-    'text/plain' => 'txt'
-  }.freeze
 end
