@@ -69,6 +69,7 @@ en:
     date_of_birth: Date of birth
     date_received: 'Date received:'
     end_on: Date to
+    file_name: File name
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
     hearing_court_name: Court hearing the case
@@ -100,6 +101,7 @@ en:
     search_text: Reference number or applicant's first or last name
     select_return_reason: Select the reason for returning this application
     start_on: Date from
+    supporting_evidence: Supporting evidence
     telephone_number: UK Telephone number
     undetermined: Undetermined
     urn: Unique reference number
@@ -195,6 +197,7 @@ en:
       sent_back: red
       completed: green
       marked_as_ready: blue
+    download_file: "Download file <br> (%{file_extension}, %{file_size})"
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign

@@ -1,8 +1,13 @@
 require 'laa_crime_schemas'
 
+# rubocop:disable Metrics/ClassLength
 class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   include Assignable
   include Reviewable
+
+  def supporting_evidence
+    super.map { |document| Document.new(document.attributes) }
+  end
 
   def applicant_name
     applicant.full_name
@@ -145,3 +150,4 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   end
   # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 end
+# rubocop:enable Metrics/ClassLength

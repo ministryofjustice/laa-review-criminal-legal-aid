@@ -26,6 +26,10 @@ p.help-text, #superseded_style  {
   color: govuk-colour("dark-grey");
 }
 
+td.file-name {
+  overflow-wrap: anywhere;
+}
+
 // On Edge browser, the app will side scroll left and right and make it more difficult to scroll down the page.
 // Side scrolling has been disabled to help with usability
 html {

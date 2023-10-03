@@ -345,4 +345,24 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       expect(page).to have_content('Home address Does not have a home address')
     end
   end
+
+  context 'with supporting evidence' do
+    it 'shows a table with supporting evidence' do
+      evidence_row = find(:xpath,
+                          "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+                          //tr[contains(td[1], 'test.pdf')]")
+
+      expect(evidence_row).to have_content('test.pdf Download file (pdf, 12 Bytes)')
+    end
+
+    context 'with supporting evidence not provided' do
+      let(:application_data) do
+        super().deep_merge('supporting_evidence' => [])
+      end
+
+      it 'does not show supporting evidence section' do
+        expect(page).not_to have_content('Supporting evidence')
+      end
+    end
+  end
 end

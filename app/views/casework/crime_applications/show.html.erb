@@ -15,6 +15,9 @@
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
     <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
+    <% if FeatureFlags.evidence_upload.enabled? %>
+      <%= render partial: 'supporting_evidence', locals: { crime_application: @crime_application } %>
+    <% end %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
   </div>
 </div>
