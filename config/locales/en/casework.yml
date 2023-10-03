@@ -72,6 +72,7 @@ en:
     file_name: File name
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
+    first_court_hearing_name: Initial court
     hearing_court_name: Court hearing the case
     hearing_date: Next court hearing
     home_address: Home address
@@ -288,7 +289,7 @@ en:
         total:
           one: 1 search result
           other: "%{count} search results"
-      no_search_results: 
+      no_search_results:
         heading: There are no results that match the search criteria
         no_results_list:
           - Check the spelling of the applicant’s name
