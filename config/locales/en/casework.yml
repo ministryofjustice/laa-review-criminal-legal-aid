@@ -197,7 +197,7 @@ en:
       sent_back: red
       completed: green
       marked_as_ready: blue
-    download_file: "Download file <br> (%{content_type}, %{file_size})"
+    download_file: "Download file <br> (%{file_extension}, %{file_size})"
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
