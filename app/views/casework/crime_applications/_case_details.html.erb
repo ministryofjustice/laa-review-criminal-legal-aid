@@ -41,42 +41,30 @@
   <% end%>
 
   <!-- Court hearing -->
-  <% if case_details.is_first_court_hearing == LaaCrimeSchemas::Types::FirstHearingAnswerValues['no_hearing_yet'] %>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:hearing_date) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l case_details.hearing_date, format: :compact %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:hearing_court_name) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= case_details.hearing_court_name %>
+    </dd>
+  </div>
+  <% if case_details.first_court_hearing_name.present? %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= label_text(:hearing_date) %>
+        <%= label_text(:first_court_hearing_name) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(LaaCrimeSchemas::Types::FirstHearingAnswerValues['no_hearing_yet'], scope: 'values') %>
+        <%= case_details.first_court_hearing_name %>
       </dd>
     </div>
-  <% else %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:hearing_date) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= l case_details.hearing_date, format: :compact %>
-      </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:hearing_court_name) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= case_details.hearing_court_name %>
-      </dd>
-    </div>
-
-    <% if (case_details.is_first_court_hearing == LaaCrimeSchemas::Types::FirstHearingAnswerValues['no']) && case_details.first_court_hearing_name.present? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:first_court_hearing_name) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.first_court_hearing_name %>
-        </dd>
-      </div>
-    <% end %>
   <% end %>
 </dl>

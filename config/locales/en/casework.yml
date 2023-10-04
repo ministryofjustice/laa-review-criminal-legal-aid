@@ -199,7 +199,6 @@ en:
       completed: green
       marked_as_ready: blue
     download_file: "Download file <br> (%{file_extension}, %{file_size})"
-    no_hearing_yet: There has not been a hearing yet
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
