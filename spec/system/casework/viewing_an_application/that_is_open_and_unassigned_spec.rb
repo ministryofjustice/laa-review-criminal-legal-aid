@@ -365,4 +365,43 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
     end
   end
+
+  context 'with court hearing' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'hearing_court_name' => 'Westminster Magistrates Court' })
+    end
+
+    it 'shows the court hearing the case name' do
+      row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Court hearing the case')]")
+
+      expect(row).to have_content('Westminster Magistrates Court')
+    end
+
+    it 'does not have a first court hearing the case' do
+      row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Initial court')]")
+
+      expect(row).not_to have_content('Soutwark Crown Court')
+    end
+
+    context 'when the court location has changed' do
+      let(:application_data) do
+        super().deep_merge('case_details' => {
+                             'hearing_court_name' => 'Southwark Crown Court',
+                             'first_court_hearing_name' => 'Westminster Magistrates Court'
+                           })
+      end
+
+      it 'shows the current court hearing the case name' do
+        row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Court hearing the case')]")
+
+        expect(row).to have_content('Southwark Crown Court')
+      end
+
+      it 'shows the first court hearing the case name' do
+        row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Initial court')]")
+
+        expect(row).to have_content('Westminster Magistrates Court')
+      end
+    end
+  end
 end
