@@ -5,6 +5,9 @@ module Casework
     class CannotDownloadUnlessAssigned < StandardError; end
     class CannotDownload < StandardError; end
 
+    def show; end
+
+    # rubocop:disable Metrics/AbcSize
     def download
       raise CannotDownloadUnlessAssigned unless @crime_application.assigned_to?(current_user_id)
       raise CannotDownload unless doc_uploaded_to_current_app?
@@ -18,6 +21,7 @@ module Casework
       set_flash(:cannot_download, success: false)
       redirect_to crime_application_path(params[:crime_application_id])
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
