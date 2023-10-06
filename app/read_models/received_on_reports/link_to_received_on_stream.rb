@@ -15,6 +15,8 @@ module ReceivedOnReports
       )
     end
 
+    private
+
     def stream_name_format
       ReceivedOnReports::Configuration::STREAM_NAME_FORMAT
     end
