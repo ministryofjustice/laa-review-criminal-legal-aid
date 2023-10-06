@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application that is assigned to me' do
+  include_context 'when downloading a document'
+
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do
@@ -42,6 +44,12 @@ RSpec.describe 'Viewing an application that is assigned to me' do
       it 'raises error if document is not part of current application' do
         visit download_documents_path(crime_application_id: application_id, id: '321/hijklm5678')
         expect(page).to have_content('File must be uploaded to current application to download')
+      end
+
+      it 'successfully downloads if document is part of current application' do
+        # as there is no visual change on the page, we assert the expect redirect occurred
+        click_on 'Download file (pdf, 12 Bytes)'
+        expect(page).to have_current_path(presign_download_url)
       end
     end
   end
