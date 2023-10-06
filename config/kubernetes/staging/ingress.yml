@@ -26,7 +26,7 @@ metadata:
       SecRuleUpdateTargetById 942100 !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRule REQUEST_URI "@beginsWith /api/events" "id:555001, phase:1, pass, t:none, nolog, chain" \
         SecRule REQUEST_METHOD "@streq POST" "chain" \
-          SecRule REQUEST_HEADERS:Content-Type "@streq text/plain" "ctl:ruleRemoveById=920420"
+          SecRule REQUEST_HEADERS:Content-Type "@rx [\s]*text/plain[\s]*" "ctl:ruleRemoveById=920420"
 spec:
   ingressClassName: modsec
   tls:
