@@ -10,9 +10,11 @@ module Datastore
       end
 
       def call
-        DatastoreApi::Requests::Documents::PresignDownload.new(
-          object_key:, expires_in:, response_content_disposition:
-        ).call
+        Rails.error.handle(fallback: -> { false }) do
+          DatastoreApi::Requests::Documents::PresignDownload.new(
+            object_key:, expires_in:, response_content_disposition:
+          ).call
+        end
       end
 
       private

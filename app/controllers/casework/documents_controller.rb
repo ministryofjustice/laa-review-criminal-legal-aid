@@ -13,7 +13,7 @@ module Casework
       raise CannotDownloadDocNotPartOfApp unless doc_uploaded_to_current_app?
 
       presign_download = Datastore::Documents::Download.new(document: @document).call
-      redirect_to(presign_download.url, allow_other_host: true)
+      redirect_to(presign_download.url, allow_other_host: true) if presign_download
     rescue CannotDownloadUnlessAssigned
       set_flash(:cannot_download_unless_assigned, success: false)
       redirect_to crime_application_path(params[:crime_application_id])
