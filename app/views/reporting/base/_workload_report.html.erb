@@ -9,14 +9,19 @@
   <%= table.with_body do |body|
         report.rows.each do |data_row|
           body.with_row do |row|
-            data_row.each do |data_cell|
-              row.with_cell(
-                text: data_cell.content,
-                numeric: data_cell.numeric,
-                header: data_cell.header
-              )
-            end
+            row.with_cell(
+              text: data_row.label,
+              header: true
+            )
+            row.with_cell(
+              text: data_row.total_received,
+              numeric: true
+            )
+            row.with_cell(
+              text: data_row.total_open,
+              numeric: true
+            )
           end
         end
       end %>
-<% end %>
+  <% end %>

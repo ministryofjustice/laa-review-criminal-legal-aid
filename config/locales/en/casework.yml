@@ -176,6 +176,7 @@ en:
       one: 1 day
       other: "%{count} days"
       last: "Between %{count} and %{limit} days"
+    days_passed_range: "Between %{first} and %{last} days"
     review_status:
       submitted: Open
       open: Open
