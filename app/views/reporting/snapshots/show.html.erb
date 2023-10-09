@@ -1,0 +1,37 @@
+<% title(@report.title) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+      <%= label_text(@report_type) %>
+    </h1>
+
+    <%= govuk_pagination(block_mode: true) do |p| %>
+      <%= p.with_previous_page text: 'Previous day', label_text: l(@report.previous_report.observed_at, format: :snapshot), href: reporting_snapshot_path(@report.previous_report.to_param)  %>
+
+      <% unless @report.current? %>
+        <% if @report.next_report.current? %>
+          <%= p.with_next_page text: 'Next day', label_text: l(@report.next_report.observed_at, format: :now), href: reporting_current_snapshot_path(@report_type)  %>
+        <% else %>
+          <%= p.with_next_page text: 'Next day', label_text: l(@report.next_report.observed_at, format: :snapshot), href: url_for(@report.next_report.to_param)  %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m">
+      <%= l(@report.observed_at, format: :snapshot) %>
+    </h2>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <%= turbo_frame_tag @report_type, data: { turbo: 'true' } do %>
+      <%= render partial: @report_type, locals: { report: @report } %>
+    <% end %>
+  </div>
+</div>
