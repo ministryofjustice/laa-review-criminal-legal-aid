@@ -15,7 +15,7 @@ RSpec.describe Datastore::Documents::Download do
           .to_return(status: 201, body: { url: presign_download_url }.to_json)
       end
 
-      it 'returns presign download url' do
+      it 'returns a presigned download url' do
         expect(download_service.call.url).to eq(presign_download_url)
       end
     end
