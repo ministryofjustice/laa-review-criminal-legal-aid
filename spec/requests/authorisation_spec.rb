@@ -13,6 +13,8 @@ RSpec.describe 'Authorisation' do
       crime_application_reassign
       crime_application_return
       crime_applications
+      download_documents
+      documents
       history_crime_application
       new_application_searches
       new_crime_application_reassign

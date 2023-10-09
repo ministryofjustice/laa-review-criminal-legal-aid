@@ -45,6 +45,10 @@ Rails.application.routes.draw do
     resources :assigned_applications, only: [:index, :destroy, :create] do
       post :next_application, on: :collection
     end
+
+    resource :documents, only: [:show] do
+      get :download, on: :member
+    end
   end
 
   namespace :reporting do
