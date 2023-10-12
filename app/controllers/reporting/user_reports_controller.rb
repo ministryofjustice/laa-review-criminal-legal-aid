@@ -7,6 +7,7 @@ module Reporting
 
     def index
       @latest_temporal_reports = latest_temporal_reports
+      @snapshot_report_types = snapshot_report_types
     end
 
     def show
@@ -35,6 +36,10 @@ module Reporting
 
     def temporal_report_types
       current_user.reports & Types::TemporalReportType.values
+    end
+
+    def snapshot_report_types
+      current_user.reports & Types::SnapshotReportType.values
     end
   end
 end

@@ -9,6 +9,9 @@ en:
     daily_report:
       caseworker_report:
         title: "Caseworker daily: %{period_name}"
+    snapshot:
+      workload_report: 
+        title: "Workload report: %{observed_at}"
     user_reports:
       index:
         page_title: Reporting 

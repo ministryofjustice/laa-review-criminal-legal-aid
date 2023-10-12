@@ -31,8 +31,8 @@ RSpec.describe 'Reports' do
       end
 
       it 'is shown the caseworker report' do
-        click_on 'Caseworker report'
-        expect(page).to have_text('Caseworker report')
+        click_on 'Caseworker daily'
+        expect(page).to have_text('Caseworker daily')
       end
 
       it 'is shown the processed report' do
@@ -82,8 +82,8 @@ RSpec.describe 'Reports' do
     end
 
     it 'is shown the caseworker report' do
-      click_on 'Caseworker report'
-      expect(page).to have_text('Caseworker report')
+      click_on 'Caseworker daily'
+      expect(page).to have_text('Caseworker daily')
     end
 
     it 'is shown the processed report' do
@@ -110,8 +110,8 @@ RSpec.describe 'Reports' do
     end
 
     it 'is shown the caseworker report' do
-      click_on 'Caseworker report'
-      expect(page).to have_text('Caseworker report')
+      click_on 'Caseworker daily'
+      expect(page).to have_text('Caseworker daily')
     end
 
     it 'is shown the processed report' do
