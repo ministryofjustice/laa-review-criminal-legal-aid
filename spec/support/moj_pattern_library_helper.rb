@@ -1,11 +1,11 @@
 module MojPatternLibraryHelper
   def have_primary_navigation
     within('.govuk-notification-banner') do
-      assertion = have_selector('h2', text: title_text)
-                  .and(have_selector('div', text:))
+      assertion = have_css('h2', text: title_text)
+                  .and(have_css('div', text:))
 
       if details
-        assertion.and(have_selector('p', text: details))
+        assertion.and(have_css('p', text: details))
       else
         assertion
       end

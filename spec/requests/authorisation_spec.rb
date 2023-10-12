@@ -27,6 +27,7 @@ RSpec.describe 'Authorisation' do
       reporting_temporal_report
       reporting_snapshot
       reporting_current_snapshot
+      reporting_current_temporal_report
       search_application_searches
     ]
   end

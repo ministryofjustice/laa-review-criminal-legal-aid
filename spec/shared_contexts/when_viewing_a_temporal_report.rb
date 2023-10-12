@@ -14,6 +14,11 @@ RSpec.shared_context 'when viewing a temporal report' do
       email: 'Fred.Smitheg@justice.gov.uk'
     )
 
+    Reviewing::ReceiveApplication.new(
+      application_id: crime_application_id,
+      submitted_at: '2022-12-31 13:30'
+    ).call
+
     Assigning::AssignToUser.new(
       user_id: user.id,
       to_whom_id: user.id,

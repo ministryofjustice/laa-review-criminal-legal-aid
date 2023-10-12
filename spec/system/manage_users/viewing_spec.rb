@@ -103,7 +103,7 @@ RSpec.describe 'Manage Users Dashboard' do
     end
 
     it 'shows 50 entries per page' do
-      expect(page).to have_selector('.govuk-table__body > .govuk-table__row', count: 50)
+      expect(page).to have_css('.govuk-table__body > .govuk-table__row', count: 50)
     end
   end
 end
