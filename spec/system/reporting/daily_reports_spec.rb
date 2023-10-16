@@ -8,7 +8,12 @@ RSpec.describe 'Daily reports' do
 
   it 'shows the daily report\'s title' do
     heading_text = page.first('h1').text
-    expect(heading_text).to eq('Caseworker daily: Sunday 1 January 2023')
+    expect(heading_text).to eq('Caseworker report')
+  end
+
+  it 'shows the daily report\'s period name' do
+    heading_text = page.first('h2').text
+    expect(heading_text).to eq('Sunday 1 January 2023')
   end
 
   it 'shows the caseworker report table for the given day' do
@@ -16,10 +21,10 @@ RSpec.describe 'Daily reports' do
   end
 
   it 'includes a link to the next days\'s report' do
-    expect { click_link 'Next' }.to change { page.first('h1').text }.from(
-      'Caseworker daily: Sunday 1 January 2023'
+    expect { click_link 'Next' }.to change { page.first('h2').text }.from(
+      'Sunday 1 January 2023'
     ).to(
-      'Caseworker daily: Monday 2 January 2023'
+      'Monday 2 January 2023'
     )
   end
 
@@ -32,10 +37,10 @@ RSpec.describe 'Daily reports' do
   end
 
   it 'includes a link to the previous days\'s report' do
-    expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
-      'Caseworker daily: Sunday 1 January 2023'
+    expect { click_link 'Previous' }.to change { page.first('h2').text }.from(
+      'Sunday 1 January 2023'
     ).to(
-      'Caseworker daily: Saturday 31 December 2022'
+      'Saturday 31 December 2022'
     )
   end
 

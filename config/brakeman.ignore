@@ -1,47 +1,13 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "76f30c460c50dcd62a7d92d439de585ac7932e16bb188a7f82d41140dc16d40b",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/reporting/temporal_reports/show.html.erb",
-      "line": 20,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => report_klass.from_param(:report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType), :period => params[:period]) }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Reporting::TemporalReportsController",
-          "method": "show",
-          "line": 9,
-          "file": "app/controllers/reporting/temporal_reports_controller.rb",
-          "rendered": {
-            "name": "reporting/temporal_reports/show",
-            "file": "app/views/reporting/temporal_reports/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "reporting/temporal_reports/show"
-      },
-      "user_input": "params.require(:report_type).presence_in(*Types::SnapshotReportType)",
-      "confidence": "High",
-      "cwe_id": [
-        22
-      ],
-      "note": "Scoped by Type"
-    },
-    {
       "warning_type": "Remote Code Execution",
       "warning_code": 24,
       "fingerprint": "820d5ff4010418a7a11637323f60a964ef46ff5f5b531f18bebcf7992a12ed8b",
       "check_name": "UnsafeReflection",
       "message": "Unsafe reflection method `const_get` called with parameter value",
       "file": "app/controllers/reporting/user_reports_controller.rb",
-      "line": 14,
+      "line": 15,
       "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
       "code": "Reporting.const_get(Types::Report[params.require(:report_type).presence_in(*Types::SnapshotReportType)].camelize)",
       "render_path": null,
@@ -72,7 +38,7 @@
           "type": "controller",
           "class": "Reporting::UserReportsController",
           "method": "show",
-          "line": 15,
+          "line": 16,
           "file": "app/controllers/reporting/user_reports_controller.rb",
           "rendered": {
             "name": "reporting/user_reports/show",
@@ -94,6 +60,40 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
+      "fingerprint": "c9179cd5ffcb389b8a198fd0240aa4644caf060116c95e50dc27e1998a928ac9",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/reporting/temporal_reports/show.html.erb",
+      "line": 36,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.current(:interval => params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Reporting::TemporalReportsController",
+          "method": "now",
+          "line": 18,
+          "file": "app/controllers/reporting/temporal_reports_controller.rb",
+          "rendered": {
+            "name": "reporting/temporal_reports/show",
+            "file": "app/views/reporting/temporal_reports/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reporting/temporal_reports/show"
+      },
+      "user_input": "params.require(:report_type).presence_in(*Types::SnapshotReportType)",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "Scoped by Types"
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
       "fingerprint": "dd542b1ff01fcf89839000d8c094ba3d1d4a8894e76330f11b28469a1cc5c94c",
       "check_name": "Render",
       "message": "Render path contains parameter value",
@@ -106,7 +106,7 @@
           "type": "controller",
           "class": "Reporting::SnapshotsController",
           "method": "now",
-          "line": 17,
+          "line": 13,
           "file": "app/controllers/reporting/snapshots_controller.rb",
           "rendered": {
             "name": "reporting/snapshots/show",
@@ -126,6 +126,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-10-09 18:30:59 +0100",
+  "updated": "2023-10-13 14:25:50 +0100",
   "brakeman_version": "6.0.1"
 }

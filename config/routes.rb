@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   namespace :reporting do
     root to: 'user_reports#index'
     get ':report_type', to: 'user_reports#show', as: 'user_report'
+
+    get ':report_type/:interval/now', to: 'temporal_reports#now', as: :current_temporal_report
     get ':report_type/:interval/:period', to: 'temporal_reports#show', as: :temporal_report
     get ':report_type/:date/at/:time', to: 'snapshots#show', as: :snapshot
     get ':report_type/now', to: 'snapshots#now', as: :current_snapshot

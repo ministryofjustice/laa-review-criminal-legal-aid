@@ -10,7 +10,7 @@ RSpec.describe 'Reports' do
       expect_forbidden
     end
 
-    it 'is shown not found for report pages', aggregate_failures: true do
+    it 'is shown not found for report pages', :aggregate_failures do
       %w[processed_report caseworker_report workload_report].each do |report|
         visit reporting_user_report_path(report)
         expect(page).to have_http_status(:not_found)
@@ -31,18 +31,34 @@ RSpec.describe 'Reports' do
       end
 
       it 'is shown the caseworker report' do
-        click_on 'Caseworker daily'
-        expect(page).to have_text('Caseworker daily')
+        expect { click_link('Caseworker report') }.to change { current_path }
+          .from('/reporting')
+          .to('/reporting/caseworker_report/daily/now')
+
+        expect(page).to have_http_status :ok
       end
 
       it 'is shown the processed report' do
-        click_on 'Processed report'
-        expect(page).to have_text('Processed report')
+        expect { click_link('Processed report') }.to change { current_path }
+          .from('/reporting')
+          .to('/reporting/processed_report')
+
+        expect(page).to have_http_status :ok
       end
 
       it 'is shown the workload report' do
         click_on 'Workload report'
         expect(page).to have_text('Workload report')
+
+        expect(page).to have_http_status :ok
+      end
+
+      it 'is shown the volumes report' do
+        expect { click_link('Volumes report') }.to change { current_path }
+          .from('/reporting')
+          .to('/reporting/volumes_report/daily/now')
+
+        expect(page).to have_http_status :ok
       end
     end
   end
@@ -61,11 +77,13 @@ RSpec.describe 'Reports' do
     it 'can access the processed report' do
       visit reporting_user_report_path('processed_report')
       expect(page).to have_text('Processed report')
+      expect(page).to have_http_status :ok
     end
 
     it 'can access the workload report' do
       visit reporting_user_report_path('workload_report')
       expect(page).to have_text('Workload report')
+      expect(page).to have_http_status :ok
     end
   end
 
@@ -76,24 +94,40 @@ RSpec.describe 'Reports' do
       visit reporting_root_path
     end
 
-    it 'can access the reports page' do
+    it 'can access the "Reports" index page' do
       heading_text = page.first('.govuk-heading-xl').text
       expect(heading_text).to eq('Reports')
     end
 
     it 'is shown the caseworker report' do
-      click_on 'Caseworker daily'
-      expect(page).to have_text('Caseworker daily')
+      expect { click_link('Caseworker report') }.to change { current_path }
+        .from('/reporting')
+        .to('/reporting/caseworker_report/daily/now')
+
+      expect(page).to have_http_status :ok
     end
 
     it 'is shown the processed report' do
-      click_on 'Processed report'
-      expect(page).to have_text('Processed report')
+      expect { click_link('Processed report') }.to change { current_path }
+        .from('/reporting')
+        .to('/reporting/processed_report')
+
+      expect(page).to have_http_status :ok
     end
 
     it 'is shown the workload report' do
       click_on 'Workload report'
       expect(page).to have_text('Workload report')
+
+      expect(page).to have_http_status :ok
+    end
+
+    it 'is shown the volumes report' do
+      expect { click_link('Volumes report') }.to change { current_path }
+        .from('/reporting')
+        .to('/reporting/volumes_report/daily/now')
+
+      expect(page).to have_http_status :ok
     end
   end
 
@@ -104,24 +138,40 @@ RSpec.describe 'Reports' do
       visit reporting_root_path
     end
 
-    it 'can access the reports page' do
+    it 'can access the "Reports" index page' do
       heading_text = page.first('.govuk-heading-xl').text
       expect(heading_text).to eq('Reports')
     end
 
     it 'is shown the caseworker report' do
-      click_on 'Caseworker daily'
-      expect(page).to have_text('Caseworker daily')
+      expect { click_link('Caseworker report') }.to change { current_path }
+        .from('/reporting')
+        .to('/reporting/caseworker_report/daily/now')
+
+      expect(page).to have_http_status :ok
     end
 
     it 'is shown the processed report' do
-      click_on 'Processed report'
-      expect(page).to have_text('Processed report')
+      expect { click_link('Processed report') }.to change { current_path }
+        .from('/reporting')
+        .to('/reporting/processed_report')
+
+      expect(page).to have_http_status :ok
     end
 
     it 'is shown the workload report' do
       click_on 'Workload report'
       expect(page).to have_text('Workload report')
+
+      expect(page).to have_http_status :ok
+    end
+
+    it 'is shown the volumes report' do
+      expect { click_link('Volumes report') }.to change { current_path }
+        .from('/reporting')
+        .to('/reporting/volumes_report/daily/now')
+
+      expect(page).to have_http_status :ok
     end
   end
 

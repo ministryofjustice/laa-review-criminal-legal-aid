@@ -11,6 +11,7 @@ module Reporting
     end
 
     def show
+      @latest_temporal_reports = latest_temporal_reports
       @report = Reporting.const_get(Types::Report[@report_type].camelize).new
     end
 
@@ -24,13 +25,13 @@ module Reporting
     # NOTE: this code is temporary and used here to provide a list of temporal
     # reports for protyping purposes only.
     def latest_temporal_reports
-      Types::TemporalInterval.values.flat_map do |interval|
-        klass = Reporting::TemporalReport.klass_for_interval(interval)
-        date = klass.latest_complete_report_date
+      interval = Types::TemporalInterval['daily']
 
-        temporal_report_types.map do |report_type|
-          klass.new(report_type:, date:)
-        end
+      klass = Reporting::TemporalReport.klass_for_interval(interval)
+      date = klass.latest_complete_report_date
+
+      temporal_report_types.map do |report_type|
+        klass.new(report_type:, date:)
       end
     end
 

@@ -1,11 +1,13 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-three-quarters">
-    <%= govuk_pagination(block_mode: true) do |p| %>
-      <%= p.with_previous_page label_text: report.previous_report.period_name, href: url_for(period: report.previous_report)  %>
+<%= govuk_pagination(block_mode: true) do |p| %>
+  <%= p.with_previous_page(
+        label_text: report.previous_report.period_name,
+        href: reporting_temporal_report_path(report.previous_report.to_param)
+      ) %>
 
-      <% unless report.current? %>
-        <%= p.with_next_page label_text: report.next_report.period_name, href: url_for(period: report.next_report)  %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+  <% unless report.current? %>
+    <%= p.with_next_page(
+          label_text: report.next_report.period_name,
+          href: reporting_temporal_report_path(report.next_report.to_param)
+        ) %>
+  <% end %>
+<% end %>
