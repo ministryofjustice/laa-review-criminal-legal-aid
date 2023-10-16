@@ -5,11 +5,12 @@ import { Turbo } from "@hotwired/turbo-rails"
 // defaults "data: { turbo: 'false' }"
 Turbo.session.drive = false
 
-import copyReferenceNumber from 'local/copy_reference_number'
+import copyText from 'local/copyText'
 
 // https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#javascript
 import { initAll } from 'govuk-frontend'
 initAll()
 
 // used on application show page
-copyReferenceNumber()
+copyText('#reference-number','#copy-reference-number')
+copyText('#urn','#copy-urn-reference-number')
