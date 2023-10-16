@@ -1,24 +1,30 @@
 module Reporting
   class VolumesReport
-    # weekly intake processed, day for a week
-    # monthly intake processed
-    #
-    #
     def initialize(day_zero: Time.current, interval: 'daily')
       @day_zero = day_zero.in_time_zone('London').to_date
       @interval = interval
     end
 
+    # Currently only CAT3 applications are processed on Review.
     def rows
-      @rows ||= [
-        {
-          closed: closing_events.between(date_from...date_to).count,
-          received: receiving_events.between(date_from...date_to).count
-        }
-      ]
+      @rows ||= [{ closed:, received: }]
     end
 
     private
+
+    attr_reader :day_zero
+
+    def closed
+      scope.of_type(closing_event_types).count
+    end
+
+    def received
+      scope.of_type(opening_event_types).count
+    end
+
+    def scope
+      @scope ||= Rails.configuration.event_store.read.between(date_from...date_to)
+    end
 
     def date_from
       case Types::TemporalInterval[@interval]
@@ -42,18 +48,12 @@ module Reporting
       end
     end
 
-    attr_reader :day_zero
-
-    def closing_events
-      closing_event_types = [Reviewing::SentBack, Reviewing::Completed]
-
-      Rails.configuration.event_store.read.of_type(closing_event_types)
+    def closing_event_types
+      ReceivedOnReports::Configuration::CLOSING_EVENTS
     end
 
-    def receiving_events
-      closing_event_types = [Reviewing::ApplicationReceived]
-
-      Rails.configuration.event_store.read.of_type(closing_event_types).backward
+    def opening_event_types
+      ReceivedOnReports::Configuration::OPENING_EVENTS
     end
 
     class << self
