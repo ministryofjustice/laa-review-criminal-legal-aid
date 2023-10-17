@@ -3,11 +3,11 @@ module GdsHelper
     title_text = success ? 'Success' : 'Important'
 
     within('.govuk-notification-banner') do
-      assertion = have_selector('h2', text: title_text)
-                  .and(have_selector('div', text:))
+      assertion = have_css('h2', text: title_text)
+                  .and(have_css('div', text:))
 
       [details].flatten.each do |detail|
-        assertion = assertion.and(have_selector('p', text: detail))
+        assertion = assertion.and(have_css('p', text: detail))
       end
 
       assertion

@@ -5,12 +5,16 @@ module Reporting
     attr_reader :date, :report_type
 
     def initialize(date:, report_type:)
-      @date = date
+      @date = date || latest_complete_report_date
       @report_type = Types::TemporalReportType[report_type]
     end
 
     def to_param
-      date.strftime(self.class::PARAM_FORMAT)
+      {
+        period: date.strftime(self.class::PARAM_FORMAT),
+        report_type: report_type,
+        interval: interval
+      }
     end
 
     def interval
@@ -34,7 +38,7 @@ module Reporting
     end
 
     def rows
-      @rows ||= read_model_klass.new(stream_name:).rows
+      @rows ||= read_model_klass.for_temporal_period(date:, interval:).rows
     end
 
     # returns true if the report includes the current day
@@ -47,10 +51,6 @@ module Reporting
       raise 'Implement in subclass.'
     end
     # :nocov:
-
-    def stream_name
-      date.strftime(CaseworkerReports::Configuration::STREAM_NAME_FORMATS.fetch(interval))
-    end
 
     private
 
@@ -77,11 +77,17 @@ module Reporting
       end
       # :nocov:
 
-      def from_param(report_type:, period:)
-        date = Date.strptime(period, self::PARAM_FORMAT)
-        new(report_type:, date:)
+      def from_param(report_type:, period:, interval:)
+        klass = klass_for_interval(interval)
+        date = Date.strptime(period, klass::PARAM_FORMAT)
+        klass.new(report_type:, date:)
       rescue Date::Error
         raise Reporting::ReportNotFound
+      end
+
+      def current(report_type:, interval:)
+        date = _current_date
+        klass_for_interval(interval).new(report_type:, date:)
       end
 
       def klass_for_interval(interval)

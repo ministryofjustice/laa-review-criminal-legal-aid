@@ -5,9 +5,17 @@ module Reporting
     before_action :require_report_access!
 
     def show
-      @report = report_klass.from_param(
-        report_type: @report_type, period: params[:period]
+      @report = Reporting::TemporalReport.from_param(
+        report_type: @report_type, period: params[:period], interval: @interval
       )
+    end
+
+    def now
+      @report = Reporting::TemporalReport.current(
+        interval: @interval, report_type: @report_type
+      )
+
+      render :show
     end
 
     private
@@ -17,11 +25,8 @@ module Reporting
     end
 
     def set_interval
-      @interval = params.require(:interval).presence_in(*Types::TemporalInterval)
-    end
-
-    def report_klass
-      Reporting::TemporalReport.klass_for_interval(@interval)
+      @intervals = Types::TemporalInterval
+      @interval = params.require(:interval).presence_in(*@intervals)
     end
   end
 end

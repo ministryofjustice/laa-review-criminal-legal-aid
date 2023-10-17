@@ -25,6 +25,9 @@ RSpec.describe 'Authorisation' do
       reporting_user_report
       reporting_root
       reporting_temporal_report
+      reporting_snapshot
+      reporting_current_snapshot
+      reporting_current_temporal_report
       search_application_searches
     ]
   end
@@ -215,6 +218,9 @@ RSpec.describe 'Authorisation' do
     report_type = 'processed_report'
     interval = 'monthly'
     period = '2023-August'
-    { id:, crime_application_id:, path:, report_type:, interval:, period: }.slice(*route.required_keys.dup)
+    date = '2023-05-01'
+    time = '23:59'
+    { id:, crime_application_id:, path:, report_type:, interval:, period:, date:,
+time: }.slice(*route.required_keys.dup)
   end
 end

@@ -36,12 +36,20 @@ module Reporting
     attr_reader :day_zero, :observed_at, :age_range_in_business_days
 
     def dataset
-      @dataset ||= ReceivedOnReports::Projection.for_dates(business_days, observed_at:).dataset
+      @dataset ||= sum_dataset_from_projections
     end
 
-    def business_days
-      @business_days ||= [*age_range_in_business_days].map do |age_in_business_days|
-        BusinessDay.new(age_in_business_days:, day_zero:).date
+    def sum_dataset_from_projections
+      projections.each_with_object({ total_received: 0, total_closed: 0 }) do |projection, total|
+        total[:total_received] += projection.dataset[:total_received]
+        total[:total_closed] += projection.dataset[:total_closed]
+      end
+    end
+
+    def projections
+      @projections ||= [*age_range_in_business_days].map do |age_in_business_days|
+        business_day = BusinessDay.new(age_in_business_days:, day_zero:).date
+        ReceivedOnReports::Projection.for_date(business_day, observed_at:)
       end
     end
   end

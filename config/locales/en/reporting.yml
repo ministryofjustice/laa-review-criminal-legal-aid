@@ -3,12 +3,21 @@ en:
     monthly_report:
       caseworker_report:
         title: "Caseworker monthly: %{period_name}"
+      volumes_report:
+        title: "Volumes monthly: %{period_name}"
     weekly_report:
       caseworker_report:
         title: "Caseworker weekly: %{period_name}"
+      volumes_report:
+        title: "Daily volumes: %{period_name}"
     daily_report:
       caseworker_report:
         title: "Caseworker daily: %{period_name}"
+      volumes_report:
+        title: "Daily volumes: %{period_name}"
+    snapshot:
+      workload_report: 
+        title: "Workload report: %{observed_at}"
     user_reports:
       index:
         page_title: Reporting 
@@ -17,8 +26,15 @@ en:
     workload_report: Workload report
     processed_report: Processed report
     caseworker_report: Caseworker report
+    volumes_report: Volumes report
+    monthly: Monthly 
+    weekly: Weekly 
+    daily: Daily 
   table_headings:
     applications_closed: Number of closed applications
+    applications_received: Applications received
+    closed: Closed
+    received: Received
     days_passed: Business days since applications were received
     open_applications_by_age: "Applications still\xA0open"
     processed_on: When applications were closed
@@ -26,6 +42,8 @@ en:
     total_assigned_to_user: Assigned
     total_closed_by_user: Closed
     total_unassigned_from_user: Unassigned
+    application_type: Type
+    what: What 
     user_name: Caseworker
 
   caseworker_report:

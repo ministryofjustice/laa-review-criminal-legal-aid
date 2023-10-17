@@ -10,27 +10,30 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2 class='govuk-heading-m'>Latest complete reports<h2>
 
     <% @latest_temporal_reports.each do |report|%>
       <h3 class='govuk-heading-s'>
         <%= govuk_link_to(
-              report.title,
-              reporting_temporal_report_path(
-                interval: report.interval,
-                report_type: report.report_type,
-                period: report.to_param
-              ),
+              label_text(report.report_type),
+              reporting_current_temporal_report_path(report.to_param),
               { no_visited_state: true }
             )%>
       </h3>
     <% end %>
 
-    <h2 class='govuk-heading-m'>Latest snapshots<h2>
-    <% current_user.reports.each do |report_type| %>
+    <% @snapshot_report_types.each do |report_type| %>
       <h3 class='govuk-heading-s'>
-        <%= govuk_link_to label_text(report_type), reporting_user_report_path(report_type), { no_visited_state: true } %>
+        <%= govuk_link_to(
+              label_text(report_type),
+              reporting_current_snapshot_path(report_type),
+              { no_visited_state: true }
+            ) %>
       </h3>
+
     <% end %>
+
+    <h3 class='govuk-heading-s'>
+      <%= govuk_link_to label_text('processed_report'), reporting_user_report_path('processed_report'), { no_visited_state: true } %>
+    </h3>
   </div>
 </div>

@@ -111,7 +111,7 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
         click_on('Yes, reactivate')
       end
 
-      it 'denies action', aggregate_failures: true do
+      it 'denies action', :aggregate_failures do
         expect(page).to have_current_path(manage_users_deactivated_users_path)
         expect(current_user.deactivated?).to be true
       end

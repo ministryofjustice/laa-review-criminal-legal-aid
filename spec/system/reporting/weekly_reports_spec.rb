@@ -8,12 +8,11 @@ RSpec.describe 'Weekly Reports' do
 
   it 'shows the weekly report\'s title' do
     heading_text = page.first('h1').text
-    expect(heading_text).to eq('Caseworker weekly: Week 52, 2022')
+    expect(heading_text).to eq('Caseworker report')
   end
 
   it 'shows the reports date range' do
-    subheading_text = page.first('h2').text
-    expect(subheading_text).to eq('Monday 26 December 2022 — Sunday 1 January 2023')
+    expect(page.first('h3')).to have_text('Monday 26 December 2022 — Sunday 1 January 2023')
   end
 
   it 'shows the caseworker report table for the given week' do
@@ -21,18 +20,18 @@ RSpec.describe 'Weekly Reports' do
   end
 
   it 'includes a link to the next week\'s report' do
-    expect { click_link 'Next' }.to change { page.first('h1').text }.from(
-      'Caseworker weekly: Week 52, 2022'
+    expect { click_link 'Next' }.to change { page.first('h2').text }.from(
+      'Week 52, 2022'
     ).to(
-      'Caseworker weekly: Week 1, 2023'
+      'Week 1, 2023'
     )
   end
 
   it 'includes a link to the previous week\'s report' do
-    expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
-      'Caseworker weekly: Week 52, 2022'
+    expect { click_link 'Previous' }.to change { page.first('h2').text }.from(
+      'Week 52, 2022'
     ).to(
-      'Caseworker weekly: Week 51, 2022'
+      'Week 51, 2022'
     )
   end
 
