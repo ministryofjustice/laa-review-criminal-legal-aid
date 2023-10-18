@@ -11,7 +11,10 @@
                  nino: @crime_application.formatted_applicant_nino,
                  applicant_tel: @crime_application.formatted_applicant_telephone_number
                } %>
-    <%= render partial: 'case_details', object: @crime_application.case_details %>
+
+    <%# NOTE: Experimental presenter use %>
+    <%= render partial: 'case_details', locals: { case_details: CrimeApplicationPresenter.new(@crime_application.case_details) } %>
+
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
     <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>

@@ -41,16 +41,6 @@
   <% end%>
 
   <!-- Court hearing -->
-  <% if case_details.is_first_court_hearing == LaaCrimeSchemas::Types::FirstHearingAnswerValues['no_hearing_yet'] %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:hearing_date) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(LaaCrimeSchemas::Types::FirstHearingAnswerValues['no_hearing_yet'], scope: 'values') %>
-      </dd>
-    </div>
-  <% else %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:hearing_date) %>
@@ -68,15 +58,19 @@
       </dd>
     </div>
 
-    <% if (case_details.is_first_court_hearing == LaaCrimeSchemas::Types::FirstHearingAnswerValues['no']) && case_details.first_court_hearing_name.present? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:first_court_hearing_name) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
+    <!-- First court hearing always visible -->
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:first_court_hearing_name) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <% if case_details.legacy_application? %>
+          <%= t(:not_asked, scope: 'values') %>
+        <% elsif case_details.no_hearing_yet? || case_details.first_court_hearing?%>
+          <%= case_details.hearing_court_name %>
+        <% else %>
           <%= case_details.first_court_hearing_name %>
-        </dd>
-      </div>
-    <% end %>
-  <% end %>
+        <% end %>
+      </dd>
+    </div>
 </dl>
