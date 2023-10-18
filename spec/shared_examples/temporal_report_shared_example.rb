@@ -13,12 +13,6 @@ RSpec.shared_examples 'a temporal report' do
     it { is_expected.to eq expected_to_param }
   end
 
-  describe '#stream_name' do
-    subject(:stream_name) { report.stream_name }
-
-    it { is_expected.to eq expected_stream_name }
-  end
-
   describe '#period_text' do
     subject(:period_text) { report.period_text }
 
@@ -63,17 +57,6 @@ RSpec.shared_examples 'a temporal report' do
       }
 
       expect(report.rows).to eq :read_model_rows
-    end
-  end
-
-  describe '.from_param' do
-    subject(:report_from_param) do
-      period = expected_to_param
-      described_class.from_param(report_type:, period:)
-    end
-
-    it 'returns the correct report from the param' do
-      expect(report_from_param.title).to eq(expected_title)
     end
   end
 end

@@ -25,6 +25,8 @@ module Reporting
       end
     end
 
+    private
+
     def age_range_for_row(row_index)
       min_age = row_index
       max_age = last_row?(row_index) ? @age_limit : min_age
@@ -33,7 +35,7 @@ module Reporting
     end
 
     def last_row?(row_index)
-      @number_of_rows == row_index + 1
+      row_index == @number_of_rows - 1
     end
   end
 end

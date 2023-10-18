@@ -8,7 +8,7 @@ RSpec.describe 'Monthly Reports' do
 
   it 'shows the monthly report\'s title' do
     heading_text = page.first('h1').text
-    expect(heading_text).to eq('Caseworker monthly: January, 2023')
+    expect(heading_text).to eq('Caseworker report')
   end
 
   it 'warns that data is experimental' do
@@ -27,10 +27,10 @@ RSpec.describe 'Monthly Reports' do
     let(:period) { '2022-December' }
 
     it 'includes a link to the next month\'s report' do
-      expect { click_link 'Next' }.to change { page.first('h1').text }.from(
-        'Caseworker monthly: December, 2022'
+      expect { click_link 'Next' }.to change { page.first('h2').text }.from(
+        'December, 2022'
       ).to(
-        'Caseworker monthly: January, 2023'
+        'January, 2023'
       )
     end
   end
@@ -42,10 +42,10 @@ RSpec.describe 'Monthly Reports' do
   end
 
   it 'includes a link to the previous month\'s report' do
-    expect { click_link 'Previous' }.to change { page.first('h1').text }.from(
-      'Caseworker monthly: January, 2023'
+    expect { click_link 'Previous' }.to change { page.first('h2').text }.from(
+      'January, 2023'
     ).to(
-      'Caseworker monthly: December, 2022'
+      'December, 2022'
     )
   end
 

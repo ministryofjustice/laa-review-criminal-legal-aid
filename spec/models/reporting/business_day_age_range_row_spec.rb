@@ -7,12 +7,6 @@ RSpec.describe Reporting::BusinessDayAgeRangeRow do
 
   let(:observed_at) { Date.parse('2023-01-04').in_time_zone('London').end_of_day }
   let(:age_range_in_business_days) { 0..0 }
-  let(:dataset) { { total_closed: 57, total_received: 199 } }
-
-  before do
-    projection = instance_double(ReceivedOnReports::Projection, dataset:)
-    allow(ReceivedOnReports::Projection).to receive(:for_dates) { projection }
-  end
 
   describe '#label' do
     subject(:label) { row.label }
@@ -40,15 +34,37 @@ RSpec.describe Reporting::BusinessDayAgeRangeRow do
     end
   end
 
-  describe '#total_received' do
-    subject(:total_received) { row.total_received }
+  describe '#dataset' do
+    let(:age_range_in_business_days) { 3..5 }
+    let(:dataset) { { total_closed: 57, total_received: 199 } }
 
-    it { is_expected.to be 199 }
-  end
+    before do
+      # mock data for 23rd, 28th and 29th November
+      [23, 28, 29].each do |day|
+        projection = instance_double(
+          ReceivedOnReports::Projection,
+          dataset: { total_received: 100 + day, total_closed: 100 - day }
+        )
 
-  describe '#total_open' do
-    subject(:total_open) { row.total_open }
+        allow(ReceivedOnReports::Projection).to receive(:for_date)
+          .with(Date.new(2022, 12, day), observed_at:) { projection }
+      end
+    end
 
-    it { is_expected.to be 142 }
+    describe '#total_received' do
+      subject(:total_received) { row.total_received }
+
+      it 'adds up the total_received for each business day in the age range' do
+        expect(row.total_received).to eq 123 + 128 + 129
+      end
+    end
+
+    describe '#total_open' do
+      subject(:total_open) { row.total_open }
+
+      it 'adds up the total_open for each business day in the age range' do
+        expect(row.total_open).to eq 380 - (77 + 72 + 71)
+      end
+    end
   end
 end
