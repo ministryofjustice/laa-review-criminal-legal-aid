@@ -334,7 +334,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
 
     it 'shows that the URN was not provided' do
-      expect(page).to have_content('Unique reference number Not provided')
+      expect(page).to have_content('Unique reference number (URN) Not provided')
     end
 
     it 'shows that other names were not provided' do

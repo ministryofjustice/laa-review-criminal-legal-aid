@@ -32,7 +32,7 @@
       </dt>
       <dd class="govuk-summary-list__value">
         <%= t(overview.applicant_benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
-        
+
       </dd>
     </div>
   <% end %>
@@ -45,8 +45,8 @@
     <span id="urn">
       <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
     </span>
-      <% if overview.case_details.urn.presence %>
-      <%=link_to t('calls_to_action.copy'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
+      <% if overview.case_details.urn.presence && !overview.superseded? %>
+        <%=link_to t('calls_to_action.copy'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
       <% end %>
     </dd>
   </div>

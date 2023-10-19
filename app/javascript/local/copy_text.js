@@ -6,9 +6,10 @@ function copyText(textElementId, copyLinkElementId) {
       copyLink.addEventListener('click', (e) => {
         e.preventDefault();
   
-        let text = urn.textContent.trim();
+        let text = textElement.textContent.trim();
         window.navigator.clipboard.writeText(text);
         copyLink.blur();
+        return true;
       });
     }
   }
