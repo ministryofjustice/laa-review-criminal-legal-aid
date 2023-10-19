@@ -24,8 +24,8 @@ RSpec.describe 'Viewing an application that is superseded' do
     expect(page).not_to have_content('Copy reference number')
   end
 
-  it 'does not show the copy link' do
-    expect(page).not_to have_content('Copy')
+  it 'does not show the copy urn link' do
+    expect(page).not_to have_content('Copy URN')
   end
 
   it 'shows the resubmitted warning text' do

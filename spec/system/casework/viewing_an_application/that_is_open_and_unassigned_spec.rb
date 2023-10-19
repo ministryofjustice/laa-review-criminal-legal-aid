@@ -21,8 +21,14 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('Copy reference number')
   end
 
-  it 'includes the urn copy link' do
-    expect(page).to have_content('Copy URN')
+  context 'with URN provided' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'urn' => '12345' })
+    end
+
+    it 'includes the copy urn link' do
+      expect(page).to have_content('12345 Copy URN')
+    end
   end
 
   it 'shows that the application is unassigned' do
