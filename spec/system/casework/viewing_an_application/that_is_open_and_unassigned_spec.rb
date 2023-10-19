@@ -22,7 +22,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'includes the urn copy link' do
-    expect(page).to have_content('Copy')
+    expect(page).to have_content('Copy URN')
   end
 
   it 'shows that the application is unassigned' do
