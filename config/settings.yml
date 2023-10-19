@@ -10,7 +10,7 @@ feature_flags:
   basic_user_roles:
     local: true
     staging: true
-    production: false
+    production: true
   evidence_upload:
     local: true
     staging: true
