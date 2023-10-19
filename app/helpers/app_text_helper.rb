@@ -27,6 +27,8 @@ module AppTextHelper
 
   def named_text(text_type, key, options = {})
     namespace = controller.try(:text_namespace)
-    I18n.t(key, scope: [namespace, text_type].compact, **options)
+    scope = [namespace, text_type, *options.delete(:scope)]
+
+    I18n.t(key, scope:, **options)
   end
 end

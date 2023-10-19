@@ -76,5 +76,15 @@ module Reporting
         total_closed_by_user: 0
       }
     end
+
+    class << self
+      def for_temporal_period(date:, interval:)
+        stream_name = date.strftime(
+          CaseworkerReports::Configuration::STREAM_NAME_FORMATS.fetch(interval)
+        )
+
+        new(stream_name:)
+      end
+    end
   end
 end

@@ -21,9 +21,7 @@ module Types
       Types::ReviewApplicationStatus['assessment_completed'],
       Types::ReviewApplicationStatus['returned_to_provider']
     ],
-    'completed' => [
-      Types::ReviewApplicationStatus['assessment_completed']
-    ],
+    'completed' => [Types::ReviewApplicationStatus['assessment_completed']],
     'sent_back' => [
       Types::ReviewApplicationStatus['returned_to_provider']
     ],
@@ -55,9 +53,11 @@ module Types
     details: String
   )
 
-  Report = String.enum('caseworker_report', 'processed_report', 'workload_report')
-  TemporalReportType = String.enum(Report['caseworker_report'])
-  TemporalInterval = String.enum('monthly', 'weekly', 'daily')
+  Report = String.enum('caseworker_report', 'volumes_report', 'processed_report', 'workload_report')
+
+  SnapshotReportType = String.enum(Report['workload_report'])
+  TemporalReportType = String.enum(Report['caseworker_report'], Report['volumes_report'])
+  TemporalInterval = String.enum('daily', 'weekly', 'monthly')
 
   USER_ROLE_REPORTS = {
     UserRole[CASEWORKER_ROLE] => [Report['workload_report'], Report['processed_report']],
