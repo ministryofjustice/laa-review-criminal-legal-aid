@@ -107,7 +107,7 @@ en:
     supporting_evidence: Supporting evidence
     telephone_number: UK Telephone number
     undetermined: Undetermined
-    urn: Unique reference number
+    urn: Unique reference number (URN)
     what: What
     when: When
     who: Who
@@ -208,7 +208,8 @@ en:
     assign_to_self: Assign to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
-    copy: Copy reference number
+    copy_reference_number: Copy reference number
+    copy_urn: Copy URN
     go_to_latest: Go to the latest version
     reassign_to_self: Reassign to your list
     search: Search
