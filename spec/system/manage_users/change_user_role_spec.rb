@@ -110,30 +110,6 @@ RSpec.describe 'Change user role' do
     end
   end
 
-  describe 'when feature is disabled' do
-    before do
-      allow(FeatureFlags).to receive(:basic_user_roles) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-      }
-      active_user
-
-      visit '/manage_users/active_users'
-    end
-
-    it 'does not show Change role action' do
-      expect(page).not_to have_content 'Change role'
-    end
-
-    it 'denies role change if forced via URL' do
-      visit "/manage_users/change_roles/#{user.id}/edit"
-
-      expect(page).to have_notification_banner(
-        text: "Unable to change #{user.name}'s role",
-        details: []
-      )
-    end
-  end
-
   describe 'when admin manipulates the HTTP client' do
     context 'with their own user id' do
       before do
