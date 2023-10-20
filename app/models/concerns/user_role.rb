@@ -36,7 +36,7 @@ module UserRole
     return false if deactivated?
     return false if dormant?
 
-    FeatureFlags.basic_user_roles.enabled?
+    true
   end
 
   def service_user?

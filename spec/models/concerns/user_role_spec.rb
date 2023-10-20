@@ -198,19 +198,6 @@ RSpec.describe UserRole do
       end
     end
 
-    context 'when feature flag is disabled' do
-      before do
-        allow(FeatureFlags).to receive(:basic_user_roles) {
-          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-        }
-      end
-
-      it 'returns false' do
-        expect(user.activated?).to be true
-        expect(user.can_change_role?).to be false
-      end
-    end
-
     context 'when user is dormant' do
       before do
         user.last_auth_at = 100.days.ago
