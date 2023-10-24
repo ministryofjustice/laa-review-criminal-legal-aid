@@ -24,6 +24,7 @@ RSpec.describe 'Authenticating with the DevAuth strategy' do
 
       it 'shows the forbidden page' do
         expect(page).to have_content 'Access to this service is restricted'
+        expect(page).to have_http_status(:forbidden)
       end
 
       it 'uses the simplified error page' do
