@@ -192,11 +192,11 @@ RSpec.describe 'Authentication Session Initialisation' do
     end
   end
 
-  context 'when a get request is made to the user auth path' do
-    it 'redirects to sign in page' do
+  context 'when a GET request is made to the user auth path' do
+    it 'return page not found' do
       get user_azure_ad_omniauth_authorize_path
 
-      expect(response).to redirect_to(unauthenticated_root_path)
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

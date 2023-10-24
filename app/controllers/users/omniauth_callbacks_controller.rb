@@ -3,15 +3,13 @@ module Users
     def azure_ad
       @user = UserAuthenticate.new(request.env['omniauth.auth']).authenticate
 
-      if @user
-        sign_in_and_redirect @user, event: :authentication
-      else
-        throw(:warden, recall: 'Errors#forbidden', message: :forbidden)
-      end
+      raise ApplicationController::ForbiddenError, 'User not authorised' unless @user
+
+      sign_in_and_redirect @user, event: :authentication
     end
 
     def failure
-      throw(:warden, recall: 'Errors#forbidden', message: :forbidden)
+      raise ApplicationController::ForbiddenError, 'Devise failure'
     end
 
     # Override the #passthru action. It is used when a GET request is made
@@ -19,7 +17,7 @@ module Users
     # The fix for this is in Devise but awaiting release:
     # https://github.com/heartcombo/devise/pull/5508
     def passthru
-      redirect_to unauthenticated_root_path
+      raise ActionController::RoutingError, 'Get requests should not be supported.'
     end
   end
 end
