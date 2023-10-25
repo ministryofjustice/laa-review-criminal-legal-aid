@@ -75,6 +75,7 @@ module LaaReviewCriminalLegalAid
     config.exceptions_app = ->(env) {
       ErrorsController.action(:show).call(env)
     }
+
     config.action_dispatch.rescue_responses["Reporting::ReportNotFound"] = :not_found
     config.action_dispatch.rescue_responses["ApplicationController::ForbiddenError"] = :forbidden
   end
