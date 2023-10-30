@@ -105,13 +105,22 @@ spec:
 
     - alert: CrimeApplyReview-TrivyVulns
       expr: >-
-        sum(trivy_image_vulnerabilities{namespace=~"^laa-review-criminal-legal-aid.*", severity=~"Critical|High|Medium"} > 0)
-        by (namespace, image_tag, severity)
+        sum by (namespace, image_tag, trivy_severity) (
+          label_replace(
+            trivy_image_vulnerabilities{namespace=~"^laa-review-criminal-legal-aid.*",severity=~"Critical|High|Medium"}
+          >
+            0,
+          "trivy_severity",
+          "$1",
+          "severity",
+          "(.*)"
+          )
+        )
       for: 1h
       labels:
         severity: laa-crime-apply-alerts
       annotations:
-        message: Image `{{ $labels.image_tag }}` in namespace `{{ $labels.namespace }}` has {{ $value }} {{ $labels.severity }} vulnerabilities.
+        message: Image `{{ $labels.image_tag }}` in namespace `{{ $labels.namespace }}` has {{ $value }} {{ $labels.trivy_severity }} vulnerabilities.
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/trivy_starboard_operator123/trivy-operator-image-vulnerability?orgId=1&from=now-24h&to=now&var-namespace={{ $labels.namespace }}
 
     - alert: CrimeApplyReview-PrometheusExporterFailure

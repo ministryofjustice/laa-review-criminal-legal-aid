@@ -10,7 +10,7 @@ module HostEnv
     NAMED_ENVIRONMENTS.each { |name| delegate "#{name}?", to: :inquiry }
 
     def env_name
-      return LOCAL if Rails.env.development? || Rails.env.test?
+      return LOCAL if Rails.env.local?
 
       ENV.fetch('ENV_NAME')
     end
