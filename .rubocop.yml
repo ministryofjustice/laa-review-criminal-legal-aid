@@ -82,3 +82,6 @@ Rails/SkipsModelValidations:
 # Prefer block over method call.
 RSpec/ExpectChange:
   EnforcedStyle: block
+
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: false
