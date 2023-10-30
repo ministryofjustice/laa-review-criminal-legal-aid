@@ -74,9 +74,8 @@ en:
     file_name: File name
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
-    first_court_hearing_name: Initial court
-    hearing_court_name: Court hearing the case
-    hearing_date: Next court hearing date
+    first_court_hearing: First court hearing the case
+    hearing_date: Date of next hearing
     home_address: Home address
     interests_of_justice: Interest of Justice
     interests_of_justice_type: Criteria
@@ -86,6 +85,7 @@ en:
     means_type: Means type
     name: Name
     national_insurance_number: National Insurance number
+    next_court_hearing: Next court hearing the case
     offence: Offence
     offence_date: Offence date
     offence_details: Offence details
@@ -202,6 +202,7 @@ en:
       completed: green
       marked_as_ready: blue
     download_file: "Download file <br> (%{file_extension}, %{file_size})"
+    no_hearing_yet: There has not been a hearing yet
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
