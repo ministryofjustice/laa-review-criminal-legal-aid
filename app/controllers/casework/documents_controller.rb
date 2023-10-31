@@ -10,7 +10,13 @@ module Casework
 
     def download
       presign_download = Datastore::Documents::Download.new(document: @document).call
-      redirect_to(presign_download.url, allow_other_host: true) if presign_download
+
+      if presign_download.respond_to?(:url)
+        redirect_to(presign_download.url, allow_other_host: true)
+      else
+        set_flash(:cannot_download_try_again, file_name: @document.filename, success: false)
+        redirect_to crime_application_path(params[:crime_application_id])
+      end
     end
 
     private
