@@ -9,11 +9,22 @@ module Casework
     def show; end
 
     def download
-      presign_download = Datastore::Documents::Download.new(document: @document).call
-      redirect_to(presign_download.url, allow_other_host: true) if presign_download
+      presign_download = Datastore::Documents::Download.new(document: @document, log_context: log_context).call
+
+      if presign_download.respond_to?(:url)
+        redirect_to(presign_download.url, allow_other_host: true)
+      else
+        set_flash(:cannot_download_try_again, file_name: @document.filename, success: false)
+        redirect_to crime_application_path(params[:crime_application_id])
+      end
     end
 
     private
+
+    def log_context
+      { caseworker_id: current_user_id, caseworker_ip: request.remote_ip, file_type: @document.content_type,
+       s3_object_key: @document.s3_object_key }
+    end
 
     def set_crime_application
       @crime_application = ::CrimeApplication.find(params[:crime_application_id])

@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Datastore::Documents::Download do
-  subject(:download_service) { described_class.new(document:) }
+  subject(:download_service) { described_class.new(document:, log_context:) }
 
   include_context 'when downloading a document'
 
   let(:document) { instance_double(Document, filename:, s3_object_key:) }
+  let(:log_context) { { caseworker_id: 1, caseworker_ip: '123.0001' } }
 
   describe '#call' do
     context 'when a document download link is retrieved successfully' do
