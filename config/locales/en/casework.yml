@@ -38,6 +38,7 @@ en:
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
       cannot_download_unless_assigned: You must assign this application to your list to download files
       cannot_download_doc_uploaded_to_another_app: File must be uploaded to current application to download
+      cannot_download_try_again: "%{file_name} could not be downloaded – try again"
 
   primary_navigation:
     your_list: "Your list (%{count})"

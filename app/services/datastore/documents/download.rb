@@ -3,14 +3,15 @@ module Datastore
     class Download
       PRESIGNED_URL_EXPIRES_IN = 15 # seconds
 
-      attr_accessor :document
+      attr_accessor :document, :log_context
 
-      def initialize(document:)
+      def initialize(document:, log_context:)
         @document = document
+        @log_context = log_context
       end
 
       def call
-        Rails.error.handle(fallback: -> { false }) do
+        Rails.error.handle(fallback: -> { false }, context: @log_context, severity: :error) do
           DatastoreApi::Requests::Documents::PresignDownload.new(
             object_key:, expires_in:, response_content_disposition:
           ).call
