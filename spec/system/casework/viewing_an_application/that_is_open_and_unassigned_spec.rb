@@ -380,41 +380,97 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
   end
 
-  context 'with court hearing' do
+  describe 'court hearing' do
     let(:application_data) do
-      super().deep_merge('case_details' => { 'hearing_court_name' => 'Westminster Magistrates Court' })
+      super().deep_merge('case_details' => hearing_details)
     end
 
-    it 'shows the court hearing the case name' do
-      row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Court hearing the case')]")
-
-      expect(row).to have_content('Westminster Magistrates Court')
+    let(:first_court_hearing) do
+      first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'First court hearing the case')]")
     end
 
-    it 'does not have a first court hearing the case' do
-      row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Initial court')]")
-
-      expect(row).not_to have_content('Soutwark Crown Court')
+    let(:next_court_hearing) do
+      first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Next court hearing the case')]")
     end
 
-    context 'when the court location has changed' do
-      let(:application_data) do
-        super().deep_merge('case_details' => {
-                             'hearing_court_name' => 'Southwark Crown Court',
-                             'first_court_hearing_name' => 'Westminster Magistrates Court'
-                           })
+    context 'when first court hearing' do
+      let(:hearing_details) do
+        {
+          'hearing_court_name' => 'Westminster Magistrates Court',
+          'is_first_court_hearing' => 'yes',
+        }
       end
 
-      it 'shows the current court hearing the case name' do
-        row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Court hearing the case')]")
-
-        expect(row).to have_content('Southwark Crown Court')
+      it 'shows the court hearing the case name' do
+        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
       end
 
-      it 'shows the first court hearing the case name' do
-        row = first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Initial court')]")
+      it 'does not have a first court hearing the case' do
+        expect(page).not_to have_content('First court hearing the case')
+      end
+    end
 
-        expect(row).to have_content('Westminster Magistrates Court')
+    context 'when the court has changed' do
+      let(:hearing_details) do
+        {
+          'hearing_court_name' => 'Southwark Crown Court',
+          'first_court_hearing_name' => 'Westminster Magistrates Court',
+          'is_first_court_hearing' => 'no',
+        }
+      end
+
+      it 'shows the next and first court hearing the case' do
+        expect(next_court_hearing).to have_content('Southwark Crown Court')
+        expect(first_court_hearing).to have_content('Westminster Magistrates Court')
+      end
+    end
+
+    context 'when next and first court are the same' do
+      let(:hearing_details) do
+        {
+          'hearing_court_name' => 'Westminster Magistrates Court',
+          'first_court_hearing_name' => 'Westminster Magistrates Court',
+          'is_first_court_hearing' => 'no',
+        }
+      end
+
+      it 'shows both the next and first court hearing the case' do
+        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
+        expect(first_court_hearing).to have_content('Westminster Magistrates Court')
+      end
+    end
+
+    context 'when no court is hearing the case yet' do
+      let(:hearing_details) do
+        {
+          'hearing_court_name' => 'Westminster Magistrates Court',
+          'is_first_court_hearing' => 'no_hearing_yet',
+        }
+      end
+
+      it 'shows next court hearing the case' do
+        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
+      end
+
+      it 'shows a `no hearing yet` message' do
+        expect(first_court_hearing).to have_content('There has not been a hearing yet')
+      end
+    end
+
+    context 'when the question about the first/next court was not asked' do
+      let(:hearing_details) do
+        {
+          'hearing_court_name' => 'Westminster Magistrates Court',
+          'is_first_court_hearing' => nil,
+        }
+      end
+
+      it 'shows next court hearing the case' do
+        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
+      end
+
+      it 'shows a `not asked` message' do
+        expect(first_court_hearing).to have_content('Not asked when this application was submitted')
       end
     end
   end

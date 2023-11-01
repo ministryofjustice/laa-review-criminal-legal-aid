@@ -122,6 +122,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     @all_histories = histories
   end
 
+  def case_details
+    @case_details ||= CaseDetailsPresenter.present(self[:case_details])
+  end
+
   private
 
   def applicant

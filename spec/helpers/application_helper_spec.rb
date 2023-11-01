@@ -72,4 +72,52 @@ RSpec.describe ApplicationHelper do
       it { expect(helper.app_banner_tag).to eq('beta') }
     end
   end
+
+  describe '#decorate' do
+    before do
+      stub_const('FooBar', Class.new)
+      stub_const('FooBarDecorator', Class.new(BaseDecorator))
+      allow(FooBarDecorator).to receive(:new).with(foobar)
+    end
+
+    let(:foobar) { FooBar.new }
+
+    context 'with a given specific delegator class' do
+      it 'instantiate the decorator with the passed object' do
+        helper.decorate(foobar, FooBarDecorator)
+        expect(FooBarDecorator).to have_received(:new).with(foobar)
+      end
+    end
+
+    context 'with inferred delegator class' do
+      it 'instantiate the decorator with the passed object inferring the class' do
+        helper.decorate(foobar)
+        expect(FooBarDecorator).to have_received(:new).with(foobar)
+      end
+    end
+  end
+
+  describe '#present' do
+    before do
+      stub_const('FooBar', Class.new)
+      stub_const('FooBarPresenter', Class.new(BasePresenter))
+      allow(FooBarPresenter).to receive(:new).with(foobar)
+    end
+
+    let(:foobar) { FooBar.new }
+
+    context 'with given delegator class' do
+      it 'instantiate the presenter with the passed object' do
+        helper.present(foobar, FooBarPresenter)
+        expect(FooBarPresenter).to have_received(:new).with(foobar)
+      end
+    end
+
+    context 'with inferred delegator class' do
+      it 'instantiate the presenter with the passed object inferring the class' do
+        helper.present(foobar)
+        expect(FooBarPresenter).to have_received(:new).with(foobar)
+      end
+    end
+  end
 end
