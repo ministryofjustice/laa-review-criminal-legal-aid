@@ -8,6 +8,16 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     super.map { |document| Document.new(document.attributes) }
   end
 
+  def applicant_name
+    applicant.full_name
+  end
+
+  def formatted_applicant_nino
+    return if applicant.nino.nil?
+
+    applicant.nino
+  end
+
   def legal_rep_name
     [
       provider_details.legal_rep_first_name,
@@ -94,16 +104,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     end
 
     crime_application.id
-  end
-
-  def applicant_name
-    applicant.full_name
-  end
-
-  def formatted_applicant_nino
-    return if applicant.nino.nil?
-
-    applicant.nino
   end
 
   def all_histories
