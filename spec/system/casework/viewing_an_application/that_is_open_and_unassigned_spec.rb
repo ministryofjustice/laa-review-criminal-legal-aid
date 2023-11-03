@@ -397,16 +397,14 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       let(:hearing_details) do
         {
           'hearing_court_name' => 'Westminster Magistrates Court',
+          'first_court_hearing_name' => 'Westminster Magistrates Court',
           'is_first_court_hearing' => 'yes',
         }
       end
 
-      it 'shows the court hearing the case name' do
+      it 'shows same next and first court hearing the case' do
         expect(next_court_hearing).to have_content('Westminster Magistrates Court')
-      end
-
-      it 'does not have a first court hearing the case' do
-        expect(page).not_to have_content('First court hearing the case')
+        expect(first_court_hearing).to have_content('Westminster Magistrates Court')
       end
     end
 
@@ -419,7 +417,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         }
       end
 
-      it 'shows the next and first court hearing the case' do
+      it 'shows different next and first court hearing the case' do
         expect(next_court_hearing).to have_content('Southwark Crown Court')
         expect(first_court_hearing).to have_content('Westminster Magistrates Court')
       end
