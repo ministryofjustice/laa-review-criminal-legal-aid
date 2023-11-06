@@ -13,18 +13,6 @@ RSpec.describe CrimeApplication do
     it { is_expected.to eq Date.parse('2001-06-09') }
   end
 
-  describe '#applicant_name' do
-    subject(:applicant_name) { application.applicant_name }
-
-    it { is_expected.to eq 'Kit Pound' }
-  end
-
-  describe '#formatted_applicant_nino' do
-    subject(:formatted_applicant_nino) { application.formatted_applicant_nino }
-
-    it { is_expected.to eq 'AJ123456C' }
-  end
-
   describe '#assignee_name' do
     subject(:assignee_name) { application.assignee_name }
 

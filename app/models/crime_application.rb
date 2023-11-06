@@ -8,16 +8,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     super.map { |document| Document.new(document.attributes) }
   end
 
-  def applicant_name
-    applicant.full_name
-  end
-
-  def formatted_applicant_nino
-    return if applicant.nino.nil?
-
-    applicant.nino
-  end
-
   def legal_rep_name
     [
       provider_details.legal_rep_first_name,
@@ -119,13 +109,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     @case_details ||= CaseDetailsPresenter.present(self[:case_details])
   end
 
-  def phone_number
-    @phone_number ||= PhoneNumberPresenter.present(self)
-  end
-
-  private
-
   def applicant
-    client_details.applicant
+    @applicant ||= ApplicantPresenter.present(self[:client_details][:applicant])
   end
 end

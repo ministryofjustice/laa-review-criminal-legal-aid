@@ -1,15 +1,17 @@
-class PhoneNumberPresenter < BasePresenter
-  def for_applicant
-    return if applicant.telephone_number.nil?
+class ApplicantPresenter < BasePresenter
+  def phone_number
+    return if telephone_number.nil?
 
-    format_telephone_number(applicant.telephone_number)
+    format_telephone_number(telephone_number)
+  end
+
+  def formatted_applicant_nino
+    return if nino.nil?
+
+    nino
   end
 
   private
-
-  def applicant
-    client_details.applicant
-  end
 
   # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
   def format_telephone_number(number)
@@ -26,7 +28,7 @@ class PhoneNumberPresenter < BasePresenter
     when /\A\+44\(0\)7\d{9}\z/ # +44 mobile numberformat with initial 0 in parentheses
       [3, 7, 12, 16].each { |i| formatted_tel.insert i, ' ' }
     else
-      formatted_tel = applicant.telephone_number
+      formatted_tel = telephone_number
     end
 
     formatted_tel

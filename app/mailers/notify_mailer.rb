@@ -14,7 +14,7 @@ class NotifyMailer < GovukNotifyRails::Mailer
   def application_returned_email(application_id, return_reason)
     application = CrimeApplication.find(application_id)
     provider_email = application.provider_details.provider_email
-    applicant_name = application.applicant_name
+    applicant_name = application.client_details.applicant.full_name
     application_reference = application.reference.to_s
     return_reason = I18n.t("emails_text.application_returned.#{return_reason}")
 

@@ -7,7 +7,7 @@
     </p>
 
     <h1 class="govuk-heading-l govuk-!-padding-top-0 govuk-!-margin-bottom-">
-      <%= t '.header', applicant_name: @crime_application.applicant_name %>
+      <%= t '.header', applicant_name: @crime_application.applicant.full_name %>
     </h1>
 
     <%= form_with model: @return_details, url: crime_application_return_path(@crime_application.id), scope: :return_details, method: :post do |f| %>
