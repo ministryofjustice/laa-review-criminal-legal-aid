@@ -8,7 +8,7 @@ RSpec.describe CrimeApplication do
   let(:assignment) { instance_double(Assigning::Assignment) }
 
   describe '#applicant_date_of_birth' do
-    subject(:applicant_date_of_birth) { application.applicant_date_of_birth }
+    subject(:applicant_date_of_birth) { application.client_details.applicant.date_of_birth }
 
     it { is_expected.to eq Date.parse('2001-06-09') }
   end
@@ -127,7 +127,7 @@ RSpec.describe CrimeApplication do
   end
 
   describe '#benefit_type' do
-    subject(:benefit_type) { application.applicant_benefit_type }
+    subject(:benefit_type) { application.client_details.applicant.benefit_type }
 
     let(:attributes) do
       super().deep_merge({ 'client_details' => { 'applicant' => { 'benefit_type' => passporting_benefit_type } } })
