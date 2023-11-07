@@ -31,7 +31,7 @@
         <%= label_text(:passporting_benefit) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(overview.applicant_benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
+        <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
 
       </dd>
     </div>

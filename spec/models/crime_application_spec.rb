@@ -8,51 +8,9 @@ RSpec.describe CrimeApplication do
   let(:assignment) { instance_double(Assigning::Assignment) }
 
   describe '#applicant_date_of_birth' do
-    subject(:applicant_date_of_birth) { application.applicant_date_of_birth }
+    subject(:applicant_date_of_birth) { application.client_details.applicant.date_of_birth }
 
     it { is_expected.to eq Date.parse('2001-06-09') }
-  end
-
-  describe '#applicant_name' do
-    subject(:applicant_name) { application.applicant_name }
-
-    it { is_expected.to eq 'Kit Pound' }
-  end
-
-  describe '#formatted_applicant_nino' do
-    subject(:formatted_applicant_nino) { application.formatted_applicant_nino }
-
-    it { is_expected.to eq 'AJ123456C' }
-  end
-
-  describe '#formatted_applicant_telephone_number' do
-    subject(:formatted_applicant_telephone_number) { application.formatted_applicant_telephone_number }
-
-    it { is_expected.to eq '07771 231 231' }
-
-    context 'with input that has +44 and no 0' do
-      before do
-        attributes['client_details']['applicant']['telephone_number'] = '+447123123123'
-      end
-
-      it { is_expected.to eq '+44 7123 123 123' }
-    end
-
-    context 'with input that has +44 and 0' do
-      before do
-        attributes['client_details']['applicant']['telephone_number'] = '+4407123456456'
-      end
-
-      it { is_expected.to eq '+44 07123 456 456' }
-    end
-
-    context 'with input that has +44 and 0 with parentheses' do
-      before do
-        attributes['client_details']['applicant']['telephone_number'] = '+44(0)7123789789'
-      end
-
-      it { is_expected.to eq '+44 (0) 7123 789 789' }
-    end
   end
 
   describe '#assignee_name' do
@@ -169,7 +127,7 @@ RSpec.describe CrimeApplication do
   end
 
   describe '#benefit_type' do
-    subject(:benefit_type) { application.applicant_benefit_type }
+    subject(:benefit_type) { application.client_details.applicant.benefit_type }
 
     let(:attributes) do
       super().deep_merge({ 'client_details' => { 'applicant' => { 'benefit_type' => passporting_benefit_type } } })
