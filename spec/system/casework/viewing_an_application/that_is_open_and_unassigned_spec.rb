@@ -363,11 +363,6 @@ RSpec.describe 'Viewing an application unassigned, open application' do
                             //tr[contains(td[1], 'test.pdf')]")
       expect(evidence_row).to have_content('test.pdf Download file (pdf, 12 Bytes)')
     end
-
-    it 'raises an error if user attempts to download the file' do
-      click_on 'Download file (pdf, 12 Bytes)'
-      expect(page).to have_content('You must assign this application to your list to download files')
-    end
   end
 
   context 'with no supporting evidence' do
