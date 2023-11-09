@@ -1,0 +1,19 @@
+en:
+  manage_competencies:
+    base:
+      index:
+        page_title: Manage competencies
+        heading: Manage competencies
+
+    table_headings:
+      actions: Actions
+      deactivated_at: Deactivated
+      email: Email
+      invitation_expires_at: Invitation expires
+      last_auth_at: Last authentication
+      manage_others: Manage other users
+      manager: Manager
+      name: Name
+      skills: Skills
+      what: What
+      when: When

@@ -1,0 +1,12 @@
+<% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
+
+<% content_for(:header) do %>
+  <% render partial: 'layouts/header' %>
+<% end %>
+
+<% content_for(:content) do %>
+  <%= render partial: 'flash_banner' %>
+  <%= yield %>
+<% end %>
+
+<%= render template: 'layouts/govuk_template', layout: false %>

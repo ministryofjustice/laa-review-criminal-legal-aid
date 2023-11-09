@@ -13,7 +13,8 @@ en:
   layouts:
     header:
       manage_users: Manage users
-      reports: Reports 
+      reports: Reports
+      manage_competencies: Manage competencies
 
   date:
     formats:
