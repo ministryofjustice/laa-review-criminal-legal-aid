@@ -17,18 +17,18 @@
       </tr>
       </thead>
       <tbody class="govuk-table__body">
-      <% @users.each do |user| %>
+      <% @caseworkers.each do |caseworker| %>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">
-            <%= govuk_link_to(user.name_or_email, manage_users_history_path(id: user), { no_visited_state: true }) %>
+            <%= govuk_link_to(caseworker.name_or_email, manage_users_history_path(id: caseworker), { no_visited_state: true }) %>
           </td>
-          <%= render partial: 'table_cells', locals: { user: } %>
+          <%= render partial: 'table_cells', locals: { caseworker: } %>
         </tr>
       <% end %>
       </tbody>
     </table>
   </div>
   <div class="govuk-grid-column-full">
-    <%= paginate @users %>
+    <%= paginate @caseworkers %>
   </div>
 </div>
