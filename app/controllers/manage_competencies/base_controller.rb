@@ -16,8 +16,7 @@ module ManageCompetencies
     def require_supervisor!
       return if current_user.role == Types::SUPERVISOR_ROLE
 
-      render status: :not_found, template: 'errors/not_found', layout: 'external'
-      false
+      raise ForbiddenError, 'Must be a supervisor'
     end
   end
 end

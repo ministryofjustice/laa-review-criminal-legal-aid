@@ -6,9 +6,9 @@ RSpec.describe 'Manage Competencies Dashboard' do
       visit manage_competencies_root_path
     end
 
-    it 'redirects to "Page not" found' do
+    it 'redirects to "Access to this service is restricted"' do
       heading_text = page.first('.govuk-heading-xl').text
-      expect(heading_text).to eq('Page not found')
+      expect(heading_text).to eq('Access to this service is restricted')
     end
   end
 
