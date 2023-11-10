@@ -87,5 +87,10 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
+  namespace :manage_competencies do
+    root 'caseworker_skills#index'
+    resources :caseworker_skills, only: [:index]
+  end
+
   root 'landing_page#index'
 end

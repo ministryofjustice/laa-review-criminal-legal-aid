@@ -70,7 +70,10 @@ RSpec.describe 'Authorisation' do
   end
 
   let(:supervisor_routes) do
-    %w[]
+    %w[
+      manage_competencies_root
+      manage_competencies_caseworker_skills
+    ]
   end
 
   def expected_status(route_name)

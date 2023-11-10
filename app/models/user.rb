@@ -42,6 +42,8 @@ class User < ApplicationRecord
     where('auth_subject_id IS NOT NULL AND deactivated_at IS NOT NULL')
   }
 
+  scope :caseworker, -> { active.where(role: Types::CASEWORKER_ROLE, can_manage_others: false) }
+
   has_many :current_assignments, dependent: :destroy
 
   def name

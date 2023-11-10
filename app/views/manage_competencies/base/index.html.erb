@@ -1,0 +1,34 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= t '.heading' %>
+    </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <%= render partial: 'table_headers' %>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <% @caseworkers.each do |caseworker| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">
+            <%= govuk_link_to(caseworker.name_or_email, manage_users_history_path(id: caseworker), { no_visited_state: true }) %>
+          </td>
+          <%= render partial: 'table_cells', locals: { caseworker: } %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="govuk-grid-column-full">
+    <%= paginate @caseworkers %>
+  </div>
+</div>

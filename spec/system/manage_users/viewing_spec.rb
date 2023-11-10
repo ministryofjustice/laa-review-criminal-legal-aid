@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Manage Users Dashboard' do
-  include_context 'with many other users'
-
   context 'when user does not have access manage other users' do
     before do
       visit manage_users_root_path
@@ -44,66 +42,13 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes', 'Caseworker'].join(' '))
     end
 
-    describe 'ordering of users in the list' do
-      before do
-        users = [
-          {
-            first_name: 'Hassan',
-            last_name: 'Example',
-            email: 'hassan.example@example.com',
-            auth_subject_id: SecureRandom.uuid
-          },
-          {
-            first_name: 'Hassan',
-            last_name: 'Sample',
-            email: 'hassan.sample@example.com',
-            auth_subject_id: SecureRandom.uuid
-          },
-          {
-            first_name: 'Arthur',
-            last_name: 'Sample',
-            email: 'arthur.sample@example.com',
-            auth_subject_id: SecureRandom.uuid
-          }
-        ]
-
-        User.insert_all(users) # rubocop:disable Rails/SkipsModelValidations
-
-        visit manage_users_root_path
-      end
-
+    it_behaves_like 'a paginated page', path: '/manage_users?page=2'
+    it_behaves_like 'an ordered user list' do
+      let(:path) { manage_users_root_path }
       let(:expected_order) do
-        [
-          'arthur.sample@example.com',
-          'hassan.example@example.com',
-          'hassan.sample@example.com',
-          'Joe.EXAMPLE@justice.gov.uk'
-        ]
+        %w[arthur.sample@example.com hassan.example@example.com hassan.sample@example.com Joe.EXAMPLE@justice.gov.uk]
       end
-
-      it 'is ordered by first name, last name' do
-        expect(page.all('tbody tr td:nth-child(2)').map(&:text)).to eq expected_order
-      end
-    end
-  end
-
-  context 'with pagination' do
-    include_context 'when logged in user is admin'
-    let(:last_auth_at) { Time.zone.now }
-
-    before do
-      make_users(100)
-      visit '/manage_users?page=2'
-    end
-
-    it 'shows the correct page number' do
-      current_page = first('.govuk-pagination__item--current').text
-
-      expect(current_page).to have_text('2')
-    end
-
-    it 'shows 50 entries per page' do
-      expect(page).to have_css('.govuk-table__body > .govuk-table__row', count: 50)
+      let(:column_num) { 2 }
     end
   end
 end
