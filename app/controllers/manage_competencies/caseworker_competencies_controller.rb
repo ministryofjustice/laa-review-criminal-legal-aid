@@ -10,7 +10,15 @@ module ManageCompetencies
 
     def update
       @caseworker = User.caseworker.find(params[:id])
+      competencies = permitted_params[:competencies].compact_blank
+      Allocating::SetCompetencies.call(user: @caseworker, by_whom: current_user, competencies: competencies)
       redirect_to manage_competencies_root_path
+    end
+
+    private
+
+    def permitted_params
+      params.require(:user).permit(competencies: [])
     end
   end
 end

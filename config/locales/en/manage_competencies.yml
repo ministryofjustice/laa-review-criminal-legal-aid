@@ -8,23 +8,16 @@ en:
       edit:
         page_title: Manage competencies
         heading: Manage competencies
+      table_cells:
+        no_competencies: No competencies
 
     table_headings:
-      actions: Actions
-      deactivated_at: Deactivated
-      email: Email
-      invitation_expires_at: Invitation expires
-      last_auth_at: Last authentication
-      manage_others: Manage other users
-      manager: Manager
+      supervisor: Supervisor
       name: Name
       competencies: Competencies
-      what: What
-      when: When
-
 
     confirmations:
-      change_competencies: "Are you sure you want to change %{user_name}'s role from %{from}?"
+      change_competencies: Are you sure you want to change %{user_name}'s competencies?
 
     actions:
       change_competencies: Change competencies

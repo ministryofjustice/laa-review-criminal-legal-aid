@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  CASEWORKER_COMPETENCIES = Types::CASEWORKER_COMPETENCY_TYPES
   class CannotDestroyIfActive < StandardError; end
   class CannotRenewIfActive < StandardError; end
   class CannotDeactivate < StandardError; end
@@ -55,6 +56,14 @@ class User < ApplicationRecord
 
     email
   end
+
+  def competencies
+    @competencies ||= Allocating.user_competencies(id)
+  end
+
+  # def history
+  #   @history ||= AuthorisationHistory.new(user_id: id)
+  # end
 
   def history
     @history ||= AuthorisationHistory.new(user_id: id)
