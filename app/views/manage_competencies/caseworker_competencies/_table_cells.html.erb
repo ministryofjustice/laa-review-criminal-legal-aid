@@ -1,0 +1,7 @@
+<td class="govuk-table__cell">
+  <% if Allocating.user_competencies(caseworker.id).blank? %>
+      <%= t('.no_competencies') %>
+  <% else %>
+    <%= Allocating.user_competencies(caseworker.id).map(&:humanize).join(', ') %>
+  <% end %>
+</td>

@@ -4,16 +4,25 @@ en:
       index:
         page_title: Manage competencies
         heading: Manage competencies
+    caseworker_competencies:
+      edit:
+        page_title: Manage competencies
+        heading: Manage competencies
+      table_cells:
+        no_competencies: No competencies
 
     table_headings:
-      actions: Actions
-      deactivated_at: Deactivated
-      email: Email
-      invitation_expires_at: Invitation expires
-      last_auth_at: Last authentication
-      manage_others: Manage other users
-      manager: Manager
+      supervisor: Supervisor
       name: Name
       competencies: Competencies
-      what: What
-      when: When
+
+    confirmations:
+      change_competencies: Are you sure you want to change %{user_name}'s competencies?
+
+    actions:
+      change_competencies: Change competencies
+      confirm_change_competencies: Change competencies
+      abandon_change_competencies: No, do not change competencies
+
+    warnings:
+      change_competencies: This could mean %{user_name} may not be able to carry out all their duties or have too much visibility of sensitive information.

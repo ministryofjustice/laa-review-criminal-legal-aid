@@ -1,0 +1,22 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= form_with(url: manage_competencies_caseworker_competency_path(id: @caseworker), model: @caseworker, method: :patch) do |f| %>
+
+      <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: confirm_text(:change_competencies, user_name: @caseworker.name, from: @caseworker.role.humanize), size: 'xl' } do %>
+        <p class="govuk-body">
+          <%= govuk_warning_text text: warning_text(:change_competencies, user_name: @caseworker.name) %>
+        </p>
+        <% User::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
+          <%= f.govuk_check_box :competencies, competency, label: { text: competency.humanize } %>
+        <% end %>
+      <% end %>
+
+      <div class="govuk-button-group">
+        <%= f.govuk_submit action_text(:confirm_change_competencies) %>
+        <%= govuk_link_to action_text(:abandon_change_competencies), manage_competencies_root_path, { no_visited_state: true }  %>
+      </div>
+    <% end %>
+  </div>
+</div>
