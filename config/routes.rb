@@ -88,8 +88,8 @@ Rails.application.routes.draw do
   end
 
   namespace :manage_competencies do
-    root 'caseworker_skills#index'
-    resources :caseworker_skills, only: [:index]
+    root 'caseworker_competencies#index'
+    resources :caseworker_competencies, only: [:index, :edit, :update]
   end
 
   root 'landing_page#index'

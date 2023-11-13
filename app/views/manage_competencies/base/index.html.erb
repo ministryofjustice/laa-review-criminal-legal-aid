@@ -20,7 +20,7 @@
       <% @caseworkers.each do |caseworker| %>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">
-            <%= govuk_link_to(caseworker.name_or_email, manage_users_history_path(id: caseworker), { no_visited_state: true }) %>
+            <%= govuk_link_to(caseworker.name_or_email, edit_manage_competencies_caseworker_competency_path(id: caseworker), { no_visited_state: true }) %>
           </td>
           <%= render partial: 'table_cells', locals: { caseworker: } %>
         </tr>

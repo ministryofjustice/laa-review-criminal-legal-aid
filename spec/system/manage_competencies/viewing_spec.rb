@@ -34,7 +34,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq(['Test Testing []'].join(' '))
+      expect(first_data_row).to eq(['Test Testing No competencies'].join(' '))
     end
 
     it_behaves_like 'a paginated page', path: '/manage_competencies?page=2'

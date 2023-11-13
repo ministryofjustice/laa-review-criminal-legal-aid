@@ -72,7 +72,9 @@ RSpec.describe 'Authorisation' do
   let(:supervisor_routes) do
     %w[
       manage_competencies_root
-      manage_competencies_caseworker_skills
+      manage_competencies_caseworker_competencies
+      edit_manage_competencies_caseworker_competency
+      manage_competencies_caseworker_competency
     ]
   end
 
