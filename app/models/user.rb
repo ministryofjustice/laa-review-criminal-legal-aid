@@ -61,10 +61,6 @@ class User < ApplicationRecord
     @competencies ||= Allocating.user_competencies(id)
   end
 
-  # def history
-  #   @history ||= AuthorisationHistory.new(user_id: id)
-  # end
-
   def history
     @history ||= AuthorisationHistory.new(user_id: id)
   end
