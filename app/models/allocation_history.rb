@@ -2,7 +2,7 @@ class AllocationHistory < ApplicationStruct
   attribute :user_id, Types::Uuid
 
   def items
-    @items ||= events.map { |event| AllocationHistoryItem.new(event) }
+    @items ||= events.map { |event| AllocationHistoryPresenter.new(event) }
   end
 
   private

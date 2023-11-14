@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  CASEWORKER_COMPETENCIES = Types::CASEWORKER_COMPETENCY_TYPES
   class CannotDestroyIfActive < StandardError; end
   class CannotRenewIfActive < StandardError; end
   class CannotDeactivate < StandardError; end
@@ -63,6 +62,10 @@ class User < ApplicationRecord
 
   def competency_history
     @competency_history ||= AllocationHistory.new(user_id: id)
+  end
+
+  def caseworker_presenter
+    @caseworker_presenter ||= CaseworkerPresenter.present(self)
   end
 
   def history

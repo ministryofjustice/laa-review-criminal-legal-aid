@@ -33,11 +33,7 @@
               <%= l event.timestamp, format: :datetime %>
             </td>
             <td class="govuk-table__cell">
-              <% if event.data[:competencies].empty? %>
-                <%= t '.competencies_set', competencies_text: 'no competencies' %>
-              <% else %>
-                <%= t '.competencies_set', competencies_text: event.data[:competencies].map(&:humanize).join(', ') %>
-            <% end %>
+              <%= event.description %>
             </td>
             <td class="govuk-table__cell">
               <%= event.supervisor_name %>

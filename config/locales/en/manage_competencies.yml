@@ -13,7 +13,7 @@ en:
         history: History
     history:
       show:
-        page_title: Competencies history
+        page_title: User Competency History
         heading: "%{user_name}'s competency history"
         no_history: There is no history
         competencies_set: Competencies set to %{competencies_text}
