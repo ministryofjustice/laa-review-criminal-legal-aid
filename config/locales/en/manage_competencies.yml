@@ -10,11 +10,21 @@ en:
         heading: Manage competencies
       table_cells:
         no_competencies: No competencies
+        history: History
+    history:
+      show:
+        page_title: Competencies history
+        heading: "%{user_name}'s competency history"
+        no_history: There is no history
+        competencies_set: Competencies set to %{competencies_text}
 
     table_headings:
       supervisor: Supervisor
       name: Name
       competencies: Competencies
+      history: History
+      what: What
+      when: When
 
     confirmations:
       change_competencies: Are you sure you want to change %{user_name}'s competencies?

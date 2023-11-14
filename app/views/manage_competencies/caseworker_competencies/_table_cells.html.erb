@@ -5,3 +5,6 @@
     <%= Allocating.user_competencies(caseworker.id).map(&:humanize).join(', ') %>
   <% end %>
 </td>
+<td class="govuk-table__cell">
+  <%= govuk_link_to(t('.history'), manage_competencies_history_path(id: caseworker), { no_visited_state: true }) %>
+</td>

@@ -3,7 +3,11 @@ module Allocating
 
   class << self
     def user_competencies(user_id)
-      Rails.application.config.event_store.read.stream(stream_name(user_id)).backward.first&.data&.[](:competencies)
+      user_events(user_id).first&.data&.[](:competencies)
+    end
+
+    def user_events(user_id)
+      Rails.application.config.event_store.read.stream(stream_name(user_id)).backward
     end
 
     def stream_name(user_id)

@@ -75,6 +75,7 @@ RSpec.describe 'Authorisation' do
       manage_competencies_caseworker_competencies
       edit_manage_competencies_caseworker_competency
       manage_competencies_caseworker_competency
+      manage_competencies_history
     ]
   end
 

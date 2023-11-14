@@ -14,10 +14,13 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
   context 'when user does have access to manage competencies' do
     let(:current_user_role) { UserRole::SUPERVISOR }
-
-    before do
+    let(:caseworker) do
       User.create!(email: 'test@example.com', first_name: 'Test', last_name: 'Testing',
                    auth_subject_id: SecureRandom.uuid)
+    end
+
+    before do
+      caseworker
       visit manage_competencies_root_path
     end
 
@@ -29,12 +32,24 @@ RSpec.describe 'Manage Competencies Dashboard' do
     it 'includes the correct table headings' do
       column_headings = page.first('.govuk-table thead tr').text.squish
 
-      expect(column_headings).to eq('Name Competencies')
+      expect(column_headings).to eq('Name Competencies History')
     end
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq(['Test Testing No competencies'].join(' '))
+      expect(first_data_row).to eq(['Test Testing No competencies History'].join(' '))
+    end
+
+    context 'when clicking links' do
+      it 'redirects to the edit competency form page' do
+        expect { click_on('Test Testing') }.to change { page.current_path }
+          .from(manage_competencies_root_path).to(edit_manage_competencies_caseworker_competency_path(caseworker))
+      end
+
+      it 'redirects to the competency history page' do
+        expect { click_on('History') }.to change { page.current_path }
+          .from(manage_competencies_root_path).to(manage_competencies_history_path(caseworker))
+      end
     end
 
     it_behaves_like 'a paginated page', path: '/manage_competencies?page=2'
