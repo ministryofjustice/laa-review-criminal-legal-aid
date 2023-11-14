@@ -7,7 +7,7 @@ RSpec.describe 'Change caseworker competencies' do
     User.create!(email: 'test@example.com', first_name: 'Test', last_name: 'Testing',
                  auth_subject_id: SecureRandom.uuid)
     visit manage_competencies_root_path
-    click_on('Test Testing')
+    click_on('No competencies')
   end
 
   describe 'when viewing the form' do
@@ -32,7 +32,7 @@ RSpec.describe 'Change caseworker competencies' do
     end
 
     it 'form is pre-populated with selected competency' do
-      click_on('Test Testing')
+      click_on('Extradition')
       expect(page).to have_checked_field('Extradition')
     end
   end

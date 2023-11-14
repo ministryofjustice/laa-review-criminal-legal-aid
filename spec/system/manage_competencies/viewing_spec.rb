@@ -42,7 +42,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
     context 'when clicking links' do
       it 'redirects to the edit competency form page' do
-        expect { click_on('Test Testing') }.to change { page.current_path }
+        expect { click_on('No competencies') }.to change { page.current_path }
           .from(manage_competencies_root_path).to(edit_manage_competencies_caseworker_competency_path(caseworker))
       end
 
