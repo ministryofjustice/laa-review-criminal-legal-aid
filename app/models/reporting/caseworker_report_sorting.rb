@@ -1,5 +1,5 @@
 module Reporting
-  class CaseworkerReportSorting < Sorting
+  class CaseworkerReportSorting < ApplicationStruct
     SORTABLE_COLUMNS = %w[
       user_name
       total_assigned_to_user
@@ -10,14 +10,8 @@ module Reporting
     ].freeze
 
     DEFAULT_SORT_BY = 'user_name'.freeze
+    DEFAULT_SORT_DIRECTION = Types::SortDirection['ascending']
 
-    attribute :sort_direction, Types::SortDirection
-    attribute :sort_by, Types::String.default(DEFAULT_SORT_BY).enum(*SORTABLE_COLUMNS)
-
-    class << self
-      def default
-        new(sort_by: DEFAULT_SORT_BY)
-      end
-    end
+    include SortableStruct
   end
 end

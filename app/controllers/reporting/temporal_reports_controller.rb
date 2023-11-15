@@ -11,7 +11,7 @@ module Reporting
         interval: @interval
       )
 
-      @sorting = @report.sorting_klass.new(permitted_params[:sorting])
+      @sorting = report_sorting
     end
 
     def now
@@ -19,7 +19,7 @@ module Reporting
         interval: @interval, report_type: @report_type
       )
 
-      @sorting = @report.sorting_klass.new(permitted_params[:sorting])
+      @sorting = report_sorting
 
       render :show
     end
@@ -30,6 +30,7 @@ module Reporting
       params.permit(
         :report_type,
         :interval,
+        :period,
         sorting: [:sort_by, :sort_direction]
       )
     end
@@ -41,6 +42,12 @@ module Reporting
     def set_interval
       @intervals = Types::TemporalInterval
       @interval = permitted_params.require(:interval).presence_in(*@intervals)
+    end
+
+    def report_sorting
+      @report.sorting_klass.new_or_default(
+        permitted_params[:sorting]
+      )
     end
   end
 end

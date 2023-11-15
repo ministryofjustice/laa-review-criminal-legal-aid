@@ -23,5 +23,9 @@ class Review < ApplicationRecord
     def reviewed_by_ids(user_id:)
       where(reviewer_id: user_id).pluck(:application_id)
     end
+
+    def reviewer_id_for(application_id)
+      Review.where(application_id:).pick(:reviewer_id)
+    end
   end
 end
