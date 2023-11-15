@@ -1,0 +1,53 @@
+<% title t('.page_title') %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">
+      <%= t '.heading', user_name: @caseworker.name_or_email %>
+    </h1>
+  </div>
+
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m">
+      History
+    </h2>
+    <% if @caseworker.competency_history.items.present? %>
+      <table class="govuk-table app-dashboard-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">
+            <%= thead_text(:when) %>
+          </th>
+          <th scope="col" class="govuk-table__header govuk-!-width-one-half">
+            <%= thead_text(:what) %>
+          </th>
+          <th scope="col" class="govuk-table__header">
+            <%= thead_text(:supervisor) %>
+          </th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        <% @caseworker.competency_history.items.each do |event| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <%= l event.timestamp, format: :datetime %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= event.description %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= event.supervisor_name %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="govuk-body"><%= t('.no_history') %></p>
+  <% end %>
+  </div>
+</div>
+
+<% content_for(:back_link) do %>
+  <%= govuk_back_link href: :back %>
+<% end %>

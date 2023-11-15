@@ -90,6 +90,7 @@ Rails.application.routes.draw do
   namespace :manage_competencies do
     root 'caseworker_competencies#index'
     resources :caseworker_competencies, only: [:index, :edit, :update]
+    resources :history, only: [:show], controller: :history
   end
 
   root 'landing_page#index'

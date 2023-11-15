@@ -1,7 +1,6 @@
 <td class="govuk-table__cell">
-  <% if Allocating.user_competencies(caseworker.id).blank? %>
-      <%= t('.no_competencies') %>
-  <% else %>
-    <%= Allocating.user_competencies(caseworker.id).map(&:humanize).join(', ') %>
-  <% end %>
+  <%= govuk_link_to(caseworker.caseworker_presenter.formatted_user_competencies, edit_manage_competencies_caseworker_competency_path(id: caseworker), { no_visited_state: true }) %>
+</td>
+<td class="govuk-table__cell">
+  <%= govuk_link_to(t('.history'), manage_competencies_history_path(id: caseworker), { no_visited_state: true }) %>
 </td>
