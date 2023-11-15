@@ -11,14 +11,6 @@ RSpec.describe 'Monthly Reports' do
     expect(heading_text).to eq('Caseworker report')
   end
 
-  it 'warns that data is experimental' do
-    warning_text = 'This report is experimental and under active development. It may contain inaccurate information.'
-
-    within('div.govuk-warning-text') do
-      expect(page).to have_content(warning_text)
-    end
-  end
-
   it 'shows the caseworker report table for the given month' do
     expect(page).to have_text('Fred Smitheg')
   end

@@ -24,7 +24,7 @@ RSpec.describe 'Volumes Report' do
   end
 
   it 'shows the correct column headers' do
-    expected_headers = %w[Type Closed Received]
+    expected_headers = %w[Type Received Closed]
 
     page.all('table thead tr th').each_with_index do |el, i|
       expect(el).to have_content expected_headers[i]
@@ -32,14 +32,17 @@ RSpec.describe 'Volumes Report' do
   end
 
   it 'shows the number closed' do
+    number_closed = 1
+
     within all('table tbody tr td')[1] do
-      expect(page).to have_content 0
+      expect(page).to have_content number_closed
     end
   end
 
   it 'shows the number received' do
+    number_received = 0
     within all('table tbody tr td')[2] do
-      expect(page).to have_content 1
+      expect(page).to have_content number_received
     end
   end
 

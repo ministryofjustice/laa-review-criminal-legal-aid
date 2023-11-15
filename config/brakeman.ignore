@@ -1,6 +1,40 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "2be5c59acdbe339a40ada3fde511ca6d0bb128e90a91ffca5ae6c28dda842c3f",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/reporting/temporal_reports/show.html.erb",
+      "line": 33,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.current(:interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)), :sorting => Reporting::TemporalReport.current(:interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)).sorting_klass.new(permitted_params[:sorting]) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Reporting::TemporalReportsController",
+          "method": "now",
+          "line": 24,
+          "file": "app/controllers/reporting/temporal_reports_controller.rb",
+          "rendered": {
+            "name": "reporting/temporal_reports/show",
+            "file": "app/views/reporting/temporal_reports/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reporting/temporal_reports/show"
+      },
+      "user_input": "params.require(:report_type).presence_in(*Types::SnapshotReportType)",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "scoped by type"
+    },
+    {
       "warning_type": "Remote Code Execution",
       "warning_code": 24,
       "fingerprint": "820d5ff4010418a7a11637323f60a964ef46ff5f5b531f18bebcf7992a12ed8b",
@@ -21,7 +55,7 @@
       "cwe_id": [
         470
       ],
-      "note": "Scoped by Type"
+      "note": "scoped by type"
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -55,41 +89,7 @@
       "cwe_id": [
         22
       ],
-      "note": "Scoped by Type"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "c9179cd5ffcb389b8a198fd0240aa4644caf060116c95e50dc27e1998a928ac9",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/reporting/temporal_reports/show.html.erb",
-      "line": 36,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.current(:interval => params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)) }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Reporting::TemporalReportsController",
-          "method": "now",
-          "line": 18,
-          "file": "app/controllers/reporting/temporal_reports_controller.rb",
-          "rendered": {
-            "name": "reporting/temporal_reports/show",
-            "file": "app/views/reporting/temporal_reports/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "reporting/temporal_reports/show"
-      },
-      "user_input": "params.require(:report_type).presence_in(*Types::SnapshotReportType)",
-      "confidence": "High",
-      "cwe_id": [
-        22
-      ],
-      "note": "Scoped by Types"
+      "note": "scoped by type"
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -123,9 +123,9 @@
       "cwe_id": [
         22
       ],
-      "note": ""
+      "note": "scoped by type"
     }
   ],
-  "updated": "2023-10-13 14:25:50 +0100",
+  "updated": "2023-11-15 23:29:29 +0000",
   "brakeman_version": "6.0.1"
 }

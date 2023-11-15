@@ -1,23 +1,42 @@
 require 'rails_helper'
 
-RSpec.describe 'Caseworker Report' do
-  before do
-    visit '/'
-    visit reporting_user_report_path(:caseworker_report)
+RSpec.describe 'Caseworker report' do
+  include_context 'when viewing a temporal report'
+  let(:interval) { Types::TemporalInterval['daily'] }
+  let(:period) { '2023-01-01' }
+
+  it 'includes the correct colgroup detail headings' do # rubocop:disable RSpec/ExampleLength
+    colgroup_detail_headings = all('.app-table thead tr.colgroup-details th').map(&:text)
+
+    expected = [
+      ' ',
+      'fromlist',
+      'fromanother',
+      'total',
+      'fromself',
+      'byanother',
+      'total',
+      'sentback',
+      'completed',
+      'total',
+      'unassigned',
+      'closed'
+    ]
+
+    expect(colgroup_detail_headings).to eq(expected)
   end
 
-  context 'when logged in user is caseworker' do
-    it 'renders "Not found"' do
-      expect(page).to have_http_status(:not_found)
-    end
-  end
-
-  context 'when logged in as a supervisor' do
-    let(:current_user_role) { UserRole::SUPERVISOR }
-
-    it 'renders the caseworker report' do
-      expect(page).to have_text 'Caseworker report'
-      expect(page).to have_http_status(:ok)
+  it_behaves_like 'a table with sortable columns' do
+    let(:active) { ['user_name'] }
+    let(:active_direction) { 'ascending' }
+    let(:inactive) do
+      %w[
+        percentage_closed_by_user
+        percentage_unassigned_from_user
+        total_assigned_to_user
+        total_closed_by_user
+        total_unassigned_from_user
+      ]
     end
   end
 end

@@ -69,28 +69,17 @@ RSpec.describe 'Viewing your assigned application' do
     end
 
     it 'includes the correct headings' do
-      column_headings = page.first('.app-dashboard-table thead tr').text.squish
+      column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
 
-      # rubocop:disable Layout/LineLength
-      expect(column_headings).to eq("Applicant's name Reference number Date received Business days since application was received")
-      # rubocop:enable Layout/LineLength
+      expect(column_headings).to contain_exactly(
+        "Applicant's name", 'Reference number', 'Date received', 'Business days since application was received'
+      )
     end
 
-    describe 'sortable table headers' do
-      subject(:column_sort) do
-        page.find('thead tr th#submitted_at')['aria-sort']
-      end
-
-      it 'is active and ascending by default' do
-        expect(column_sort).to eq 'ascending'
-      end
-
-      context 'when clicked' do
-        it 'changes to descending when it is selected' do
-          expect { click_button 'Date received' }.not_to(change { current_path })
-          expect(column_sort).to eq 'descending'
-        end
-      end
+    it_behaves_like 'a table with sortable headers' do
+      let(:active_sort_headers) { ['Date received', 'Business days since application was received'] }
+      let(:active_sort_direction) { 'ascending' }
+      let(:inactive_sort_headers) { ['Applicant\'s name'] }
     end
   end
 

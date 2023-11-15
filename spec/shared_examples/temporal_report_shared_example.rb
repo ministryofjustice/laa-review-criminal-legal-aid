@@ -52,7 +52,7 @@ RSpec.shared_examples 'a temporal report' do
     it 'fetches the rows from the report_type\'s read model using the correct temporal stream name' do
       read_model = instance_double(Reporting::CaseworkerReport, rows: :read_model_rows)
 
-      allow(Reporting::CaseworkerReport).to receive(:new).with(stream_name: expected_stream_name) {
+      allow(Reporting::CaseworkerReport).to receive(:new).with(dataset: {}) {
         read_model
       }
 
