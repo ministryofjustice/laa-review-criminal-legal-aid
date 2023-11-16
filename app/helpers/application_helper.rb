@@ -50,23 +50,6 @@ module ApplicationHelper
     title ''
   end
 
-  # Creates an array of table headers for each column name given.
-  #
-  # If the column is sortable, (exists in Types::SORTABLE_COLUMNS), then a
-  # form for sorting by that column is used for the table header.
-  #
-  # The sortable column form includes params from any base_params provided.
-  #
-  def table_headers(column_names, search:, base_params: {}, sort_form_method: :get)
-    base_params[:per_page] = search.pagination.limit_value
-
-    headers = column_names.map do |column_name|
-      TableHeader.new(column_name:, search:)
-    end
-
-    render headers, base_params:, sort_form_method:
-  end
-
   # Rails link_to_if and variants still render the link text hence custom implementation
   # https://govuk-components.netlify.app/helpers/link/#input-erb-class-helpers
   def gov_link_to_unless_current_user(user:, **options)
@@ -77,5 +60,19 @@ module ApplicationHelper
 
   def present(model, presenter_class = nil)
     (presenter_class || [model.class, :Presenter].join.demodulize.constantize).new(model)
+  end
+
+  def search_by_caseworker_path(user_id)
+    filter = { assigned_status: user_id, application_status: 'open' }
+    search_application_searches_path(filter:)
+  end
+
+  def link_to_search_by_caseworker(user_name, user_id)
+    govuk_link_to(
+      user_name,
+      search_by_caseworker_path(user_id),
+      data: { turbo: false },
+      no_visited_state: true
+    )
   end
 end

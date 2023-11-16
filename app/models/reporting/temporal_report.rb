@@ -37,8 +37,8 @@ module Reporting
       self.class.new(report_type: report_type, date: self.class.previous_date(date))
     end
 
-    def rows
-      @rows ||= read_model_klass.for_temporal_period(date:, interval:).rows
+    def rows(sorting: nil)
+      @rows ||= read_model_klass.for_temporal_period(date:, interval:).rows(sorting:)
     end
 
     # returns true if the report includes the current day
@@ -51,6 +51,13 @@ module Reporting
       raise 'Implement in subclass.'
     end
     # :nocov:
+    #
+
+    def sorting_klass
+      return Sorting unless report_type == 'caseworker_report'
+
+      Reporting.const_get("#{report_type}_sorting".camelize)
+    end
 
     private
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Sorting do
+RSpec.describe ApplicationSearchSorting do
   describe '#reverse_direction' do
     context 'when sort direction is ascending' do
       let(:sorting) { described_class.new(sort_direction: 'ascending') }

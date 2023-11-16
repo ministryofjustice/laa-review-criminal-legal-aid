@@ -27,19 +27,14 @@
   <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <table class="govuk-table app-dashboard-table">
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <%= table_headers(
-                    %w[
-                      applicant_name
-                      reference
-                      submitted_at
-                      time_passed
-                    ],
-                    search: @search
-                  ) %>
-            </tr>
-          </thead>
+          <%= render DataTable::HeadComponent.new(sorting: @search.sorting) do |head|
+                head.with_row do |row|
+                  row.with_cell(colname: :applicant_name)
+                  row.with_cell(colname: :reference)
+                  row.with_cell(colname: :submitted_at)
+                  row.with_cell(colname: :submitted_at, text: sanitize(thead_text(:time_passed)))
+                end
+              end %>
           <tbody class="govuk-table__body">
             <%= render partial: 'crime_application',
                        collection: @search.results,

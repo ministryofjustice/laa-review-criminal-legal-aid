@@ -288,7 +288,7 @@ en:
           one: 1 search result
           other: "%{count} search results"
 
-      show:
+      search:
         page_title: Search for an application
         heading: Search for an application
         total:

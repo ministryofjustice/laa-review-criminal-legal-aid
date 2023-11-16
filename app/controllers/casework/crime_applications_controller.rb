@@ -1,10 +1,13 @@
 module Casework
   class CrimeApplicationsController < Casework::BaseController
+    include ApplicationSearchable
+
     before_action :set_crime_application, only: %i[show history complete ready]
 
     def open
       set_search(
-        filter: ApplicationSearchFilter.new(application_status: 'open')
+        default_filter: { application_status: 'open' },
+        default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
 
       @report_type = Types::Report['workload_report']
@@ -14,8 +17,8 @@ module Casework
 
     def closed
       set_search(
-        filter: ApplicationSearchFilter.new(application_status: 'closed'),
-        sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+        default_filter: { application_status: 'closed' },
+        default_sorting: { sort_by: 'reviewed_at', sort_direction: 'descending' }
       )
 
       @report_type = Types::Report['processed_report']
@@ -57,14 +60,6 @@ module Casework
 
     def set_crime_application
       @crime_application = ::CrimeApplication.find(params[:id])
-    end
-
-    def permitted_params
-      params.permit(
-        :page,
-        :per_page,
-        sorting: Sorting.attribute_names
-      )
     end
   end
 end

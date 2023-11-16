@@ -19,10 +19,10 @@ RSpec.describe 'Search Page' do
   end
 
   it 'includes the correct results table headings' do
-    column_headings = page.first('.app-dashboard-table thead tr').text.squish
+    column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
 
     expect(column_headings).to eq(
-      "Applicant's name Reference number Date received Date closed Caseworker Status"
+      ["Applicant's name", 'Reference number', 'Date received', 'Date closed', 'Closed by', 'Status']
     )
   end
 

@@ -1,10 +1,13 @@
 module Casework
   class AssignedApplicationsController < Casework::BaseController
+    include ApplicationSearchable
+
     def index
       return unless assignments_count.positive?
 
       set_search(
-        filter: ApplicationSearchFilter.new(assigned_status: current_user_id)
+        default_filter: { assigned_status: current_user_id },
+        default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
     end
 
@@ -57,14 +60,6 @@ module Casework
       else
         redirect_to assigned_applications_path
       end
-    end
-
-    def permitted_params
-      params.permit(
-        :page,
-        :per_page,
-        sorting: Sorting.attribute_names
-      )
     end
   end
 end

@@ -1,5 +1,5 @@
 class ApplicationSearch
-  def initialize(filter:, pagination:, sorting: Sorting.new)
+  def initialize(filter:, pagination:, sorting:)
     @pagination = pagination
     @filter = filter
     @sorting = sorting
