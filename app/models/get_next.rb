@@ -10,7 +10,7 @@ class GetNext
   end
 
   def self.call(work_streams:)
-    work_streams = [] if work_streams.nil? # or blank?
+    work_streams = [] if work_streams.nil?
 
     new(work_streams).call
   end
