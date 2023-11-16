@@ -39,12 +39,26 @@ en:
     open_applications_by_age: "Applications still\xA0open"
     processed_on: When applications were closed
     received_applications_by_age: Applications received
-    total_assigned_to_user: Assigned
-    total_closed_by_user: Closed
-    total_unassigned_from_user: Unassigned
+
+    colpsan_assigned_to_user: "Assigned"
+    colspan_unassigned_from_user: Unassigned
+    colspan_closed_by_user: Closed
+    colspan_percentage_of_assigned: Percentage
+    assigned_to_user: "from<br>list"
+    reassigned_to_user: "from<br>another"
+    total_assigned_to_user: total
+    unassigned_from_user: "from<br>self"
+    reassigned_from_user: "by<br>another"
+    total_unassigned_from_user: total
+    completed_by_user: completed
+    sent_back_by_user: "sent<br>back"
+    total_closed_by_user: total
+    percentage_unassigned_from_user: "unassigned"
+    percentage_closed_by_user: "closed"
+
     application_type: Type
     what: What 
-    user_name: Caseworker
+    user_name: "&nbsp;"
 
   caseworker_report:
     caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker

@@ -7,13 +7,12 @@ module CaseworkerReports
     def call(event)
       date = event.timestamp.in_time_zone('London').to_date
 
-      stream_name_formats.each_value do |format|
-        @event_store.link [event.event_id], stream_name: date.strftime(format)
+      Types::TemporalInterval.values.each do |interval| # rubocop:disable Style/HashEachMethods
+        @event_store.link(
+          [event.event_id],
+          stream_name: CaseworkerReports.stream_name(date:, interval:)
+        )
       end
-    end
-
-    def stream_name_formats
-      CaseworkerReports::Configuration::STREAM_NAME_FORMATS
     end
   end
 end

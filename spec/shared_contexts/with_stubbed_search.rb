@@ -40,7 +40,8 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
     ).and_return(body: datastore_response.to_json)
   end
 
-  def expect_datastore_to_have_been_searched_with(*params, sorting: Sorting.new, pagination: Pagination.new)
+  def expect_datastore_to_have_been_searched_with(*params, sorting: nil, pagination: Pagination.new)
+    sorting ||= ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
     expect(WebMock).to have_requested(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches").with(
       body: {
         search: Hash[*params],

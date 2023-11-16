@@ -1,51 +1,69 @@
 require 'rails_helper'
 
 describe Reporting::CaseworkerReport do
-  subject(:report) { described_class.new }
+  let(:dataset) { {} }
 
-  let(:zoe_id) { SecureRandom.uuid }
-  let(:bob_id) { SecureRandom.uuid }
+  let(:report) do
+    described_class.new(dataset:)
+  end
 
-  describe '#rows' do
-    let(:events) do
-      [
-        Assigning::AssignedToUser.new(data: { to_whom_id: zoe_id }),
-        Assigning::AssignedToUser.new(data: { to_whom_id: bob_id }),
-        Assigning::UnassignedFromUser.new(data: { from_whom_id: zoe_id }),
-        Assigning::AssignedToUser.new(data: { to_whom_id: zoe_id }),
-        Assigning::ReassignedToUser.new(data: { from_whom_id: bob_id, to_whom_id: zoe_id }),
-        Reviewing::Completed.new(data: { user_id: zoe_id }),
-        Reviewing::SentBack.new(data: { user_id: zoe_id })
-      ]
+  describe '.for_temporal_report_period' do
+    let(:report) do
+      described_class.for_temporal_period(date: '2023-10-15', interval: :weekly)
     end
-    let(:bob) { report.rows.first }
-    let(:zoe) { report.rows.last }
 
     before do
-      allow(User).to receive(:name_for).with(zoe_id).and_return('Zoe Blogs')
-      allow(User).to receive(:name_for).with(bob_id).and_return('Bob Smith')
-
-      events.each { |event| Rails.configuration.event_store.publish(event) }
+      allow(CaseworkerReports::Projection).to receive(:new) do
+        instance_double(CaseworkerReports::Projection, dataset:)
+      end
+      report
     end
 
-    it 'includes user name' do
-      expect(zoe[:user_name]).to eq('Zoe Blogs')
-      expect(bob[:user_name]).to eq('Bob Smith')
+    it 'initializes the projection with the correct stream' do
+      expect(CaseworkerReports::Projection).to have_received(:new).with(stream_name: 'WeeklyCaseworker$2023-41')
     end
 
-    it 'reports the total number assinged to the user' do
-      expect(zoe[:total_assigned_to_user]).to eq(3)
-      expect(bob[:total_assigned_to_user]).to eq(1)
+    it 'initializes the class with the dataset' do
+      expect(report.instance_variable_get(:@dataset)).to be dataset
+    end
+  end
+
+  describe '#rows' do
+    subject(:rows) { report.rows }
+
+    let(:dataset) do
+      {
+        a: instance_double(CaseworkerReports::Row, user_name: 'Al Hart', total_assigned_to_user: 1),
+        b: instance_double(CaseworkerReports::Row, user_name: 'Bo Brown', total_assigned_to_user: 0),
+        c: instance_double(CaseworkerReports::Row, user_name: 'An Brown', total_assigned_to_user: 2)
+      }
     end
 
-    it 'reports the total number unassinged from the user' do
-      expect(zoe[:total_unassigned_from_user]).to eq(1)
-      expect(bob[:total_unassigned_from_user]).to eq(1)
+    context 'with default sorting' do
+      it 'defaults to sorting by user_name case insensitive' do
+        expect(rows.map(&:user_name)).to eq(['Al Hart', 'An Brown', 'Bo Brown'])
+      end
     end
 
-    it 'reports the total number closed by the user' do
-      expect(zoe[:total_closed_by_user]).to eq(2)
-      expect(bob[:total_closed_by_user]).to eq(0)
+    context 'when sorting is specified' do
+      subject(:rows) { report.rows(sorting: Reporting::CaseworkerReportSorting.new(sort_by:, sort_direction:)) }
+
+      let(:sort_by) { 'user_name' }
+      let(:sort_direction) { 'descending' }
+
+      context 'when sort direction is descending' do
+        it 'reverses the order' do
+          expect(rows.map(&:user_name)).to eq(['Bo Brown', 'An Brown', 'Al Hart'])
+        end
+      end
+
+      context 'when sort_by is assigned_to_user' do
+        let(:sort_by) { 'total_assigned_to_user' }
+
+        it 'reverses the order' do
+          expect(rows.map(&:user_name)).to eq(['An Brown', 'Al Hart', 'Bo Brown'])
+        end
+      end
     end
   end
 end

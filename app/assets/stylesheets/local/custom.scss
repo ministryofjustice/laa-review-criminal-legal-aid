@@ -35,3 +35,30 @@ td.file-name {
 html {
   overflow-x: hidden;
 }
+
+.app-table {
+  font-size: 16px;
+  
+  tr.colgroup-headers {
+    th {
+      border-bottom: none;
+      text-align: center;
+      vertical-align: bottom;
+    }
+  }
+
+  td { padding-right: 10px;} // govuk default is 20px
+
+  tr.colgroup-details {
+    th {
+      padding-top: 0px; // govuk default is 10px
+      padding-right: 10px; // govuk default is 20px
+      font-weight: normal;
+      vertical-align: bottom;
+      }
+  }
+
+  .colgroup-total + .colgroup-detail {
+    border-left: 1px solid $govuk-border-colour;
+  }
+}

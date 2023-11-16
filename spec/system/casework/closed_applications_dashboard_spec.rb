@@ -40,7 +40,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   it 'shows only closed applications' do
     expect_datastore_to_have_been_searched_with(
       { review_status: Types::REVIEW_STATUS_GROUPS['closed'] },
-      sorting: Sorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+      sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
   end
 
@@ -50,12 +50,6 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   it 'has the correct body' do
     expect(page).to have_content('These applications have been completed or sent back to the provider.')
-  end
-
-  it 'includes the correct headings' do
-    column_headings = page.first('.app-dashboard-table thead tr').text.squish
-
-    expect(column_headings).to eq("Applicant's name Reference number Date received Date closed Closed by Status")
   end
 
   it 'shows the correct information' do
@@ -72,20 +66,24 @@ RSpec.describe 'Closed Applications Dashboard' do
     )
   end
 
-  describe 'sortable table headers' do
-    subject(:column_sort) do
-      page.find('thead tr th#reviewed_at')['aria-sort']
-    end
+  it 'includes the correct headings' do # rubocop:disable RSpec/ExampleLength
+    column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
 
-    it 'is active and descending by default' do
-      expect(column_sort).to eq 'descending'
-    end
+    expected_headings = [
+      "Applicant's name",
+      'Reference number',
+      'Date received',
+      'Date closed',
+      'Closed by',
+      'Status'
+    ]
 
-    context 'when clicked' do
-      it 'changes to ascending when it is selected' do
-        expect { click_button 'Date closed' }.not_to(change { current_path })
-        expect(column_sort).to eq 'ascending'
-      end
-    end
+    expect(column_headings).to eq expected_headings
+  end
+
+  it_behaves_like 'a table with sortable headers' do
+    let(:active_sort_headers) { ['Date closed'] }
+    let(:active_sort_direction) { 'descending' }
+    let(:inactive_sort_headers) { ['Applicant\'s name', 'Date received'] }
   end
 end

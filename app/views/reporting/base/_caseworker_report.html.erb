@@ -1,33 +1,106 @@
-<%= govuk_warning_text text: warning_text(:experimental_data) %>
+<%= render DataTableComponent.new(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
+      table.with_colgroup do |colgroup|
+        colgroup.with_col(span: 1)
+        colgroup.with_col(span: 3)
+        colgroup.with_col(span: 4)
+        colgroup.with_col(span: 4)
+      end
 
-<%= govuk_table do |table| %>
-  <%= table.with_head do |head|
-        head.with_row do |row|
-          row.with_cell(text: thead_text(:user_name), header: true)
-          row.with_cell(text: thead_text(:total_assigned_to_user), numeric: true, header: true)
-          row.with_cell(text: thead_text(:total_unassigned_from_user), numeric: true, header: true)
-          row.with_cell(text: thead_text(:total_closed_by_user), numeric: true, header: true)
+      table.with_sortable_head(sorting:) do |head| # rubocop:disable Metrics/BlockLength
+        head.with_row(classes: 'colgroup-headers') do |row|
+          row.with_cell(text: '')
+          row.with_cell(
+            colname: :colpsan_assigned_to_user, colspan: 3, scope: 'colgroup'
+          )
+          row.with_cell(
+            colname: :colspan_unassigned_from_user, colspan: 3, scope: 'colgroup'
+          )
+          row.with_cell(
+            colname: :colspan_closed_by_user, colspan: 3, scope: 'colgroup'
+          )
+          row.with_cell(
+            colname: :colspan_percentage_of_assigned, colspan: 2, scope: 'colgroup'
+          )
         end
-      end %>
-  <%= table.with_body do |body|
-        report.rows.each do |data_row|
-          body.with_row do |row|
+
+        head.with_row(classes: 'colgroup-details') do |row|
+          row.with_cell(colname: :user_name)
+          row.with_cell(colname: :assigned_to_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :reassigned_to_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :total_assigned_to_user, numeric: true, classes: 'colgroup-total')
+          row.with_cell(colname: :unassigned_from_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :reassigned_from_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :total_unassigned_from_user, numeric: true, classes: 'colgroup-total')
+          row.with_cell(colname: :sent_back_by_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :completed_by_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :total_closed_by_user, numeric: true, classes: 'colgroup-total')
+          row.with_cell(colname: :percentage_unassigned_from_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :percentage_closed_by_user, numeric: true, classes: 'colgroup-detail')
+        end
+      end
+
+      table.with_body do |body| # rubocop:disable Metrics/BlockLength
+        report.rows(sorting:).each do |data_row| # rubocop:disable Metrics/BlockLength
+          body.with_row do |row| # rubocop:disable Metrics/BlockLength
             row.with_cell(
-              text: data_row.fetch(:user_name)
+              text: link_to_search_by_caseworker(data_row.user_name, data_row.user_id)
             )
             row.with_cell(
-              text: data_row.fetch(:total_assigned_to_user),
+              text: data_row.assigned_to_user,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.reassigned_to_user,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.total_assigned_to_user,
+              numeric: true,
+              classes: 'colgroup-total'
+            )
+            row.with_cell(
+              text: data_row.unassigned_from_user,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.reassigned_from_user,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.total_unassigned_from_user,
+              numeric: true,
+              classes: 'colgroup-total'
+            )
+            row.with_cell(
+              text: data_row.sent_back_by_user,
+              classes: 'colgroup-detail',
               numeric: true
             )
             row.with_cell(
-              text: data_row.fetch(:total_unassigned_from_user),
+              text: data_row.completed_by_user,
+              classes: 'colgroup-detail',
               numeric: true
             )
             row.with_cell(
-              text: data_row.fetch(:total_closed_by_user),
-              numeric: true
+              text: data_row.total_closed_by_user,
+              numeric: true,
+              classes: 'colgroup-total'
+            )
+            row.with_cell(
+              text: "#{data_row.percentage_unassigned_from_user}%",
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: "#{data_row.percentage_closed_by_user}%",
+              numeric: true,
+              classes: 'colgroup-detail'
             )
           end
         end
-      end %>
-  <% end %>
+      end
+    end %>

@@ -30,7 +30,7 @@
         <% end %>
 
         <%= turbo_frame_tag [@report_type, @report.to_param], data: { turbo: 'true' } do %>
-          <%= render partial: @report_type, locals: { report: @report } %>
+          <%= render partial: @report_type, locals: { report: @report, sorting: @sorting } %>
         <% end %>
       </div>
     </div>

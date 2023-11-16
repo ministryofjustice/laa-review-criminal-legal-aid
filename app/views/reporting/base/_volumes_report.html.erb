@@ -2,8 +2,8 @@
   <%= table.with_head do |head|
         head.with_row do |row|
           row.with_cell(text: thead_text(:application_type), header: true)
-          row.with_cell(text: thead_text(:closed), numeric: true, header: true)
           row.with_cell(text: thead_text(:received), numeric: true, header: true)
+          row.with_cell(text: thead_text(:closed), numeric: true, header: true)
         end
       end %>
   <%= table.with_body do |body|
@@ -13,11 +13,11 @@
               text: 'CAT 3'
             )
             row.with_cell(
-              text: data_row.fetch(:closed),
+              text: data_row.fetch(:received),
               numeric: true
             )
             row.with_cell(
-              text: data_row.fetch(:received),
+              text: data_row.fetch(:closed),
               numeric: true
             )
           end

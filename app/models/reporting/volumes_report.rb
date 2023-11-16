@@ -6,7 +6,7 @@ module Reporting
     end
 
     # Currently only CAT3 applications are processed on Review.
-    def rows
+    def rows(*)
       @rows ||= [{ closed:, received: }]
     end
 

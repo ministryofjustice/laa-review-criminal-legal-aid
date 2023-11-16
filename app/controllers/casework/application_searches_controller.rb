@@ -1,25 +1,13 @@
 module Casework
   class ApplicationSearchesController < Casework::BaseController
+    include ApplicationSearchable
+
     def new
-      @filter = ApplicationSearchFilter.new
+      set_filter
     end
 
     def search
-      @filter = ApplicationSearchFilter.new(permitted_params[:filter])
-      set_search(filter: @filter)
-
-      render :show
-    end
-
-    private
-
-    def permitted_params
-      params.permit(
-        :page,
-        :per_page,
-        filter: ApplicationSearchFilter.attribute_names,
-        sorting: Sorting.attribute_names
-      )
+      set_search(default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' })
     end
   end
 end
