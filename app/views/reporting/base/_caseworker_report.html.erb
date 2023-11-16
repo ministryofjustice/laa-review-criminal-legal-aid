@@ -8,7 +8,7 @@
 
       table.with_sortable_head(sorting:) do |head| # rubocop:disable Metrics/BlockLength
         head.with_row(classes: 'colgroup-headers') do |row|
-          row.with_cell
+          row.with_cell(text: '')
           row.with_cell(
             colname: :colpsan_assigned_to_user, colspan: 3, scope: 'colgroup'
           )

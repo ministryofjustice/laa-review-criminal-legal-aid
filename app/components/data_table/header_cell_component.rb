@@ -43,7 +43,9 @@ module DataTable
     end
 
     def name
-      text || sanitize(I18n.t(colname, scope: 'table_headings'))
+      return text if text
+
+      sanitize(I18n.t(colname, scope: 'table_headings')) if colname.present?
     end
 
     def sortable?
