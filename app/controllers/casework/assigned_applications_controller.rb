@@ -19,7 +19,7 @@ module Casework
     end
 
     def next_application
-      next_app_id = GetNext.new.call
+      next_app_id = GetNext.call(work_streams: current_user.competencies)
 
       if next_app_id
         Assigning::AssignToUser.new(
