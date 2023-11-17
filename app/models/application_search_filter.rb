@@ -2,6 +2,7 @@ class ApplicationSearchFilter < ApplicationStruct
   REVIEW_FILTERS = %i[assigned_status age_in_business_days].freeze
   DATASTORE_FILTERS = %i[
     applicant_date_of_birth application_id_in application_status search_text submitted_after submitted_before
+    work_stream
   ].freeze
 
   attribute? :age_in_business_days, Types::Params::Nil | Types::Params::Integer
@@ -11,6 +12,7 @@ class ApplicationSearchFilter < ApplicationStruct
   attribute? :search_text, Types::Params::Nil | Types::Params::String
   attribute? :submitted_after, Types::Params::Nil | Types::Params::Date
   attribute? :submitted_before, Types::Params::Nil | Types::Params::Date
+  attribute? :work_stream, Types::Array.of(Types::WorkStreamType)
 
   # Options for the assigned status filter
   # Includes "Unassigned", "All assigned" prepended to a list of all user names.
@@ -87,6 +89,10 @@ class ApplicationSearchFilter < ApplicationStruct
 
   def application_id_in_datastore_param
     { application_id_in: }
+  end
+
+  def work_stream_datastore_param
+    { work_stream: }
   end
 
   def application_status_datastore_param

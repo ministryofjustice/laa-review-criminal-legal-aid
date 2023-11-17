@@ -27,4 +27,6 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   let(:current_user_id) { current_user.id }
 
   let(:current_user_auth_subject_id) { SecureRandom.uuid }
+
+  let(:current_user_competencies) { [Types::WorkStreamType['criminal_applications_team']] }
 end
