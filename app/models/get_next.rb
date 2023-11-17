@@ -1,5 +1,5 @@
 class GetNext
-  def initialize(work_streams)
+  def initialize(work_streams:)
     filter = ApplicationSearchFilter.new(assigned_status: 'unassigned', work_stream: work_streams)
     pagination = Pagination.new(limit_value: 1)
     sorting = ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
@@ -13,6 +13,6 @@ class GetNext
   def self.call(work_streams:)
     work_streams = [] if work_streams.nil?
 
-    new(work_streams).call
+    new(work_streams:).call
   end
 end
