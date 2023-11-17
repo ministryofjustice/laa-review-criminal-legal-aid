@@ -11,7 +11,7 @@ class GetNext
   end
 
   def self.call(work_streams:)
-    work_streams = [] if work_streams.nil?
+    work_streams ||= []
 
     new(work_streams:).call
   end
