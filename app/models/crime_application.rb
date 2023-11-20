@@ -19,8 +19,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     !means_passport.empty?
   end
 
-  def passporting_benefit?
-    means_passport.include?(Types::MeansPassportType['on_benefit_check'])
+  def means_passported_on_age?
+    means_passport.include?(Types::MeansPassportType['on_age_under18'])
   end
 
   def relevant_ioj_passport
