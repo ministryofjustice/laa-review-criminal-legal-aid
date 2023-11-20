@@ -102,21 +102,21 @@ RSpec.describe CrimeApplication do
     end
   end
 
-  describe '#passporting_benefit?' do
-    subject(:passporting_benefit?) { application.passporting_benefit? }
+  describe '#means_passported_on_age?' do
+    subject(:means_passported_on_age?) { application.means_passported_on_age? }
 
     let(:attributes) { super().merge({ 'means_passport' => means_passport }) }
 
     context 'when application is passported on benefits' do
       let(:means_passport) { [Types::MeansPassportType['on_benefit_check']] }
 
-      it { is_expected.to be true }
+      it { is_expected.to be false }
     end
 
     context 'when application is passported on age' do
       let(:means_passport) { [Types::MeansPassportType['on_age_under18']] }
 
-      it { is_expected.to be false }
+      it { is_expected.to be true }
     end
 
     context 'when application has no means passport' do

@@ -25,14 +25,13 @@
     </dd>
   </div>
 
-  <% if overview.passporting_benefit? %>
+  <% unless overview.means_passported_on_age? %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:passporting_benefit) %>
       </dt>
       <dd class="govuk-summary-list__value">
         <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
-
       </dd>
     </div>
   <% end %>

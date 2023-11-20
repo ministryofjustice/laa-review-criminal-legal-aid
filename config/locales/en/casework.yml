@@ -135,6 +135,7 @@ en:
     jsa: Income-based Jobseeker's Allowance (JSA)
     esa: Income-related Employment and Support Allowance (ESA)
     income_support: Income Support
+    none: None
     no_home_address: Does not have a home address
     home_address: Same as home address
     provider_address: Same as provider address
