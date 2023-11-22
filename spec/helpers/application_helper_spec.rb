@@ -97,11 +97,11 @@ RSpec.describe ApplicationHelper do
     end
   end
 
-  describe '#open_closed_route' do
+  describe '#url_for_open_or_closed_page' do
     context 'when work stream feature flag is enabled' do
       work_stream = Types::WorkStreamType.values.first
-      it { expect(helper.open_closed_route('open', work_stream)).to eq('/applications/open/extradition') }
-      it { expect(helper.open_closed_route('closed', work_stream)).to eq('/applications/closed/extradition') }
+      it { expect(helper.url_for_open_or_closed_page('open', work_stream)).to eq('/applications/open/extradition') }
+      it { expect(helper.url_for_open_or_closed_page('closed', work_stream)).to eq('/applications/closed/extradition') }
     end
 
     context 'when work stream feature flag in is not enabled' do
@@ -111,8 +111,11 @@ RSpec.describe ApplicationHelper do
         }
       end
 
-      it { expect(helper.open_closed_route('open', Types::WORK_STREAM_TYPES)).to eq('/applications/open') }
-      it { expect(helper.open_closed_route('closed', Types::WORK_STREAM_TYPES)).to eq('/applications/closed') }
+      it { expect(helper.url_for_open_or_closed_page('open', Types::WORK_STREAM_TYPES)).to eq('/applications/open') }
+
+      it {
+        expect(helper.url_for_open_or_closed_page('closed', Types::WORK_STREAM_TYPES)).to eq('/applications/closed')
+      }
     end
   end
 end
