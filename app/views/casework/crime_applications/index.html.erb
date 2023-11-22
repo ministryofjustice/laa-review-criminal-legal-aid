@@ -1,59 +1,26 @@
 <% title t(".#{action_name}_title") %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
-      <%= t ".#{action_name}_heading" %>
-    </h1>
-  </div>
-</div>
+<% if FeatureFlags.work_stream.enabled? %>
+  <div class="govuk-tabs">
+    <ul class="govuk-tabs__list" role="tablist">
+      <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
+        <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
+        <%= content_tag(:li, class: current_work_stream == [competency] ? css_class : css_class.first) do %>
+          <%= link_to(
+                label_tag(competency),
+                url_for(work_stream: competency),
+                class: 'govuk-tabs__tab'
+              ) %>
+        <% end %>
+      <% end %>
+    </ul>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <div class="govuk-body">
-      <% if action_name == "closed" %>
-        <%= t('.closed_body') %>
-      <% else %>
-        <%= t('.total_open', count: @search.total) %>
-      <%end%>
+    <div class=govuk-tabs__panel>
+      <%= render partial: 'open_closed_applications',
+                 locals: { action_name: action_name, search: @search, report_type: @report_type } %>
     </div>
   </div>
-</div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <details class="govuk-details" data-module="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          <% if action_name == "closed" %>
-            <%= t 'calls_to_action.view_closed_on_count' %>
-          <% else %>
-            <%= t 'calls_to_action.view_daily_count' %>
-          <%end%>
-        </span>
-      </summary>
-      <div class="govuk-details__text ">
-        <%= turbo_frame_tag @report_type, src: reporting_user_report_path(@report_type), data: { turbo: 'true' }, loading: :lazy %>
-      </div>
-    </details>
-  </div>
-</div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-  <table class="govuk-table app-dashboard-table">
-    <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <%= render "#{action_name}_crime_applications_table_headers", search: @search %>
-      </tr>
-    </thead>
-
-    <tbody class="govuk-table__body">
-      <%= render partial: "#{action_name}_crime_applications_table_body",
-                 collection: @search.results,
-                 as: :app %>
-    </tbody>
-  </table>
-    <%= paginate @search.pagination %>
-  </div>
-</div>
+<% else %>
+  <%= render partial: 'open_closed_applications',
+             locals: { action_name: action_name, search: @search, report_type: @report_type } %>
+<% end  %>

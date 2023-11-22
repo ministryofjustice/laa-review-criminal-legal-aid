@@ -75,4 +75,13 @@ module ApplicationHelper
       no_visited_state: true
     )
   end
+
+  def open_closed_route(action_name, work_stream)
+    # TODO: enable when viewing applications by work stream feature is live
+    if FeatureFlags.work_stream.enabled?
+      action_name == 'open' ? open_work_stream_path(work_stream) : closed_work_stream_path(work_stream)
+    else
+      action_name == 'open' ? open_crime_applications_path : closed_crime_applications_path
+    end
+  end
 end

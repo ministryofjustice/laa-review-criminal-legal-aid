@@ -26,7 +26,7 @@
         <h2 class="govuk-heading-m"><%= @report.period_name %></h2>
 
         <% if @interval == 'weekly' %>
-          <h3 class="govuk-heading-s"><%= @report.period_text %></h2>
+          <h3 class="govuk-heading-s"><%= @report.period_text %></h3>
         <% end %>
 
         <%= turbo_frame_tag [@report_type, @report.to_param], data: { turbo: 'true' } do %>

@@ -29,6 +29,8 @@ RSpec.describe 'Authorisation' do
       reporting_current_snapshot
       reporting_current_temporal_report
       search_application_searches
+      open_work_stream
+      closed_work_stream
     ]
   end
 
@@ -226,7 +228,8 @@ RSpec.describe 'Authorisation' do
     period = '2023-August'
     date = '2023-05-01'
     time = '23:59'
+    work_stream = 'criminal_applications_team'
     { id:, crime_application_id:, path:, report_type:, interval:, period:, date:,
-time: }.slice(*route.required_keys.dup)
+time:, work_stream: }.slice(*route.required_keys.dup)
   end
 end

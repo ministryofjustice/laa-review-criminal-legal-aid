@@ -16,7 +16,7 @@
                      data: { module: 'govuk-button' } %>
 
         <%= link_to t('.open_applications'),
-                    open_crime_applications_path,
+                    open_closed_route('open', current_work_stream),
                     class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
       </div>
     <% end %>

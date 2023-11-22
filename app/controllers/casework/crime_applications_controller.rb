@@ -6,7 +6,7 @@ module Casework
 
     def open
       set_search(
-        default_filter: { application_status: 'open' },
+        default_filter: { application_status: 'open', work_stream: current_work_stream },
         default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
 
@@ -17,7 +17,7 @@ module Casework
 
     def closed
       set_search(
-        default_filter: { application_status: 'closed' },
+        default_filter: { application_status: 'closed', work_stream: current_work_stream },
         default_sorting: { sort_by: 'reviewed_at', sort_direction: 'descending' }
       )
 

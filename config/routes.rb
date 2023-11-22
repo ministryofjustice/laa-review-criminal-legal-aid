@@ -38,6 +38,9 @@ Rails.application.routes.draw do
       resource :return, only: [:new, :create]
     end
 
+    get 'applications/open/:work_stream', to: 'crime_applications#open', as: :open_work_stream
+    get 'applications/closed/:work_stream', to: 'crime_applications#closed', as: :closed_work_stream
+
     resource :application_searches, only: [:new] do
       get :search, on: :collection
     end
