@@ -39,5 +39,13 @@ describe Utils::CurrentWorkStreamCalculator do
         expect(calculator.current_work_stream).to eq Types::WorkStreamType['extradition']
       end
     end
+
+    context 'with invalid work stream param' do
+      let(:work_stream_param) { 'test' }
+
+      it 'raises Allocating::WorkStreamNotFound' do
+        expect { calculator.current_work_stream }.to raise_error Allocating::WorkStreamNotFound
+      end
+    end
   end
 end

@@ -10,7 +10,7 @@ module Utils
 
     def current_work_stream
       if @work_stream_param.present?
-        @work_stream_param
+        Types::WorkStreamType[@work_stream_param]
       elsif @session_work_stream.present?
         @session_work_stream
       elsif @user_competencies
@@ -18,6 +18,8 @@ module Utils
       else
         Types::WorkStreamType.values.first
       end
+    rescue Dry::Types::ConstraintError
+      raise Allocating::WorkStreamNotFound
     end
   end
 end
