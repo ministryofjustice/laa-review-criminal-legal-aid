@@ -125,7 +125,8 @@ RSpec.describe 'Closed Applications Dashboard' do
         expect_datastore_to_have_been_searched_with(
           { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
             work_stream: %w[extradition] },
-          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending'),
+          number_of_times: 2
         )
       end
 

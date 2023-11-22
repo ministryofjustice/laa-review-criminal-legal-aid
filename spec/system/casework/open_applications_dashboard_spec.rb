@@ -95,7 +95,8 @@ RSpec.describe 'Open Applications Dashboard' do
         expect_datastore_to_have_been_searched_with(
           { review_status: Types::REVIEW_STATUS_GROUPS['open'],
             work_stream: %w[extradition] },
-          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending'),
+          number_of_times: 2
         )
       end
 
