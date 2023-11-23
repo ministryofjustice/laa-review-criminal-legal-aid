@@ -9,7 +9,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-body">
-      <% if action_name == "closed" %>
+      <% if closed_action?(action_name) %>
         <%= t('casework.crime_applications.index.closed_body') %>
       <% else %>
         <%= t('casework.crime_applications.index.total_open', count: search.total) %>
@@ -23,7 +23,7 @@
     <details class="govuk-details" data-module="govuk-details">
       <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
-          <% if action_name == "closed" %>
+          <% if closed_action?(action_name) %>
             <%= t 'calls_to_action.view_closed_on_count' %>
           <% else %>
             <%= t 'calls_to_action.view_daily_count' %>

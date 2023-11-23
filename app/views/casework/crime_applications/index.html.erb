@@ -5,12 +5,8 @@
     <ul class="govuk-tabs__list" role="tablist">
       <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
         <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
-        <%= content_tag(:li, class: current_work_stream == [competency] ? css_class : css_class.first) do %>
-          <%= link_to(
-                label_tag(competency),
-                url_for(work_stream: competency),
-                class: 'govuk-tabs__tab'
-              ) %>
+        <%= content_tag(:li, class: work_stream == [competency] ? css_class : css_class.first) do %>
+          <%= link_to(label_tag(competency), url_for(work_stream: competency), class: 'govuk-tabs__tab') %>
         <% end %>
       <% end %>
     </ul>

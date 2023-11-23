@@ -69,12 +69,12 @@ RSpec.describe 'Primary navigation' do
       visit '/'
     end
 
-    it 'takes you to all open applications path when you click "All open applications"' do
+    it 'takes you to the open applications path when you click "All open applications"' do
       click_on('All open applications')
       expect(page).to have_current_path '/applications/open'
     end
 
-    it 'takes you to all open applications path when you click "Closed applications"' do
+    it 'takes you to the closed applications path when you click "Closed applications"' do
       click_on('Closed applications')
       expect(page).to have_current_path '/applications/closed'
     end

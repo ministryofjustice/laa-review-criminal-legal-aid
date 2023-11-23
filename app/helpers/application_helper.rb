@@ -84,4 +84,8 @@ module ApplicationHelper
       action_name == 'open' ? open_crime_applications_path : closed_crime_applications_path
     end
   end
+
+  def closed_action?(action_name)
+    action_name == 'closed'
+  end
 end

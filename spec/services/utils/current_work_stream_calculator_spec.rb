@@ -32,10 +32,19 @@ describe Utils::CurrentWorkStreamCalculator do
       end
     end
 
+    context 'when user competencies is empty array' do
+      let(:work_stream_param) { nil }
+      let(:user_competencies) { [] }
+
+      it 'returns an extradition work stream value (default)' do
+        expect(calculator.current_work_stream).to eq Types::WorkStreamType['extradition']
+      end
+    end
+
     context 'when there is no param/session/competency data' do
       let(:work_stream_param) { nil }
 
-      it 'returns an extradition work stream value' do
+      it 'returns an extradition work stream value (default)' do
         expect(calculator.current_work_stream).to eq Types::WorkStreamType['extradition']
       end
     end
