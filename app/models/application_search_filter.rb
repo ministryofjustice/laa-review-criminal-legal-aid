@@ -1,7 +1,14 @@
-class ApplicationSearchFilter < ApplicationStruct
+class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/ClassLength
   REVIEW_FILTERS = %i[assigned_status age_in_business_days].freeze
   DATASTORE_FILTERS = %i[
-    applicant_date_of_birth application_id_in application_status search_text submitted_after submitted_before
+    applicant_date_of_birth
+    application_id_in
+    application_status
+    reviewed_after
+    reviewed_before
+    search_text
+    submitted_after
+    submitted_before
     work_stream
   ].freeze
 
@@ -12,6 +19,8 @@ class ApplicationSearchFilter < ApplicationStruct
   attribute? :search_text, Types::Params::Nil | Types::Params::String
   attribute? :submitted_after, Types::Params::Nil | Types::Params::Date
   attribute? :submitted_before, Types::Params::Nil | Types::Params::Date
+  attribute? :reviewed_after, Types::Params::Nil | Types::Params::Date
+  attribute? :reviewed_before, Types::Params::Nil | Types::Params::Date
   attribute? :work_stream, Types::Array.of(Types::WorkStreamType)
 
   # Options for the assigned status filter
@@ -97,6 +106,14 @@ class ApplicationSearchFilter < ApplicationStruct
 
   def application_status_datastore_param
     { review_status: Types::REVIEW_STATUS_GROUPS.fetch(application_status) }
+  end
+
+  def reviewed_after_datastore_param
+    { reviewed_after: reviewed_after&.in_time_zone('London') }
+  end
+
+  def reviewed_before_datastore_param
+    { reviewed_before: reviewed_before&.in_time_zone('London') }
   end
 
   def submitted_after_datastore_param

@@ -3,13 +3,13 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "2be5c59acdbe339a40ada3fde511ca6d0bb128e90a91ffca5ae6c28dda842c3f",
+      "fingerprint": "640098948ddce901a04f77412dcd33f3a532714060a2fea65086f75263d3ce3e",
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/reporting/temporal_reports/show.html.erb",
       "line": 33,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.current(:interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)), :sorting => Reporting::TemporalReport.current(:interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)).sorting_klass.new(permitted_params[:sorting]) }) })",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.current(:interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)), :sorting => report_sorting }) })",
       "render_path": [
         {
           "type": "controller",
@@ -32,7 +32,7 @@
       "cwe_id": [
         22
       ],
-      "note": "scoped by type"
+      "note": "Scoped by Type"
     },
     {
       "warning_type": "Remote Code Execution",
@@ -126,6 +126,6 @@
       "note": "scoped by type"
     }
   ],
-  "updated": "2023-11-15 23:29:29 +0000",
+  "updated": "2023-11-23 13:04:11 +0000",
   "brakeman_version": "6.0.1"
 }

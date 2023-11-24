@@ -13,6 +13,12 @@ RSpec.shared_examples 'a temporal report' do
     it { is_expected.to eq expected_to_param }
   end
 
+  describe '#id' do
+    subject(:id) { report.id }
+
+    it { is_expected.to eq expected_id }
+  end
+
   describe '#period_text' do
     subject(:period_text) { report.period_text }
 
@@ -23,7 +29,11 @@ RSpec.shared_examples 'a temporal report' do
     subject(:next_report) { report.next_report }
 
     it 'returns the next report' do
-      expect(next_report.date).to eq(expected_next_report_date)
+      expected_time_period = Reporting::TimePeriod.new(
+        interval: time_period.interval,
+        date: expected_next_report_date
+      )
+      expect(next_report.time_period).to eq(expected_time_period)
     end
   end
 
@@ -31,7 +41,11 @@ RSpec.shared_examples 'a temporal report' do
     subject(:previous_report) { report.previous_report }
 
     it 'returns the previous report' do
-      expect(previous_report.date).to eq(expected_previous_report_date)
+      expected_time_period = Reporting::TimePeriod.new(
+        interval: time_period.interval,
+        date: expected_previous_report_date
+      )
+      expect(previous_report.time_period).to eq(expected_time_period)
     end
   end
 

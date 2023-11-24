@@ -15,15 +15,17 @@ module DataTable
 
     def call
       tag.th(**html_attributes) do
-        if sortable?
-          button_to(name, nil, params: sorting_params, method: :get)
-        else
-          name
-        end
+        cell_content
       end
     end
 
     private
+
+    def cell_content
+      return name unless sortable?
+
+      button_to(name, nil, params: sorting_params, method: :get)
+    end
 
     def default_classes
       class_names(
@@ -49,13 +51,13 @@ module DataTable
     end
 
     def sortable?
-      sorting.class::SORTABLE_COLUMNS.include?(colname.to_s)
+      sorting.class.sortable_columns.include?(colname.to_s)
     end
 
     def sorting_params
       {
         sorting: {
-          sort_by: colname,
+          sort_by: colname.to_s,
           sort_direction: sorting.reverse_direction
         }
       }
@@ -67,8 +69,13 @@ module DataTable
     #
     def sort_state
       return nil unless sortable?
+      return 'none' unless active?
 
-      colname.to_s == sorting.sort_by ? sorting.sort_direction : 'none'
+      sorting.sort_direction
+    end
+
+    def active?
+      colname.to_s == sorting.sort_by
     end
   end
 end
