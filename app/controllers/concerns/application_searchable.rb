@@ -7,6 +7,7 @@ module ApplicationSearchable
     params.permit(
       :page,
       :per_page,
+      :work_stream,
       filter: ApplicationSearchFilter.attribute_names,
       sorting: ApplicationSearchSorting.attribute_names
     )
