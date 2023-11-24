@@ -4,8 +4,19 @@ RSpec.describe 'Open Applications Dashboard' do
   include_context 'with stubbed search'
 
   before do
+    allow(FeatureFlags).to receive(:work_stream) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
     visit '/'
     click_on 'All open applications'
+  end
+
+  it 'shows only open applications' do
+    expect_datastore_to_have_been_searched_with(
+      { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+        work_stream: %w[extradition national_crime_team criminal_applications_team] },
+      sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+    )
   end
 
   it 'includes the page title' do
@@ -54,5 +65,58 @@ RSpec.describe 'Open Applications Dashboard' do
     let(:active_sort_headers) { ['Date received', 'Business days since application was received'] }
     let(:active_sort_direction) { 'ascending' }
     let(:inactive_sort_headers) { ['Applicant\'s name'] }
+  end
+
+  context 'when work stream feature flag in is enabled' do
+    before do
+      allow(FeatureFlags).to receive(:work_stream) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+      }
+      click_on 'All open applications'
+    end
+
+    it 'shows only extradition open applications' do
+      expect_datastore_to_have_been_searched_with(
+        { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+          work_stream: %w[extradition] },
+        sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+      )
+    end
+
+    it 'includes tabs for work streams' do
+      tabs = find(:xpath, "//div[@class='govuk-tabs']")
+
+      expect(tabs).to have_content 'Extradition National crime team Criminal applications team'
+    end
+
+    context 'when viewing closed applications by work stream' do
+      it 'searches for extradition closed applications' do
+        click_on 'Extradition'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+            work_stream: %w[extradition] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending'),
+          number_of_times: 2
+        )
+      end
+
+      it 'searches for national crime team closed applications' do
+        click_on 'National crime team'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+            work_stream: %w[national_crime_team] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+        )
+      end
+
+      it 'searches for criminal applications team closed applications' do
+        click_on 'Criminal applications team'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+            work_stream: %w[criminal_applications_team] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+        )
+      end
+    end
   end
 end

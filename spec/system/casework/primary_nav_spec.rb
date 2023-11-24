@@ -50,6 +50,7 @@ RSpec.describe 'Primary navigation' do
 
     heading_text = page.first('.govuk-heading-xl').text
     expect(heading_text).to eq('All open applications')
+    expect(page).to have_current_path '/applications/open/extradition'
   end
 
   it 'takes you to closed applications when you click "Closed applications"' do
@@ -57,5 +58,25 @@ RSpec.describe 'Primary navigation' do
 
     heading_text = page.first('.govuk-heading-xl').text
     expect(heading_text).to eq('Closed applications')
+    expect(page).to have_current_path '/applications/closed/extradition'
+  end
+
+  context 'when work stream feature flag in is not enabled' do
+    before do
+      allow(FeatureFlags).to receive(:work_stream) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+      visit '/'
+    end
+
+    it 'takes you to the open applications path when you click "All open applications"' do
+      click_on('All open applications')
+      expect(page).to have_current_path '/applications/open'
+    end
+
+    it 'takes you to the closed applications path when you click "Closed applications"' do
+      click_on('Closed applications')
+      expect(page).to have_current_path '/applications/closed'
+    end
   end
 end

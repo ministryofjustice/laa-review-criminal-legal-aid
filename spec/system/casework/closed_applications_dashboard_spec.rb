@@ -20,6 +20,10 @@ RSpec.describe 'Closed Applications Dashboard' do
   let(:user_id) { current_user_id }
 
   before do
+    allow(FeatureFlags).to receive(:work_stream) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+
     visit '/'
     click_on 'All open applications'
 
@@ -39,7 +43,8 @@ RSpec.describe 'Closed Applications Dashboard' do
 
   it 'shows only closed applications' do
     expect_datastore_to_have_been_searched_with(
-      { review_status: Types::REVIEW_STATUS_GROUPS['closed'] },
+      { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
+                work_stream: %w[extradition national_crime_team criminal_applications_team] },
       sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
     )
   end
@@ -85,5 +90,63 @@ RSpec.describe 'Closed Applications Dashboard' do
     let(:active_sort_headers) { ['Date closed'] }
     let(:active_sort_direction) { 'descending' }
     let(:inactive_sort_headers) { ['Applicant\'s name', 'Date received'] }
+  end
+
+  context 'when work stream feature flag in is enabled' do
+    before do
+      allow(FeatureFlags).to receive(:work_stream) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+      }
+      visit '/'
+      click_on 'Closed applications'
+    end
+
+    it 'shows only extradition closed applications' do
+      # Extradition is currently the default
+      expect_datastore_to_have_been_searched_with(
+        { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
+          work_stream: %w[extradition] },
+        sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+      )
+      expect(page).to have_current_path('/applications/closed/extradition')
+    end
+
+    it 'includes tabs for work streams' do
+      tabs = find(:xpath, "//div[@class='govuk-tabs']")
+
+      expect(tabs).to have_content 'Extradition National crime team Criminal applications team'
+    end
+
+    context 'when viewing closed applications by work stream' do
+      it 'searches for extradition closed applications' do
+        click_on 'Extradition'
+        expect(page).to have_current_path('/applications/closed/extradition')
+
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
+            work_stream: %w[extradition] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending'),
+          number_of_times: 2
+        )
+      end
+
+      it 'searches for national crime team closed applications' do
+        click_on 'National crime team'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
+            work_stream: %w[national_crime_team] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+        )
+      end
+
+      it 'searches for criminal applications team closed applications' do
+        click_on 'Criminal applications team'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
+            work_stream: %w[criminal_applications_team] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+        )
+      end
+    end
   end
 end

@@ -1,5 +1,6 @@
 module Allocating
   class CompetenciesSet < RailsEventStore::Event; end
+  class WorkStreamNotFound < StandardError; end
 
   class << self
     def user_competencies(user_id)

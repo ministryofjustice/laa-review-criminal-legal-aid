@@ -25,16 +25,16 @@
 
             <li class="moj-primary-navigation__item">
               <%= link_to t('primary_navigation.open_apps'),
-                          open_crime_applications_path,
+                          url_for_open_or_closed_page('open', work_stream),
                           class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(open_crime_applications_path) ? 'page' : nil } %>
+                          aria: { current: current_page?(url_for_open_or_closed_page('open', work_stream)) ? 'page' : nil } %>
             </li>
 
             <li class="moj-primary-navigation__item">
               <%= link_to t('primary_navigation.closed_apps'),
-                          closed_crime_applications_path,
+                          url_for_open_or_closed_page('closed', work_stream),
                           class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(closed_crime_applications_path) ? 'page' : nil } %>
+                          aria: { current: current_page?(url_for_open_or_closed_page('closed', work_stream)) ? 'page' : nil } %>
             </li>
           </ul>
         <% end %>
