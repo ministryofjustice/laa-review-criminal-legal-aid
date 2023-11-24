@@ -2,27 +2,27 @@ module Reporting
   class TemporalReport
     include ActiveModel::Model
 
-    attr_reader :date, :report_type
+    attr_reader :time_period, :report_type
 
-    def initialize(date:, report_type:)
-      @date = date || latest_complete_report_date
+    def initialize(time_period:, report_type:)
+      @time_period = time_period
       @report_type = Types::TemporalReportType[report_type]
     end
 
     def to_param
       {
-        period: date.strftime(self.class::PARAM_FORMAT),
         report_type: report_type,
-        interval: interval
+        interval: time_period.interval,
+        period: time_period.starts_on.strftime(self.class::PARAM_FORMAT)
       }
     end
 
-    def interval
-      self.class::INTERVAL
+    def id
+      to_param.values.join('_')
     end
 
     def period_name
-      date.strftime(self.class::PERIOD_NAME_FORMAT)
+      time_period.starts_on.strftime(self.class::PERIOD_NAME_FORMAT)
     end
 
     def title
@@ -30,20 +30,20 @@ module Reporting
     end
 
     def next_report
-      self.class.new(report_type: report_type, date: self.class.next_date(date))
+      self.class.new(time_period: time_period.next, report_type: report_type)
     end
 
     def previous_report
-      self.class.new(report_type: report_type, date: self.class.previous_date(date))
+      self.class.new(time_period: time_period.previous, report_type: report_type)
     end
 
     def rows(sorting: nil)
-      @rows ||= read_model_klass.for_temporal_period(date:, interval:).rows(sorting:)
+      @rows ||= read_model_klass.for_time_period(time_period:).rows(sorting:)
     end
 
     # returns true if the report includes the current day
     def current?
-      (period_starts_on..period_ends_on).cover? self.class._current_date
+      time_period.range.cover? self.class._current_date
     end
 
     # :nocov:
@@ -54,9 +54,9 @@ module Reporting
     #
 
     def sorting_klass
-      return Sorting unless report_type == 'caseworker_report'
-
       Reporting.const_get("#{report_type}_sorting".camelize)
+    rescue NameError
+      ApplicationSearchSorting
     end
 
     private
@@ -74,27 +74,19 @@ module Reporting
     end
 
     class << self
-      # :nocov:
-      def next_date(_date)
-        raise 'Implement in subclass.'
-      end
-
-      def previous_date(_date)
-        raise 'Implement in subclass.'
-      end
-      # :nocov:
-
       def from_param(report_type:, period:, interval:)
         klass = klass_for_interval(interval)
         date = Date.strptime(period, klass::PARAM_FORMAT)
-        klass.new(report_type:, date:)
+        time_period = TimePeriod.new(interval:, date:)
+        klass.new(report_type:, time_period:)
       rescue Date::Error
         raise Reporting::ReportNotFound
       end
 
       def current(report_type:, interval:)
         date = _current_date
-        klass_for_interval(interval).new(report_type:, date:)
+        time_period = TimePeriod.new(interval:, date:)
+        klass_for_interval(interval).new(time_period:, report_type:)
       end
 
       def klass_for_interval(interval)
@@ -102,10 +94,6 @@ module Reporting
         Reporting.const_get(klass_name)
       rescue Dry::Types::ConstraintError
         raise Reporting::ReportNotFound
-      end
-
-      def latest_complete_report_date
-        previous_date(_current_date)
       end
 
       def _current_date

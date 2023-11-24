@@ -27,11 +27,8 @@ module Reporting
     def latest_temporal_reports
       interval = Types::TemporalInterval['daily']
 
-      klass = Reporting::TemporalReport.klass_for_interval(interval)
-      date = klass.latest_complete_report_date
-
       temporal_report_types.map do |report_type|
-        klass.new(report_type:, date:)
+        Reporting::TemporalReport.current(report_type:, interval:)
       end
     end
 

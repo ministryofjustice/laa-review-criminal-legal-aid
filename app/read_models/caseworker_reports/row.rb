@@ -1,7 +1,12 @@
 module CaseworkerReports
   class Row
     COUNTERS = %w[
-      assigned_to_user reassigned_to_user reassigned_from_user unassigned_from_user completed_by_user sent_back_by_user
+      assigned_to_user
+      reassigned_to_user
+      reassigned_from_user
+      unassigned_from_user
+      completed_by_user
+      sent_back_by_user
     ].freeze
 
     def initialize(user_id)

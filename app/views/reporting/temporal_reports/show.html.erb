@@ -29,7 +29,7 @@
           <h3 class="govuk-heading-s"><%= @report.period_text %></h3>
         <% end %>
 
-        <%= turbo_frame_tag [@report_type, @report.to_param], data: { turbo: 'true' } do %>
+        <%= turbo_frame_tag @report.id, data: { turbo: 'true' } do %>
           <%= render partial: @report_type, locals: { report: @report, sorting: @sorting } %>
         <% end %>
       </div>

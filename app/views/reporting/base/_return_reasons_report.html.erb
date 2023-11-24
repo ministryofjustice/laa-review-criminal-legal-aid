@@ -1,0 +1,31 @@
+<%= render DataTableComponent.new(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
+      table.with_sortable_head(sorting:) do |head|
+        head.with_row do |row|
+          row.with_cell(text: 'Means')
+          row.with_cell(colname: :closed_by)
+          row.with_cell(colname: :reviewed_at, text: 'Date returned')
+          row.with_cell(colname: :return_reason, text: 'Return reason')
+          row.with_cell(text: 'Return details')
+          row.with_cell(colname: :reference)
+          row.with_cell(colname: :office_code)
+          row.with_cell(colname: :provider_name)
+        end
+      end
+
+      table.with_body do |body|
+        report.rows(sorting:).each do |row|
+          body.with_row do |r|
+            r.with_cell(text: row.means_type)
+            r.with_cell(text: row.closed_by)
+            r.with_cell(text: l(row.reviewed_at))
+            r.with_cell(text: row.return_reason.humanize(capitalize: false))
+            r.with_cell(
+              text: simple_format(row.return_details, {}, wrapper_tag: 'div')
+            )
+            r.with_cell(text: row.reference)
+            r.with_cell(text: row.office_code)
+            r.with_cell(text: row.provider_name)
+          end
+        end
+      end
+    end %>

@@ -1,4 +1,4 @@
-class ApplicationSearchSorting < Sorting
+class ApplicationSearchSorting < ApplicationStruct
   SORTABLE_COLUMNS = %w[
     submitted_at
     time_passed
@@ -6,5 +6,8 @@ class ApplicationSearchSorting < Sorting
     applicant_name
   ].freeze
 
-  attribute? :sort_by, Types::String.enum(*SORTABLE_COLUMNS)
+  DEFAULT_SORT_BY = 'submitted_at'.freeze
+  DEFAULT_SORT_DIRECTION = Types::SortDirection['ascending']
+
+  include SortableStruct
 end

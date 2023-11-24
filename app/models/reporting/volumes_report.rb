@@ -1,9 +1,10 @@
 module Reporting
   class VolumesReport
-    def initialize(day_zero: Time.current, interval: 'daily')
-      @day_zero = day_zero.in_time_zone('London').to_date
-      @interval = interval
+    def initialize(time_period:)
+      @time_period = time_period
     end
+
+    attr_reader :time_period
 
     # Currently only CAT3 applications are processed on Review.
     def rows(*)
@@ -11,8 +12,6 @@ module Reporting
     end
 
     private
-
-    attr_reader :day_zero
 
     def closed
       scope.of_type(closing_event_types).count
@@ -23,29 +22,7 @@ module Reporting
     end
 
     def scope
-      @scope ||= Rails.configuration.event_store.read.between(date_from...date_to)
-    end
-
-    def date_from
-      case Types::TemporalInterval[@interval]
-      when 'weekly'
-        day_zero.beginning_of_week
-      when 'daily'
-        day_zero.beginning_of_day
-      when 'monthly'
-        day_zero.beginning_of_month
-      end
-    end
-
-    def date_to
-      case Types::TemporalInterval[@interval]
-      when 'weekly'
-        day_zero.end_of_week
-      when 'daily'
-        day_zero.end_of_day
-      when 'monthly'
-        day_zero.end_of_month
-      end
+      @scope ||= Rails.configuration.event_store.read.between(time_period.range)
     end
 
     def closing_event_types
@@ -57,8 +34,8 @@ module Reporting
     end
 
     class << self
-      def for_temporal_period(date:, interval:)
-        new(day_zero: date, interval: interval)
+      def for_time_period(time_period:)
+        new(time_period:)
       end
     end
   end
