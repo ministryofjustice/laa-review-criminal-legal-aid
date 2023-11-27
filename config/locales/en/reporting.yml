@@ -3,16 +3,22 @@ en:
     monthly_report:
       caseworker_report:
         title: "Caseworker monthly: %{period_name}"
+      return_reasons_report:
+        title: "Return reasons monthly: %{period_name}"
       volumes_report:
         title: "Volumes monthly: %{period_name}"
     weekly_report:
       caseworker_report:
         title: "Caseworker weekly: %{period_name}"
+      return_reasons_report:
+        title: "Return reasons weekly: %{period_name}"
       volumes_report:
         title: "Daily volumes: %{period_name}"
     daily_report:
       caseworker_report:
         title: "Caseworker daily: %{period_name}"
+      return_reasons_report:
+        title: "Return reasons daily: %{period_name}"
       volumes_report:
         title: "Daily volumes: %{period_name}"
     snapshot:
@@ -23,6 +29,7 @@ en:
         page_title: Reporting 
         heading: Reports
   labels:
+    return_reasons_report: Return reasons report
     workload_report: Workload report
     processed_report: Processed report
     caseworker_report: Caseworker report
@@ -31,35 +38,35 @@ en:
     weekly: Weekly 
     daily: Daily 
   table_headings:
+    application_type: Type
     applications_closed: Number of closed applications
     applications_received: Applications received
+    assigned_to_user: "from<br>list"
     closed: Closed
-    received: Received
-    days_passed: Business days since applications were received
-    open_applications_by_age: "Applications still\xA0open"
-    processed_on: When applications were closed
-    received_applications_by_age: Applications received
-
     colpsan_assigned_to_user: "Assigned"
-    colspan_unassigned_from_user: Unassigned
     colspan_closed_by_user: Closed
     colspan_percentage_of_assigned: Percentage
-    assigned_to_user: "from<br>list"
-    reassigned_to_user: "from<br>another"
-    total_assigned_to_user: total
-    unassigned_from_user: "from<br>self"
-    reassigned_from_user: "by<br>another"
-    total_unassigned_from_user: total
+    colspan_unassigned_from_user: Unassigned
     completed_by_user: completed
-    sent_back_by_user: "sent<br>back"
-    total_closed_by_user: total
-    percentage_unassigned_from_user: "unassigned"
+    days_passed: Business days since applications were received
+    office_code: Office code 
+    open_applications_by_age: "Applications still\xA0open"
     percentage_closed_by_user: "closed"
-
-    application_type: Type
-    what: What 
+    percentage_unassigned_from_user: "unassigned"
+    processed_on: When applications were closed
+    provider_name: Legal representative 
+    reassigned_from_user: "by<br>another"
+    reassigned_to_user: "from<br>another"
+    received: Received
+    received_applications_by_age: Applications received
+    return_reason: Reason
+    sent_back_by_user: "sent<br>back"
+    total_assigned_to_user: total
+    total_closed_by_user: total
+    total_unassigned_from_user: total
+    unassigned_from_user: "from<br>self"
     user_name: "&nbsp;"
-
+    what: What 
   caseworker_report:
     caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker
   warnings:

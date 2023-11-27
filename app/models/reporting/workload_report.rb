@@ -4,7 +4,7 @@ module Reporting
     # ago.
     #
     # If the "number_of_rows" limit is set to be less than the number of rows
-    # required to accomodate 1 business day per row, the remaining days are
+    # required to accommodate 1 business day per row, the remaining days are
     # combined into the final row. For example:
     #   "0 days", "1 day", "2 days", "Between 3 and 9 days"
     #

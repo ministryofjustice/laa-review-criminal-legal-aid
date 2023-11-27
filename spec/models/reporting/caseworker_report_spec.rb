@@ -7,10 +7,10 @@ describe Reporting::CaseworkerReport do
     described_class.new(dataset:)
   end
 
-  describe '.for_temporal_report_period' do
-    let(:report) do
-      described_class.for_temporal_period(date: '2023-10-15', interval: :weekly)
-    end
+  describe '.for_time_period' do
+    let(:report) { described_class.for_time_period(time_period:) }
+
+    let(:time_period) { Reporting::TimePeriod.new(interval: 'weekly', date: '2023-10-15') }
 
     before do
       allow(CaseworkerReports::Projection).to receive(:new) do

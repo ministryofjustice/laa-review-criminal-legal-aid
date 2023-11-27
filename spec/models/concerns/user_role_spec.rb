@@ -225,10 +225,20 @@ RSpec.describe UserRole do
   describe '#reports' do
     subject(:reports) { user.reports }
 
+    let(:expected_user_reports) do
+      %w[
+        caseworker_report
+        volumes_report
+        processed_report
+        workload_report
+        return_reasons_report
+      ]
+    end
+
     context 'when user is supervisor' do
       before { user.role = Types::SUPERVISOR_ROLE }
 
-      it { is_expected.to eq %w[caseworker_report volumes_report processed_report workload_report] }
+      it { is_expected.to eq expected_user_reports }
     end
 
     context 'when user is caseworker' do
@@ -240,7 +250,7 @@ RSpec.describe UserRole do
     context 'when user is data_analyst' do
       before { user.role = Types::DATA_ANALYST_ROLE }
 
-      it { is_expected.to eq %w[caseworker_report volumes_report processed_report workload_report] }
+      it { is_expected.to eq expected_user_reports }
     end
 
     context 'when user is user manager' do
@@ -255,7 +265,7 @@ RSpec.describe UserRole do
           }
         end
 
-        it { is_expected.to eq %w[caseworker_report volumes_report processed_report workload_report] }
+        it { is_expected.to eq expected_user_reports }
       end
     end
   end

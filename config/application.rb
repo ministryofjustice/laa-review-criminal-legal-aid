@@ -76,7 +76,10 @@ module LaaReviewCriminalLegalAid
       ErrorsController.action(:show).call(env)
     }
 
-    config.action_dispatch.rescue_responses["Reporting::ReportNotFound"] = :not_found
-    config.action_dispatch.rescue_responses["ApplicationController::ForbiddenError"] = :forbidden
+    config.action_dispatch.rescue_responses.merge!(
+      'Reporting::ReportNotFound' => :not_found,
+      'Allocating::WorkStreamNotFound' => :not_found,
+      'ApplicationController::ForbiddenError' => :forbidden
+    )
   end
 end

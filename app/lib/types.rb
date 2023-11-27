@@ -53,10 +53,18 @@ module Types
     details: String
   )
 
-  Report = String.enum('caseworker_report', 'volumes_report', 'processed_report', 'workload_report')
+  Report = String.enum(*%w[
+                         caseworker_report
+                         volumes_report
+                         processed_report
+                         workload_report
+                         return_reasons_report
+                       ])
 
   SnapshotReportType = String.enum(Report['workload_report'])
-  TemporalReportType = String.enum(Report['caseworker_report'], Report['volumes_report'])
+  TemporalReportType = String.enum(Report['caseworker_report'], Report['volumes_report'],
+                                   Report['return_reasons_report'])
+
   TemporalInterval = String.enum('daily', 'weekly', 'monthly')
 
   USER_ROLE_REPORTS = {
@@ -65,7 +73,7 @@ module Types
     UserRole[SUPERVISOR_ROLE] => Report.values
   }.freeze
 
-  SortDirection = String.default('ascending'.freeze).enum('descending', 'ascending')
+  SortDirection = String.enum('descending', 'ascending')
 
   SORTABLE_COLUMNS = %w[
     submitted_at

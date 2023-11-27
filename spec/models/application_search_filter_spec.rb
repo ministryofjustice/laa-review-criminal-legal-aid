@@ -47,7 +47,8 @@ RSpec.describe ApplicationSearchFilter do
         {
           applicant_date_of_birth: '1970-10-10', assigned_status: david.id,
           search_text: 'David 100003', application_status: 'sent_back',
-          submitted_after: '2022-12-22', submitted_before: '2022-12-21'
+          submitted_after: '2022-12-22', submitted_before: '2022-12-21',
+          work_stream: %w[criminal_applications_team]
         }
       end
 
@@ -58,7 +59,8 @@ RSpec.describe ApplicationSearchFilter do
           submitted_after: Date.parse('2022-12-22'),
           submitted_before: Date.parse('2022-12-21'),
           search_text: 'David 100003',
-          review_status: %w[returned_to_provider]
+          review_status: %w[returned_to_provider],
+          work_stream: %w[criminal_applications_team],
         }
       end
 

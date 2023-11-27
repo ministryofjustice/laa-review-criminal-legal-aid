@@ -1,0 +1,57 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+      <%= t "casework.crime_applications.index.#{action_name}_heading" %>
+    </h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-body">
+      <% if closed_action?(action_name) %>
+        <%= t('casework.crime_applications.index.closed_body') %>
+      <% else %>
+        <%= t('casework.crime_applications.index.total_open', count: search.total) %>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          <% if closed_action?(action_name) %>
+            <%= t 'calls_to_action.view_closed_on_count' %>
+          <% else %>
+            <%= t 'calls_to_action.view_daily_count' %>
+          <%end%>
+        </span>
+      </summary>
+      <div class="govuk-details__text ">
+        <%= turbo_frame_tag report_type, src: reporting_user_report_path(report_type), data: { turbo: 'true' }, loading: :lazy %>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+  <table class="govuk-table app-dashboard-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <%= render "#{action_name}_crime_applications_table_headers", search: %>
+      </tr>
+    </thead>
+
+    <tbody class="govuk-table__body">
+      <%= render partial: "#{action_name}_crime_applications_table_body",
+                 collection: search.results,
+                 as: :app %>
+    </tbody>
+  </table>
+    <%= paginate search.pagination %>
+  </div>
+</div>
