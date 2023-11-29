@@ -14,7 +14,9 @@ RUN apk --no-cache add --virtual build-deps \
   xz-libs \
   tzdata \
   yarn \
-  gcompat
+  gcompat \
+  clamav-clamdscan && \
+  apk del clamav-daemon freshclam
 
 # add non-root user and group with alpine first available uid, 1000
 RUN addgroup -g 1000 -S appgroup && \
