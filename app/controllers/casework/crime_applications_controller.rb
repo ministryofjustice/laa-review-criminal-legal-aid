@@ -10,7 +10,7 @@ module Casework
         default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
 
-      @report_type = Types::Report['workload_report']
+      @report_type = Types::Report['current_workload_report']
 
       render :index
     end
