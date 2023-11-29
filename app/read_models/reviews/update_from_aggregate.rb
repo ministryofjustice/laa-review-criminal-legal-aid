@@ -23,7 +23,8 @@ module Reviews
           submitted_at: review_aggregate.submitted_at,
           reviewer_id: review_aggregate.reviewer_id,
           parent_id: review_aggregate.parent_id,
-          business_day: review_aggregate.business_day
+          business_day: review_aggregate.business_day,
+          reviewed_on: review_aggregate.reviewed_on
         },
         unique_by: :application_id
       )

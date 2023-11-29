@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_08_23_083547) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_145427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -64,9 +64,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_23_083547) do
     t.uuid "parent_id"
     t.datetime "submitted_at", precision: nil
     t.date "business_day"
+    t.date "reviewed_on"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
     t.index ["business_day"], name: "index_reviews_on_business_day"
     t.index ["parent_id"], name: "index_reviews_on_parent_id"
+    t.index ["reviewed_on"], name: "index_reviews_on_reviewed_on"
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
     t.index ["state"], name: "index_reviews_on_state"
   end
@@ -81,10 +83,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_23_083547) do
     t.datetime "last_auth_at", precision: nil
     t.datetime "first_auth_at", precision: nil
     t.string "auth_subject_id"
+    t.boolean "can_manage_others", default: false, null: false
     t.datetime "deactivated_at", precision: nil
     t.datetime "invitation_expires_at"
     t.datetime "revive_until"
-    t.boolean "can_manage_others", default: false, null: false
     t.enum "role", default: "caseworker", null: false, enum_type: "user_role"
     t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

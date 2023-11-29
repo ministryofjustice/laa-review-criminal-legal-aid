@@ -105,5 +105,11 @@ module Reviewing
     def business_day
       BusinessDay.new(day_zero: @submitted_at).date
     end
+
+    def reviewed_on
+      return nil unless @reviewed_at
+
+      @reviewed_at.in_time_zone('London').to_date
+    end
   end
 end
