@@ -29,6 +29,7 @@ spec:
       - name: clamav
         image: ghcr.io/ministryofjustice/hmpps-clamav-freshclammed:latest
         imagePullPolicy: Always
+        command: ['/bin/sh', '-c', 'freshclam && clamd']
         ports:
           - containerPort: 3310
             protocol: TCP
