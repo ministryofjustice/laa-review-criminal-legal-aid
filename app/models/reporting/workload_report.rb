@@ -8,7 +8,9 @@ module Reporting
     # combined into the final row. For example:
     #   "0 days", "1 day", "2 days", "Between 3 and 9 days"
     #
-    def initialize(observed_at: Time.current, age_limit: 9, number_of_rows: 5)
+    def initialize(observed_at: Time.current, age_limit: 9, number_of_rows: 5,
+                   work_streams: Types::WorkStreamType.values)
+      @work_streams = work_streams
       @observed_at = observed_at
       @age_limit = age_limit
       @number_of_rows = number_of_rows || (age_limit + 1)
