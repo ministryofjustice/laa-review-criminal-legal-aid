@@ -28,6 +28,7 @@ RSpec.shared_context 'with resubmitted application' do
     Reviewing::ReceiveApplication.call(
       application_id: parent_id,
       parent_id: nil,
+      work_stream: 'extradition',
       submitted_at: Time.zone.now.to_s
     )
 
@@ -57,6 +58,7 @@ RSpec.shared_context 'with resubmitted application' do
     Reviewing::ReceiveApplication.call(
       application_id: application_id,
       parent_id: parent_id,
+      work_stream: 'extradition',
       submitted_at: Time.zone.now.to_s
     )
   end

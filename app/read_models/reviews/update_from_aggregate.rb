@@ -24,7 +24,8 @@ module Reviews
           reviewer_id: review_aggregate.reviewer_id,
           parent_id: review_aggregate.parent_id,
           business_day: review_aggregate.business_day,
-          reviewed_on: review_aggregate.reviewed_on
+          reviewed_on: review_aggregate.reviewed_on,
+          work_stream: review_aggregate.work_stream
         },
         unique_by: :application_id
       )

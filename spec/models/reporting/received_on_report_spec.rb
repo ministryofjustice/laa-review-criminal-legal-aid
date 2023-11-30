@@ -30,9 +30,13 @@ RSpec.describe Reporting::ReceivedOnReport do
   describe 'updating with review events' do
     let(:application_id) { SecureRandom.uuid }
     let(:submitted_at) { 1.week.ago.to_s }
+    let(:work_stream) { 'extradition' }
     let(:report) { described_class.find(BusinessDay.new(day_zero: submitted_at).date) }
 
-    let(:command) { Reviewing::ReceiveApplication.new(application_id: SecureRandom.uuid, submitted_at: submitted_at) }
+    let(:command) do
+      Reviewing::ReceiveApplication.new(application_id: SecureRandom.uuid, submitted_at: submitted_at,
+                                        work_stream: work_stream)
+    end
 
     context 'when a report does not exist for the given business day' do
       it 'a new report is created' do
@@ -47,7 +51,7 @@ RSpec.describe Reporting::ReceivedOnReport do
         allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
           .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-        Reviewing::ReceiveApplication.call(application_id:, submitted_at:)
+        Reviewing::ReceiveApplication.call(application_id:, submitted_at:, work_stream:)
       end
 
       let(:user_id) { SecureRandom.uuid }

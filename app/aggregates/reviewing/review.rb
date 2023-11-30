@@ -13,18 +13,20 @@ module Reviewing
       @superseded_at = nil
       @superseded_by = nil
       @parent_id = nil
+      @work_stream = nil
     end
 
     attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
-                :submitted_at, :superseded_by, :superseded_at, :parent_id
+                :submitted_at, :superseded_by, :superseded_at, :parent_id,
+                :work_stream
 
     alias application_id id
 
-    def receive_application(submitted_at:, parent_id: nil)
+    def receive_application(submitted_at:, parent_id: nil, work_stream: nil)
       raise AlreadyReceived if received?
 
       apply ApplicationReceived.new(
-        data: { application_id:, submitted_at:, parent_id: }
+        data: { application_id:, submitted_at:, parent_id:, work_stream: }
       )
     end
 
@@ -70,6 +72,7 @@ module Reviewing
       @received_at = event.timestamp
       @submitted_at = event.data[:submitted_at]
       @parent_id = event.data[:parent_id]
+      @work_stream = event.data[:work_stream]
     end
 
     on SentBack do |event|

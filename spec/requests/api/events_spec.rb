@@ -14,7 +14,8 @@ RSpec.describe 'Api::Events' do
       data: {
         id: application_id,
         submitted_at: DateTime.parse('2022-10-27T14:09:11'),
-        parent_id: 'parent_id_uuid'
+        parent_id: 'parent_id_uuid',
+        work_stream: Types::WorkStreamType['extradition']
       }
     }
   end
@@ -91,6 +92,7 @@ RSpec.describe 'Api::Events' do
     it 'creates an ApplicationReceived event' do
       expect { do_request }.to change { review.state }.from(nil).to(:open)
                                                       .and change { review.parent_id }.from(nil).to('parent_id_uuid')
+                                                      .and change { review.work_stream }.from(nil).to('extradition')
 
       expect(response).to have_http_status :created
     end

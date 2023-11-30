@@ -65,12 +65,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_145427) do
     t.datetime "submitted_at", precision: nil
     t.date "business_day"
     t.date "reviewed_on"
+    t.string "work_stream", default: "criminal_applications_team"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
     t.index ["business_day"], name: "index_reviews_on_business_day"
     t.index ["parent_id"], name: "index_reviews_on_parent_id"
     t.index ["reviewed_on"], name: "index_reviews_on_reviewed_on"
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
     t.index ["state"], name: "index_reviews_on_state"
+    t.index ["work_stream"], name: "index_reviews_on_work_stream"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
