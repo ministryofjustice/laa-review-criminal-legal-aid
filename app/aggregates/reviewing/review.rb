@@ -72,7 +72,7 @@ module Reviewing
       @received_at = event.timestamp
       @submitted_at = event.data[:submitted_at]
       @parent_id = event.data[:parent_id]
-      @work_stream = event.data[:work_stream]
+      @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
     end
 
     on SentBack do |event|

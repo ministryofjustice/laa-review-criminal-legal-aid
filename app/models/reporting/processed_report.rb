@@ -27,8 +27,12 @@ module Reporting
       @today ||= Time.zone.now.in_time_zone('London').to_date
     end
 
+    def scope
+      Review.where(work_stream: work_streams, reviewed_on: (days.last..days.first))
+    end
+
     def counts
-      @counts ||= Review.where(reviewed_on: (days.last..days.first)).group(:reviewed_on).count
+      @counts ||= scope.group(:reviewed_on).count
     end
 
     def processed_on

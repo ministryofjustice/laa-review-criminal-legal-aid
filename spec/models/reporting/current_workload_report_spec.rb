@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Reporting::CurrentWorkloadReport do
-  describe 'rows' do
+  describe '#rows' do
     subject(:rows) { described_class.new(**arguments).rows }
 
     let(:arguments) { {} }
@@ -25,7 +25,8 @@ work_stream: 'criminal_applications_team', state: 'open' },
 work_stream: 'criminal_applications_team', state: 'open' },
                           { application_id: SecureRandom.uuid, business_day: '2023-11-15', work_stream: 'extradition',
 state: 'open' },
-
+                          { application_id: SecureRandom.uuid, business_day: '2023-11-14', work_stream: 'extradition',
+                            state: 'open' },
                         ])
       # rubocop:enable Rails/SkipsModelValidations
     end

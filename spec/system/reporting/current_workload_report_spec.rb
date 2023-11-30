@@ -20,8 +20,8 @@ RSpec.describe 'Current Workload Report' do
                           work_stream: 'criminal_applications_team', state: 'open' },
                         { application_id: SecureRandom.uuid, business_day: '2023-11-15',
                           work_stream: 'criminal_applications_team', state: 'open' },
-                        { application_id: SecureRandom.uuid, business_day: '2023-11-16', work_stream: 'criminal_applications_team',
-                          state: 'open' },
+                        { application_id: SecureRandom.uuid, business_day: '2023-11-16',
+                          work_stream: 'criminal_applications_team', state: 'open' },
                         { application_id: SecureRandom.uuid, business_day: '2023-11-16', work_stream: 'extradition',
                           state: 'open' },
 

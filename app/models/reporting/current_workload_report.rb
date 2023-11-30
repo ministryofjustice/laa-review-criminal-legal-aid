@@ -18,13 +18,13 @@ module Reporting
     private
 
     def business_days
-      Array.new(@business_day_limit) do |age_in_business_days|
+      Array.new(@business_day_limit + 1) do |age_in_business_days|
         BusinessDay.new(age_in_business_days:).date
       end
     end
 
     def scope
-      Review.where(work_stream: work_streams)
+      Review.where(work_stream: work_streams, business_day: (business_days.last..business_days.first))
     end
 
     # Hash of number of received applications by business day

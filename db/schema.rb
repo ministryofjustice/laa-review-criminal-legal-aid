@@ -64,8 +64,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_145427) do
     t.uuid "parent_id"
     t.datetime "submitted_at", precision: nil
     t.date "business_day"
-    t.date "reviewed_on"
     t.string "work_stream", default: "criminal_applications_team"
+    t.date "reviewed_on"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
     t.index ["business_day"], name: "index_reviews_on_business_day"
     t.index ["parent_id"], name: "index_reviews_on_parent_id"
