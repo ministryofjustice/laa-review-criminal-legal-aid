@@ -13,5 +13,5 @@ feature_flags:
     production: false
   work_stream:
     local: true
-    staging: false # temporarily disable for 30/11/2023 demo
+    staging: true
     production: false
