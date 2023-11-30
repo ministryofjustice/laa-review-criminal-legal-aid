@@ -34,11 +34,5 @@ module Reporting
     def counts
       @counts ||= scope.group(:reviewed_on).count
     end
-
-    def processed_on
-      %i[today yesterday day_before_yesterday].map do |key|
-        Cell.new(I18n.t(key, scope: :values), header: true, numeric: false)
-      end
-    end
   end
 end
