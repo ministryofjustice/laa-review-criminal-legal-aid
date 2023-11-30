@@ -15,7 +15,7 @@ module Reviews
       update_from_aggregate(review_aggregate)
     end
 
-    def update_from_aggregate(review_aggregate)
+    def update_from_aggregate(review_aggregate) # rubocop:disable Metrics/MethodLength
       Review.upsert(
         {
           application_id: review_aggregate.id,

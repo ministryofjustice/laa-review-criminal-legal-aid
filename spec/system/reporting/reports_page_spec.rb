@@ -80,8 +80,8 @@ RSpec.describe 'Reports' do
       expect(page).to have_http_status :ok
     end
 
-    it 'can access the workload report' do
-      visit reporting_user_report_path('workload_report')
+    it 'can access the workload mini report' do
+      visit reporting_user_report_path('current_workload_report')
       expect(page).to have_text('Workload report')
       expect(page).to have_http_status :ok
     end

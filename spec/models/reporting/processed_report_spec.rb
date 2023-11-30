@@ -29,7 +29,6 @@ describe Reporting::ProcessedReport do
       # rubocop:enable Rails/SkipsModelValidations
     end
 
-
     it 'includes 3 rows by default' do
       expect(rows.size).to eq(3)
     end

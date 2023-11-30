@@ -232,6 +232,7 @@ RSpec.describe UserRole do
         processed_report
         workload_report
         return_reasons_report
+        current_workload_report
       ]
     end
 
@@ -244,7 +245,7 @@ RSpec.describe UserRole do
     context 'when user is caseworker' do
       before { user.role = Types::CASEWORKER_ROLE }
 
-      it { is_expected.to eq %w[workload_report processed_report] }
+      it { is_expected.to eq %w[current_workload_report processed_report] }
     end
 
     context 'when user is data_analyst' do
