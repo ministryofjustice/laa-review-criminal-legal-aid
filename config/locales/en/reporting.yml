@@ -67,7 +67,10 @@ en:
     total_unassigned_from_user: total
     unassigned_from_user: "from<br>self"
     user_name: "&nbsp;"
-    what: What 
+    what: What
+    day_before_yesterday: Day before yesterday
+    today: Today
+    yesterday: Yesterday
   caseworker_report:
     caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker
   warnings:

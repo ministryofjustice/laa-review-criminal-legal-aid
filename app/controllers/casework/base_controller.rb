@@ -7,7 +7,7 @@ module Casework
     before_action :set_security_headers
     before_action :set_current_work_stream
 
-    helper_method :assignments_count, :work_stream
+    helper_method :assignments_count, :current_work_stream
 
     rescue_from DatastoreApi::Errors::ApiError do |e|
       Rails.error.report(e, handled: true, severity: :error)
@@ -45,7 +45,7 @@ module Casework
                                                user_competencies: current_user.competencies).current_work_stream
     end
 
-    def work_stream
+    def current_work_stream
       # TODO: enable when viewing applications by work stream feature is live
       if FeatureFlags.work_stream.enabled?
         [session[:current_work_stream]]

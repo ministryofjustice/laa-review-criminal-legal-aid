@@ -1,7 +1,8 @@
 module Reporting
   class CurrentWorkloadReport
-    def initialize(work_streams: Types::WorkStreamType.values)
+    def initialize(work_streams: Types::WorkStreamType.values, business_day_limit: 9)
       @work_streams = work_streams
+      @business_day_limit = business_day_limit
     end
 
     attr_reader :work_streams
@@ -17,7 +18,7 @@ module Reporting
     private
 
     def business_days
-      Array.new(10) do |age_in_business_days|
+      Array.new(@business_day_limit) do |age_in_business_days|
         BusinessDay.new(age_in_business_days:).date
       end
     end
