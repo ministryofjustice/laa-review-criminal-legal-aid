@@ -42,7 +42,7 @@ en:
   primary_navigation:
     your_list: "Your list (%{count})"
     search: Search
-    open_apps: All open applications
+    open_apps: Open applications
     closed_apps: Closed applications
 
   navigation:
@@ -64,6 +64,7 @@ en:
     closed_by: 'Closed by:'
     codefendants: Co-defendants
     correspondence_address: Correspondence address
+    criminal_applications_team: NCAT 1
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
@@ -71,6 +72,7 @@ en:
     date_of_birth: Date of birth
     date_received: 'Date received:'
     end_on: Date to
+    extradition: Extradition
     file_name: File name
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
@@ -84,6 +86,7 @@ en:
     legal_representative: Legal representative
     means_type: Means type
     name: Name
+    national_crime_team: NCAT 2
     national_insurance_number: National Insurance number
     next_court_hearing: Next court hearing the case
     offence: Offence
@@ -112,6 +115,7 @@ en:
     when: When
     who: Who
 
+
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
     reference: Reference number
@@ -122,6 +126,7 @@ en:
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
+    work_stream: Work stream
   values: &VALUES
     "true": "Yes"
     "false": "No"
@@ -216,7 +221,7 @@ en:
     reassign_to_self: Reassign to your list
     search: Search
     unassign_from_self: Remove from your list
-    view_all_open_applications: Check all open applications
+    view_all_open_applications: Check open applications
     view_daily_count: Check when applications were received
     view_closed_on_count: Check when applications were closed
     mark_complete: Mark as completed
@@ -262,7 +267,7 @@ en:
         page_title: Your list
         heading: Your list
         get_next: Review next application
-        open_applications: Check all open applications
+        open_applications: Check open applications
         your_assignments:
           zero: No applications are assigned to you for review.
           one: 1 application is assigned to you for review.
@@ -303,10 +308,10 @@ en:
 
     crime_applications:
       index:
-        open_title: All open applications
-        closed_title: Closed applications
-        open_heading: All open applications
-        closed_heading: Closed applications
+        open_title: "Open %{work_stream} applications"
+        closed_title: "%{work_stream} closed applications"
+        open_heading: "Open applications: %{work_stream}"
+        closed_heading: "%{work_stream} closed applications"
         closed_body: These applications have been completed or sent back to the provider.
         total:
           one: 1 application

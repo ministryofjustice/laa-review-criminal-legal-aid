@@ -9,7 +9,7 @@
           <%= govuk_warning_text text: warning_text(:change_competencies, user_name: @caseworker.name) %>
         </p>
         <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
-          <%= f.govuk_check_box :competencies, competency, label: { text: competency.humanize } %>
+          <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
         <% end %>
       <% end %>
 

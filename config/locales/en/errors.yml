@@ -24,7 +24,7 @@ en:
       body_1: If you typed the web address, check it is correct.
       body_2: If you pasted the web address, check you copied the entire address.
       body_3: If you're looking for a specific application, %{url}.
-      link_text: go to all open applications
+      link_text: go to open applications
     not_found:
       page_title: Page not found
       heading: Page not found
