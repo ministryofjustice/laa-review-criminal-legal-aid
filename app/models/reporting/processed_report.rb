@@ -1,35 +1,38 @@
 module Reporting
   class ProcessedReport
-    def initialize(day_zero: Time.current)
-      @day_zero = day_zero.in_time_zone('London').to_date
+    def initialize(work_streams: Types::WorkStreamType.values, number_of_rows: 3)
+      @work_streams = work_streams
+      @number_of_rows = number_of_rows
     end
 
+    attr_reader :work_streams
+
     def rows
-      [processed_on, applications_closed].transpose
+      days.map do |day|
+        { date: day, total_processed: counts.fetch(day, 0) }
+      end
     end
 
     private
 
-    attr_reader :day_zero
+    attr_reader :number_of_rows
 
-    def applications_closed
-      Array.new(3) do |days_ago|
-        date_from = day_zero - days_ago
-        date_to = date_from.tomorrow
-        Cell.new(closing_events.between(date_from...date_to).count, numeric: true)
+    def days
+      Array.new(@number_of_rows) do |days_ago|
+        today - days_ago
       end
     end
 
-    def processed_on
-      %i[today yesterday day_before_yesterday].map do |key|
-        Cell.new(I18n.t(key, scope: :values), header: true, numeric: false)
-      end
+    def today
+      @today ||= Time.zone.now.in_time_zone('London').to_date
     end
 
-    def closing_events
-      closing_event_types = [Reviewing::SentBack, Reviewing::Completed]
+    def scope
+      Review.where(work_stream: work_streams, reviewed_on: (days.last..days.first))
+    end
 
-      Rails.configuration.event_store.read.of_type(closing_event_types).backward
+    def counts
+      @counts ||= scope.group(:reviewed_on).count
     end
   end
 end

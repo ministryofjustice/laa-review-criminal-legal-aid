@@ -25,16 +25,16 @@
 
             <li class="moj-primary-navigation__item">
               <%= link_to t('primary_navigation.open_apps'),
-                          url_for_open_or_closed_page('open', work_stream),
+                          url_for_open_or_closed_page('open', current_work_stream),
                           class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(url_for_open_or_closed_page('open', work_stream)) ? 'page' : nil } %>
+                          aria: { current: current_page?(url_for_open_or_closed_page('open', current_work_stream)) ? 'page' : nil } %>
             </li>
 
             <li class="moj-primary-navigation__item">
               <%= link_to t('primary_navigation.closed_apps'),
-                          url_for_open_or_closed_page('closed', work_stream),
+                          url_for_open_or_closed_page('closed', current_work_stream),
                           class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(url_for_open_or_closed_page('closed', work_stream)) ? 'page' : nil } %>
+                          aria: { current: current_page?(url_for_open_or_closed_page('closed', current_work_stream)) ? 'page' : nil } %>
             </li>
           </ul>
         <% end %>

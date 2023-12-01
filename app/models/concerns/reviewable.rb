@@ -22,7 +22,8 @@ module Reviewable
     Reviewing::ReceiveApplication.call(
       application_id: id,
       submitted_at: submitted_at,
-      parent_id: parent_id
+      parent_id: parent_id,
+      work_stream: work_stream
     )
 
     @review = nil

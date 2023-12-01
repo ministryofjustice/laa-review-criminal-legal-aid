@@ -6,18 +6,18 @@ module Casework
 
     def open
       set_search(
-        default_filter: { application_status: 'open', work_stream: work_stream },
+        default_filter: { application_status: 'open', work_stream: current_work_stream },
         default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
 
-      @report_type = Types::Report['workload_report']
+      @report_type = Types::Report['current_workload_report']
 
       render :index
     end
 
     def closed
       set_search(
-        default_filter: { application_status: 'closed', work_stream: work_stream },
+        default_filter: { application_status: 'closed', work_stream: current_work_stream },
         default_sorting: { sort_by: 'reviewed_at', sort_direction: 'descending' }
       )
 

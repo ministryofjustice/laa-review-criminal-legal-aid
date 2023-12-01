@@ -6,6 +6,7 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         resource_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
         reference: 120_398_120,
         status: 'submitted',
+        work_stream: 'extradition',
         submitted_at: '2022-10-27T14:09:11.000+00:00',
         parent_id: nil
       ),
@@ -13,6 +14,7 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         applicant_name: 'Don JONES',
         resource_id: '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc',
         reference: 1_230_234_359,
+        work_stream: 'extradition',
         status: 'submitted',
         submitted_at: '2022-11-11T16:58:15.000+00:00',
         parent_id: nil

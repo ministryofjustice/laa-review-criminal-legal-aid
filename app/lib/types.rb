@@ -59,6 +59,7 @@ module Types
                          processed_report
                          workload_report
                          return_reasons_report
+                         current_workload_report
                        ])
 
   SnapshotReportType = String.enum(Report['workload_report'])
@@ -68,7 +69,7 @@ module Types
   TemporalInterval = String.enum('daily', 'weekly', 'monthly')
 
   USER_ROLE_REPORTS = {
-    UserRole[CASEWORKER_ROLE] => [Report['workload_report'], Report['processed_report']],
+    UserRole[CASEWORKER_ROLE] => [Report['current_workload_report'], Report['processed_report']],
     UserRole[DATA_ANALYST_ROLE] => Report.values,
     UserRole[SUPERVISOR_ROLE] => Report.values
   }.freeze

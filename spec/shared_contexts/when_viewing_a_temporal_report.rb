@@ -16,7 +16,8 @@ RSpec.shared_context 'when viewing a temporal report' do
 
     Reviewing::ReceiveApplication.new(
       application_id: crime_application_id,
-      submitted_at: '2022-12-31 13:30'
+      submitted_at: '2022-12-31 13:30',
+      work_stream: 'extradition'
     ).call
 
     Assigning::AssignToUser.new(

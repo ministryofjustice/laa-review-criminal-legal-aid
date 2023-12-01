@@ -1,21 +1,22 @@
-<%= govuk_table do |table| %>
-  <%= table.with_head do |head|
+<%= govuk_table do |table|
+      table.with_head do |head|
         head.with_row do |row|
           row.with_cell(text: thead_text(:processed_on), header: true)
           row.with_cell(text: thead_text(:applications_closed), numeric: true, header: true)
         end
-      end %>
-  <%= table.with_body do |body|
-        report.rows.each do |data_row|
-          body.with_row do |row|
-            data_row.each do |data_cell|
-              row.with_cell(
-                text: data_cell.content,
-                numeric: data_cell.numeric,
-                header: data_cell.header
-              )
-            end
-          end
+      end
+      table.with_body do |body|
+        body.with_row do |row|
+          row.with_cell(text: thead_text(:today), header: true)
+          row.with_cell(text: report.rows.first[:total_processed], numeric: true)
         end
-      end %>
-<% end %>
+        body.with_row do |row|
+          row.with_cell(text: thead_text(:yesterday), header: true)
+          row.with_cell(text: report.rows.second[:total_processed], numeric: true)
+        end
+        body.with_row do |row|
+          row.with_cell(text: thead_text(:day_before_yesterday), header: true)
+          row.with_cell(text: report.rows.last[:total_processed], numeric: true)
+        end
+      end
+    end %>

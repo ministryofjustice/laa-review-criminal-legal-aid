@@ -12,7 +12,7 @@ module Reporting
 
     def show
       @latest_temporal_reports = latest_temporal_reports
-      @report = Reporting.const_get(Types::Report[@report_type].camelize).new
+      @report = Reporting.const_get(Types::Report[@report_type].camelize).new(work_streams: [params[:work_streams]])
     end
 
     private

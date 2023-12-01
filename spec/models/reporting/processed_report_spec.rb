@@ -4,51 +4,48 @@ describe Reporting::ProcessedReport do
   subject(:report) { described_class.new }
 
   describe '#rows' do
-    subject(:rows) { report.rows }
+    subject(:rows) { described_class.new(**arguments).rows }
 
-    it 'all but the first column are numeric' do
-      expect(rows.first.map(&:numeric)).to eq [false, true]
+    let(:arguments) { {} }
+
+    before do
+      travel_to Time.zone.local(2023, 11, 28, 12)
+
+      # rubocop:disable Rails/SkipsModelValidations
+      Review.insert_all([
+                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-28',
+                            work_stream: 'criminal_applications_team' },
+                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-27',
+                            work_stream: 'extradition' },
+                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-27',
+                            work_stream: 'criminal_applications_team' },
+                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-27',
+                            work_stream: 'criminal_applications_team' },
+                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-26',
+                            work_stream: 'criminal_applications_team' },
+                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-25',
+                            work_stream: 'criminal_applications_team' },
+                        ])
+      # rubocop:enable Rails/SkipsModelValidations
     end
 
-    it 'includes 3 rows' do
+    it 'includes 3 rows by default' do
       expect(rows.size).to eq(3)
     end
 
-    it 'includes the row headers' do
-      expect(rows.map { |row| row.first.content }).to eq(['Today', 'Yesterday', 'Day before yesterday'])
-    end
-
     describe 'data' do
-      subject(:data) { rows.map { |row| row.last.content } }
-
-      before do
-        event_store = Rails.configuration.event_store
-
-        # Yesterday
-        travel_to Time.zone.now.yesterday
-
-        event_store.publish(Reviewing::Completed.new)
-
-        # The day before yesterday
-        travel_to Time.zone.now.yesterday
-
-        event_store.publish(Reviewing::SentBack.new)
-
-        # The day before, the day before yesterday
-        travel_to Time.zone.now.yesterday
-
-        event_store.publish(Reviewing::Completed.new)
-
-        # Today
-        travel_back
-
-        event_store.publish(Reviewing::ApplicationReceived.new)
-        event_store.publish(Reviewing::Completed.new)
-        event_store.publish(Reviewing::SentBack.new)
-      end
+      subject(:data) { rows.pluck(:total_processed) }
 
       it 'includes a count of completing events for each day' do
-        expect(data).to eq([2, 1, 1])
+        expect(data).to eq([1, 3, 1])
+      end
+
+      context 'when querying by work stream' do
+        let(:arguments) { { work_streams: ['extradition'] } }
+
+        it 'only shows counts for extradition work stream' do
+          expect(data).to eq([0, 1, 0])
+        end
       end
     end
   end

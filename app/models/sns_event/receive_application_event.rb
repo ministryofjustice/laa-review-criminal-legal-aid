@@ -14,6 +14,7 @@ module SnsEvent
       Reviewing::ReceiveApplication.call(
         application_id:,
         parent_id:,
+        work_stream:,
         causation_id:,
         submitted_at:
       )
@@ -36,6 +37,10 @@ module SnsEvent
 
     def parent_id
       message['data']&.fetch('parent_id', application_id)
+    end
+
+    def work_stream
+      message['data']&.fetch('work_stream')
     end
 
     def causation_id

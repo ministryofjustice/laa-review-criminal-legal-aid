@@ -31,6 +31,7 @@ en:
   labels:
     return_reasons_report: Return reasons report
     workload_report: Workload report
+    current_workload_report: Workload report
     processed_report: Processed report
     caseworker_report: Caseworker report
     volumes_report: Volumes report
@@ -66,7 +67,10 @@ en:
     total_unassigned_from_user: total
     unassigned_from_user: "from<br>self"
     user_name: "&nbsp;"
-    what: What 
+    what: What
+    day_before_yesterday: Day before yesterday
+    today: Today
+    yesterday: Yesterday
   caseworker_report:
     caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker
   warnings:

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Workload Report' do
+  let(:current_user_role) { UserRole::DATA_ANALYST }
+
   before do
     visit '/'
     visit reporting_user_report_path(:workload_report)
