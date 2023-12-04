@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Reporting::CurrentWorkloadReport do
+  include_context 'with many other reviews'
+
   describe '#rows' do
     subject(:rows) { described_class.new(**arguments).rows }
 
@@ -9,26 +11,16 @@ RSpec.describe Reporting::CurrentWorkloadReport do
     before do
       travel_to Time.zone.local(2023, 11, 28, 12)
 
-      # rubocop:disable Rails/SkipsModelValidations
-      Review.insert_all([
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-27',
-work_stream: 'criminal_applications_team', state: 'open' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-27',
-work_stream: 'criminal_applications_team', state: 'sent_back' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-27',
-work_stream: 'criminal_applications_team', state: 'completed' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-28',
-work_stream: 'criminal_applications_team', state: 'open' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-23',
-work_stream: 'criminal_applications_team', state: 'open' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-15',
-work_stream: 'criminal_applications_team', state: 'open' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-15', work_stream: 'extradition',
-state: 'open' },
-                          { application_id: SecureRandom.uuid, business_day: '2023-11-14', work_stream: 'extradition',
-                            state: 'open' },
-                        ])
-      # rubocop:enable Rails/SkipsModelValidations
+      insert_review_events([
+                             { business_day: '2023-11-14', work_stream: 'extradition' },
+                             { business_day: '2023-11-15' },
+                             { business_day: '2023-11-15', work_stream: 'extradition' },
+                             { business_day: '2023-11-23' },
+                             { business_day: '2023-11-27' },
+                             { business_day: '2023-11-27', state: 'sent_back' },
+                             { business_day: '2023-11-27', state: 'completed' },
+                             { business_day: '2023-11-28' }
+                           ])
     end
 
     it 'returns the correct data for applications received' do

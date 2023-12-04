@@ -1,11 +1,11 @@
 module Reporting
   class ProcessedReport
+    attr_reader :number_of_rows, :work_streams
+
     def initialize(work_streams: Types::WorkStreamType.values, number_of_rows: 3)
       @work_streams = work_streams
       @number_of_rows = number_of_rows
     end
-
-    attr_reader :work_streams
 
     def rows
       days.map do |day|
@@ -14,8 +14,6 @@ module Reporting
     end
 
     private
-
-    attr_reader :number_of_rows
 
     def days
       Array.new(@number_of_rows) do |days_ago|

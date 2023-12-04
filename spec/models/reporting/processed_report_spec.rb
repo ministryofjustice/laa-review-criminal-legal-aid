@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Reporting::ProcessedReport do
   subject(:report) { described_class.new }
 
+  include_context 'with many other reviews'
+
   describe '#rows' do
     subject(:rows) { described_class.new(**arguments).rows }
 
@@ -11,22 +13,14 @@ describe Reporting::ProcessedReport do
     before do
       travel_to Time.zone.local(2023, 11, 28, 12)
 
-      # rubocop:disable Rails/SkipsModelValidations
-      Review.insert_all([
-                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-28',
-                            work_stream: 'criminal_applications_team' },
-                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-27',
-                            work_stream: 'extradition' },
-                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-27',
-                            work_stream: 'criminal_applications_team' },
-                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-27',
-                            work_stream: 'criminal_applications_team' },
-                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-26',
-                            work_stream: 'criminal_applications_team' },
-                          { application_id: SecureRandom.uuid, reviewed_on: '2023-11-25',
-                            work_stream: 'criminal_applications_team' },
-                        ])
-      # rubocop:enable Rails/SkipsModelValidations
+      insert_review_events([
+                             { reviewed_on: '2023-11-25' },
+                             { reviewed_on: '2023-11-26' },
+                             { reviewed_on: '2023-11-27', work_stream: 'extradition' },
+                             { reviewed_on: '2023-11-27' },
+                             { reviewed_on: '2023-11-27' },
+                             { reviewed_on: '2023-11-28' }
+                           ])
     end
 
     it 'includes 3 rows by default' do
