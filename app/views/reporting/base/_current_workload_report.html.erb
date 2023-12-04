@@ -7,7 +7,11 @@
         end
       end
       table.with_body do |body|
-        report.rows.first(4).each_with_index do |data_row, index|
+        unmerged_rows_range = 4
+        last_business_day_range = 9
+        merged_rows_range = 6
+
+        report.rows.first(unmerged_rows_range).each_with_index do |data_row, index|
           body.with_row do |row|
             row.with_cell(text: t('values.days_passed', count: index), header: true)
             row.with_cell(text: data_row.total_received, numeric: true)
@@ -15,9 +19,9 @@
           end
         end
         body.with_row do |row|
-          row.with_cell(text: t('values.days_passed_range', first: 4, last: 9), header: true)
-          row.with_cell(text: report.rows.last(6).sum(&:total_received), numeric: true)
-          row.with_cell(text: report.rows.last(6).sum(&:total_open), numeric: true)
+          row.with_cell(text: t('values.days_passed_range', first: 4, last: last_business_day_range), header: true)
+          row.with_cell(text: report.rows.last(merged_rows_range).sum(&:total_received), numeric: true)
+          row.with_cell(text: report.rows.last(merged_rows_range).sum(&:total_open), numeric: true)
         end
       end
     end %>

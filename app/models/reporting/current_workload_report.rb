@@ -27,14 +27,20 @@ module Reporting
       Review.where(work_stream: work_streams, business_day: (business_days.last..business_days.first))
     end
 
-    # Hash of number of received applications by business day
     def received_counts
-      @received_counts ||= scope.group(:business_day).count
+      @received_counts ||= received_apps_by_business_day.count
     end
 
-    # Hash of number of open applications by business day
+    def received_apps_by_business_day
+      scope.group(:business_day)
+    end
+
     def open_counts
-      @open_counts ||= scope.where(state: 'open').group(:business_day).count
+      @open_counts ||= open_apps_by_business_day.count
+    end
+
+    def open_apps_by_business_day
+      scope.where(state: 'open').group(:business_day)
     end
   end
 end
