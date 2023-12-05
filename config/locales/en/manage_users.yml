@@ -37,6 +37,7 @@ en:
         user_reactivated: "%{user_name} has been reactivated"
         user_invited: "%{email} has been invited"
         user_updated: "%{user_name} has been updated"
+        permissions_updated: "%{user_name}'s permissions saved"
       important:
         title: Important
         cannot_access:

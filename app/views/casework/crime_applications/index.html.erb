@@ -5,6 +5,10 @@
 </h1>
 
 <% if FeatureFlags.work_stream.enabled? %>
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
+    <%= t("casework.crime_applications.index.#{action_name}_heading") %>
+  </h1>
+
   <div class="govuk-tabs">
     <ul class="govuk-tabs__list" role="tablist">
       <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
