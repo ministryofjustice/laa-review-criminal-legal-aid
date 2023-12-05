@@ -28,12 +28,12 @@ RSpec.describe 'View caseworker competencies history' do
         travel_to Time.zone.local(2023, 11, 13, 10, 0o4, 44)
 
         visit edit_manage_competencies_caseworker_competency_path(caseworker)
-        check 'National crime team'
-        click_on 'Change competencies'
+        check 'CAT 2'
+        click_on 'Save'
 
         visit edit_manage_competencies_caseworker_competency_path(caseworker)
-        uncheck 'National crime team'
-        click_on 'Change competencies'
+        uncheck 'CAT 2'
+        click_on 'Save'
 
         visit manage_competencies_history_path(caseworker)
       end
@@ -50,7 +50,7 @@ RSpec.describe 'View caseworker competencies history' do
         expect(first_data_row).to eq(expected_event)
 
         second_data_row = page.first('tbody tr.govuk-table__row:nth-of-type(2)').text
-        expected_event = ['10:04am 13 Nov 2023 Competencies set to National crime team Joe EXAMPLE'].join(' ')
+        expected_event = ['10:04am 13 Nov 2023 Competencies set to CAT 2 Joe EXAMPLE'].join(' ')
         expect(second_data_row).to eq(expected_event)
       end
     end

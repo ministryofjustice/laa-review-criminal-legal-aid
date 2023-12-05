@@ -64,7 +64,7 @@ en:
     closed_by: 'Closed by:'
     codefendants: Co-defendants
     correspondence_address: Correspondence address
-    criminal_applications_team: NCAT 1
+    criminal_applications_team: CAT 1
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
@@ -86,7 +86,7 @@ en:
     legal_representative: Legal representative
     means_type: Means type
     name: Name
-    national_crime_team: NCAT 2
+    national_crime_team: CAT 2
     national_insurance_number: National Insurance number
     next_court_hearing: Next court hearing the case
     offence: Offence
@@ -126,7 +126,7 @@ en:
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
-    work_stream: Work stream
+    work_stream: Workstream
   values: &VALUES
     "true": "Yes"
     "false": "No"
@@ -308,10 +308,10 @@ en:
 
     crime_applications:
       index:
-        open_title: "Open %{work_stream} applications"
-        closed_title: "%{work_stream} closed applications"
-        open_heading: "Open applications: %{work_stream}"
-        closed_heading: "%{work_stream} closed applications"
+        open_title: "Open applications"
+        closed_title: "Closed applications"
+        open_heading: "Open applications"
+        closed_heading: "Closed applications"
         closed_body: These applications have been completed or sent back to the provider.
         total:
           one: 1 application

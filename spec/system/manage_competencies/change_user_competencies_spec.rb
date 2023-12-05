@@ -14,8 +14,8 @@ RSpec.describe 'Change caseworker competencies' do
     # rubocop:disable RSpec/MultipleExpectations
     it 'shows other available competencies' do
       expect(page).to have_unchecked_field('Extradition')
-      expect(page).to have_unchecked_field('National crime team')
-      expect(page).to have_unchecked_field('Criminal applications team')
+      expect(page).to have_unchecked_field('CAT 2')
+      expect(page).to have_unchecked_field('CAT 1')
     end
     # rubocop:enable RSpec/MultipleExpectations
   end
@@ -23,23 +23,27 @@ RSpec.describe 'Change caseworker competencies' do
   describe "when there is an update to a caseworker's competencies" do
     before do
       check 'Extradition'
-      click_on 'Change competencies'
+      click_on 'Save'
     end
 
     it 'displays selected competency' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq(['Test Testing Extradition History'].join(' '))
+      expect(first_data_row).to eq(['Test Testing Extradition View history'].join(' '))
     end
 
     it 'form is pre-populated with selected competency' do
       click_on('Extradition')
       expect(page).to have_checked_field('Extradition')
     end
+
+    it 'displays success message' do
+      expect(page).to have_success_notification_banner(text: "Test Testing's permissions saved")
+    end
   end
 
   describe "when there is no update to a caseworker's competencies" do
     before do
-      click_on('Change competencies')
+      click_on('Save')
     end
 
     it 'redirects to manage competencies dashboard' do
