@@ -5,14 +5,12 @@
     <%= form_with(url: manage_competencies_caseworker_competency_path(id: @caseworker), model: @caseworker, method: :patch) do |f| %>
 
       <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: confirm_text(:change_competencies, user_name: @caseworker.name, from: @caseworker.role.humanize), size: 'xl' } do %>
-        <div id="waste-hint" class="govuk-hint">
-          <%= t('manage_competencies.hint') %>
-        </div>
+        <div class="govuk-hint"> <%= t('manage_competencies.hint') %></div>
         <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
           <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
         <% end %>
         <%= f.govuk_check_box_divider %>
-        <%= f.govuk_check_box :competencies, [], exclusive: true, label: { text: 'No competencies' }, checked: f.object.competencies.present? %>
+        <%= f.govuk_check_box :competencies, [], exclusive: true, label: { text: 'No competencies' }, checked: f.object.competencies.empty? %>
       <% end %>
 
       <div class="govuk-button-group">

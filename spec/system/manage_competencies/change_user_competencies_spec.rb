@@ -37,7 +37,7 @@ RSpec.describe 'Change caseworker competencies' do
     end
 
     it 'displays success message' do
-      expect(page).to have_success_notification_banner(text: "Test Testing's permissions saved")
+      expect(page).to have_success_notification_banner(text: "Test Testing's competencies saved")
     end
   end
 

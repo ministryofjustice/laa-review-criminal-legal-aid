@@ -4,7 +4,10 @@ module Allocating
 
   class << self
     def user_competencies(user_id)
-      user_events(user_id).backward.first&.data&.[](:competencies)
+      latest_event = user_events(user_id).backward.first
+      return [] unless latest_event
+
+      latest_event.data[:competencies]
     end
 
     def user_events(user_id)
