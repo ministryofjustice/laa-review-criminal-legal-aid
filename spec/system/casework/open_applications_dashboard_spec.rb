@@ -8,7 +8,7 @@ RSpec.describe 'Open Applications Dashboard' do
       instance_double(FeatureFlags::EnabledFeature, enabled?: false)
     }
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
   end
 
   it 'shows only open applications' do
@@ -72,7 +72,7 @@ RSpec.describe 'Open Applications Dashboard' do
       allow(FeatureFlags).to receive(:work_stream) {
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
       }
-      click_on 'All open applications'
+      click_on 'Open applications'
     end
 
     it 'shows only extradition open applications' do

@@ -26,7 +26,7 @@ RSpec.describe 'Closed Applications Dashboard' do
     }
 
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
 
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,

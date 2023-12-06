@@ -7,7 +7,7 @@ RSpec.describe 'Marking an application as complete' do
 
   before do
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
   end
 
   context 'when assigned to the application' do
@@ -58,7 +58,7 @@ RSpec.describe 'Marking an application as complete' do
 
     context 'with errors Reviewing::' do
       before do
-        click_on 'All open applications'
+        click_on 'Open applications'
         click_on('Kit Pound')
         command_double = instance_double(Reviewing::Complete)
 
@@ -93,7 +93,7 @@ RSpec.describe 'Marking an application as complete' do
 
   context 'when not assigned to the application' do
     before do
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
     end
 

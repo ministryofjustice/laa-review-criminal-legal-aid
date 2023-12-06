@@ -12,7 +12,7 @@
           <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
         <% end %>
         <%= f.govuk_check_box_divider %>
-        <%= f.govuk_check_box :competencies, :none, exclusive: true, label: { text: 'No competencies' } %>
+        <%= f.govuk_check_box :competencies, [], exclusive: true, label: { text: 'No competencies' }, checked: f.object.competencies.present? %>
       <% end %>
 
       <div class="govuk-button-group">
