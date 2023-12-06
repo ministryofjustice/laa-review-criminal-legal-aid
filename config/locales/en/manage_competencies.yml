@@ -27,7 +27,7 @@ en:
       when: When
 
     confirmations:
-      change_competencies: Which permissions should %{user_name} have?
+      change_competencies: Which competencies should %{user_name} have?
 
     actions:
       save: Save
@@ -36,4 +36,4 @@ en:
 
     flash:
       success:
-        permissions_updated: "%{user_name}'s permissions saved"
+        competencies_updated: "%{user_name}'s competencies saved"

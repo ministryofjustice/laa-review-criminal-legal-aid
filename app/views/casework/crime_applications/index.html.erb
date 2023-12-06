@@ -1,10 +1,10 @@
 <% title t(".#{action_name}_title", work_stream: label_text(current_work_stream.first)) %>
 
-<% if FeatureFlags.work_stream.enabled? %>
-  <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
-    <%= t("casework.crime_applications.index.#{action_name}_heading") %>
-  </h1>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
+  <%= t("casework.crime_applications.index.#{action_name}_heading") %>
+</h1>
 
+<% if FeatureFlags.work_stream.enabled? %>
   <div class="govuk-tabs">
     <ul class="govuk-tabs__list" role="tablist">
       <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
