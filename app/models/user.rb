@@ -56,6 +56,12 @@ class User < ApplicationRecord
     email
   end
 
+  def work_streams
+    @work_streams ||= (competencies & Types::WorkStreamType.values).map do |work_stream|
+      WorkStream.new(work_stream)
+    end
+  end
+
   def competencies
     @competencies ||= Allocating.user_competencies(id)
   end

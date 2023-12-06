@@ -42,15 +42,15 @@ module Casework
       session[:current_work_stream] =
         Utils::CurrentWorkStreamCalculator.new(work_stream_param: params[:work_stream],
                                                session_work_stream: session[:current_work_stream],
-                                               user_competencies: current_user.competencies).current_work_stream
+                                               user: current_user).current_work_stream.to_s
     end
 
     def current_work_stream
       # TODO: enable when viewing applications by work stream feature is live
       if FeatureFlags.work_stream.enabled?
-        [session[:current_work_stream]]
+        WorkStream.new(session[:current_work_stream])
       else
-        Types::WORK_STREAM_TYPES
+        raise 'Errorrrrr'
       end
     end
   end

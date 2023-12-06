@@ -79,7 +79,7 @@ module ApplicationHelper
   def url_for_open_or_closed_page(action_name, work_stream)
     # TODO: enable when viewing applications by work stream feature is live
     if FeatureFlags.work_stream.enabled?
-      action_name == 'open' ? open_work_stream_path(work_stream) : closed_work_stream_path(work_stream)
+      action_name == 'open' ? open_work_stream_path(work_stream:) : closed_work_stream_path(work_stream:)
     else
       action_name == 'open' ? open_crime_applications_path : closed_crime_applications_path
     end
