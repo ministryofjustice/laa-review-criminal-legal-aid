@@ -9,6 +9,7 @@
     <%= t("casework.crime_applications.index.#{action_name}_heading") %>
   </h1>
 
+<% if FeatureFlags.work_stream.enabled? %>
   <div class="govuk-tabs">
     <ul class="govuk-tabs__list" role="tablist">
       <% current_user.work_streams.each do |work_stream| %>
