@@ -126,7 +126,7 @@ en:
     caseworker: Caseworker
     closed_by: Closed by
     status: Status
-    work_stream: Workstream
+    work_stream: Type of work
   values: &VALUES
     "true": "Yes"
     "false": "No"
