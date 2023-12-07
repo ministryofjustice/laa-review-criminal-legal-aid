@@ -6,7 +6,7 @@ RSpec.describe 'Viewing application history' do
 
   before do
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
     click_on('Kit Pound')
   end
 
@@ -37,7 +37,7 @@ RSpec.describe 'Viewing application history' do
     before do
       click_on(assign_cta)
       first(:button, 'Remove from your list').click
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
       click_on('Application history')
     end
@@ -63,7 +63,7 @@ RSpec.describe 'Viewing application history' do
         assignment_id: crime_application_id
       ).call
 
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
       click_on('Reassign to your list')
       click_on('Yes, reassign')
@@ -109,7 +109,7 @@ RSpec.describe 'Viewing application history' do
         return_details: return_details.attributes
       ).call
 
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
       click_on('Application history')
     end
@@ -146,7 +146,7 @@ RSpec.describe 'Viewing application history' do
         application_id: crime_application_id
       ).call
 
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
       click_on('Application history')
     end

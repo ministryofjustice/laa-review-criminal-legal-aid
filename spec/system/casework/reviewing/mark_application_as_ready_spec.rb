@@ -41,7 +41,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
     context 'with errors Reviewing::' do
       before do
-        click_on 'All open applications'
+        click_on 'Open applications'
         click_on('Kit Pound')
         command_double = instance_double(Reviewing::MarkAsReady)
 
@@ -85,7 +85,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
   context 'when not assigned to the application' do
     before do
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
     end
 

@@ -31,7 +31,7 @@ RSpec.describe 'Viewing your assigned application' do
 
   context 'when one application is assigned' do
     before do
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
       click_on(assign_cta)
       visit '/'
@@ -54,10 +54,10 @@ RSpec.describe 'Viewing your assigned application' do
         "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
       ).to_return(body: application_data.to_json, status: 200)
 
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
       click_on(assign_cta)
-      click_on 'All open applications'
+      click_on 'Open applications'
 
       click_on('Don JONES')
       click_on(assign_cta)
@@ -72,7 +72,8 @@ RSpec.describe 'Viewing your assigned application' do
       column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
 
       expect(column_headings).to contain_exactly(
-        "Applicant's name", 'Reference number', 'Date received', 'Business days since application was received'
+        "Applicant's name", 'Reference number', 'Type of work', 'Date received',
+        'Business days since application was received'
       )
     end
 
@@ -85,11 +86,11 @@ RSpec.describe 'Viewing your assigned application' do
 
   context 'when using the check all applications link' do
     before do
-      click_on('Check all open applications')
+      click_on('Check open applications')
     end
 
     it 'proceeds to the correct page' do
-      expect(page).to have_content 'All open applications'
+      expect(page).to have_content 'Open applications'
       expect(page).to have_current_path '/applications/open/extradition'
     end
 
@@ -101,8 +102,8 @@ RSpec.describe 'Viewing your assigned application' do
         visit '/'
       end
 
-      it 'takes you to all open applications path when you click "All open applications"' do
-        click_on('All open applications')
+      it 'takes you to open applications path when you click "open applications"' do
+        click_on('Open applications')
         expect(page).to have_current_path '/applications/open'
       end
     end

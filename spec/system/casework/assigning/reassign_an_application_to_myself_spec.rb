@@ -23,7 +23,7 @@ RSpec.describe 'Reassigning an application to myself' do
     ).call
 
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
     click_on('Kit Pound')
   end
 

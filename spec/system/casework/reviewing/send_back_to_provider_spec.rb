@@ -136,7 +136,7 @@ RSpec.describe 'Send an application back to the provider' do
     end
 
     before do
-      click_on 'All open applications'
+      click_on 'Open applications'
       click_on('Kit Pound')
     end
 

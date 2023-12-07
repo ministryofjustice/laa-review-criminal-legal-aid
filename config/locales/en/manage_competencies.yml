@@ -10,7 +10,7 @@ en:
         heading: Manage competencies
       table_cells:
         no_competencies: No competencies
-        history: History
+        history: View history
     history:
       show:
         page_title: User's Competency History
@@ -27,12 +27,13 @@ en:
       when: When
 
     confirmations:
-      change_competencies: Are you sure you want to change %{user_name}'s competencies?
+      change_competencies: Which competencies should %{user_name} have?
 
     actions:
-      change_competencies: Change competencies
-      confirm_change_competencies: Change competencies
-      abandon_change_competencies: No, do not change competencies
+      save: Save
 
-    warnings:
-      change_competencies: This could mean %{user_name} may not be able to carry out all their duties or have too much visibility of sensitive information.
+    hint: Select all that apply.
+
+    flash:
+      success:
+        competencies_updated: "%{user_name}'s competencies saved"

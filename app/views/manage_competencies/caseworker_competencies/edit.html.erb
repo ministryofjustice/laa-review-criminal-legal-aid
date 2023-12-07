@@ -5,18 +5,21 @@
     <%= form_with(url: manage_competencies_caseworker_competency_path(id: @caseworker), model: @caseworker, method: :patch) do |f| %>
 
       <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: confirm_text(:change_competencies, user_name: @caseworker.name, from: @caseworker.role.humanize), size: 'xl' } do %>
-        <p class="govuk-body">
-          <%= govuk_warning_text text: warning_text(:change_competencies, user_name: @caseworker.name) %>
-        </p>
+        <div class="govuk-hint"> <%= t('manage_competencies.hint') %></div>
         <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
-          <%= f.govuk_check_box :competencies, competency, label: { text: competency.humanize } %>
+          <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
         <% end %>
+        <%= f.govuk_check_box_divider %>
+        <%= f.govuk_check_box :competencies, [], exclusive: true, label: { text: 'No competencies' }, checked: f.object.competencies.empty? %>
       <% end %>
 
       <div class="govuk-button-group">
-        <%= f.govuk_submit action_text(:confirm_change_competencies) %>
-        <%= govuk_link_to action_text(:abandon_change_competencies), manage_competencies_root_path, { no_visited_state: true }  %>
+        <%= f.govuk_submit action_text(:save) %>
       </div>
     <% end %>
   </div>
 </div>
+
+<% content_for(:back_link) do %>
+  <%= govuk_back_link href: :back %>
+<% end %>

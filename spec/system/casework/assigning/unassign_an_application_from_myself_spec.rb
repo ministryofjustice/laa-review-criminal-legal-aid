@@ -5,7 +5,7 @@ RSpec.describe 'Unassign an application from myself' do
 
   before do
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
     click_on('Kit Pound')
     click_on('Assign to your list')
     first(:button, 'Remove from your list').click

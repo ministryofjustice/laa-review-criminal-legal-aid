@@ -21,8 +21,9 @@ class AllocationHistoryPresenter < BasePresenter
     if @event.data[:competencies].empty?
       I18n.t('manage_competencies.history.show.competencies_set', competencies_text: 'no competencies')
     else
+      competencies = @event.data[:competencies].map { |c| t(c, scope: 'labels') }
       I18n.t('manage_competencies.history.show.competencies_set',
-             competencies_text: @event.data[:competencies].map(&:humanize).join(', '))
+             competencies_text: competencies.join(', '))
     end
   end
 end

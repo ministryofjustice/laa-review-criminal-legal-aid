@@ -9,7 +9,7 @@ describe Utils::CurrentWorkStreamCalculator do
 
   describe 'Current work stream calculation' do
     context 'when work stream param is set' do
-      it 'returns a criminal applications team work stream value' do
+      it 'returns a CAT 1 work stream value' do
         expect(calculator.current_work_stream).to eq Types::WorkStreamType['criminal_applications_team']
       end
     end
@@ -27,7 +27,7 @@ describe Utils::CurrentWorkStreamCalculator do
       let(:work_stream_param) { nil }
       let(:user_competencies) { %w[criminal_applications_team extradition] }
 
-      it 'returns a criminal applications team work stream value' do
+      it 'returns a CAT 1 work stream value' do
         expect(calculator.current_work_stream).to eq Types::WorkStreamType['criminal_applications_team']
       end
     end

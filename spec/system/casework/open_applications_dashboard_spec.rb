@@ -8,7 +8,7 @@ RSpec.describe 'Open Applications Dashboard' do
       instance_double(FeatureFlags::EnabledFeature, enabled?: false)
     }
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
   end
 
   it 'shows only open applications' do
@@ -72,7 +72,7 @@ RSpec.describe 'Open Applications Dashboard' do
       allow(FeatureFlags).to receive(:work_stream) {
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
       }
-      click_on 'All open applications'
+      click_on 'Open applications'
     end
 
     it 'shows only extradition open applications' do
@@ -86,7 +86,7 @@ RSpec.describe 'Open Applications Dashboard' do
     it 'includes tabs for work streams' do
       tabs = find(:xpath, "//div[@class='govuk-tabs']")
 
-      expect(tabs).to have_content 'Extradition National crime team Criminal applications team'
+      expect(tabs).to have_content 'CAT 1 CAT 2 Extradition'
     end
 
     context 'when viewing closed applications by work stream' do
@@ -100,8 +100,8 @@ RSpec.describe 'Open Applications Dashboard' do
         )
       end
 
-      it 'searches for national crime team closed applications' do
-        click_on 'National crime team'
+      it 'searches for CAT 2 closed applications' do
+        click_on 'CAT 2'
         expect_datastore_to_have_been_searched_with(
           { review_status: Types::REVIEW_STATUS_GROUPS['open'],
             work_stream: %w[national_crime_team] },
@@ -109,8 +109,8 @@ RSpec.describe 'Open Applications Dashboard' do
         )
       end
 
-      it 'searches for criminal applications team closed applications' do
-        click_on 'Criminal applications team'
+      it 'searches for CAT 1 closed applications' do
+        click_on 'CAT 1'
         expect_datastore_to_have_been_searched_with(
           { review_status: Types::REVIEW_STATUS_GROUPS['open'],
             work_stream: %w[criminal_applications_team] },

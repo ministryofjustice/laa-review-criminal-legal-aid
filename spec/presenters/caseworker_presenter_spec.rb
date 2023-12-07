@@ -12,7 +12,7 @@ RSpec.describe CaseworkerPresenter do
 
     context 'with competencies' do
       before do
-        allow(Allocating).to receive(:user_competencies).with(user.id).and_return(['Extradition'])
+        allow(Allocating).to receive(:user_competencies).with(user.id).and_return(['extradition'])
       end
 
       it { is_expected.to eq 'Extradition' }

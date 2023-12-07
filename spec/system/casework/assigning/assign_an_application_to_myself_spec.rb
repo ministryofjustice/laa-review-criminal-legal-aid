@@ -6,7 +6,7 @@ RSpec.describe 'Assigning an application to myself' do
 
   before do
     visit '/'
-    click_on 'All open applications'
+    click_on 'Open applications'
     click_on('Kit Pound')
   end
 

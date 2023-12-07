@@ -29,7 +29,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'shows the application not found error page' do
-        expect(page).to have_content "If you're looking for a specific application, go to all open applications."
+        expect(page).to have_content "If you're looking for a specific application, go to open applications."
         expect(page).to have_http_status(:not_found)
       end
 
@@ -49,7 +49,7 @@ RSpec.describe 'Error pages' do
         visit '/'
       end
 
-      ['Review next application', 'All open applications', 'Closed applications'].each do |step|
+      ['Review next application', 'Open applications', 'Closed applications'].each do |step|
         let(:error) { DatastoreApi::Errors::Unauthorized.new }
 
         context "when '#{step}' is clicked on" do

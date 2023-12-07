@@ -16,10 +16,10 @@ RSpec.describe 'Primary navigation' do
 
     describe 'after assignment' do
       before do
-        click_on 'All open applications'
+        click_on 'Open applications'
         click_on('Kit Pound')
         click_on('Assign to your list')
-        click_on 'All open applications'
+        click_on 'Open applications'
       end
 
       it 'has the correct number of applications in the link' do
@@ -45,11 +45,11 @@ RSpec.describe 'Primary navigation' do
     end
   end
 
-  it 'takes you to all applications when you click "All open applications"' do
-    click_on('All open applications')
+  it 'takes you to all applications when you click "Open applications"' do
+    click_on('Open applications')
 
     heading_text = page.first('.govuk-heading-xl').text
-    expect(heading_text).to eq('All open applications')
+    expect(heading_text).to eq('Open applications')
     expect(page).to have_current_path '/applications/open/extradition'
   end
 
@@ -69,8 +69,8 @@ RSpec.describe 'Primary navigation' do
       visit '/'
     end
 
-    it 'takes you to the open applications path when you click "All open applications"' do
-      click_on('All open applications')
+    it 'takes you to the open applications path when you click "Open applications"' do
+      click_on('Open applications')
       expect(page).to have_current_path '/applications/open'
     end
 

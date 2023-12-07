@@ -37,7 +37,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq(['Test Testing No competencies History'].join(' '))
+      expect(first_data_row).to eq(['Test Testing No competencies View history'].join(' '))
     end
 
     context 'when clicking links' do
@@ -47,7 +47,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
       end
 
       it 'redirects to the competency history page' do
-        expect { click_on('History') }.to change { page.current_path }
+        expect { click_on('View history') }.to change { page.current_path }
           .from(manage_competencies_root_path).to(manage_competencies_history_path(caseworker))
       end
     end
