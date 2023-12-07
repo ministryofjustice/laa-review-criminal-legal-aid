@@ -2,21 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'Open Applications Dashboard' do
   include_context 'with stubbed search'
+  let(:work_stream_flag_enabled) { true }
 
   before do
     allow(FeatureFlags).to receive(:work_stream) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      instance_double(FeatureFlags::EnabledFeature, enabled?: work_stream_flag_enabled)
     }
+
     visit '/'
     click_on 'Open applications'
   end
 
-  it 'shows only open applications' do
-    expect_datastore_to_have_been_searched_with(
-      { review_status: Types::REVIEW_STATUS_GROUPS['open'],
-        work_stream: %w[extradition national_crime_team criminal_applications_team] },
-      sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
-    )
+  context 'when work stream feature flag disabled' do
+    let(:work_stream_flag_enabled) { false }
+
+    it 'shows open applications from all streams' do
+      expect_datastore_to_have_been_searched_with(
+        { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+          work_stream: %w[criminal_applications_team criminal_applications_team_2 extradition] },
+        sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+      )
+    end
   end
 
   it 'includes the page title' do
@@ -68,54 +74,69 @@ RSpec.describe 'Open Applications Dashboard' do
   end
 
   context 'when work stream feature flag in is enabled' do
-    before do
-      allow(FeatureFlags).to receive(:work_stream) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-      }
-      click_on 'Open applications'
-    end
-
-    it 'shows only extradition open applications' do
-      expect_datastore_to_have_been_searched_with(
-        { review_status: Types::REVIEW_STATUS_GROUPS['open'],
-          work_stream: %w[extradition] },
-        sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
-      )
-    end
-
     it 'includes tabs for work streams' do
       tabs = find(:xpath, "//div[@class='govuk-tabs']")
 
       expect(tabs).to have_content 'CAT 1 CAT 2 Extradition'
     end
 
-    context 'when viewing closed applications by work stream' do
-      it 'searches for extradition closed applications' do
+    context 'when viewing open applications by work stream' do
+      it 'searches for extradition open applications' do
         click_on 'Extradition'
+        expect(page.find('.govuk-tabs__list-item--selected')).to have_content 'Extradition'
         expect_datastore_to_have_been_searched_with(
           { review_status: Types::REVIEW_STATUS_GROUPS['open'],
             work_stream: %w[extradition] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+        )
+      end
+
+      it 'searches for CAT 2 open applications' do
+        click_on 'CAT 2'
+        expect(page.find('.govuk-tabs__list-item--selected')).to have_content 'CAT 2'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+            work_stream: %w[criminal_applications_team_2] },
+          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
+        )
+      end
+
+      it 'searches for CAT 1 open applications' do
+        click_on 'CAT 1'
+        expect(page.find('.govuk-tabs__list-item--selected')).to have_content 'CAT 1'
+        expect_datastore_to_have_been_searched_with(
+          { review_status: Types::REVIEW_STATUS_GROUPS['open'],
+            work_stream: %w[criminal_applications_team] },
           sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending'),
           number_of_times: 2
         )
       end
+    end
 
-      it 'searches for CAT 2 closed applications' do
-        click_on 'CAT 2'
+    context 'with a caseworker that access to only one work stream' do
+      let(:current_user_competencies) { ['criminal_applications_team_2'] }
+
+      it 'includes tabs only for that work stream' do
+        expect(page.all('.govuk-tabs__list-item').size).to be 1
+        expect(page.find('.govuk-tabs__list-item--selected')).to have_content 'CAT 2'
+      end
+
+      it 'applications from all streams' do
         expect_datastore_to_have_been_searched_with(
           { review_status: Types::REVIEW_STATUS_GROUPS['open'],
-            work_stream: %w[national_crime_team] },
+            work_stream: %w[criminal_applications_team_2] },
           sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
         )
       end
 
-      it 'searches for CAT 1 closed applications' do
-        click_on 'CAT 1'
-        expect_datastore_to_have_been_searched_with(
-          { review_status: Types::REVIEW_STATUS_GROUPS['open'],
-            work_stream: %w[criminal_applications_team] },
-          sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
-        )
+      it 'shows not found when trying to view another stream' do
+        visit open_crime_applications_path(work_stream: 'cat_1')
+        expect(page).to have_http_status :not_found
+      end
+
+      it 'shows not found when trying to view a stream that does not exist' do
+        visit open_crime_applications_path(work_stream: 'not_a_stream')
+        expect(page).to have_http_status :not_found
       end
     end
   end

@@ -1,6 +1,6 @@
 module Allocating
   class SetCompetencies < Command
-    attribute :competencies, Types::Array.of(Types::CaseworkerCompetencyType)
+    attribute :competencies, Types::Array.of(Types::CompetencyType)
 
     def call
       publish_event!

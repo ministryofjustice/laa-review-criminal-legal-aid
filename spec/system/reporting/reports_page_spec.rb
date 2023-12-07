@@ -184,7 +184,7 @@ RSpec.describe 'Reports' do
     end
 
     it 'shows page not found' do
-      expect(current_user.reports.include?('not_supported_report')).to be true  # confirm stub
+      expect(current_user.reports.include?('not_supported_report')).to be true # confirm stub
       expect(page).to have_text('Page not found')
     end
   end

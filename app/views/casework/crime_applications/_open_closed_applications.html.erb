@@ -23,7 +23,7 @@
         </span>
       </summary>
       <div class="govuk-details__text ">
-        <%= turbo_frame_tag report_type, src: reporting_user_report_path(report_type, work_streams: current_work_stream), data: { turbo: 'true' }, loading: :lazy %>
+        <%= turbo_frame_tag report_type, src: reporting_user_report_path(report_type, work_streams: search.filter.work_stream), data: { turbo: 'true' }, loading: :lazy %>
       </div>
     </details>
   </div>

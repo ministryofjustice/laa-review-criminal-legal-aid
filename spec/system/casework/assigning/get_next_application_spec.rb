@@ -7,8 +7,6 @@ RSpec.describe 'Assigning an application to myself' do
 
     before do
       visit '/'
-
-      allow(Allocating).to receive(:user_competencies).with(current_user.id) { current_user_competencies }
     end
 
     it 'allows you to get the next application' do
@@ -17,24 +15,35 @@ RSpec.describe 'Assigning an application to myself' do
       expect(page).to have_content('Remove from your list')
     end
 
-    it 'searches based on the criminal application team work stream' do
-      work_stream = [Types::WorkStreamType['criminal_applications_team']]
-      params = ApplicationSearchFilter.new(assigned_status: 'unassigned', work_stream: work_stream).datastore_params
-      click_on 'Review next application'
-
-      expect_datastore_to_have_been_searched_with(params, pagination: Pagination.new(limit_value: 1))
-    end
-
-    context 'when user is assigned to extradition work stream' do
-      let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
-
-      it 'searches for an extradition application' do
-        work_streams_param = [Types::WorkStreamType['extradition']]
-        params = ApplicationSearchFilter.new(assigned_status: 'unassigned',
-                                             work_stream: work_streams_param).datastore_params
+    describe 'getting next according to competencies' do
+      before do
+        expected_params
         click_on 'Review next application'
+      end
 
-        expect_datastore_to_have_been_searched_with(params, pagination: Pagination.new(limit_value: 1))
+      let(:expected_params) do
+        ApplicationSearchFilter.new(
+          assigned_status: 'unassigned',
+          work_stream: gets_next_from
+        ).datastore_params
+      end
+
+      context 'when competent in all work streams' do
+        let(:current_user_competencies) { Types::WorkStreamType.values }
+        let(:gets_next_from) { Types::WorkStreamType.values }
+
+        it 'gets next across all work streams' do
+          expect_datastore_to_have_been_searched_with(expected_params, pagination: Pagination.new(limit_value: 1))
+        end
+      end
+
+      context 'when competent in only one work streams' do
+        let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
+        let(:gets_next_from) { [Types::WorkStreamType['extradition']] }
+
+        it 'only gets next from the specified work stream' do
+          expect_datastore_to_have_been_searched_with(expected_params, pagination: Pagination.new(limit_value: 1))
+        end
       end
     end
   end

@@ -50,7 +50,7 @@ RSpec.describe 'Primary navigation' do
 
     heading_text = page.first('.govuk-heading-xl').text
     expect(heading_text).to eq('Open applications')
-    expect(page).to have_current_path '/applications/open/extradition'
+    expect(page).to have_current_path '/applications/open'
   end
 
   it 'takes you to closed applications when you click "Closed applications"' do
@@ -58,7 +58,7 @@ RSpec.describe 'Primary navigation' do
 
     heading_text = page.first('.govuk-heading-xl').text
     expect(heading_text).to eq('Closed applications')
-    expect(page).to have_current_path '/applications/closed/extradition'
+    expect(page).to have_current_path '/applications/closed'
   end
 
   context 'when work stream feature flag in is not enabled' do
