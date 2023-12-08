@@ -70,7 +70,7 @@ module Reviewing
     on ApplicationReceived do |event|
       @state = :open
       @received_at = event.timestamp
-      @submitted_at = event.data[:submitted_at]
+      @submitted_at = event.data[:submitted_at] || @received_at
       @parent_id = event.data[:parent_id]
       @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
     end

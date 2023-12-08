@@ -52,8 +52,9 @@ en:
     days_passed: Business days since applications were received
     office_code: Office code 
     open_applications_by_age: "Applications still\xA0open"
-    percentage_closed_by_user: "closed"
-    percentage_unassigned_from_user: "unassigned"
+    percentage_closed_by_user: "assigned closed"
+    percentage_unassigned_from_user: "assigned un-assigned"
+    percentage_closed_sent_back: "closed sent back"
     processed_on: When applications were closed
     provider_name: Legal representative 
     reassigned_from_user: "by<br>another"

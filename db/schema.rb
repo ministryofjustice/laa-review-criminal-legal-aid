@@ -85,10 +85,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_145427) do
     t.datetime "last_auth_at", precision: nil
     t.datetime "first_auth_at", precision: nil
     t.string "auth_subject_id"
+    t.boolean "can_manage_others", default: false, null: false
     t.datetime "deactivated_at", precision: nil
     t.datetime "invitation_expires_at"
     t.datetime "revive_until"
-    t.boolean "can_manage_others", default: false, null: false
     t.enum "role", default: "caseworker", null: false, enum_type: "user_role"
     t.index ["auth_subject_id"], name: "index_users_on_auth_subject_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -1,27 +1,127 @@
-<%= govuk_table do |table| %>
-  <%= table.with_head do |head|
-        head.with_row do |row|
-          row.with_cell(text: thead_text(:days_passed), header: true)
-          row.with_cell(text: thead_text(:received_applications_by_age), numeric: true, header: true)
-          row.with_cell(text: thead_text(:open_applications_by_age), numeric: true, header: true)
+<%= govuk_table(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
+      # rubocop:disable Metrics/BlockLength
+      # rubocop:disable Naming/VariableNumber
+      table.with_colgroup do |colgroup|
+        colgroup.with_col(span: 1)
+        colgroup.with_col(span: 1)
+        colgroup.with_col(span: 6)
+      end
+      table.with_head do |head|
+        head.with_row(classes: 'colgroup-headers') do |row|
+          row.with_cell(text: '', colspan: 1, scope: 'colgroup')
+          row.with_cell(text: "From #{report.observed_business_period_text}", numeric: true, colspan: 2, scope: 'colgroup', classes: [])
+          row.with_cell(text: "Applications still open by age in business days at #{report.observed_at_time}", colspan: 6, scope: 'colgroup')
         end
-      end %>
-  <%= table.with_body do |body|
+
+        head.with_row(classes: 'colgroup-details') do |row|
+          row.with_cell(text: '')
+          row.with_cell(text: 'Received', numeric: true, classes: 'colgroup-total')
+          row.with_cell(text: 'Closed', numeric: true, classes: 'colgroup-total')
+          row.with_cell(text: '0 days', numeric: true, classes: 'colgroup-detail')
+          row.with_cell(text: '1 day', numeric: true, classes: 'colgroup-detail')
+          row.with_cell(text: '2 days', numeric: true, classes: 'colgroup-detail')
+          row.with_cell(text: '3 days', numeric: true, classes: 'colgroup-detail')
+          row.with_cell(text: '4-9 days', numeric: true, classes: 'colgroup-detail')
+          row.with_cell(text: 'Total', numeric: true, classes: 'colgroup-total')
+        end
+      end
+      table.with_body do |body|
         report.rows.each do |data_row|
           body.with_row do |row|
             row.with_cell(
-              text: data_row.label,
+              text: label_text(data_row.work_stream),
               header: true
             )
             row.with_cell(
-              text: data_row.total_received,
-              numeric: true
+              text: data_row.received_this_business_day,
+              numeric: true,
+              classes: 'colgroup-total'
             )
             row.with_cell(
-              text: data_row.total_open,
-              numeric: true
+              text: data_row.closed_this_business_day,
+              numeric: true,
+              classes: 'colgroup-total'
+            )
+            row.with_cell(
+              text: data_row.day_0,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.day_1,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.day_2,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.day_3,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.day_4_to_last_day,
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: data_row.day_0_to_last_day,
+              numeric: true,
+              classes: 'colgroup-total'
             )
           end
         end
-      end %>
-  <% end %>
+        body.with_row(classes: 'total') do |row|
+          row.with_cell(
+            text: 'Total',
+            header: true
+          )
+          row.with_cell(
+            text: report.rows.sum(&:received_this_business_day),
+            numeric: true,
+            classes: 'colgroup-total'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:closed_this_business_day),
+            numeric: true,
+            classes: 'colgroup-total'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:day_0),
+            numeric: true,
+            classes: 'colgroup-detail'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:day_1),
+            numeric: true,
+            classes: 'colgroup-detail'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:day_2),
+            numeric: true,
+            classes: 'colgroup-detail'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:day_3),
+            numeric: true,
+            classes: 'colgroup-detail'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:day_4_to_last_day),
+            numeric: true,
+            classes: 'colgroup-detail'
+          )
+          row.with_cell(
+            text: report.rows.sum(&:day_0_to_last_day),
+            numeric: true,
+            classes: 'colgroup-total'
+          )
+        end
+      end
+
+      # rubocop:enable Naming/VariableNumber
+      # rubocop:enable Metrics/BlockLength
+    end %>

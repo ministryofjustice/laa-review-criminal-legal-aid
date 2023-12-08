@@ -38,6 +38,22 @@ module Reporting
       observed_at.to_date == self.class._current_date
     end
 
+    def observed_business_day
+      BusinessDay.new(day_zero: observed_at)
+    end
+
+    def observed_business_period_text
+      if observed_business_day.starts_on == observed_at.to_date
+        I18n.l(observed_at, format: '00:00 until %H:%M')
+      else
+        observed_business_day.starts_on.strftime('00:00 %A to ') + I18n.l(observed_at, format: '%H:%M %A')
+      end
+    end
+
+    def observed_at_time
+      I18n.l(observed_at, format: '%H:%M')
+    end
+
     private
 
     def read_model_klass

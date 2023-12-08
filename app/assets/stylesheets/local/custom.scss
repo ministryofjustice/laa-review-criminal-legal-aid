@@ -37,8 +37,6 @@ html {
 }
 
 .app-table {
-  font-size: 16px;
-  
   tr.colgroup-headers {
     th {
       border-bottom: none;
@@ -47,18 +45,34 @@ html {
     }
   }
 
-  td { padding-right: 10px;} // govuk default is 20px
-
   tr.colgroup-details {
     th {
       padding-top: 0px; // govuk default is 10px
-      padding-right: 10px; // govuk default is 20px
-      font-weight: normal;
       vertical-align: bottom;
       }
   }
 
+  tr.total {
+    border-top: 2px solid $govuk-border-colour;
+    border-bottom: none;
+  }
+}
+
+.app-table__complex {
+  font-size: 16px;
+
+  td { padding-right: 10px;} // govuk default is 20px
+
+  // add vertical boarders between colgroups
+  tr.colgroup-details {
+    th {
+      font-weight: normal;
+      }
+  }
+
+  // add vertical boarders between colgroups
   .colgroup-total + .colgroup-detail {
     border-left: 1px solid $govuk-border-colour;
+    padding-left: 4px;
   }
 }

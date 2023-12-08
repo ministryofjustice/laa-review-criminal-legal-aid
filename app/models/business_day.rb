@@ -17,6 +17,10 @@ class BusinessDay
     calendar.business_days_between(day_zero, Time.current.in_time_zone('London').to_date)
   end
 
+  def starts_on
+    calendar.subtract_business_days(date, 1).tomorrow
+  end
+
   private
 
   attr_reader :calendar, :day_zero

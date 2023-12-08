@@ -53,3 +53,8 @@ en:
   pagination:
     previous: Previous
     next: Next
+
+  labels:
+    extradition: Extradition
+    national_crime_team: CAT 2
+    criminal_applications_team: CAT 1

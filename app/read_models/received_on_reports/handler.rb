@@ -1,7 +1,8 @@
 module ReceivedOnReports
   class Handler
     def call(event)
-      application_id = event.data.fetch(:application_id, nil)
+      application_id = event.data.fetch(:application_id)
+      Rails.logger.debug application_id
       return unless application_id
 
       @review = Reviewing::LoadReview.call(application_id:)
