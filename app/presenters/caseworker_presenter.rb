@@ -1,5 +1,5 @@
 class CaseworkerPresenter < BasePresenter
-  CASEWORKER_COMPETENCIES = Types::CASEWORKER_COMPETENCY_TYPES
+  CASEWORKER_COMPETENCIES = Types::CompetencyType.values
 
   def formatted_user_competencies
     if Allocating.user_competencies(id).present?

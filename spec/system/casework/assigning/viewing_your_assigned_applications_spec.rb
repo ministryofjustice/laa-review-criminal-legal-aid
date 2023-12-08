@@ -91,7 +91,7 @@ RSpec.describe 'Viewing your assigned application' do
 
     it 'proceeds to the correct page' do
       expect(page).to have_content 'Open applications'
-      expect(page).to have_current_path '/applications/open/extradition'
+      expect(page).to have_current_path '/applications/open'
     end
 
     context 'when work stream feature flag in is not enabled' do

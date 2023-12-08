@@ -2,6 +2,12 @@ require 'rails_helper'
 RSpec.describe 'Authorisation' do
   include Devise::Test::IntegrationHelpers
 
+  before do
+    allow(FeatureFlags).to receive(:work_stream) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+  end
+
   let(:service_user_routes) do
     %w[
       application_not_found

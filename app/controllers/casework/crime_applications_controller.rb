@@ -1,12 +1,13 @@
 module Casework
   class CrimeApplicationsController < Casework::BaseController
     include ApplicationSearchable
+    include WorkStreamable if FeatureFlags.work_stream.enabled?
 
     before_action :set_crime_application, only: %i[show history complete ready]
 
     def open
       set_search(
-        default_filter: { application_status: 'open', work_stream: current_work_stream },
+        default_filter: { application_status: 'open', work_stream: work_stream_filter },
         default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
 
@@ -17,7 +18,7 @@ module Casework
 
     def closed
       set_search(
-        default_filter: { application_status: 'closed', work_stream: current_work_stream },
+        default_filter: { application_status: 'closed', work_stream: work_stream_filter },
         default_sorting: { sort_by: 'reviewed_at', sort_direction: 'descending' }
       )
 
@@ -60,6 +61,14 @@ module Casework
 
     def set_crime_application
       @crime_application = ::CrimeApplication.find(params[:id])
+    end
+
+    def work_stream_filter
+      if FeatureFlags.work_stream.enabled?
+        [current_work_stream]
+      else
+        Types::WorkStreamType.values
+      end
     end
   end
 end

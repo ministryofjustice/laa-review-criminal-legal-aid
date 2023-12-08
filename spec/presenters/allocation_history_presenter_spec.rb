@@ -21,7 +21,7 @@ RSpec.describe AllocationHistoryPresenter do
     it { is_expected.to eq 'Competencies set to no competencies' }
 
     context 'with competencies' do
-      let(:competencies) { %w[extradition national_crime_team] }
+      let(:competencies) { %w[extradition criminal_applications_team_2] }
 
       it { is_expected.to eq 'Competencies set to Extradition, CAT 2' }
     end

@@ -5,9 +5,8 @@ module Casework
     before_action :authenticate_user!
     before_action :require_service_user!
     before_action :set_security_headers
-    before_action :set_current_work_stream
 
-    helper_method :assignments_count, :current_work_stream
+    helper_method :assignments_count
 
     rescue_from DatastoreApi::Errors::ApiError do |e|
       Rails.error.report(e, handled: true, severity: :error)
@@ -36,22 +35,6 @@ module Casework
       @assignments_count ||= CurrentAssignment.where(
         user_id: current_user_id
       ).count
-    end
-
-    def set_current_work_stream
-      session[:current_work_stream] =
-        Utils::CurrentWorkStreamCalculator.new(work_stream_param: params[:work_stream],
-                                               session_work_stream: session[:current_work_stream],
-                                               user_competencies: current_user.competencies).current_work_stream
-    end
-
-    def current_work_stream
-      # TODO: enable when viewing applications by work stream feature is live
-      if FeatureFlags.work_stream.enabled?
-        [session[:current_work_stream]]
-      else
-        Types::WORK_STREAM_TYPES
-      end
     end
   end
 end

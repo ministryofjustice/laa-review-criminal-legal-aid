@@ -15,6 +15,7 @@ class User < ApplicationRecord
   include Reauthable
   include Revivable
   include UserRole
+  include UserCompetence
 
   before_create :set_invitation_expires_at
 
@@ -54,14 +55,6 @@ class User < ApplicationRecord
     return name unless pending_activation?
 
     email
-  end
-
-  def competencies
-    @competencies ||= Allocating.user_competencies(id)
-  end
-
-  def competency_history
-    @competency_history ||= AllocationHistory.new(user_id: id)
   end
 
   def caseworker_presenter

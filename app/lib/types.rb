@@ -84,10 +84,9 @@ module Types
   ].freeze
   SortBy = String.default('submitted_at'.freeze).enum(*SORTABLE_COLUMNS)
 
-  CASEWORKER_COMPETENCY_TYPES = %w[
-    criminal_applications_team
-    national_crime_team
-    extradition
-  ].freeze
-  CaseworkerCompetencyType = String.enum(*CASEWORKER_COMPETENCY_TYPES)
+  CompetencyType = String.enum(*%w[
+                                 criminal_applications_team
+                                 criminal_applications_team_2
+                                 extradition
+                               ])
 end
