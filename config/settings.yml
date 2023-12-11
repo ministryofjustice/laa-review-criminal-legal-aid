@@ -10,7 +10,7 @@ feature_flags:
   evidence_upload:
     local: true
     staging: true
-    production: false
+    production: true
   work_stream:
     local: true
     staging: true
