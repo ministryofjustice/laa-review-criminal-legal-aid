@@ -60,8 +60,8 @@ Devise.setup do |config|
     }
   )
   
-  # Tell Devise where to find secrets to avoid Rails 7.2 deprication warning
-  config.secret_key = ENV["SECRET_KEY_BASE"]
+  # # Tell Devise where to find secrets to avoid Rails 7.2 deprication warning
+  # config.secret_key = Rails.application.secret_key_base
 
   OmniAuth.config.logger = Rails.logger
 end
