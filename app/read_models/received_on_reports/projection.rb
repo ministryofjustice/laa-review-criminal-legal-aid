@@ -16,7 +16,7 @@ module ReceivedOnReports
     def load_from_events # rubocop:disable  Metrics
       scope.init(-> { initial_row })
            .when(
-             Configuration::OPENING_EVENTS,
+             OPENING_EVENTS,
              lambda { |rows, event|
                next if event.timestamp > observed_at
 
@@ -27,7 +27,7 @@ module ReceivedOnReports
              }
            )
            .when(
-             Configuration::CLOSING_EVENTS,
+             CLOSING_EVENTS,
              lambda { |rows, event|
                next if event.timestamp > observed_at
 
@@ -51,26 +51,23 @@ module ReceivedOnReports
       Types::WorkStreamType.values.index_with { |work_stream| Row.new(work_stream:) }
     end
 
-    # hash map of {'application_id' => 'work_stream'}
+    # temporary hash map of {'application_id' => 'work_stream'}
     def application_streams
       @application_streams ||= {}
     end
 
     def start_of_observed_business_day
-      @start_of_observed_business_day ||= BusinessDay.new(day_zero: observed_at, age_in_business_days: 1).date.tomorrow
+      @start_of_observed_business_day ||= BusinessDay.new(day_zero: observed_at).starts_on
     end
 
-    # events without a work stream can be assumed to be CAT 1
+    # Assume that events stored without a work_stream are old and therefore CAT 1
     def default_work_stream
       Types::WorkStreamType['criminal_applications_team']
     end
 
     class << self
-      def for_date(business_day, observed_at: nil)
-        stream_name = business_day.strftime(
-          ReceivedOnReports::Configuration::STREAM_NAME_FORMAT
-        )
-
+      def for_date(date, observed_at: nil)
+        stream_name = ReceivedOnReports.stream_name(date)
         new(stream_name:, observed_at:)
       end
     end
