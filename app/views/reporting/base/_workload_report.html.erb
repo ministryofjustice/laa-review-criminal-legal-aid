@@ -1,9 +1,8 @@
 <%= govuk_table(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
       # rubocop:disable Metrics/BlockLength
-      # rubocop:disable Naming/VariableNumber
       table.with_colgroup do |colgroup|
         colgroup.with_col(span: 1)
-        colgroup.with_col(span: 1)
+        colgroup.with_col(span: 2)
         colgroup.with_col(span: 6)
       end
       table.with_head do |head|
@@ -43,32 +42,32 @@
               classes: 'colgroup-total'
             )
             row.with_cell(
-              text: data_row.day_0,
+              text: data_row.day0,
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: data_row.day_1,
+              text: data_row.day1,
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: data_row.day_2,
+              text: data_row.day2,
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: data_row.day_3,
+              text: data_row.day3,
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: data_row.day_4_to_last_day,
+              text: data_row.day4_to_last_day,
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: data_row.day_0_to_last_day,
+              text: data_row.day0_to_last_day,
               numeric: true,
               classes: 'colgroup-total'
             )
@@ -90,38 +89,37 @@
             classes: 'colgroup-total'
           )
           row.with_cell(
-            text: report.rows.sum(&:day_0),
+            text: report.rows.sum(&:day0),
             numeric: true,
             classes: 'colgroup-detail'
           )
           row.with_cell(
-            text: report.rows.sum(&:day_1),
+            text: report.rows.sum(&:day1),
             numeric: true,
             classes: 'colgroup-detail'
           )
           row.with_cell(
-            text: report.rows.sum(&:day_2),
+            text: report.rows.sum(&:day2),
             numeric: true,
             classes: 'colgroup-detail'
           )
           row.with_cell(
-            text: report.rows.sum(&:day_3),
+            text: report.rows.sum(&:day3),
             numeric: true,
             classes: 'colgroup-detail'
           )
           row.with_cell(
-            text: report.rows.sum(&:day_4_to_last_day),
+            text: report.rows.sum(&:day4_to_last_day),
             numeric: true,
             classes: 'colgroup-detail'
           )
           row.with_cell(
-            text: report.rows.sum(&:day_0_to_last_day),
+            text: report.rows.sum(&:day0_to_last_day),
             numeric: true,
             classes: 'colgroup-total'
           )
         end
       end
 
-      # rubocop:enable Naming/VariableNumber
       # rubocop:enable Metrics/BlockLength
     end %>

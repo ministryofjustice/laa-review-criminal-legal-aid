@@ -10,9 +10,7 @@ module Reporting
     end
 
     def rows
-      return @rows if @rows
-
-      @work_streams.map do |work_stream|
+      @rows ||= @work_streams.map do |work_stream|
         work_stream_dataset = raw_dataset.map { |rd| rd.fetch(work_stream) }
         WorkloadReportRow.new(work_stream: work_stream, dataset: work_stream_dataset)
       end

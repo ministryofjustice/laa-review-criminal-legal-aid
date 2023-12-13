@@ -20,14 +20,14 @@ module Reporting
     end
 
     Array.new(Reporting::WorkloadReport::AGE_LIMIT + 1) do |i|
-      define_method("day_#{i}") { backlogs[i] }
+      define_method("day#{i}") { backlogs[i] }
     end
 
-    def day_4_to_last_day
-      day_0_to_last_day - backlogs.first(4).sum
+    def day4_to_last_day
+      day0_to_last_day - backlogs.first(4).sum
     end
 
-    def day_0_to_last_day
+    def day0_to_last_day
       backlogs.sum
     end
   end
