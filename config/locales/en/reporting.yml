@@ -5,22 +5,16 @@ en:
         title: "Caseworker monthly: %{period_name}"
       return_reasons_report:
         title: "Return reasons monthly: %{period_name}"
-      volumes_report:
-        title: "Volumes monthly: %{period_name}"
     weekly_report:
       caseworker_report:
         title: "Caseworker weekly: %{period_name}"
       return_reasons_report:
         title: "Return reasons weekly: %{period_name}"
-      volumes_report:
-        title: "Daily volumes: %{period_name}"
     daily_report:
       caseworker_report:
         title: "Caseworker daily: %{period_name}"
       return_reasons_report:
         title: "Return reasons daily: %{period_name}"
-      volumes_report:
-        title: "Daily volumes: %{period_name}"
     snapshot:
       workload_report: 
         title: "Workload report: %{observed_at}"
@@ -34,7 +28,6 @@ en:
     current_workload_report: Workload report
     processed_report: Processed report
     caseworker_report: Caseworker report
-    volumes_report: Volumes report
     monthly: Monthly 
     weekly: Weekly 
     daily: Daily 

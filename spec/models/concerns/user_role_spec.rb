@@ -228,7 +228,6 @@ RSpec.describe UserRole do
     let(:expected_user_reports) do
       %w[
         caseworker_report
-        volumes_report
         processed_report
         workload_report
         return_reasons_report

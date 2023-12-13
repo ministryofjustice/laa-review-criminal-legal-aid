@@ -55,7 +55,6 @@ module Types
 
   Report = String.enum(*%w[
                          caseworker_report
-                         volumes_report
                          processed_report
                          workload_report
                          return_reasons_report
@@ -63,7 +62,7 @@ module Types
                        ])
 
   SnapshotReportType = String.enum(Report['workload_report'])
-  TemporalReportType = String.enum(Report['caseworker_report'], Report['volumes_report'],
+  TemporalReportType = String.enum(Report['caseworker_report'],
                                    Report['return_reasons_report'])
 
   TemporalInterval = String.enum('daily', 'weekly', 'monthly')
