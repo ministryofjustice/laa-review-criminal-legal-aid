@@ -4,6 +4,7 @@ require 'omni_auth/strategies/dev_auth'
 
 Devise.setup do |config|
   require 'devise/orm/active_record'
+  require 'devise/mailer'
 
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
@@ -59,6 +60,9 @@ Devise.setup do |config|
       strategy_class: strategy_class
     }
   )
+  
+  # # Tell Devise where to find secrets to avoid Rails 7.2 deprication warning
+  config.secret_key = Rails.application.secret_key_base
 
   OmniAuth.config.logger = Rails.logger
 end
