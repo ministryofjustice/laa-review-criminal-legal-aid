@@ -1,7 +1,7 @@
 module Casework
   class AssignedApplicationsController < Casework::BaseController
     include ApplicationSearchable
-    before_action :set_crime_application, only: %i[create]
+    before_action :set_crime_application, only: [:create]
 
     def index
       return unless assignments_count.positive?
