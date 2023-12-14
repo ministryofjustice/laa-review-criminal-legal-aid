@@ -8,18 +8,9 @@ require 'rails_helper'
 # age_in_days   |   3   |   2   |   1   |  1  |  1  |  1  |  0  |
 # starts_on     |  thu  |  fri  |  sat  | sat | sat | sat | wed |
 # ends_before   |  fri  |  sat  |  wed  | wed | wed | wed | nil |
-
-
-# something that arrives on friday, is 1 day old on Monday
-# 0 days old on friday
-# 1 day old on saturday, sunday and monday
-
-# something that arrives on saturday, is 0 days old on monday
-
-# something that arrives on Saturday arrives on Monday's business day.
-
-# is that correct?
-# something that arrives on friday, is 1 day old on Saturday
+#
+# # something that arrives on Friday, is 1 day old on Monday
+# something that arrives on Saturday, is 0 days old on Monday
 
 
 RSpec.describe BusinessDay do
