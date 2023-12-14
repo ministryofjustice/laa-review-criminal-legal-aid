@@ -61,7 +61,7 @@ html {
 .app-table__complex {
   font-size: 16px;
 
-  td { padding-right: 10px;} // govuk default is 20px
+  td, th { padding-right: 10px;} // govuk default is 20px
 
   // add vertical boarders between colgroups
   tr.colgroup-details {
@@ -74,5 +74,10 @@ html {
   .colgroup-total + .colgroup-detail {
     border-left: 1px solid $govuk-border-colour;
     padding-left: 4px;
+  }
+
+  td:first-child {
+    overflow-x: scroll;
+    max-width: 10em; 
   }
 }

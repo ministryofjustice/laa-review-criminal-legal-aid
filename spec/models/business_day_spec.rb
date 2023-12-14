@@ -9,6 +9,19 @@ require 'rails_helper'
 # starts_on     |  thu  |  fri  |  sat  | sat | sat | sat | wed |
 # ends_before   |  fri  |  sat  |  wed  | wed | wed | wed | nil |
 
+
+# something that arrives on friday, is 1 day old on Monday
+# 0 days old on friday
+# 1 day old on saturday, sunday and monday
+
+# something that arrives on saturday, is 0 days old on monday
+
+# something that arrives on Saturday arrives on Monday's business day.
+
+# is that correct?
+# something that arrives on friday, is 1 day old on Saturday
+
+
 RSpec.describe BusinessDay do
   let(:day_zero) { Date.parse('2023-01-04') }
   let(:age_in_business_days) { 2 }
