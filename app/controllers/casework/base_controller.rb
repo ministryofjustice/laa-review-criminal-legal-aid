@@ -6,7 +6,7 @@ module Casework
     before_action :require_service_user!
     before_action :set_security_headers
 
-    helper_method :assignments_count
+    helper_method :assignments_count, :set_crime_application
 
     rescue_from DatastoreApi::Errors::ApiError do |e|
       Rails.error.report(e, handled: true, severity: :error)
@@ -35,6 +35,11 @@ module Casework
       @assignments_count ||= CurrentAssignment.where(
         user_id: current_user_id
       ).count
+    end
+
+    def set_crime_application
+      app_id_param = params.key?(:crime_application_id) ? params[:crime_application_id] : params[:id]
+      @crime_application = CrimeApplication.find(app_id_param)
     end
   end
 end

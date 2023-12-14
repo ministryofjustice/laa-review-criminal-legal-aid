@@ -38,6 +38,16 @@ en:
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
       cannot_download_doc_uploaded_to_another_app: File must be uploaded to current application to download
       cannot_download_try_again: "%{file_name} could not be downloaded – try again"
+      cannot_view_apps_without_a_work_stream:
+        - You must be allocated to a work queue to view applications
+        - Contact your supervisor to arrange this
+      no_work_streams_to_assign_from:
+        - You must be allocated to a work queue to review applications
+        - Contact your supervisor to arrange this
+      not_allocated_to_appropriate_work_stream:
+        - You must be allocated to the %{work_queue} work queue to review this application
+        - Contact your supervisor to arrange this
+
 
   primary_navigation:
     your_list: "Your list (%{count})"
@@ -332,6 +342,10 @@ en:
       history:
         page_title: Application history
         heading: Application history
+      no_work_stream:
+        open_title: Open applications
+        closed_title: Closed applications
+        show_title: Application
       section:
         headings:
       labels:

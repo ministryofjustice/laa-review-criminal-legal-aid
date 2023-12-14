@@ -1,6 +1,7 @@
 module Casework
   class AssignedApplicationsController < Casework::BaseController
     include ApplicationSearchable
+    before_action :set_crime_application, only: %i[create]
 
     def index
       return unless assignments_count.positive?
@@ -11,7 +12,10 @@ module Casework
       )
     end
 
-    def create
+    def create # rubocop:disable Metrics/AbcSize
+      return require_work_stream_flash if current_user.work_streams.empty?
+      return require_app_work_stream_flash if current_user.work_streams.exclude?(@crime_application.work_stream)
+
       Assigning::AssignToUser.new(
         assignment_id: params[:crime_application_id],
         user_id: current_user_id,
@@ -22,7 +26,9 @@ module Casework
     end
 
     def next_application
-      next_app_id = GetNext.call(work_streams: current_user.competencies)
+      return require_work_stream_flash if current_user.work_streams.empty?
+
+      next_app_id = GetNext.call(work_streams: current_user.work_streams)
 
       if next_app_id
         Assigning::AssignToUser.new(
@@ -52,14 +58,25 @@ module Casework
 
     private
 
-    def flash_and_redirect(key, message, resource_id = nil)
-      flash[key] = I18n.t(message, scope: [:flash, key])
+    def flash_and_redirect(key, message, resource_id = nil, options = {})
+      flash[key] = I18n.t(message, scope: [:flash, key], **options)
 
       if resource_id
         redirect_to crime_application_path(resource_id)
       else
         redirect_to assigned_applications_path
       end
+    end
+
+    def require_work_stream_flash
+      flash_and_redirect(:important, :no_work_streams_to_assign_from, params[:crime_application_id])
+    end
+
+    def require_app_work_stream_flash
+      flash_and_redirect(:important,
+                         :not_allocated_to_appropriate_work_stream,
+                         params[:crime_application_id],
+                         work_queue: WorkStream.new(@crime_application.work_stream).to_param.humanize)
     end
   end
 end

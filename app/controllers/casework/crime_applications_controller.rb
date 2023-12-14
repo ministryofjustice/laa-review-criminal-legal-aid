@@ -1,7 +1,10 @@
 module Casework
   class CrimeApplicationsController < Casework::BaseController
     include ApplicationSearchable
+    before_action :require_a_user_work_stream, only: %i[open closed]
+
     include WorkStreamable if FeatureFlags.work_stream.enabled?
+    before_action :set_current_work_stream, only: %i[open closed]
 
     before_action :set_crime_application, only: %i[show history complete ready]
 
@@ -57,11 +60,9 @@ module Casework
       redirect_to crime_application_path(@crime_application)
     end
 
-    private
+    def no_work_stream; end
 
-    def set_crime_application
-      @crime_application = ::CrimeApplication.find(params[:id])
-    end
+    private
 
     def work_stream_filter
       if FeatureFlags.work_stream.enabled?
@@ -69,6 +70,13 @@ module Casework
       else
         Types::WorkStreamType.values
       end
+    end
+
+    def require_a_user_work_stream
+      return unless current_user.work_streams.empty?
+
+      render :no_work_stream
+      false
     end
   end
 end

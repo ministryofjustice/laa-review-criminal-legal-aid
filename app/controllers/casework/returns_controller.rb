@@ -42,9 +42,5 @@ module Casework
     def return_params
       params[:return_details].permit(:reason, :details)
     end
-
-    def set_crime_application
-      @crime_application = CrimeApplication.find(params[:crime_application_id])
-    end
   end
 end
