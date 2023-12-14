@@ -52,28 +52,28 @@ html {
       }
   }
 
+  // add vertical borders between colgroups
+  .colgroup-total + .colgroup-detail {
+    border-left: 1px solid $govuk-border-colour;
+    padding-left: 4px;
+  }
+
+  // total row has a thicker border above and now bottom border
   tr.total {
     border-top: 2px solid $govuk-border-colour;
-    border-bottom: none;
+    th, td {
+      border-bottom: none;
+    }
   }
 }
 
 .app-table__complex {
   font-size: 16px;
 
-  td, th { padding-right: 10px;} // govuk default is 20px
+  td, th { padding-right: 10px;}
 
-  // add vertical boarders between colgroups
   tr.colgroup-details {
-    th {
-      font-weight: normal;
-      }
-  }
-
-  // add vertical boarders between colgroups
-  .colgroup-total + .colgroup-detail {
-    border-left: 1px solid $govuk-border-colour;
-    padding-left: 4px;
+    th { font-weight: normal;}
   }
 
   td:first-child {
