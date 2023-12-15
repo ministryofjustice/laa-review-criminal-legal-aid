@@ -6,7 +6,7 @@ module ReceivedOnReports
 
     def call(event)
       stream_name = ReceivedOnReports.stream_name(
-        application_submitted_at_from_event(event)
+        receiving_event(event).data[:submitted_at]
       )
 
       @event_store.link(event.event_id, stream_name:)
@@ -14,18 +14,10 @@ module ReceivedOnReports
 
     private
 
-    def application_submitted_at_from_event(event)
-      receiving_event = submission_event_from_event(event)
-
-      receiving_event.data.fetch(:submitted_at, receiving_event.timestamp)
-    end
-
-    def submission_event_from_event(event)
+    def receiving_event(event)
       return event if event.is_a? Reviewing::ApplicationReceived
 
-      @event_store.read.stream(Reviewing.stream_name(
-                                 event.data.fetch(:application_id)
-                               )).first
+      Reviewing.receiving_event(event.data.fetch(:application_id))
     end
   end
 end
