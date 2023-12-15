@@ -32,7 +32,7 @@ class BusinessDay
     previous.date.tomorrow
   end
 
-  # Returns the date that immediatly follows a business day period
+  # Returns the date that immediately follows a business day period
   def ends_before
     date.tomorrow
   end

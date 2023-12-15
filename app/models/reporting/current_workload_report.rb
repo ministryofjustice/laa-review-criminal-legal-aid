@@ -28,8 +28,16 @@ module Reporting
     def scope
       Review.where(
         work_stream: work_streams,
-        business_day: (business_days.last.date..business_days.first.date)
+        business_day: (oldest_business_day_date..youngest_business_day_date)
       )
+    end
+
+    def oldest_business_day_date
+      business_days.last.date
+    end
+
+    def youngest_business_day_date
+      business_days.first.date
     end
 
     def received_counts
