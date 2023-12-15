@@ -1,61 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Reporting::WorkloadReport do
-  subject(:report) do
-    described_class.new(observed_at:, age_limit:, number_of_rows:)
-  end
+  subject(:report) { described_class.new(observed_at:) }
 
-  let(:observed_at) { Date.parse('2023-01-04').in_time_zone('London').end_of_day }
-  let(:age_limit) { 2 }
-  let(:number_of_rows) { 3 }
+  let(:observed_at) { Date.parse('2023-01-02').in_time_zone('London').end_of_day }
 
   describe '#rows' do
     subject(:rows) { report.rows }
 
-    it 'returns an array of BusinessDayAgeRangeRow up to the configured age limit' do
+    it 'returns a row for each work stream by default' do
       expect(rows.size).to eq(3)
-      expect(rows).to all(be_a(Reporting::BusinessDayAgeRangeRow))
-    end
-
-    it 'each row contains data for a single business day' do
-      allow(Reporting::BusinessDayAgeRangeRow).to receive(:new)
-      rows
-      [0..0, 1..1, 2..2].each do |age_range_in_business_days|
-        expect(Reporting::BusinessDayAgeRangeRow).to have_received(:new).with(
-          age_range_in_business_days:, observed_at:
-        )
-      end
-    end
-
-    context 'when the number_of_rows cannot accomodate 1 day per row' do
-      let(:age_limit) { 9 }
-      let(:number_of_rows) { 3 }
-
-      it 'combines the remaining days into the final row' do
-        allow(Reporting::BusinessDayAgeRangeRow).to receive(:new)
-        rows
-
-        [0..0, 1..1, 2..9].each do |age_range_in_business_days|
-          expect(Reporting::BusinessDayAgeRangeRow).to have_received(:new).with(
-            age_range_in_business_days:, observed_at:
-          )
-        end
-      end
-
-      it 'labels the rows accordingly' do
-        expected_rows = ['0 days', '1 day', 'Between 2 and 9 days']
-        expect(rows.map(&:label)).to eq(expected_rows)
-      end
+      expect(rows.map(&:work_stream)).to contain_exactly(
+        'criminal_applications_team', 'criminal_applications_team_2', 'extradition'
+      )
     end
   end
 
-  it 'the age limit defaults to 9 days old' do
-    expect(described_class.new.rows.last.label).to eq 'Between 4 and 9 days'
-  end
-
-  it 'the "number_of_rows" defaults to the number required to reach the age limit' do
-    report = described_class.new(age_limit: 11, number_of_rows: nil)
-    expect(report.rows.size).to eq 12
-    expect(report.rows.last.label).to eq '11 days'
+  describe '#business_days' do
+    it 'returns an array of the business days included in the report' do
+      expect(report.business_days).to eq(
+        %w[2023-01-03 2022-12-30 2022-12-29 2022-12-28 2022-12-23 2022-12-22 2022-12-21 2022-12-20 2022-12-19
+           2022-12-16]
+      )
+    end
   end
 end

@@ -55,8 +55,6 @@ module Reporting
 
     def sorting_klass
       Reporting.const_get("#{report_type}_sorting".camelize)
-    rescue NameError
-      ApplicationSearchSorting
     end
 
     private

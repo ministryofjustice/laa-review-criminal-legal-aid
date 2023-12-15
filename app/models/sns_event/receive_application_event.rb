@@ -32,7 +32,7 @@ module SnsEvent
     end
 
     def submitted_at
-      message.dig('data', 'submitted_at') || Time.zone.now.to_s
+      message.dig('data', 'submitted_at') || Time.zone.now
     end
 
     def parent_id

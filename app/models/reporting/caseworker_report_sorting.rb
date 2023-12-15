@@ -7,6 +7,7 @@ module Reporting
       total_closed_by_user
       percentage_unassigned_from_user
       percentage_closed_by_user
+      percentage_closed_sent_back
     ].freeze
 
     DEFAULT_SORT_BY = 'user_name'.freeze

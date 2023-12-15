@@ -14,4 +14,14 @@ module Reviewing
   class CannotMarkAsReadyWhenSentBack < Error; end
   class CannotSendBackWhenCompleted < Error; end
   class NotReceived < Error; end
+
+  class << self
+    def stream_name(application_id)
+      "Reviewing$#{application_id}"
+    end
+
+    def receiving_event(application_id)
+      Rails.configuration.event_store.read.stream(stream_name(application_id)).first
+    end
+  end
 end

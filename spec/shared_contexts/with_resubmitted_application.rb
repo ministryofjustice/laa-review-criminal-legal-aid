@@ -4,9 +4,7 @@ RSpec.shared_context 'with resubmitted application' do
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
 
   before do
-    visit '/'
-
-    travel_to Time.zone.now.yesterday
+    travel_to(Time.zone.local(2023, 1, 1))
 
     stub_request(
       :get,
@@ -53,7 +51,7 @@ RSpec.shared_context 'with resubmitted application' do
       return_details: return_details.attributes
     ).call
 
-    travel_back
+    travel_to(Time.zone.local(2023, 1, 2))
 
     Reviewing::ReceiveApplication.call(
       application_id: application_id,

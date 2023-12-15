@@ -10,12 +10,12 @@ module Reviews
       application_id = event.data.fetch(:application_id, nil)
       return unless application_id
 
-      review_aggregate = Reviewing::LoadReview.call(application_id:)
-
-      update_from_aggregate(review_aggregate)
+      update_from_aggregate(application_id:)
     end
 
-    def update_from_aggregate(review_aggregate) # rubocop:disable Metrics/MethodLength
+    def update_from_aggregate(application_id:) # rubocop:disable Metrics/MethodLength
+      review_aggregate = Reviewing::LoadReview.call(application_id:)
+
       Review.upsert(
         {
           application_id: review_aggregate.id,
@@ -23,7 +23,7 @@ module Reviews
           submitted_at: review_aggregate.submitted_at,
           reviewer_id: review_aggregate.reviewer_id,
           parent_id: review_aggregate.parent_id,
-          business_day: review_aggregate.business_day,
+          business_day: review_aggregate.business_day.to_s,
           reviewed_on: review_aggregate.reviewed_on,
           work_stream: review_aggregate.work_stream
         },

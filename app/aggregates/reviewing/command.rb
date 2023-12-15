@@ -17,7 +17,7 @@ module Reviewing
     end
 
     def stream_name
-      "Reviewing$#{application_id}"
+      Reviewing.stream_name(application_id)
     end
 
     class << self
