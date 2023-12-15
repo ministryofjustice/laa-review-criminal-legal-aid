@@ -70,7 +70,7 @@ module Reviewing
     on ApplicationReceived do |event|
       @state = :open
       @received_at = event.timestamp
-      @submitted_at = event.data[:submitted_at] || @received_at
+      @submitted_at = event.data[:submitted_at]
       @parent_id = event.data[:parent_id]
       @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
     end
@@ -106,6 +106,8 @@ module Reviewing
     end
 
     def business_day
+      return nil unless @submitted_at
+
       BusinessDay.new(day_zero: @submitted_at)
     end
 

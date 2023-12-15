@@ -9,7 +9,7 @@ require 'rails_helper'
 # starts_on     |  thu  |  fri  |  sat  | sat | sat | sat | wed |
 # ends_before   |  fri  |  sat  |  wed  | wed | wed | wed | nil |
 #
-# # something that arrives on Friday, is 1 day old on Monday
+# something that arrives on Friday, is 1 day old on Monday
 # something that arrives on Saturday, is 0 days old on Monday
 
 RSpec.describe BusinessDay do
