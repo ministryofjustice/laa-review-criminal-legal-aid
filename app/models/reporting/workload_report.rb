@@ -25,9 +25,9 @@ module Reporting
     end
 
     def business_days
-      @business_days ||= Array.new(AGE_LIMIT + 1) do |age_in_business_days|
-        BusinessDay.new(age_in_business_days: age_in_business_days, day_zero: observed_at)
-      end
+      @business_days ||= BusinessDay.list_backwards(
+        day_zero: observed_at, age_limit: AGE_LIMIT
+      )
     end
   end
 end

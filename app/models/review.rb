@@ -7,7 +7,7 @@ class Review < ApplicationRecord
   }
 
   scope :by_age_in_business_days, lambda { |age|
-    where(business_day: BusinessDay.new(age_in_business_days: age).date)
+    where(business_day: BusinessDay.aged(age).date)
   }
 
   #
