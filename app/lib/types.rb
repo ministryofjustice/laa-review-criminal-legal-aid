@@ -7,7 +7,7 @@ module Types
   Uuid = String
   PhoneNumber = String
   Date = Date | JSON::Date
-  DateTime = JSON::DateTime | Time | DateTime
+  DateTime = JSON::DateTime | Nominal::DateTime
 
   #
   # Map of review status groups to LaaCrimeSchemas::Types:REVIEW_APPLICATION_STATUSES
