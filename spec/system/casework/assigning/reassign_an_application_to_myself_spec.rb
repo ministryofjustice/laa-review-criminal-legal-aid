@@ -4,7 +4,7 @@ RSpec.describe 'Reassigning an application to myself' do
   include_context 'with an assigned application'
 
   let(:banner_text) do
-    "You must be allocated to the Cat 1 work queue to review this application\nContact your supervisor to arrange this"
+    "You must be allocated to the CAT 1 work queue to review this application\nContact your supervisor to arrange this"
   end
 
   before do
@@ -32,6 +32,14 @@ RSpec.describe 'Reassigning an application to myself' do
         expect(page).to have_content(
           "!WarningThis will remove the application from your colleague's list"
         )
+      end
+    end
+
+    context 'when you are not allocated to the correct work stream' do
+      let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
+
+      it 'displays a notification banner' do
+        expect(page).to have_content banner_text
       end
     end
 
@@ -67,15 +75,6 @@ RSpec.describe 'Reassigning an application to myself' do
       it 'does not reassign' do
         click_on('No, do not reassign')
         expect(page).to have_content 'Assigned to: Fred Smitheg'
-      end
-    end
-
-    context 'when you are not allocated to the correct work stream' do
-      let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
-
-      it 'displays a notification banner' do
-        click_on('Yes, reassign')
-        expect(page).to have_content banner_text
       end
     end
   end

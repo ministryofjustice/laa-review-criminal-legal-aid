@@ -4,7 +4,7 @@ RSpec.describe 'Assigning an application to myself' do
   include_context 'with an existing application'
   let(:assign_cta) { 'Assign to your list' }
   let(:banner_text) do
-    "You must be allocated to the Cat 1 work queue to review this application\nContact your supervisor to arrange this"
+    "You must be allocated to the CAT 1 work queue to review this application\nContact your supervisor to arrange this"
   end
 
   before do

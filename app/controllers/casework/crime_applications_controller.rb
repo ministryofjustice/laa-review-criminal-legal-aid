@@ -1,7 +1,7 @@
 module Casework
   class CrimeApplicationsController < Casework::BaseController
     include ApplicationSearchable
-    include WorkStreamable if FeatureFlags.work_stream.enabled?
+    include WorkStreamable
 
     before_action :require_a_user_work_stream, only: %i[open closed]
     before_action :set_current_work_stream, only: %i[open closed]
@@ -70,10 +70,7 @@ module Casework
     end
 
     def require_a_user_work_stream
-      return unless current_user.work_streams.empty?
-
-      render :no_work_stream
-      false
+      render :no_work_stream if current_user.work_streams.empty?
     end
   end
 end
