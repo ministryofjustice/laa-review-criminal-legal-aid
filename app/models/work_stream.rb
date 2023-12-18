@@ -27,6 +27,10 @@ class WorkStream
     PARAM_MAP.fetch(@work_stream)
   end
 
+  def label
+    I18n.t(to_s, scope: :labels)
+  end
+
   class << self
     def from_param(param)
       new(PARAM_MAP.key(param))
