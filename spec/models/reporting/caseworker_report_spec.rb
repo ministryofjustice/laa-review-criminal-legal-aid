@@ -64,6 +64,21 @@ describe Reporting::CaseworkerReport do
           expect(rows.map(&:user_name)).to eq(['An Brown', 'Al Hart', 'Bo Brown'])
         end
       end
+
+      context 'when sorted values include nil' do
+        let(:dataset) do
+          {
+            a: instance_double(CaseworkerReports::Row, user_name: 'Al', percentage_closed_by_user: 0),
+            b: instance_double(CaseworkerReports::Row, user_name: 'Bo', percentage_closed_by_user: 99),
+            c: instance_double(CaseworkerReports::Row, user_name: 'Ad', percentage_closed_by_user: nil)
+          }
+        end
+        let(:sort_by) { 'percentage_closed_by_user' }
+
+        it 'reverses the order' do
+          expect(rows.map(&:user_name)).to eq(%w[Bo Al Ad])
+        end
+      end
     end
   end
 end
