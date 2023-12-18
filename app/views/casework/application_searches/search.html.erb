@@ -21,7 +21,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <table class="govuk-table app-dashboard-table" data-module="moj-sortable-table">
-        <%= render DataTable::HeadComponent.new(sorting: @search.sorting) do |head|
+        <%= render DataTable::HeadComponent.new(sorting: @search.sorting, filter: @search.filter) do |head|
               head.with_row do |row|
                 row.with_cell(colname: :applicant_name)
                 row.with_cell(colname: :reference)

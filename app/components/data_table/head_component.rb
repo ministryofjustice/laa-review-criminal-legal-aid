@@ -1,11 +1,12 @@
 module DataTable
   class HeadComponent < GovukComponent::Base
     renders_many :rows, lambda { |classes: []|
-      DataTable::HeaderRowComponent.new(sorting: @sorting, classes: classes)
+      DataTable::HeaderRowComponent.new(sorting: @sorting, filter: @filter, classes: classes)
     }
 
-    def initialize(sorting:, classes: [])
+    def initialize(sorting:, filter: {}, classes: [])
       @sorting = sorting
+      @filter = filter
 
       super(classes: classes, html_attributes: {})
     end
