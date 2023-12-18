@@ -55,6 +55,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     )
   end
 
+  def work_stream
+    @work_stream ||= WorkStream.new(attributes[:work_stream])
+  end
+
   class << self
     def find(id)
       application = new(

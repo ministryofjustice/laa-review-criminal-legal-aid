@@ -7,6 +7,8 @@ module WorkStreamable
 
   private
 
+  attr_reader :current_work_stream
+
   def set_current_work_stream
     work_stream = WorkStream.from_param(work_stream_param)
 
@@ -17,14 +19,21 @@ module WorkStreamable
     @current_work_stream = work_stream
   end
 
-  def current_work_stream
-    # TODO: enable when viewing applications by work stream feature is live
-    raise 'Errorrrrr' unless FeatureFlags.work_stream.enabled?
-
-    @current_work_stream
-  end
-
   def work_stream_param
     params[:work_stream] || session[:current_work_stream] || current_user.work_streams.first.to_param
+  end
+
+  def require_app_work_stream
+    return if current_user.work_streams.include?(
+      @crime_application.work_stream
+    )
+
+    set_flash(
+      :not_allocated_to_appropriate_work_stream,
+      success: false,
+      work_queue: @crime_application.work_stream.label
+    )
+
+    redirect_to crime_application_path @crime_application
   end
 end
