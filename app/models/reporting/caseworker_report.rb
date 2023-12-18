@@ -7,7 +7,8 @@ module Reporting
     def rows(sorting: sorting_klass.new_or_default)
       sorted_rows = dataset.values.sort_by do |r|
         v = r.public_send(sorting.sort_by)
-        v.respond_to?(:upcase) ? v.upcase : v
+        v = v.upcase if v.respond_to?(:upcase)
+        v.nil? ? -1 : v
       end
 
       return sorted_rows unless sorting.sort_direction == 'descending'
