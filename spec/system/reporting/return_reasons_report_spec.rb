@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Return Reasons Report' do
+  include_context 'with stubbed search'
+
   before do
     caseworker_id = SecureRandom.uuid
     allow(Review).to receive(:reviewer_id_for).with(resource_id) { caseworker_id }

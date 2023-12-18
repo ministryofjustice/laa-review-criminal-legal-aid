@@ -24,6 +24,26 @@ RSpec.describe Reporting::Snapshot do
     end
   end
 
+  describe 'observed_business_period_text' do
+    subject(:text) do
+      snapshot.observed_business_period_text
+    end
+
+    context 'when observed business day follows a non-working day' do
+      it 'shows the start and end days and times' do
+        expect(text).to eq '00:00 Saturday to 12:11 Monday'
+      end
+    end
+
+    context 'when observed business day follows a business day' do
+      let(:observed_at) { Time.zone.local(2023, 10, 11, 11, 11) }
+
+      it 'shows the start and end time' do
+        expect(text).to eq '00:00 until 12:11'
+      end
+    end
+  end
+
   describe '.from_param' do
     let(:from_param) { described_class.from_param(**example_params) }
 

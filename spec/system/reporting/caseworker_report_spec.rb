@@ -19,8 +19,9 @@ RSpec.describe 'Caseworker report' do
       'sentback',
       'completed',
       'total',
-      'unassigned',
-      'closed'
+      'assigned un-assigned',
+      'assigned closed',
+      'closed sent back'
     ]
 
     expect(colgroup_detail_headings).to eq(expected)
@@ -32,6 +33,7 @@ RSpec.describe 'Caseworker report' do
     let(:inactive) do
       %w[
         percentage_closed_by_user
+        percentage_closed_sent_back
         percentage_unassigned_from_user
         total_assigned_to_user
         total_closed_by_user

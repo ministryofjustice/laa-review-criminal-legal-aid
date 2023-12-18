@@ -13,7 +13,7 @@ class ApplicationSearchResult < ApplicationStruct
   alias id resource_id
 
   def days_passed
-    @days_passed ||= BusinessDay.new(day_zero: submitted_at).business_days_since_day_zero
+    @days_passed ||= business_day.age_in_business_days
   end
 
   def caseworker_name

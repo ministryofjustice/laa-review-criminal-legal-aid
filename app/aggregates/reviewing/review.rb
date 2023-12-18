@@ -106,7 +106,9 @@ module Reviewing
     end
 
     def business_day
-      BusinessDay.new(day_zero: @submitted_at).date
+      return nil unless @submitted_at
+
+      BusinessDay.new(day_zero: @submitted_at)
     end
 
     def reviewed_on

@@ -47,6 +47,12 @@ module CaseworkerReports
       (Rational(total_closed_by_user, total_assigned_to_user) * 100).round
     end
 
+    def percentage_closed_sent_back
+      return nil if total_closed_by_user.zero?
+
+      (Rational(sent_back_by_user, total_closed_by_user) * 100).round
+    end
+
     def assign
       @assigned_to_user += 1
     end

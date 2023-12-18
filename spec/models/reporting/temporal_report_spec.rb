@@ -6,11 +6,11 @@ describe Reporting::TemporalReport do
 
   describe '.from_param' do
     subject(:report_from_param) do
-      described_class.from_param(report_type: 'volumes_report', period: '2023-August', interval: 'monthly')
+      described_class.from_param(report_type: 'return_reasons_report', period: '2023-August', interval: 'monthly')
     end
 
     it 'returns the correct report from the param' do
-      expect(report_from_param.title).to eq('Volumes monthly: August, 2023')
+      expect(report_from_param.title).to eq('Return reasons monthly: August, 2023')
     end
   end
 

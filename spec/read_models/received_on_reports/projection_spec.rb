@@ -1,49 +1,71 @@
 require 'rails_helper'
 
 RSpec.describe ReceivedOnReports::Projection do
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
   let(:event_store) { Rails.configuration.event_store }
 
   describe 'instance' do
-    let(:stream_name) { ['ReceivedOn$2023-278'] }
+    let(:stream_name) { ['ReceivedOn$2023-277'] }
     let(:split_time) { Time.zone.local(2023, 10, 5, 1, 21) }
     let(:observed_at) { Time.current }
+    let(:cat1) { Types::WorkStreamType['criminal_applications_team'] }
+    let(:extradition) { Types::WorkStreamType['extradition'] }
 
     describe '#dataset' do
       subject(:dataset) { described_class.new(stream_name:, observed_at:).dataset }
 
       before do
+        ReceivedOnReports::Configuration.new.call(event_store)
         # We use the "split_time" to test being able to observe the stream at a given time.
         travel_to split_time - 1.day
 
-        events = [
-          Reviewing::ApplicationReceived.new,
-          Reviewing::ApplicationReceived.new,
-          Reviewing::SentBack.new,
-          Reviewing::ApplicationReceived.new
-        ]
+        a, b, c, d = Array.new(4) { SecureRandom.uuid }
 
-        event_store.publish(events, stream_name:)
+        # Receive three CAT 1 and one extradition application
+        receive_application(a, cat1)
+        receive_application(b, cat1)
+        receive_application(c, cat1)
+        receive_application(d, extradition)
+
+        event_store.publish(Reviewing::Completed.new(
+                              data: { application_id: b }
+                            ))
 
         travel_to split_time
 
-        event_store.publish(Reviewing::SentBack.new, stream_name:)
+        event_store.publish(Reviewing::SentBack.new(
+                              data: { application_id: d }
+                            ))
+
+        event_store.publish(Reviewing::Completed.new(
+                              data: { application_id: c }
+                            ))
+
+        # This application should not be included in the data
+        receive_application(SecureRandom.uuid, cat1)
 
         travel_back
       end
 
-      it 'returns a tally of received applications' do
-        expect(dataset.fetch(:total_received)).to be 3
+      let(:cat1_data) { dataset.fetch(cat1) }
+      let(:extradition_data) { dataset.fetch(extradition) }
+
+      it 'returns a tally of received applications by work stream' do
+        expect(cat1_data.total_received).to be 3
+        expect(extradition_data.total_received).to be 1
       end
 
-      it 'returns a tally of closed applications' do
-        expect(dataset.fetch(:total_closed)).to be 2
+      it 'returns a tally of closed applications by work stream' do
+        expect(cat1_data.total_closed).to be 2
+        expect(extradition_data.total_closed).to be 1
       end
 
       context 'when observing 1 second before an event' do
         let(:observed_at) { split_time.in_time_zone('London') - 1.second }
 
         it 'excludes the event from the tally' do
-          expect(dataset.fetch(:total_closed)).to be 1
+          expect(cat1_data.total_closed).to be 1
+          expect(extradition_data.total_closed).to be 0
         end
       end
 
@@ -51,7 +73,8 @@ RSpec.describe ReceivedOnReports::Projection do
         let(:observed_at) { split_time.in_time_zone('London') }
 
         it 'includes the event in the tally' do
-          expect(dataset.fetch(:total_closed)).to be 2
+          expect(cat1_data.total_closed).to be 2
+          expect(extradition_data.total_closed).to be 1
         end
       end
     end
@@ -73,5 +96,14 @@ RSpec.describe ReceivedOnReports::Projection do
         )
       end
     end
+  end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
+
+  def receive_application(application_id, work_stream)
+    submitted_at = Time.current
+
+    Reviewing::ReceiveApplication.new(
+      application_id:, submitted_at:, work_stream:
+    ).call
   end
 end

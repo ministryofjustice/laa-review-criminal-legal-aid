@@ -3,7 +3,7 @@
 #
 class ApplicationHistoryItem < ApplicationStruct
   attribute :user_name, Types::String
-  attribute :timestamp, Types::Nominal::DateTime
+  attribute :timestamp, Types::Nominal::Time
   attribute :event_type, Types::String
   attribute :event_data, Types::Hash
 

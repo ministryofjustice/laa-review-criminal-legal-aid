@@ -52,14 +52,6 @@ RSpec.describe 'Reports' do
 
         expect(page).to have_http_status :ok
       end
-
-      it 'is shown the volumes report' do
-        expect { click_link('Volumes report') }.to change { current_path }
-          .from('/reporting')
-          .to('/reporting/volumes_report/daily/now')
-
-        expect(page).to have_http_status :ok
-      end
     end
   end
 
@@ -121,14 +113,6 @@ RSpec.describe 'Reports' do
 
       expect(page).to have_http_status :ok
     end
-
-    it 'is shown the volumes report' do
-      expect { click_link('Volumes report') }.to change { current_path }
-        .from('/reporting')
-        .to('/reporting/volumes_report/daily/now')
-
-      expect(page).to have_http_status :ok
-    end
   end
 
   context 'when logged in as a data_analyst' do
@@ -162,14 +146,6 @@ RSpec.describe 'Reports' do
     it 'is shown the workload report' do
       click_on 'Workload report'
       expect(page).to have_text('Workload report')
-
-      expect(page).to have_http_status :ok
-    end
-
-    it 'is shown the volumes report' do
-      expect { click_link('Volumes report') }.to change { current_path }
-        .from('/reporting')
-        .to('/reporting/volumes_report/daily/now')
 
       expect(page).to have_http_status :ok
     end

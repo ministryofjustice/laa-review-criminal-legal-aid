@@ -1,9 +1,10 @@
-<%= render DataTableComponent.new(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
+<%= render DataTableComponent.new(classes: %w[app-table app-table__complex]) do |table| # rubocop:disable Metrics/BlockLength
       table.with_colgroup do |colgroup|
         colgroup.with_col(span: 1)
         colgroup.with_col(span: 3)
+        colgroup.with_col(span: 3)
         colgroup.with_col(span: 4)
-        colgroup.with_col(span: 4)
+        colgroup.with_col(span: 2)
       end
 
       table.with_sortable_head(sorting:) do |head| # rubocop:disable Metrics/BlockLength
@@ -36,6 +37,7 @@
           row.with_cell(colname: :total_closed_by_user, numeric: true, classes: 'colgroup-total')
           row.with_cell(colname: :percentage_unassigned_from_user, numeric: true, classes: 'colgroup-detail')
           row.with_cell(colname: :percentage_closed_by_user, numeric: true, classes: 'colgroup-detail')
+          row.with_cell(colname: :percentage_closed_sent_back, numeric: true, classes: 'colgroup-detail')
         end
       end
 
@@ -97,6 +99,11 @@
             )
             row.with_cell(
               text: "#{data_row.percentage_closed_by_user}%",
+              numeric: true,
+              classes: 'colgroup-detail'
+            )
+            row.with_cell(
+              text: "#{data_row.percentage_closed_sent_back}%",
               numeric: true,
               classes: 'colgroup-detail'
             )

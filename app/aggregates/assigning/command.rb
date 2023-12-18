@@ -17,7 +17,7 @@ module Assigning
     end
 
     def stream_name
-      "Assigning$#{assignment_id}"
+      Assigning.stream_name(assignment_id)
     end
 
     class << self
