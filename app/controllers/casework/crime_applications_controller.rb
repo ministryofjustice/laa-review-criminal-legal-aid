@@ -3,6 +3,8 @@ module Casework
     include ApplicationSearchable
     include WorkStreamable if FeatureFlags.work_stream.enabled?
 
+    before_action :require_a_user_work_stream, only: %i[open closed]
+    before_action :set_current_work_stream, only: %i[open closed]
     before_action :set_crime_application, only: %i[show history complete ready]
 
     def open
@@ -59,16 +61,19 @@ module Casework
 
     private
 
-    def set_crime_application
-      @crime_application = ::CrimeApplication.find(params[:id])
-    end
-
     def work_stream_filter
       if FeatureFlags.work_stream.enabled?
         [current_work_stream]
       else
         Types::WorkStreamType.values
       end
+    end
+
+    def require_a_user_work_stream
+      return unless current_user.work_streams.empty?
+
+      render :no_work_stream
+      false
     end
   end
 end

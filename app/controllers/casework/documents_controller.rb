@@ -26,10 +26,6 @@ module Casework
        s3_object_key: @document.s3_object_key }
     end
 
-    def set_crime_application
-      @crime_application = ::CrimeApplication.find(params[:crime_application_id])
-    end
-
     def set_document
       @document = @crime_application.supporting_evidence.find { |evidence| evidence.s3_object_key == params[:id] }
     end

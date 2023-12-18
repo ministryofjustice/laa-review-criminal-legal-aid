@@ -1,28 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Reassigning an application to myself' do
-  include_context 'with an existing application'
-  let(:confirm_path) do
-    new_crime_application_reassign_path(crime_application_id)
-  end
+  include_context 'with an assigned application'
 
-  let(:assignee) do
-    User.create(
-      first_name: 'Fred',
-      last_name: 'Smitheg',
-      auth_oid: SecureRandom.uuid,
-      email: 'Fred.Smitheg@justice.gov.uk'
-    )
+  let(:banner_text) do
+    "You must be allocated to the Cat 1 work queue to review this application\nContact your supervisor to arrange this"
   end
 
   before do
-    Assigning::AssignToUser.new(
-      user_id: assignee.id,
-      to_whom_id: assignee.id,
-      assignment_id: crime_application_id
-    ).call
-
-    visit '/'
     click_on 'Open applications'
     click_on('Kit Pound')
   end
@@ -82,6 +67,15 @@ RSpec.describe 'Reassigning an application to myself' do
       it 'does not reassign' do
         click_on('No, do not reassign')
         expect(page).to have_content 'Assigned to: Fred Smitheg'
+      end
+    end
+
+    context 'when you are not allocated to the correct work stream' do
+      let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
+
+      it 'displays a notification banner' do
+        click_on('Yes, reassign')
+        expect(page).to have_content banner_text
       end
     end
   end

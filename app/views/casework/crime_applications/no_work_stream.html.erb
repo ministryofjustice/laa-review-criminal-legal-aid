@@ -1,0 +1,6 @@
+<% title t(".#{action_name}_title") %>
+
+<%= govuk_notification_banner(title_text: 'Important', success: false) do |banner| %>
+  <% banner.with_heading(text: t('flash.important.cannot_view_apps_without_a_work_stream').first) %>
+  <p><%= t('flash.important.cannot_view_apps_without_a_work_stream').last %></p>
+<% end %>
