@@ -2,14 +2,16 @@ module DataTable
   class HeaderRowComponent < GovukComponent::Base
     renders_many :cells, lambda { |colname: nil, colspan: 1, scope: 'col', classes: [], numeric: false, text: nil|
       sorting = @sorting
+      filter = @filter
 
       DataTable::HeaderCellComponent.new(
-        sorting:, classes:, colname:, colspan:, scope:, numeric:, text:
+        sorting:, filter:, classes:, colname:, colspan:, scope:, numeric:, text:
       )
     }
 
-    def initialize(sorting:, classes: [])
+    def initialize(sorting:, filter:, classes: [])
       @sorting = sorting
+      @filter = filter
       super(classes: classes, html_attributes: {})
     end
 

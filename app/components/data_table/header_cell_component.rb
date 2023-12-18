@@ -1,17 +1,18 @@
 module DataTable
   class HeaderCellComponent < GovukComponent::Base
-    def initialize(colname:, scope:, colspan:, sorting:, numeric:, text:, classes: []) # rubocop:disable Metrics/ParameterLists
+    def initialize(colname:, scope:, colspan:, sorting:, filter:, numeric:, text:, classes: []) # rubocop:disable Metrics/ParameterLists
       @colname = colname
       @text = text
       @colspan = colspan
       @numeric = numeric
       @scope = scope
       @sorting = sorting
+      @filter = filter
 
       super(classes: classes, html_attributes: {})
     end
 
-    attr_reader :sorting, :colname, :colspan, :scope, :numeric, :text
+    attr_reader :sorting, :filter, :colname, :colspan, :scope, :numeric, :text
 
     def call
       tag.th(**html_attributes) do
@@ -24,7 +25,7 @@ module DataTable
     def cell_content
       return name unless sortable?
 
-      button_to(name, nil, params: sorting_params, method: :get)
+      button_to(name, nil, params: sorted_params, method: :get)
     end
 
     def default_classes
@@ -54,8 +55,9 @@ module DataTable
       sorting.class.sortable_columns.include?(colname.to_s)
     end
 
-    def sorting_params
+    def sorted_params
       {
+        filter: filter.to_h,
         sorting: {
           sort_by: colname.to_s,
           sort_direction: sorting.reverse_direction
