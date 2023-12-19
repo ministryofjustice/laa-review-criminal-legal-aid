@@ -26,7 +26,10 @@ module Reporting
     end
 
     def scope
-      Review.where(work_stream: work_streams, reviewed_on: (days.last..days.first))
+      Review.where(
+        work_stream: work_streams.map(&:to_s),
+        reviewed_on: (days.last..days.first)
+      )
     end
 
     def counts

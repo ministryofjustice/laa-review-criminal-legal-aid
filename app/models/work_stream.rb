@@ -18,10 +18,12 @@ class WorkStream
   def to_s
     work_stream
   end
+  alias serialize to_s
 
   def ==(other)
     other.to_s == @work_stream
   end
+  alias eql? ==
 
   def to_param
     PARAM_MAP.fetch(@work_stream)
@@ -36,6 +38,12 @@ class WorkStream
       new(PARAM_MAP.key(param))
     rescue StandardError
       raise Allocating::WorkStreamNotFound
+    end
+
+    def all
+      Types::WorkStreamType.values.map do |work_stream|
+        new work_stream
+      end
     end
   end
 end

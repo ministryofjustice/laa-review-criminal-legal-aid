@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Open Applications Dashboard' do
   include_context 'with stubbed search'
   let(:work_stream_flag_enabled) { true }
+  let(:report_turbo_link_work_stream_params) do
+    report_link = URI(page.find('turbo-frame#current_workload_report', visible: false)['src'])
+    CGI.parse(report_link.query)['work_streams[]']
+  end
 
   before do
     allow(FeatureFlags).to receive(:work_stream) {
@@ -22,6 +26,7 @@ RSpec.describe 'Open Applications Dashboard' do
           work_stream: %w[criminal_applications_team criminal_applications_team_2 extradition] },
         sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
       )
+      expect(report_turbo_link_work_stream_params).to eq %w[cat_1 cat_2 extradition]
     end
   end
 
@@ -89,6 +94,11 @@ RSpec.describe 'Open Applications Dashboard' do
             work_stream: %w[extradition] },
           sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
         )
+      end
+
+      it 'shows the correct mini report' do
+        click_on 'CAT 2'
+        expect(report_turbo_link_work_stream_params).to eq ['cat_2']
       end
 
       it 'searches for CAT 2 open applications' do

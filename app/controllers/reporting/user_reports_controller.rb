@@ -12,13 +12,27 @@ module Reporting
 
     def show
       @latest_temporal_reports = latest_temporal_reports
-      @report = Reporting.const_get(Types::Report[@report_type].camelize).new(work_streams: [params[:work_streams]])
+      @report = Reporting.const_get(Types::Report[@report_type].camelize).new(work_streams:)
     end
 
     private
 
     def set_report_type
       @report_type = params.require(:report_type).presence_in(*Types::Report)
+    end
+
+    def work_streams
+      return current_user.work_streams if requested_work_streams.empty?
+
+      requested_work_streams & current_user.work_streams
+    end
+
+    def requested_work_streams
+      return [] unless params[:work_streams]
+
+      params[:work_streams].map do |work_stream_param|
+        WorkStream.from_param(work_stream_param)
+      end
     end
 
     # Returns a list of the latest complete temporal reports for a given user
