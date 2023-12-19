@@ -27,7 +27,7 @@ module Reporting
 
     def scope
       Review.where(
-        work_stream: work_streams,
+        work_stream: work_streams.map(&:to_s),
         business_day: (oldest_business_day_date..youngest_business_day_date)
       )
     end
