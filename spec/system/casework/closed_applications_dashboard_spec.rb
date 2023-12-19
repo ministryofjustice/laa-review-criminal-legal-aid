@@ -14,7 +14,9 @@ RSpec.describe 'Closed Applications Dashboard' do
         status: 'returned',
         work_stream: 'criminal_applications_team',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
-        reviewed_at: '2022-12-15T16:58:15.000+00:00'
+        reviewed_at: '2022-12-15T16:58:15.000+00:00',
+        case_type: 'summary_only',
+        application_type: 'initial'
       )
     ]
   end
@@ -85,6 +87,7 @@ RSpec.describe 'Closed Applications Dashboard' do
     expected_headings = [
       "Applicant's name",
       'Reference number',
+
       'Date received',
       'Date closed',
       'Closed by',

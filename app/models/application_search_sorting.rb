@@ -4,6 +4,7 @@ class ApplicationSearchSorting < ApplicationStruct
     time_passed
     reviewed_at
     applicant_name
+    case_type
   ].freeze
 
   DEFAULT_SORT_BY = 'submitted_at'.freeze

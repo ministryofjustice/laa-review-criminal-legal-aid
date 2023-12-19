@@ -22,14 +22,15 @@ RSpec.describe 'Search Page' do
     column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
 
     expect(column_headings).to eq(
-      ["Applicant's name", 'Reference number', 'Date received', 'Date closed', 'Closed by', 'Status']
+      ["Applicant's name", 'Reference number', 'Type', 'Case type', 'Date received', 'Date closed', 'Closed by',
+       'Status']
     )
   end
 
   it 'shows the correct results' do
     first_row_text = page.first('.app-dashboard-table tbody tr').text
 
-    expect(first_row_text).to eq('Kit Pound 120398120 27 Oct 2022 Open')
+    expect(first_row_text).to eq('Kit Pound 120398120 Initial Summary only 27 Oct 2022 Open')
   end
 
   it 'has the correct search results count' do
