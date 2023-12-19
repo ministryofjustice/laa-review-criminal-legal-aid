@@ -61,14 +61,6 @@ module Casework
 
     private
 
-    def work_stream_filter
-      if FeatureFlags.work_stream.enabled?
-        [current_work_stream]
-      else
-        Types::WorkStreamType.values
-      end
-    end
-
     def require_a_user_work_stream
       render :no_work_stream if current_user.work_streams.empty?
     end

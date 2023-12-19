@@ -63,7 +63,7 @@ RSpec.describe 'Current Workload Report' do
   end
 
   context 'when viewing by work stream' do
-    let(:params) { { work_streams: ['criminal_applications_team'] } }
+    let(:params) { { work_streams: ['cat_1'] } }
 
     it 'shows the correct data for applications received column' do
       applications_received_column = all('table tbody tr > td:nth-child(2)').map(&:text)

@@ -3,6 +3,7 @@ module WorkStreamable
 
   included do
     helper_method :current_work_stream
+    helper_method :work_stream_filter
   end
 
   private
@@ -35,5 +36,13 @@ module WorkStreamable
     )
 
     redirect_to crime_application_path @crime_application
+  end
+
+  def work_stream_filter
+    if FeatureFlags.work_stream.enabled?
+      [current_work_stream]
+    else
+      WorkStream.all
+    end
   end
 end
