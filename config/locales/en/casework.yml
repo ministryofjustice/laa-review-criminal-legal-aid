@@ -138,6 +138,7 @@ en:
     closed_by: Closed by
     status: Status
     work_stream: Type of work
+    case_type: Case type
   values: &VALUES
     "true": "Yes"
     "false": "No"
