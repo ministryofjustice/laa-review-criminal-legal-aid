@@ -11,10 +11,7 @@ module Casework
     def index
       return unless assignments_count.positive?
 
-      set_search(
-        default_filter: { assigned_status: current_user_id },
-        default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
-      )
+      set_search_filters
     end
 
     def create
@@ -66,7 +63,16 @@ module Casework
       return unless current_user.work_streams.empty?
 
       set_flash(:no_work_streams_to_assign_from, success: false)
+      set_search_filters
+
       render :index
+    end
+
+    def set_search_filters
+      set_search(
+        default_filter: { assigned_status: current_user_id },
+        default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
+      )
     end
   end
 end

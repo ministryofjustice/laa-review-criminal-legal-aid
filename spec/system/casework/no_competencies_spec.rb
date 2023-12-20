@@ -40,6 +40,30 @@ RSpec.describe 'No competencies' do
       expect(page).to have_notification_banner(text: 'You must be allocated to a work queue to review applications',
                                                details: details, success: false)
     end
+
+    context 'when previously assigned an application' do
+      before do
+        Assigning::AssignToUser.new(
+          user_id: current_user.id,
+          to_whom_id: current_user.id,
+          assignment_id: crime_application_id
+        ).call
+
+        visit '/'
+      end
+
+      context 'when you are not allocated to a work stream' do
+        it 'displays a notification banner' do
+          click_on 'Review next application'
+          expect(page).to have_notification_banner(text: 'You must be allocated to a work queue to review applications',
+                                                   details: details, success: false)
+        end
+
+        it 'displays any previously assigned applications' do
+          expect(page).to have_content '1 application is assigned to you for review'
+        end
+      end
+    end
   end
 
   context 'when assigning an application to your list' do
