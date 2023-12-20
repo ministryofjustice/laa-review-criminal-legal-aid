@@ -65,7 +65,7 @@ module Casework
       set_flash(:no_work_streams_to_assign_from, success: false)
       set_search_filters
 
-      render :index
+      redirect_to assigned_applications_path
     end
 
     def set_search_filters
