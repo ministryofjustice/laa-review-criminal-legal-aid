@@ -13,5 +13,5 @@ feature_flags:
     production: true
   work_stream:
     local: true
-    staging: false
+    staging: true
     production: false
