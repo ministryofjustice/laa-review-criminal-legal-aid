@@ -66,7 +66,8 @@ module Casework
       return unless current_user.work_streams.empty?
 
       set_flash(:no_work_streams_to_assign_from, success: false)
-      render :index
+
+      redirect_to assigned_applications_path
     end
   end
 end
