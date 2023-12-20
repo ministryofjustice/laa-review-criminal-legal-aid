@@ -4,12 +4,12 @@ class ApplicationController < ActionController::Base
   class ForbiddenError < StandardError; end
 
   def landing_page_for(user)
-    if user.service_user?
+    if user.data_analyst?
+      new_application_searches_path
+    elsif user.service_user?
       assigned_applications_path
     elsif user.user_manager?
       manage_users_root_path
-    elsif user.reporting_user?
-      reporting_root_path
     end
   end
 
@@ -24,9 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    url = landing_page_for(user)
-
-    url.presence || super
+    stored_location_for(user) || landing_page_for(user) || super(user)
   end
 
   # Sets the full flash message based on the message key.
