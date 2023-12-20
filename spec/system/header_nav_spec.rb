@@ -126,10 +126,10 @@ RSpec.describe 'Header navigation' do
       visit '/'
     end
 
-    it 'they are redirected to the reports dashboard by default' do
-      expect { click_link('Reports') }.not_to change {
+    it 'they are redirected to application search by default' do
+      expect { click_link('Reports') }.to change {
         page.first('.govuk-heading-xl').text
-      }.from('Reports')
+      }.from('Search for an application').to('Reports')
     end
 
     it 'does not have a link to manage users' do

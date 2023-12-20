@@ -106,7 +106,7 @@ RSpec.describe UserRole do
         user.can_manage_others = false
         user.role = UserRole::DATA_ANALYST
 
-        expect(user.service_user?).to be false
+        expect(user.service_user?).to be true
       end
     end
 

@@ -49,6 +49,14 @@ RSpec.describe UserCompetence do
         end
       end
 
+      context 'when user is a data analyst' do
+        let(:user) { User.new(role: 'data_analyst') }
+
+        it 'returns no competencies' do
+          expect(competencies).to be_empty
+        end
+      end
+
       context 'when work stream feature flag is disabled' do
         before do
           allow(FeatureFlags).to receive(:work_stream) {

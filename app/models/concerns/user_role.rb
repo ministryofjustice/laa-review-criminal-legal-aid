@@ -42,7 +42,7 @@ module UserRole
   def service_user?
     return true if can_manage_others? && FeatureFlags.allow_user_managers_service_access.enabled?
 
-    [CASEWORKER, SUPERVISOR].include?(role) && !can_manage_others?
+    [CASEWORKER, SUPERVISOR, DATA_ANALYST].include?(role) && !can_manage_others?
   end
 
   def reporting_user?
