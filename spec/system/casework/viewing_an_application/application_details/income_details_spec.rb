@@ -27,7 +27,7 @@ RSpec.describe 'Viewing the income details of an application' do
 
   context 'with no income details' do
     let(:application_data) do
-      super().deep_merge('means_details' => { 'income_details' => nil })
+      super().deep_merge('means_details' => nil)
     end
 
     it 'does not show income section' do
