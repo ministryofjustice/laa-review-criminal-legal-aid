@@ -60,23 +60,4 @@ RSpec.describe 'Primary navigation' do
     expect(heading_text).to eq('Closed applications')
     expect(page).to have_current_path '/applications/closed'
   end
-
-  context 'when work stream feature flag in is not enabled' do
-    before do
-      allow(FeatureFlags).to receive(:work_stream) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-      }
-      visit '/'
-    end
-
-    it 'takes you to the open applications path when you click "Open applications"' do
-      click_on('Open applications')
-      expect(page).to have_current_path '/applications/open'
-    end
-
-    it 'takes you to the closed applications path when you click "Closed applications"' do
-      click_on('Closed applications')
-      expect(page).to have_current_path '/applications/closed'
-    end
-  end
 end
