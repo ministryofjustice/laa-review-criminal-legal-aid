@@ -9,7 +9,7 @@
         <%= label_text(:income_more_than) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(income_details.income_above_threshold, scope: 'values') %>
+        <%= t((income_details.income_above_threshold || :no), scope: 'values') %>
       </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -17,7 +17,7 @@
         <%= label_text(:has_frozen_income_or_assets) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(income_details.has_frozen_income_or_assets, scope: 'values') %>
+        <%= t((income_details.has_frozen_income_or_assets || :no), scope: 'values') %>
       </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -25,7 +25,7 @@
         <%= label_text(:client_owns_property) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(income_details.client_owns_property, scope: 'values') %>
+        <%= t((income_details.client_owns_property || :no), scope: 'values') %>
       </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -33,7 +33,7 @@
         <%= label_text(:has_savings) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(income_details.has_savings, scope: 'values') %>
+        <%= t((income_details.has_savings || :no), scope: 'values') %>
       </dd>
     </div>
   </dl>

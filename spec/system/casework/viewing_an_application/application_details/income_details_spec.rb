@@ -34,4 +34,24 @@ RSpec.describe 'Viewing the income details of an application' do
       expect(page).not_to have_content('Income')
     end
   end
+
+  context 'with nil income details' do
+    let(:application_data) do
+      super().deep_merge('means_details' => { 'income_details' => { 'has_frozen_income_or_assets' => nil,
+                                                                    'client_owns_property' => nil,
+                                                                    'has_savings' => nil, } })
+    end
+
+    it 'shows has income savings assets' do
+      expect(page).to have_content('Has income, savings or assets under a restraint or freezing order? No')
+    end
+
+    it 'shows land or property' do
+      expect(page).to have_content('Has land or property? No')
+    end
+
+    it 'shows savings or investments' do
+      expect(page).to have_content('Has savings or investments? No')
+    end
+  end
 end

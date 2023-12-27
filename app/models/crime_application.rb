@@ -114,4 +114,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   def applicant
     @applicant ||= ApplicantPresenter.present(self[:client_details][:applicant])
   end
+
+  def dependants
+    @dependants ||= DependantsPresenter.present(self[:means_details].income_details&.dependants)
+  end
 end
