@@ -52,7 +52,6 @@ RSpec.describe 'Return Reasons Report' do
       'Closed by',
       'Date returned',
       'Return reason',
-      'Return details',
       'Reference number',
       'Office code',
       'Legal representative'
@@ -69,7 +68,6 @@ RSpec.describe 'Return Reasons Report' do
       'Joe Case',
       '5 Jan 2023',
       'clarification required',
-      'More information please',
       '12345678',
       '1A2BC3D',
       'Andy Others'
@@ -102,5 +100,43 @@ RSpec.describe 'Return Reasons Report' do
       .to('/reporting/return_reasons_report/weekly/now')
 
     expect(page).to have_http_status :ok
+  end
+
+  describe 'attempting to download a report' do
+    before do
+      click_link('Monthly')
+    end
+
+    context 'when user is a Data Analysts' do
+      let(:current_user_role) { Types::UserRole['data_analyst'] }
+
+      before do
+        click_link('Download source data (CSV) 1 of 1')
+      end
+
+      it 'can download the source data as a csv' do
+        expect(page.driver.response.content_type).to eq 'text/csv; charset=utf-8'
+      end
+
+      it 'has the correct csv headers' do
+        expect(page.driver.response.body).to match(
+          'resource_id,reviewed_at,appplicant_name,reference,return_reason,return_details,office_code,provider_name'
+        )
+      end
+
+      it 'has the correct file name' do
+        expect(page.driver.response.headers['Content-Disposition']).to match(
+          'return_reasons_report_monthly_2023-January_1_of_1.csv'
+        )
+      end
+    end
+
+    context 'when user is a supervisor' do
+      let(:current_user_role) { Types::UserRole['supervisor'] }
+
+      it 'does not show the download link' do
+        expect(page).not_to have_content('Download')
+      end
+    end
   end
 end

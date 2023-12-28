@@ -8,7 +8,7 @@ RSpec.describe 'Missing Report' do
     visit '/'
     visit reporting_user_report_path(:not_a_report)
 
-    expect(page).to have_http_status(:not_found)
+    expect(page).to have_http_status(:forbidden)
   end
 
   describe 'missing temporal report interval' do

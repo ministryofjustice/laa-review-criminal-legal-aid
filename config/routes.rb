@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
     get ':report_type/:interval/now', to: 'temporal_reports#now', as: :current_temporal_report
     get ':report_type/:interval/:period', to: 'temporal_reports#show', as: :temporal_report
+    get ':report_type/:interval/:period/download', to: 'temporal_reports#download', as: :download_temporal_report
     get ':report_type/:date/at/:time', to: 'snapshots#show', as: :snapshot
     get ':report_type/now', to: 'snapshots#now', as: :current_snapshot
   end

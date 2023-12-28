@@ -2,11 +2,13 @@ module Reporting
   class TemporalReport
     include ActiveModel::Model
 
-    attr_reader :time_period, :report_type
+    attr_reader :time_period, :report_type, :page, :sorting
 
-    def initialize(time_period:, report_type:)
+    def initialize(time_period:, report_type:, sorting: {}, page: 1)
       @time_period = time_period
       @report_type = Types::TemporalReportType[report_type]
+      @sorting = Reporting.const_get("#{report_type}_sorting".camelize).new_or_default(sorting)
+      @page = page
     end
 
     def to_param
@@ -37,8 +39,22 @@ module Reporting
       self.class.new(time_period: time_period.previous, report_type: report_type)
     end
 
-    def rows(sorting: nil)
-      @rows ||= read_model_klass.for_time_period(time_period:).rows(sorting:)
+    def report
+      @report ||= read_model_klass.for_time_period(time_period:, sorting:, page:)
+    end
+
+    def rows
+      @rows ||= report.rows
+    end
+
+    delegate :total_count, :pagination, :downloadable?, to: :report
+
+    def source_csv(file: 1)
+      @source_csv ||= report.source_csv(file:)
+    end
+
+    def source_csv_filename(file: 1)
+      "#{id}_#{file}_of_#{report.source_csv_file_count}.csv"
     end
 
     # returns true if the report includes the current day
@@ -51,11 +67,6 @@ module Reporting
       raise 'Implement in subclass.'
     end
     # :nocov:
-    #
-
-    def sorting_klass
-      Reporting.const_get("#{report_type}_sorting".camelize)
-    end
 
     private
 
@@ -72,19 +83,25 @@ module Reporting
     end
 
     class << self
-      def from_param(report_type:, period:, interval:)
+      def from_param(report_type:, period:, interval:, sorting: {}, page: 1)
         klass = klass_for_interval(interval)
         date = Date.strptime(period, klass::PARAM_FORMAT)
         time_period = TimePeriod.new(interval:, date:)
-        klass.new(report_type:, time_period:)
+
+        klass_for_interval(interval).new(
+          time_period:, report_type:, sorting:, page:
+        )
       rescue Date::Error
         raise Reporting::ReportNotFound
       end
 
-      def current(report_type:, interval:)
+      def current(report_type:, interval:, sorting: {}, page: 1)
         date = _current_date
         time_period = TimePeriod.new(interval:, date:)
-        klass_for_interval(interval).new(time_period:, report_type:)
+
+        klass_for_interval(interval).new(
+          time_period:, report_type:, sorting:, page:
+        )
       end
 
       def klass_for_interval(interval)

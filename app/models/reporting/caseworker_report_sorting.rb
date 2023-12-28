@@ -11,7 +11,7 @@ module Reporting
     ].freeze
 
     DEFAULT_SORT_BY = 'user_name'.freeze
-    DEFAULT_SORT_DIRECTION = Types::SortDirection['ascending']
+    DEFAULT_SORT_DIRECTION = Types::SortDirection['ascending'].freeze
 
     include SortableStruct
   end

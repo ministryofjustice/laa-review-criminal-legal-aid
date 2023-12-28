@@ -15,7 +15,7 @@
       <h3 class='govuk-heading-s'>
         <%= govuk_link_to(
               label_text(report.report_type),
-              reporting_current_temporal_report_path(report.to_param),
+              reporting_temporal_report_path(report.to_param),
               { no_visited_state: true }
             )%>
       </h3>

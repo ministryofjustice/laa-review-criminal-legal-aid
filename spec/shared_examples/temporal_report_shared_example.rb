@@ -61,16 +61,4 @@ RSpec.shared_examples 'a temporal report' do
       expect(report.previous_report.current?).to be false
     end
   end
-
-  describe '#rows' do
-    it 'fetches the rows from the report_type\'s read model using the correct temporal stream name' do
-      read_model = instance_double(Reporting::CaseworkerReport, rows: :read_model_rows)
-
-      allow(Reporting::CaseworkerReport).to receive(:new).with(dataset: {}) {
-        read_model
-      }
-
-      expect(report.rows).to eq :read_model_rows
-    end
-  end
 end

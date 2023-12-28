@@ -37,6 +37,11 @@ html {
 }
 
 .app-table {
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+  }
   tr.colgroup-headers {
     th {
       border-bottom: none;
