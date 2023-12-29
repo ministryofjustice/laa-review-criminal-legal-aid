@@ -1,0 +1,20 @@
+<% if income_details&.manage_without_income.present? %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:other_income_details) %>
+  </h2>
+
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:manage_without_income) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <% if income_details.manage_without_income == 'other' %>
+          <%= income_details.manage_other_details %>
+      <% else %>
+          <%= t(income_details.manage_without_income, scope: 'values.manage_without_income') %>
+      <% end %>
+      </dd>
+    </div>
+  </dl>
+<% end %>
