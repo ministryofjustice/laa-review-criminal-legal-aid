@@ -9,9 +9,11 @@ RSpec.describe 'Viewing the other income details of an application' do
 
   context 'with other income details' do
     context 'when Other free text option is selected' do
+      it { expect(page).to have_content('Other sources of income') }
+
       it 'shows manage without income details' do
-        expect(page).to have_content('Other sources of income')
-        expect(page).to have_content('How do they manage with no income? Another way they manage')
+        expect(page).to have_content('How do they manage with no income? Other')
+        expect(page).to have_content('Details Another way they manage')
       end
     end
 

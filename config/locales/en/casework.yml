@@ -83,6 +83,7 @@ en:
     date_appeal_lodged: Date the appeal was lodged
     date_of_birth: Date of birth
     date_received: 'Date received:'
+    details: Details
     end_on: Date to
     extradition: Extradition
     file_name: File name
