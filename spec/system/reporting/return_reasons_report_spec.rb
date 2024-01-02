@@ -64,10 +64,10 @@ RSpec.describe 'Return Reasons Report' do
 
   it 'includes the expected data' do # rubocop:disable RSpec/ExampleLength
     expected_data = [
-      'passported',
+      'Passported',
       'Joe Case',
       '5 Jan 2023',
-      'clarification required',
+      'Clarification required',
       '12345678',
       '1A2BC3D',
       'Andy Others'
