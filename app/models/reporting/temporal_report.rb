@@ -49,12 +49,12 @@ module Reporting
 
     delegate :total_count, :pagination, :downloadable?, to: :report
 
-    def source_csv(file: 1)
-      @source_csv ||= report.source_csv(file:)
+    def csv(file: 1)
+      @csv ||= report.csv(file:)
     end
 
-    def source_csv_filename(file: 1)
-      "#{id}_#{file}_of_#{report.source_csv_file_count}.csv"
+    def csv_filename(file: 1)
+      "#{id}_#{file}_of_#{report.csv_file_count}.csv"
     end
 
     # returns true if the report includes the current day

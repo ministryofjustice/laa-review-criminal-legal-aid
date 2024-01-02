@@ -2,7 +2,7 @@ module Reporting
   require 'csv'
 
   class ReturnReasonsReport
-    SOURCE_CSV_LIMIT = 1_000
+    CSV_LIMIT = 1_000
 
     include Downloadable
 

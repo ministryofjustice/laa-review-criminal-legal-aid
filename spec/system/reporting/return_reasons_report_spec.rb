@@ -89,7 +89,7 @@ RSpec.describe 'Return Reasons Report' do
   it 'can navigate to the monthly view' do
     expect { click_link('Monthly') }.to change { current_path }
       .from('/reporting/return_reasons_report/weekly/2023-1')
-      .to('/reporting/return_reasons_report/monthly/now')
+      .to('/reporting/return_reasons_report/monthly/2022-December')
 
     expect(page).to have_http_status :ok
   end
@@ -97,7 +97,7 @@ RSpec.describe 'Return Reasons Report' do
   it 'can navigate to the weekly view' do
     expect { click_link('Weekly') }.to change { current_path }
       .from('/reporting/return_reasons_report/weekly/2023-1')
-      .to('/reporting/return_reasons_report/weekly/now')
+      .to('/reporting/return_reasons_report/weekly/2022-52')
 
     expect(page).to have_http_status :ok
   end
@@ -126,7 +126,14 @@ RSpec.describe 'Return Reasons Report' do
 
       it 'has the correct file name' do
         expect(page.driver.response.headers['Content-Disposition']).to match(
-          'return_reasons_report_monthly_2023-January_1_of_1.csv'
+          'return_reasons_report_monthly_2022-December_1_of_1.csv'
+        )
+      end
+
+      it 'can visit the download link to get the report' do
+        visit('/reporting/return_reasons_report/monthly/2023-November/download')
+        expect(page.driver.response.headers['Content-Disposition']).to match(
+          'return_reasons_report_monthly_2023-November_1_of_1.csv'
         )
       end
     end
@@ -136,6 +143,11 @@ RSpec.describe 'Return Reasons Report' do
 
       it 'does not show the download link' do
         expect(page).not_to have_content('Download')
+      end
+
+      it 'cannot visit the download link to get the report' do
+        visit('/reporting/return_reasons_report/monthly/2023-November/download')
+        expect(page).to have_http_status :forbidden
       end
     end
   end

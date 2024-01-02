@@ -37,6 +37,7 @@ RSpec.describe 'Authorisation' do
       reporting_user_report
       reporting_root
       reporting_temporal_report
+      reporting_latest_complete_temporal_report
       reporting_snapshot
       reporting_current_snapshot
       reporting_current_temporal_report

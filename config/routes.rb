@@ -58,7 +58,7 @@ Rails.application.routes.draw do
     root to: 'user_reports#index'
     get ':report_type', to: 'user_reports#show', as: 'user_report'
 
-    get ':report_type/:interval/now', to: 'temporal_reports#now', as: :current_temporal_report
+    get ':report_type/:interval/latest_complete', to: 'temporal_reports#latest_complete', as: :latest_complete_temporal_report
     get ':report_type/:interval/:period', to: 'temporal_reports#show', as: :temporal_report
     get ':report_type/:interval/:period/download', to: 'temporal_reports#download', as: :download_temporal_report
     get ':report_type/:date/at/:time', to: 'snapshots#show', as: :snapshot

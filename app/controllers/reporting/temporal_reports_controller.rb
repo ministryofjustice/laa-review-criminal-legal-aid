@@ -10,27 +10,24 @@ module Reporting
       @sorting = @report.sorting
     end
 
-    def now
-      @report = Reporting::TemporalReport.current(
-        interval: @interval,
-        report_type: @report_type,
-        sorting: permitted_params[:sorting],
-        page: permitted_params[:page]
-      )
-
-      @sorting = @report.sorting
-
-      render :show
-    end
-
     def download
-      file = permitted_params[:file]
+      file = permitted_params[:file] || 1
       send_data(
-        @report.source_csv(file:),
+        @report.csv(file:),
         file_name: '@report.id',
-        filename: @report.source_csv_filename(file:),
+        filename: @report.csv_filename(file:),
         type: 'text/csv; charset=utf-8; header=present'
       )
+    end
+
+    def latest_complete
+      report = Reporting::TemporalReport.current(
+        interval: @interval,
+        report_type: @report_type,
+        sorting: permitted_params[:sorting]
+      ).previous_report
+
+      redirect_to reporting_temporal_report_path(report.to_param)
     end
 
     private
