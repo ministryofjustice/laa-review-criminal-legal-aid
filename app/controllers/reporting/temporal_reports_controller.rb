@@ -2,7 +2,7 @@ module Reporting
   class TemporalReportsController < Reporting::BaseController
     before_action :set_report_type
     before_action :set_interval
-    before_action :require_report_downloader!, only: [:download]
+    before_action :require_download_access!, only: [:download]
     before_action :require_report_access!
     before_action :set_report, only: [:show, :download]
 

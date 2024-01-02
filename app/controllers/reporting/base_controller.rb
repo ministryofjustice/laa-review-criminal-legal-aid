@@ -13,7 +13,7 @@ module Reporting
       raise ForbiddenError, 'Must be a reporting user'
     end
 
-    def require_report_downloader!
+    def require_download_access!
       return if current_user.can_download_reports?
 
       raise ForbiddenError, 'Cannot download reports'
