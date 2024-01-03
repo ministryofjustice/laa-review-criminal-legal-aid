@@ -1,3 +1,10 @@
 <strong>
-  <%= t('reviewing.completed', scope: 'event.description') %>
+  <%= t(application.submission_type, scope: 'event.description.reviewing.completed') %>
 </strong>
+
+<% unless event_is_for_current_version %>
+  <br>
+  <%= link_to 'Go to this application',
+              crime_application_path(application.id),
+              class: 'govuk-link--no-visited-state' %>
+<% end %>

@@ -8,6 +8,9 @@
     <%= app.reference %>
   </td>
   <td class="govuk-table__cell">
+    <%= app.application_type.humanize %>
+  </td>
+  <td class="govuk-table__cell">
     <%= l(app.submitted_at) %>
   </td>
   <td class="govuk-table__cell">

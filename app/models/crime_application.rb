@@ -44,15 +44,11 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     !reviewed? && assigned_to?(user_id)
   end
 
-  def superseding_history_item
-    return nil unless superseded_by
+  # FOR SPIKE
+  def submission_type
+    return 'resubmission' if parent_id && application_type == 'initial'
 
-    ApplicationHistoryItem.new(
-      user_name: legal_rep_name,
-      event_type: 'Reviewing::Superseded',
-      timestamp: superseded_at,
-      event_data: { superseded_by: }
-    )
+    application_type
   end
 
   def work_stream

@@ -35,3 +35,5 @@ services:
       - "9395:9395" # prometheus exporter `/metrics` endpoint
     depends_on:
       - db
+    volumes:
+      - .:/app

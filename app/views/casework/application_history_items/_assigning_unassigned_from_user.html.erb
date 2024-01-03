@@ -1,3 +1,1 @@
-<strong>
-  <%= t(:unassigned_from_user, scope: 'event.description.assigning', from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
-</strong>
+<%= t(application.application_type, scope: 'event.description.assigning.unassigned_from_user', from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
