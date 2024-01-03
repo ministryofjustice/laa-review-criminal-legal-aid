@@ -1,0 +1,17 @@
+<%= render partial: 'overview', object: crime_application %>
+<%= render partial: 'client_details',
+           locals: {
+             applicant: crime_application.client_details.applicant,
+             nino: crime_application.applicant.formatted_applicant_nino,
+             applicant_tel: crime_application.applicant.phone_number
+           } %>
+<%= render partial: 'case_details', object: crime_application.case_details %>
+<%= render partial: 'offences', object: crime_application.case_details.offences %>
+<%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
+<%= render partial: 'interests_of_justice', locals: { crime_application: } %>
+<% if FeatureFlags.evidence_upload.enabled? %>
+  <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
+<% end %>
+<% if FeatureFlags.means_journey.enabled? %>
+  <%= render partial: 'income', locals: { income_details: crime_application.means_details.income_details } %>
+<% end %>

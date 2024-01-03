@@ -113,6 +113,7 @@ en:
     overall_offence_class: Overall offence class
     overview: Overview
     partner: Partner
+    post_submission_evidence: Post submission evidence 
     previous_maat_id: Previous MAAT ID
     provider_details: Provider details
     provider_email: Email address
@@ -154,6 +155,7 @@ en:
     deleted_user_name: '[deleted]'
     no_one: no one
     initial: Initial application
+    post_submission_evidence: Post submission evidence 
     universal_credit: Universal Credit
     guarantee_pension: Guarantee Credit element of Pension Credit
     jsa: Income-based Jobseeker's Allowance (JSA)
@@ -258,15 +260,29 @@ en:
     title:
     description:
       assigning:
-        assigned_to_user: Application assigned to %{to_whom_name}
-        unassigned_from_user: Application removed from %{from_whom_name}
-        reassigned_to_user: Application reassigned from %{from_whom_name} to %{to_whom_name}
+        assigned_to_user: 
+          initial: Application assigned to %{to_whom_name}
+          resubmission: Application assigned to %{to_whom_name}
+          post_submission_evidence: PSE assigned to %{to_whom_name}
+        unassigned_from_user: 
+          initial: Application removed from %{from_whom_name}
+          resubmission: Application removed from %{from_whom_name}
+          post_submission_evidence: PSE removed from %{from_whom_name}
+        reassigned_to_user: 
+          initial: Application reassigned from %{from_whom_name} to %{to_whom_name}
+          resubmission: Application reassigned from %{from_whom_name} to %{to_whom_name}
+          post_submission_evidence: PSE reassigned from %{from_whom_name} to %{to_whom_name}
       reviewing:
         sent_back: Application sent back to provider
-        application_received: Application submitted
-        application_resubmitted: Application resubmitted
+        application_received: 
+          initial: Application submitted 
+          resubmission: Application resubmitted 
+          post_submission_evidence: PSE submitted 
         selected_application: Go to this version
-        completed: Application completed
+        completed: 
+          initial: Application completed
+          resubmission: Application completed
+          post_submission_evidence: PSE completed
         marked_as_ready: Application marked as ready for assessment
       authorising:
         invited: User invited
@@ -360,3 +376,15 @@ en:
         <<: *LABELS
       values:
         <<: *VALUES
+    post_submissions:
+      subnavigation:
+        application_details: Application details
+        application_history: Application history
+      show:
+        page_title: Post submission
+        heading: Post submission
+        view_history: Check application history
+        view_your_list: Go to your list
+      history:
+        page_title: Application history
+        heading: Application history

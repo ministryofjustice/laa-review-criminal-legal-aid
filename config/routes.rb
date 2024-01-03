@@ -28,6 +28,12 @@ Rails.application.routes.draw do
   end
 
   scope module: :casework do
+    resources :post_submissions, only: [:show] do
+      put :complete, on: :member
+      resource :reassign, only: [:new, :create]
+      resource :return, only: [:new, :create]
+    end
+
     resources :crime_applications, only: [:show], path: 'applications' do
       get :open, on: :collection
       get :closed, on: :collection

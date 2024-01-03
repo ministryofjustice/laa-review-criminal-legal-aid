@@ -15,6 +15,7 @@ module SnsEvent
         application_id:,
         parent_id:,
         work_stream:,
+        application_type:,
         causation_id:,
         submitted_at:
       )
@@ -33,6 +34,10 @@ module SnsEvent
 
     def submitted_at
       message.dig('data', 'submitted_at') || Time.zone.now
+    end
+
+    def application_type
+      message['data']&.fetch('application_type')
     end
 
     def parent_id

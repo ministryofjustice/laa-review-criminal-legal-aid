@@ -1,26 +1,9 @@
 <% title t('.page_title') %>
-<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-9">
+    <%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
     <%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
-    <%= render partial: 'overview', object: @crime_application %>
-    <%= render partial: 'client_details',
-               locals: {
-                 applicant: @crime_application.client_details.applicant,
-                 nino: @crime_application.applicant.formatted_applicant_nino,
-                 applicant_tel: @crime_application.applicant.phone_number
-               } %>
-    <%= render partial: 'case_details', object: @crime_application.case_details %>
-    <%= render partial: 'offences', object: @crime_application.case_details.offences %>
-    <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
-    <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
-    <% if FeatureFlags.evidence_upload.enabled? %>
-      <%= render partial: 'supporting_evidence', locals: { crime_application: @crime_application } %>
-    <% end %>
-    <% if FeatureFlags.means_journey.enabled? %>
-      <%= render partial: 'income', locals: { income_details: @crime_application.means_details.income_details } %>
-  <% end %>
+    <%= render partial: @crime_application.application_type, locals: { crime_application: @crime_application } %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
   </div>
 </div>
@@ -29,21 +12,24 @@
   <div class="govuk-grid-column-three-quarters">
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
-        <% if @crime_application.status?(:marked_as_ready) %>
-        <%= button_to t('calls_to_action.mark_complete'),
-                      complete_crime_application_path(@crime_application),
-                      method: :put,
-                      class: 'govuk-button govuk-button' %>
+        <% if @crime_application.status?(:marked_as_ready) || !@crime_application.application_type?(:initial) %>
+          <%= button_to t('calls_to_action.mark_complete'),
+                        complete_crime_application_path(@crime_application),
+                        method: :put,
+                        class: 'govuk-button govuk-button' %>
         <% else %>
-        <%= button_to t('calls_to_action.mark_as_ready'),
-                      ready_crime_application_path(@crime_application),
-                      method: :put,
-                      class: 'govuk-button govuk-button' %>
+          <%= button_to t('calls_to_action.mark_as_ready'),
+                        ready_crime_application_path(@crime_application),
+                        method: :put,
+                        class: 'govuk-button govuk-button' %>
         <% end %>
-        <%= button_to t('calls_to_action.send_back'),
-                      new_crime_application_return_path(@crime_application),
-                      method: :get,
-                      class: 'govuk-button govuk-button--warning' %>
+        <% if @crime_application.application_type?(:initial) %>
+          <%= button_to t('calls_to_action.send_back'),
+                        new_crime_application_return_path(@crime_application),
+                        method: :get,
+                        class: 'govuk-button govuk-button--warning' %>
+        <% end %>
+
         <%= button_to t('calls_to_action.unassign_from_self'),
                       assigned_application_path(@crime_application),
                       method: :delete,

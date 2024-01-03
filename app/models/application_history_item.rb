@@ -13,7 +13,7 @@ class ApplicationHistoryItem < ApplicationStruct
 
   class << self
     def from_event(event, application)
-      if event.event_type == 'Reviewing::ApplicationReceived'
+      if %w[Reviewing::ApplicationReceived Reviewing::Superseded].include? event.event_type
         user_name = application.legal_rep_name
         timestamp = application.submitted_at
       else

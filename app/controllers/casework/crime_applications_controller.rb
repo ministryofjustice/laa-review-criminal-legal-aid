@@ -7,6 +7,7 @@ module Casework
     before_action :set_current_work_stream, only: %i[open closed]
     before_action :set_crime_application, only: %i[show history complete ready]
 
+    # MOVE TO WORK STREAMS CONTROLLER,
     def open
       set_search(
         default_filter: { application_status: 'open', work_stream: work_stream_filter },
@@ -18,6 +19,7 @@ module Casework
       render :index
     end
 
+    # MOVE TO WORK STREAMS CONTROLLER,
     def closed
       set_search(
         default_filter: { application_status: 'closed', work_stream: work_stream_filter },

@@ -35,6 +35,10 @@ module Reviewable
     review_status == status
   end
 
+  def application_type?(application_type)
+    self.application_type == Types::ApplicationType[application_type.to_s]
+  end
+
   def superseded?
     !superseded_at.nil?
   end

@@ -22,11 +22,11 @@ module Reviewing
 
     alias application_id id
 
-    def receive_application(submitted_at:, parent_id: nil, work_stream: nil)
+    def receive_application(submitted_at:, parent_id: nil, work_stream: nil, application_type: 'initial')
       raise AlreadyReceived if received?
 
       apply ApplicationReceived.new(
-        data: { application_id:, submitted_at:, parent_id:, work_stream: }
+        data: { application_id:, submitted_at:, parent_id:, work_stream:, application_type: }
       )
     end
 
