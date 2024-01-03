@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Open Applications Dashboard' do
+RSpec.describe 'Open Applications' do
   include_context 'with stubbed search'
   let(:work_stream_flag_enabled) { true }
   let(:report_turbo_link_work_stream_params) do
@@ -35,15 +35,15 @@ RSpec.describe 'Open Applications Dashboard' do
   end
 
   it 'includes the correct headings' do
-    column_headings = page.first('.app-dashboard-table thead tr').text.squish
+    column_headings = page.first('.app-table thead tr').text.squish
 
-    # rubocop:disable Layout/LineLength
-    expect(column_headings).to eq("Applicant's name Reference number Date received Business days since application was received Caseworker")
-    # rubocop:enable Layout/LineLength
+    expect(column_headings).to eq(
+      "Applicant's name Reference number Date received Business days since application was received Caseworker"
+    )
   end
 
   it 'shows the correct information' do
-    first_row_text = page.first('.app-dashboard-table tbody tr').text
+    first_row_text = page.first('.app-table tbody tr').text
 
     days_ago = Calendar.new.business_days_between(
       Date.parse('2022-10-27'), Time.current.in_time_zone('London')

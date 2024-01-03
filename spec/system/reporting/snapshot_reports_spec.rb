@@ -49,7 +49,7 @@ RSpec.describe 'Snapshot report' do
       let(:report_type) { Types::TemporalReportType['caseworker_report'] }
 
       it 'shows the page not found' do
-        expect(page).to have_http_status(:not_found)
+        expect(page).to have_http_status(:forbidden)
       end
     end
   end

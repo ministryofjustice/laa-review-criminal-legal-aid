@@ -2,8 +2,8 @@ module SortableStruct
   extend ActiveSupport::Concern
 
   included do
-    attribute :sort_direction, Types::SortDirection
-    attribute :sort_by, Types::String.default(default_sort_by).enum(*sortable_columns)
+    attribute? :sort_direction, Types::String.default(default_sort_direction).enum(*Types::SortDirection.values)
+    attribute? :sort_by, Types::String.default(default_sort_by).enum(*sortable_columns)
   end
 
   class_methods do

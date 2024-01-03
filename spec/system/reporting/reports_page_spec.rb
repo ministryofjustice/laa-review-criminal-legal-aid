@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Reports' do
+  before do
+    travel_to Time.zone.local(2023, 11, 28, 12)
+  end
+
   describe 'when logged in as a user manager' do
     include_context 'when logged in user is admin'
 
@@ -10,10 +14,10 @@ RSpec.describe 'Reports' do
       expect_forbidden
     end
 
-    it 'is shown not found for report pages', :aggregate_failures do
+    it 'is shown forbidden for report pages', :aggregate_failures do
       %w[processed_report caseworker_report workload_report].each do |report|
         visit reporting_user_report_path(report)
-        expect(page).to have_http_status(:not_found)
+        expect(page).to have_http_status(:forbidden)
       end
     end
 
@@ -30,10 +34,10 @@ RSpec.describe 'Reports' do
         expect(heading_text).to eq('Reports')
       end
 
-      it 'is shown the caseworker report' do
+      it 'shows the latest complete caseworker daily report' do
         expect { click_link('Caseworker report') }.to change { current_path }
           .from('/reporting')
-          .to('/reporting/caseworker_report/daily/now')
+          .to('/reporting/caseworker_report/daily/2023-11-27')
 
         expect(page).to have_http_status :ok
       end
@@ -63,7 +67,7 @@ RSpec.describe 'Reports' do
 
     it 'cannot access the caseworker report' do
       visit reporting_user_report_path('caseworker_report')
-      expect(page).to have_http_status(:not_found)
+      expect(page).to have_http_status(:forbidden)
     end
 
     it 'can access the processed report' do
@@ -91,10 +95,10 @@ RSpec.describe 'Reports' do
       expect(heading_text).to eq('Reports')
     end
 
-    it 'is shown the caseworker report' do
+    it 'shows the latest complete caseworker daily report' do
       expect { click_link('Caseworker report') }.to change { current_path }
         .from('/reporting')
-        .to('/reporting/caseworker_report/daily/now')
+        .to('/reporting/caseworker_report/daily/2023-11-27')
 
       expect(page).to have_http_status :ok
     end
@@ -127,10 +131,10 @@ RSpec.describe 'Reports' do
       expect(heading_text).to eq('Reports')
     end
 
-    it 'is shown the caseworker report' do
+    it 'shows the latest complete caseworker monthly report' do
       expect { click_link('Caseworker report') }.to change { current_path }
         .from('/reporting')
-        .to('/reporting/caseworker_report/daily/now')
+        .to('/reporting/caseworker_report/monthly/2023-October')
 
       expect(page).to have_http_status :ok
     end
@@ -161,7 +165,7 @@ RSpec.describe 'Reports' do
 
     it 'shows page not found' do
       expect(current_user.reports.include?('not_supported_report')).to be true # confirm stub
-      expect(page).to have_text('Page not found')
+      expect(page).to have_http_status :forbidden
     end
   end
 end

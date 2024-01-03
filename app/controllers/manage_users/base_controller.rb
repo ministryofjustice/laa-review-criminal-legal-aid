@@ -16,8 +16,7 @@ module ManageUsers
     def require_user_manager!
       return if current_user.can_manage_others?
 
-      render status: :not_found, template: 'errors/not_found', layout: 'external'
-      false
+      raise ForbiddenError, 'Must be a user manager'
     end
   end
 end

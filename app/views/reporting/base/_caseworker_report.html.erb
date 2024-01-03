@@ -42,7 +42,7 @@
       end
 
       table.with_body do |body| # rubocop:disable Metrics/BlockLength
-        report.rows(sorting:).each do |data_row| # rubocop:disable Metrics/BlockLength
+        report.rows.each do |data_row| # rubocop:disable Metrics/BlockLength
           body.with_row do |row| # rubocop:disable Metrics/BlockLength
             row.with_cell(
               text: link_to_search_by_caseworker(data_row.user_name, data_row.user_id)

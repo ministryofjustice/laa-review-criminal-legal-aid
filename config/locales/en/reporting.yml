@@ -31,6 +31,10 @@ en:
     monthly: Monthly 
     weekly: Weekly 
     daily: Daily 
+    period:
+      monthly: month 
+      weekly: week 
+      daily: day 
   table_headings:
     application_type: Type
     applications_closed: Number of closed applications

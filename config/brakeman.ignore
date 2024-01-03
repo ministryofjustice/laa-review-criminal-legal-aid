@@ -1,40 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "640098948ddce901a04f77412dcd33f3a532714060a2fea65086f75263d3ce3e",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/reporting/temporal_reports/show.html.erb",
-      "line": 33,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.current(:interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType)), :sorting => report_sorting }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Reporting::TemporalReportsController",
-          "method": "now",
-          "line": 24,
-          "file": "app/controllers/reporting/temporal_reports_controller.rb",
-          "rendered": {
-            "name": "reporting/temporal_reports/show",
-            "file": "app/views/reporting/temporal_reports/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "reporting/temporal_reports/show"
-      },
-      "user_input": "params.require(:report_type).presence_in(*Types::SnapshotReportType)",
-      "confidence": "High",
-      "cwe_id": [
-        22
-      ],
-      "note": "Scoped by Type"
-    },
-    {
       "warning_type": "Remote Code Execution",
       "warning_code": 24,
       "fingerprint": "820d5ff4010418a7a11637323f60a964ef46ff5f5b531f18bebcf7992a12ed8b",
@@ -56,6 +22,40 @@
         470
       ],
       "note": "scoped by type"
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "bad0ca2953d36189bf2b5a7466758aae1efadf12c43b44a44d051c6b0e3f152c",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/reporting/temporal_reports/show.html.erb",
+      "line": 33,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => params.require(:report_type).presence_in(*Types::SnapshotReportType), { :locals => ({ :report => Reporting::TemporalReport.from_param(:report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType), :period => permitted_params[:period], :interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :sorting => permitted_params[:sorting], :page => permitted_params[:page]), :sorting => Reporting::TemporalReport.from_param(:report_type => params.require(:report_type).presence_in(*Types::SnapshotReportType), :period => permitted_params[:period], :interval => permitted_params.require(:interval).presence_in(*Types::TemporalInterval), :sorting => permitted_params[:sorting], :page => permitted_params[:page]).sorting }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Reporting::TemporalReportsController",
+          "method": "show",
+          "line": 11,
+          "file": "app/controllers/reporting/temporal_reports_controller.rb",
+          "rendered": {
+            "name": "reporting/temporal_reports/show",
+            "file": "app/views/reporting/temporal_reports/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reporting/temporal_reports/show"
+      },
+      "user_input": "params.require(:report_type).presence_in(*Types::SnapshotReportType)",
+      "confidence": "High",
+      "cwe_id": [
+        22
+      ],
+      "note": "Scoped by Types"
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -126,6 +126,6 @@
       "note": "Scoped by Type"
     }
   ],
-  "updated": "2023-12-19 13:30:46 +0000",
+  "updated": "2024-01-02 13:26:44 +0000",
   "brakeman_version": "6.1.0"
 }
