@@ -220,7 +220,7 @@ RSpec.describe 'Authorisation' do
   it 'all configured routes are tested' do
     configured_routes.each do |route|
       tested_routes = user_manager_routes | service_user_routes | unauthenticated_routes |
-        supervisor_routes | data_analyst_routes
+                      supervisor_routes | data_analyst_routes
 
       expect(tested_routes.include?(route.name)).to be(true), "\"#{route.name}\" is not tested"
     end
