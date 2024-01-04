@@ -1,0 +1,9 @@
+<% Array.new(report.report.csv_file_count) do |i| %>
+  <p>
+    <%= govuk_link_to(
+          "Download source data (CSV) #{i + 1} of #{report.report.csv_file_count}",
+          reporting_download_temporal_report_path(file: i + 1, **report.to_param),
+          data: { turbo: false }
+        ) %>
+  </p>
+<% end %>

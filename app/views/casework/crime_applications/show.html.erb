@@ -18,6 +18,9 @@
     <% if FeatureFlags.evidence_upload.enabled? %>
       <%= render partial: 'supporting_evidence', locals: { crime_application: @crime_application } %>
     <% end %>
+    <% if FeatureFlags.means_journey.enabled? %>
+      <%= render partial: 'income', locals: { income_details: @crime_application.means_details.income_details } %>
+  <% end %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
   </div>
 </div>
