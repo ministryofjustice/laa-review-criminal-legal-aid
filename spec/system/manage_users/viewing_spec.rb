@@ -6,9 +6,8 @@ RSpec.describe 'Manage Users Dashboard' do
       visit manage_users_root_path
     end
 
-    it 'redirects to "Page not" found' do
-      heading_text = page.first('.govuk-heading-xl').text
-      expect(heading_text).to eq('Page not found')
+    it 'shows the forbidden page' do
+      expect(page).to have_http_status(:forbidden)
     end
   end
 

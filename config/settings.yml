@@ -14,4 +14,8 @@ feature_flags:
   work_stream:
     local: true
     staging: true
+    production: true
+  means_journey:
+    local: true
+    staging: true
     production: false

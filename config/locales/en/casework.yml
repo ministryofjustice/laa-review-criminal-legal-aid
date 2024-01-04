@@ -71,6 +71,7 @@ en:
     case_type: Case type
     caseworker: Caseworker
     client_details: Client details
+    client_owns_property: Has land or property?
     closed_by: 'Closed by:'
     codefendants: Co-defendants
     correspondence_address: Correspondence address
@@ -88,8 +89,12 @@ en:
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
     first_court_hearing: First court hearing the case
+    has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
+    has_savings: Has savings or investments?
     hearing_date: Date of next hearing
     home_address: Home address
+    income: Income
+    income_more_than: Income more than £12,475?
     interests_of_justice: Interest of Justice
     interests_of_justice_type: Criteria
     justification: Justification
@@ -142,6 +147,8 @@ en:
   values: &VALUES
     "true": "Yes"
     "false": "No"
+    "yes": "Yes"
+    "no": "No"
     not_provided: Not provided
     not_asked: Not asked when this application was submitted
     deleted_user_name: '[deleted]'
