@@ -1,11 +1,17 @@
 require 'rails_helper'
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 RSpec.describe 'Authorisation' do
-  include Devise::Test::IntegrationHelpers
-
-  before do
-    allow(FeatureFlags).to receive(:work_stream) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-    }
+  let(:current_user) do
+    User.create(
+      email: 'Joe.EXAMPLE@justice.gov.uk',
+      first_name: 'Joe',
+      last_name: 'EXAMPLE',
+      auth_subject_id: SecureRandom.uuid,
+      first_auth_at: 1.month.ago,
+      last_auth_at: 1.hour.ago,
+      can_manage_others: current_user_can_manage_others,
+      role: current_user_role
+    )
   end
 
   let(:service_user_routes) do
@@ -31,6 +37,7 @@ RSpec.describe 'Authorisation' do
       reporting_user_report
       reporting_root
       reporting_temporal_report
+      reporting_latest_complete_temporal_report
       reporting_snapshot
       reporting_current_snapshot
       reporting_current_temporal_report
@@ -87,6 +94,22 @@ RSpec.describe 'Authorisation' do
     ]
   end
 
+  let(:data_analyst_routes) do
+    %w[reporting_download_temporal_report]
+  end
+
+  let(:current_user_can_manage_others) { false }
+
+  let(:current_user_role) { UserRole::CASEWORKER }
+
+  include Devise::Test::IntegrationHelpers
+
+  before do
+    allow(FeatureFlags).to receive(:work_stream) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+  end
+
   def expected_status(route_name)
     case route_name
     when 'users_auth_failure', 'forbidden'
@@ -124,9 +147,9 @@ RSpec.describe 'Authorisation' do
 
   describe 'an authenticated service user (caseworker)' do
     include_context 'with stubbed search'
+
     before do
-      user = User.create(email: 'Ben.EXAMPLE@example.com')
-      sign_in user
+      sign_in current_user
     end
 
     it 'can access the service' do
@@ -135,24 +158,27 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'returns "Not found" for all user manager and supervisor routes' do
+    it 'returns "Forbidden" for all user manager and supervisor routes' do
       configured_routes.each do |route|
-        next unless (user_manager_routes & supervisor_routes).include?(route.name)
+        next unless (user_manager_routes | supervisor_routes | data_analyst_routes).include?(route.name)
+
+        sign_in current_user
 
         visit_configured_route(route)
 
-        expect(response).to have_http_status :not_found
-        expect(response.body).to include('Page not found')
+        expect(response).to have_http_status(:forbidden), response.status.to_s + route.name
+        expect(response.body).to include('Access to this service is restricted')
       end
     end
   end
 
   describe 'an authenticated user manager' do
+    let(:current_user_can_manage_others) { true }
+
     include_context 'with stubbed search'
 
     before do
-      user = User.create(email: 'Ben.EXAMPLE@example.com', can_manage_others: true)
-      sign_in user
+      sign_in current_user
     end
 
     it 'can access admin manage users' do
@@ -160,13 +186,14 @@ RSpec.describe 'Authorisation' do
       expect(response).to have_http_status :ok
     end
 
-    it 'is redirected to "admin manage users root" for all service and supervisor routes' do
+    it 'returns "Forbidden" for all service, data analysts and supervisor routes' do
       configured_routes.each do |route|
-        next unless (service_user_routes & supervisor_routes).include?(route.name)
+        sign_in current_user
+        next unless (service_user_routes | supervisor_routes | data_analyst_routes).include?(route.name)
 
         visit_configured_route(route)
 
-        expect(response).to redirect_to(manage_users_root_path)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -192,7 +219,8 @@ RSpec.describe 'Authorisation' do
 
   it 'all configured routes are tested' do
     configured_routes.each do |route|
-      tested_routes = user_manager_routes + service_user_routes + unauthenticated_routes + supervisor_routes
+      tested_routes = user_manager_routes | service_user_routes | unauthenticated_routes |
+                      supervisor_routes | data_analyst_routes
 
       expect(tested_routes.include?(route.name)).to be(true), "\"#{route.name}\" is not tested"
     end
@@ -239,3 +267,5 @@ RSpec.describe 'Authorisation' do
 time:, work_stream: }.slice(*route.required_keys.dup)
   end
 end
+
+# rubocop:enable RSpec/MultipleMemoizedHelpers

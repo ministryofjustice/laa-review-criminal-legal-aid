@@ -39,10 +39,14 @@ module Reporting
     # NOTE: this code is temporary and used here to provide a list of temporal
     # reports for protyping purposes only.
     def latest_temporal_reports
-      interval = Types::TemporalInterval['daily']
+      interval = if current_user.data_analyst?
+                   Types::TemporalInterval['monthly']
+                 else
+                   Types::TemporalInterval['daily']
+                 end
 
       temporal_report_types.map do |report_type|
-        Reporting::TemporalReport.current(report_type:, interval:)
+        Reporting::TemporalReport.current(report_type:, interval:).previous_report
       end
     end
 

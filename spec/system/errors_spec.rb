@@ -144,12 +144,11 @@ RSpec.describe 'Error pages' do
     context 'when visiting an admin page to manage a user' do
       include_context 'with an existing user'
 
-      it 'shows "Page not found" even if the user exists' do
-        expected_content = 'Page not found'
+      it 'shows forbidden even if the user exists' do
         visit "/manage_users/history/#{user.id}"
-        expect(page).to have_content expected_content
+        expect(page).to have_http_status :forbidden
         visit '/manage_users/history/n0tan1d'
-        expect(page).to have_content expected_content
+        expect(page).to have_http_status :forbidden
       end
 
       it 'uses the errors layout' do

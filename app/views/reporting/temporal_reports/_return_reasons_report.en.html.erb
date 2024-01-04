@@ -1,3 +1,11 @@
+<% if report.rows.size > 0 && !report.current? %>
+  <p>
+    <%= pluralize(report.total_count, 'applications') %>
+    were sent back to providers this
+    <%= label_text [:period, report.time_period.interval].join('.') %>
+  </p>
+<% end %>
+
 <%= render DataTableComponent.new(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
       table.with_sortable_head(sorting:) do |head|
         head.with_row do |row|
@@ -5,7 +13,6 @@
           row.with_cell(colname: :closed_by)
           row.with_cell(colname: :reviewed_at, text: 'Date returned')
           row.with_cell(colname: :return_reason, text: 'Return reason')
-          row.with_cell(text: 'Return details')
           row.with_cell(colname: :reference)
           row.with_cell(colname: :office_code)
           row.with_cell(colname: :provider_name)
@@ -13,15 +20,17 @@
       end
 
       table.with_body do |body|
-        report.rows(sorting:).each do |row|
+        report.rows.each do |row|
           body.with_row do |r|
-            r.with_cell(text: row.means_type)
+            r.with_cell(text: row.means_type.humanize)
             r.with_cell(text: row.closed_by)
             r.with_cell(text: l(row.reviewed_at))
-            r.with_cell(text: row.return_reason.humanize(capitalize: false))
-            r.with_cell(
-              text: simple_format(row.return_details, {}, wrapper_tag: 'div')
-            )
+            r.with_cell(text: govuk_link_to(
+              row.return_reason.humanize,
+              history_crime_application_path(row.resource_id),
+              data: { turbo: false },
+              no_visited_state: true
+            ))
             r.with_cell(text: row.reference)
             r.with_cell(text: row.office_code)
             r.with_cell(text: row.provider_name)
@@ -29,3 +38,6 @@
         end
       end
     end %>
+
+<%= paginate report.report.pagination %>
+<%= render(partial: 'download_links', locals: { report: }) if current_user.can_download_reports? %>

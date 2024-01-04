@@ -30,6 +30,10 @@ module UserRole
     false
   end
 
+  def can_download_reports?
+    role == DATA_ANALYST
+  end
+
   # TODO: Any reason to not allow supervisor to be 'downgraded' to caseworker?
   def can_change_role?
     return false unless activated?

@@ -46,7 +46,9 @@ describe Reporting::CaseworkerReport do
     end
 
     context 'when sorting is specified' do
-      subject(:rows) { report.rows(sorting: Reporting::CaseworkerReportSorting.new(sort_by:, sort_direction:)) }
+      let(:report) do
+        described_class.new(dataset: dataset, sorting: { sort_by:, sort_direction: })
+      end
 
       let(:sort_by) { 'user_name' }
       let(:sort_direction) { 'descending' }

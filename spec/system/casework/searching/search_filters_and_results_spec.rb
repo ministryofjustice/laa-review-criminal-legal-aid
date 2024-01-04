@@ -19,7 +19,7 @@ RSpec.describe 'Search Page' do
   end
 
   it 'includes the correct results table headings' do
-    column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
+    column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
     expect(column_headings).to eq(
       ["Applicant's name", 'Reference number', 'Case type', 'Date received', 'Date closed', 'Closed by',
@@ -28,7 +28,7 @@ RSpec.describe 'Search Page' do
   end
 
   it 'shows the correct results' do
-    first_row_text = page.first('.app-dashboard-table tbody tr').text
+    first_row_text = page.first('.app-table tbody tr').text
 
     expect(first_row_text).to eq('Kit Pound 120398120 Summary only 27 Oct 2022 Open')
   end
