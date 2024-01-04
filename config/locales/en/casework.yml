@@ -77,6 +77,7 @@ en:
     correspondence_address: Correspondence address
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
+    dependants: Dependants who live with the client
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
@@ -90,6 +91,7 @@ en:
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
     first_court_hearing: First court hearing the case
+    has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing
@@ -107,6 +109,7 @@ en:
     national_crime_team: CAT 2
     national_insurance_number: National Insurance number
     next_court_hearing: Next court hearing the case
+    number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
     offence_date: Offence date
     offence_details: Offence details

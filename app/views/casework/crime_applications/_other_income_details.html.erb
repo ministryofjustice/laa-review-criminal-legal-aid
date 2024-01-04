@@ -12,18 +12,16 @@
         <%= t(income_details.manage_without_income, scope: 'values.manage_without_income') %>
       </dd>
     </div>
-    <div class="govuk-summary-list__row">
+    <%# TODO: confirm design for other option %>
+    <% if income_details.manage_without_income == 'other' %>
+      <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <% if income_details.manage_without_income == 'other' %>
-          <%= t('labels.details') %>
-        <% end %>
+        <%= t('labels.details') %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%# TODO: confirm design for other option %>
-        <% if income_details.manage_without_income == 'other' %>
-          <%= income_details.manage_other_details %>
-        <% end %>
+        <%= income_details.manage_other_details %>
       </dd>
     </div>
+    <% end %>
   </dl>
 <% end %>
