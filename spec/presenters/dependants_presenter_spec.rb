@@ -12,12 +12,13 @@ RSpec.describe DependantsPresenter do
 
     it {
       expect(formatted_dependants).to eq({ '0 to 1' => 1,
-                                           '11 to 12' => 1,
-                                           '13 to 15' => 1,
-                                           '16 to 18' => 1,
                                            '2 to 4' => 1,
                                            '5 to 7' => 2,
-                                           '8 to 10' => 1 })
+                                           '8 to 10' => 1,
+                                           '11 to 12' => 1,
+                                           '13 to 15' => 1,
+                                           '16 to 18' => 1
+                                           })
     }
 
     context 'with no dependants' do
