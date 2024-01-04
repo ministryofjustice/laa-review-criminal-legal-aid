@@ -93,20 +93,6 @@ RSpec.describe 'Viewing your assigned application' do
       expect(page).to have_content 'Open applications'
       expect(page).to have_current_path '/applications/open'
     end
-
-    context 'when work stream feature flag in is not enabled' do
-      before do
-        allow(FeatureFlags).to receive(:work_stream) {
-          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-        }
-        visit '/'
-      end
-
-      it 'takes you to open applications path when you click "open applications"' do
-        click_on('Open applications')
-        expect(page).to have_current_path '/applications/open'
-      end
-    end
   end
 
   context 'when an assigned application is not found on the datastore' do
