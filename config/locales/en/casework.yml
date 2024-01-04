@@ -83,6 +83,7 @@ en:
     date_appeal_lodged: Date the appeal was lodged
     date_of_birth: Date of birth
     date_received: 'Date received:'
+    details: Details
     end_on: Date to
     extradition: Extradition
     file_name: File name
@@ -100,6 +101,7 @@ en:
     justification: Justification
     last_name: Last name
     legal_representative: Legal representative
+    manage_without_income: How do they manage with no income?
     means_type: Means type
     name: Name
     national_crime_team: CAT 2
@@ -109,6 +111,7 @@ en:
     offence_date: Offence date
     offence_details: Offence details
     office_account_number: Office account number
+    other_income_details: Other sources of income
     other_names: Other names
     overall_offence_class: Overall offence class
     overview: Overview
@@ -228,6 +231,12 @@ en:
       marked_as_ready: blue
     download_file: "Download file <br> (%{file_extension}, %{file_size})"
     no_hearing_yet: There has not been a hearing yet
+    manage_without_income:
+      friends_sofa: They sleep on a friend's sofa for free
+      family: They stay with family for free
+      living_on_streets: They are living on the streets or homeless
+      custody: They have been in custody for more than 3 months
+      other: Other
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
