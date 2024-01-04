@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Closed Applications Dashboard' do
+RSpec.describe 'Closed Applications' do
   include_context 'with stubbed search'
 
   let(:application_id) { '47a93336-7da6-48ac-b139-808ddd555a41' }
@@ -68,7 +68,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'shows the correct information' do
-    first_row_text = page.first('.app-dashboard-table tbody tr').text
+    first_row_text = page.first('.app-table tbody tr').text
     reviewed_at = I18n.l(Time.current.in_time_zone('London'))
     expect(first_row_text).to eq("John Potter 6000002 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
   end
@@ -82,7 +82,7 @@ RSpec.describe 'Closed Applications Dashboard' do
   end
 
   it 'includes the correct headings' do # rubocop:disable RSpec/ExampleLength
-    column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
+    column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
     expected_headings = [
       "Applicant's name",

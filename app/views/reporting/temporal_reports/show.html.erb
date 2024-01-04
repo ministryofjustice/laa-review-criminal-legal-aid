@@ -13,7 +13,7 @@
           <%= content_tag(:li, class: @interval == interval ? css_class : css_class.first) do %>
             <%= link_to(
                   label_tag(interval),
-                  reporting_current_temporal_report_path(interval: interval, report_type: @report_type),
+                  reporting_latest_complete_temporal_report_path(interval: interval, report_type: @report_type),
                   class: 'govuk-tabs__tab'
                 ) %>
           <% end %>

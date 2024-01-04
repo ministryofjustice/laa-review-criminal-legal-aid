@@ -15,9 +15,7 @@
     <%= render partial: 'offences', object: @crime_application.case_details.offences %>
     <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
     <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
-    <% if FeatureFlags.evidence_upload.enabled? %>
-      <%= render partial: 'supporting_evidence', locals: { crime_application: @crime_application } %>
-    <% end %>
+    <%= render partial: 'supporting_evidence', locals: { crime_application: @crime_application } %>
     <% if FeatureFlags.means_journey.enabled? %>
       <%= render partial: 'income', locals: { income_details: @crime_application.means_details.income_details } %>
       <%= render partial: 'other_income_details', locals: { income_details: @crime_application.means_details.income_details } %>

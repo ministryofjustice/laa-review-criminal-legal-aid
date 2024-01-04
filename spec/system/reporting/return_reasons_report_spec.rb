@@ -52,7 +52,6 @@ RSpec.describe 'Return Reasons Report' do
       'Closed by',
       'Date returned',
       'Return reason',
-      'Return details',
       'Reference number',
       'Office code',
       'Legal representative'
@@ -65,11 +64,10 @@ RSpec.describe 'Return Reasons Report' do
 
   it 'includes the expected data' do # rubocop:disable RSpec/ExampleLength
     expected_data = [
-      'passported',
+      'Passported',
       'Joe Case',
       '5 Jan 2023',
-      'clarification required',
-      'More information please',
+      'Clarification required',
       '12345678',
       '1A2BC3D',
       'Andy Others'
@@ -91,7 +89,7 @@ RSpec.describe 'Return Reasons Report' do
   it 'can navigate to the monthly view' do
     expect { click_link('Monthly') }.to change { current_path }
       .from('/reporting/return_reasons_report/weekly/2023-1')
-      .to('/reporting/return_reasons_report/monthly/now')
+      .to('/reporting/return_reasons_report/monthly/2022-December')
 
     expect(page).to have_http_status :ok
   end
@@ -99,8 +97,58 @@ RSpec.describe 'Return Reasons Report' do
   it 'can navigate to the weekly view' do
     expect { click_link('Weekly') }.to change { current_path }
       .from('/reporting/return_reasons_report/weekly/2023-1')
-      .to('/reporting/return_reasons_report/weekly/now')
+      .to('/reporting/return_reasons_report/weekly/2022-52')
 
     expect(page).to have_http_status :ok
+  end
+
+  describe 'attempting to download a report' do
+    before do
+      click_link('Monthly')
+    end
+
+    context 'when user is a Data Analysts' do
+      let(:current_user_role) { Types::UserRole['data_analyst'] }
+
+      before do
+        click_link('Download source data (CSV) 1 of 1')
+      end
+
+      it 'can download the source data as a csv' do
+        expect(page.driver.response.content_type).to eq 'text/csv; charset=utf-8'
+      end
+
+      it 'has the correct csv headers' do
+        expect(page.driver.response.body).to match(
+          'resource_id,reviewed_at,appplicant_name,reference,return_reason,return_details,office_code,provider_name'
+        )
+      end
+
+      it 'has the correct file name' do
+        expect(page.driver.response.headers['Content-Disposition']).to match(
+          'return_reasons_report_monthly_2022-December_1_of_1.csv'
+        )
+      end
+
+      it 'can visit the download link to get the report' do
+        visit('/reporting/return_reasons_report/monthly/2023-November/download')
+        expect(page.driver.response.headers['Content-Disposition']).to match(
+          'return_reasons_report_monthly_2023-November_1_of_1.csv'
+        )
+      end
+    end
+
+    context 'when user is a supervisor' do
+      let(:current_user_role) { Types::UserRole['supervisor'] }
+
+      it 'does not show the download link' do
+        expect(page).not_to have_content('Download')
+      end
+
+      it 'cannot visit the download link to get the report' do
+        visit('/reporting/return_reasons_report/monthly/2023-November/download')
+        expect(page).to have_http_status :forbidden
+      end
+    end
   end
 end
