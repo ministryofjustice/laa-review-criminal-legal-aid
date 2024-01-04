@@ -17,8 +17,7 @@ RSpec.describe DependantsPresenter do
                                            '8 to 10' => 1,
                                            '11 to 12' => 1,
                                            '13 to 15' => 1,
-                                           '16 to 18' => 1
-                                           })
+                                           '16 to 18' => 1 })
     }
 
     context 'with no dependants' do
