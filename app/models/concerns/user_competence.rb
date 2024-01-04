@@ -10,7 +10,6 @@ module UserCompetence
   def competencies
     return Types::CompetencyType.values if supervisor?
     return [] if data_analyst?
-    return Types::CompetencyType.values unless FeatureFlags.work_stream.enabled?
 
     @competencies ||= Allocating.user_competencies(id)
   end

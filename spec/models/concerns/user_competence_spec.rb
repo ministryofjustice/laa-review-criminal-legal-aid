@@ -56,18 +56,6 @@ RSpec.describe UserCompetence do
           expect(competencies).to be_empty
         end
       end
-
-      context 'when work stream feature flag is disabled' do
-        before do
-          allow(FeatureFlags).to receive(:work_stream) {
-                                   instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-                                 }
-        end
-
-        it 'returns all work_streams regardless of competencies' do
-          expect(competencies).to eq %w[criminal_applications_team criminal_applications_team_2 extradition]
-        end
-      end
     end
   end
 end

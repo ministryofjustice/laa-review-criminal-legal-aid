@@ -21,17 +21,11 @@ RSpec.describe 'Closed Applications' do
     ]
   end
 
-  let(:work_stream_flag_enabled) { true }
-
   let(:user_id) { current_user_id }
 
   before do
     visit '/'
     click_on 'open applications'
-
-    allow(FeatureFlags).to receive(:work_stream) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: work_stream_flag_enabled)
-    }
 
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,
@@ -45,18 +39,6 @@ RSpec.describe 'Closed Applications' do
     ).call
 
     click_on 'Closed applications'
-  end
-
-  context 'when work stream feature flag disabled' do
-    let(:work_stream_flag_enabled) { false }
-
-    it 'shows only closed applications' do
-      expect_datastore_to_have_been_searched_with(
-        { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
-            work_stream: %w[criminal_applications_team criminal_applications_team_2 extradition] },
-        sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
-      )
-    end
   end
 
   it 'includes the page title' do
@@ -104,40 +86,36 @@ RSpec.describe 'Closed Applications' do
   end
 
   context 'when work stream feature flag is enabled' do
-    let(:work_stream_flag_enabled) { true }
-
     it 'includes tabs for work streams' do
       tabs = find(:xpath, "//div[@class='govuk-tabs']")
 
       expect(tabs).to have_content 'CAT 1 CAT 2 Extradition'
     end
 
-    context 'when viewing closed applications by work stream' do
-      it 'searches for extradition closed applications' do
-        click_on 'Extradition'
-        expect_datastore_to_have_been_searched_with(
-          { review_status: Types::REVIEW_STATUS_GROUPS['closed'], work_stream: %w[extradition] },
-          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
-        )
-      end
+    it 'searches for extradition closed applications' do
+      click_on 'Extradition'
+      expect_datastore_to_have_been_searched_with(
+        { review_status: Types::REVIEW_STATUS_GROUPS['closed'], work_stream: %w[extradition] },
+        sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+      )
+    end
 
-      it 'searches for CAT 2 closed applications' do
-        click_on 'CAT 2'
-        expect_datastore_to_have_been_searched_with(
-          { review_status: Types::REVIEW_STATUS_GROUPS['closed'], work_stream: %w[criminal_applications_team_2] },
-          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
-        )
-      end
+    it 'searches for CAT 2 closed applications' do
+      click_on 'CAT 2'
+      expect_datastore_to_have_been_searched_with(
+        { review_status: Types::REVIEW_STATUS_GROUPS['closed'], work_stream: %w[criminal_applications_team_2] },
+        sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending')
+      )
+    end
 
-      it 'searches for CAT 1 closed applications' do
-        click_on 'CAT 1'
-        expect_datastore_to_have_been_searched_with(
-          { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
-            work_stream: %w[criminal_applications_team] },
-          sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending'),
-          number_of_times: 2
-        )
-      end
+    it 'searches for CAT 1 closed applications' do
+      click_on 'CAT 1'
+      expect_datastore_to_have_been_searched_with(
+        { review_status: Types::REVIEW_STATUS_GROUPS['closed'],
+          work_stream: %w[criminal_applications_team] },
+        sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending'),
+        number_of_times: 2
+      )
     end
   end
 end

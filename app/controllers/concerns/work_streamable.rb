@@ -39,10 +39,6 @@ module WorkStreamable
   end
 
   def work_stream_filter
-    if FeatureFlags.work_stream.enabled?
-      [current_work_stream]
-    else
-      WorkStream.all
-    end
+    [current_work_stream]
   end
 end

@@ -104,12 +104,6 @@ RSpec.describe 'Authorisation' do
 
   include Devise::Test::IntegrationHelpers
 
-  before do
-    allow(FeatureFlags).to receive(:work_stream) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-    }
-  end
-
   def expected_status(route_name)
     case route_name
     when 'users_auth_failure', 'forbidden'
