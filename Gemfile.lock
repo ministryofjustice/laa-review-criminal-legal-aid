@@ -135,7 +135,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.4)
+    bigdecimal (3.1.5)
     bindata (2.4.15)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -252,12 +252,12 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    importmap-rails (1.2.3)
+    importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.6.0)
-    irb (1.10.1)
+    io-console (0.7.1)
+    irb (1.11.0)
       rdoc
       reline (>= 0.3.8)
     jmespath (1.6.2)
@@ -359,7 +359,7 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     public_suffix (5.0.3)
     puma (6.4.0)
@@ -424,7 +424,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.1)
+    rdoc (6.6.2)
       psych (>= 4.0.0)
     regexp_parser (2.8.2)
     reline (0.4.1)
@@ -593,7 +593,7 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   govuk_notify_rails
-  importmap-rails
+  importmap-rails (>= 2.0.0)
   kaminari
   laa-criminal-applications-datastore-api-client!
   laa-criminal-legal-aid-schemas!
@@ -622,7 +622,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 2.7.8p225
 
 BUNDLED WITH
    2.4.6

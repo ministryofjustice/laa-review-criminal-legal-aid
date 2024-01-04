@@ -29,7 +29,7 @@ gem 'laa-criminal-legal-aid-schemas',
 gem 'sprockets-rails'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
+gem 'importmap-rails', '>= 2.0.0'
 gem 'turbo-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
