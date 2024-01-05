@@ -4,7 +4,13 @@ Rails.application.config.to_prepare do
     config.rails.report_rescued_exceptions = true
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]
     config.environment = HostEnv.env_name
-    
+
+    # to enable performance
+    config.traces_sample_rate = 1.0
+
+    # to enable profiling
+    config.profiles_sample_rate = 1.0
+
     # Contrary to what is stated in https://edgeguides.rubyonrails.org/error_reporting.html,
     # Sentry currently requires explicit configuration in order to register as a subscriber.
     # See discussion on GitHub at https://github.com/rails/rails/pull/43625#issuecomment-1072514175.
