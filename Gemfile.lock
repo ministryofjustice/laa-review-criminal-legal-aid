@@ -517,6 +517,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stackprof (0.2.25)
     stringio (3.1.0)
     swd (2.0.2)
       activesupport (>= 3)
@@ -617,6 +618,7 @@ DEPENDENCIES
   sentry-ruby
   simplecov
   sprockets-rails
+  stackprof
   turbo-rails
   web-console
   webmock
