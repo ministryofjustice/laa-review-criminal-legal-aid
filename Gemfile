@@ -39,8 +39,8 @@ gem 'dartsass-rails', '~> 0.5.0'
 
 # Exceptions notifications
 gem 'sentry-rails'
-gem 'stackprof'
 gem 'sentry-ruby'
+gem 'stackprof'
 
 gem 'dry-schema'
 gem 'dry-struct'
