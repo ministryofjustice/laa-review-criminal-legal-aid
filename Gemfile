@@ -8,7 +8,7 @@ gem 'rails'
 
 gem 'business'
 gem 'faraday'
-gem 'govuk-components'
+gem 'govuk-components', '>= 5.0.2'
 gem 'govuk_design_system_formbuilder'
 
 gem 'govuk_notify_rails'
