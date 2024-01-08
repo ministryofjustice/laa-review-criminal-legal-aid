@@ -11,7 +11,3 @@ feature_flags:
     local: true
     staging: true
     production: false
-  means_journey:
-    local: true
-    staging: true
-    production: false
