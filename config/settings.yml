@@ -7,14 +7,6 @@ feature_flags:
     local: false
     staging: true
     production: false # user managers should not access the service in production
-  evidence_upload:
-    local: true
-    staging: true
-    production: true
-  work_stream:
-    local: true
-    staging: true
-    production: true
   means_journey:
     local: true
     staging: true

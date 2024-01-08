@@ -4,23 +4,18 @@
   <%= t("casework.crime_applications.index.#{action_name}_heading") %>
 </h1>
 
-<% if FeatureFlags.work_stream.enabled? %>
-  <div class="govuk-tabs">
-    <ul class="govuk-tabs__list" role="tablist">
-      <% current_user.work_streams.each do |work_stream| %>
-        <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
-        <%= content_tag(:li, class: work_stream == current_work_stream ? css_class : css_class.first) do %>
-          <%= link_to(work_stream.label, url_for(work_stream:), class: 'govuk-tabs__tab') %>
-        <% end %>
+<div class="govuk-tabs">
+  <ul class="govuk-tabs__list" role="tablist">
+    <% current_user.work_streams.each do |work_stream| %>
+      <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
+      <%= content_tag(:li, class: work_stream == current_work_stream ? css_class : css_class.first) do %>
+        <%= link_to(work_stream.label, url_for(work_stream:), class: 'govuk-tabs__tab') %>
       <% end %>
-    </ul>
+    <% end %>
+  </ul>
 
-    <div class=govuk-tabs__panel>
-      <%= render partial: 'open_closed_applications',
-                 locals: { action_name: action_name, search: @search, report_type: @report_type } %>
-    </div>
+  <div class=govuk-tabs__panel>
+    <%= render partial: 'open_closed_applications',
+               locals: { action_name: action_name, search: @search, report_type: @report_type } %>
   </div>
-<% else %>
-  <%= render partial: 'open_closed_applications',
-             locals: { action_name: action_name, search: @search, report_type: @report_type } %>
-<% end  %>
+</div>

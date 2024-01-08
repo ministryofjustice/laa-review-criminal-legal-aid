@@ -1,33 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe 'Open Applications Dashboard' do
+RSpec.describe 'Open Applications' do
   include_context 'with stubbed search'
-  let(:work_stream_flag_enabled) { true }
   let(:report_turbo_link_work_stream_params) do
     report_link = URI(page.find('turbo-frame#current_workload_report', visible: false)['src'])
     CGI.parse(report_link.query)['work_streams[]']
   end
 
   before do
-    allow(FeatureFlags).to receive(:work_stream) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: work_stream_flag_enabled)
-    }
-
     visit '/'
     click_on 'Open applications'
-  end
-
-  context 'when work stream feature flag disabled' do
-    let(:work_stream_flag_enabled) { false }
-
-    it 'shows open applications from all streams' do
-      expect_datastore_to_have_been_searched_with(
-        { review_status: Types::REVIEW_STATUS_GROUPS['open'],
-          work_stream: %w[criminal_applications_team criminal_applications_team_2 extradition] },
-        sorting: ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending')
-      )
-      expect(report_turbo_link_work_stream_params).to eq %w[cat_1 cat_2 extradition]
-    end
   end
 
   it 'includes the page title' do
@@ -35,15 +17,15 @@ RSpec.describe 'Open Applications Dashboard' do
   end
 
   it 'includes the correct headings' do
-    column_headings = page.first('.app-dashboard-table thead tr').text.squish
+    column_headings = page.first('.app-table thead tr').text.squish
 
-    # rubocop:disable Layout/LineLength
-    expect(column_headings).to eq("Applicant's name Reference number Date received Business days since application was received Caseworker")
-    # rubocop:enable Layout/LineLength
+    expect(column_headings).to eq(
+      "Applicant's name Reference number Date received Business days since application was received Caseworker"
+    )
   end
 
   it 'shows the correct information' do
-    first_row_text = page.first('.app-dashboard-table tbody tr').text
+    first_row_text = page.first('.app-table tbody tr').text
 
     days_ago = Calendar.new.business_days_between(
       Date.parse('2022-10-27'), Time.current.in_time_zone('London')

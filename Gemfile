@@ -23,7 +23,7 @@ gem 'laa-criminal-applications-datastore-api-client',
     require: 'datastore_api'
 
 gem 'laa-criminal-legal-aid-schemas',
-    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v1.0.20'
+    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v1.0.23'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -40,6 +40,7 @@ gem 'dartsass-rails', '~> 0.5.0'
 # Exceptions notifications
 gem 'sentry-rails'
 gem 'sentry-ruby'
+gem 'stackprof'
 
 gem 'dry-schema'
 gem 'dry-struct'

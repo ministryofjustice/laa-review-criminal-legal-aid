@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/laa-criminal-legal-aid-schemas.git
-  revision: ec72e9c9cc930a3c6eee3873fac717d855e7ab2a
-  tag: v1.0.20
+  revision: 0e3a390af6311054d94720d3300178db898b6ae4
+  tag: v1.0.23
   specs:
-    laa-criminal-legal-aid-schemas (1.0.20)
+    laa-criminal-legal-aid-schemas (1.0.23)
       dry-schema (~> 1.13)
       dry-struct (~> 1.6.0)
       json-schema (~> 4.0.0)
@@ -517,6 +517,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stackprof (0.2.25)
     stringio (3.1.0)
     swd (2.0.2)
       activesupport (>= 3)
@@ -617,6 +618,7 @@ DEPENDENCIES
   sentry-ruby
   simplecov
   sprockets-rails
+  stackprof
   turbo-rails
   web-console
   webmock

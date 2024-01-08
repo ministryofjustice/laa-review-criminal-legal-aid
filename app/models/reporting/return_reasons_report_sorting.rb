@@ -9,7 +9,7 @@ module Reporting
     ].freeze
 
     DEFAULT_SORT_BY = 'reviewed_at'.freeze
-    DEFAULT_SORT_DIRECTION = Types::SortDirection['ascending']
+    DEFAULT_SORT_DIRECTION = Types::SortDirection['ascending'].freeze
 
     include SortableStruct
   end

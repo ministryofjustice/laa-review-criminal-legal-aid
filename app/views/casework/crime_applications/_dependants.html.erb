@@ -1,0 +1,30 @@
+<% if dependants %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:dependants) %>
+  </h2>
+  <% if dependants.any? %>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <% dependants.each do |age_range, count| %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key govuk-!-width-one-half">
+            <%= label_text(:number_of_dependants, age_range:) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= count %>
+          </dd>
+        </div>
+      <%end%>
+    </dl>
+  <% else %>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:has_dependants) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(false, scope: 'values') %>
+        </dd>
+      </div>
+    </dl>
+  <% end %>
+<% end %>

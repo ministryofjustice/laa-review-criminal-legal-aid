@@ -13,8 +13,16 @@ module Reporting
       raise ForbiddenError, 'Must be a reporting user'
     end
 
+    def require_download_access!
+      return if current_user.can_download_reports?
+
+      raise ForbiddenError, 'Cannot download reports'
+    end
+
     def require_report_access!
-      raise Reporting::ReportNotFound unless current_user.reports.include?(@report_type)
+      return if current_user.reports.include?(@report_type)
+
+      raise ForbiddenError, 'Cannot access this report type'
     end
   end
 end

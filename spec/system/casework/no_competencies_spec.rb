@@ -16,10 +16,6 @@ RSpec.describe 'No competencies' do
 
   before do
     visit '/'
-
-    allow(FeatureFlags).to receive(:work_stream) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
   end
 
   context 'when navigating to application pages' do

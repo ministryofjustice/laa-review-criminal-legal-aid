@@ -77,18 +77,21 @@ en:
     correspondence_address: Correspondence address
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
+    dependants: Dependants who live with the client
     date:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
     date_appeal_lodged: Date the appeal was lodged
     date_of_birth: Date of birth
     date_received: 'Date received:'
+    details: Details
     end_on: Date to
     extradition: Extradition
     file_name: File name
     financial_change_details: Changes in the client’s financial circumstances
     first_name: First name
     first_court_hearing: First court hearing the case
+    has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing
@@ -100,15 +103,18 @@ en:
     justification: Justification
     last_name: Last name
     legal_representative: Legal representative
+    manage_without_income: How do they manage with no income?
     means_type: Means type
     name: Name
     national_crime_team: CAT 2
     national_insurance_number: National Insurance number
     next_court_hearing: Next court hearing the case
+    number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
     offence_date: Offence date
     offence_details: Offence details
     office_account_number: Office account number
+    other_income_details: Other sources of income
     other_names: Other names
     overall_offence_class: Overall offence class
     overview: Overview
@@ -228,6 +234,12 @@ en:
       marked_as_ready: blue
     download_file: "Download file <br> (%{file_extension}, %{file_size})"
     no_hearing_yet: There has not been a hearing yet
+    manage_without_income:
+      friends_sofa: They sleep on a friend's sofa for free
+      family: They stay with family for free
+      living_on_streets: They are living on the streets or homeless
+      custody: They have been in custody for more than 3 months
+      other: Other
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign

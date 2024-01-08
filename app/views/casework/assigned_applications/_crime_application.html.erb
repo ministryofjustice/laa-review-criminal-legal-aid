@@ -7,11 +7,9 @@
   <td class="govuk-table__cell">
     <%= crime_application.reference %>
   </td>
-  <% if FeatureFlags.work_stream.enabled? %>
-    <td class="govuk-table__cell">
-      <%= label_text(crime_application.work_stream) %>
-    </td>
-  <% end %>
+  <td class="govuk-table__cell">
+    <%= label_text(crime_application.work_stream) %>
+  </td>
   <td class="govuk-table__cell">
     <%= l(crime_application.submitted_at) %>
   </td>
