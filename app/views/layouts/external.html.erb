@@ -1,9 +1,5 @@
 <% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
 
-<% content_for(:header) do %>
-  <%= govuk_header(service_name: t('service.name')) %>
-<% end %>
-
 <% content_for(:content) do %>
   <%= render partial: 'flash_banner' %>
   <%= yield %>

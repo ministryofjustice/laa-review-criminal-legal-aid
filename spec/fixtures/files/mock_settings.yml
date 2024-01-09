@@ -1,0 +1,6 @@
+feature_flags:
+  dev_auth:
+    local: true
+    staging: false
+settings:
+  foo: <%= 'bar from ERB'.sub(' from ERB', '') %>

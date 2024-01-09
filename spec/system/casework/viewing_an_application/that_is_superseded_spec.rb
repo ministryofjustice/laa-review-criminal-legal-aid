@@ -10,10 +10,10 @@ RSpec.describe 'Viewing an application that is superseded' do
     visit crime_application_path(parent_id)
   end
 
-  it 'shows the sent back status badge' do
-    badge = page.all('.govuk-tag').last.text
+  it 'shows the sent back status tag' do
+    tag = page.all('.govuk-tag.govuk-tag--red').first.text
 
-    expect(badge).to match('Sent back to provider')
+    expect(tag).to match('Sent back to provider')
   end
 
   it 'includes the page title' do

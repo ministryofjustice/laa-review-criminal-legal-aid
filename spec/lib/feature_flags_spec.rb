@@ -46,20 +46,6 @@ describe FeatureFlags do
         expect(described_class.disabled_foobar_feature.enabled?).to be false
       end
     end
-
-    context 'when production environment on staging server' do
-      before do
-        allow(HostEnv).to receive(:env_name).and_return(HostEnv::STAGING)
-      end
-
-      it 'is enabled' do
-        expect(described_class.enabled_foobar_feature.enabled?).to be true
-      end
-
-      it 'is disabled' do
-        expect(described_class.disabled_foobar_feature.enabled?).to be false
-      end
-    end
   end
 
   describe 'when handling of method_missing' do

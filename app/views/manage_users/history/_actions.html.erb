@@ -5,13 +5,14 @@
 </h2>
 
 <ul class="govuk-summary-list__actions-list govuk-!-padding-bottom-6">
+  <% not_current_user = (user != current_user) %>
   <% if user.deactivated? %>
     <li class="govuk-summary-list__actions-list-item">
-      <%= gov_link_to_unless_current_user(
-            user: user,
-            text: action_text(:reactivate),
-            path: confirm_reactivate_manage_users_deactivated_user_path(id: user),
-            html_options: { no_visited_state: true }
+      <%= link_to_if(
+            not_current_user,
+            action_text(:reactivate),
+            confirm_reactivate_manage_users_deactivated_user_path(id: user),
+            class: govuk_link_classes(no_visited_state: true)
           ) %>
     </li>
   <% elsif user.activated? %>
@@ -21,51 +22,51 @@
       </li>
     <% elsif user.dormant? %>
       <li class="govuk-summary-list__actions-list-item">
-        <%= gov_link_to_unless_current_user(
-              user: user,
-              text: action_text(:revive),
-              path: edit_manage_users_revive_user_path(id: user),
-              html_options: { no_visited_state: true }
+        <%= link_to_if(
+              not_current_user,
+              action_text(:revive),
+              edit_manage_users_revive_user_path(id: user),
+              class: govuk_link_classes(no_visited_state: true)
             ) %>
       </li>
     <% else  %>
       <li class="govuk-summary-list__actions-list-item">
-        <%= gov_link_to_unless_current_user(
-              user: user,
-              text: action_text(:deactivate),
-              path: new_manage_users_deactivated_user_path(id: user),
-              html_options: { no_visited_state: true }
+        <%= link_to_if(
+              not_current_user,
+              action_text(:deactivate),
+              new_manage_users_deactivated_user_path(id: user),
+              class: govuk_link_classes(no_visited_state: true)
             ) %>
       </li>
 
       <li class="govuk-summary-list__actions-list-item">
-        <%= gov_link_to_unless_current_user(
-              user: user,
-              text: action_text(:change_role),
-              path: edit_manage_users_change_role_path(id: user),
-              html_options: { no_visited_state: true }
+        <%= link_to_if(
+              not_current_user,
+              action_text(:change_role),
+              edit_manage_users_change_role_path(id: user),
+              class: govuk_link_classes(no_visited_state: true)
             ) %>
       </li>
     <% end %>
   <% elsif user.pending_activation? %>
     <% if user.invitation_expired? %>
       <li class="govuk-summary-list__actions-list-item">
-        <%= gov_link_to_unless_current_user(
-              user: user,
-              text: action_text(:renew),
-              path: confirm_renew_manage_users_invitation_path(user),
-              html_options: { no_visited_state: true, class: 'xgovuk-button' }
+        <%= link_to_if(
+              not_current_user,
+              action_text(:renew),
+              confirm_renew_manage_users_invitation_path(user),
+              class: govuk_button_classes
             ) %>
       </li>
     <% end %>
 
     <li class="govuk-summary-list__actions-list-item">
-      <%= gov_link_to_unless_current_user(
-            user: user,
-            text: action_text(:delete),
-            path: confirm_destroy_manage_users_invitation_path(user),
-            html_options: { no_visited_state: true, class: 'xgovuk-button xgovuk-button--secondary' }
-          ) %>
+        <%= link_to_if(
+              not_current_user,
+              action_text(:delete),
+              confirm_destroy_manage_users_invitation_path(user),
+              class: govuk_button_classes(secondary: true)
+            ) %>
     </li>
   <% end %>
 </ul>

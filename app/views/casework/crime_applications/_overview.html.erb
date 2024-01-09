@@ -18,9 +18,9 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <% if overview.means_passported? %>
-        <span class="moj-badge moj-badge--blue"><%= t(:passported, scope: 'values') %></span>
+        <%= govuk_tag(text: t(:passported, scope: 'values'), colour: 'blue') %>
       <% else %>
-        <span class="moj-badge moj-badge--red"><%= label_text('undetermined') %></span>
+        <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
       <% end %>
     </dd>
   </div>
@@ -65,14 +65,9 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <% if overview.case_details.offence_class %>
-        <span class="moj-badge moj-badge--blue">
-          <%= t('values.class') %>
-          <%= overview.case_details.offence_class %>
-        </span>
+        <%= govuk_tag(text: "#{t('values.class')} #{overview.case_details.offence_class}", colour: 'blue') %>
       <% else %>
-        <span class="moj-badge moj-badge--red">
-          <%= label_text('undetermined') %>
-        </span>
+        <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
       <% end %>
     </dd>
   </div>

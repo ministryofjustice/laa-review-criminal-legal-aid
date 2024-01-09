@@ -1,8 +1,29 @@
-<%= govuk_header() do |header| %>
-  <%= header.with_navigation_item(text: t('.reports'), href: reporting_root_path) if current_user.can_access_reporting_dashboard? %>
-  <%= header.with_navigation_item(text: t('.manage_users'), href: manage_users_root_path) if current_user.can_manage_others? %>
-  <%= header.with_navigation_item(text: t('.manage_competencies'), href: manage_competencies_root_path) if current_user.can_write_application? %>
+<%= govuk_header(container_classes: ["app-banner-#{HostEnv.env_name}"]) do |header|
+      if current_user.can_access_reporting_dashboard?
+        header.with_navigation_item(
+          text: t('.reports'),
+          href: reporting_root_path
+        )
+      end
 
-  <%= header.with_navigation_item(text: current_user.name) %>
-  <%= header.with_navigation_item(text: t('calls_to_action.sign_out'), href: destroy_user_session_path) %>
-<% end %>
+      if current_user.can_manage_others?
+        header.with_navigation_item(
+          text: t('.manage_users'),
+          href: manage_users_root_path
+        )
+      end
+
+      if current_user.can_write_application?
+        header.with_navigation_item(
+          text: t('.manage_competencies'),
+          href: manage_competencies_root_path
+        )
+      end
+
+      header.with_navigation_item(text: current_user.name)
+
+      header.with_navigation_item(
+        text: t('calls_to_action.sign_out'),
+        href: destroy_user_session_path
+      )
+    end %>

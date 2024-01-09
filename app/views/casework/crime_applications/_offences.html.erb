@@ -35,11 +35,9 @@
               <%= l date.date_to, format: :compact %>
               <% end %>
           </td>
-          <td class="govuk-table__cell govuk-!-text-align-right">
+          <td class="govuk-table__cell">
             <% if offence.offence_class.blank? %>
-              <span class="moj-badge moj-badge--red">
-                <%= t('values.class_not_determined') %>
-              </span>
+              <%= govuk_tag text: t('values.class_not_determined'), colour: 'red' %>
             <% end %>
           </td>
         </tr>
