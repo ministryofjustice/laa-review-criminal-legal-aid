@@ -9,7 +9,6 @@ en:
       provider_request: you requested it be returned
       split_case: the case has been split, so we need justification for all offences
   warning_text:
-    title: Warning
     resubmitted: This application has been resubmitted.
   flash:
     success:

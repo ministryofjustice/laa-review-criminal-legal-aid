@@ -22,17 +22,16 @@
     </h2>
 
     <% if crime_application.superseded? %>
-      <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-          <span class="govuk-warning-text__assistive"><%= t('warning_text.title') %></span>
-          <%= t('warning_text.resubmitted') %>
-          <%= link_to t('calls_to_action.go_to_latest'),
-                      crime_application_path(crime_application.latest_application_id),
-                      class: 'govuk-link--no-visited-state' %>
-        </strong>
-      </div>
-    <%end%>
+      <%= govuk_warning_text(
+        text: safe_join(
+          [
+            t('warning_text.resubmitted'),
+            govuk_link_to(t('calls_to_action.go_to_latest'), crime_application_path(crime_application.latest_application_id))
+          ],
+          " "
+        )
+      ) %>
+    <% end %>
 
     <%= render partial: 'assignment', locals: { crime_application: } %>
   </div>

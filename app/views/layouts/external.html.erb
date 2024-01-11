@@ -1,5 +1,9 @@
 <% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
 
+<% content_for(:header) do %>
+  <% govuk_header(container_classes: ["app-banner-#{HostEnv.env_name}"]) %>
+<% end %>
+
 <% content_for(:content) do %>
   <%= render partial: 'flash_banner' %>
   <%= yield %>

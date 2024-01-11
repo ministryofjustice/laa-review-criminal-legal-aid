@@ -30,7 +30,7 @@
 
   <%= govuk_skip_link %>
 
-  <%= content_for(:header) || govuk_header(container_classes: ["app-banner-#{HostEnv.env_name}"]) %>
+  <%= content_for(:header) %>
 
   <div class="govuk-width-container">
     <%= govuk_phase_banner %>
