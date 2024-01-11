@@ -23,14 +23,14 @@
 
     <% if crime_application.superseded? %>
       <%= govuk_warning_text(
-        text: safe_join(
-          [
-            t('warning_text.resubmitted'),
-            govuk_link_to(t('calls_to_action.go_to_latest'), crime_application_path(crime_application.latest_application_id))
-          ],
-          " "
-        )
-      ) %>
+            text: safe_join(
+              [
+                t('warning_text.resubmitted'),
+                govuk_link_to(t('calls_to_action.go_to_latest'), crime_application_path(crime_application.latest_application_id))
+              ],
+              ' '
+            )
+          ) %>
     <% end %>
 
     <%= render partial: 'assignment', locals: { crime_application: } %>
