@@ -1,3 +1,4 @@
+require 'configuration'
 # Determine whether or not a feature is enabled in this environment.
 #
 # usage (for e.g. feature :foobar):
@@ -27,9 +28,7 @@ class FeatureFlags
   def initialize
     @env_name = HostEnv.env_name
 
-    @config = YAML.load(
-      ERB.new(settings_file).result
-    ).fetch('feature_flags', {}).with_indifferent_access.freeze
+    @config = Configuration.new(scope: 'feature_flags').config.freeze
   end
 
   class << self
@@ -37,20 +36,12 @@ class FeatureFlags
   end
 
   def method_missing(name, *args)
-    if config.key?(name)
-      EnabledFeature.new(config.fetch(name), env_name)
-    else
-      super
-    end
+    super unless config.key?(name)
+
+    EnabledFeature.new(config.fetch(name), env_name)
   end
 
   def respond_to_missing?(name, _include_private = false)
     config.key?(name) || super
-  end
-
-  private
-
-  def settings_file
-    Rails.root.join('config/settings.yml').read
   end
 end

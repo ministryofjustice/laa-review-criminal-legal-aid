@@ -11,3 +11,14 @@ feature_flags:
     local: true
     staging: true
     production: false
+
+# For settings that vary by HostEnv name
+host_env_settings:
+  phase_banner_tag:
+    local: Dev
+    staging: Staging
+    production: Beta
+  default_tag_colour:
+    local: green
+    staging: orange
+    production: blue

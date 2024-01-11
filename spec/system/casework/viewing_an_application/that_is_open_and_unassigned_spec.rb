@@ -12,7 +12,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'shows the open status badge' do
-    badge = page.all('.govuk-tag').last.text
+    badge = page.first('.govuk-tag.govuk-tag--blue').text
 
     expect(badge).to match('Open')
   end
@@ -55,7 +55,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     context 'when the application is means passported' do
       it 'shows the blue passported badge' do
         expect(means_type_badge).to have_content('Passported')
-        expect(means_type_badge).to have_css('.moj-badge--blue')
+        expect(means_type_badge).to have_css('.govuk-tag--blue')
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
       it 'shows the red undetermined badge' do
         expect(means_type_badge).to have_content('Undetermined')
-        expect(means_type_badge).to have_css('.moj-badge--red')
+        expect(means_type_badge).to have_css('.govuk-tag--red')
       end
     end
   end
@@ -251,18 +251,25 @@ RSpec.describe 'Viewing an application unassigned, open application' do
                                                                   'conflict_of_interest' => 'no', }] })
         end
 
-        it 'shows the No conflict badge' do
-          badge = find(:xpath, "//span[@class='moj-badge moj-badge--red'][contains(text(), 'No conflict')]")
+        let(:codefendant_row) do
+          find(
+            :xpath, "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
+           //tr[contains(td[1], 'Billy')]"
+          )
+        end
 
-          expect(badge).to have_content('No conflict')
+        it 'shows the No conflict badge' do
+          within(codefendant_row) do
+            badge = page.first('.govuk-tag.govuk-tag--red').text
+
+            expect(badge).to have_content('No conflict')
+          end
         end
 
         it 'shows the correct conflict caption text' do
-          codefendant_row = find(:xpath,
-                                 "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-           //tr[contains(td[1], 'No conflict of interest')]")
-
-          expect(codefendant_row).to have_content('No conflict of interest')
+          within(codefendant_row) do |row|
+            expect(row.first('td')).to have_content('Billy Bates No conflict of interest')
+          end
         end
       end
     end

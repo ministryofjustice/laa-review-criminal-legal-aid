@@ -9,7 +9,6 @@ en:
       provider_request: you requested it be returned
       split_case: the case has been split, so we need justification for all offences
   warning_text:
-    title: Warning
     resubmitted: This application has been resubmitted.
   flash:
     success:
@@ -160,6 +159,7 @@ en:
     deleted_user_name: '[deleted]'
     no_one: no one
     initial: Initial application
+    post_submission_evidence: Post submission evidence
     universal_credit: Universal Credit
     guarantee_pension: Guarantee Credit element of Pension Credit
     jsa: Income-based Jobseeker's Allowance (JSA)
@@ -178,12 +178,12 @@ en:
     appeal_to_crown_court: Appeal to crown court
     appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
     class: Class
-    class_not_determined: "Class\xA0not\xA0determined"
+    class_not_determined: Class not determined
     to: to
     conflict_of_interest:
       "yes": Conflict of interest
       "no": No conflict of interest
-    conflict_of_interest_badge:
+    conflict_of_interest_tag:
       "yes": Conflict
       "no": No conflict
     loss_of_liberty: Loss of liberty
@@ -227,8 +227,8 @@ en:
       provider_request: Provider request
       split_case: The case has been split, so we need justification for all offences
     color:
-      submitted: default
-      open: default
+      submitted: blue
+      open: blue
       sent_back: red
       completed: green
       marked_as_ready: blue

@@ -14,16 +14,6 @@ module ApplicationHelper
     t('service.name')
   end
 
-  def app_banner_tag
-    if HostEnv.local?
-      t('phase_banner.tag.local')
-    elsif HostEnv.staging?
-      t('phase_banner.tag.staging')
-    else
-      t('phase_banner.tag.production')
-    end
-  end
-
   def top_level_path?
     top_level_paths = [
       assigned_applications_path,
@@ -48,14 +38,6 @@ module ApplicationHelper
     raise exception if Rails.application.config.consider_all_requests_local
 
     title ''
-  end
-
-  # Rails link_to_if and variants still render the link text hence custom implementation
-  # https://govuk-components.netlify.app/helpers/link/#input-erb-class-helpers
-  def gov_link_to_unless_current_user(user:, **options)
-    return '' if current_user == user
-
-    govuk_link_to options[:text], options[:path], options[:html_options]
   end
 
   def present(model, presenter_class = nil)

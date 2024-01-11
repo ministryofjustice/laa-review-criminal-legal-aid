@@ -114,10 +114,10 @@ RSpec.describe 'Send an application back to the provider' do
         expect(page).to have_content I18n.t('casework.crime_applications.show.page_title')
       end
 
-      it 'shows the sent back status badge' do
-        badge = page.all('.govuk-tag').last.text
+      it 'shows the sent back status tag' do
+        tag = page.all('.govuk-tag.govuk-tag--red').first.text
 
-        expect(badge).to match('Sent back to provider')
+        expect(tag).to match('Sent back to provider')
       end
 
       it 'includes the applicant details' do

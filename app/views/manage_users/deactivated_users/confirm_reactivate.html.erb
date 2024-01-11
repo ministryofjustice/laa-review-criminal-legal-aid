@@ -10,6 +10,6 @@
 <%= form_with(url: reactivate_manage_users_deactivated_user_path(@user), method: :patch) do |f| %>
   <div class="govuk-button-group">
     <%= f.govuk_submit action_text(:confirm_reactivate) %>
-    <%= govuk_link_to action_text(:abandon_reactivate), manage_users_deactivated_users_path, { no_visited_state: true } %>
+    <%= govuk_link_to action_text(:abandon_reactivate), manage_users_deactivated_users_path, no_visited_state: true %>
   </div>
 <% end %>

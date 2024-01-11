@@ -16,7 +16,7 @@
         <%= govuk_link_to(
               label_text(report.report_type),
               reporting_temporal_report_path(report.to_param),
-              { no_visited_state: true }
+              no_visited_state: true
             )%>
       </h3>
     <% end %>
@@ -26,14 +26,14 @@
         <%= govuk_link_to(
               label_text(report_type),
               reporting_current_snapshot_path(report_type),
-              { no_visited_state: true }
+              no_visited_state: true
             ) %>
       </h3>
 
     <% end %>
 
     <h3 class='govuk-heading-s'>
-      <%= govuk_link_to label_text('processed_report'), reporting_user_report_path('processed_report'), { no_visited_state: true } %>
+      <%= govuk_link_to label_text('processed_report'), reporting_user_report_path('processed_report'), no_visited_state: true %>
     </h3>
   </div>
 </div>

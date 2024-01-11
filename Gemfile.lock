@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/laa-criminal-legal-aid-schemas.git
-  revision: 0e3a390af6311054d94720d3300178db898b6ae4
-  tag: v1.0.23
+  revision: 912ba25ec6153f0725813cb9381f0dee4ce4c7f1
+  tag: v1.0.25
   specs:
-    laa-criminal-legal-aid-schemas (1.0.23)
+    laa-criminal-legal-aid-schemas (1.0.25)
       dry-schema (~> 1.13)
       dry-struct (~> 1.6.0)
       json-schema (~> 4.0.0)
@@ -135,7 +135,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.4)
+    bigdecimal (3.1.5)
     bindata (2.4.15)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -233,11 +233,11 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (3.24.4)
-    govuk-components (4.1.1)
+    govuk-components (5.0.2)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (~> 6.0)
-      view_component (>= 3.3, < 3.6)
-    govuk_design_system_formbuilder (4.1.1)
+      view_component (>= 3.9, < 3.10)
+    govuk_design_system_formbuilder (5.0.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
@@ -252,14 +252,14 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    importmap-rails (1.2.3)
+    importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.6.0)
-    irb (1.10.1)
+    io-console (0.7.1)
+    irb (1.11.1)
       rdoc
-      reline (>= 0.3.8)
+      reline (>= 0.4.2)
     jmespath (1.6.2)
     json (2.6.3)
     json-jwt (1.16.3)
@@ -319,7 +319,7 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.15.5)
+    nokogiri (1.16.0)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
@@ -348,7 +348,7 @@ GEM
       validate_url
       webfinger (~> 2.0)
     orm_adapter (0.5.0)
-    pagy (6.1.0)
+    pagy (6.2.0)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -359,7 +359,7 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     public_suffix (5.0.3)
     puma (6.4.2)
@@ -424,10 +424,10 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.1)
+    rdoc (6.6.2)
       psych (>= 4.0.0)
     regexp_parser (2.8.2)
-    reline (0.4.1)
+    reline (0.4.2)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -540,7 +540,7 @@ GEM
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
-    view_component (3.5.0)
+    view_component (3.9.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)

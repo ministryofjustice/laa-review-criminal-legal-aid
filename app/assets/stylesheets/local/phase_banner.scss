@@ -2,13 +2,7 @@
 $colours: ("staging": govuk-colour("orange"), "local": govuk-colour("green"));
 
 @each $key, $colour in $colours {
-  .app-banner-#{$key} {
-    .govuk-header__container {
+    .govuk-header__container.app-banner-#{$key} {
       border-bottom-color: $colour;
     }
-
-    .govuk-tag.govuk-phase-banner__content__tag {
-      background-color: $colour;
-    }
   }
-}
