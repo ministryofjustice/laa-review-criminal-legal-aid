@@ -29,8 +29,7 @@
   <% end %>
 
   <%= govuk_skip_link %>
-
-  <%= content_for(:header) %>
+  <%= yield(:header) %>
 
   <div class="govuk-width-container">
     <%= govuk_phase_banner %>
