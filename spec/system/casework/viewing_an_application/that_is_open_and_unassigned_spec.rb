@@ -151,32 +151,16 @@ RSpec.describe 'Viewing an application unassigned, open application' do
                                                'appeal_with_changes_details' => 'Some details' })
       end
 
-      context 'when previous MAAT ID is not provided' do
-        it 'shows appeal lodged date' do
-          expect(page).to have_content('Date the appeal was lodged 25/10/2021')
-        end
-
-        it 'shows changes to details' do
-          expect(page).to have_content('Changes in the client’s financial circumstances Some details')
-        end
-
-        it 'shows that previous maat id was not provided' do
-          expect(page).to have_content('Previous MAAT ID Not provided')
-        end
+      it 'shows appeal lodged date' do
+        expect(page).to have_content('Date the appeal was lodged 25/10/2021')
       end
 
-      context 'when previous MAAT ID is provided' do
-        let(:application_data) do
-          super().deep_merge('case_details' => { 'appeal_maat_id' => '123456' })
-        end
+      it 'shows changes to details' do
+        expect(page).to have_content('Changes in the client’s financial circumstances Some details')
+      end
 
-        it 'shows changes to details' do
-          expect(page).to have_content('Changes in the client’s financial circumstances Some details')
-        end
-
-        it 'shows previous maat id' do
-          expect(page).to have_content('Previous MAAT ID 123456')
-        end
+      it 'does not show previous maat id section' do
+        expect(page).not_to have_content('Previous MAAT ID')
       end
     end
   end

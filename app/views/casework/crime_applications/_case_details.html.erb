@@ -29,16 +29,17 @@
           <%= case_details.appeal_with_changes_details %>
         </dd>
       </div>
+    <% else %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:previous_maat_id) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= case_details.appeal_maat_id.presence || t(:not_provided, scope: 'values') %>
+        </dd>
+      </div>
     <% end %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:previous_maat_id) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= case_details.appeal_maat_id.presence || t(:not_provided, scope: 'values') %>
-      </dd>
-    </div>
-  <% end%>
+  <% end %>
 
   <!-- Court hearing -->
   <div class="govuk-summary-list__row">
