@@ -104,6 +104,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   end
 
   def case_details
+    return unless self.attributes[:case_details]
+
     @case_details ||= CaseDetailsPresenter.present(self[:case_details])
   end
 

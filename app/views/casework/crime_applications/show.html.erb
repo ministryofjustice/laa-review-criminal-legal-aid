@@ -11,15 +11,19 @@
                  nino: @crime_application.applicant.formatted_applicant_nino,
                  applicant_tel: @crime_application.applicant.phone_number
                } %>
-    <%= render partial: 'case_details', object: @crime_application.case_details %>
-    <%= render partial: 'offences', object: @crime_application.case_details.offences %>
-    <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
-    <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
+    <% unless @crime_application.application_type?(:post_submission_evidence) %>
+      <%= render partial: 'case_details', object: @crime_application.case_details %>
+      <%= render partial: 'offences', object: @crime_application.case_details.offences %>
+      <%= render partial: 'codefendants', object: @crime_application.case_details.codefendants %>
+      <%= render partial: 'interests_of_justice', locals: { crime_application: @crime_application } %>
+    <% end %>
     <%= render partial: 'supporting_evidence', locals: { crime_application: @crime_application } %>
-    <% if FeatureFlags.means_journey.enabled? %>
-      <%= render partial: 'income', locals: { income_details: @crime_application.means_details.income_details } %>
-      <%= render partial: 'dependants', locals: { dependants: @crime_application.dependants.formatted_dependants } %>
-      <%= render partial: 'other_income_details', locals: { income_details: @crime_application.means_details.income_details } %>
+    <% unless @crime_application.application_type?(:post_submission_evidence) %>
+      <% if FeatureFlags.means_journey.enabled? %>
+          <%= render partial: 'income', locals: { income_details: @crime_application.means_details.income_details } %>
+          <%= render partial: 'dependants', locals: { dependants: @crime_application.dependants.formatted_dependants } %>
+          <%= render partial: 'other_income_details', locals: { income_details: @crime_application.means_details.income_details } %>
+      <% end %>
     <% end %>
     <%= render partial: @crime_application.application_type, locals: { crime_application: @crime_application } %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>

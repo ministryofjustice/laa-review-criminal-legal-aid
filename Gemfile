@@ -23,11 +23,7 @@ gem 'laa-criminal-applications-datastore-api-client',
     require: 'datastore_api'
 
 gem 'laa-criminal-legal-aid-schemas',
-<<<<<<< HEAD
-    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', tag: 'v1.0.23'
-=======
-    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', branch: 'CRIMAPP-290-PSE-spike'
->>>>>>> 4eb5528 (Spike PSE when PSE is a type of CrimeApplication)
+    github: 'ministryofjustice/laa-criminal-legal-aid-schemas', branch: 'CRIMAPP-290-pse-fields'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'

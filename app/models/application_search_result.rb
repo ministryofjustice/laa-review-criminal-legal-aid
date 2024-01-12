@@ -6,7 +6,7 @@ class ApplicationSearchResult < ApplicationStruct
   attribute :status, Types::String
   attribute :work_stream, Types::WorkStreamType
   attribute? :application_type, Types::ApplicationType
-  attribute? :case_type, Types::CaseType
+  attribute? :case_type, Types::CaseType.optional
   attribute? :parent_id, Types::Uuid.optional
 
   include Assignable

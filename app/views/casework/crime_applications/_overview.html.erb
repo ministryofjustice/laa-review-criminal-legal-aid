@@ -36,19 +36,21 @@
     </div>
   <% end %>
 
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:urn) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-    <span id="urn">
-      <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
-    </span>
-      <% if overview.case_details.urn.presence && !overview.superseded? %>
-        <%=link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
-      <% end %>
-    </dd>
-  </div>
+  <% unless @crime_application.application_type?(:post_submission_evidence) %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:urn) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+      <span id="urn">
+        <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
+      </span>
+        <% if overview.case_details.urn.presence && !overview.superseded? %>
+          <%=link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
+        <% end %>
+      </dd>
+    </div>
+  <% end %>
 
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -59,21 +61,23 @@
     </dd>
   </div>
 
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:overall_offence_class) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <% if overview.case_details.offence_class %>
-        <span class="moj-badge moj-badge--blue">
-          <%= t('values.class') %>
-          <%= overview.case_details.offence_class %>
-        </span>
-      <% else %>
-        <span class="moj-badge moj-badge--red">
-          <%= label_text('undetermined') %>
-        </span>
-      <% end %>
-    </dd>
-  </div>
+  <% unless @crime_application.application_type?(:post_submission_evidence) %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:overall_offence_class) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <% if overview.case_details.offence_class %>
+          <span class="moj-badge moj-badge--blue">
+            <%= t('values.class') %>
+            <%= overview.case_details.offence_class %>
+          </span>
+        <% else %>
+          <span class="moj-badge moj-badge--red">
+            <%= label_text('undetermined') %>
+          </span>
+        <% end %>
+      </dd>
+    </div>
+  <% end %>
 </dl>
