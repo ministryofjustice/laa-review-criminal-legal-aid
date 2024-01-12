@@ -16,8 +16,8 @@ module Reporting
       User.name_for(reviewer_id)
     end
 
-    # TODO: make dynamic when other means_types are understood
-    def means_type
+    # TODO: make dynamic when other means_tested values are understood
+    def means_tested
       'passported'
     end
   end

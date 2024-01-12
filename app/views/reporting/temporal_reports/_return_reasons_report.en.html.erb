@@ -22,7 +22,7 @@
       table.with_body do |body|
         report.rows.each do |row|
           body.with_row do |r|
-            r.with_cell(text: row.means_type.humanize)
+            r.with_cell(text: row.means_tested.humanize)
             r.with_cell(text: row.closed_by)
             r.with_cell(text: l(row.reviewed_at))
             r.with_cell(text: govuk_link_to(

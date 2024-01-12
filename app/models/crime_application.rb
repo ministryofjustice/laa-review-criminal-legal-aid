@@ -23,6 +23,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     means_passport.include?(Types::MeansPassportType['on_age_under18'])
   end
 
+  def not_means_tested?
+    means_passport.include?(Types::MeansPassportType['on_not_means_tested'])
+  end
+
   def relevant_ioj_passport
     # Being under 18 trumps any other interest of justice
     if ioj_passport.include?('on_age_under18')

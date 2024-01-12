@@ -13,6 +13,22 @@
   </div>
 
   <% unless overview.pse? %>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:means_tested) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <% if overview.not_means_tested? %>
+        <%= t('no', scope: 'values') %>
+      <% elsif overview.means_passported? %>
+        <%= govuk_tag(text: t(:passported, scope: 'values'), colour: 'blue') %>
+      <% else %>
+        <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
+      <% end %>
+    </dd>
+  </div>
+
+  <% unless overview.means_passported_on_age? || overview.not_means_tested? %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:means_type) %>
