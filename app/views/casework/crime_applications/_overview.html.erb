@@ -12,31 +12,32 @@
     </dd>
   </div>
 
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:means_type) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <% if overview.means_passported? %>
-        <span class="moj-badge moj-badge--blue"><%= t(:passported, scope: 'values') %></span>
-      <% else %>
-        <span class="moj-badge moj-badge--red"><%= label_text('undetermined') %></span>
-      <% end %>
-    </dd>
-  </div>
-
-  <% unless overview.means_passported_on_age? %>
+  <% unless @crime_application.application_type?(:post_submission_evidence) %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= label_text(:passporting_benefit) %>
+        <%= label_text(:means_type) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
+        <% if overview.means_passported? %>
+          <span class="moj-badge moj-badge--blue"><%= t(:passported, scope: 'values') %></span>
+        <% else %>
+          <span class="moj-badge moj-badge--red"><%= label_text('undetermined') %></span>
+        <% end %>
       </dd>
     </div>
-  <% end %>
 
-  <% unless @crime_application.application_type?(:post_submission_evidence) %>
+    <% unless overview.means_passported_on_age? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:passporting_benefit) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
+        </dd>
+      </div>
+    <% end %>
+
+
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:urn) %>
@@ -52,16 +53,16 @@
     </div>
   <% end %>
 
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:application_start_date) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <%= l(overview.date_stamp, format: :compact) %>
-    </dd>
-  </div>
-
   <% unless @crime_application.application_type?(:post_submission_evidence) %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:application_start_date) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= l(overview.date_stamp, format: :compact) %>
+      </dd>
+    </div>
+
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:overall_offence_class) %>

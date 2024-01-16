@@ -1,6 +1,10 @@
 <% if crime_application.supporting_evidence.present? %>
   <h2 class="govuk-heading-m">
-    <%= label_text(:supporting_evidence) %>
+    <% if @crime_application.application_type?(:post_submission_evidence) %>
+      <%= label_text(:post_submission_evidence) %>
+    <% else %>
+      <%= label_text(:supporting_evidence) %>
+    <% end %>
   </h2>
 
   <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">

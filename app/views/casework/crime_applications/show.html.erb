@@ -25,7 +25,8 @@
           <%= render partial: 'other_income_details', locals: { income_details: @crime_application.means_details.income_details } %>
       <% end %>
     <% end %>
-    <%= render partial: @crime_application.application_type, locals: { crime_application: @crime_application } %>
+    <%# TODO: potentially delete %>
+    <%#= render partial: @crime_application.application_type, locals: { crime_application: @crime_application } %>
     <%= render partial: 'provider_details', object: @crime_application.provider_details %>
   </div>
 </div>
