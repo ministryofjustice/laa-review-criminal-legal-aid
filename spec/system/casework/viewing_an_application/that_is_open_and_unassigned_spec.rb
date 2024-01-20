@@ -50,7 +50,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   describe 'showing the means tested value' do
     subject(:means_tested_badge) do
       find('.govuk-summary-list__key',
-        text: 'Is application subject to means test')
+           text: 'Is application subject to means test')
         .sibling('.govuk-summary-list__value')
     end
 
