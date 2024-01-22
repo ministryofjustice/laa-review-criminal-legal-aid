@@ -233,6 +233,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (3.24.4)
+    google-protobuf (3.24.4-x86_64-linux)
     govuk-components (5.0.2)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (~> 6.0)
@@ -321,6 +322,8 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.16.0)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
@@ -494,6 +497,8 @@ GEM
     sass-embedded (1.69.5)
       google-protobuf (~> 3.23)
       rake (>= 13.0.0)
+    sass-embedded (1.69.5-x86_64-linux-gnu)
+      google-protobuf (~> 3.23)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -574,6 +579,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   aggregate_root
