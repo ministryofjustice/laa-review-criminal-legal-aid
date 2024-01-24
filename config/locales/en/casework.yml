@@ -134,7 +134,7 @@ en:
     undetermined: Undetermined
     urn: Unique reference number (URN)
     has_case_concluded: Has the case concluded?
-    date_case_concluded: When did the case concluded?
+    date_case_concluded: When did the case conclude?
     what: What
     when: When
     who: Who
