@@ -6,10 +6,10 @@ Rails.application.config.to_prepare do
     config.environment = HostEnv.env_name
 
     # to enable performance
-    config.traces_sample_rate = 1.0
+    config.traces_sample_rate = 0.05
 
     # to enable profiling
-    config.profiles_sample_rate = 1.0
+    config.profiles_sample_rate = 0.05
 
     # Contrary to what is stated in https://edgeguides.rubyonrails.org/error_reporting.html,
     # Sentry currently requires explicit configuration in order to register as a subscriber.
