@@ -108,6 +108,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
   end
 
   def case_details
+    return if pse?
+
     @case_details ||= CaseDetailsPresenter.present(self[:case_details])
   end
 
@@ -117,5 +119,9 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   def dependants
     @dependants ||= DependantsPresenter.present(self[:means_details].income_details&.dependants)
+  end
+
+  def pse?
+    application_type == Types::ApplicationType['post_submission_evidence']
   end
 end

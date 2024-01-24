@@ -240,4 +240,22 @@ RSpec.describe CrimeApplication do
       it { is_expected.to be true }
     end
   end
+
+  describe '#pse?' do
+    subject(:pse?) { application.pse? }
+
+    let(:attributes) { super().merge({ 'application_type' => application_type }) }
+
+    context 'when application is an initial application' do
+      let(:application_type) { Types::ApplicationType['initial'] }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when application is a post submission evidence application' do
+      let(:application_type) { Types::ApplicationType['post_submission_evidence'] }
+
+      it { is_expected.to be true }
+    end
+  end
 end
