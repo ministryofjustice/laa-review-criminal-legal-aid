@@ -133,6 +133,8 @@ en:
     telephone_number: UK Telephone number
     undetermined: Undetermined
     urn: Unique reference number (URN)
+    has_case_concluded: Has the case concluded?
+    date_case_concluded: When did the case concluded?
     what: What
     when: When
     who: Who
