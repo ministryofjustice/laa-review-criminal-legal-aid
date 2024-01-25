@@ -59,6 +59,12 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     )
   end
 
+  def submission_type
+    return 'resubmission' if parent_id && application_type == 'initial'
+
+    application_type
+  end
+
   def work_stream
     @work_stream ||= WorkStream.new(attributes[:work_stream])
   end

@@ -273,15 +273,30 @@ en:
     title:
     description:
       assigning:
-        assigned_to_user: Application assigned to %{to_whom_name}
-        unassigned_from_user: Application removed from %{from_whom_name}
-        reassigned_to_user: Application reassigned from %{from_whom_name} to %{to_whom_name}
+        assigned_to_user:
+          initial: Application assigned to %{to_whom_name}
+          resubmission: Application assigned to %{to_whom_name}
+          post_submission_evidence: Post submission evidence assigned to %{to_whom_name}
+        unassigned_from_user:
+          initial: Application removed from %{from_whom_name}
+          resubmission: Application removed from %{from_whom_name}
+          post_submission_evidence: Post submission evidence removed from %{from_whom_name}
+        reassigned_to_user:
+          initial: Application reassigned from %{from_whom_name} to %{to_whom_name}
+          resubmission: Application reassigned from %{from_whom_name} to %{to_whom_name}
+          post_submission_evidence: Post submission evidence reassigned from %{from_whom_name} to %{to_whom_name}
       reviewing:
         sent_back: Application sent back to provider
-        application_received: Application submitted
+        application_received:
+          initial: Application submitted
+          resubmission: Application resubmitted
+          post_submission_evidence: Post submission evidence submitted
         application_resubmitted: Application resubmitted
         selected_application: Go to this version
-        completed: Application completed
+        completed:
+          initial: Application completed
+          resubmission: Application completed
+          post_submission_evidence: Post submission evidence completed
         marked_as_ready: Application marked as ready for assessment
       authorising:
         invited: User invited
@@ -375,3 +390,15 @@ en:
         <<: *LABELS
       values:
         <<: *VALUES
+    post_submissions:
+      subnavigation:
+        application_details: Application details
+        application_history: Application history
+      show:
+        page_title: Post submission
+        heading: Post submission
+        view_history: Check application history
+        view_your_list: Go to your list
+      history:
+        page_title: Application history
+        heading: Application history
