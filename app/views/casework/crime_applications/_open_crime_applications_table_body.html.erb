@@ -7,6 +7,11 @@
   <td class="govuk-table__cell">
     <%= app.reference %>
   </td>
+  <% if FeatureFlags.post_submission_evidence.enabled? %>
+    <td class="govuk-table__cell">
+      <%= app.application_type.humanize %>
+    </td>
+  <% end %>
   <td class="govuk-table__cell">
     <%= l(app.submitted_at) %>
   </td>
