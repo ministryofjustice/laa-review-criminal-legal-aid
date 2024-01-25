@@ -1,9 +1,5 @@
 <strong>
-  <% if application.parent_id.nil? %>
-    <%= t('reviewing.application_received', scope: 'event.description') %> <br>
-  <% else %>
-    <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
-  <% end %>
+  <%= t(application.submission_type, scope: 'event.description.reviewing.application_received') %> <br>
 </strong>
 
 <% unless event_is_for_current_version %>
