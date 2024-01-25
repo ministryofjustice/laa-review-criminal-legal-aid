@@ -72,7 +72,7 @@ RSpec.describe 'Viewing your assigned application' do
       column_headings = page.all('.app-dashboard-table thead tr th.govuk-table__header').map(&:text)
 
       expect(column_headings).to contain_exactly(
-        "Applicant's name", 'Reference number', 'Type of work', 'Date received',
+        "Applicant's name", 'Reference number', 'Type of application', 'Type of work', 'Date received',
         'Business days since application was received'
       )
     end
