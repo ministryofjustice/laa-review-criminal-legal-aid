@@ -27,7 +27,8 @@ RSpec.shared_context 'with resubmitted application' do
       application_id: parent_id,
       parent_id: nil,
       work_stream: 'extradition',
-      submitted_at: Time.zone.now.to_s
+      submitted_at: Time.zone.now.to_s,
+      application_type: Types::ApplicationType['initial']
     )
 
     Assigning::AssignToUser.new(
@@ -57,7 +58,8 @@ RSpec.shared_context 'with resubmitted application' do
       application_id: application_id,
       parent_id: parent_id,
       work_stream: 'extradition',
-      submitted_at: Time.zone.now.to_s
+      submitted_at: Time.zone.now.to_s,
+      application_type: Types::ApplicationType['initial']
     )
   end
 end

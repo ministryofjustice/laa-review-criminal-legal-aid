@@ -8,10 +8,11 @@ describe Reviewing::Review do
   let(:application_id) { SecureRandom.uuid }
 
   let(:submitted_at) { Time.zone.now }
+  let(:application_type) { Types::ApplicationType['initial'] }
 
   describe '#receive_application' do
     before do
-      review.receive_application(submitted_at:)
+      review.receive_application(submitted_at:, application_type:)
     end
 
     it 'becomes "received"' do
@@ -26,7 +27,7 @@ describe Reviewing::Review do
 
     context 'when has already been received' do
       it 'raises AlreadyReceived' do
-        expect { review.receive_application(submitted_at:) }.to raise_error(
+        expect { review.receive_application(submitted_at:, application_type:) }.to raise_error(
           Reviewing::AlreadyReceived
         )
       end
@@ -37,7 +38,7 @@ describe Reviewing::Review do
     let(:user_id) { SecureRandom.uuid }
 
     before do
-      review.receive_application(submitted_at:)
+      review.receive_application(submitted_at:, application_type:)
       review.send_back(user_id:, reason:)
     end
 
@@ -74,7 +75,7 @@ describe Reviewing::Review do
     let(:user_id) { SecureRandom.uuid }
 
     before do
-      review.receive_application(submitted_at:)
+      review.receive_application(submitted_at:, application_type:)
       review.complete(user_id:)
     end
 
@@ -111,7 +112,7 @@ describe Reviewing::Review do
     let(:user_id) { SecureRandom.uuid }
 
     before do
-      review.receive_application(submitted_at:)
+      review.receive_application(submitted_at:, application_type:)
       review.mark_as_ready(user_id:)
     end
 
