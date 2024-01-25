@@ -16,7 +16,7 @@ RSpec.describe 'Api::Events' do
         submitted_at: Time.zone.parse('2022-10-27T14:09:11'),
         parent_id: 'parent_id_uuid',
         work_stream: Types::WorkStreamType['extradition'],
-        application_type: 'initial'
+        application_type: Types::ApplicationType['initial']
       }
     }
   end

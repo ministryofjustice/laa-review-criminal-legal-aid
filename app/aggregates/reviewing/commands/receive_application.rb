@@ -10,7 +10,7 @@ module Reviewing
 
     def call
       with_review do |review|
-        review.receive_application(submitted_at:, parent_id:, work_stream:, application_type:)
+        review.receive_application(submitted_at:, application_type:, parent_id:, work_stream:)
       end
 
       return unless supersedes?
