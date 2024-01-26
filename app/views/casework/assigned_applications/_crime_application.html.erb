@@ -7,6 +7,11 @@
   <td class="govuk-table__cell">
     <%= crime_application.reference %>
   </td>
+  <% if FeatureFlags.post_submission_evidence.enabled? %>
+    <td class="govuk-table__cell">
+      <%= crime_application.application_type.humanize %>
+    </td>
+  <% end %>
   <td class="govuk-table__cell">
     <%= label_text(crime_application.work_stream) %>
   </td>

@@ -7,6 +7,11 @@
   <td class="govuk-table__cell">
     <%= result.reference %>
   </td>
+  <% if FeatureFlags.post_submission_evidence.enabled? %>
+    <td class="govuk-table__cell">
+      <%= result.application_type.humanize %>
+    </td>
+  <% end %>
   <td class="govuk-table__cell">
     <%= result.case_type&.humanize %>
   </td>

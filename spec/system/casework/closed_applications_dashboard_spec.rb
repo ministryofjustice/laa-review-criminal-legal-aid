@@ -52,7 +52,8 @@ RSpec.describe 'Closed Applications' do
   it 'shows the correct information' do
     first_row_text = page.first('.app-table tbody tr').text
     reviewed_at = I18n.l(Time.current.in_time_zone('London'))
-    expect(first_row_text).to eq("John Potter 6000002 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider")
+    expected_text = "John Potter 6000002 Initial 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider"
+    expect(first_row_text).to eq(expected_text)
   end
 
   it 'can be used to navigate to an application' do
@@ -69,7 +70,7 @@ RSpec.describe 'Closed Applications' do
     expected_headings = [
       "Applicant's name",
       'Reference number',
-
+      'Type of application',
       'Date received',
       'Date closed',
       'Closed by',
