@@ -103,7 +103,7 @@ en:
     last_name: Last name
     legal_representative: Legal representative
     manage_without_income: How do they manage with no income?
-    means_type: Means type
+    means_tested: Is application subject to means test
     name: Name
     national_crime_team: CAT 2
     national_insurance_number: National Insurance number

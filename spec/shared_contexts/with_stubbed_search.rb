@@ -10,7 +10,8 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         submitted_at: '2022-10-27T14:09:11.000+00:00',
         parent_id: nil,
         case_type: 'summary_only',
-        application_type: 'initial'
+        application_type: 'initial',
+        means_passport: ['on_benefit_check']
       ),
       ApplicationSearchResult.new(
         applicant_name: 'Don JONES',
@@ -21,7 +22,8 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         submitted_at: '2022-11-11T16:58:15.000+00:00',
         parent_id: nil,
         case_type: 'summary_only',
-        application_type: 'initial'
+        application_type: 'initial',
+        means_passport: ['on_benefit_check']
       )
     ]
   end

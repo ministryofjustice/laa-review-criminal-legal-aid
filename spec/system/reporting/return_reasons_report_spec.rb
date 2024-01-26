@@ -15,6 +15,7 @@ RSpec.describe 'Return Reasons Report' do
   let(:interval) { Types::TemporalInterval['weekly'] }
   let(:period) { '2023-1' }
   let(:resource_id) { SecureRandom.uuid }
+  let(:means_passport) { ['on_benefit_check'] }
 
   let(:stubbed_search_results) do
     [
@@ -26,7 +27,8 @@ RSpec.describe 'Return Reasons Report' do
         return_reason: 'clarification_required',
         return_details: 'More information please.',
         office_code: '1A2BC3D',
-        provider_name: 'Andy Others'
+        provider_name: 'Andy Others',
+        means_passport: means_passport
       }
     ]
   end
@@ -80,6 +82,50 @@ RSpec.describe 'Return Reasons Report' do
     end
   end
 
+  context 'when application is non means tested' do
+    let(:means_passport) { ['on_not_means_tested'] }
+
+    it 'includes the expected data' do # rubocop:disable RSpec/ExampleLength
+      expected_data = [
+        'Non means tested',
+        'Joe Case',
+        '5 Jan 2023',
+        'Clarification required',
+        '12345678',
+        '1A2BC3D',
+        'Andy Others'
+      ]
+
+      within first('tbody tr') do
+        all('td').each_with_index do |cell, i|
+          expect(cell).to have_content expected_data[i]
+        end
+      end
+    end
+  end
+
+  context 'when application is missing a means passport' do
+    let(:means_passport) { [] }
+
+    it 'includes the expected data' do # rubocop:disable RSpec/ExampleLength
+      expected_data = [
+        'Undetermined',
+        'Joe Case',
+        '5 Jan 2023',
+        'Clarification required',
+        '12345678',
+        '1A2BC3D',
+        'Andy Others'
+      ]
+
+      within first('tbody tr') do
+        all('td').each_with_index do |cell, i|
+          expect(cell).to have_content expected_data[i]
+        end
+      end
+    end
+  end
+
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date returned'] }
     let(:active_sort_direction) { 'ascending' }
@@ -102,6 +148,7 @@ RSpec.describe 'Return Reasons Report' do
     expect(page).to have_http_status :ok
   end
 
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
   describe 'attempting to download a report' do
     before do
       click_link('Monthly')
@@ -151,4 +198,5 @@ RSpec.describe 'Return Reasons Report' do
       end
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end
