@@ -17,11 +17,10 @@ RSpec.describe 'Open Applications' do
   end
 
   it 'includes the correct headings' do
-    column_headings = page.first('.app-table thead tr').text.squish
+    column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
-    expect(column_headings).to eq(
-      "Applicant's name Reference number Date received Business days since application was received Caseworker"
-    )
+    expect(column_headings).to eq(["Applicant's name", 'Reference number', 'Type of application', 'Date received',
+                                   'Business days since application was received', 'Caseworker'])
   end
 
   it 'shows the correct information' do
@@ -31,7 +30,7 @@ RSpec.describe 'Open Applications' do
       Date.parse('2022-10-27'), Time.current.in_time_zone('London')
     )
 
-    expect(first_row_text).to eq("Kit Pound 120398120 27 Oct 2022 #{days_ago} days")
+    expect(first_row_text).to eq("Kit Pound 120398120 Initial 27 Oct 2022 #{days_ago} days")
   end
 
   it 'receives the application if not already received' do
