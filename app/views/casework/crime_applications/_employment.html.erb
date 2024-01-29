@@ -23,23 +23,26 @@
         <%= t(income_details.ended_employment_within_three_months, scope: 'values') %>
       </dd>
     </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:lost_job_in_custody) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(income_details.lost_job_in_custody, scope: 'values') %>
-      </dd>
-    </div>
-    <% if income_details.lost_job_in_custody == 'yes' %>
+    <% unless income_details.lost_job_in_custody.nil? %>
       <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:date_job_lost) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= l income_details.date_job_lost, format: :compact %>
-      </dd>
-    </div>
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:lost_job_in_custody) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(income_details.lost_job_in_custody, scope: 'values') %>
+        </dd>
+      </div>
+
+      <% if income_details.lost_job_in_custody == 'yes' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:date_job_lost) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= l income_details.date_job_lost, format: :compact %>
+          </dd>
+        </div>
+      <% end %>
     <% end %>
   </dl>
 <% end %>
