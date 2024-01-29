@@ -22,7 +22,7 @@ RSpec.describe 'Viewing the employment details of an application' do
       expect(page).to have_content('Did they lose their job as a result of being in custody? Yes')
       expect(page).to have_content('When did they lose their job? 01/09/2023')
     end
-    
+
     context 'when job was not lost in custody' do
       let(:application_data) do
         super().deep_merge('means_details' => { 'income_details' => { 'lost_job_in_custody' => 'no',
