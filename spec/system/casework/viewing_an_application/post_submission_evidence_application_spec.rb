@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Viewing an application unassigned, open application' do
+RSpec.describe 'Viewing an application unassigned, open, post submission evidence application' do
   let(:crime_application_id) { '21c37e3e-520f-46f1-bd1f-5c25ffc57d70' }
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
 
@@ -111,6 +111,17 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         first_row = page.first('.app-dashboard-table tbody tr').text
         expect(first_row).to match('Fred Smitheg Post submission evidence completed')
       end
+    end
+  end
+
+  context 'when reviewing application' do
+    it 'does not show the following CTAs' do
+      expect(page).not_to have_content('Mark as ready for MAAT')
+      expect(page).not_to have_content('Send back to provider')
+    end
+
+    it 'does show the mark as complete button' do
+      expect(page).not_to have_content('Mark as complete')
     end
   end
 end
