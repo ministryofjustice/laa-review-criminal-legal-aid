@@ -135,6 +135,8 @@ en:
     urn: Unique reference number (URN)
     has_case_concluded: Has the case concluded?
     date_case_concluded: When the case concluded
+    is_client_remanded: Has a court remanded client in custody?
+    date_client_remanded: When they were remanded
     what: What
     when: When
     who: Who

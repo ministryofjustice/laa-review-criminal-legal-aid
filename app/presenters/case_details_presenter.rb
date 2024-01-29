@@ -31,6 +31,10 @@ class CaseDetailsPresenter < BasePresenter
     (has_case_concluded == 'yes') && date_case_concluded.present?
   end
 
+  def client_remanded?
+    (is_client_remanded == 'yes') && date_client_remanded.present?
+  end
+
   private
 
   def type_of(value)
