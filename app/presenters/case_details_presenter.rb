@@ -27,6 +27,14 @@ class CaseDetailsPresenter < BasePresenter
     is_first_court_hearing == type_of('no_hearing_yet')
   end
 
+  def case_concluded?
+    (has_case_concluded == 'yes') && date_case_concluded.present?
+  end
+
+  def client_remanded?
+    (is_client_remanded == 'yes') && date_client_remanded.present?
+  end
+
   private
 
   def type_of(value)
