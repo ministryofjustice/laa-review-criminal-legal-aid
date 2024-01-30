@@ -1,0 +1,6 @@
+<% unless additional_information.blank? %>
+  <%= govuk_inset_text do  %>
+    <h2 class='govuk-heading-m'>Information from the provider</h2>
+    <%= simple_format(additional_information) %>
+  <% end  %>
+<% end %>
