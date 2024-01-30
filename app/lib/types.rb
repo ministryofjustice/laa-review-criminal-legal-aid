@@ -87,5 +87,6 @@ module Types
                                  criminal_applications_team
                                  criminal_applications_team_2
                                  extradition
+                                 post_submission_evidence
                                ])
 end

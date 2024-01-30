@@ -24,7 +24,8 @@ RSpec.describe 'Assigning an application to myself' do
       let(:expected_params) do
         ApplicationSearchFilter.new(
           assigned_status: 'unassigned',
-          work_stream: gets_next_from
+          work_stream: gets_next_from,
+          application_type: ['initial']
         ).datastore_params
       end
 
