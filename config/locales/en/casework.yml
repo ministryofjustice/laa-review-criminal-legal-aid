@@ -81,9 +81,13 @@ en:
       sent_back: 'Date closed:'
       completed: 'Date closed:'
     date_appeal_lodged: Date the appeal was lodged
+    date_job_lost: When did they lose their job?
     date_of_birth: Date of birth
     date_received: 'Date received:'
     details: Details
+    employment: Employment
+    employment_type: Client's employment status
+    ended_employment_within_three_months: Have they ended employment in the last 3 months?
     end_on: Date to
     extradition: Extradition
     file_name: File name
@@ -102,6 +106,7 @@ en:
     justification: Justification
     last_name: Last name
     legal_representative: Legal representative
+    lost_job_in_custody: Did they lose their job as a result of being in custody?
     manage_without_income: How do they manage with no income?
     means_tested: Is application subject to means test
     name: Name
@@ -245,6 +250,13 @@ en:
       living_on_streets: They are living on the streets or homeless
       custody: They have been in custody for more than 3 months
       other: Other
+    employment_type:
+      employed: Employed
+      self-employed: Self-employed
+      business_partnership: In a business partnership
+      director: Company directory in a private company
+      shareholder: Shareholder in a private company
+      not_working: Not working
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
