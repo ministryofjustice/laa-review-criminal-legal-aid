@@ -4,7 +4,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-9">
     <%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
+    <%= render partial: 'additional_information', object: @crime_application.additional_information %>
     <%= render partial: 'overview', object: @crime_application %>
+
     <% if @crime_application.pse? %>
       <%= render partial: 'pse', locals: { crime_application: @crime_application } %>
     <% else %>
