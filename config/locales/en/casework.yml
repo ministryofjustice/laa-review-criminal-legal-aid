@@ -99,8 +99,10 @@ en:
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing
     home_address: Home address
+    how_manage_outgoings: How does client manage if their outgoings are more than their income?
     income: Income
     income_more_than: Income more than £12,475?
+    income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
     interests_of_justice: Interest of Justice
     interests_of_justice_type: Criteria
     justification: Justification
@@ -119,7 +121,9 @@ en:
     offence_details: Offence details
     office_account_number: Office account number
     other_income_details: Other sources of income
+    other_outgoings_details: Other outgoings
     other_names: Other names
+    outgoings_more_than_income: Are client's outgoings more than their income?
     overall_offence_class: Overall offence class
     overview: Overview
     partner: Partner

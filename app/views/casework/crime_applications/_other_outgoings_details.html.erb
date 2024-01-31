@@ -1,0 +1,37 @@
+<% if outgoings_details.present? %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:other_outgoings_details) %>
+  </h2>
+
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:income_tax_rate_above_threshold) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(outgoings_details.income_tax_rate_above_threshold, scope: 'values') %>
+      </dd>
+    </div>
+    <% unless outgoings_details.outgoings_more_than_income.nil? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:outgoings_more_than_income) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(outgoings_details.outgoings_more_than_income, scope: 'values') %>
+        </dd>
+      </div>
+
+      <% if outgoings_details.outgoings_more_than_income == 'yes' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:how_manage_outgoings) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= simple_format(outgoings_details.how_manage) %>
+          </dd>
+        </div>
+      <% end %>
+    <% end %>
+  </dl>
+<% end %>
