@@ -2,7 +2,7 @@
   <%= label_text(:case_details) %>
 </h2>
 <% if case_details.case_type.present? %>
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:case_type) %>
@@ -68,3 +68,75 @@
     </div>
   </dl>
 <% end %>
+
+<% if FeatureFlags.means_journey.enabled? %>
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:has_case_concluded) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(case_details.has_case_concluded, scope: 'values') || t('values.not_asked') %>
+      </dd>
+    </div>
+
+    <% if case_details.case_concluded? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:date_case_concluded) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l(case_details.date_case_concluded, format: :compact) %>
+        </dd>
+      </div>
+    <%end%>
+
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:is_preorder_work_claimed) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(case_details.is_preorder_work_claimed, scope: 'values') || t('values.not_asked') %>
+      </dd>
+    </div>
+
+    <% if case_details.preorder_work_claimed? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:preorder_work_date) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l(case_details.preorder_work_date, format: :compact) %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:preorder_work_details) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= case_details.preorder_work_details %>
+        </dd>
+      </div>
+    <%end%>
+
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:is_client_remanded) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(case_details.is_client_remanded, scope: 'values') || t('values.not_asked') %>
+      </dd>
+    </div>
+
+    <% if case_details.client_remanded? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:date_client_remanded) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l(case_details.date_client_remanded, format: :compact) %>
+        </dd>
+      </div>
+    <%end%>
+  </dl>
+<%end%>
