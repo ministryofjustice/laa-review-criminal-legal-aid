@@ -144,6 +144,9 @@ en:
     urn: Unique reference number (URN)
     has_case_concluded: Has the case concluded?
     date_case_concluded: When the case concluded
+    is_preorder_work_claimed: Do you intend to claim pre-order work?
+    preorder_work_date: When you or your firm were first instructed
+    preorder_work_details: Details about the urgency of the work
     is_client_remanded: Has a court remanded client in custody?
     date_client_remanded: When they were remanded
     what: What

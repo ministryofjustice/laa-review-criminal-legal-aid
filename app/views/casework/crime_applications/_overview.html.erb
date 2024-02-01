@@ -76,6 +76,34 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
+          <%= label_text(:is_preorder_work_claimed) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(overview.case_details.is_preorder_work_claimed, scope: 'values') || t('values.not_asked') %>
+        </dd>
+      </div>
+
+      <% if overview.case_details.preorder_work_claimed? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:preorder_work_date) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= l(overview.case_details.preorder_work_date, format: :compact) %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:preorder_work_details) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= overview.case_details.preorder_work_details %>
+          </dd>
+        </div>
+      <%end%>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
           <%= label_text(:is_client_remanded) %>
         </dt>
         <dd class="govuk-summary-list__value">

@@ -31,6 +31,10 @@ class CaseDetailsPresenter < BasePresenter
     (has_case_concluded == 'yes') && date_case_concluded.present?
   end
 
+  def preorder_work_claimed?
+    (is_preorder_work_claimed == 'yes') && preorder_work_date.present? && preorder_work_details.present?
+  end
+
   def client_remanded?
     (is_client_remanded == 'yes') && date_client_remanded.present?
   end
