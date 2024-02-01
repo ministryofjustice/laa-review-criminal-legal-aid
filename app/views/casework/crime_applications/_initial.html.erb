@@ -11,11 +11,7 @@
 <%= render partial: 'interests_of_justice', locals: { crime_application: } %>
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
 <% if FeatureFlags.means_journey.enabled? %>
-  <%= render partial: 'employment', locals: { income_details: crime_application.means_details.income_details } %>
-  <%= render partial: 'income', locals: { income_details: crime_application.means_details.income_details } %>
-  <%= render partial: 'dependants', locals: { dependants: crime_application.dependants.formatted_dependants } %>
-  <%= render partial: 'other_income_details', locals: { income_details: crime_application.means_details.income_details } %>
-
-  <%= render partial: 'other_outgoings_details', locals: { outgoings_details: crime_application.means_details.outgoings_details } %>
+  <%= render partial: 'income_details', locals: { crime_application: } %>
+  <%= render partial: 'outgoings_details', locals: { outgoings_details: crime_application.means_details.outgoings_details } %>
 <% end %>
 <%= render partial: 'provider_details', object: crime_application.provider_details %>
