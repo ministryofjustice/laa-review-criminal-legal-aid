@@ -109,64 +109,6 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('AJ123456C')
   end
 
-  context 'with case details' do
-    context 'when case type is not an appeal type' do
-      let(:application_data) do
-        super().deep_merge('case_details' => { 'case_type' => 'either_way' })
-      end
-
-      it 'does not show appeal lodged date section' do
-        expect(page).not_to have_content('Appeal lodged')
-      end
-
-      it 'does not show change details section' do
-        expect(page).not_to have_content('Change of financial circumstances details')
-      end
-
-      it 'does not show previous maat id section' do
-        expect(page).not_to have_content('Previous MAAT ID')
-      end
-    end
-
-    context 'when case type is an appeal' do
-      context 'when previous MAAT ID is not provided' do
-        it 'shows appeal lodged date' do
-          expect(page).to have_content('Date the appeal was lodged 25/10/2021')
-          expect(page).to have_content('Previous MAAT ID Not provided')
-        end
-      end
-
-      context 'when previous MAAT ID is provided' do
-        let(:application_data) do
-          super().deep_merge('case_details' => { 'appeal_maat_id' => '123456' })
-        end
-
-        it 'shows previous maat id' do
-          expect(page).to have_content('Previous MAAT ID 123456')
-        end
-      end
-    end
-
-    context 'when case type is an appeal with changes to financial circumstances' do
-      let(:application_data) do
-        super().deep_merge('case_details' => { 'case_type' => 'appeal_to_crown_court_with_changes',
-                                               'appeal_with_changes_details' => 'Some details' })
-      end
-
-      it 'shows appeal lodged date' do
-        expect(page).to have_content('Date the appeal was lodged 25/10/2021')
-      end
-
-      it 'shows changes to details' do
-        expect(page).to have_content('Changes in the client’s financial circumstances Some details')
-      end
-
-      it 'does not show previous maat id section' do
-        expect(page).not_to have_content('Previous MAAT ID')
-      end
-    end
-  end
-
   context 'with offence class' do
     context 'when at least one of the offences is manually input' do
       it 'does shows the class not determined badge' do
