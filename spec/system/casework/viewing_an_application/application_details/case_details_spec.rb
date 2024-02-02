@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'When viewing an case details' do
+RSpec.describe 'When viewing case details' do
   include_context 'with stubbed application'
 
   before do
