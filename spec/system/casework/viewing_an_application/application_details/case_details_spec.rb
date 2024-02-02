@@ -65,10 +65,23 @@ RSpec.describe 'When viewing case details' do
     end
 
     context 'when case concluded' do
+      let(:application_data) do
+        super().deep_merge('case_details' => case_details)
+      end
+
+      context 'when has case concluded question was never asked' do
+        let(:case_details) do
+          { 'has_case_concluded' => nil }
+        end
+
+        it 'hides has case concluded question' do
+          expect(page).not_to have_content('Has the case concluded?')
+        end
+      end
+
       context 'when case is concluded' do
-        let(:application_data) do
-          super().deep_merge('case_details' => { 'has_case_concluded' => 'yes',
-                                                 'date_case_concluded' => '2021-10-25' })
+        let(:case_details) do
+          { 'has_case_concluded' => 'yes', 'date_case_concluded' => '2021-10-25' }
         end
 
         it 'shows has case concluded as yes' do
@@ -78,6 +91,10 @@ RSpec.describe 'When viewing case details' do
       end
 
       context 'when case is not concluded' do
+        let(:case_details) do
+          { 'has_case_concluded' => 'no' }
+        end
+
         it 'shows has case concluded as no' do
           expect(page).to have_content('Has the case concluded? No')
         end
@@ -86,20 +103,36 @@ RSpec.describe 'When viewing case details' do
 
     context 'when pre-order work' do
       let(:application_data) do
-        super().deep_merge('case_details' => { 'is_preorder_work_claimed' => 'no' })
+        super().deep_merge('case_details' => case_details)
+      end
+
+      context 'when pre-order work question was never asked' do
+        let(:case_details) do
+          { 'is_preorder_work_claimed' => nil }
+        end
+
+        it 'hides pre-order work question' do
+          expect(page).not_to have_content('Do you intend to claim pre-order work?')
+        end
       end
 
       context 'when not intend to claim pre-order work' do
+        let(:case_details) do
+          { 'is_preorder_work_claimed' => 'no' }
+        end
+
         it 'shows pre-order work claimed as no' do
           expect(page).to have_content('Do you intend to claim pre-order work? No')
         end
       end
 
       context 'when intend to claim pre-order work' do
-        let(:application_data) do
-          super().deep_merge('case_details' => { 'is_preorder_work_claimed' => 'yes',
-                                                 'preorder_work_date' => '2021-10-25',
-                                                 'preorder_work_details' => 'Lorem ipsum dolor sit amet' })
+        let(:case_details) do
+          {
+            'is_preorder_work_claimed' => 'yes',
+            'preorder_work_date' => '2021-10-25',
+            'preorder_work_details' => 'Lorem ipsum dolor sit amet'
+          }
         end
 
         it 'shows pre-order work claimed as yes' do
@@ -110,10 +143,23 @@ RSpec.describe 'When viewing case details' do
     end
 
     context 'when custody remanded' do
+      let(:application_data) do
+        super().deep_merge('case_details' => case_details)
+      end
+
+      context 'when custody is remanded question was never asked' do
+        let(:case_details) do
+          { 'is_client_remanded' => nil }
+        end
+
+        it 'hides custody is remanded question' do
+          expect(page).not_to have_content('Has a court remanded client in custody?')
+        end
+      end
+
       context 'when custody is remanded' do
-        let(:application_data) do
-          super().deep_merge('case_details' => { 'is_client_remanded' => 'yes',
-                                                 'date_client_remanded' => '2021-10-25' })
+        let(:case_details) do
+          { 'is_client_remanded' => 'yes', 'date_client_remanded' => '2021-10-25' }
         end
 
         it 'shows custody remanded as yes' do
@@ -123,6 +169,10 @@ RSpec.describe 'When viewing case details' do
       end
 
       context 'when custody is not remanded' do
+        let(:case_details) do
+          { 'is_client_remanded' => 'no' }
+        end
+
         it 'shows custody remanded as no' do
           expect(page).to have_content('Has a court remanded client in custody? No')
         end
