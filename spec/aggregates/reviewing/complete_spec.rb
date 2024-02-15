@@ -17,7 +17,8 @@ RSpec.describe Reviewing::Complete do
     ).and_return(return_request)
 
     Reviewing::ReceiveApplication.call(
-      application_id: application_id, submitted_at: 1.day.ago.to_s, work_stream: 'extradition'
+      application_id: application_id, submitted_at: 1.day.ago.to_s, work_stream: 'extradition',
+      application_type: 'initial'
     )
   end
 
