@@ -10,6 +10,7 @@ RSpec.describe ReceivedOnReports::Projection do
     let(:observed_at) { Time.current }
     let(:cat1) { Types::WorkStreamType['criminal_applications_team'] }
     let(:extradition) { Types::WorkStreamType['extradition'] }
+    let(:initial) { Types::ApplicationType['initial'] }
 
     describe '#dataset' do
       subject(:dataset) { described_class.new(stream_name:, observed_at:).dataset }
@@ -22,10 +23,10 @@ RSpec.describe ReceivedOnReports::Projection do
         a, b, c, d = Array.new(4) { SecureRandom.uuid }
 
         # Receive three CAT 1 and one extradition application
-        receive_application(a, cat1)
-        receive_application(b, cat1)
-        receive_application(c, cat1)
-        receive_application(d, extradition)
+        receive_application(a, cat1, initial)
+        receive_application(b, cat1, initial)
+        receive_application(c, cat1, initial)
+        receive_application(d, extradition, initial)
 
         event_store.publish(Reviewing::Completed.new(
                               data: { application_id: b }
@@ -42,7 +43,7 @@ RSpec.describe ReceivedOnReports::Projection do
                             ))
 
         # This application should not be included in the data
-        receive_application(SecureRandom.uuid, cat1)
+        receive_application(SecureRandom.uuid, cat1, initial)
 
         travel_back
       end
@@ -99,11 +100,11 @@ RSpec.describe ReceivedOnReports::Projection do
   end
   # rubocop:enable RSpec/MultipleMemoizedHelpers
 
-  def receive_application(application_id, work_stream)
+  def receive_application(application_id, work_stream, application_type)
     submitted_at = Time.current
 
     Reviewing::ReceiveApplication.new(
-      application_id:, submitted_at:, work_stream:
+      application_id:, submitted_at:, work_stream:, application_type:
     ).call
   end
 end
