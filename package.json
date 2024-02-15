@@ -3,7 +3,7 @@
   "private": "true",
   "dependencies": {
     "govuk-frontend": "5.0.0",
-    "@ministryofjustice/frontend": "2.0.0"
+    "@ministryofjustice/frontend": "2.0.1"
   },
   "scripts": {
     "postinstall": "bin/importmap pin govuk-frontend@5.0.0"
