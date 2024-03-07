@@ -61,7 +61,7 @@ group :development, :test do
   gem 'debug'
   gem 'dotenv-rails', '~> 2.8.1'
   gem 'pry'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 6.1.1'
 end
 
 group :development do
