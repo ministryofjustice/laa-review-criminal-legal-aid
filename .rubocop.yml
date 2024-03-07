@@ -46,7 +46,7 @@ Layout/HashAlignment:
 RSpec/AnyInstance:
   Enabled: false
 
-# Using pluck is not a sin
+# TODO: Determine any repurcussions to using .select instead
 Rails/PluckInWhere:
   Enabled: false
 
