@@ -71,7 +71,7 @@ end
 group :test do
   gem 'axe-core-rspec'
   gem 'brakeman'
-  gem 'capybara'
+  gem 'capybara', '>= 3.40.0'
   gem 'erb_lint', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
