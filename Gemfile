@@ -52,17 +52,16 @@ gem 'omniauth-rails_csrf_protection'
 gem 'aws-sdk-sns', '~> 1.60', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store', '>= 2.14.0'
+gem 'rails_event_store'
 
 # Monitoring
 gem 'prometheus_exporter'
 
 group :development, :test do
   gem 'debug'
-  # Issue with freezing ENV with dotenv-rails v3 https://github.com/bkeepers/dotenv/issues/482
   gem 'dotenv-rails', '~> 2.8.1'
   gem 'pry'
-  gem 'rspec-rails', '>= 6.1.1'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -72,11 +71,11 @@ end
 group :test do
   gem 'axe-core-rspec'
   gem 'brakeman'
-  gem 'capybara', '>= 3.40.0'
+  gem 'capybara'
   gem 'erb_lint', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', '>= 2.22.2', require: false
+  gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
