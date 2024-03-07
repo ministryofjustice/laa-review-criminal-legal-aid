@@ -59,7 +59,8 @@ gem 'prometheus_exporter'
 
 group :development, :test do
   gem 'debug'
-  gem 'dotenv-rails', '>= 3.0.0'
+  # Issue with freezing ENV with dotenv-rails v3 https://github.com/bkeepers/dotenv/issues/482
+  gem 'dotenv-rails', '~> 2.8.1'
   gem 'pry'
   gem 'rspec-rails', '>= 6.1.1'
 end
