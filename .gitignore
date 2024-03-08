@@ -44,3 +44,7 @@ Brewfile.lock.json
 .env.development.local
 .env.test.local
 .env.local
+
+# Ignore IDE project-specific settings
+.idea/
+.vscode/
