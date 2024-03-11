@@ -4,8 +4,5 @@
   "dependencies": {
     "govuk-frontend": "5.2.0",
     "@ministryofjustice/frontend": "2.1.1"
-  },
-  "scripts": {
-    "postinstall": "bin/importmap pin govuk-frontend@5.2.0"
   }
 }
