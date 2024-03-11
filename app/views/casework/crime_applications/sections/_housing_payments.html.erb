@@ -1,0 +1,23 @@
+<% if outgoings_details.present? %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:housing_payments) %>
+  </h2>
+
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:which_housing_payment_type) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        Rent
+      </dd>
+    </div>
+
+    <% housing_payment_types = %w[mortgage board_and_lodging rent council_tax] %>
+    <% housing_payment_types.each do |outgoings_type| %>
+      <% payment = outgoings_details.outgoings&.find { |o| outgoings_type == o.payment_type } %>
+      <%= render partial: 'payment_with_frequency', locals: { crime_application: @crime_application, payment: payment } %>
+    <% end %>
+
+  </dl>
+<% end %>

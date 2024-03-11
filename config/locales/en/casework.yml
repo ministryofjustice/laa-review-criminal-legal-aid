@@ -99,7 +99,12 @@ en:
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing
     home_address: Home address
+    housing_payments: Housing payments
     how_manage_outgoings: How does client manage if their outgoings are more than their income?
+    how_much_council_tax: How much council tax do they pay?
+    how_much_rent: How much rent do they pay?
+    how_much_board_and_lodging: How much board and lodgings do they pay?
+    how_much_mortgage: How much mortgage do they pay?
     income: Income
     income_more_than: Income more than £12,475?
     income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
@@ -152,6 +157,7 @@ en:
     what: What
     when: When
     who: Who
+    which_housing_payment_type: Which housing payment type?
 
 
   table_headings: &TABLE_HEADINGS
