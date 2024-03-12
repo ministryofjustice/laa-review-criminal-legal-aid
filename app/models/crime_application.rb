@@ -131,6 +131,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
     @dependants ||= DependantsPresenter.present(self[:means_details].income_details&.dependants)
   end
 
+  def benefits
+    @benefits ||= BenefitsPresenter.present(self[:means_details].income_details&.income_benefits)
+  end
+
   def pse?
     application_type == Types::ApplicationType['post_submission_evidence']
   end
