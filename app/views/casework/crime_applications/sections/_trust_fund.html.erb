@@ -1,0 +1,35 @@
+<% if capital_details.present? %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:trust_funds) %>
+  </h2>
+
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:will_benefit_from_trust_fund) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(capital_details.will_benefit_from_trust_fund, scope: 'values') %>
+      </dd>
+    </div>
+    <% if capital_details.will_benefit_from_trust_fund == 'yes' %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:trust_fund_amount_held) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= number_to_currency(capital_details.trust_fund_amount_held / 100, unit: '£', separator: '.', delimiter: ',') %>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:yearly_dividend) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= number_to_currency(capital_details.yearly_dividend / 100, unit: '£', separator: '.', delimiter: ',') %>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+<% end %>
