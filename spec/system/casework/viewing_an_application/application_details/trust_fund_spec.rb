@@ -28,7 +28,6 @@ RSpec.describe 'Viewing the trust fund details of an application' do
 
   context 'when client does not benefit from a trust fund' do
     it 'shows whether client benefits from a trust fund' do
-      pp application_data
       expect(page).to have_content('Does your client stand to benefit from a trust fund inside or outside the UK? No')
     end
 
