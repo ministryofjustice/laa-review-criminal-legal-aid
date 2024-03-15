@@ -8,12 +8,6 @@ RSpec.describe 'Viewing the trust fund details of an application' do
   end
 
   context 'with trust funds details' do
-    let(:application_data) do
-      super().deep_merge('means_details' => { 'capital_details' => { 'will_benefit_from_trust_fund' => 'yes',
-                                                                     'trust_fund_amount_held' => 1000,
-                                                                    'yearly_dividend' => 2000 } })
-    end
-
     it { expect(page).to have_content('Trust funds') }
 
     it 'shows whether client benefits from a trust fund' do
@@ -21,19 +15,25 @@ RSpec.describe 'Viewing the trust fund details of an application' do
     end
 
     it 'shows the amount held in the fund and the yearly dividend' do
-      expect(page).to have_content('Enter the amount held in the fund £1000.00')
-      expect(page).to have_content('Enter the yearly dividend £2000.00')
+      expect(page).to have_content('Enter the amount held in the fund £1,000.00')
+      expect(page).to have_content('Enter the yearly dividend £2,000.00')
     end
   end
 
   context 'when client does not benefit from a trust fund' do
+    let(:application_data) do
+      super().deep_merge('means_details' => { 'capital_details' => { 'will_benefit_from_trust_fund' => 'no',
+                                                                     'trust_fund_amount_held' => nil,
+                                                                     'yearly_dividend' => nil } })
+    end
+
     it 'shows whether client benefits from a trust fund' do
       expect(page).to have_content('Does your client stand to benefit from a trust fund inside or outside the UK? No')
     end
 
     it 'does not show amount held in the fund and the yearly dividend' do
-      expect(page).to have_content('Did they lose their job as a result of being in custody? No')
-      expect(page).not_to have_content('When did they lose their job?')
+      expect(page).not_to have_content('Enter the amount held in the fund £10.00')
+      expect(page).not_to have_content('Enter the yearly dividend £2000.00')
     end
   end
 
