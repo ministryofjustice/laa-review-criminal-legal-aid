@@ -38,7 +38,7 @@ gem 'bootsnap', require: false
 gem 'dartsass-rails', '~> 0.5.0'
 
 # Exceptions notifications
-gem 'sentry-rails', '>= 5.15.1'
+gem 'sentry-rails', '>= 5.17.0'
 gem 'sentry-ruby'
 gem 'stackprof'
 
