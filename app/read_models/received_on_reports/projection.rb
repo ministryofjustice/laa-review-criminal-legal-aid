@@ -20,10 +20,10 @@ module ReceivedOnReports
              lambda { |rows, event|
                next if event.timestamp > observed_at
 
-               work_stream = event.data.fetch(:work_stream, default_work_stream)
+               data = event.data.slice(:work_stream, :application_type)
+               applications[event.data.fetch(:application_id)] = data
 
-               application_streams[event.data.fetch(:application_id)] = work_stream
-               rows[work_stream].receive
+               rows[data.fetch(:work_stream)][data[:application_type]].receive
              }
            )
            .when(
@@ -31,12 +31,13 @@ module ReceivedOnReports
              lambda { |rows, event|
                next if event.timestamp > observed_at
 
-               work_stream = application_streams[event.data.fetch(:application_id)]
+               data = applications[event.data.fetch(:application_id)]
+               row = rows[data.fetch(:work_stream)][data[:application_type]]
 
                if event.timestamp >= start_of_observed_business_day
-                 rows[work_stream].close_on_observed_business_day
+                 row.close_on_observed_business_day
                else
-                 rows[work_stream].close_before_observed_business_day
+                 row.close_before_observed_business_day
                end
              }
            )
@@ -48,21 +49,23 @@ module ReceivedOnReports
     end
 
     def initial_row
-      Types::WorkStreamType.values.index_with { |work_stream| Row.new(work_stream:) }
+      Types::WorkStreamType.values.index_with do |work_stream|
+        {
+          Types::ApplicationType['initial'] =>  Row.new(work_stream:),
+          Types::ApplicationType['post_submission_evidence'] => Row.new(work_stream:)
+        }
+      end
     end
 
-    # temporary hash map of {'application_id' => 'work_stream'}
-    def application_streams
-      @application_streams ||= {}
+    # Temporary hash map of:
+    # { id => { work_stream: 'cat1', application_type: 'initial'} }
+    #
+    def applications
+      @applications ||= {}
     end
 
     def start_of_observed_business_day
       @start_of_observed_business_day ||= BusinessDay.new(day_zero: observed_at).starts_on
-    end
-
-    # Assume that events stored without a work_stream are old and therefore CAT 1
-    def default_work_stream
-      Types::WorkStreamType['criminal_applications_team']
     end
 
     class << self

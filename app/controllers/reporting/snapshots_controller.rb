@@ -4,7 +4,11 @@ module Reporting
     before_action :require_report_access!
 
     def show
-      @report = Reporting::Snapshot.from_param(report_type: @report_type, date: params[:date], time: params[:time])
+      @report = Reporting::Snapshot.from_param(
+        report_type: @report_type,
+        date: params[:date],
+        time: params[:time]
+      )
     end
 
     def now

@@ -24,6 +24,7 @@ module Reviews
           reviewer_id: review_aggregate.reviewer_id,
           parent_id: review_aggregate.parent_id,
           business_day: review_aggregate.business_day.to_s,
+          application_type: review_aggregate.application_type,
           reviewed_on: review_aggregate.reviewed_on,
           work_stream: review_aggregate.work_stream
         },
