@@ -24,7 +24,7 @@ RSpec.describe 'Viewing the trust fund details of an application' do
     let(:application_data) do
       super().deep_merge('means_details' => { 'capital_details' => { 'will_benefit_from_trust_fund' => 'no',
                                                                      'trust_fund_amount_held' => nil,
-                                                                     'yearly_dividend' => nil } })
+                                                                     'trust_fund_yearly_dividend' => nil } })
     end
 
     it 'shows whether client benefits from a trust fund' do

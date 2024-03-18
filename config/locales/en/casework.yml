@@ -155,7 +155,7 @@ en:
     who: Who
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
     trust_fund_amount_held: Enter the amount held in the fund
-    yearly_dividend: Enter the yearly dividend
+    trust_fund_yearly_dividend: Enter the yearly dividend
 
 
   table_headings: &TABLE_HEADINGS

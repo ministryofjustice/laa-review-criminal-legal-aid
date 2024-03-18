@@ -24,10 +24,10 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= label_text(:yearly_dividend) %>
+          <%= label_text(:trust_fund_yearly_dividend) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= number_to_currency(capital_details.yearly_dividend / 100, unit: '£', separator: '.', delimiter: ',') %>
+          <%= number_to_currency(capital_details.trust_fund_yearly_dividend / 100, unit: '£', separator: '.', delimiter: ',') %>
         </dd>
       </div>
     <% end %>
