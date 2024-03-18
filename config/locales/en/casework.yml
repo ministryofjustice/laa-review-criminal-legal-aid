@@ -140,6 +140,7 @@ en:
     start_on: Date from
     supporting_evidence: Supporting evidence
     telephone_number: UK Telephone number
+    trust_funds: Trust funds
     undetermined: Undetermined
     urn: Unique reference number (URN)
     has_case_concluded: Has the case concluded?
@@ -152,6 +153,9 @@ en:
     what: What
     when: When
     who: Who
+    will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
+    trust_fund_amount_held: Enter the amount held in the fund
+    trust_fund_yearly_dividend: Enter the yearly dividend
 
 
   table_headings: &TABLE_HEADINGS
