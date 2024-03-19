@@ -78,6 +78,7 @@ RSpec.describe 'Viewing the housing payments of an application' do
         super().deep_merge(
           'means_details' => {
             'pays_council_tax' => 'yes',
+            'housing_payment_type' => 'rent',
             'outgoings_details' => { 'outgoings' => outgoings }
           }
         )
@@ -99,9 +100,14 @@ RSpec.describe 'Viewing the housing payments of an application' do
       super().deep_merge(
         'means_details' => {
           'pays_council_tax' => 'yes',
+          'housing_payment_type' => 'none',
           'outgoings_details' => { 'outgoings' => [] }
         }
       )
+    end
+
+    it 'shows housing payment details' do
+      expect(page).to have_content('Which housing payment type? Client does not pay any payments')
     end
 
     it 'still shows council tax' do

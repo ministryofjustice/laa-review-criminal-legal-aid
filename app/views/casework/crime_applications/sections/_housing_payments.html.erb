@@ -5,6 +5,17 @@
 </h2>
 
 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <% unless outgoings_details.housing_payments.any? %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:which_housing_payment_type) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t("values.housing_payments.none") %>
+      </dd>
+    </div>
+  <% end %>
+
   <% outgoings_details.housing_payments.each do |payment| %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">

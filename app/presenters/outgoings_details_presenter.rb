@@ -14,13 +14,13 @@ class OutgoingsDetailsPresenter < BasePresenter
 
   # rubocop:disable Performance/InefficientHashSearch
   def housing_payments
-    (@outgoings_details.outgoings || []).select do |payment|
+    @housing_payments ||= (@outgoings_details.outgoings || []).select do |payment|
       Types::HousingPaymentType.values.include?(payment.payment_type)
     end
   end
 
   def council_tax
-    (@outgoings_details.outgoings || []).find do |payment|
+    @council_tax ||= (@outgoings_details.outgoings || []).find do |payment|
       payment.payment_type == 'council_tax'
     end
   end
