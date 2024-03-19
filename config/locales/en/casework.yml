@@ -101,7 +101,7 @@ en:
     home_address: Home address
     housing_payments: Housing payments
     how_manage_outgoings: How does client manage if their outgoings are more than their income?
-    how_much_council_tax: How much council tax do they pay?
+    how_much_council_tax: How much council tax does client pay?
     how_much_rent: How much rent do they pay?
     how_much_board_and_lodging: How much board and lodgings do they pay?
     how_much_mortgage: How much mortgage do they pay?
@@ -129,9 +129,15 @@ en:
     other_outgoings_details: Other outgoings
     other_names: Other names
     outgoings_more_than_income: Are client's outgoings more than their income?
+    outgoings_metadata:
+      board_amount: How much does client pay for board and lodgings?
+      food_amount: How much of the board and lodgings payment is for food?
+      payee_name: What is the name of the person client pays for board and lodgings?
+      payee_relationship_to_client: What is client's relationship to this person?
     overall_offence_class: Overall offence class
     overview: Overview
     partner: Partner
+    pays_council_tax: Does client pay Council Tax where they usually live?
     post_submission_evidence: Post submission evidence
     previous_maat_id: Previous MAAT ID
     provider_details: Provider details
@@ -177,6 +183,12 @@ en:
     "false": "No"
     "yes": "Yes"
     "no": "No"
+    frequency:
+      week: week
+      fortnight: 2 weeks
+      four_weeks: 4 weeks
+      month: month
+      annual: year
     not_provided: Not provided
     not_asked: Not asked when this application was submitted
     deleted_user_name: '[deleted]'
@@ -270,6 +282,15 @@ en:
       director: Company directory in a private company
       shareholder: Shareholder in a private company
       not_working: Not working
+    payment_with_frequency: "%{amount} every %{frequency}"
+    housing_payments:
+      board_and_lodging: Board and lodgings
+      mortgage: Mortgage
+      rent: Rent
+      none: Client does not pay any payments
+    pays_council_tax:
+      'yes': 'Yes'
+      'no': 'No'
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign

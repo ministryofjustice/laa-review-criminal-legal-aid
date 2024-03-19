@@ -1,23 +1,42 @@
-<% if outgoings_details.present? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:housing_payments) %>
-  </h2>
+<% return if outgoings_details.blank? %>
 
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+<h2 class="govuk-heading-m">
+  <%= label_text(:housing_payments) %>
+</h2>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <% outgoings_details.housing_payments.each do |payment| %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:which_housing_payment_type) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        Rent
+        <%= I18n.t("values.housing_payments.#{payment.payment_type}") %>
       </dd>
     </div>
 
-    <% housing_payment_types = %w[mortgage board_and_lodging rent council_tax] %>
-    <% housing_payment_types.each do |outgoings_type| %>
-      <% payment = outgoings_details.outgoings&.find { |o| outgoings_type == o.payment_type } %>
-      <%= render partial: 'payment_with_frequency', locals: { crime_application: @crime_application, payment: payment } %>
-    <% end %>
+    <%= render partial: 'payment_with_frequency', locals: {
+          key: label_text("how_much_#{payment.payment_type}"),
+          payment: payment } %>
 
-  </dl>
-<% end %>
+    <!-- Board and Lodging Metadata -->
+    <% outgoings_details.board_and_lodging_metadata.each do |key, settings| %>
+      <%= render partial: settings[:partial].to_s, locals: {
+            key: label_text("outgoings_metadata.#{key}"),
+            value: settings[:value],
+            payment: settings[:value] } %>
+    <% end %>
+  <% end %>
+
+  <% if outgoings_details.pays_council_tax %>
+    <%= render partial: 'simple_row', locals: {
+          key: label_text(:pays_council_tax),
+          value: I18n.t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax]) } %>
+  <% end %>
+
+  <% if outgoings_details.council_tax %>
+    <%= render partial: 'payment_with_frequency', locals: {
+          key: label_text(:how_much_council_tax),
+          payment: outgoings_details.council_tax } %>
+  <% end %>
+</dl>

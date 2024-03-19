@@ -12,6 +12,6 @@
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
 <% if FeatureFlags.means_journey.enabled? %>
   <%= render partial: 'income_details', locals: { crime_application: } %>
-  <%= render partial: 'outgoings_details', locals: { outgoings_details: crime_application.means_details.outgoings_details } %>
+  <%= render partial: 'outgoings_details', locals: { outgoings_details: crime_application.outgoings_details } %>
 <% end %>
 <%= render partial: 'provider_details', object: crime_application.provider_details %>

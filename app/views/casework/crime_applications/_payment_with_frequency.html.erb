@@ -1,16 +1,15 @@
 <% return unless payment %>
+<% return unless payment.amount && payment.frequency %>
 
 <div class="govuk-summary-list__row">
   <dt class="govuk-summary-list__key">
-    <%= label_text("how_much_#{payment.payment_type}") %>
+    <%= key %>
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= number_to_currency(payment.amount, unit: '£', separator: '.', delimiter: ',') %>
-    every
-    <%= payment.frequency %>
-
-    <%= payment.metadata.attributes.each do |k, v| %>
-      <%= k %>: <%= v%>
-    <% end %>
+    <%= I18n.t(
+        :payment_with_frequency,
+        scope: [:values],
+        amount: number_to_currency(payment.amount * 0.01),
+        frequency: I18n.t(payment.frequency, scope: [:values, :frequency])) %>
   </dd>
 </div>
