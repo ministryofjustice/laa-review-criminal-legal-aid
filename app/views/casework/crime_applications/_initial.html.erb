@@ -13,5 +13,6 @@
 <% if FeatureFlags.means_journey.enabled? %>
   <%= render partial: 'income_details', locals: { crime_application: } %>
   <%= render partial: 'outgoings_details', locals: { outgoings_details: crime_application.outgoings_details } %>
+  <%= render partial: 'capital_details', locals: { crime_application: } %>
 <% end %>
 <%= render partial: 'provider_details', object: crime_application.provider_details %>
