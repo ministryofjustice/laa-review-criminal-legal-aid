@@ -29,7 +29,7 @@
     <%= render partial: 'payment_with_frequency', locals: {
           key: label_text("how_much_#{payment.payment_type}"),
           payment: payment
-        } %>
+        } unless payment.payment_type == 'board_and_lodging' %>
 
     <!-- Board and Lodging Metadata -->
     <% outgoings_details.board_and_lodging_metadata.each do |key, settings| %>
@@ -49,9 +49,9 @@
   <% end %>
 
   <% if outgoings_details.council_tax %>
-    <%= render partial: 'payment_with_frequency', locals: {
+    <%= render partial: 'simple_row', locals: {
           key: label_text(:how_much_council_tax),
-          payment: outgoings_details.council_tax
+          value: number_to_currency(outgoings_details.council_tax.amount * 0.01)
         } %>
   <% end %>
 </dl>

@@ -20,8 +20,8 @@ RSpec.describe 'Viewing the housing payments of an application' do
       end
 
       it 'shows mortgage details' do
-        expect(page).to have_content('Which housing payment type? Mortgage')
-        expect(page).to have_content('How much mortgage do they pay? £100.01 every year')
+        expect(page).to have_content('Does client pay rent, mortgage, or board and lodgings? Mortgage')
+        expect(page).to have_content('Amount paid towards mortgage £100.01 every year')
       end
     end
 
@@ -35,8 +35,8 @@ RSpec.describe 'Viewing the housing payments of an application' do
       end
 
       it 'shows rent details' do
-        expect(page).to have_content('Which housing payment type? Rent')
-        expect(page).to have_content('How much rent do they pay? £999.99 every 4 weeks')
+        expect(page).to have_content('Does client pay rent, mortgage, or board and lodgings? Rent')
+        expect(page).to have_content('Amount paid for rent, after taking away Housing Benefit £999.99 every 4 weeks')
       end
     end
 
@@ -60,15 +60,15 @@ RSpec.describe 'Viewing the housing payments of an application' do
       end
 
       it 'shows board and lodgings details' do
-        expect(page).to have_content('Which housing payment type? Board and lodgings')
-        expect(page).to have_content('How much board and lodgings do they pay? £186.99 every 2 weeks')
+        expect(page).to have_content('Does client pay rent, mortgage, or board and lodgings? Board and lodgings')
+        expect(page).to have_content('Amount paid for board and lodgings £199.99 every 2 weeks')
       end
 
       it 'shows metadata' do
         [
-          'How much does client pay for board and lodgings? £199.99 every 2 weeks',
-          'What is the name of the person client pays for board and lodgings? John Snow',
-          'What is client\'s relationship to this person? Son'
+          'Amount paid for food £13.00 every 2 weeks',
+          'Person the client pays for board and lodgings John Snow',
+          'Client\'s relationship to the person they pay Son'
         ].each { |line| expect(page).to have_content(line) }
       end
     end
@@ -89,8 +89,8 @@ RSpec.describe 'Viewing the housing payments of an application' do
       end
 
       it 'shows council tax details' do
-        expect(page).to have_content('Does client pay Council Tax where they usually live? Yes')
-        expect(page).to have_content('How much council tax does client pay? £99.99 every year')
+        expect(page).to have_content('Does client pay Council Tax? Yes')
+        expect(page).to have_content('Amount paid yearly in Council Tax £99.99')
       end
     end
   end
@@ -107,11 +107,11 @@ RSpec.describe 'Viewing the housing payments of an application' do
     end
 
     it 'shows housing payment details' do
-      expect(page).to have_content('Which housing payment type? Client does not pay any payments')
+      expect(page).to have_content('Does client pay rent, mortgage, or board and lodgings? No')
     end
 
     it 'still shows council tax' do
-      expect(page).to have_content('Does client pay Council Tax where they usually live? Yes')
+      expect(page).to have_content('Does client pay Council Tax? Yes')
     end
   end
 end
