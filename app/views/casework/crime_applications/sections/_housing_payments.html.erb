@@ -11,7 +11,7 @@
         <%= label_text(:which_housing_payment_type) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= I18n.t("values.housing_payments.#{payment.payment_type}") %>
+        <%= t("values.housing_payments.#{payment.payment_type}") %>
       </dd>
     </div>
 
@@ -33,7 +33,7 @@
   <% if outgoings_details.pays_council_tax %>
     <%= render partial: 'simple_row', locals: {
           key: label_text(:pays_council_tax),
-          value: I18n.t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax])
+          value: t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax])
         } %>
   <% end %>
 
