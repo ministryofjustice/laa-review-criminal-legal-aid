@@ -239,6 +239,10 @@ en:
       is_home_address: Is the address of the %{asset} the same as your client’s home address?
       has_other_owners: Does anyone else own part of the %{asset}?
       address: What is the address of your client’s %{asset}?
+    property_owners:
+      name: What is the name of the %{index} other owner?
+      relationship: What is their relationship to your client?
+      percentage_owned: What percentage of the %{asset} do they own?
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
@@ -385,7 +389,17 @@ en:
       residential: Residential property
       commercial: Commercial property
       land: Land
-
+    relationship_type:
+      business_associates: Business Associates
+      ex_partner: Ex-partner
+      family_members: Family members
+      friends: Friends
+      house_builder: House builder
+      housing_association: Housing association
+      local_authority: Local authority
+      partner_with_a_contrary_interest: Partner with a contrary interest
+      property_company: Property company
+      custom: Their relationship is not listed
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list
