@@ -17,26 +17,30 @@
 
     <%= render partial: 'payment_with_frequency', locals: {
           key: label_text("how_much_#{payment.payment_type}"),
-          payment: payment } %>
+          payment: payment
+        } %>
 
     <!-- Board and Lodging Metadata -->
     <% outgoings_details.board_and_lodging_metadata.each do |key, settings| %>
       <%= render partial: settings[:partial].to_s, locals: {
             key: label_text("outgoings_metadata.#{key}"),
             value: settings[:value],
-            payment: settings[:value] } %>
+            payment: settings[:value]
+          } %>
     <% end %>
   <% end %>
 
   <% if outgoings_details.pays_council_tax %>
     <%= render partial: 'simple_row', locals: {
           key: label_text(:pays_council_tax),
-          value: I18n.t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax]) } %>
+          value: I18n.t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax])
+        } %>
   <% end %>
 
   <% if outgoings_details.council_tax %>
     <%= render partial: 'payment_with_frequency', locals: {
           key: label_text(:how_much_council_tax),
-          payment: outgoings_details.council_tax } %>
+          payment: outgoings_details.council_tax
+        } %>
   <% end %>
 </dl>
