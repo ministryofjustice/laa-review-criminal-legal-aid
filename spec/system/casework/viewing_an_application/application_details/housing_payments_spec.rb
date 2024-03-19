@@ -75,10 +75,12 @@ RSpec.describe 'Viewing the housing payments of an application' do
 
     context 'when council tax payment is provided' do
       let(:application_data) do
-        super().deep_merge('means_details' => {
-                              'pays_council_tax' => 'yes',
-                              'outgoings_details' => { 'outgoings' => outgoings }
-                            })
+        super().deep_merge(
+          'means_details' => {
+            'pays_council_tax' => 'yes',
+            'outgoings_details' => { 'outgoings' => outgoings }
+          }
+        )
       end
 
       let(:outgoings) do
@@ -94,10 +96,12 @@ RSpec.describe 'Viewing the housing payments of an application' do
 
   context 'with no housing payments details' do
     let(:application_data) do
-      super().deep_merge('means_details' => {
-        'pays_council_tax' => 'yes',
-        'outgoings_details' => { 'outgoings' => [] }
-      })
+      super().deep_merge(
+        'means_details' => {
+          'pays_council_tax' => 'yes',
+          'outgoings_details' => { 'outgoings' => [] }
+        }
+      )
     end
 
     it 'still shows council tax' do
