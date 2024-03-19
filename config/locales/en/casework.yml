@@ -225,6 +225,20 @@ en:
     which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
+    properties_title: Assets
+    properties:
+      property_type: Which assets does your client own or part-own inside or outside the UK?
+      house_type: Which type of property is it?
+      bedrooms: How many bedrooms are there?
+      size_in_acres: What size is the land in acres?
+      usage: How is the %{asset} used?
+      value: How much is the %{asset} worth?
+      outstanding_mortgage: How much is left to pay on the mortgage?
+      percentage_applicant_owned: What percentage of the %{asset} does your client own?
+      percentage_partner_owned: What percentage of the %{asset} does your client’s partner own?
+      is_home_address: Is the address of the %{asset} the same as your client’s home address?
+      has_other_owners: Does anyone else own part of the %{asset}?
+      address: What is the address of your client’s %{asset}?
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
@@ -357,6 +371,20 @@ en:
     pays_council_tax:
       'yes': 'Yes'
       'no': 'No'
+    residential: Residential Property
+    commercial: Commercial Property
+    land: Land
+    house_type:
+      bungalow: Bungalow
+      detached: Detached
+      flat_or_maisonette: Flat or maisonette
+      semidetached: Semi-detached
+      terraced: Terraced
+      other: The type of property is not listed
+    property_type:
+      residential: Residential property
+      commercial: Commercial property
+      land: Land
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign

@@ -143,6 +143,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
     @income_payments ||= IncomePaymentsPresenter.present(self[:means_details].income_details&.income_payments)
   end
 
+  def properties
+    @properties ||= PropertiesPresenter.present(means_details.capital_details.properties)
+  end
+
   def pse?
     application_type == Types::ApplicationType['post_submission_evidence']
   end

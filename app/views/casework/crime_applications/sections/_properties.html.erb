@@ -1,0 +1,114 @@
+<% if properties %>
+  <h2 class="govuk-heading-m">
+    <%= label_text(:properties_title) %>
+  </h2>
+
+  <% if properties.any? %>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <% properties.each_with_index do |property| %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:property_type, scope: 'properties') %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(property.property_type, scope: 'values.property_type') %>
+          </dd>
+        </div>
+        <% if property.property_type == 'residential' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:house_type, scope: 'properties') %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= property.house_type == 'custom' ? property.custom_house_type : t(property.house_type, scope: 'values.house_type') %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:bedrooms, scope: 'properties') %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= property.bedrooms %>
+          </dd>
+        </div>
+        <% end %>
+        <% if property.property_type == 'land' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:size_in_acres, scope: 'properties') %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= property.size_in_acres %>
+          </dd>
+        </div>
+        <% end %>
+        <% if property.property_type == 'land' || property.property_type == 'commercial' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:usage, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= property.usage %>
+          </dd>
+        </div>
+        <% end %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:value, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= number_to_currency(property.value / 100, unit: '£', separator: '.', delimiter: ',') %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:outstanding_mortgage, scope: 'properties') %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= number_to_currency(property.outstanding_mortgage / 100, unit: '£', separator: '.', delimiter: ',') %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:percentage_applicant_owned, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= number_to_percentage(property.percentage_applicant_owned, precision: 2) %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:percentage_partner_owned, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= number_to_percentage(property.percentage_partner_owned, precision: 2) %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:is_home_address, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(property.is_home_address, scope: 'values') %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:has_other_owners, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(property.has_other_owners, scope: 'values') %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:address, scope: 'properties', asset: PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= render 'address', address: property.address %>
+          </dd>
+        </div>
+      <%end%>
+    </dl>
+  <% end %>
+<% end %>
