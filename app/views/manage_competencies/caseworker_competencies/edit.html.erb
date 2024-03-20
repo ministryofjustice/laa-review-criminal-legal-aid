@@ -3,13 +3,22 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <%= form_with(url: manage_competencies_caseworker_competency_path(id: @caseworker), model: @caseworker, method: :patch) do |f| %>
+      <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: confirm_text(:change_competencies, user_name: @caseworker.name, from: @caseworker.role.humanize), size: 'xl' }, hint: { text: t('manage_competencies.hint') } do %>
 
-      <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: confirm_text(:change_competencies, user_name: @caseworker.name, from: @caseworker.role.humanize), size: 'xl' } do %>
-        <div class="govuk-hint"> <%= t('manage_competencies.hint') %></div>
-        <% CaseworkerPresenter::CASEWORKER_COMPETENCIES.each_with_index do |competency| %>
-          <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
+        <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: label_text(:work_stream_competencies), size: 's' } do %>
+          <% ::Types::WORK_STREAM_COMPETENCIES.each do |competency| %>
+            <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
+          <% end %>
         <% end %>
+
+        <%= f.govuk_check_boxes_fieldset :competencies, legend: { text: label_text(:application_type_competencies), size: 's' } do %>
+          <% ::Types::APPLICATION_TYPE_COMPETENCIES.each do |competency| %>
+            <%= f.govuk_check_box :competencies, competency, label: { text: t(competency, scope: 'labels') } %>
+          <% end %>
+        <% end %>
+
         <%= f.govuk_check_box_divider %>
+
         <%= f.govuk_check_box :competencies, [], exclusive: true, label: { text: 'No competencies' }, checked: f.object.competencies.empty? %>
       <% end %>
 

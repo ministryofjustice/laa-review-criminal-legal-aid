@@ -8,10 +8,10 @@ RSpec.describe 'Change caseworker competencies' do
       email: 'test@example.com',
       first_name: 'Iain',
       last_name: 'Testing',
-     auth_subject_id: SecureRandom.uuid
+      auth_subject_id: SecureRandom.uuid
     )
     visit manage_competencies_root_path
-    find("tr", :text => /Iain/).click_on('No competencies')
+    find('tr', text: /Iain/).click_on('No competencies')
   end
 
   describe 'when viewing the form' do
