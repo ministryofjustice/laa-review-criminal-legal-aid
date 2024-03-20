@@ -56,7 +56,7 @@ RSpec.describe 'Open Applications' do
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date received', 'Business days since application was received'] }
     let(:active_sort_direction) { 'ascending' }
-    let(:inactive_sort_headers) { ['Applicant\'s name'] }
+    let(:inactive_sort_headers) { ['Applicant\'s name', 'Type of application'] }
   end
 
   context 'when work stream feature flag in is enabled' do

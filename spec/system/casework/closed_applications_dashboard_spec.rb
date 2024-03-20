@@ -83,7 +83,7 @@ RSpec.describe 'Closed Applications' do
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date closed'] }
     let(:active_sort_direction) { 'descending' }
-    let(:inactive_sort_headers) { ['Applicant\'s name', 'Date received'] }
+    let(:inactive_sort_headers) { ['Applicant\'s name', 'Date received', 'Type of application'] }
   end
 
   context 'when work stream feature flag is enabled' do
