@@ -52,6 +52,7 @@ en:
     extradition: Extradition
     national_crime_team: CAT 2
     criminal_applications_team: CAT 1
+    initial: Initial
 
   number:
     currency:

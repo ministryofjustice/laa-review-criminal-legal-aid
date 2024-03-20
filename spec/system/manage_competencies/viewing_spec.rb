@@ -15,7 +15,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
   context 'when user does have access to manage competencies' do
     let(:current_user_role) { UserRole::SUPERVISOR }
     let(:caseworker) do
-      User.create!(email: 'test@example.com', first_name: 'Test', last_name: 'Testing',
+      User.create!(email: 'test@example.com', first_name: 'Iain', last_name: 'Testing',
                    auth_subject_id: SecureRandom.uuid)
     end
 
@@ -37,17 +37,17 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq(['Test Testing No competencies View history'].join(' '))
+      expect(first_data_row).to eq(['Iain Testing No competencies View history'].join(' '))
     end
 
     context 'when clicking links' do
       it 'redirects to the edit competency form page' do
-        expect { click_on('No competencies') }.to change { page.current_path }
+        expect { page.first('.govuk-table tbody tr').click_on('No competencies') }.to change { page.current_path }
           .from(manage_competencies_root_path).to(edit_manage_competencies_caseworker_competency_path(caseworker))
       end
 
       it 'redirects to the competency history page' do
-        expect { click_on('View history') }.to change { page.current_path }
+        expect { page.first('.govuk-table tbody tr').click_on('View history') }.to change { page.current_path }
           .from(manage_competencies_root_path).to(manage_competencies_history_path(caseworker))
       end
     end
@@ -56,7 +56,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
     it_behaves_like 'an ordered user list' do
       let(:path) { manage_competencies_root_path }
-      let(:expected_order) { ['Arthur Sample', 'Hassan Example', 'Hassan Sample', 'Test Testing'] }
+      let(:expected_order) { ['Arthur Sample', 'Hassan Example', 'Hassan Sample', 'Iain Testing', 'Joe EXAMPLE'] }
       let(:column_num) { 1 }
     end
   end

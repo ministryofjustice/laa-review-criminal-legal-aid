@@ -25,13 +25,14 @@ RSpec.describe 'Assigning an application to myself' do
         ApplicationSearchFilter.new(
           assigned_status: 'unassigned',
           work_stream: gets_next_from,
-          application_type: ['initial']
+          application_type: get_next_types
         ).datastore_params
       end
 
       context 'when competent in all work streams' do
-        let(:current_user_competencies) { Types::WorkStreamType.values }
+        let(:current_user_competencies) { Types::CompetencyType.values }
         let(:gets_next_from) { Types::WorkStreamType.values }
+        let(:get_next_types) { [Types::ApplicationType['post_submission_evidence'], Types::ApplicationType['initial']] }
 
         it 'gets next across all work streams' do
           expect_datastore_to_have_been_searched_with(expected_params, pagination: Pagination.new(limit_value: 1))
@@ -39,8 +40,9 @@ RSpec.describe 'Assigning an application to myself' do
       end
 
       context 'when competent in only one work streams' do
-        let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
+        let(:current_user_competencies) { [Types::WorkStreamType['extradition'], Types::ApplicationType['initial']] }
         let(:gets_next_from) { [Types::WorkStreamType['extradition']] }
+        let(:get_next_types) { [Types::ApplicationType['initial']] }
 
         it 'only gets next from the specified work stream' do
           expect_datastore_to_have_been_searched_with(expected_params, pagination: Pagination.new(limit_value: 1))
