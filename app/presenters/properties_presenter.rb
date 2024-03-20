@@ -10,7 +10,7 @@ class PropertiesPresenter < BasePresenter
 
   def initialize(properties)
     super(
-      @properties = properties
+      @properties = properties.sort_by { |d| d[:property_type] }
     )
   end
 end

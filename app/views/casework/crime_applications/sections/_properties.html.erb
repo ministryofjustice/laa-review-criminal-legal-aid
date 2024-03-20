@@ -4,9 +4,9 @@
   </h2>
 
   <% if properties.any? %>
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <% properties.each_with_index do |property| %>
-        <% asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]%>
+    <% properties.each_with_index do |property| %>
+      <% asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]%>
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:property_type, scope: 'properties') %>
@@ -95,18 +95,18 @@
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:has_other_owners, scope: 'properties', asset:) %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <%= t(property.has_other_owners, scope: 'values') %>
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
             <%= label_text(:address, scope: 'properties', asset:) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= render 'address', address: property.address %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:has_other_owners, scope: 'properties', asset:) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(property.has_other_owners, scope: 'values') %>
           </dd>
         </div>
         <% property.property_owners.each_with_index do |property_owner, index| %>
@@ -135,7 +135,7 @@
             </dd>
           </div>
         <% end %>
-      <%end%>
-    </dl>
+      </dl>
+    <%end%>
   <% end %>
 <% end %>

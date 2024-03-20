@@ -144,7 +144,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
   end
 
   def properties
-    @properties ||= PropertiesPresenter.present(means_details.capital_details.properties)
+    @properties ||= PropertiesPresenter.present(means_details.capital_details&.properties || [])
   end
 
   def pse?
