@@ -21,7 +21,7 @@
             <%= label_text(:house_type, scope: 'properties') %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= property.house_type == 'custom' ? property.custom_house_type : t(property.house_type, scope: 'values.house_type') %>
+            <%= property.house_type == PropertiesPresenter::OTHER ? property.other_house_type : t(property.house_type, scope: 'values.house_type') %>
           </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -123,7 +123,7 @@
               <%= label_text(:relationship, scope: 'property_owners') %>
             </dt>
             <dd class="govuk-summary-list__value">
-              <%= property_owner.relationship == 'custom' ? property_owner.custom_relationship : t(property_owner.relationship, scope: 'values.relationship_type') %>
+              <%= property_owner.relationship == PropertiesPresenter::OTHER ? property_owner.other_relationship : t(property_owner.relationship, scope: 'values.relationship_type') %>
             </dd>
           </div>
           <div class="govuk-summary-list__row">

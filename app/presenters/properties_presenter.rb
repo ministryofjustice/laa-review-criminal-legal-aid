@@ -1,6 +1,7 @@
 require 'laa_crime_schemas'
 
 class PropertiesPresenter < BasePresenter
+  OTHER = 'other'.freeze
   PROPERTY_TYPE_MAPPING = {
     'residential' => { display_name: 'property' },
     'commercial' => { display_name: 'property' },

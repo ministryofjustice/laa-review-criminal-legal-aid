@@ -399,7 +399,7 @@ en:
       local_authority: Local authority
       partner_with_a_contrary_interest: Partner with a contrary interest
       property_company: Property company
-      custom: Their relationship is not listed
+      other: Their relationship is not listed
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list
