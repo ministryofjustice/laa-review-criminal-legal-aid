@@ -21,7 +21,7 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'shows savings or investments' do
-      expect(page).to have_content('Has savings or investments? No')
+      expect(page).to have_content('Has savings or investments? Yes')
     end
   end
 
