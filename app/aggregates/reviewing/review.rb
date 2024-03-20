@@ -4,6 +4,7 @@ module Reviewing
 
     def initialize(id)
       @id = id
+      @application_type = nil
       @state = nil
       @return_reason = nil
       @reviewer_id = nil
@@ -18,7 +19,7 @@ module Reviewing
 
     attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
                 :submitted_at, :superseded_by, :superseded_at, :parent_id,
-                :work_stream
+                :work_stream, :application_type
 
     alias application_id id
 
@@ -72,6 +73,7 @@ module Reviewing
       @received_at = event.timestamp
       @submitted_at = event.data[:submitted_at]
       @parent_id = event.data[:parent_id]
+      @application_type = event.data.fetch(:application_type, Types::ApplicationType['initial'])
       @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
     end
 

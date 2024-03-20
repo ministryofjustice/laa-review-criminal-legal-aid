@@ -9,6 +9,7 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
     let(:state) { 'received' }
     let(:parent_id) { SecureRandom.uuid }
     let(:work_stream) { 'extradition' }
+    let(:application_type) { 'initial' }
     let(:reviewer_id) { SecureRandom.uuid }
     let(:reviewed_on) { Date.new(2023, 4, 23) }
 
@@ -18,7 +19,7 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
       aggregate = instance_double(
         Reviewing::Review,
         id:, state:, submitted_at:, reviewer_id:, parent_id:,
-        business_day:, work_stream:, reviewed_on:
+        business_day:, work_stream:, reviewed_on:, application_type:
       )
 
       allow(Reviewing::LoadReview).to receive(:call).with(application_id:) {
@@ -34,7 +35,7 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
       subject(:read_model) { Review.find_by(application_id:) }
 
       %i[application_id state submitted_at reviewer_id parent_id business_day
-         work_stream reviewed_on].each do |attribute|
+         work_stream reviewed_on application_type].each do |attribute|
         it "sets the #{attribute}" do
           expect(read_model.public_send(attribute)).to eq(send(attribute))
         end

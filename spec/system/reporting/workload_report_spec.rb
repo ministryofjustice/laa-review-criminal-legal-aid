@@ -13,20 +13,33 @@ RSpec.describe 'Workload Report' do
   it 'shows the correct detail column headers' do
     expected_headers = ['', 'Received', 'Closed', '0 days', '1 day', '2 days', '3 days', '4-9 days', 'Total']
 
-    page.all('table thead tr.colgroup-details th').each_with_index do |el, i|
-      expect(el).to have_content expected_headers[i]
+    within('#cat-1') do
+      page.all('table thead tr.colgroup-details th').each_with_index do |el, i|
+        expect(el).to have_content expected_headers[i]
+      end
+    end
+  end
+
+  it 'shows the expected caption' do
+    expected_captions = [
+      'CAT 1 workload',
+      'CAT 2 workload',
+      'Extradition workload'
+    ]
+
+    page.all('table caption').each_with_index do |el, i|
+      expect(el).to have_content expected_captions[i]
     end
   end
 
   it 'shows the expected colgroup headers' do
-    expected_headers = [
-      '',
-      'From 00:00 until 23:59',
-      'Applications still open by age in business days at 23:59'
-    ]
+    expected_headers = ['', 'From 00:00 until 23:59',
+                        'Applications still open by age in business days at 23:59']
 
-    page.all('table thead tr.colgroup-headers th').each_with_index do |el, i|
-      expect(el).to have_content expected_headers[i]
+    within('#cat-1') do
+      page.all('table thead tr.colgroup-headers th').each_with_index do |el, i|
+        expect(el).to have_content expected_headers[i]
+      end
     end
   end
 
@@ -39,7 +52,9 @@ RSpec.describe 'Workload Report' do
   end
 
   it 'shows the correct row headers for each work stream' do
-    column = all('table tbody tr th:first-child').map(&:text)
-    expect(column).to eq ['CAT 1', 'CAT 2', 'Extradition', 'Total']
+    within('#cat-1') do
+      column = all('table tbody tr th:first-child').map(&:text)
+      expect(column).to eq ['Initial application', 'Post submission evidence', 'Total']
+    end
   end
 end

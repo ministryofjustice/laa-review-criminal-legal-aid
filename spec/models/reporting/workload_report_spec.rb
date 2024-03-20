@@ -8,11 +8,34 @@ RSpec.describe Reporting::WorkloadReport do
   describe '#rows' do
     subject(:rows) { report.rows }
 
-    it 'returns a row for each work stream by default' do
-      expect(rows.size).to eq(3)
-      expect(rows.map(&:work_stream)).to contain_exactly(
-        'criminal_applications_team', 'criminal_applications_team_2', 'extradition'
-      )
+    describe 'CAT 1 rows' do
+      let(:rows) { report.rows.first }
+
+      it 'returns expected rows' do
+        expect(rows.map(&:work_stream)).to all eq(WorkStream.new('criminal_applications_team'))
+
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence')
+      end
+    end
+
+    describe 'CAT 2 rows' do
+      let(:rows) { report.rows.second }
+
+      it 'returns expected rows' do
+        expect(rows.map(&:work_stream)).to all eq(WorkStream.new('criminal_applications_team_2'))
+
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence')
+      end
+    end
+
+    describe 'Extradition rows' do
+      let(:rows) { report.rows.last }
+
+      it 'returns expected rows' do
+        expect(rows.map(&:work_stream)).to all eq(WorkStream.new('extradition'))
+
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence')
+      end
     end
   end
 
