@@ -50,32 +50,32 @@ RSpec.describe ReceivedOnReports::Projection do
         travel_back
       end
 
-      let(:cat1_initial) { dataset.dig(cat1, initial) }
-      let(:cat1_pse) { dataset.dig(cat1, pse) }
-      let(:extradition_initial) { dataset.dig(extradition, initial) }
-      let(:extradition_pse) { dataset.dig(extradition, pse) }
+      let(:cat1_initial_row) { dataset.dig(cat1, initial) }
+      let(:cat1_pse_row) { dataset.dig(cat1, pse) }
+      let(:extradition_initial_row) { dataset.dig(extradition, initial) }
+      let(:extradition_pse_row) { dataset.dig(extradition, pse) }
 
       describe 'cat1 workstream data' do
         it 'returns a tally of received applications by application type' do
-          expect(cat1_initial.total_received).to be 2
-          expect(cat1_pse.total_received).to be 1
+          expect(cat1_initial_row.total_received).to be 2
+          expect(cat1_pse_row.total_received).to be 1
         end
 
         it 'returns a tally of closed applications by application type' do
-          expect(cat1_initial.total_closed).to be 1
-          expect(cat1_pse.total_closed).to be 1
+          expect(cat1_initial_row.total_closed).to be 1
+          expect(cat1_pse_row.total_closed).to be 1
         end
       end
 
       describe 'extradition workstream data' do
         it 'returns a tally of received applications by application type' do
-          expect(extradition_initial.total_received).to be 1
-          expect(extradition_pse.total_received).to be 0
+          expect(extradition_initial_row.total_received).to be 1
+          expect(extradition_pse_row.total_received).to be 0
         end
 
         it 'returns a tally of closed applications by application type' do
-          expect(extradition_initial.total_closed).to be 1
-          expect(extradition_pse.total_closed).to be 0
+          expect(extradition_initial_row.total_closed).to be 1
+          expect(extradition_pse_row.total_closed).to be 0
         end
       end
 
@@ -83,8 +83,8 @@ RSpec.describe ReceivedOnReports::Projection do
         let(:observed_at) { split_time.in_time_zone('London') - 1.second }
 
         it 'excludes the event from the tally' do
-          expect(cat1_pse.total_closed).to be 0
-          expect(extradition_initial.total_closed).to be 0
+          expect(cat1_pse_row.total_closed).to be 0
+          expect(extradition_initial_row.total_closed).to be 0
         end
       end
 
@@ -92,8 +92,8 @@ RSpec.describe ReceivedOnReports::Projection do
         let(:observed_at) { split_time.in_time_zone('London') }
 
         it 'includes the event in the tally' do
-          expect(cat1_pse.total_closed).to be 1
-          expect(extradition_initial.total_closed).to be 1
+          expect(cat1_pse_row.total_closed).to be 1
+          expect(extradition_initial_row.total_closed).to be 1
         end
       end
     end
