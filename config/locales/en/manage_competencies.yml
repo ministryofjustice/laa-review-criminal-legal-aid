@@ -36,7 +36,7 @@ en:
     
     labels:
       application_type_competencies: Types of application
-      work_stream_competencies: Work queuest
+      work_stream_competencies: Work queues
 
     flash:
       success:

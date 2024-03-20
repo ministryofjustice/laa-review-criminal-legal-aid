@@ -5,6 +5,8 @@ RSpec.describe 'Assigning an application to myself' do
     include_context 'with stubbed assignments and reviews'
     include_context 'when search results are returned'
 
+    let(:current_user_competencies) { Types::CompetencyType.values }
+
     before do
       visit '/'
     end
@@ -46,6 +48,16 @@ RSpec.describe 'Assigning an application to myself' do
 
         it 'only gets next from the specified work stream' do
           expect_datastore_to_have_been_searched_with(expected_params, pagination: Pagination.new(limit_value: 1))
+        end
+      end
+
+      context 'when competent in no application types' do
+        let(:current_user_competencies) { [Types::WorkStreamType['extradition']] }
+        let(:gets_next_from) { [Types::WorkStreamType['extradition']] }
+        let(:get_next_types) { [Types::ApplicationType['initial']] }
+
+        it 'only gets next from the specified work stream' do
+          expect(page).to have_content('There are no new applications to be reviewed')
         end
       end
     end

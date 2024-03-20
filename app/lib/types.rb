@@ -84,7 +84,6 @@ module Types
   SortBy = String.default('submitted_at'.freeze).enum(*SORTABLE_COLUMNS)
 
   APPLICATION_TYPE_COMPETENCIES = %w[
-
     post_submission_evidence
     initial
   ].freeze

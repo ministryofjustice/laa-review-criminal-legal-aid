@@ -14,9 +14,16 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
   context 'when user does have access to manage competencies' do
     let(:current_user_role) { UserRole::SUPERVISOR }
+
+    let(:current_user_competencies) { [] }
+
     let(:caseworker) do
-      User.create!(email: 'test@example.com', first_name: 'Iain', last_name: 'Testing',
-                   auth_subject_id: SecureRandom.uuid)
+      User.create!(
+        email: 'test@example.com',
+        first_name: 'Iain',
+        last_name: 'Testing',
+        auth_subject_id: SecureRandom.uuid
+      )
     end
 
     before do
