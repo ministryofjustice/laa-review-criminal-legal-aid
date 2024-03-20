@@ -5,7 +5,7 @@
 
   <% if properties.any? %>
     <% properties.each_with_index do |property| %>
-      <% asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type][:display_name]%>
+      <% asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type.to_sym][:display_name]%>
       <dl class="govuk-summary-list govuk-!-margin-bottom-9">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
@@ -15,7 +15,7 @@
             <%= t(property.property_type, scope: 'values.property_type') %>
           </dd>
         </div>
-        <% if property.property_type == 'residential' %>
+        <% if property.property_type == PropertiesPresenter::RESIDENTIAL %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:house_type, scope: 'properties') %>
@@ -33,7 +33,7 @@
           </dd>
         </div>
         <% end %>
-        <% if property.property_type == 'land' %>
+        <% if property.property_type == PropertiesPresenter::LAND %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:size_in_acres, scope: 'properties') %>
@@ -43,10 +43,10 @@
           </dd>
         </div>
         <% end %>
-        <% if property.property_type == 'land' || property.property_type == 'commercial' %>
+        <% if property.property_type == PropertiesPresenter::LAND || property.property_type == PropertiesPresenter::COMMERCIAL %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:usage, scope: 'properties', asset:) %>
+            <%= label_text(:usage, scope: 'properties', asset: asset) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= property.usage %>
@@ -55,7 +55,7 @@
         <% end %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:value, scope: 'properties', asset:) %>
+            <%= label_text(:value, scope: 'properties', asset: asset) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= number_to_currency(property.value / 100, unit: '£', separator: '.', delimiter: ',') %>
@@ -79,7 +79,7 @@
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:percentage_partner_owned, scope: 'properties', asset:) %>
+            <%= label_text(:percentage_partner_owned, scope: 'properties', asset: asset) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= number_to_percentage(property.percentage_partner_owned, precision: 2) %>
@@ -87,7 +87,7 @@
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:is_home_address, scope: 'properties', asset:) %>
+            <%= label_text(:is_home_address, scope: 'properties', asset: asset) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= t(property.is_home_address, scope: 'values') %>
@@ -95,7 +95,7 @@
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:address, scope: 'properties', asset:) %>
+            <%= label_text(:address, scope: 'properties', asset: asset) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= render 'address', address: property.address %>
@@ -103,7 +103,7 @@
         </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:has_other_owners, scope: 'properties', asset:) %>
+            <%= label_text(:has_other_owners, scope: 'properties', asset: asset) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= t(property.has_other_owners, scope: 'values') %>
@@ -112,7 +112,7 @@
         <% property.property_owners.each_with_index do |property_owner, index| %>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              <%= label_text(:name, scope: 'property_owners', index: index+1) %>
+              <%= label_text(:name, scope: 'property_owners', index: index + 1) %>
             </dt>
             <dd class="govuk-summary-list__value">
               <%= property_owner.name %>
@@ -128,7 +128,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              <%= label_text(:percentage_owned, scope: 'property_owners', asset:) %>
+              <%= label_text(:percentage_owned, scope: 'property_owners', asset: asset) %>
             </dt>
             <dd class="govuk-summary-list__value">
               <%= number_to_percentage(property_owner.percentage_owned, precision: 2) %>
