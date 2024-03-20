@@ -1,5 +1,6 @@
 class GetNext
   def initialize(work_streams:, application_types:)
+    @application_types = application_types
     filter = ApplicationSearchFilter.new(assigned_status: 'unassigned', work_stream: work_streams,
                                          application_type: application_types)
     pagination = Pagination.new(limit_value: 1)
@@ -8,6 +9,8 @@ class GetNext
   end
 
   def call
+    return nil if @application_types.empty?
+
     @search.results.first&.id
   end
 
