@@ -25,7 +25,7 @@ en:
       <<: *DATE_FORMATS
       datetime: '%-l:%M%P %-d %b %Y'  # 2:45pm 3 Jan 2019
       timestamp: '%A %-d %b %H:%M'  # Thursday 3 Jan 14:45
-      snapshot: '%A %-d %B %H:%M' 
+      snapshot: '%A %-d %B %H:%M'
       now: '%A %-d %B'
 
   flash:
@@ -52,3 +52,12 @@ en:
     extradition: Extradition
     national_crime_team: CAT 2
     criminal_applications_team: CAT 1
+
+  number:
+    currency:
+      format:
+        unit: '£'
+        delimiter: ','
+        separator: '.'
+        precision: 2
+        format: '%u%n'
