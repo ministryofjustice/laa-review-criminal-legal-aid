@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_145427) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_15_132443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -66,7 +66,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_145427) do
     t.date "business_day"
     t.string "work_stream", default: "criminal_applications_team"
     t.date "reviewed_on"
+    t.string "application_type", default: "initial"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
+    t.index ["application_type"], name: "index_reviews_on_application_type"
     t.index ["business_day"], name: "index_reviews_on_business_day"
     t.index ["parent_id"], name: "index_reviews_on_parent_id"
     t.index ["reviewed_on"], name: "index_reviews_on_reviewed_on"

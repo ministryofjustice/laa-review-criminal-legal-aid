@@ -1,10 +1,11 @@
 module Reporting
   class WorkloadReportRow
-    attr_reader :work_stream
+    attr_reader :work_stream, :application_type
 
-    def initialize(work_stream:, dataset:)
+    def initialize(work_stream:, application_type:, dataset:)
       @work_stream = work_stream
       @dataset = dataset
+      @application_type = application_type
     end
 
     def received_this_business_day

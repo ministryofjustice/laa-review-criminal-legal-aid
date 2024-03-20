@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ReceivedOnReports::Projection do
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  # rubocop:disable RSpec/MultipleMemoizedHelpers, RSpec/IndexedLet
   let(:event_store) { Rails.configuration.event_store }
 
   describe 'instance' do
@@ -9,8 +9,10 @@ RSpec.describe ReceivedOnReports::Projection do
     let(:split_time) { Time.zone.local(2023, 10, 5, 1, 21) }
     let(:observed_at) { Time.current }
     let(:cat1) { Types::WorkStreamType['criminal_applications_team'] }
+    let(:cat2) { Types::WorkStreamType['criminal_applications_team_2'] }
     let(:extradition) { Types::WorkStreamType['extradition'] }
     let(:initial) { Types::ApplicationType['initial'] }
+    let(:pse) { Types::ApplicationType['post_submission_evidence'] }
 
     describe '#dataset' do
       subject(:dataset) { described_class.new(stream_name:, observed_at:).dataset }
@@ -20,12 +22,12 @@ RSpec.describe ReceivedOnReports::Projection do
         # We use the "split_time" to test being able to observe the stream at a given time.
         travel_to split_time - 1.day
 
-        a, b, c, d = Array.new(4) { SecureRandom.uuid }
+        a, b, c, d, = Array.new(4) { SecureRandom.uuid }
 
-        # Receive three CAT 1 and one extradition application
+        # Receive four CAT 1 (including 1 PSE) and one extradition application
         receive_application(a, cat1, initial)
         receive_application(b, cat1, initial)
-        receive_application(c, cat1, initial)
+        receive_application(c, cat1, pse)
         receive_application(d, extradition, initial)
 
         event_store.publish(Reviewing::Completed.new(
@@ -48,25 +50,41 @@ RSpec.describe ReceivedOnReports::Projection do
         travel_back
       end
 
-      let(:cat1_data) { dataset.fetch(cat1) }
-      let(:extradition_data) { dataset.fetch(extradition) }
+      let(:cat1_initial_row) { dataset.dig(cat1, initial) }
+      let(:cat1_pse_row) { dataset.dig(cat1, pse) }
+      let(:extradition_initial_row) { dataset.dig(extradition, initial) }
+      let(:extradition_pse_row) { dataset.dig(extradition, pse) }
 
-      it 'returns a tally of received applications by work stream' do
-        expect(cat1_data.total_received).to be 3
-        expect(extradition_data.total_received).to be 1
+      describe 'cat1 workstream data' do
+        it 'returns a tally of received applications by application type' do
+          expect(cat1_initial_row.total_received).to be 2
+          expect(cat1_pse_row.total_received).to be 1
+        end
+
+        it 'returns a tally of closed applications by application type' do
+          expect(cat1_initial_row.total_closed).to be 1
+          expect(cat1_pse_row.total_closed).to be 1
+        end
       end
 
-      it 'returns a tally of closed applications by work stream' do
-        expect(cat1_data.total_closed).to be 2
-        expect(extradition_data.total_closed).to be 1
+      describe 'extradition workstream data' do
+        it 'returns a tally of received applications by application type' do
+          expect(extradition_initial_row.total_received).to be 1
+          expect(extradition_pse_row.total_received).to be 0
+        end
+
+        it 'returns a tally of closed applications by application type' do
+          expect(extradition_initial_row.total_closed).to be 1
+          expect(extradition_pse_row.total_closed).to be 0
+        end
       end
 
       context 'when observing 1 second before an event' do
         let(:observed_at) { split_time.in_time_zone('London') - 1.second }
 
         it 'excludes the event from the tally' do
-          expect(cat1_data.total_closed).to be 1
-          expect(extradition_data.total_closed).to be 0
+          expect(cat1_pse_row.total_closed).to be 0
+          expect(extradition_initial_row.total_closed).to be 0
         end
       end
 
@@ -74,8 +92,8 @@ RSpec.describe ReceivedOnReports::Projection do
         let(:observed_at) { split_time.in_time_zone('London') }
 
         it 'includes the event in the tally' do
-          expect(cat1_data.total_closed).to be 2
-          expect(extradition_data.total_closed).to be 1
+          expect(cat1_pse_row.total_closed).to be 1
+          expect(extradition_initial_row.total_closed).to be 1
         end
       end
     end
@@ -98,7 +116,7 @@ RSpec.describe ReceivedOnReports::Projection do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
+  # rubocop:enable RSpec/MultipleMemoizedHelpers, RSpec/IndexedLet
 
   def receive_application(application_id, work_stream, application_type)
     submitted_at = Time.current
