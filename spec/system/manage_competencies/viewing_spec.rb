@@ -59,6 +59,36 @@ RSpec.describe 'Manage Competencies Dashboard' do
       end
     end
 
+    describe 'user manager competencies' do
+      before do
+        User.create!(
+          email: 'amanda@example.com',
+          first_name: 'Amanda',
+          last_name: 'Manager',
+          auth_subject_id: SecureRandom.uuid,
+          can_manage_others: true
+        )
+      end
+
+      it 'are not normally listed' do
+        visit manage_competencies_root_path
+        expect(page).not_to have_content('Amanda Manager')
+      end
+
+      context 'when user managers have service access' do
+        before do
+          allow(FeatureFlags).to receive(:allow_user_managers_service_access) {
+            instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+          }
+        end
+
+        it 'their competencies are listed' do
+          visit manage_competencies_root_path
+          expect(page).to have_content('Amanda Manager')
+        end
+      end
+    end
+
     it_behaves_like 'a paginated page', path: '/manage_competencies?page=2'
 
     it_behaves_like 'an ordered user list' do
