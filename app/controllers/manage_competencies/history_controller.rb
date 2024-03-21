@@ -1,7 +1,7 @@
 module ManageCompetencies
   class HistoryController < ManageCompetencies::BaseController
     def show
-      @caseworker = User.caseworker.find(params[:id])
+      @caseworker = user_scope.find(params[:id])
     end
   end
 end
