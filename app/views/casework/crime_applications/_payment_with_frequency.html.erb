@@ -1,13 +1,14 @@
-<% return unless payment %>
-<% return unless payment.amount && payment.frequency %>
-
 <div class="govuk-summary-list__row">
   <dt class="govuk-summary-list__key">
     <%= key %>
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= t('values.payment_with_frequency',
-          amount: number_to_currency(payment.amount * 0.01),
-          frequency: t(payment.frequency, scope: [:values, :frequency])) %>
+    <% if payment&.amount && payment&.frequency %>
+      <%= t('values.payment_with_frequency',
+            amount: number_to_currency(payment.amount * 0.01),
+            frequency: t(payment.frequency, scope: [:values, :frequency])) %>
+    <% else %>
+      <%= t(:does_not_get, scope: 'values') %>
+    <% end  %>
   </dd>
 </div>
