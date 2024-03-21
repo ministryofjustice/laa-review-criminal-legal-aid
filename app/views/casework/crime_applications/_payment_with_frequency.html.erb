@@ -3,7 +3,7 @@
     <%= key %>
   </dt>
   <dd class="govuk-summary-list__value">
-    <% if payment&.amount && payment&.frequency %>
+    <% if payment %>
       <%= t('values.payment_with_frequency',
             amount: number_to_currency(payment.amount * 0.01),
             frequency: t(payment.frequency, scope: [:values, :frequency])) %>
