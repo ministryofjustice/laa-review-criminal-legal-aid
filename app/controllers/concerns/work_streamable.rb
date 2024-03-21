@@ -11,7 +11,11 @@ module WorkStreamable
   attr_reader :current_work_stream
 
   def set_current_work_stream
-    work_stream = WorkStream.from_param(work_stream_param)
+    work_stream = if work_stream_param
+                    WorkStream.from_param(work_stream_param)
+                  else
+                    current_user.work_streams.first
+                  end
 
     raise Allocating::WorkStreamNotFound unless current_user.work_streams.include?(work_stream)
 
@@ -21,7 +25,13 @@ module WorkStreamable
   end
 
   def work_stream_param
-    params[:work_stream] || session[:current_work_stream] || current_user.work_streams.first.to_param
+    params[:work_stream] || work_stream_session_param
+  end
+
+  def work_stream_session_param
+    return nil unless current_user.work_streams.map(&:to_param).include?(session[:current_work_stream])
+
+    session[:current_work_stream]
   end
 
   def require_app_work_stream

@@ -89,3 +89,7 @@ RSpec/ExpectChange:
 
 Capybara/ClickLinkOrButtonStyle:
   Enabled: false
+
+Style/RedundantConstantBase:
+  Exclude:
+    - 'app/views/**/*'
