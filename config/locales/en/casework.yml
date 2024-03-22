@@ -66,13 +66,13 @@ en:
     application_type: Application type
     passporting_benefit: Passporting Benefit
     assigned_to: 'Assigned to:'
-    benefits_details: Benefits the client gets
     benefit_child: Child Benefit
     benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
     benefit_incapacity: Incapacity Benefit
     benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
     benefit_jsa: Contribution-based Jobseeker's Allowance
     benefit_other: Other benefits (except disregarded benefits)
+    benefits_the_client_gets: Benefits the client gets
     case_details: Case details
     case_type: Case type
     caseworker: Caseworker
@@ -207,12 +207,6 @@ en:
     "false": "No"
     "yes": "Yes"
     "no": "No"
-    amount_with_frequency:
-      week: "%{amount} every week"
-      fortnight: "%{amount} every 2 weeks"
-      four_weeks: "%{amount} every 4 weeks"
-      month: "%{amount} every month"
-      annual: "%{amount} every year"
     frequency:
       week: week
       fortnight: 2 weeks
