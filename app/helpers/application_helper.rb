@@ -61,4 +61,8 @@ module ApplicationHelper
   def closed_action?(action_name)
     action_name == 'closed'
   end
+
+  def app_card_list(items:, item_name:, &block)
+    render CardComponent.with_collection(items, title: item_name), &block
+  end
 end

@@ -15,6 +15,10 @@ module AppTextHelper
     named_text(:labels, key, options)
   end
 
+  def value_text(key, options = {})
+    named_text(:values, key, options)
+  end
+
   def thead_text(key, options = {})
     named_text(:table_headings, key, options)
   end

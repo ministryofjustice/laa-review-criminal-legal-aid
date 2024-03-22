@@ -64,7 +64,7 @@ en:
     application_start_date: Date stamp
     application_status: Status
     application_type: Application type
-    passporting_benefit: Passporting Benefit
+    are_wages_paid_into_account: Are client’s wages or benefits paid into this account?
     assigned_to: 'Assigned to:'
     benefit_child: Child Benefit
     benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
@@ -73,6 +73,7 @@ en:
     benefit_jsa: Contribution-based Jobseeker's Allowance
     benefit_other: Other benefits (except disregarded benefits)
     benefits_the_client_gets: Benefits the client gets
+    capital: Capital
     case_details: Case details
     case_type: Case type
     caseworker: Caseworker
@@ -83,26 +84,30 @@ en:
     correspondence_address: Correspondence address
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
-    dependants: Dependants who live with the client
     date:
-      sent_back: 'Date closed:'
       completed: 'Date closed:'
+      sent_back: 'Date closed:'
     date_appeal_lodged: Date the appeal was lodged
+    date_case_concluded: When the case concluded
+    date_client_remanded: When they were remanded
     date_job_lost: When did they lose their job?
     date_of_birth: Date of birth
     date_received: 'Date received:'
+    dependants: Dependants who live with the client
     details: Details
     employment: Employment
     employment_type: Client's employment status
-    ended_employment_within_three_months: Have they ended employment in the last 3 months?
     end_on: Date to
+    ended_employment_within_three_months: Have they ended employment in the last 3 months?
     extradition: Extradition
     file_name: File name
     financial_change_details: Changes in the client’s financial circumstances
-    first_name: First name
     first_court_hearing: First court hearing the case
+    first_name: First name
+    has_case_concluded: Has the case concluded?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
+    has_premium_bonds: Does client have any Premium Bonds?
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing
     home_address: Home address
@@ -116,6 +121,21 @@ en:
     income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
     interests_of_justice: Interest of Justice
     interests_of_justice_type: Criteria
+    investment_type:
+      bond: Investment bond
+      pep: Personal equity plan (PEP)
+      share: Shares
+      share_isa: Share ISA
+      stock: Stock, including gilts and government bonds
+      unit_trust: Unit trust
+      other: Other lump sum investment
+    investment_description: Describe the investment
+    investment_ownership_type: Whose name is the investment in?
+    investment_value: What is the value of the investment?
+    investments: Investments
+    is_client_remanded: Has a court remanded client in custody?
+    is_overdrawn: Is the account overdrawn?
+    is_preorder_work_claimed: Do you intend to claim pre-order work?
     justification: Justification
     last_name: Last name
     legal_representative: Legal representative
@@ -125,6 +145,12 @@ en:
     name: Name
     national_crime_team: CAT 2
     national_insurance_number: National Insurance number
+    national_savings_certificates: National Savings Certificates
+    national_savings_certificate: National Savings Certificate
+    national_savings_certificate_holder_number: What is the customer number or holder number?
+    national_savings_certificate_certificate_number: 'What is the certificate number?'
+    national_savings_certificate_value: What is the value of the certificate?
+    national_savings_certificate_ownership_type: Who owns the certificate?
     next_court_hearing: Next court hearing the case
     number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
@@ -133,8 +159,8 @@ en:
     office_account_number: Office account number
     other_capital_details: Other capital
     other_income_details: Other sources of income
-    other_outgoings_details: Other outgoings
     other_names: Other names
+    other_outgoings_details: Other outgoings
     outgoings_more_than_income: Are client's outgoings more than their income?
     outgoings_metadata:
       board_amount: Amount paid for board and lodgings
@@ -145,6 +171,7 @@ en:
     overview: Overview
     partner: Partner
     pays_council_tax: Does client pay Council Tax?
+    passporting_benefit: Passporting Benefit
     payment_board_from_family: Board from family members living with the client
     payment_financial_support_with_access: Financial support from someone who allows the client access to their assets or money
     payment_from_friends_relatives: Money from friends or family
@@ -157,12 +184,29 @@ en:
     payment_student_loan_grant: Student grant or loan
     payments_the_client_gets: Payments the client gets
     post_submission_evidence: Post submission evidence
+    premium_bonds: Premium Bonds 
+    premium_bonds_holder_number: Holder number
+    premium_bonds_total_value: Total value
+    preorder_work_date: When you or your firm were first instructed
+    preorder_work_details: Details about the urgency of the work
     previous_maat_id: Previous MAAT ID
     provider_details: Provider details
     provider_email: Email address
     provider_phone_number: Phone
     return_reason_details: We'll share this information with the provider
     return_reason_details_legend: Give further details
+    saving_account_balance: Account balance 
+    saving_account_holder: Name the account is in 
+    saving_account_number: Account number
+    saving_provider_name: Name of bank, building society or other holder of the savings
+    saving_sort_code: Sort code or branch name
+    saving_type:
+      bank: Bank account
+      building_society: Building society account
+      cash_isa: Cash ISA
+      national_savings_or_post_office: National Savings or Post Office accounts
+      other: Cash investment
+    savings: Savings
     search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
     select_return_reason: Select the reason for returning this application
@@ -172,13 +216,6 @@ en:
     trust_funds: Trust funds
     undetermined: Undetermined
     urn: Unique reference number (URN)
-    has_case_concluded: Has the case concluded?
-    date_case_concluded: When the case concluded
-    is_preorder_work_claimed: Do you intend to claim pre-order work?
-    preorder_work_date: When you or your firm were first instructed
-    preorder_work_details: Details about the urgency of the work
-    is_client_remanded: Has a court remanded client in custody?
-    date_client_remanded: When they were remanded
     what: What
     when: When
     who: Who
@@ -188,7 +225,6 @@ en:
     which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
-
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
@@ -216,30 +252,35 @@ en:
     not_provided: Not provided
     not_asked: Not asked when this application was submitted
     does_not_get: Does not get
+    already_in_crown_court: Trial already in crown court
+    appeal_to_crown_court: Appeal to crown court
+    appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
+    applicant: Client
+    partner: Partner
+    applicant_and_partner: Applicant and Partner
+    class: Class
+    class_not_determined: Class not determined
+    committal: Committal for sentence
     deleted_user_name: '[deleted]'
-    no_one: no one
-    initial: Initial application
-    post_submission_evidence: Post submission evidence
-    universal_credit: Universal Credit
-    guarantee_pension: Guarantee Credit element of Pension Credit
-    jsa: Income-based Jobseeker's Allowance (JSA)
+    either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
-    income_support: Income Support
-    none: None
-    no_home_address: Does not have a home address
+    guarantee_pension: Guarantee Credit element of Pension Credit
     home_address: Same as home address
+    income_support: Income Support
+    indictable: Indictable
+    initial: Initial application
+    jsa: Income-based Jobseeker's Allowance (JSA)
+    no_home_address: Does not have a home address
+    no_one: no one
+    none: None
+    not_asked: Not asked when this application was submitted
+    not_provided: Not provided
+    post_submission_evidence: Post submission evidence
     provider_address: Same as provider address
     providers_office_address: Same as provider address
     summary_only: Summary only
-    either_way: Either way
-    indictable: Indictable
-    already_in_crown_court: Trial already in crown court
-    committal: Committal for sentence
-    appeal_to_crown_court: Appeal to crown court
-    appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
-    class: Class
-    class_not_determined: Class not determined
     to: to
+    universal_credit: Universal Credit
     conflict_of_interest:
       "yes": Conflict of interest
       "no": No conflict of interest
