@@ -1,14 +1,14 @@
 require 'laa_crime_schemas'
 
 class IncomeBenefitsPresenter < BasePresenter
-  def initialize(benefits)
+  def initialize(income_benefits)
     super(
-      @benefits = benefits
+      @income_benefits = income_benefits
     )
   end
 
-  def formatted_benefits
-    return unless @benefits
+  def formatted_income_benefits
+    return unless @income_benefits
 
     ordered_benefits
   end
@@ -16,16 +16,16 @@ class IncomeBenefitsPresenter < BasePresenter
   private
 
   def ordered_benefits
-    return {} if @benefits.empty?
+    return {} if @income_benefits.empty?
 
-    benefit_types.index_with { |val| benefit_of_type(val) }
+    income_benefit_types.index_with { |val| income_benefit_of_type(val) }
   end
 
-  def benefit_of_type(type)
-    @benefits.detect { |benefit| benefit.payment_type == type }
+  def income_benefit_of_type(type)
+    @income_benefits.detect { |income_benefit| income_benefit.payment_type == type }
   end
 
-  def benefit_types
+  def income_benefit_types
     LaaCrimeSchemas::Types::IncomeBenefitType.values
   end
 end

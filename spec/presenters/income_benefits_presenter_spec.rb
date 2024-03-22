@@ -7,10 +7,10 @@ RSpec.describe IncomeBenefitsPresenter do
   let(:crime_application) { CrimeApplication.new(attributes) }
 
   describe '#formatted_income_benefits' do
-    subject(:formatted_benefits) { benefits_presenter.formatted_benefits }
+    subject(:formatted_income_benefits) { benefits_presenter.formatted_income_benefits }
 
     it {
-      expect(formatted_benefits).to include({ 'child' => be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomeBenefit),
+      expect(formatted_income_benefits).to include({ 'child' => be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomeBenefit),
                                               'incapacity' => nil,
                                               'industrial_injuries_disablement' => nil,
                                               'jsa' => nil,
@@ -23,7 +23,7 @@ RSpec.describe IncomeBenefitsPresenter do
         attributes['means_details']['income_details']['income_benefits'] = []
       end
 
-      it { expect(formatted_benefits).to eq({}) }
+      it { expect(formatted_income_benefits).to eq({}) }
     end
   end
 end
