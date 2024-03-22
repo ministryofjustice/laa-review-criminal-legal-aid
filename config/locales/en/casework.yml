@@ -228,21 +228,21 @@ en:
     properties_title: Assets
     properties:
       property_type: Which assets does your client own or part-own inside or outside the UK?
-      house_type: Which type of property is it?
-      bedrooms: How many bedrooms are there?
-      size_in_acres: What size is the land in acres?
-      usage: How is the %{asset} used?
-      value: How much is the %{asset} worth?
-      outstanding_mortgage: How much is left to pay on the mortgage?
-      percentage_applicant_owned: What percentage of the %{asset} does your client own?
-      percentage_partner_owned: What percentage of the %{asset} does your client’s partner own?
-      is_home_address: Is the address of the %{asset} the same as your client’s home address?
+      house_type: Type of property
+      bedrooms: Number of bedrooms
+      size_in_acres: Size of land
+      usage: Use of %{asset}
+      value: Value of %{asset}
+      outstanding_mortgage: Amount left to pay on the mortgage
+      percentage_applicant_owned: Percentage of the %{asset} owned by client
+      percentage_partner_owned: Percentage of the %{asset} owned by client's partner
+      is_home_address: Is the address of the %{asset} the same as client’s home address?
       has_other_owners: Does anyone else own part of the %{asset}?
-      address: What is the address of your client’s %{asset}?
+      address: Address
     property_owners:
-      name: What is the name of the %{index} other owner?
-      relationship: What is their relationship to your client?
-      percentage_owned: What percentage of the %{asset} do they own?
+      name: Name of %{index} other owner
+      relationship: Relationship to client
+      percentage_owned: Percentage of the %{asset} they own
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
