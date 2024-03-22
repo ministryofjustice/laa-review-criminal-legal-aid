@@ -1,6 +1,6 @@
 require 'laa_crime_schemas'
 
-class BenefitsPresenter < BasePresenter
+class IncomeBenefitsPresenter < BasePresenter
   def initialize(benefits)
     super(
       @benefits = benefits
@@ -16,6 +16,8 @@ class BenefitsPresenter < BasePresenter
   private
 
   def ordered_benefits
+    return {} if @benefits.empty?
+
     benefit_types.index_with { |val| benefit_of_type(val) }
   end
 

@@ -184,6 +184,7 @@ en:
     who: Who
     which_housing_payment_type: Does client pay rent, mortgage, or board and lodgings?
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
+    which_benefits_does_the_client_get: Which benefits does the client get?
     which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
