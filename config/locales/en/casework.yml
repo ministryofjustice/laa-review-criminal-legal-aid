@@ -106,7 +106,11 @@ en:
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing
     home_address: Home address
+    housing_payments: Housing payments
     how_manage_outgoings: How does client manage if their outgoings are more than their income?
+    how_much_council_tax: Amount paid yearly in Council Tax
+    how_much_rent: Amount paid for rent, after taking away Housing Benefit
+    how_much_mortgage: Amount paid towards mortgage
     income: Income
     income_more_than: Income more than £12,475?
     income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
@@ -132,9 +136,26 @@ en:
     other_outgoings_details: Other outgoings
     other_names: Other names
     outgoings_more_than_income: Are client's outgoings more than their income?
+    outgoings_metadata:
+      board_amount: Amount paid for board and lodgings
+      food_amount: Amount paid for food
+      payee_name: Person the client pays for board and lodgings
+      payee_relationship_to_client: Client's relationship to the person they pay
     overall_offence_class: Overall offence class
     overview: Overview
     partner: Partner
+    pays_council_tax: Does client pay Council Tax?
+    payment_board_from_family: Board from family members living with the client
+    payment_financial_support_with_access: Financial support from someone who allows the client access to their assets or money
+    payment_from_friends_relatives: Money from friends or family
+    payment_interest_investment: Interest or income from savings or investments
+    payment_maintenance: Maintenance payments
+    payment_other: Other sources of income
+    payment_private_pension: Private pensions
+    payment_rent: Rent from a tenant
+    payment_state_pension: State Pension
+    payment_student_loan_grant: Student grant or loan
+    payments_the_client_gets: Payments the client gets
     post_submission_evidence: Post submission evidence
     previous_maat_id: Previous MAAT ID
     provider_details: Provider details
@@ -161,7 +182,9 @@ en:
     what: What
     when: When
     who: Who
+    which_housing_payment_type: Does client pay rent, mortgage, or board and lodgings?
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
+    which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
 
@@ -189,6 +212,12 @@ en:
       four_weeks: "%{amount} every 4 weeks"
       month: "%{amount} every month"
       annual: "%{amount} every year"
+    frequency:
+      week: week
+      fortnight: 2 weeks
+      four_weeks: 4 weeks
+      month: month
+      annual: year
     not_provided: Not provided
     not_asked: Not asked when this application was submitted
     does_not_get: Does not get
@@ -283,6 +312,15 @@ en:
       director: Company directory in a private company
       shareholder: Shareholder in a private company
       not_working: Not working
+    payment_with_frequency: "%{amount} every %{frequency}"
+    housing_payments:
+      board_and_lodging: Board and lodgings
+      mortgage: Mortgage
+      rent: Rent
+      none: 'No'
+    pays_council_tax:
+      'yes': 'Yes'
+      'no': 'No'
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign

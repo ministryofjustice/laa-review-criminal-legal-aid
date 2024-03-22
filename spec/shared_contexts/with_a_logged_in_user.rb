@@ -2,7 +2,6 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
   before do
     current_user
 
-    # Supervisors get all competencies by default
     unless current_user.supervisor?
       allow(Allocating).to receive(:user_competencies).with(current_user.id) { current_user_competencies }
     end
@@ -34,5 +33,5 @@ RSpec.shared_context 'with a logged in user', shared_context: :metadata do
 
   let(:current_user_auth_subject_id) { SecureRandom.uuid }
 
-  let(:current_user_competencies) { Types::WorkStreamType.values }
+  let(:current_user_competencies) { Types::CompetencyType.values }
 end

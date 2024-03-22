@@ -11,15 +11,10 @@ module UserCompetence
   def application_types_competencies
     return [] if data_analyst?
 
-    competencies_incl_initial = competencies.dup << Types::ApplicationType['initial']
-    @application_types_competencies ||= (competencies_incl_initial &
-      Types::ApplicationType.values).map do |application_type|
-      application_type
-    end
+    @application_types_competencies ||= competencies & Types::ApplicationType.values
   end
 
   def competencies
-    return Types::CompetencyType.values.dup if supervisor?
     return [] if data_analyst?
 
     @competencies ||= Allocating.user_competencies(id)

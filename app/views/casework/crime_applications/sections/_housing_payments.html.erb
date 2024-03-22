@@ -1,0 +1,57 @@
+<% return if outgoings_details.blank? %>
+
+<h2 class="govuk-heading-m">
+  <%= label_text(:housing_payments) %>
+</h2>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <% unless outgoings_details.housing_payments.any? %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:which_housing_payment_type) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t('values.housing_payments.none') %>
+      </dd>
+    </div>
+  <% end %>
+
+  <% outgoings_details.housing_payments.each do |payment| %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:which_housing_payment_type) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t("values.housing_payments.#{payment.payment_type}") %>
+      </dd>
+    </div>
+
+    <%= render partial: 'payment_with_frequency', locals: {
+          key: label_text("how_much_#{payment.payment_type}"),
+          payment: payment
+        } unless payment.payment_type == 'board_and_lodging' %>
+
+    <!-- Board and Lodging Metadata -->
+    <% outgoings_details.board_and_lodging_metadata.each do |key, settings| %>
+      <%= render partial: settings[:partial].to_s, locals: {
+            key: label_text("outgoings_metadata.#{key}"),
+            value: settings[:value],
+            payment: settings[:value]
+          } %>
+    <% end %>
+  <% end %>
+
+  <% if outgoings_details.pays_council_tax %>
+    <%= render partial: 'simple_row', locals: {
+          key: label_text(:pays_council_tax),
+          value: t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax])
+        } %>
+  <% end %>
+
+  <% if outgoings_details.council_tax %>
+    <%= render partial: 'simple_row', locals: {
+          key: label_text(:how_much_council_tax),
+          value: number_to_currency(outgoings_details.council_tax.amount * 0.01)
+        } %>
+  <% end %>
+</dl>

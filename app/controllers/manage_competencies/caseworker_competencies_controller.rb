@@ -1,18 +1,24 @@
 module ManageCompetencies
   class CaseworkerCompetenciesController < BaseController
     def index
-      @caseworkers = User.caseworker.order(first_name: :asc, last_name: :asc).page params[:page]
+      @caseworkers = user_scope.order(first_name: :asc, last_name: :asc).page params[:page]
     end
 
     def edit
-      @caseworker = User.caseworker.find(params[:id])
+      @caseworker = user_scope.find(params[:id])
     end
 
     def update
-      @caseworker = User.caseworker.find(params[:id])
+      user = user_scope.find(params[:id])
       competencies = permitted_params[:competencies].compact_blank
-      Allocating::SetCompetencies.call(user: @caseworker, by_whom: current_user, competencies: competencies)
-      set_flash(:competencies_updated, user_name: @caseworker.name)
+
+      Allocating::SetCompetencies.call(
+        user: user,
+        by_whom: current_user,
+        competencies: competencies
+      )
+
+      set_flash(:competencies_updated, user_name: user.name)
       redirect_to manage_competencies_root_path
     end
 
