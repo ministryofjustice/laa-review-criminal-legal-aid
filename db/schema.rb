@@ -20,41 +20,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_132443) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "user_role", ["caseworker", "supervisor", "data_analyst"]
 
-  create_table "crime_applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.jsonb "submitted_application"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status", default: "submitted", null: false
-    t.datetime "submitted_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }
-    t.datetime "returned_at", precision: nil
-    t.virtual "searchable_text", type: :tsvector, as: "((to_tsvector('english'::regconfig, (submitted_application #>> '{client_details,applicant,first_name}'::text[])) || to_tsvector('english'::regconfig, (submitted_application #>> '{client_details,applicant,last_name}'::text[]))) || to_tsvector('english'::regconfig, (submitted_application ->> 'reference'::text)))", stored: true
-    t.datetime "reviewed_at", precision: nil
-    t.string "review_status", default: "application_received", null: false
-    t.virtual "reference", type: :integer, as: "((submitted_application ->> 'reference'::text))::integer", stored: true
-    t.virtual "applicant_first_name", type: :citext, as: "(submitted_application #>> '{client_details,applicant,first_name}'::text[])", stored: true
-    t.virtual "applicant_last_name", type: :citext, as: "(submitted_application #>> '{client_details,applicant,last_name}'::text[])", stored: true
-    t.string "offence_class"
-    t.virtual "office_code", type: :string, as: "((submitted_application -> 'provider_details'::text) ->> 'office_code'::text)", stored: true
-    t.jsonb "return_details"
-    t.string "work_stream", default: "criminal_applications_team", null: false
-    t.virtual "return_reason", type: :string, as: "(return_details ->> 'reason'::text)", stored: true
-    t.virtual "case_type", type: :string, as: "((submitted_application -> 'case_details'::text) ->> 'case_type'::text)", stored: true
-    t.virtual "application_type", type: :string, as: "(submitted_application ->> 'application_type'::text)", stored: true
-    t.index ["applicant_last_name", "applicant_first_name"], name: "index_crime_applications_on_applicant_name"
-    t.index ["application_type"], name: "index_crime_applications_on_application_type"
-    t.index ["case_type"], name: "index_crime_applications_on_case_type"
-    t.index ["office_code"], name: "index_crime_applications_on_office_code"
-    t.index ["reference"], name: "index_crime_applications_on_reference"
-    t.index ["return_reason"], name: "index_crime_applications_on_return_reason"
-    t.index ["review_status", "reviewed_at"], name: "index_crime_applications_on_review_status_and_reviewed_at"
-    t.index ["review_status", "submitted_at"], name: "index_crime_applications_on_review_status_and_submitted_at"
-    t.index ["searchable_text"], name: "index_crime_applications_on_searchable_text", using: :gin
-    t.index ["status", "returned_at"], name: "index_crime_applications_on_status_and_returned_at", order: { returned_at: :desc }
-    t.index ["status", "reviewed_at"], name: "index_crime_applications_on_status_and_reviewed_at", order: { reviewed_at: :desc }
-    t.index ["status", "submitted_at"], name: "index_crime_applications_on_status_and_submitted_at", order: { submitted_at: :desc }
-    t.index ["work_stream"], name: "index_crime_applications_on_work_stream"
-  end
-
   create_table "current_assignments", id: false, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "assignment_id", null: false
@@ -90,15 +55,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_132443) do
     t.integer "total_closed", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "redacted_crime_applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "crime_application_id"
-    t.jsonb "submitted_application", default: {}, null: false
-    t.jsonb "metadata", default: {}, null: false
-    t.virtual "status", type: :string, as: "(metadata ->> 'status'::text)", stored: true
-    t.index ["crime_application_id"], name: "index_redacted_crime_applications_on_crime_application_id", unique: true
-    t.index ["status"], name: "index_redacted_crime_applications_on_status"
   end
 
   create_table "reviews", id: false, force: :cascade do |t|
@@ -141,5 +97,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_132443) do
   end
 
   add_foreign_key "current_assignments", "users"
-  add_foreign_key "redacted_crime_applications", "crime_applications"
 end
