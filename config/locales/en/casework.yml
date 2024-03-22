@@ -66,6 +66,13 @@ en:
     application_type: Application type
     passporting_benefit: Passporting Benefit
     assigned_to: 'Assigned to:'
+    benefit_child: Child Benefit
+    benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
+    benefit_incapacity: Incapacity Benefit
+    benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
+    benefit_jsa: Contribution-based Jobseeker's Allowance
+    benefit_other: Other benefits (except disregarded benefits)
+    benefits_the_client_gets: Benefits the client gets
     case_details: Case details
     case_type: Case type
     caseworker: Caseworker
@@ -177,6 +184,7 @@ en:
     who: Who
     which_housing_payment_type: Does client pay rent, mortgage, or board and lodgings?
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
+    which_benefits_does_the_client_get: Which benefits does the client get?
     which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend

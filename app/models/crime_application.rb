@@ -1,6 +1,6 @@
 require 'laa_crime_schemas'
 
-class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
+class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:disable Metrics/ClassLength
   include Assignable
   include Reviewable
 
@@ -129,6 +129,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication
 
   def dependants
     @dependants ||= DependantsPresenter.present(self[:means_details].income_details&.dependants)
+  end
+
+  def income_benefits
+    @income_benefits ||= IncomeBenefitsPresenter.present(self[:means_details].income_details&.income_benefits)
   end
 
   def outgoings_details
