@@ -10,7 +10,8 @@ RSpec.describe IncomeBenefitsPresenter do
     subject(:formatted_income_benefits) { benefits_presenter.formatted_income_benefits }
 
     it {
-      expect(formatted_income_benefits).to include({ 'child' => be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomeBenefit),
+      expect(formatted_income_benefits).to include({ 'child' =>
+                                                       be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomeBenefit),
                                               'incapacity' => nil,
                                               'industrial_injuries_disablement' => nil,
                                               'jsa' => nil,
