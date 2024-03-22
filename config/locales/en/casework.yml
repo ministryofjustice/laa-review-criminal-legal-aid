@@ -138,6 +138,17 @@ en:
     overview: Overview
     partner: Partner
     pays_council_tax: Does client pay Council Tax?
+    payment_board_from_family: Board from family members living with the client
+    payment_financial_support_with_access: Financial support from someone who allows the client access to their assets or money
+    payment_from_friends_relatives: Money from friends or family
+    payment_interest_investment: Interest or income from savings or investments
+    payment_maintenance: Maintenance payments
+    payment_other: Other sources of income
+    payment_private_pension: Private pensions
+    payment_rent: Rent from a tenant
+    payment_state_pension: State Pension
+    payment_student_loan_grant: Student grant or loan
+    payments_the_client_gets: Payments the client gets
     post_submission_evidence: Post submission evidence
     previous_maat_id: Previous MAAT ID
     provider_details: Provider details
@@ -166,6 +177,7 @@ en:
     who: Who
     which_housing_payment_type: Does client pay rent, mortgage, or board and lodgings?
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
+    which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
 
@@ -195,6 +207,7 @@ en:
       annual: year
     not_provided: Not provided
     not_asked: Not asked when this application was submitted
+    does_not_get: Does not get
     deleted_user_name: '[deleted]'
     no_one: no one
     initial: Initial application

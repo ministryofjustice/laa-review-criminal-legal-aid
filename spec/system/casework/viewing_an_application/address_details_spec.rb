@@ -12,7 +12,7 @@ RSpec.describe 'Viewing an applications address details' do
     subject(:home_address) { page.find('dt', text: 'Home address').find('+dd') }
 
     it 'shows the applicants postal address' do
-      expect(home_address).to have_content('1 Road Village Some nice city United Kingdom SW1A 2AA')
+      expect(home_address).to have_content('1 Road Village Some nice city SW1A 2AA United Kingdom')
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe 'Viewing an applications address details' do
                                                                     'address_line_one' => 'Other House',
                                                                     'address_line_two' => 'Second Road',
                                                                     'city' => 'London',
-                                                                    'country' => 'London',
+                                                                    'country' => 'United Kingdom',
                                                                     'postcode' => 'EC2A 2AA',
                                                                     'lookup_id' => '1'
                                                                   } } })
@@ -40,7 +40,7 @@ RSpec.describe 'Viewing an applications address details' do
 
       it 'shows the correspondence address' do
         expect(correspondence_address).to have_content(
-          'Other House Second Road London London EC2A 2AA'
+          'Other House Second Road London EC2A 2AA United Kingdom'
         )
       end
     end
