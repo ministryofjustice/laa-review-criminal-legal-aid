@@ -226,6 +226,10 @@ en:
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
     properties_title: Assets
+    property_type:
+      residential: Residential property
+      commercial: Commercial property
+      land: Land
     properties:
       property_type: Which assets does your client own or part-own inside or outside the UK?
       house_type: Type of property
