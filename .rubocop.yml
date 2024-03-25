@@ -93,3 +93,7 @@ Capybara/ClickLinkOrButtonStyle:
 Style/RedundantConstantBase:
   Exclude:
     - 'app/views/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/views/**/*'

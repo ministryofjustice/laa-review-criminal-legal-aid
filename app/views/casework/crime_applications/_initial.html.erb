@@ -10,9 +10,14 @@
 <%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
 <%= render partial: 'interests_of_justice', locals: { crime_application: } %>
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
+
 <% if FeatureFlags.means_journey.enabled? %>
   <%= render partial: 'income_details', locals: { crime_application: } %>
   <%= render partial: 'outgoings_details', locals: { outgoings_details: crime_application.outgoings_details } %>
-  <%= render partial: 'capital_details', locals: { crime_application: } %>
+
+  <% if crime_application.means_details.capital_details %>
+    <%= render partial: 'capital_details', locals: { crime_application: } %>
+  <% end %>
 <% end %>
+
 <%= render partial: 'provider_details', object: crime_application.provider_details %>

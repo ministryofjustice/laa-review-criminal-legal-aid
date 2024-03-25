@@ -1,0 +1,38 @@
+<% unless savings.empty? %>
+  <h2 class="govuk-heading-m"><%= label_text(:savings) %></h2>
+
+  <% savings.group_by(&:saving_type).each do |item_type, group| %>
+    <%= app_card_list(items: group, item_name: label_text(item_type, scope: :saving_type)) do |card|
+          govuk_summary_list(actions: false) do |list|
+            list.with_row do |row|
+              row.with_key { label_text(:saving_provider_name) }
+              row.with_value { card.item.provider_name }
+            end
+            list.with_row do |row|
+              row.with_key { label_text(:saving_sort_code) }
+              row.with_value { card.item.sort_code }
+            end
+            list.with_row do |row|
+              row.with_key { label_text(:saving_account_number) }
+              row.with_value { card.item.account_number }
+            end
+            list.with_row do |row|
+              row.with_key { label_text(:saving_account_balance) }
+              row.with_value { number_to_currency card.item.account_balance * 0.01 }
+            end
+            list.with_row do |row|
+              row.with_key { label_text(:is_overdrawn) }
+              row.with_value { value_text(card.item.is_overdrawn) }
+            end
+            list.with_row do |row|
+              row.with_key { label_text(:are_wages_paid_into_account) }
+              row.with_value { value_text(card.item.are_wages_paid_into_account) }
+            end
+            list.with_row do |row|
+              row.with_key { label_text(:saving_account_holder) }
+              row.with_value { value_text(card.item.ownership_type) }
+            end
+          end
+        end %>
+  <% end %>
+<% end %>
