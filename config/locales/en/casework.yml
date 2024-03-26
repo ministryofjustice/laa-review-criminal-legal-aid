@@ -107,6 +107,7 @@ en:
     has_case_concluded: Has the case concluded?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
+    has_no_other_assets: Client has no other assets or capital
     has_premium_bonds: Does client have any Premium Bonds?
     has_savings: Has savings or investments?
     hearing_date: Date of next hearing

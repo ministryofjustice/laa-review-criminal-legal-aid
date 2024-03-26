@@ -8,7 +8,7 @@ RSpec.describe 'Viewing the other capital details of an application' do
   end
 
   context 'when user was not asked about frozen income or assets in capital' do
-    it { expect(page).not_to have_content('Other capital') }
+    it { expect(page).to have_content('Other capital') }
   end
 
   context 'when user was asked about frozen income or assets in capital' do

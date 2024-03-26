@@ -1,16 +1,25 @@
-<% unless capital_details&.has_frozen_income_or_assets.nil? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:other_capital_details) %>
-  </h2>
-
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:has_frozen_income_or_assets) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(capital_details.has_frozen_income_or_assets, scope: 'values') %>
-      </dd>
-    </div>
-  </dl>
-<% end %>
+<h2 class="govuk-heading-m">
+  <%= label_text(:other_capital_details) %>
+</h2>
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <% unless capital_details&.has_frozen_income_or_assets.nil? %>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:has_frozen_income_or_assets) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(capital_details.has_frozen_income_or_assets, scope: 'values') %>
+    </dd>
+  </div>
+  <% end %>
+  <% unless capital_details&.has_no_other_assets.nil? %>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:has_no_other_assets) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(capital_details.has_no_other_assets, scope: 'values') %>
+    </dd>
+  </div>
+  <% end %>
+</dl>
