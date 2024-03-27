@@ -405,6 +405,8 @@ en:
       partner_with_a_contrary_interest: Partner with a contrary interest
       property_company: Property company
       other: Their relationship is not listed
+    has_no_other_assets:
+      'yes': Confirmed
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list
