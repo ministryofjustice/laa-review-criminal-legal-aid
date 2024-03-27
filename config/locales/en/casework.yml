@@ -225,6 +225,28 @@ en:
     which_payments_does_the_client_get: Which payments does the client get?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
+    properties_title: Assets
+    property_type:
+      residential: Residential property
+      commercial: Commercial property
+      land: Land
+    properties:
+      property_type: Which assets does your client own or part-own inside or outside the UK?
+      house_type: Type of property
+      bedrooms: Number of bedrooms
+      size_in_acres: Size of land
+      usage: Use of %{asset}
+      value: Value of %{asset}
+      outstanding_mortgage: Amount left to pay on the mortgage
+      percentage_applicant_owned: Percentage of the %{asset} owned by client
+      percentage_partner_owned: Percentage of the %{asset} owned by client's partner
+      is_home_address: Is the address of the %{asset} the same as client’s home address?
+      has_other_owners: Does anyone else own part of the %{asset}?
+      address: Address
+    property_owners:
+      name: Name of %{index} other owner
+      relationship: Relationship to client
+      percentage_owned: Percentage of the %{asset} they own
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
@@ -357,7 +379,31 @@ en:
     pays_council_tax:
       'yes': 'Yes'
       'no': 'No'
-
+    residential: Residential Property
+    commercial: Commercial Property
+    land: Land
+    house_type:
+      bungalow: Bungalow
+      detached: Detached
+      flat_or_maisonette: Flat or maisonette
+      semidetached: Semi-detached
+      terraced: Terraced
+      other: The type of property is not listed
+    property_type:
+      residential: Residential property
+      commercial: Commercial property
+      land: Land
+    relationship_type:
+      business_associates: Business Associates
+      ex_partner: Ex-partner
+      family_members: Family members
+      friends: Friends
+      house_builder: House builder
+      housing_association: Housing association
+      local_authority: Local authority
+      partner_with_a_contrary_interest: Partner with a contrary interest
+      property_company: Property company
+      other: Their relationship is not listed
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list
