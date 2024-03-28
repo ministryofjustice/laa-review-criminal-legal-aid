@@ -135,7 +135,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.6)
+    bigdecimal (3.1.7)
     bindata (2.5.0)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -249,7 +249,7 @@ GEM
     hashie (5.0.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
-    i18n (1.14.1)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     importmap-rails (2.0.1)
@@ -257,7 +257,7 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.2)
-    irb (1.11.2)
+    irb (1.12.0)
       rdoc
       reline (>= 0.4.2)
     jmespath (1.6.2)
@@ -304,7 +304,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.22.2)
+    minitest (5.22.3)
     moj-simple-jwt-auth (0.1.0)
       json
       jwt
@@ -320,10 +320,10 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.2)
+    nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.16.2-x86_64-linux)
+    nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
@@ -498,16 +498,17 @@ GEM
     sass-embedded (1.69.5)
       google-protobuf (~> 3.23)
       rake (>= 13.0.0)
-    sass-embedded (1.69.5-x86_64-linux-gnu)
+    sass-embedded (1.69.5-x86_64-linux)
       google-protobuf (~> 3.23)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.16.1)
+    sentry-rails (5.17.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.16.1)
-    sentry-ruby (5.16.1)
+      sentry-ruby (~> 5.17.0)
+    sentry-ruby (5.17.0)
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -621,7 +622,7 @@ DEPENDENCIES
   rubocop-rails (>= 2.22.2)
   rubocop-rspec
   selenium-webdriver
-  sentry-rails (>= 5.15.1)
+  sentry-rails (>= 5.17.0)
   sentry-ruby
   simplecov
   sprockets-rails
@@ -631,7 +632,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 2.7.8p225
 
 BUNDLED WITH
    2.4.6
