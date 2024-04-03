@@ -21,7 +21,7 @@ RSpec.describe 'Viewing the Premium Bond details' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Premium Bonds')
     end
 
-    describe 'an investments card' do
+    describe 'a premium bonds card' do
       subject(:premium_bonds_card) do
         page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
       end
@@ -51,7 +51,7 @@ RSpec.describe 'Viewing the Premium Bond details' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Premium Bonds')
     end
 
-    describe 'an investments card' do
+    describe 'a premium bonds card' do
       subject(:premium_bonds_card) do
         page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
       end
@@ -62,6 +62,18 @@ RSpec.describe 'Viewing the Premium Bond details' do
           expect(card.all('dd').size).to be 1
         end
       end
+    end
+  end
+
+  context 'when client was not shown premium bonds questions' do
+    let(:means_details) { super().deep_merge('capital_details' => { 'has_premium_bonds' => nil }) }
+
+    let(:application_data) do
+      super().deep_merge('means_details' => means_details)
+    end
+
+    it 'does not show the Premium Bonds section' do
+      expect(page).not_to have_css('h2.govuk-heading-m', text: 'Premium Bonds')
     end
   end
 end
