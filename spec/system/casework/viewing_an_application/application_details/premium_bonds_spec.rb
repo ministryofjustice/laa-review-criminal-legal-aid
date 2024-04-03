@@ -73,7 +73,7 @@ RSpec.describe 'Viewing the Premium Bond details' do
     end
 
     it 'does not show the Premium Bonds section' do
-      expect(page).to_not have_css('h2.govuk-heading-m', text: 'Premium Bonds')
+      expect(page).not_to have_css('h2.govuk-heading-m', text: 'Premium Bonds')
     end
   end
 end
