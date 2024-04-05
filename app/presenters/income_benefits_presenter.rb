@@ -8,6 +8,8 @@ class IncomeBenefitsPresenter < BasePresenter
   end
 
   def formatted_income_benefits
+    # throw @income_benefits
+    # throw income_benefit_types
     return unless @income_benefits
 
     ordered_benefits

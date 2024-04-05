@@ -8,7 +8,7 @@
             amount: number_to_currency(payment.amount * 0.01),
             frequency: t(payment.frequency, scope: [:values, :frequency])) %>
     <% else %>
-      <%= t(:does_not_get, scope: 'values') %>
-    <% end  %>
+      <%= does_not_text %>
+  <% end %>
   </dd>
 </div>

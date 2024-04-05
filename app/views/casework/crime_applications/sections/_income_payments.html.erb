@@ -9,7 +9,8 @@
         <%= render partial: 'payment_with_frequency',
                    locals: {
                      key: label_text("payment_#{payment_type}"),
-                     payment: value
+                     payment: value,
+                     does_not_text: t(:does_not_get, scope: 'values')
                    } %>
       <% end %>
     <% else %>
