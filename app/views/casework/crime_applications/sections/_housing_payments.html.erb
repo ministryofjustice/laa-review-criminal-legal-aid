@@ -28,7 +28,8 @@
 
     <%= render partial: 'payment_with_frequency', locals: {
           key: label_text("how_much_#{payment.payment_type}"),
-          payment: payment
+          payment: payment,
+          does_not_text: t(:does_not_get, scope: 'values')
         } unless payment.payment_type == 'board_and_lodging' %>
 
     <!-- Board and Lodging Metadata -->

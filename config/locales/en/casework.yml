@@ -76,6 +76,7 @@ en:
     capital: Capital
     case_details: Case details
     case_type: Case type
+    case_reference: Case reference of the criminal rep order or civil certificate
     caseworker: Caseworker
     client_details: Client details
     client_owns_property: Has land or property?
@@ -162,6 +163,9 @@ en:
     other_income_details: Other sources of income
     other_names: Other names
     other_outgoings_details: Other outgoings
+    outgoing_payment_childcare: Childcare payments
+    outgoing_payment_maintenance: Maintenance payments to a former partner
+    outgoing_payment_legal_aid_contribution: Contributions towards criminal or civil legal aid
     outgoings_more_than_income: Are client's outgoings more than their income?
     outgoings_metadata:
       board_amount: Amount paid for board and lodgings
@@ -184,6 +188,7 @@ en:
     payment_state_pension: State Pension
     payment_student_loan_grant: Student grant or loan
     payments_the_client_gets: Payments the client gets
+    payments_the_client_pays: Payments the client pays
     post_submission_evidence: Post submission evidence
     premium_bonds: Premium Bonds 
     premium_bonds_holder_number: Holder number
@@ -224,6 +229,7 @@ en:
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
     which_benefits_does_the_client_get: Which benefits does the client get?
     which_payments_does_the_client_get: Which payments does the client get?
+    which_payments_does_the_client_pay: Which payments does the client pay?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
     properties_title: Assets
@@ -275,6 +281,7 @@ en:
     not_provided: Not provided
     not_asked: Not asked when this application was submitted
     does_not_get: Does not get
+    does_not_pay: Does not pay
     already_in_crown_court: Trial already in crown court
     appeal_to_crown_court: Appeal to crown court
     appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances

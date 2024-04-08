@@ -143,6 +143,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
     @income_payments ||= IncomePaymentsPresenter.present(self[:means_details].income_details&.income_payments)
   end
 
+  def outgoing_payments
+    @outgoing_payments ||= OutgoingPaymentsPresenter.present(self[:means_details].outgoings_details&.outgoings)
+  end
+
   def properties
     @properties ||= PropertiesPresenter.present(self[:means_details].capital_details&.properties)
   end
