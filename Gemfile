@@ -47,7 +47,7 @@ gem 'stackprof'
 gem 'dry-schema'
 gem 'dry-struct'
 
-gem 'devise'
+gem 'devise', '>= 4.9.4'
 gem 'omniauth_openid_connect', '0.7.1'
 gem 'omniauth-rails_csrf_protection'
 
