@@ -71,7 +71,7 @@ en:
     benefit_incapacity: Incapacity Benefit
     benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
     benefit_jsa: Contribution-based Jobseeker's Allowance
-    benefit_other: Other benefits (except disregarded benefits)
+    benefit_other: Other benefits
     benefits_the_client_gets: Benefits the client gets
     capital: Capital
     case_details: Case details
@@ -159,10 +159,12 @@ en:
     offence_date: Offence date
     offence_details: Offence details
     office_account_number: Office account number
+    other_benefits_details: Other benefits
     other_capital_details: Other capital
     other_income_details: Other sources of income
     other_names: Other names
     other_outgoings_details: Other outgoings
+    other_payment_details: Other sources of income details
     outgoing_payment_childcare: Childcare payments
     outgoing_payment_maintenance: Maintenance payments to a former partner
     outgoing_payment_legal_aid_contribution: Contributions towards criminal or civil legal aid

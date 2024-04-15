@@ -12,6 +12,16 @@
                      payment: value,
                      does_not_text: t(:does_not_get, scope: 'values')
                    } %>
+        <% if benefit_type == 'other' && value.present? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:other_benefits_details) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= value.metadata.details %>
+            </dd>
+          </div>
+        <% end %>
       <% end %>
     <% else %>
       <div class="govuk-summary-list__row">
