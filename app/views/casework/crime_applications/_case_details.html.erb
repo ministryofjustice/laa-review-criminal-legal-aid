@@ -11,7 +11,7 @@
         <%= t(case_details.case_type, scope: 'values') %>
       </dd>
     </div>
-    <% if case_details.case_type&.include? 'appeal' %>
+    <% if case_details.appeal? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= label_text(:date_appeal_lodged) %>
@@ -20,24 +20,53 @@
           <%= l case_details.appeal_lodged_date, format: :compact %>
         </dd>
       </div>
-      <% if case_details.case_type == 'appeal_to_crown_court_with_changes' %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:appeal_original_app_submitted) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(case_details.appeal_original_app_submitted, scope: 'values') %>
+        </dd>
+      </div>
+      <% if case_details.original_app_submitted? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:financial_change_details) %>
+            <%= label_text(:appeal_financial_circumstances_changed) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= case_details.appeal_with_changes_details %>
+            <%= t(case_details.appeal_financial_circumstances_changed, scope: 'values') %>
           </dd>
         </div>
-      <% else %>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= label_text(:previous_maat_id) %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <%= case_details.appeal_maat_id.presence || t(:not_provided, scope: 'values') %>
-          </dd>
-        </div>
+        <% if case_details.financial_circumstances_changed? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:financial_change_details) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= case_details.appeal_with_changes_details %>
+            </dd>
+          </div>
+        <% else %>
+          <% if case_details.appeal_maat_id.present? %>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <%= t('labels.appeal_maat_id_or_usn', ref_type: 'MAAT ID') %>
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <%= case_details.appeal_maat_id.presence || t(:not_provided, scope: 'values') %>
+              </dd>
+            </div>
+          <% else %>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <%= t('labels.appeal_maat_id_or_usn', ref_type: 'USN') %>
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <%= case_details.appeal_usn.presence || t(:not_provided, scope: 'values') %>
+              </dd>
+            </div>
+        <% end %>
+      <% end %>
       <% end %>
     <% end %>
 

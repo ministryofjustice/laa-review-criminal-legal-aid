@@ -59,6 +59,12 @@ en:
 
   labels: &LABELS
     age_in_business_days: Business days since application was received
+    appeal_original_app_submitted: Legal aid application for original case?
+    appeal_financial_circumstances_changed: Changes to financial circumstances since original application?
+    appeal_with_changes_details: Changes details
+    appeal_maat_id_or_usn: "Original application %{ref_type}"
+    appeal_maat_id: MAAT ID
+    appeal_usn: USN
     applicant_date_of_birth: Applicant's date of birth
     application_information: Application information
     application_start_date: Date stamp
@@ -190,7 +196,7 @@ en:
     payments_the_client_gets: Payments the client gets
     payments_the_client_pays: Payments the client pays
     post_submission_evidence: Post submission evidence
-    premium_bonds: Premium Bonds 
+    premium_bonds: Premium Bonds
     premium_bonds_holder_number: Holder number
     premium_bonds_total_value: Total value
     preorder_work_date: When you or your firm were first instructed

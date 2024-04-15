@@ -39,6 +39,18 @@ class CaseDetailsPresenter < BasePresenter
     (is_client_remanded == 'yes') && date_client_remanded.present?
   end
 
+  def appeal?
+    case_type&.include?('appeal')
+  end
+
+  def financial_circumstances_changed?
+    appeal? && (appeal_financial_circumstances_changed == 'yes')
+  end
+
+  def original_app_submitted?
+    appeal? && (appeal_original_app_submitted == 'yes')
+  end
+
   private
 
   def type_of(value)
