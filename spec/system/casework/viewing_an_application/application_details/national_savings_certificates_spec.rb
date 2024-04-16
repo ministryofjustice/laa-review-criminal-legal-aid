@@ -49,12 +49,13 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
 
     describe 'an absent answer national savings certificates card' do
       subject(:investment_card) do
-        page.find('h2.govuk-summary-card__title', text: 'National Savings Certificates').ancestor('div.govuk-summary-card')
+        page.find('h2.govuk-summary-card__title',
+                  text: 'National Savings Certificates').ancestor('div.govuk-summary-card')
       end
 
       it 'shows absent answer national savings certificates details' do
         within(investment_card) do |card|
-          expect(card).to have_summary_row 'Does client have any National Savings Certificates?', 'None'
+          expect(card).to have_summary_row 'Does the client have any National Savings Certificates?', 'None'
         end
       end
     end

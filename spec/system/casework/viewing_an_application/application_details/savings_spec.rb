@@ -54,7 +54,7 @@ RSpec.describe 'Viewing the savings of an application' do
 
       it 'shows absent answer savings details' do
         within(saving_card) do |card|
-          expect(card).to have_summary_row 'Does client have any savings?', 'None'
+          expect(card).to have_summary_row 'Which savings does the client have inside or outside the UK?', 'None'
         end
       end
     end

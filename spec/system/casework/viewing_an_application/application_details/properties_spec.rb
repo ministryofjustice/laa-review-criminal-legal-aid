@@ -62,7 +62,8 @@ RSpec.describe 'Viewing the properties of an application' do
 
       it 'shows absent answer assets details' do
         within(property_card) do |card|
-          expect(card).to have_summary_row 'Does client have any assets?', 'None'
+          expect(card).to have_summary_row 'Which assets does the client own or part-own inside or outside the UK?',
+                                           'None'
         end
       end
     end

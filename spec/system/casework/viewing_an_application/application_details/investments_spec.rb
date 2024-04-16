@@ -50,7 +50,7 @@ RSpec.describe 'Viewing the investments of an application' do
 
       it 'shows absent answer investments details' do
         within(investment_card) do |card|
-          expect(card).to have_summary_row 'Does client have any investments?', 'None'
+          expect(card).to have_summary_row 'Which investments does the client have inside or outside the UK?', 'None'
         end
       end
     end

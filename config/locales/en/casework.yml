@@ -96,6 +96,7 @@ en:
     date_received: 'Date received:'
     dependants: Dependants who live with the client
     details: Details
+    does_client_have_national_savings_certificates: Does the client have any National Savings Certificates?
     employment: Employment
     employment_type: Client's employment status
     end_on: Date to
@@ -106,15 +107,11 @@ en:
     first_court_hearing: First court hearing the case
     first_name: First name
     has_case_concluded: Has the case concluded?
-    has_assets: Does client have any assets?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
-    has_investments: Does client have any investments?
-    has_national_savings_certificates: Does client have any National Savings Certificates?
     has_no_other_assets: Client has no other assets or capital
     has_premium_bonds: Does client have any Premium Bonds?
     has_savings: Has savings or investments?
-    has_savings_capital: Does client have any savings?
     hearing_date: Date of next hearing
     home_address: Home address
     housing_payments: Housing payments
@@ -230,10 +227,13 @@ en:
     when: When
     who: Who
     which_housing_payment_type: Does client pay rent, mortgage, or board and lodgings?
+    which_assets_does_the_client_own: Which assets does the client own or part-own inside or outside the UK?
     will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
     which_benefits_does_the_client_get: Which benefits does the client get?
+    which_investments_does_client_have: Which investments does the client have inside or outside the UK?
     which_payments_does_the_client_get: Which payments does the client get?
     which_payments_does_the_client_pay: Which payments does the client pay?
+    which_savings_does_client_have: Which savings does the client have inside or outside the UK?
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
     properties_title: Assets
