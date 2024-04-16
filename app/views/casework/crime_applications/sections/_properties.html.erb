@@ -1,4 +1,13 @@
-<% unless properties.empty? %>
+<% if properties.empty? && crime_application.requires_full_capital?  %>
+  <%= govuk_summary_card(title: label_text(:properties_title)) do %>
+    <%= govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { label_text(:has_assets) }
+            row.with_value { value_text('none') }
+          end
+        end %>
+  <% end %>
+<% elsif properties.present? %>
   <h2 class="govuk-heading-m"><%= label_text(:properties_title) %></h2>
 
   <% properties.group_by(&:property_type).each do |item_type, group| %>

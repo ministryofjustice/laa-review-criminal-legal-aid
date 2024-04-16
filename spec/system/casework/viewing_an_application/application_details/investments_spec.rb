@@ -36,4 +36,23 @@ RSpec.describe 'Viewing the investments of an application' do
       end
     end
   end
+
+  context 'when client does not have investments' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'case_type' => 'either_way' },
+                         'means_details' => { 'capital_details' => { 'investments' => [] } })
+    end
+
+    describe 'an absent answer investments card' do
+      subject(:investment_card) do
+        page.find('h2.govuk-summary-card__title', text: 'Investments').ancestor('div.govuk-summary-card')
+      end
+
+      it 'shows absent answer investments details' do
+        within(investment_card) do |card|
+          expect(card).to have_summary_row 'Does client have any investments?', 'None'
+        end
+      end
+    end
+  end
 end

@@ -106,11 +106,15 @@ en:
     first_court_hearing: First court hearing the case
     first_name: First name
     has_case_concluded: Has the case concluded?
+    has_assets: Does client have any assets?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
+    has_investments: Does client have any investments?
+    has_national_savings_certificates: Does client have any National Savings Certificates?
     has_no_other_assets: Client has no other assets or capital
     has_premium_bonds: Does client have any Premium Bonds?
     has_savings: Has savings or investments?
+    has_savings_capital: Does client have any savings?
     hearing_date: Date of next hearing
     home_address: Home address
     housing_payments: Housing payments
@@ -201,7 +205,7 @@ en:
     provider_phone_number: Phone
     return_reason_details: We'll share this information with the provider
     return_reason_details_legend: Give further details
-    saving_account_balance: Account balance 
+    saving_account_balance: Account balance
     saving_account_holder: Name the account is in 
     saving_account_number: Account number
     saving_provider_name: Name of bank, building society or other holder of the savings

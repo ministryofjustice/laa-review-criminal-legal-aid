@@ -1,4 +1,13 @@
-<% unless investments.empty? %>
+<% if investments.empty? && crime_application.requires_full_capital?  %>
+  <%= govuk_summary_card(title: label_text(:investments)) do %>
+    <%= govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { label_text(:has_investments) }
+            row.with_value { value_text('none') }
+          end
+        end %>
+  <% end %>
+<% elsif investments.present? %>
   <h2 class="govuk-heading-m"><%= label_text(:investments) %></h2>
 
   <% investments.group_by(&:investment_type).each do |item_type, group| %>

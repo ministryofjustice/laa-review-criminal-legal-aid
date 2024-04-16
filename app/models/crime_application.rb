@@ -154,4 +154,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
   def pse?
     application_type == Types::ApplicationType['post_submission_evidence']
   end
+
+  def requires_full_capital?
+    %w[either_way indictable already_in_crown_court].include?(case_details.case_type)
+  end
 end
