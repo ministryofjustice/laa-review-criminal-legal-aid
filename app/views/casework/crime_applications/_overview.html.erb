@@ -38,7 +38,7 @@
         </dd>
       </div>
 
-      <% if overview.client_details.applicant.benefit_type == 'jsa' %>
+      <% if overview.last_jsa_appointment_date? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:date_of_latest_jsa_appointment) %>
