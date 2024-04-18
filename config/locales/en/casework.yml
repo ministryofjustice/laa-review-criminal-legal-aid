@@ -99,6 +99,7 @@ en:
     date_client_remanded: When they were remanded
     date_job_lost: When did they lose their job?
     date_of_birth: Date of birth
+    date_of_latest_jsa_appointment: Date of latest JSA appointment
     date_received: 'Date received:'
     dependants: Dependants who live with the client
     details: Details
