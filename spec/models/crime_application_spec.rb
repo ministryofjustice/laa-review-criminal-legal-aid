@@ -258,4 +258,30 @@ RSpec.describe CrimeApplication do
       it { is_expected.to be true }
     end
   end
+
+  describe '#last_jsa_appointment_date?' do
+    subject(:last_jsa_appointment_date?) { application.last_jsa_appointment_date? }
+
+    let(:last_jsa_date) { nil }
+    let(:attributes) do
+      super().deep_merge('client_details' => { 'applicant' => { 'benefit_type' => 'jsa',
+                                                                'last_jsa_appointment_date' => last_jsa_date } })
+    end
+
+    context 'when applicant has a jsa benefit type' do
+      context 'when applicant has a last jsa appointment date' do
+        let(:last_jsa_date) { 'Fri, 12 Jan 2024' }
+
+        it { is_expected.to be true }
+      end
+
+      context 'when applicant does not have a last jsa appointment date' do
+        it { is_expected.to be false }
+      end
+    end
+
+    context 'when application does not have a jsa benefit type' do
+      it { is_expected.to be false }
+    end
+  end
 end

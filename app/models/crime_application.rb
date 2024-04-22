@@ -154,4 +154,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
   def pse?
     application_type == Types::ApplicationType['post_submission_evidence']
   end
+
+  def last_jsa_appointment_date?
+    client_details.applicant.benefit_type == 'jsa' && client_details.applicant.last_jsa_appointment_date.present?
+  end
 end
