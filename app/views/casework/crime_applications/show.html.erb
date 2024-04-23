@@ -9,7 +9,7 @@
 
     <% if @crime_application.pse? %>
       <%= render partial: 'pse', locals: { crime_application: @crime_application } %>
-    <% elsif @crime_application.case_details.appeal_reference_number %>
+    <% elsif @crime_application.appeal_no_changes? %>
       <%= render partial: 'appeal_no_changes', locals: { crime_application: @crime_application } %>
     <% else %>
       <%= render partial: 'initial', locals: { crime_application: @crime_application } %>

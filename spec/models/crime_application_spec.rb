@@ -259,6 +259,38 @@ RSpec.describe CrimeApplication do
     end
   end
 
+  describe '#appeal_no_changes?' do
+    subject(:appeal_no_changes?) { application.appeal_no_changes? }
+
+    let(:attributes) do
+      super().deep_merge({ 'case_details' => { 'case_type' => 'appeal_to_crown_court',
+'appeal_reference_number' => appeal_reference_number } })
+    end
+
+    context 'when case type is an appeal_to_crown_court' do
+      let(:case_type) { 'appeal_to_crown_court' }
+
+      context 'when there are financial changes' do
+        let(:appeal_reference_number) { nil }
+
+        it { is_expected.to be false }
+      end
+
+      context 'when there are no financial changes' do
+        let(:appeal_reference_number) { 'appeal_usn' }
+
+        it { is_expected.to be true }
+      end
+    end
+
+    context 'when case type is not an appeal_to_crown_court' do
+      let(:case_type) { 'summary_only' }
+      let(:appeal_reference_number) { nil }
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#last_jsa_appointment_date?' do
     subject(:last_jsa_appointment_date?) { application.last_jsa_appointment_date? }
 
