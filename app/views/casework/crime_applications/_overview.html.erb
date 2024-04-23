@@ -22,13 +22,17 @@
           <%= t('no', scope: 'values') %>
         <% elsif overview.means_passported? %>
           <%= govuk_tag(text: t(:passported, scope: 'values'), colour: 'blue') %>
+        <%# TODO: This needs product/content design sign off %>
+        <% elsif !overview.not_means_tested? && ['none', nil].include?(overview.applicant.benefit_type) %>
+          <%= t('yes', scope: 'values') %>
         <% else %>
+          <%# Those with a selected benefit type, but DWP negative result would end up here (inc ppt ben evidence) %>
           <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
         <% end %>
       </dd>
     </div>
 
-    <% unless overview.means_passported_on_age? || overview.not_means_tested? %>
+    <% unless overview.means_passported_on_age? || overview.not_means_tested? || overview.case_details.appeal_reference_number %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= label_text(:passporting_benefit) %>

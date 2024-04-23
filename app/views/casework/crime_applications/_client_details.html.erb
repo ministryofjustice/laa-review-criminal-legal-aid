@@ -44,38 +44,40 @@
         <%= nino.presence || t(:not_provided, scope: 'values') %>
       </dd>
     </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:telephone_number) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= applicant_tel.presence || t(:not_provided, scope: 'values') %>
-      </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:home_address) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <% if applicant.home_address %>
-          <%= render 'address', address: applicant.home_address %>
-        <% else %>
-          <%= t(:no_home_address, scope: 'values') %>
-        <% end %>
-      </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:correspondence_address) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <% if applicant.correspondence_address_type == 'other_address' %>
-          <%= render 'address', address: applicant.correspondence_address %>
-        <% else %>
-          <%= t(applicant.correspondence_address_type, scope: 'values') %>
-        <% end %>
-      </dd>
-    </div>
+    <% unless crime_application.case_details.appeal_reference_number %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:telephone_number) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= applicant_tel.presence || t(:not_provided, scope: 'values') %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:home_address) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if applicant.home_address %>
+            <%= render 'address', address: applicant.home_address %>
+          <% else %>
+            <%= t(:no_home_address, scope: 'values') %>
+          <% end %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:correspondence_address) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if applicant.correspondence_address_type == 'other_address' %>
+            <%= render 'address', address: applicant.correspondence_address %>
+          <% else %>
+            <%= t(applicant.correspondence_address_type, scope: 'values') %>
+          <% end %>
+        </dd>
+      </div>
+    <% end %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:partner) %>
