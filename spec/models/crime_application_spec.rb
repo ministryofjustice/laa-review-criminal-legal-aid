@@ -272,9 +272,9 @@ RSpec.describe CrimeApplication do
       end
 
       it { is_expected.to be true }
-    end 
-  end 
-  
+    end
+  end
+
   describe '#last_jsa_appointment_date?' do
     subject(:last_jsa_appointment_date?) { application.last_jsa_appointment_date? }
 
