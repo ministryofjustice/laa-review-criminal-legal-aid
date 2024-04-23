@@ -52,10 +52,11 @@ RSpec.describe 'Viewing the properties of an application' do
   context 'when client does not have properties' do
     let(:application_data) do
       super().deep_merge('case_details' => { 'case_type' => 'either_way' },
-                         'means_details' => { 'capital_details' => { 'properties' => [] } })
+                         'means_details' => { 'capital_details' => { 'properties' => [],
+'has_no_properties' => 'yes' } })
     end
 
-    describe 'an absent answer assets card' do
+    describe 'an no assets card' do
       subject(:property_card) do
         page.find('h2.govuk-summary-card__title', text: 'Assets').ancestor('div.govuk-summary-card')
       end

@@ -40,10 +40,11 @@ RSpec.describe 'Viewing the investments of an application' do
   context 'when client does not have investments' do
     let(:application_data) do
       super().deep_merge('case_details' => { 'case_type' => 'either_way' },
-                         'means_details' => { 'capital_details' => { 'investments' => [] } })
+                         'means_details' => { 'capital_details' => { 'investments' => [],
+'has_no_investments' => 'yes' } })
     end
 
-    describe 'an absent answer investments card' do
+    describe 'a no investments card' do
       subject(:investment_card) do
         page.find('h2.govuk-summary-card__title', text: 'Investments').ancestor('div.govuk-summary-card')
       end

@@ -155,10 +155,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
     application_type == Types::ApplicationType['post_submission_evidence']
   end
 
-  def requires_full_capital?
-    %w[either_way indictable already_in_crown_court].include?(case_details.case_type)
-  end
-
   def last_jsa_appointment_date?
     client_details.applicant.benefit_type == 'jsa' && client_details.applicant.last_jsa_appointment_date.present?
   end

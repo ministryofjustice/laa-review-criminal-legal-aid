@@ -259,22 +259,6 @@ RSpec.describe CrimeApplication do
     end
   end
 
-  describe '#requires_full_capital?' do
-    subject(:requires_full_capital?) { application.requires_full_capital? }
-
-    context 'when application is an appeal to crown court application' do
-      it { is_expected.to be false }
-    end
-
-    context 'when application is a either way application' do
-      let(:attributes) do
-        super().deep_merge('case_details' => { 'case_type' => 'either_way' })
-      end
-
-      it { is_expected.to be true }
-    end
-  end
-
   describe '#last_jsa_appointment_date?' do
     subject(:last_jsa_appointment_date?) { application.last_jsa_appointment_date? }
 

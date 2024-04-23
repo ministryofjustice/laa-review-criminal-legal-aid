@@ -1,4 +1,4 @@
-<% if savings.empty? && crime_application.requires_full_capital?  %>
+<% if capital_details.has_no_savings == 'yes' %>
   <%= govuk_summary_card(title: label_text(:savings)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
@@ -7,10 +7,10 @@
           end
         end %>
   <% end %>
-<% elsif savings.present? %>
+<% elsif capital_details.savings.present? %>
   <h2 class="govuk-heading-m"><%= label_text(:savings) %></h2>
 
-  <% savings.group_by(&:saving_type).each do |item_type, group| %>
+  <% capital_details.savings.group_by(&:saving_type).each do |item_type, group| %>
     <%= app_card_list(items: group, item_name: label_text(item_type, scope: :saving_type)) do |card|
           govuk_summary_list(actions: false) do |list|
             list.with_row do |row|
