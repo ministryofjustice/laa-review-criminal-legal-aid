@@ -59,6 +59,12 @@ en:
 
   labels: &LABELS
     age_in_business_days: Business days since application was received
+    appeal_original_app_submitted: Legal aid application for original case?
+    appeal_financial_circumstances_changed: Changes to financial circumstances since original application?
+    appeal_with_changes_details: Changes details
+    appeal_maat_id_or_usn: "Original application %{ref_type}"
+    appeal_maat_id: MAAT ID
+    appeal_usn: USN
     applicant_date_of_birth: Applicant's date of birth
     application_information: Application information
     application_start_date: Date stamp
@@ -71,7 +77,7 @@ en:
     benefit_incapacity: Incapacity Benefit
     benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
     benefit_jsa: Contribution-based Jobseeker's Allowance
-    benefit_other: Other benefits (except disregarded benefits)
+    benefit_other: Other benefits
     benefits_the_client_gets: Benefits the client gets
     capital: Capital
     case_details: Case details
@@ -93,6 +99,7 @@ en:
     date_client_remanded: When they were remanded
     date_job_lost: When did they lose their job?
     date_of_birth: Date of birth
+    date_of_latest_jsa_appointment: Date of latest JSA appointment
     date_received: 'Date received:'
     dependants: Dependants who live with the client
     details: Details
@@ -160,10 +167,12 @@ en:
     offence_date: Offence date
     offence_details: Offence details
     office_account_number: Office account number
+    other_benefits_details: Other benefits details
     other_capital_details: Other capital
     other_income_details: Other sources of income
     other_names: Other names
     other_outgoings_details: Other outgoings
+    other_payment_details: Other sources of income details
     outgoing_payment_childcare: Childcare payments
     outgoing_payment_maintenance: Maintenance payments to a former partner
     outgoing_payment_legal_aid_contribution: Contributions towards criminal or civil legal aid
@@ -191,7 +200,7 @@ en:
     payments_the_client_gets: Payments the client gets
     payments_the_client_pays: Payments the client pays
     post_submission_evidence: Post submission evidence
-    premium_bonds: Premium Bonds 
+    premium_bonds: Premium Bonds
     premium_bonds_holder_number: Holder number
     premium_bonds_total_value: Total value
     preorder_work_date: When you or your firm were first instructed
@@ -282,8 +291,6 @@ en:
       four_weeks: 4 weeks
       month: month
       annual: year
-    not_provided: Not provided
-    not_asked: Not asked when this application was submitted
     does_not_get: Does not get
     does_not_pay: Does not pay
     already_in_crown_court: Trial already in crown court

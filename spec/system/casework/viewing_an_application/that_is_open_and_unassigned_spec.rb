@@ -77,6 +77,19 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         expect(page).to have_content('Passporting Benefit Universal Credit')
       end
 
+      context 'when the benefit type is jsa' do
+        # rubocop:disable Layout/LineLength
+        let(:application_data) do
+          super().deep_merge('client_details' => { 'applicant' => { 'benefit_type' => 'jsa', 'last_jsa_appointment_date' => 'Fri, 12 Jan 2024' } })
+        end
+        # rubocop:enable Layout/LineLength
+
+        it 'shows the last jsa appointment date' do
+          expect(page).to have_content("Passporting Benefit Income-based Jobseeker's Allowance (JSA)")
+          expect(page).to have_content('Date of latest JSA appointment 12/01/2024')
+        end
+      end
+
       context 'when it was not asked at time of application' do
         let(:application_data) do
           super().deep_merge('client_details' => { 'applicant' => { 'benefit_type' => nil } })

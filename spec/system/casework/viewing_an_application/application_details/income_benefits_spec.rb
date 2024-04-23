@@ -17,7 +17,8 @@ RSpec.describe 'Viewing the income benefits of an application' do
       expect(page).to have_content('Incapacity Benefit Does not get')
       expect(page).to have_content('Industrial Injuries Disablement Benefit Does not get')
       expect(page).to have_content("Contribution-based Jobseeker's Allowance Does not get")
-      expect(page).to have_content('Other benefits (except disregarded benefits) £18.84 every 2 weeks')
+      expect(page).to have_content('Other benefits £18.84 every 2 weeks')
+      expect(page).to have_content('Other benefits details Top up')
     end
     # rubocop:enable RSpec/MultipleExpectations
   end

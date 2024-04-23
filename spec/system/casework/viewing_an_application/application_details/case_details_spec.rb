@@ -16,31 +16,77 @@ RSpec.describe 'When viewing case details' do
       it 'does not show appeal lodged date section' do
         expect(page).not_to have_content('Appeal lodged')
       end
-
-      it 'does not show change details section' do
-        expect(page).not_to have_content('Change of financial circumstances details')
-      end
-
-      it 'does not show previous maat id section' do
-        expect(page).not_to have_content('Previous MAAT ID')
-      end
     end
 
     context 'when case type is an appeal' do
-      context 'when previous MAAT ID is not provided' do
-        it 'shows appeal lodged date' do
-          expect(page).to have_content('Date the appeal was lodged 25/10/2021')
-          expect(page).to have_content('Previous MAAT ID Not provided')
+      it 'shows appeal lodged date' do
+        expect(page).to have_content('Date the appeal was lodged 25/10/2021')
+      end
+
+      context 'when original app submitted is true' do
+        let(:application_data) do
+          super().deep_merge('case_details' => { 'appeal_original_app_submitted' => 'yes' })
+        end
+
+        it 'shows the original app submitted question' do
+          expect(page).to have_content('Legal aid application for original case? Yes')
+        end
+
+        it 'shows the changes to financial circumstances question' do
+          expect(page).to have_content('Changes to financial circumstances since original application?')
         end
       end
 
-      context 'when previous MAAT ID is provided' do
+      context 'when original app submitted is false' do
         let(:application_data) do
-          super().deep_merge('case_details' => { 'appeal_maat_id' => '123456' })
+          super().deep_merge('case_details' => { 'appeal_original_app_submitted' => 'no' })
         end
 
-        it 'shows previous maat id' do
-          expect(page).to have_content('Previous MAAT ID 123456')
+        it 'shows the original app submitted question' do
+          expect(page).to have_content('Legal aid application for original case? No')
+        end
+
+        it 'does not show changes to financial circumstances question' do
+          expect(page).not_to have_content('Changes to financial circumstances')
+        end
+
+        it 'does not show MAAT ID or USN' do
+          expect(page).not_to have_content('Original application MAAT ID')
+          expect(page).not_to have_content('Original application USN')
+        end
+      end
+
+      context 'when there are no changes in financial circumstances and MAAT ID is provided' do
+        let(:application_data) do
+          super().deep_merge('case_details' => { 'appeal_original_app_submitted' => 'yes',
+                                                 'appeal_financial_circumstances_changed' => 'no',
+                                                 'appeal_maat_id' => '123456' })
+        end
+
+        it 'shows changes to financial circumstances question' do
+          expect(page).to have_content('Changes to financial circumstances since original application? No')
+        end
+
+        it 'displays the MAAT ID' do
+          expect(page).to have_content('Original application MAAT ID 123456')
+          expect(page).not_to have_content('Original application USN')
+        end
+      end
+
+      context 'when there are no changes in financial circumstances and USN is provided' do
+        let(:application_data) do
+          super().deep_merge('case_details' => { 'appeal_original_app_submitted' => 'yes',
+                                                 'appeal_financial_circumstances_changed' => 'no',
+                                                 'appeal_usn' => '654321' })
+        end
+
+        it 'shows changes to financial circumstances question' do
+          expect(page).to have_content('Changes to financial circumstances since original application? No')
+        end
+
+        it 'displays the USN' do
+          expect(page).not_to have_content('Original application MAAT ID')
+          expect(page).to have_content('Original application USN 654321')
         end
       end
     end
@@ -48,6 +94,8 @@ RSpec.describe 'When viewing case details' do
     context 'when case type is an appeal with changes to financial circumstances' do
       let(:application_data) do
         super().deep_merge('case_details' => { 'case_type' => 'appeal_to_crown_court_with_changes',
+                                               'appeal_original_app_submitted' => 'yes',
+                                               'appeal_financial_circumstances_changed' => 'yes',
                                                'appeal_with_changes_details' => 'Some details' })
       end
 
@@ -55,12 +103,17 @@ RSpec.describe 'When viewing case details' do
         expect(page).to have_content('Date the appeal was lodged 25/10/2021')
       end
 
+      it 'shows changes to financial circumstances question' do
+        expect(page).to have_content('Changes to financial circumstances since original application? Yes')
+      end
+
       it 'shows changes to details' do
         expect(page).to have_content('Changes in the client’s financial circumstances Some details')
       end
 
-      it 'does not show previous maat id section' do
-        expect(page).not_to have_content('Previous MAAT ID')
+      it 'does not show MAAT ID or USN' do
+        expect(page).not_to have_content('Original application MAAT ID')
+        expect(page).not_to have_content('Original application USN')
       end
     end
 
