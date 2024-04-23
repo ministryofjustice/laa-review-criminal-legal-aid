@@ -33,7 +33,7 @@ RSpec.describe 'Viewing the income payments of an application' do
     let(:application_data) do
       super().deep_merge(
         'means_details' => {
-          'income_details' => { 'income_payments' => [] }
+          'income_details' => { 'income_payments' => [], 'has_no_income_payments' => 'yes' }
         }
       )
     end
