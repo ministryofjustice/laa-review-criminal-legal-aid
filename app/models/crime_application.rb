@@ -155,6 +155,11 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
     application_type == Types::ApplicationType['post_submission_evidence']
   end
 
+  def appeal_no_changes?
+    case_details&.case_type == Types::CaseType['appeal_to_crown_court'] &&
+      case_details&.appeal_reference_number.present?
+  end
+
   def last_jsa_appointment_date?
     client_details.applicant.benefit_type == 'jsa' && client_details.applicant.last_jsa_appointment_date.present?
   end
