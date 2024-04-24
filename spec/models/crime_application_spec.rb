@@ -316,4 +316,24 @@ RSpec.describe CrimeApplication do
       it { is_expected.to be false }
     end
   end
+
+  describe '#relevant_ioj_passport' do
+    subject(:relevant_ioj_passport) { application.relevant_ioj_passport }
+
+    let(:attributes) do
+      super().merge('ioj_passport' => ioj_passport)
+    end
+
+    context 'when on offence and age' do
+      let(:ioj_passport) { %w[on_age_under18 on_offence] }
+
+      it { is_expected.to eq 'on_age_under18' }
+    end
+
+    context 'when on offence' do
+      let(:ioj_passport) { ['on_offence'] }
+
+      it { is_expected.to eq 'on_offence' }
+    end
+  end
 end

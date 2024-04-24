@@ -11,10 +11,4 @@ class PropertiesPresenter < BasePresenter
     commercial: { display_name: 'property' },
     land: { display_name: 'land' }
   }.freeze
-
-  def initialize(properties)
-    super(
-      @properties = properties.sort_by { |d| d[:property_type] }
-    )
-  end
 end
