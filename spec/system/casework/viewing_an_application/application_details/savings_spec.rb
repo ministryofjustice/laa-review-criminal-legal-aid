@@ -40,4 +40,23 @@ RSpec.describe 'Viewing the savings of an application' do
       end
     end
   end
+
+  context 'when client does not have savings' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'case_type' => 'either_way' },
+                         'means_details' => { 'capital_details' => { 'savings' => [], 'has_no_savings' => 'yes' } })
+    end
+
+    describe 'a no savings card' do
+      subject(:saving_card) do
+        page.first('h2.govuk-summary-card__title', text: 'Savings').ancestor('div.govuk-summary-card')
+      end
+
+      it 'shows absent answer savings details' do
+        within(saving_card) do |card|
+          expect(card).to have_summary_row 'Which savings does the client have inside or outside the UK?', 'None'
+        end
+      end
+    end
+  end
 end

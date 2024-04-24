@@ -1,10 +1,19 @@
-<% if income_benefits %>
+<% if income_details.present? %>
   <h2 class="govuk-heading-m">
     <%= label_text(:benefits_the_client_gets) %>
   </h2>
 
   <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <% if income_benefits.any? %>
+    <% if income_details.has_no_income_benefits == 'yes' %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:which_benefits_does_the_client_get) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t('values.none') %>
+        </dd>
+      </div>
+    <% elsif income_benefits.any? %>
       <% income_benefits.each do |benefit_type, value| %>
         <%= render partial: 'payment_with_frequency',
                    locals: {
@@ -23,15 +32,6 @@
           </div>
         <% end %>
       <% end %>
-    <% else %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:which_benefits_does_the_client_get) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t('values.none') %>
-        </dd>
-      </div>
     <% end %>
   </dl>
 <% end %>

@@ -48,4 +48,25 @@ RSpec.describe 'Viewing the properties of an application' do
       end
     end
   end
+
+  context 'when client does not have properties' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'case_type' => 'either_way' },
+                         'means_details' => { 'capital_details' => { 'properties' => [],
+'has_no_properties' => 'yes' } })
+    end
+
+    describe 'an no assets card' do
+      subject(:property_card) do
+        page.find('h2.govuk-summary-card__title', text: 'Assets').ancestor('div.govuk-summary-card')
+      end
+
+      it 'shows absent answer assets details' do
+        within(property_card) do |card|
+          expect(card).to have_summary_row 'Which assets does the client own or part-own inside or outside the UK?',
+                                           'None'
+        end
+      end
+    end
+  end
 end

@@ -1,7 +1,16 @@
-<% unless investments.empty? %>
+<% if capital_details.has_no_investments == 'yes'  %>
+  <%= govuk_summary_card(title: label_text(:investments)) do %>
+    <%= govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { label_text(:which_investments_does_client_have) }
+            row.with_value { value_text('none') }
+          end
+        end %>
+  <% end %>
+<% elsif capital_details.investments.present? %>
   <h2 class="govuk-heading-m"><%= label_text(:investments) %></h2>
 
-  <% investments.group_by(&:investment_type).each do |item_type, group| %>
+  <% capital_details.investments.group_by(&:investment_type).each do |item_type, group| %>
     <%= app_card_list(items: group, item_name: label_text("investment_type.#{item_type}")) do |card|
           govuk_summary_list(actions: false) do |list|
             list.with_row do |row|

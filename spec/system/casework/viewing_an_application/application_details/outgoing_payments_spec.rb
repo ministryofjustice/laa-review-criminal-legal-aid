@@ -24,7 +24,7 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
     let(:application_data) do
       super().deep_merge(
         'means_details' => {
-          'outgoings_details' => { 'outgoings' => [] }
+          'outgoings_details' => { 'outgoings' => [], 'has_no_other_outgoings' => 'yes' }
         }
       )
     end

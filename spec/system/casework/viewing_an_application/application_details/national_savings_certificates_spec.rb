@@ -40,4 +40,25 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
       end
     end
   end
+
+  context 'when client does not have national savings certificates' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'case_type' => 'either_way' },
+                         'means_details' => { 'capital_details' => { 'national_savings_certificates' => [],
+                                                                     'has_national_savings_certificates' => 'no' } })
+    end
+
+    describe 'a no national savings certificates card' do
+      subject(:certificates_card) do
+        page.find('h2.govuk-summary-card__title',
+                  text: 'National Savings Certificates').ancestor('div.govuk-summary-card')
+      end
+
+      it 'shows absent answer national savings certificates details' do
+        within(certificates_card) do |card|
+          expect(card).to have_summary_row 'Does the client have any National Savings Certificates?', 'None'
+        end
+      end
+    end
+  end
 end
