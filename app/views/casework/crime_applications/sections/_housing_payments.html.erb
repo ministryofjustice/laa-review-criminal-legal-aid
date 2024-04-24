@@ -1,4 +1,4 @@
-<% return if outgoings_details.blank? %>
+<% return unless outgoings_details.housing_payment_type.present? %>
 
 <h2 class="govuk-heading-m">
   <%= label_text(:housing_payments) %>

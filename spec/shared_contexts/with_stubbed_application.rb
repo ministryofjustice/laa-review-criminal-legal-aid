@@ -1,6 +1,12 @@
 RSpec.shared_context 'with stubbed application' do
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
+  let(:income_details) { {} }
+  let(:outgoings_details) { {} }
+  let(:capital_details) { {} }
+  let(:means_details) { { income_details:, outgoings_details:, capital_details: } }
+  let(:application_data) do
+    JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge('means_details' => means_details.deep_stringify_keys)
+  end
 
   before do
     stub_request(

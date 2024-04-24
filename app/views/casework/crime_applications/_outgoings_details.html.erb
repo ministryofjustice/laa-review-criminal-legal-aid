@@ -1,3 +1,17 @@
-<%= render partial: 'casework/crime_applications/sections/housing_payments', locals: { outgoings_details: crime_application.outgoings_details } %>
-<%= render partial: 'casework/crime_applications/sections/outgoing_payments', locals: { outgoings_details: crime_application.outgoings_details, outgoing_payments: crime_application.outgoing_payments.formatted_outgoing_payments } %>
-<%= render partial: 'casework/crime_applications/sections/other_outgoings_details', locals: { outgoings_details: crime_application.outgoings_details } %>
+<%= render(
+      partial: 'casework/crime_applications/sections/housing_payments',
+      locals: { outgoings_details: crime_application.outgoings_details }
+    ) %>
+
+<%= render(
+      partial: 'casework/crime_applications/sections/outgoing_payments',
+      locals: {
+        details: crime_application.outgoings_details,
+        payments: crime_application.outgoing_payments.formatted_outgoing_payments
+      }
+    ) %>
+
+<%= render(
+      partial: 'casework/crime_applications/sections/other_outgoings_details',
+      locals: { details: crime_application.outgoings_details }
+    ) %>
