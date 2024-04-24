@@ -1,4 +1,4 @@
-<% if dependants %>
+<% if income_details.client_has_dependants.present? %>
   <h2 class="govuk-heading-m">
     <%= label_text(:dependants) %>
   </h2>
@@ -22,7 +22,7 @@
           <%= label_text(:has_dependants) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(false, scope: 'values') %>
+          <%= t(income_details.client_has_dependants, scope: 'values') %>
         </dd>
       </div>
     </dl>
