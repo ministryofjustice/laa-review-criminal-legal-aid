@@ -23,6 +23,18 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     means_passport.include?(Types::MeansPassportType['on_age_under18'])
   end
 
+  def means_passported_on_benefit_check?
+    means_passport.include?(Types::MeansPassportType['on_benefit_check'])
+  end
+
+  def passport_on_evidence?
+    # TODO: Use evidence rules to determine this response
+
+    [nil, 'none'].exclude?(client_details.applicant.benefit_type) &&
+      means_passport.empty? &&
+      supporting_evidence.any?
+  end
+
   def not_means_tested?
     means_passport.include?(Types::MeansPassportType['on_not_means_tested'])
   end

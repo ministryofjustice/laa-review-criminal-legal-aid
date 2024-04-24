@@ -15,13 +15,19 @@
   <% unless overview.pse? %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= label_text(:means_tested) %>
+        <%= label_text(:means_assessment) %>
       </dt>
       <dd class="govuk-summary-list__value">
         <% if overview.not_means_tested? %>
           <%= t('no', scope: 'values') %>
-        <% elsif overview.means_passported? %>
-          <%= govuk_tag(text: t(:passported, scope: 'values'), colour: 'blue') %>
+        <% elsif overview.means_passported_on_age? %>
+          <%= govuk_tag(text: t(:under_18, scope: 'values'), colour: 'blue') %>
+        <% elsif overview.means_passported_on_benefit_check? %>
+          <%= govuk_tag(text: t(:passported_on_benefit_check, scope: 'values'), colour: 'blue') %>
+        <% elsif overview.passport_on_evidence? %>
+          <%= govuk_tag(text: t(:passport_on_evidence, scope: 'values'), colour: 'red') %>
+        <% elsif overview.appeal_no_changes? %>
+          <%= t('appeal_no_changes', scope: 'values') %>
         <%# TODO: This needs product/content design sign off %>
         <% elsif !overview.not_means_tested? && ['none', nil].include?(overview.applicant.benefit_type) %>
           <%= t('yes', scope: 'values') %>
