@@ -1,4 +1,4 @@
-<% if crime_application.supporting_evidence.present? %>
+<% if crime_application.evidence_details.show? || crime_application.supporting_evidence.present? %>
   <h2 class="govuk-heading-m">
     <% if crime_application.pse? %>
       <%= label_text(:post_submission_evidence) %>
@@ -6,7 +6,35 @@
       <%= label_text(:supporting_evidence) %>
     <% end %>
   </h2>
+<% end %>
 
+<% if crime_application.evidence_details.show? %>
+  <h2
+    class="govuk-heading-s govuk-!-margin-bottom-7"
+    data-evidence-last-run-at="<%= crime_application.evidence_details.last_run_at %>">
+      <%= label_text(:evidence_asked_for) %>:
+  </h2>
+<% end %>
+
+<!-- Client & Partner evidence -->
+<% [:client, :partner].each do |persona| %>
+  <% [:income, :outgoings, :capital].each do |group| %>
+    <%= render partial: 'prompt', locals: {
+          rules: crime_application.evidence_details.rules_for(group:, persona:),
+          persona: persona,
+          title: label_text("evidence_#{persona}_#{group}")
+        } %>
+  <% end %>
+<% end %>
+
+<!-- Other evidence -->
+<%= render partial: 'prompt', locals: {
+      rules: crime_application.evidence_details.rules_for(group: :none, persona: :other),
+      persona: :other,
+      title: label_text(:evidence_other)
+    } %>
+
+<% if crime_application.supporting_evidence.present? %>
   <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">

@@ -108,12 +108,26 @@ en:
     employment_type: Client's employment status
     end_on: Date to
     ended_employment_within_three_months: Have they ended employment in the last 3 months?
+    evidence_asked_for: We asked the provider to upload
+    evidence_client_income: Evidence of their client's income
+    evidence_client_outgoings: Evidence of their client's outgoings
+    evidence_client_capital: Evidence of their client's capital
+    evidence_partner_income: Evidence of the partners's income
+    evidence_partner_outgoings: Evidence of the partner's outgoings
+    evidence_partner_capital: Evidence of the partner's capital
+    evidence_other: Other evidence
     extradition: Extradition
-    file_name: File name
+    file_name: Files
     financial_change_details: Changes in the client’s financial circumstances
     first_court_hearing: First court hearing the case
     first_name: First name
     has_case_concluded: Has the case concluded?
+    further_information: Further information
+    further_information_any: Any additional information?
+    further_information_details: Details
+    further_information_present:
+      'true': Yes
+      'false': No
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
     has_no_other_assets: Client has no other assets or capital
@@ -212,7 +226,7 @@ en:
     return_reason_details: We'll share this information with the provider
     return_reason_details_legend: Give further details
     saving_account_balance: Account balance
-    saving_account_holder: Name the account is in 
+    saving_account_holder: Name the account is in
     saving_account_number: Account number
     saving_provider_name: Name of bank, building society or other holder of the savings
     saving_sort_code: Sort code or branch name
