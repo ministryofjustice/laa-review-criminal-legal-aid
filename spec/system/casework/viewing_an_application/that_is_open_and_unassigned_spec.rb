@@ -54,19 +54,60 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         .sibling('.govuk-summary-list__value')
     end
 
-    context 'when the application is means passported' do
+    context 'when the application has a means passport' do
       it 'shows the blue passported badge' do
         expect(means_assessment_badge).to have_content('Passported')
         expect(means_assessment_badge).to have_css('.govuk-tag--blue')
       end
     end
 
-    context 'when the application is not means passported' do
-      let(:application_data) { super().merge('means_passport' => []) }
+    context 'when the application has no means passport' do
+      context 'when the application has a benefit_type and evidence' do
+        let(:application_data) { super().merge('means_passport' => []) }
 
-      it 'shows the red undetermined badge' do
-        expect(means_assessment_badge).to have_content('Undetermined')
-        expect(means_assessment_badge).to have_css('.govuk-tag--red')
+        it 'shows the red passport on evidence badge' do
+          expect(means_assessment_badge).to have_content('Passport on evidence')
+          expect(means_assessment_badge).to have_css('.govuk-tag--red')
+        end
+      end
+
+      context 'when the application has a benefit_type and no evidence' do
+        let(:application_data) { super().merge('means_passport' => [], 'supporting_evidence' => []) }
+
+        it 'shows the red undetermined badge' do
+          expect(means_assessment_badge).to have_content('Undetermined')
+          expect(means_assessment_badge).to have_css('.govuk-tag--red')
+        end
+      end
+
+      context 'when the application has no benefit_type and is not an appeal no changes case type' do
+        let(:application_data) do
+          super().deep_merge(
+            'means_passport' => [],
+            'supporting_evidence' => [],
+            'client_details' => { 'applicant' => { 'benefit_type' => nil } },
+            'case_details' => { 'case_type' => 'appeal_to_crown_court', 'appeal_reference_number' => 'appeal_maat_id' }
+          )
+        end
+
+        it 'shows the red undetermined badge' do
+          expect(page).to have_content('Means assessment Appeal to Crown Ct - no CIFC')
+        end
+      end
+
+      context 'when the application has no benefit type and is means assessed' do
+        let(:application_data) do
+          super().deep_merge(
+            'means_passport' => [],
+            'supporting_evidence' => [],
+            'client_details' => { 'applicant' => { 'benefit_type' => 'none' } },
+            'case_details' => { 'case_type' => 'summary_only' }
+          )
+        end
+
+        it 'shows the red undetermined badge' do
+          expect(page).to have_content('Means assessment Yes')
+        end
       end
     end
   end
