@@ -209,7 +209,7 @@ en:
     provider_details: Provider details
     provider_email: Email address
     provider_phone_number: Phone
-    relationship_to_someone_else: Relationship to client
+    relationship_to_owner_of_usual_home_address: Relationship to client
     residence_type: Where the client lives
     return_reason_details: We'll share this information with the provider
     return_reason_details_legend: Give further details

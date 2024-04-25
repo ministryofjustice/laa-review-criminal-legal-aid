@@ -65,10 +65,10 @@
         <% if applicant.residence_type == 'someone_else' %>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              <%= label_text(:relationship_to_someone_else) %>
+              <%= label_text(:relationship_to_owner_of_usual_home_address) %>
             </dt>
             <dd class="govuk-summary-list__value">
-              <%= applicant.relationship_to_someone_else %>
+              <%= applicant.relationship_to_owner_of_usual_home_address %>
             </dd>
           </div>
         <% end %>

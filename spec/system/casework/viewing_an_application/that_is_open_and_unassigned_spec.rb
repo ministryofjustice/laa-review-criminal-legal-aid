@@ -420,7 +420,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     context 'when the application has a residence type' do
       let(:application_data) do
         super().deep_merge('client_details' => { 'applicant' => { 'residence_type' => 'rented',
-                                                                  'relationship_to_someone_else' => nil } })
+                                                                  'relationship_to_owner_of_usual_home_address' => nil } })
       end
 
       it 'shows the benefit type' do
@@ -430,7 +430,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       context 'when the residence type is someone else' do
         let(:application_data) do
           super().deep_merge('client_details' => { 'applicant' => { 'residence_type' => 'someone_else',
-                                                                    'relationship_to_someone_else' => 'Friend' } })
+                                                                    'relationship_to_owner_of_usual_home_address' => 'Friend' } })
         end
 
         it 'shows the relationship to client' do
@@ -442,7 +442,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       context 'when it was not asked at time of application' do
         let(:application_data) do
           super().deep_merge('client_details' => { 'applicant' => { 'residence_type' => nil,
-                                                                    'relationship_to_someone_else' => nil } })
+                                                                    'relationship_to_owner_of_usual_home_address' => nil } })
         end
 
         it 'does not display' do
