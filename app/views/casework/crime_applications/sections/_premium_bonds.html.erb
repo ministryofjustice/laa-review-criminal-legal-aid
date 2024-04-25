@@ -1,8 +1,4 @@
 <% unless details.has_premium_bonds.nil? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:premium_bonds) %>
-  </h2>
-
   <%= govuk_summary_card(title: label_text(:premium_bonds)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|

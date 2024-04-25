@@ -8,6 +8,8 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
   end
 
   context 'with outgoing payment details' do
+    let(:outgoings_details) { { has_no_other_outgoings: nil } }
+
     it { expect(page).to have_content('Payments the client pays') }
 
     # rubocop:disable RSpec/MultipleExpectations
@@ -21,13 +23,7 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
   end
 
   context 'with no outgoing payments details' do
-    let(:application_data) do
-      super().deep_merge(
-        'means_details' => {
-          'outgoings_details' => { 'outgoings' => [], 'has_no_other_outgoings' => 'yes' }
-        }
-      )
-    end
+    let(:outgoings_details) { { outgoings: [], has_no_other_outgoings: 'yes' } }
 
     it 'shows outgoing payment details' do
       expect(page).to have_content('Which payments does the client pay? None')

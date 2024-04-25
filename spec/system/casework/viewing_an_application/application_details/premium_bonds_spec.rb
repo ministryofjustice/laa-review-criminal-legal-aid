@@ -13,10 +13,6 @@ RSpec.describe 'Viewing the Premium Bond details' do
       super().deep_merge('means_details' => means_details)
     end
 
-    it 'shows the Premium Bonds heading' do
-      expect(page).to have_css('h2.govuk-heading-m', text: 'Premium Bonds')
-    end
-
     it 'shows the Premium Bonds card' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Premium Bonds')
     end
@@ -41,10 +37,6 @@ RSpec.describe 'Viewing the Premium Bond details' do
 
     let(:application_data) do
       super().deep_merge('means_details' => means_details)
-    end
-
-    it 'shows the Premium Bonds heading' do
-      expect(page).to have_css('h2.govuk-heading-m', text: 'Premium Bonds')
     end
 
     it 'shows the Premium Bonds card' do
