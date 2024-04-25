@@ -424,7 +424,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
                                                 'relationship_to_owner_of_usual_home_address' => nil } })
       end
 
-      it 'shows the benefit type' do
+      it 'shows the residence type' do
         expect(page).to have_content('Where the client lives In rented accommodation')
       end
 
