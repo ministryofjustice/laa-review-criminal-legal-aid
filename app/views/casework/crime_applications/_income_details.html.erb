@@ -1,6 +1,16 @@
+<% return if crime_application.means_details.income_details.blank? %>
+
 <%= render partial: 'casework/crime_applications/sections/employment', locals: { income_details: crime_application.means_details.income_details } %>
 <%= render partial: 'casework/crime_applications/sections/income', locals: { income_details: crime_application.means_details.income_details } %>
 <%= render partial: 'casework/crime_applications/sections/income_payments', locals: { income_details: crime_application.means_details.income_details, income_payments: crime_application.income_payments.formatted_income_payments } %>
 <%= render partial: 'casework/crime_applications/sections/income_benefits', locals: { income_details: crime_application.means_details.income_details, income_benefits: crime_application.income_benefits.formatted_income_benefits } %>
-<%= render partial: 'casework/crime_applications/sections/dependants', locals: { dependants: crime_application.dependants.formatted_dependants } %>
+
+<%= render(
+      partial: 'casework/crime_applications/sections/dependants',
+      locals: {
+        dependants: crime_application.dependants.formatted_dependants,
+        income_details: crime_application.means_details.income_details
+      }
+    ) %>
+
 <%= render partial: 'casework/crime_applications/sections/other_income_details', locals: { income_details: crime_application.means_details.income_details } %>
