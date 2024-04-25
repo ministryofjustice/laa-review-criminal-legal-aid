@@ -19,8 +19,9 @@ RSpec.describe 'Viewing an applications address details' do
 
     context 'when home address question was not asked' do
       let(:application_data) do
-        super().deep_merge('client_details' => { 'applicant' => { 'residence_type' => 'none',
-                                                                  'relationship_to_owner_of_usual_home_address' => nil } })
+        super().deep_merge('client_details' =>
+                             { 'applicant' => { 'residence_type' => 'none',
+                                                'relationship_to_owner_of_usual_home_address' => nil } })
       end
 
       it 'does not show the home address' do
