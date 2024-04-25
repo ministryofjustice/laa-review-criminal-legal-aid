@@ -20,5 +20,5 @@
 <% end %>
 
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
-
+<%= render partial: 'further_information', locals: { crime_application: } %>
 <%= render partial: 'provider_details', object: crime_application.provider_details %>

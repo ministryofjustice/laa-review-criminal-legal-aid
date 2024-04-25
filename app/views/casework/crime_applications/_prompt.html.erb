@@ -1,0 +1,17 @@
+<% return if rules.blank? || rules.empty? %>
+
+<h3 class="govuk-heading-s"><%= title %>:</h3>
+
+<ul class="govuk-body" data-evidence-ruleset="<%= rules.filter_map(&:ruleset).join(',') %>">
+  <% rules.each do |rule| %>
+    <% next unless rule.run.respond_to?(persona) %>
+
+    <% rule.run.send(persona)&.prompt&.each do |sentence| %>
+      <li
+        data-evidence-rule-id="<%= rule.id %>"
+        data-evidence-rule-key="<%= rule.key %>">
+          <%= sentence %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

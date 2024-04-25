@@ -1,6 +1,6 @@
 require 'laa_crime_schemas'
 
-class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:disable Metrics/ClassLength
+class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:disable Metrics/ClassLength
   include Assignable
   include Reviewable
 
@@ -72,9 +72,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
   class << self
     def find(id)
       application = new(
-        DatastoreApi::Requests::GetApplication.new(
-          application_id: id
-        ).call
+        DatastoreApi::Requests::GetApplication.new(application_id: id).call
       )
 
       # Receive the application if it has not yet been received.
@@ -158,5 +156,17 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication  # rubocop:d
 
   def last_jsa_appointment_date?
     client_details.applicant.benefit_type == 'jsa' && client_details.applicant.last_jsa_appointment_date.present?
+  end
+
+  # TODO: ensure evidence_details always has a struct for PSE view?
+  def evidence_details
+    struct =
+      if attributes[:evidence_details].blank?
+        LaaCrimeSchemas::Structs::EvidenceDetails.new
+      else
+        self[:evidence_details]
+      end
+
+    @evidence_details ||= EvidenceDetailsPresenter.present(struct)
   end
 end
