@@ -1,4 +1,4 @@
-<% if income_details.client_has_dependants.present? %>
+<% if income_details&.client_has_dependants.present? %>
   <h2 class="govuk-heading-m">
     <%= label_text(:dependants) %>
   </h2>

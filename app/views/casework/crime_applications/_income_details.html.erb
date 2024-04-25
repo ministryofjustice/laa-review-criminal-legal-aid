@@ -1,3 +1,5 @@
+<% return if crime_application.means_details.income_details.blank? %>
+
 <%= render partial: 'casework/crime_applications/sections/employment', locals: { income_details: crime_application.means_details.income_details } %>
 <%= render partial: 'casework/crime_applications/sections/income', locals: { income_details: crime_application.means_details.income_details } %>
 <%= render partial: 'casework/crime_applications/sections/income_payments', locals: { income_details: crime_application.means_details.income_details, income_payments: crime_application.income_payments.formatted_income_payments } %>
