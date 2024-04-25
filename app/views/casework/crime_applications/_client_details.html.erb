@@ -53,18 +53,40 @@
           <%= applicant_tel.presence || t(:not_provided, scope: 'values') %>
         </dd>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:home_address) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if applicant.home_address %>
-            <%= render 'address', address: applicant.home_address %>
-          <% else %>
-            <%= t(:no_home_address, scope: 'values') %>
-          <% end %>
-        </dd>
-      </div>
+      <% if applicant.residence_type.present? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:residence_type) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(applicant.residence_type, scope: 'values.residence_type') %>
+          </dd>
+        </div>
+        <% if applicant.residence_type == 'someone_else' %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:relationship_to_owner_of_usual_home_address) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= applicant.relationship_to_owner_of_usual_home_address %>
+            </dd>
+          </div>
+        <% end %>
+      <% end %>
+      <% if applicant.residence_type != 'none' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:home_address) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if applicant.home_address %>
+              <%= render 'address', address: applicant.home_address %>
+            <% else %>
+              <%= t(:no_home_address, scope: 'values') %>
+            <% end %>
+          </dd>
+        </div>
+      <% end %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= label_text(:correspondence_address) %>

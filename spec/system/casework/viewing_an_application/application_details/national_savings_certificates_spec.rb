@@ -30,7 +30,7 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
         ).ancestor('div.govuk-summary-card')
       end
 
-      it 'shows Iational Savings Certificates details' do # rubocop:disable RSpec/MultipleExpectations
+      it 'shows National Savings Certificates details' do # rubocop:disable RSpec/MultipleExpectations
         within(certificate_card) do |card|
           expect(card).to have_summary_row 'What is the customer number or holder number?', 'A123'
           expect(card).to have_summary_row 'What is the certificate number?', 'B456'
