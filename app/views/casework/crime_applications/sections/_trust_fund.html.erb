@@ -18,7 +18,7 @@
           <%= label_text(:trust_fund_amount_held) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= number_to_currency(capital_details.trust_fund_amount_held / 100, unit: '£', separator: '.', delimiter: ',') %>
+          <%= number_to_currency(capital_details.trust_fund_amount_held * 0.01) %>
         </dd>
       </div>
 
@@ -27,7 +27,7 @@
           <%= label_text(:trust_fund_yearly_dividend) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= number_to_currency(capital_details.trust_fund_yearly_dividend / 100, unit: '£', separator: '.', delimiter: ',') %>
+          <%= number_to_currency(capital_details.trust_fund_yearly_dividend * 0.01) %>
         </dd>
       </div>
     <% end %>

@@ -1,4 +1,4 @@
-<% if income_details.present? %>
+<% if income_details.has_no_income_payments == 'yes' ||  income_payments.present? %>
   <h2 class="govuk-heading-m">
     <%= label_text(:payments_the_client_gets) %>
   </h2>

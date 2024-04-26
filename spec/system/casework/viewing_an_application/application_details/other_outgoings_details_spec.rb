@@ -1,45 +1,75 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing the other outgoings details of an application' do
-  include_context 'with stubbed application'
-
-  before do
-    visit crime_application_path(application_id)
-  end
-
-  context 'with employment details' do
-    it { expect(page).to have_content('Other outgoings') }
-
-    it 'shows whether income rate across threshold' do
-      expect(page).to have_content("Client's employment status Not working")
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  include_context 'with stubbed application' do
+    before do
+      visit crime_application_path(application_id)
     end
 
-    it 'shows if outgoings is more than income and how they manage' do
-      expect(page).to have_content("Are client's outgoings more than their income? Yes")
-      how_manage_question = 'How does client manage if their outgoings are more than their income?'
-      expect(page).to have_content("#{how_manage_question}\nA description of how they manage")
+    let(:outgoings_details) { { income_tax_rate_above_threshold:, outgoings_more_than_income:, how_manage: } }
+
+    let(:title_text) { 'Other outgoings' }
+    let(:income_tax_rate_above_threshold) { nil }
+    let(:outgoings_more_than_income) { nil }
+    let(:how_manage) { 'Use savings' }
+
+    context 'when there are no answers' do
+      it { expect(page).not_to have_content(title_text) }
     end
 
-    context 'when job was not lost in custody' do
-      let(:application_data) do
-        super().deep_merge('means_details' => { 'outgoings_details' => { 'outgoings_more_than_income' => 'no',
-                                                                      'how_manage' => nil } })
+    describe 'income tax threshold question' do
+      let(:question) { 'In the last 2 years, has client paid the 40% income tax rate?' }
+
+      context 'when not answered' do
+        let(:income_tax_rate_above_threshold) { nil }
+
+        it { expect(page).not_to have_content(title_text) }
+        it { expect(page).not_to have_content(question) }
       end
 
-      it 'does not show how they manage details' do
-        expect(page).to have_content("Are client's outgoings more than their income? No")
-        expect(page).not_to have_content('How does client manage if their outgoings are more than their income?')
+      context 'when yes' do
+        let(:income_tax_rate_above_threshold) { 'yes' }
+
+        it { expect(page).to have_content(title_text) }
+        it { expect(page).to have_summary_row(question, 'Yes') }
+      end
+
+      context 'when no' do
+        let(:income_tax_rate_above_threshold) { 'no' }
+
+        it { expect(page).to have_content(title_text) }
+        it { expect(page).to have_summary_row(question, 'No') }
+      end
+    end
+
+    describe 'outgoings more then income question' do
+      let(:question) { "Are client's outgoings more than their income?" }
+      let(:how_manage_question) { 'How does client manage if their outgoings are more than their income?' }
+
+      context 'when not answered' do
+        let(:outgoings_more_than_income) { nil }
+
+        it { expect(page).not_to have_content(title_text) }
+        it { expect(page).not_to have_content(question) }
+      end
+
+      context 'when yes' do
+        let(:outgoings_more_than_income) { 'yes' }
+
+        it { expect(page).to have_content(title_text) }
+        it { expect(page).to have_summary_row(question, 'Yes') }
+        it { expect(page).to have_summary_row(how_manage_question, 'Use savings') }
+      end
+
+      context 'when no' do
+        let(:outgoings_more_than_income) { 'no' }
+
+        it { expect(page).to have_content(title_text) }
+        it { expect(page).to have_summary_row(question, 'No') }
+        it { expect(page).not_to have_content(how_manage_question) }
       end
     end
   end
-
-  context 'with no income details' do
-    let(:application_data) do
-      super().deep_merge('means_details' => nil)
-    end
-
-    it 'does not show income section' do
-      expect(page).not_to have_content('Employment')
-    end
-  end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end
