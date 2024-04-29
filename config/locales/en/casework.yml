@@ -112,9 +112,11 @@ en:
     evidence_client_income: Evidence of their client's income
     evidence_client_outgoings: Evidence of their client's outgoings
     evidence_client_capital: Evidence of their client's capital
+    evidence_client_none: Other evidence of your client's income, outgoings or capital
     evidence_partner_income: Evidence of the partners's income
     evidence_partner_outgoings: Evidence of the partner's outgoings
     evidence_partner_capital: Evidence of the partner's capital
+    evidence_partner_none: Other evidence of the partner's income, outgoings or capital
     evidence_other: Other evidence
     extradition: Extradition
     file_name: Files

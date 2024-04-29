@@ -18,7 +18,7 @@
 
 <!-- Client & Partner evidence -->
 <% [:client, :partner].each do |persona| %>
-  <% [:income, :outgoings, :capital].each do |group| %>
+  <% [:income, :outgoings, :capital, :none].each do |group| %>
     <%= render partial: 'prompt', locals: {
           rules: crime_application.evidence_details.rules_for(group:, persona:),
           persona: persona,
