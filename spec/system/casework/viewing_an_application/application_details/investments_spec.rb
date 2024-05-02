@@ -14,10 +14,6 @@ RSpec.describe 'Viewing the investments of an application' do
       super().deep_merge('means_details' => means_details)
     end
 
-    it 'shows the investments section' do
-      expect(page).to have_css('h2.govuk-heading-m', text: 'Investments')
-    end
-
     it 'shows the investments with correct title' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Unit trust')
     end

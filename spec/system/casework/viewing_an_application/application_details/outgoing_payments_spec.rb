@@ -10,7 +10,7 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
   context 'with outgoing payment details' do
     let(:outgoings_details) { { has_no_other_outgoings: nil } }
 
-    it { expect(page).to have_content('Payments the client pays') }
+    it { expect(page).to have_content('Payments your client makes') }
 
     # rubocop:disable RSpec/MultipleExpectations
     it 'shows outgoing payments details' do

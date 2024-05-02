@@ -1,46 +1,27 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:codefendants) %>
-</h2>
 <% if codefendants.any? %>
-  <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
-    <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header govuk-!-width-three-quarters">
-          <%= label_text('name') %>
-        </th>
-        <th scope="col" class="govuk-table__header">
-        </th>
-      </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      <% codefendants.each do |codefendant| %>
-        <tr class="govuk-table__row">
-          <td scope="row" class="govuk-table__cell">
-            <%= codefendant.first_name %>
-            <%= codefendant.last_name %>
-            <% if codefendant.conflict_of_interest.present? %>
-              <span class='govuk-caption-m'>
-                <%= t(codefendant.conflict_of_interest, scope: 'values.conflict_of_interest') %>
-              </span>
-            <% end %>
-          </td>
-          <td class="govuk-table__cell govuk-!-text-align-right">
-            <% if codefendant.conflict_of_interest == 'no' %>
-              <%= govuk_tag(text: t('values.conflict_of_interest_tag.no'), colour: 'red') %>
-            <% end %>
-          </td>
-      <%end%>
-    </tbody>
-  </table>
+  <%= app_card_list(items: codefendants, item_name: label_text(:codefendant)) do |card|
+        govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { label_text(:first_name) }
+            row.with_value { card.item.first_name }
+          end
+          list.with_row do |row|
+            row.with_key { label_text(:last_name) }
+            row.with_value { card.item.last_name }
+          end
+          list.with_row do |row|
+            row.with_key { label_text(:conflict_of_interest) }
+            row.with_value { conflict_of_interest(card.item) }
+          end
+        end
+      end %>
 <% else %>
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:codefendants) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(false, scope: 'values') %>
-      </dd>
-    </div>
-  </dl>
+  <%= govuk_summary_card(title: label_text(:codefendants)) do
+        govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { label_text(:has_codefendants) }
+            row.with_value { value_text(:none) }
+          end
+        end
+      end %>
 <% end %>

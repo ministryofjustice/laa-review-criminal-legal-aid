@@ -15,7 +15,7 @@ RSpec.describe 'Viewing the savings of an application' do
     end
 
     it 'shows the savings section' do
-      expect(page).to have_css('h2.govuk-heading-m', text: 'Savings')
+      expect(page).to have_css('h2.govuk-heading-l', text: 'Savings')
     end
 
     it 'shows the savings with correct title' do

@@ -1,93 +1,91 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:overview) %>
-</h2>
-
-<dl class="govuk-summary-list govuk-!-margin-bottom-9">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:application_type) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <%= t(overview.application_type, scope: 'values') %>
-    </dd>
-  </div>
-
-  <% unless overview.pse? %>
+<%= govuk_summary_card(title: label_text(:overview)) do %>
+  <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= label_text(:means_tested) %>
+        <%= label_text(:application_type) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <% if overview.not_means_tested? %>
-          <%= t('no', scope: 'values') %>
-        <% elsif overview.means_passported? %>
-          <%= govuk_tag(text: t(:passported, scope: 'values'), colour: 'blue') %>
-        <%# TODO: This needs product/content design sign off %>
-        <% elsif !overview.not_means_tested? && ['none', nil].include?(overview.applicant.benefit_type) %>
-          <%= t('yes', scope: 'values') %>
-        <% else %>
-          <%# Those with a selected benefit type, but DWP negative result would end up here (inc ppt ben evidence) %>
-          <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
-        <% end %>
+        <%= t(overview.application_type, scope: 'values') %>
       </dd>
     </div>
 
-    <% unless overview.means_passported_on_age? || overview.not_means_tested? || overview.appeal_no_changes? %>
+    <% unless overview.pse? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= label_text(:passporting_benefit) %>
+          <%= label_text(:means_tested) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
+          <% if overview.not_means_tested? %>
+            <%= t('no', scope: 'values') %>
+          <% elsif overview.means_passported? %>
+            <%= govuk_tag(text: t(:passported, scope: 'values'), colour: 'blue') %>
+          <%# TODO: This needs product/content design sign off %>
+          <% elsif !overview.not_means_tested? && ['none', nil].include?(overview.applicant.benefit_type) %>
+            <%= t('yes', scope: 'values') %>
+          <% else %>
+            <%# Those with a selected benefit type, but DWP negative result would end up here (inc ppt ben evidence) %>
+            <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
+          <% end %>
         </dd>
       </div>
 
-      <% if overview.last_jsa_appointment_date? %>
+      <% unless overview.means_passported_on_age? || overview.not_means_tested? || overview.appeal_no_changes? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:date_of_latest_jsa_appointment) %>
+            <%= label_text(:passporting_benefit) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= l overview.client_details.applicant.last_jsa_appointment_date, format: :compact %>
+            <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
           </dd>
         </div>
+
+        <% if overview.last_jsa_appointment_date? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:date_of_latest_jsa_appointment) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= l overview.client_details.applicant.last_jsa_appointment_date, format: :compact %>
+            </dd>
+          </div>
+        <% end %>
       <% end %>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:urn) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+        <span id="urn">
+          <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
+        </span>
+          <% if overview.case_details.urn.presence && !overview.superseded? %>
+            <%=link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
+          <% end %>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:application_start_date) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l(overview.date_stamp, format: :compact) %>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:overall_offence_class) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if overview.case_details.offence_class %>
+            <%= govuk_tag(text: "#{t('values.class')} #{overview.case_details.offence_class}", colour: 'blue') %>
+          <% else %>
+            <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
+          <% end %>
+        </dd>
+      </div>
     <% end %>
-
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:urn) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-      <span id="urn">
-        <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
-      </span>
-        <% if overview.case_details.urn.presence && !overview.superseded? %>
-          <%=link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
-        <% end %>
-      </dd>
-    </div>
-
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:application_start_date) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= l(overview.date_stamp, format: :compact) %>
-      </dd>
-    </div>
-
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:overall_offence_class) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <% if overview.case_details.offence_class %>
-          <%= govuk_tag(text: "#{t('values.class')} #{overview.case_details.offence_class}", colour: 'blue') %>
-        <% else %>
-          <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
-        <% end %>
-      </dd>
-    </div>
-  <% end %>
-</dl>
+  </dl>
+<% end %>

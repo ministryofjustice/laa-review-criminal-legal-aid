@@ -1,25 +1,23 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:further_information) %>
-</h2>
-
-<dl class="govuk-summary-list govuk-!-margin-bottom-9">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:further_information_any) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <%= t(crime_application.additional_information.present?, scope: [:values]) %>
-    </dd>
-  </div>
-
-  <% if crime_application.additional_information.present? %>
+<%= govuk_summary_card(title: label_text(:further_information)) do %>
+  <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        <%= label_text(:further_information_details) %>
+        <%= label_text(:further_information_any) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= simple_format(crime_application.additional_information) %>
+        <%= t(crime_application.additional_information.present?, scope: [:values]) %>
       </dd>
     </div>
-  <% end %>
-</dl>
+
+    <% if crime_application.additional_information.present? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:further_information_details) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= simple_format(crime_application.additional_information) %>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+<% end %>

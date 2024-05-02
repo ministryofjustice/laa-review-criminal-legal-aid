@@ -1,41 +1,17 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:interests_of_justice) %>
-</h2>
-
-<% if crime_application.interests_of_justice.present? %>
-  <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
-    <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">
-          <%= label_text(:interests_of_justice_type) %>
-        </th>
-        <th scope="col" class="govuk-table__header">
-          <%= label_text(:justification) %>
-        </th>
-      </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      <% crime_application.interests_of_justice.each do |interest_of_justice| %>
-        <tr class="govuk-table__row">
-          <td scope="row" class="govuk-table__cell">
-            <%= t(interest_of_justice.type, scope: 'values') %>
-          </td>
-          <td class="govuk-table__cell">
-            <%= interest_of_justice.reason %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:justification) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(crime_application.relevant_ioj_passport, scope: 'values') %>
-      </dd>
-    </div>
-  </dl>
-<% end %>
+<%= govuk_summary_card(title: label_text(:interests_of_justice)) do
+      govuk_summary_list(actions: false) do |list|
+        if crime_application.interests_of_justice.empty?
+          list.with_row do |row|
+            row.with_key { label_text(:justification) }
+            row.with_value { value_text(crime_application.relevant_ioj_passport) }
+          end
+        else
+          crime_application.interests_of_justice.each do |ioj|
+            list.with_row do |row|
+              row.with_key { value_text(ioj.type) }
+              row.with_value { simple_format(ioj.reason) }
+            end
+          end
+        end
+      end
+    end %>

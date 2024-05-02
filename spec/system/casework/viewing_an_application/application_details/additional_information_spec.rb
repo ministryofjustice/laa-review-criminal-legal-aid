@@ -36,4 +36,25 @@ STRING
       expect(inset_text).to have_css('p', text: 'Last line of info.')
     end
   end
+
+  context 'with additional information' do
+    let(:application_data) do
+      super().deep_merge('additional_information' => 'Shown top and bottom of page')
+    end
+
+    it 'shows the additional information as `information from the provider`' do
+      inset = find(:xpath, "//div[@class='govuk-inset-text']")
+
+      expect(inset).to have_content("Information from the provider\nShown top and bottom of page")
+    end
+
+    it 'shows the additional information as `further information`' do
+      further_information = find(
+        :xpath,
+        "//div[@class='govuk-summary-list__row'][contains(dd, 'Shown top and bottom of page')]"
+      )
+
+      expect(further_information).not_to be_nil
+    end
+  end
 end

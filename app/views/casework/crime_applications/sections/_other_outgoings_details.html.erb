@@ -1,9 +1,6 @@
-<% if details.income_tax_rate_above_threshold.present? || details.outgoings_more_than_income.present? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:other_outgoings_details) %>
-  </h2>
-
-  <%= govuk_summary_list(actions: false) do |list|
+<% return unless details.income_tax_rate_above_threshold.present? || details.outgoings_more_than_income.present? %>
+<%= govuk_summary_card(title: label_text(:other_outgoings_details)) do
+      govuk_summary_list(actions: false) do |list|
         if details.income_tax_rate_above_threshold.present?
           list.with_row do |row|
             row.with_key { label_text(:income_tax_rate_above_threshold) }
@@ -24,5 +21,5 @@
             row.with_value { simple_format(details.how_manage) }
           end
         end
-      end %>
-<% end %>
+      end
+    end %>

@@ -122,16 +122,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('AJ123456C')
   end
 
-  context 'with offence class' do
+  describe 'the overaall offence class' do
     context 'when at least one of the offences is manually input' do
-      it 'does shows the class not determined badge' do
-        table_body = find(:xpath,
-                          "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-                          //tr[contains(td[1], 'Non-listed offence, manually entered')]")
-
-        expect(table_body).to have_content('Class not determined')
-      end
-
       it 'displays undetermined overall offence class badge' do
         expect(page).to have_content('Overall offence class Undetermined')
       end
@@ -139,141 +131,11 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
     context 'with offence class provided' do
       let(:application_data) do
-        super().deep_merge('case_details' => { 'offence_class' => 'C',
-                                                'offences' => [{ 'name' => 'Robbery',
-                                                                'offence_class' => 'C',
-                                                                'slipstreamable' => true,
-                                                                'dates' => [{
-                                                                  'date_from' => '2020-12-12',
-                                                                        'date_to' => nil
-                                                                }] }] })
-      end
-
-      it 'does show the offence class' do
-        row = first(:xpath,
-                    "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-                    //tr[contains(td[1], 'Robbery')]")
-
-        expect(row).to have_content('Class C')
+        super().deep_merge('case_details' => { 'offence_class' => 'C' })
       end
 
       it 'displays calculated overall offence class badgee' do
         expect(page).to have_content('Overall offence class Class C')
-      end
-    end
-  end
-
-  context 'with correct codefendant information' do
-    context 'when there is no codefendant' do
-      let(:application_data) do
-        super().deep_merge('case_details' => { 'codefendants' => [] })
-      end
-
-      it 'says there is no codefendant' do
-        expect(page).to have_content('Co-defendants No')
-      end
-    end
-
-    context 'when there is a codefendant' do
-      context 'with a conflict' do
-        it 'has no badge' do
-          codefendant_row = find(:xpath,
-                                 "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-           //tr[contains(td[1], 'Conflict of interest')]")
-
-          expect(codefendant_row).not_to have_content('No conflict')
-        end
-      end
-
-      context 'with no conflict' do
-        let(:application_data) do
-          super().deep_merge('case_details' => { 'codefendants' => [{ 'first_name' => 'Billy',
-                                                                  'last_name' => 'Bates',
-                                                                  'conflict_of_interest' => 'no', }] })
-        end
-
-        let(:codefendant_row) do
-          find(
-            :xpath, "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-           //tr[contains(td[1], 'Billy')]"
-          )
-        end
-
-        it 'shows the No conflict badge' do
-          within(codefendant_row) do
-            badge = page.first('.govuk-tag.govuk-tag--red').text
-
-            expect(badge).to have_content('No conflict')
-          end
-        end
-
-        it 'shows the correct conflict caption text' do
-          within(codefendant_row) do |row|
-            expect(row.first('td')).to have_content('Billy Bates No conflict of interest')
-          end
-        end
-      end
-    end
-  end
-
-  context 'with ioj reasons' do
-    context 'with ioj reason only' do
-      it 'shows a table with ioj reason' do
-        ioj_row = find(:xpath,
-                       "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-                        //tr[contains(td[1], 'Loss of liberty')]")
-
-        expect(ioj_row).to have_content('More details about loss of liberty.')
-      end
-    end
-
-    context 'with ioj passport and no ioj reason' do
-      context 'with only an `on_offence` passport' do
-        let(:application_data) do
-          super().deep_merge(
-            'ioj_passport' => ['on_offence'],
-            'interests_of_justice' => nil
-          )
-        end
-
-        it 'shows a summary list with the correct passport reason' do
-          ioj_row = find(:xpath,
-                         "//dl[@class='govuk-summary-list govuk-!-margin-bottom-9']
-                              //div[contains(dt[1], 'Justification')]")
-
-          expect(ioj_row).to have_content('Not needed based on offence')
-        end
-      end
-
-      context 'with both ioj passports' do
-        let(:application_data) do
-          super().deep_merge(
-            'ioj_passport' => %w[on_age_under18 on_offence],
-            'interests_of_justice' => nil
-          )
-        end
-
-        it 'shows a summary list with the correct passport reason' do
-          ioj_row = find(:xpath,
-                         "//dl[@class='govuk-summary-list govuk-!-margin-bottom-9']
-                              //div[contains(dt[1], 'Justification')]")
-
-          expect(ioj_row).to have_content('Not needed because the client is under 18 years old')
-        end
-      end
-    end
-
-    context 'when a passported application is a split case and resubmitted with ioj passport' do
-      let(:application_data) do
-        super().deep_merge('ioj_passport' => ['on_offence'])
-      end
-
-      it 'shows a table with ioj reason' do
-        ioj_row = find(:xpath,
-                       "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-                        //tr[contains(td[1], 'Loss of liberty')]")
-
-        expect(ioj_row).to have_content('More details about loss of liberty.')
       end
     end
   end
@@ -301,80 +163,6 @@ RSpec.describe 'Viewing an application unassigned, open application' do
 
     it 'shows that the client home address was not provided' do
       expect(page).to have_content('Home address Does not have a home address')
-    end
-  end
-
-  context 'with supporting evidence' do
-    it 'shows a table with supporting evidence' do
-      evidence_row = find(:xpath,
-                          "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-                            //tr[contains(td[1], 'test.pdf')]")
-      expect(evidence_row).to have_content('test.pdf Download file (pdf, 12 Bytes)')
-    end
-  end
-
-  context 'with no evidence' do
-    let(:application_data) do
-      super().deep_merge('supporting_evidence' => [], 'evidence_details' => nil)
-    end
-
-    it 'does not show supporting evidence section' do
-      expect(page).not_to have_content('Supporting evidence')
-    end
-  end
-
-  context 'with evidence prompt details' do
-    it 'shows the supporting evidence section' do
-      expect(page).to have_content('Supporting evidence')
-    end
-
-    it 'lists evidence prompts generated by Apply' do
-      expect(page).to have_content('Other evidence:')
-      expect(page).to have_content('their National Insurance number')
-    end
-
-    it 'does not have titles for non-existent prompts', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-      [
-        "Evidence of their client's income",
-        "Evidence of their client's outgoings",
-        "Evidence of their client's capital",
-        "Evidence of the partners's income",
-        "Evidence of the partner's outgoings",
-        "Evidence of the partner's capital"
-      ].each do |title|
-        expect(page).not_to have_content(title)
-      end
-    end
-
-    it 'adds ruleset data as attributes' do
-      nodes = [
-        find(:xpath, "//li[@data-evidence-rule-key='national_insurance_32']"),
-        find(:xpath, "//li[@data-evidence-rule-id='NationalInsuranceProof']"),
-        find(:xpath, "//h2[@data-evidence-last-run-at='2024-04-24T13:28:30+00:00']"),
-      ]
-
-      expect(nodes.all?).to be true
-    end
-  end
-
-  context 'with additional information' do
-    let(:application_data) do
-      super().deep_merge('additional_information' => 'Shown top and bottom of page')
-    end
-
-    it 'shows the additional information as `information from the provider`' do
-      inset = find(:xpath, "//div[@class='govuk-inset-text']")
-
-      expect(inset).to have_content("Information from the provider\nShown top and bottom of page")
-    end
-
-    it 'shows the additional information as `further information`' do
-      further_information = find(
-        :xpath,
-        "//div[@class='govuk-summary-list__row'][contains(dd, 'Shown top and bottom of page')]"
-      )
-
-      expect(further_information).not_to be_nil
     end
   end
 
@@ -472,6 +260,9 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   describe 'displaying the residence type' do
+    let(:residence_question) { 'Where the client usually lives' }
+    let(:relationship_question) { 'Relationship to client' }
+
     context 'when the application has a residence type' do
       let(:application_data) do
         super().deep_merge('client_details' =>
@@ -480,7 +271,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'shows the residence type' do
-        expect(page).to have_content('Where the client lives In rented accommodation')
+        expect(page).to have_summary_row(residence_question, 'In rented accommodation')
       end
 
       context 'when the residence type is someone else' do
@@ -491,21 +282,19 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'shows the relationship to client' do
-          expect(page).to have_content("Where the client lives In someone else's home")
-          expect(page).to have_content('Relationship to client Friend')
+          expect(page).to have_summary_row(residence_question, "In someone else's home")
+          expect(page).to have_summary_row(relationship_question, 'Friend')
         end
       end
 
       context 'when it was not asked at time of application' do
         let(:application_data) do
-          super().deep_merge('client_details' =>
-                               { 'applicant' => { 'residence_type' => nil,
-                                                  'relationship_to_owner_of_usual_home_address' => nil } })
+          super().merge('client_details' => { 'applicant' => {} })
         end
 
         it 'does not display' do
-          expect(page).not_to have_content('Where the client lives')
-          expect(page).not_to have_content('Relationship to client Friend')
+          expect(page).not_to have_content(residence_question)
+          expect(page).not_to have_content(relationship_question)
         end
       end
     end

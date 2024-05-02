@@ -14,10 +14,6 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
       super().deep_merge('means_details' => means_details)
     end
 
-    it 'shows the National Savings Certificates section' do
-      expect(page).to have_css('h2.govuk-heading-m', text: 'National Savings Certificates')
-    end
-
     it 'shows the National Savings Certificates with correct title' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'National Savings Certificate')
     end

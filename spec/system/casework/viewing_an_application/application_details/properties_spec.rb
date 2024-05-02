@@ -15,7 +15,7 @@ RSpec.describe 'Viewing the properties of an application' do
     end
 
     it 'shows the properties section' do
-      expect(page).to have_css('h2.govuk-heading-m', text: 'Assets')
+      expect(page).to have_css('h2.govuk-heading-l', text: 'Assets')
     end
 
     it 'shows the properties with correct title' do

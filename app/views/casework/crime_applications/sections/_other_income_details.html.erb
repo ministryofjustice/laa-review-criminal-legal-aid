@@ -1,27 +1,25 @@
 <% if income_details&.manage_without_income.present? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:other_income_details) %>
-  </h2>
-
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:manage_without_income) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(income_details.manage_without_income, scope: 'values.manage_without_income') %>
-      </dd>
-    </div>
-    <%# TODO: confirm design for other option %>
-    <% if income_details.manage_without_income == 'other' %>
+  <%= govuk_summary_card(title: label_text(:other_income_details)) do %>
+    <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= t('labels.details') %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= income_details.manage_other_details %>
-      </dd>
-    </div>
-    <% end %>
-  </dl>
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:manage_without_income) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(income_details.manage_without_income, scope: 'values.manage_without_income') %>
+        </dd>
+      </div>
+      <%# TODO: confirm design for other option %>
+      <% if income_details.manage_without_income == 'other' %>
+        <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('labels.details') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= income_details.manage_other_details %>
+        </dd>
+      </div>
+      <% end %>
+    </dl>
+  <% end %>
 <% end %>

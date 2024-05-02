@@ -3,6 +3,10 @@
       locals: { capital_details: crime_application.means_details.capital_details }
     ) %>
 
+<h2 class="govuk-heading-l">
+  <%= label_text(:savings_and_investments) %>
+</h2>
+
 <%= render(
       partial: 'casework/crime_applications/sections/savings',
       locals: { capital_details: crime_application.means_details.capital_details }
