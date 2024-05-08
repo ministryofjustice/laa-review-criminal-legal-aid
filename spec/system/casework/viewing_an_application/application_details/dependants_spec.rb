@@ -17,7 +17,7 @@ RSpec.describe 'Viewing the dependants details of an application' do
       )
     end
 
-    let(:title_text) { 'Dependants who live with the client' }
+    let(:title_text) { 'Dependants' }
 
     context 'with dependants' do
       let(:dependants) { [{ age: 1 }, { age: 5 }] }

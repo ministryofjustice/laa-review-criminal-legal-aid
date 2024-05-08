@@ -1,37 +1,35 @@
 <% if income_details.has_no_income_payments == 'yes' ||  income_payments.present? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:payments_the_client_gets) %>
-  </h2>
-
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <% if income_details.has_no_income_payments == 'yes' %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:which_payments_does_the_client_get) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t('values.none') %>
-        </dd>
-      </div>
-    <% elsif income_payments.any? %>
-      <% income_payments.each do |payment_type, value| %>
-        <%= render partial: 'payment_with_frequency',
-                   locals: {
-                     key: label_text("payment_#{payment_type}"),
-                     payment: value,
-                     does_not_text: t(:does_not_get, scope: 'values')
-                   } %>
-        <% if payment_type == 'other' && value.present? %>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              <%= label_text(:other_payment_details) %>
-            </dt>
-            <dd class="govuk-summary-list__value">
-              <%= value.metadata.details %>
-            </dd>
-          </div>
+  <%= govuk_summary_card(title: label_text(:payments_the_client_gets)) do %>
+    <dl class="govuk-summary-list">
+      <% if income_details.has_no_income_payments == 'yes' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:which_payments_does_the_client_get) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t('values.none') %>
+          </dd>
+        </div>
+      <% elsif income_payments.any? %>
+        <% income_payments.each do |payment_type, value| %>
+          <%= render partial: 'payment_with_frequency',
+                     locals: {
+                       key: label_text("payment_#{payment_type}"),
+                       payment: value,
+                       does_not_text: t(:does_not_get, scope: 'values')
+                     } %>
+          <% if payment_type == 'other' && value.present? %>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <%= label_text(:other_payment_details) %>
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <%= value.metadata.details %>
+              </dd>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-  </dl>
+    </dl>
+  <% end %>
 <% end %>

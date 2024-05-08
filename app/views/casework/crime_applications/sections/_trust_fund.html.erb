@@ -1,9 +1,6 @@
-<% if capital_details.present? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:trust_funds) %>
-  </h2>
-
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+<% return if capital_details.blank? %>
+<%= govuk_summary_card(title: label_text(:trust_funds)) do %>
+  <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:will_benefit_from_trust_fund) %>

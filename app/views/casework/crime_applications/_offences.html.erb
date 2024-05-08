@@ -1,47 +1,16 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:offence_details) %>
-</h2>
-
-<table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-one-half">
-        <%= label_text(:offence) %>
-      </th>
-      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">
-        <%= label_text(:offence_date) %>
-      </th>
-      <th scope="col" class="govuk-table__header">
-      </th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <% offences.each do |offence| %>
-      <% offence.dates.each_with_index do |date, i| %>
-        <tr class="govuk-table__row">
-          <td scope="row" class="govuk-table__cell">
-            <%= offence.name %>
-            <% if offence.offence_class.present? %>
-              <span class='govuk-caption-m'>
-                <%= t('values.class') %>
-                <%= offence.offence_class %>
-              </span>
-            <% end %>
-          </td>
-          <td class="govuk-table__cell">
-              <%= l date.date_from, format: :compact %>
-              <% if date.date_to %>
-              <%= t('values.to') %>
-              <%= l date.date_to, format: :compact %>
-              <% end %>
-          </td>
-          <td class="govuk-table__cell">
-            <% if offence.offence_class.blank? %>
-              <%= govuk_tag text: t('values.class_not_determined'), colour: 'red' %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= app_card_list(items: offences, item_name: label_text(:offence)) do |card|
+      govuk_summary_list(actions: false) do |list|
+        list.with_row do |row|
+          row.with_key { label_text(:offence_type) }
+          row.with_value { card.item.name }
+        end
+        list.with_row do |row|
+          row.with_key { label_text(:offence_class) }
+          row.with_value { offence_class(card.item) }
+        end
+        list.with_row do |row|
+          row.with_key { label_text(:offence_date) }
+          row.with_value { offence_dates(card.item) }
+        end
+      end
+    end %>

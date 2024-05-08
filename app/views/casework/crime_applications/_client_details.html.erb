@@ -1,8 +1,5 @@
-<h2 class="govuk-heading-m">
-  <%= label_text(:client_details) %>
-</h2>
-
-<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+<%= govuk_summary_card(title: label_text(:client_details)) do %>
+<dl class="govuk-summary-list">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       <%= label_text(:first_name) %>
@@ -111,3 +108,4 @@
     </div>
   <% end %>
 </dl>
+<% end %>

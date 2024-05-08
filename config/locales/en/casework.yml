@@ -58,6 +58,7 @@ en:
     manage_users: Manage users
 
   labels: &LABELS
+    about_the_provider: About the provider
     age_in_business_days: Business days since application was received
     appeal_original_app_submitted: Legal aid application for original case?
     appeal_financial_circumstances_changed: Changes to financial circumstances since original application?
@@ -65,6 +66,7 @@ en:
     appeal_maat_id_or_usn: "Original application %{ref_type}"
     appeal_maat_id: MAAT ID
     appeal_usn: USN
+    applicant_details: Applicant details
     applicant_date_of_birth: Applicant's date of birth
     application_information: Application information
     application_start_date: Date stamp
@@ -78,17 +80,21 @@ en:
     benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
     benefit_jsa: Contribution-based Jobseeker's Allowance
     benefit_other: Other benefits
-    benefits_the_client_gets: Benefits the client gets
+    benefits_the_client_gets: Benefits your client gets
     capital: Capital
     case_details: Case details
+    case_details: Case details
+    case_details_and_offences: Case details and offences
     case_type: Case type
     case_reference: Case reference of the criminal rep order or civil certificate
     caseworker: Caseworker
     client_details: Client details
     client_owns_property: Has land or property?
     closed_by: 'Closed by:'
+    codefendant: Co-defendant
     codefendants: Co-defendants
     correspondence_address: Correspondence address
+    conflict_of_interest: Conflict of interest?
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
@@ -101,7 +107,7 @@ en:
     date_of_birth: Date of birth
     date_of_latest_jsa_appointment: Date of latest JSA appointment
     date_received: 'Date received:'
-    dependants: Dependants who live with the client
+    dependants: Dependants
     details: Details
     does_client_have_national_savings_certificates: Does the client have any National Savings Certificates?
     employment: Employment
@@ -130,6 +136,7 @@ en:
     further_information_present:
       'true': Yes
       'false': No
+    has_codefendants: Co-defendants?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
     has_no_other_assets: Client has no other assets or capital
@@ -144,8 +151,9 @@ en:
     how_much_mortgage: Amount paid towards mortgage
     income: Income
     income_more_than: Income more than £12,475?
+    income_details: Your client's income
     income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
-    interests_of_justice: Interest of Justice
+    interests_of_justice: Justification for legal aid
     interests_of_justice_type: Criteria
     investment_type:
       bond: Investment bond
@@ -180,8 +188,9 @@ en:
     next_court_hearing: Next court hearing the case
     number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
-    offence_date: Offence date
-    offence_details: Offence details
+    offence_class: Class
+    offence_date: Date
+    offence_type: Type
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
@@ -192,6 +201,7 @@ en:
     outgoing_payment_childcare: Childcare payments
     outgoing_payment_maintenance: Maintenance payments to a former partner
     outgoing_payment_legal_aid_contribution: Contributions towards criminal or civil legal aid
+    outgoings_details: Your client's outgoings
     outgoings_more_than_income: Are client's outgoings more than their income?
     outgoings_metadata:
       board_amount: Amount paid for board and lodgings
@@ -213,8 +223,8 @@ en:
     payment_rent: Rent from a tenant
     payment_state_pension: State Pension
     payment_student_loan_grant: Student grant or loan
-    payments_the_client_gets: Payments the client gets
-    payments_the_client_pays: Payments the client pays
+    payments_the_client_gets: Payments your client gets
+    payments_the_client_pays: Payments your client makes
     post_submission_evidence: Post submission evidence
     premium_bonds: Premium Bonds
     premium_bonds_holder_number: Holder number
@@ -226,7 +236,7 @@ en:
     provider_email: Email address
     provider_phone_number: Phone
     relationship_to_owner_of_usual_home_address: Relationship to client
-    residence_type: Where the client lives
+    residence_type: Where the client usually lives
     return_reason_details: We'll share this information with the provider
     return_reason_details_legend: Give further details
     saving_account_balance: Account balance
@@ -241,6 +251,7 @@ en:
       national_savings_or_post_office: National Savings or Post Office accounts
       other: Cash investment
     savings: Savings
+    savings_and_investments: Savings and investments
     search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
     select_return_reason: Select the reason for returning this application
@@ -318,7 +329,7 @@ en:
     partner: Partner
     applicant_and_partner: Applicant and Partner
     class: Class
-    class_not_determined: Class not determined
+    class_not_determined: Not determined
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
     either_way: Either way
@@ -401,7 +412,7 @@ en:
       sent_back: red
       completed: green
       marked_as_ready: blue
-    download_file: "Download file <br> (%{file_extension}, %{file_size})"
+    download_file: "Download file (%{file_extension}, %{file_size})"
     no_hearing_yet: There has not been a hearing yet
     manage_without_income:
       friends_sofa: They sleep on a friend's sofa for free

@@ -1,58 +1,55 @@
 <% return if outgoings_details.housing_payment_type.blank? %>
+<%= govuk_summary_card(title: label_text(:housing_payments)) do %>
+  <dl class="govuk-summary-list">
+    <% unless outgoings_details.housing_payments.any? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:which_housing_payment_type) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t('values.housing_payments.none') %>
+        </dd>
+      </div>
+    <% end %>
 
-<h2 class="govuk-heading-m">
-  <%= label_text(:housing_payments) %>
-</h2>
+    <% outgoings_details.housing_payments.each do |payment| %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:which_housing_payment_type) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t("values.housing_payments.#{payment.payment_type}") %>
+        </dd>
+      </div>
 
-<dl class="govuk-summary-list govuk-!-margin-bottom-9">
-  <% unless outgoings_details.housing_payments.any? %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:which_housing_payment_type) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t('values.housing_payments.none') %>
-      </dd>
-    </div>
-  <% end %>
+      <%= render partial: 'payment_with_frequency', locals: {
+            key: label_text("how_much_#{payment.payment_type}"),
+            payment: payment,
+            does_not_text: t(:does_not_get, scope: 'values')
+          } unless payment.payment_type == 'board_and_lodging' %>
 
-  <% outgoings_details.housing_payments.each do |payment| %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:which_housing_payment_type) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t("values.housing_payments.#{payment.payment_type}") %>
-      </dd>
-    </div>
+      <!-- Board and Lodging Metadata -->
+      <% outgoings_details.board_and_lodging_metadata.each do |key, settings| %>
+        <%= render partial: settings[:partial].to_s, locals: {
+              key: label_text("outgoings_metadata.#{key}"),
+              value: settings[:value],
+              payment: settings[:value]
+            } %>
+      <% end %>
+    <% end %>
 
-    <%= render partial: 'payment_with_frequency', locals: {
-          key: label_text("how_much_#{payment.payment_type}"),
-          payment: payment,
-          does_not_text: t(:does_not_get, scope: 'values')
-        } unless payment.payment_type == 'board_and_lodging' %>
-
-    <!-- Board and Lodging Metadata -->
-    <% outgoings_details.board_and_lodging_metadata.each do |key, settings| %>
-      <%= render partial: settings[:partial].to_s, locals: {
-            key: label_text("outgoings_metadata.#{key}"),
-            value: settings[:value],
-            payment: settings[:value]
+    <% if outgoings_details.pays_council_tax %>
+      <%= render partial: 'simple_row', locals: {
+            key: label_text(:pays_council_tax),
+            value: t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax])
           } %>
     <% end %>
-  <% end %>
 
-  <% if outgoings_details.pays_council_tax %>
-    <%= render partial: 'simple_row', locals: {
-          key: label_text(:pays_council_tax),
-          value: t(outgoings_details.pays_council_tax, scope: [:values, :pays_council_tax])
-        } %>
-  <% end %>
-
-  <% if outgoings_details.council_tax %>
-    <%= render partial: 'simple_row', locals: {
-          key: label_text(:how_much_council_tax),
-          value: number_to_currency(outgoings_details.council_tax.amount * 0.01)
-        } %>
-  <% end %>
-</dl>
+    <% if outgoings_details.council_tax %>
+      <%= render partial: 'simple_row', locals: {
+            key: label_text(:how_much_council_tax),
+            value: number_to_currency(outgoings_details.council_tax.amount * 0.01)
+          } %>
+    <% end %>
+  </dl>
+<% end %>

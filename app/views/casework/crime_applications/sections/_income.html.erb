@@ -1,46 +1,44 @@
 <% if income_details.present? %>
-  <h2 class="govuk-heading-m">
-    <%= label_text(:income) %>
-  </h2>
-
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:income_more_than) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(income_details.income_above_threshold, scope: 'values') %>
-      </dd>
-    </div>
-    <% unless income_details.has_frozen_income_or_assets.nil? %>
+  <%= govuk_summary_card(title: label_text(:income)) do %>
+    <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= label_text(:has_frozen_income_or_assets) %>
+          <%= label_text(:income_more_than) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(income_details.has_frozen_income_or_assets, scope: 'values') %>
+          <%= t(income_details.income_above_threshold, scope: 'values') %>
         </dd>
       </div>
-    <% end %>
-    <% unless income_details.client_owns_property.nil? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:client_owns_property) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(income_details.client_owns_property, scope: 'values') %>
-        </dd>
-      </div>
-    <% end %>
-    <% unless income_details.has_savings.nil? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:has_savings) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(income_details.has_savings, scope: 'values') %>
-        </dd>
-      </div>
-    <% end %>
-  </dl>
+      <% unless income_details.has_frozen_income_or_assets.nil? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:has_frozen_income_or_assets) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(income_details.has_frozen_income_or_assets, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
+      <% unless income_details.client_owns_property.nil? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:client_owns_property) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(income_details.client_owns_property, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
+      <% unless income_details.has_savings.nil? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:has_savings) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(income_details.has_savings, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  <% end %>
 <% end %>

@@ -68,16 +68,20 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
   end
 
   context 'with post submission evidence' do
+    subject(:files_card) do
+      page.find('h2.govuk-summary-card__title', text: 'Files')
+          .ancestor('div.govuk-summary-card')
+    end
+
     it 'displays post submission evidence section title' do
       expect(page).to have_content('Post submission evidence')
       expect(page).not_to have_content('Supporting evidence')
     end
 
-    it 'shows a table with post submission evidence' do
-      evidence_row = find(:xpath,
-                          "//table[@class='govuk-table app-dashboard-table govuk-!-margin-bottom-9']
-                            //tr[contains(td[1], 'test.pdf')]")
-      expect(evidence_row).to have_content('test.pdf Download file (pdf, 12 Bytes)')
+    it 'shows a link to download the supporting evidence' do
+      within(files_card) do |card|
+        expect(card).to have_summary_row 'test.pdf', 'Download file (pdf, 12 Bytes)'
+      end
     end
   end
 

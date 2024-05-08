@@ -1,5 +1,5 @@
 <% if crime_application.evidence_details.show? || crime_application.supporting_evidence.present? %>
-  <h2 class="govuk-heading-m">
+  <h2 class="govuk-heading-l">
     <% if crime_application.pse? %>
       <%= label_text(:post_submission_evidence) %>
     <% else %>
@@ -35,32 +35,21 @@
     } %>
 
 <% if crime_application.supporting_evidence.present? %>
-  <table class="govuk-table app-dashboard-table govuk-!-margin-bottom-9">
-    <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">
-          <%= label_text(:file_name) %>
-        </th>
-        <th scope="col" class="govuk-table__header">
-        </th>
-      </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      <% crime_application.supporting_evidence.each do |evidence| %>
-        <tr class="govuk-table__row">
-          <td scope="row" class="govuk-table__cell file-name">
-            <%= evidence.filename %>
-          </td>
-          <td class="govuk-table__cell govuk-!-text-align-right">
-            <%= govuk_link_to(
+  <%= govuk_summary_card(title: label_text(:file_name)) do
+        govuk_summary_list(actions: false) do |list|
+          crime_application.supporting_evidence.each do |evidence|
+            list.with_row do |row|
+              row.with_key { evidence.filename }
+              row.with_value do
+                govuk_link_to(
                   sanitize(t(:download_file, scope: 'values',
                              file_extension: evidence.file_extension,
                              file_size: number_to_human_size(evidence.file_size))),
                   download_documents_path(crime_application_id: crime_application.id, id: evidence.s3_object_key)
-                ) %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+                )
+              end
+            end
+          end
+        end
+      end %>
 <% end %>
