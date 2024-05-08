@@ -2,7 +2,7 @@
 <%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column govuk-!-margin-bottom-9">
+  <div class="govuk-grid-column-full govuk-!-margin-bottom-9">
     <%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
 
     <h2 class="govuk-heading-l">
@@ -23,7 +23,7 @@
 </div>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column">
+  <div class="govuk-grid-column-full">
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <% if @crime_application.status?(:marked_as_ready) || @crime_application.pse? %>
