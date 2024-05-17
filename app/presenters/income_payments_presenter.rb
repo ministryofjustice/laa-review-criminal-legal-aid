@@ -6,7 +6,7 @@ class IncomePaymentsPresenter < BasePresenter
   end
 
   def formatted_income_payments(ownership_type = 'applicant')
-    return if @income_benefits.blank?
+    return {} if @income_payments.blank?
 
     payments_by_owner(ownership_type)
     ordered_payments
