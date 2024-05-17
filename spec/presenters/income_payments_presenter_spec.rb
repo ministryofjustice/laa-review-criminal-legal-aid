@@ -5,9 +5,10 @@ RSpec.describe IncomePaymentsPresenter do
 
   let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
   let(:crime_application) { CrimeApplication.new(attributes) }
+  let(:ownership_type) { 'applicant' }
 
   describe '#formatted_income_payments' do
-    subject(:formatted_income_payments) { payments_presenter.formatted_income_payments }
+    subject(:formatted_income_payments) { payments_presenter.formatted_income_payments(ownership_type) }
 
     # rubocop:disable RSpec/ExampleLength
     it {
@@ -24,6 +25,25 @@ RSpec.describe IncomePaymentsPresenter do
                                                      'other' =>
                                                        be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomePayment) })
     }
+
+    context 'when presenting partner income payments' do
+      let(:ownership_type) { 'partner' }
+
+      it {
+        expect(formatted_income_payments).to include({ 'private_pension' => nil,
+                                                       'state_pension' => nil,
+                                                       'maintenance' => nil,
+                                                       'interest_investment' => nil,
+                                                       'student_loan_grant' => nil,
+                                                       'board_from_family' => nil,
+                                                       'rent' =>
+                                                         be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomePayment),
+                                                       'financial_support_with_access' => nil,
+                                                       'from_friends_relatives' => nil,
+                                                       'other' => nil })
+      }
+    end
+
     # rubocop:enable RSpec/ExampleLength
 
     context 'with empty income payments' do
