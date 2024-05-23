@@ -7,13 +7,18 @@ class IncomeBenefitsPresenter < BasePresenter
     )
   end
 
-  def formatted_income_benefits
-    return unless @income_benefits
+  def formatted_income_benefits(ownership_type = 'applicant')
+    return {} if @income_benefits.blank?
 
+    benefits_by_owner(ownership_type)
     ordered_benefits
   end
 
   private
+
+  def benefits_by_owner(ownership_type)
+    @income_benefits.select! { |income_benefit| income_benefit.ownership_type == ownership_type }
+  end
 
   def ordered_benefits
     return {} if @income_benefits.empty?

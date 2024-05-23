@@ -5,13 +5,18 @@ class IncomePaymentsPresenter < BasePresenter
     )
   end
 
-  def formatted_income_payments
-    return unless @income_payments
+  def formatted_income_payments(ownership_type = 'applicant')
+    return {} if @income_payments.blank?
 
+    payments_by_owner(ownership_type)
     ordered_payments
   end
 
   private
+
+  def payments_by_owner(ownership_type)
+    @income_payments.select! { |income_payment| income_payment.ownership_type == ownership_type }
+  end
 
   def ordered_payments
     return {} if @income_payments.empty?
