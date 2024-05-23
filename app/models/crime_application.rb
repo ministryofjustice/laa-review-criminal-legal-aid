@@ -23,6 +23,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     means_passport.include?(Types::MeansPassportType['on_age_under18'])
   end
 
+  def means_passported_on_benefit?
+    means_passport.include?(Types::MeansPassportType['on_benefit_check'])
+  end
+
   def not_means_tested?
     means_passport.include?(Types::MeansPassportType['on_not_means_tested'])
   end
@@ -168,5 +172,9 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       end
 
     @evidence_details ||= EvidenceDetailsPresenter.present(struct)
+  end
+
+  def display_benefit_section?
+    !applicant.benefit_check_attributes_not_set? || means_passported_on_benefit?
   end
 end
