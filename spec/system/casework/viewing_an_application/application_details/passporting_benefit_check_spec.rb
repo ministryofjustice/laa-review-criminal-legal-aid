@@ -14,7 +14,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
       expect(page).to have_content('Passporting Benefit Universal Credit')
     end
 
-    it 'shows the amount held in the fund and the yearly dividend' do
+    it 'shows the passporting benefit check outcome rows' do # rubocop:disable RSpec/MultipleExpectations
       expect(page).to have_content('Passporting benefit check outcome No record of passporting benefit found')
       expect(page).to have_content('Confirmed client details correct? Yes')
       expect(page).to have_content('Evidence can be provided? No')
@@ -28,10 +28,10 @@ RSpec.describe 'When viewing the passporting benefit check details' do
                                                                   'has_benefit_evidence' => nil } })
       end
 
-      it 'does not display benefit check outcome' do
-        expect(page).to_not have_content('Passporting benefit check outcome No record of passporting benefit found')
-        expect(page).to_not have_content('Confirmed client details correct? Yes')
-        expect(page).to_not have_content('Evidence can be provided? No')
+      it 'does not display the passporting benefit check outcome rows' do # rubocop:disable RSpec/MultipleExpectations
+        expect(page).not_to have_content('Passporting benefit check outcome No record of passporting benefit found')
+        expect(page).not_to have_content('Confirmed client details correct? Yes')
+        expect(page).not_to have_content('Evidence can be provided? No')
       end
     end
   end
