@@ -75,6 +75,7 @@ en:
     are_wages_paid_into_account: Are client’s wages or benefits paid into this account?
     assigned_to: 'Assigned to:'
     benefit_child: Child Benefit
+    benefit_check_status: Passporting benefit check outcome
     benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
     benefit_incapacity: Incapacity Benefit
     benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
@@ -82,7 +83,6 @@ en:
     benefit_other: Other benefits
     benefits_the_client_gets: Benefits your client gets
     capital: Capital
-    case_details: Case details
     case_details: Case details
     case_details_and_offences: Case details and offences
     case_type: Case type
@@ -95,6 +95,7 @@ en:
     codefendants: Co-defendants
     correspondence_address: Correspondence address
     conflict_of_interest: Conflict of interest?
+    confirm_client_details: Confirmed client details correct?
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
@@ -129,6 +130,7 @@ en:
     financial_change_details: Changes in the client’s financial circumstances
     first_court_hearing: First court hearing the case
     first_name: First name
+    has_benefit_evidence: Evidence can be provided?
     has_case_concluded: Has the case concluded?
     further_information: Further information
     further_information_any: Any additional information?
@@ -213,6 +215,7 @@ en:
     partner: Partner
     pays_council_tax: Does client pay Council Tax?
     passporting_benefit: Passporting Benefit
+    passporting_benefit_check: Passporting Benefit Check
     payment_board_from_family: Board from family members living with the client
     payment_financial_support_with_access: Financial support from someone who allows the client access to their assets or money
     payment_from_friends_relatives: Money from friends or family
@@ -463,6 +466,13 @@ en:
       other: Their relationship is not listed
     has_no_other_assets:
       'yes': Confirmed
+    benefit_check_status:
+      confirmed: Confirmed
+      no_check_required: No check required
+      undetermined: No match - check details are correct
+      no_record_found: No record of passporting benefit found
+      checker_unavailable: DWP was unavailable, you can try again
+      no_check_no_nino: No check made as no National Insurance number provided
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list

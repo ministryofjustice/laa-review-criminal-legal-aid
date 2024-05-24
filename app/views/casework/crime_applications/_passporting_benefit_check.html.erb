@@ -1,0 +1,58 @@
+<% unless crime_application.means_passported_on_age? || crime_application.not_means_tested? || crime_application.appeal_no_changes? %>
+  <%= govuk_summary_card(title: label_text(:passporting_benefit_check)) do %>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:passporting_benefit) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
+        </dd>
+      </div>
+
+      <% if crime_application.last_jsa_appointment_date? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:date_of_latest_jsa_appointment) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= l applicant.last_jsa_appointment_date, format: :compact %>
+          </dd>
+        </div>
+      <% end %>
+
+      <% if applicant.benefit_check_status %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:benefit_check_status) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(applicant.benefit_check_status, scope: 'values.benefit_check_status') %>
+          </dd>
+        </div>
+
+        <% if applicant.confirm_details %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:confirm_client_details) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= t(applicant.confirm_details, scope: 'values') %>
+            </dd>
+          </div>
+        <% end %>
+
+        <% if applicant.has_benefit_evidence %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:has_benefit_evidence) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= t(applicant.has_benefit_evidence, scope: 'values') %>
+            </dd>
+          </div>
+        <% end  %>
+      <% end %>
+    </dl>
+  <% end %>
+<% end %>
