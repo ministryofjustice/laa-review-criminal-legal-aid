@@ -54,8 +54,9 @@ RSpec.describe 'When viewing the passporting benefit check details' do
     context 'when application is appeal no changes' do
       let(:application_data) do
         super().deep_merge('case_details' => {
-          'case_type' => 'appeal_to_crown_court',
-          'appeal_reference_number' => '123456' })
+                             'case_type' => 'appeal_to_crown_court',
+                             'appeal_reference_number' => '123456'
+                           })
       end
 
       it 'does not show the passporting benefit check section' do
