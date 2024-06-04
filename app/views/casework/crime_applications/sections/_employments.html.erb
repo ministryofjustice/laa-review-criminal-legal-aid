@@ -1,0 +1,55 @@
+<% if income_details.employments.present? %>
+  <h2 class="govuk-heading-l"><%= label_text(:employments_title) %></h2>
+    <%= app_card_list(items: income_details.employments, item_name: label_text('employment_title')) do |card|
+      employment = card.item
+      govuk_summary_list(actions: false) do |list|
+        list.with_row do |row|
+          row.with_key { label_text(:employer_name, scope: 'employments') }
+          row.with_value { simple_format(employment.employer_name) }
+        end
+
+        unless employment.address.nil?
+          list.with_row do |row|
+            row.with_key { label_text(:address, scope: 'employments') }
+            row.with_value { render 'address', address: employment.address }
+          end
+        end
+
+        list.with_row do |row|
+          row.with_key { label_text(:job_title, scope: 'employments') }
+          row.with_value { simple_format(employment.job_title) }
+        end
+
+        list.with_row do |row|
+          row.with_key { label_text(:amount, scope: 'employments') }
+          row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(employment.amount * 0.01), frequency: t(employment.frequency, scope: [:values, :frequency]))) }
+        end
+
+        list.with_row do |row|
+          row.with_key { label_text(:metadata, scope: 'employments') }
+          row.with_value { simple_format(t(employment.metadata.before_or_after_tax['value'], scope: 'values.before_or_after_tax')) }
+        end
+
+        if employment.has_no_deductions == 'yes'
+          list.with_row do |row|
+            row.with_key { label_text(:has_no_deductions, scope: 'employments') }
+            row.with_value { value_text('none') }
+          end
+        else
+          employment.deductions.each do |deduction|
+            list.with_row do |row|
+              row.with_key { label_text(deduction.deduction_type, scope: 'deductions.deduction_type') }
+              row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(deduction.amount * 0.01), frequency: t(deduction.frequency, scope: [:values, :frequency]))) }
+            end
+
+            next if deduction.details.blank?
+
+            list.with_row do |row|
+              row.with_key { label_text(:details, scope: 'deductions') }
+              row.with_value { simple_format(deduction.details) }
+            end
+          end
+        end
+      end
+    end %>
+<% end %>

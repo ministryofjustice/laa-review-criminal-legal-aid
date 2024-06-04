@@ -155,6 +155,24 @@ en:
     income: Income
     income_more_than: Income more than £12,475?
     income_details: Your client's income
+    employments_title: Jobs
+    employment_title: Job
+    employments:
+      employer_name: Employer's name
+      address: Address
+      job_title: Job title
+      amount: Salary or wage
+      frequency: Frequency
+      metadata: Before or after tax?
+      has_no_deductions: Deductions
+    deductions:
+      amount: Amount
+      frequency: Frequency
+      details: Details of other deductions
+      deduction_type:
+        income_tax: Income Tax
+        national_insurance: National Insurance
+        other: Other deductions total
     income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
     interests_of_justice: Justification for legal aid
     interests_of_justice_type: Criteria
@@ -474,6 +492,9 @@ en:
       no_record_found: No record of passporting benefit found
       checker_unavailable: DWP was unavailable, you can try again
       no_check_no_nino: No check made as no National Insurance number provided
+    before_or_after_tax:
+      before_tax: Before tax
+      after_tax: After tax
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list
