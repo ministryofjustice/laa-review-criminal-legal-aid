@@ -35,6 +35,13 @@
               row.with_key { label_text(:are_wages_paid_into_account) }
               row.with_value { value_text(card.item.are_wages_paid_into_account) }
             end
+
+            if card.item.are_partners_wages_paid_into_account
+              list.with_row do |row|
+                row.with_key { label_text(:are_partners_wages_paid_into_account) }
+                row.with_value { value_text(card.item.are_partners_wages_paid_into_account) }
+              end
+            end
             list.with_row do |row|
               row.with_key { label_text(:saving_account_holder) }
               row.with_value { value_text(card.item.ownership_type) }
