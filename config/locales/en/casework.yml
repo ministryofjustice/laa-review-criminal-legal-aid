@@ -444,7 +444,7 @@ en:
       other: Other
     employment_type:
       employed: Employed
-      self-employed: Self-employed
+      self_employed: Self-employed
       business_partnership: In a business partnership
       director: Company directory in a private company
       shareholder: Shareholder in a private company
