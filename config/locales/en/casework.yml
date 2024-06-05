@@ -450,6 +450,7 @@ en:
       shareholder: Shareholder in a private company
       not_working: Not working
     payment_with_frequency: "%{amount} every %{frequency}"
+    payment_with_frequency_and_tax_status: "%{amount} every %{frequency} %{tax_status}"
     housing_payments:
       board_and_lodging: Board and lodgings
       mortgage: Mortgage
@@ -493,8 +494,8 @@ en:
       checker_unavailable: DWP was unavailable, you can try again
       no_check_no_nino: No check made as no National Insurance number provided
     before_or_after_tax:
-      before_tax: Before tax
-      after_tax: After tax
+      before_tax: before tax
+      after_tax: after tax
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list

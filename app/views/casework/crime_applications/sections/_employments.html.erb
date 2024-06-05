@@ -22,12 +22,7 @@
 
             list.with_row do |row|
               row.with_key { label_text(:amount, scope: 'employments') }
-              row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(employment.amount * 0.01), frequency: t(employment.frequency, scope: [:values, :frequency]))) }
-            end
-
-            list.with_row do |row|
-              row.with_key { label_text(:metadata, scope: 'employments') }
-              row.with_value { simple_format(t(employment.metadata.before_or_after_tax['value'], scope: 'values.before_or_after_tax')) }
+              row.with_value { simple_format(t('values.payment_with_frequency_and_tax_status', amount: number_to_currency(employment.amount * 0.01), frequency: t(employment.frequency, scope: [:values, :frequency]), tax_status: t(employment.metadata.before_or_after_tax['value'], scope: 'values.before_or_after_tax'))) }
             end
 
             if employment.has_no_deductions == 'yes'

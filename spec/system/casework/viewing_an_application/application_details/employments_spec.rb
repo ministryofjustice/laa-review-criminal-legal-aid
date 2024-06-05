@@ -28,13 +28,13 @@ RSpec.describe 'Viewing the employments of an application' do
           page.find('h2.govuk-summary-card__title', text: 'Job 1').ancestor('div.govuk-summary-card')
         end
 
-        it 'shows jobs details with deductions' do
+        it 'shows jobs details with deductions' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
           within(job_card) do |card|
             expect(card).to have_summary_row "Employer's name", 'Joe Goodwin'
             expect(card).to have_summary_row 'Address',
                                              'address_line_one_y address_line_two_y city_y postcode_y country_y'
             expect(card).to have_summary_row 'Job title', 'Supervisor'
-            expect(card).to have_summary_row 'Salary or wage', '£250.00 every year'
+            expect(card).to have_summary_row 'Salary or wage', '£250.00 every year before tax'
             expect(card).to have_summary_row 'Income Tax', '£10.00 every week'
             expect(card).to have_summary_row 'National Insurance', '£20.00 every 2 weeks'
             expect(card).to have_summary_row 'Other deductions total', '£30.00 every year'
@@ -47,13 +47,13 @@ RSpec.describe 'Viewing the employments of an application' do
           page.find('h2.govuk-summary-card__title', text: 'Job 2').ancestor('div.govuk-summary-card')
         end
 
-        it 'shows jobs details without deductions' do
+        it 'shows jobs details without deductions' do # rubocop:disable RSpec/MultipleExpectations
           within(job_card) do |card|
             expect(card).to have_summary_row "Employer's name", 'Teegan Ayala'
             expect(card).to have_summary_row 'Address',
                                              'address_line_one_x address_line_two_x city_x postcode_x country_x'
             expect(card).to have_summary_row 'Job title', 'Manager'
-            expect(card).to have_summary_row 'Salary or wage', '£350.00 every year'
+            expect(card).to have_summary_row 'Salary or wage', '£350.00 every year after tax'
             expect(card).to have_summary_row 'Deductions', 'None'
           end
         end
