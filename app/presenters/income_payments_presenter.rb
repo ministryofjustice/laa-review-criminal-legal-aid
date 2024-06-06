@@ -29,6 +29,6 @@ class IncomePaymentsPresenter < BasePresenter
   end
 
   def income_payment_types
-    LaaCrimeSchemas::Types::IncomePaymentType.values - LaaCrimeSchemas::Types::EmploymentIncomePaymentType.values
+    LaaCrimeSchemas::Types::OtherIncomePaymentType.values
   end
 end
