@@ -11,13 +11,5 @@ module Users
     def failure
       raise ApplicationController::ForbiddenError, 'Devise failure'
     end
-
-    # Override the #passthru action. It is used when a GET request is made
-    # to the user auth url. Ideally the GET route would not be added by Devise.
-    # The fix for this is in Devise but awaiting release:
-    # https://github.com/heartcombo/devise/pull/5508
-    def passthru
-      raise ActionController::RoutingError, 'Get requests should not be supported.'
-    end
   end
 end
