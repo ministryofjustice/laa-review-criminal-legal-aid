@@ -1,0 +1,6 @@
+<br><br><br>
+income_details.applicant_other_work_benefit_received:
+<%= income_details.applicant_other_work_benefit_received %>
+<br>
+income_details.income_payments:
+<%= income_details.income_payments.detect{|income_payment| income_payment.payment_type == 'work_benefits'}.inspect %>

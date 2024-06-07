@@ -1,0 +1,6 @@
+<br><br><br>
+outgoings_details.applicant_self_assessment_tax_bill:
+<%= outgoings_details.applicant_self_assessment_tax_bill %>
+<br>
+outgoings_details.outgoings:
+<%= outgoings_details.outgoings.detect{|outgoing| outgoing.payment_type == 'self_assessment_tax_bill'}.inspect %>
