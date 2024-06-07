@@ -90,7 +90,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
     end
 
     it 'the "Ready for assessment" button is not visable' do
-      expect(page).not_to have_button(ready_for_assessment_cta)
+      expect(page).to have_no_button(ready_for_assessment_cta)
     end
   end
 end

@@ -98,7 +98,7 @@ RSpec.describe 'Marking an application as complete' do
     end
 
     it 'the "Mark as completed" button is not visable' do
-      expect(page).not_to have_button(complete_cta)
+      expect(page).to have_no_button(complete_cta)
     end
   end
 end

@@ -31,7 +31,7 @@ RSpec.describe 'Viewing the employment details of an application' do
 
       it 'does not show date custody lost details' do
         expect(page).to have_content('Did they lose their job as a result of being in custody? No')
-        expect(page).not_to have_content('When did they lose their job?')
+        expect(page).to have_no_content('When did they lose their job?')
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe 'Viewing the employment details of an application' do
     end
 
     it 'does not show income section' do
-      expect(page).not_to have_content('Employment')
+      expect(page).to have_no_content('Employment')
     end
   end
 end

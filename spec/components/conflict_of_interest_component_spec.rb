@@ -25,7 +25,7 @@ RSpec.describe ConflictOfInterestComponent, type: :component do
 
       it 'renders "Yes" and no tag' do
         expect(page.text).to eq('Yes')
-        expect(page).not_to have_selector(tag_selector)
+        expect(page).to have_no_selector(tag_selector)
       end
     end
   end

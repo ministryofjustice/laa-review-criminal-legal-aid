@@ -55,7 +55,7 @@ RSpec.describe 'Viewing supporting evidence' do
         "Evidence of the partner's outgoings",
         "Evidence of the partner's capital"
       ].each do |title|
-        expect(page).not_to have_content(title)
+        expect(page).to have_no_content(title)
       end
     end
 

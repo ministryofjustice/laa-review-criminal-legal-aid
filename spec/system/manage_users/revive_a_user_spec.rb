@@ -163,7 +163,7 @@ RSpec.describe 'Revive a user' do
       click_on('Will I Am')
 
       within actions do
-        expect(page).not_to have_text('Revive')
+        expect(page).to have_no_text('Revive')
       end
     end
   end

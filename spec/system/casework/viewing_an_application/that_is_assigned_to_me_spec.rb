@@ -22,7 +22,7 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   describe 'Conditional display of review buttons' do
     it 'displays mark as ready for MAAT button as default' do
       expect(page).to have_content('Mark as ready for MAAT')
-      expect(page).not_to have_content('Mark as completed')
+      expect(page).to have_no_content('Mark as completed')
     end
 
     context 'when the application is already marked as ready' do
@@ -36,7 +36,7 @@ RSpec.describe 'Viewing an application that is assigned to me' do
 
       it 'displays mark as completed button if application is marked as ready' do
         expect(page).to have_content('Mark as completed')
-        expect(page).not_to have_content('Mark as ready for MAAT')
+        expect(page).to have_no_content('Mark as ready for MAAT')
       end
     end
   end

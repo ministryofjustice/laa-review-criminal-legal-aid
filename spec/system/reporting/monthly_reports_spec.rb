@@ -29,7 +29,7 @@ RSpec.describe 'Monthly Reports' do
 
   context 'when on the current month' do
     it 'does not show the next report link' do
-      expect(page).not_to have_content 'Next'
+      expect(page).to have_no_content 'Next'
     end
   end
 

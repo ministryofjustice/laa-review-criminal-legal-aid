@@ -39,7 +39,7 @@ RSpec.describe 'Paginated search results' do
 
     it 'shows a link to the previous page' do
       within('nav.govuk-pagination') do
-        expect(page).not_to have_link('Next')
+        expect(page).to have_no_link('Next')
         expect(page).to have_link('Previous')
       end
     end

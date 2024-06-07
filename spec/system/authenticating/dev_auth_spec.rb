@@ -28,8 +28,8 @@ RSpec.describe 'Authenticating with the DevAuth strategy' do
       end
 
       it 'uses the simplified error page' do
-        expect(page).not_to have_css('nav.moj-primary-navigation')
-        expect(page).not_to have_css('.govuk-notification-banner')
+        expect(page).to have_no_css('nav.moj-primary-navigation')
+        expect(page).to have_no_css('.govuk-notification-banner')
       end
     end
 

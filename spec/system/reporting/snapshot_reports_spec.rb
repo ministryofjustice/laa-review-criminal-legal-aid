@@ -29,7 +29,7 @@ RSpec.describe 'Snapshot report' do
     end
 
     it 'does not show a link to the next day' do
-      expect(page).not_to have_link(next_day)
+      expect(page).to have_no_link(next_day)
     end
 
     context 'when the report_type is not supported' do

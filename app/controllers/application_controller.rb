@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    stored_location_for(user) || landing_page_for(user) || super(user)
+    stored_location_for(user) || landing_page_for(user) || super
   end
 
   # Sets the full flash message based on the message key.

@@ -189,7 +189,7 @@ RSpec.describe 'Return Reasons Report' do
       let(:current_user_role) { Types::UserRole['supervisor'] }
 
       it 'does not show the download link' do
-        expect(page).not_to have_content('Download')
+        expect(page).to have_no_content('Download')
       end
 
       it 'cannot visit the download link to get the report' do

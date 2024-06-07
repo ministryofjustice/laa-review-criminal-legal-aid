@@ -125,7 +125,7 @@ RSpec.describe 'Send an application back to the provider' do
       end
 
       it 'does not show the CTAs' do
-        expect(page).not_to have_content('Mark as completed')
+        expect(page).to have_no_content('Mark as completed')
       end
     end
   end
@@ -141,7 +141,7 @@ RSpec.describe 'Send an application back to the provider' do
     end
 
     it 'the "Send back to provider" button is not visable' do
-      expect(page).not_to have_button(send_back_cta)
+      expect(page).to have_no_button(send_back_cta)
     end
   end
 

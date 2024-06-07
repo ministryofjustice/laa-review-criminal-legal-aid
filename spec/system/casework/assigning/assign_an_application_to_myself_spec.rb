@@ -33,7 +33,7 @@ RSpec.describe 'Assigning an application to myself' do
     end
 
     it 'the "Assign to your list" button is not present' do
-      expect(page).not_to have_content(assign_cta)
+      expect(page).to have_no_content(assign_cta)
     end
 
     context 'when you are not allocated to the correct work stream' do

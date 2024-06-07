@@ -31,7 +31,7 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'does not show income section' do
-      expect(page).not_to have_content('Income')
+      expect(page).to have_no_content('Income')
     end
   end
 
@@ -48,15 +48,15 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'shows has income savings assets' do
-      expect(page).not_to have_content('Has income, savings or assets under a restraint or freezing order?')
+      expect(page).to have_no_content('Has income, savings or assets under a restraint or freezing order?')
     end
 
     it 'shows land or property' do
-      expect(page).not_to have_content('Has land or property?')
+      expect(page).to have_no_content('Has land or property?')
     end
 
     it 'shows savings or investments' do
-      expect(page).not_to have_content('Has savings or investments?')
+      expect(page).to have_no_content('Has savings or investments?')
     end
   end
 end

@@ -15,7 +15,7 @@ RSpec.describe 'Renewing an invitation' do
   describe 'renew an invitation' do
     context 'when the invitation is extant' do
       it 'does not show the renew button' do
-        expect(page).not_to have_button 'Renew'
+        expect(page).to have_no_button 'Renew'
       end
     end
 

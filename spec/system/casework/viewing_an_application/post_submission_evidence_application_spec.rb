@@ -32,38 +32,38 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     it 'does not display NI number' do
-      expect(page).not_to have_content('National Insurance number')
+      expect(page).to have_no_content('National Insurance number')
     end
 
     it 'does not display telephone number' do
-      expect(page).not_to have_content('UK Telephone number')
+      expect(page).to have_no_content('UK Telephone number')
     end
 
     it 'does not display address information' do
-      expect(page).not_to have_content('Home address')
-      expect(page).not_to have_content('Correspondence address')
+      expect(page).to have_no_content('Home address')
+      expect(page).to have_no_content('Correspondence address')
     end
 
     it 'does not display partner information' do
-      expect(page).not_to have_content('Partner')
+      expect(page).to have_no_content('Partner')
     end
   end
 
   context 'without standard application sections' do
     it 'does not display case details' do
-      expect(page).not_to have_content('Case details')
+      expect(page).to have_no_content('Case details')
     end
 
     it 'does not display offence details' do
-      expect(page).not_to have_content('Offence details')
+      expect(page).to have_no_content('Offence details')
     end
 
     it 'does not display co-defendants details' do
-      expect(page).not_to have_content('Co-defendants')
+      expect(page).to have_no_content('Co-defendants')
     end
 
     it 'does not display interest of justice details' do
-      expect(page).not_to have_content('Interest of Justice')
+      expect(page).to have_no_content('Interest of Justice')
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
     it 'displays post submission evidence section title' do
       expect(page).to have_content('Post submission evidence')
-      expect(page).not_to have_content('Supporting evidence')
+      expect(page).to have_no_content('Supporting evidence')
     end
 
     it 'shows a link to download the supporting evidence' do
@@ -120,12 +120,12 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
   context 'when reviewing application' do
     it 'does not show the following CTAs' do
-      expect(page).not_to have_content('Mark as ready for MAAT')
-      expect(page).not_to have_content('Send back to provider')
+      expect(page).to have_no_content('Mark as ready for MAAT')
+      expect(page).to have_no_content('Send back to provider')
     end
 
     it 'does show the mark as complete button' do
-      expect(page).not_to have_content('Mark as complete')
+      expect(page).to have_no_content('Mark as complete')
     end
   end
 end

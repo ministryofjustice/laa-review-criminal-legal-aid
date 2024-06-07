@@ -29,9 +29,9 @@ RSpec.describe 'When viewing the passporting benefit check details' do
       end
 
       it 'does not display the passporting benefit check outcome rows' do # rubocop:disable RSpec/MultipleExpectations
-        expect(page).not_to have_content('Passporting benefit check outcome No record of passporting benefit found')
-        expect(page).not_to have_content('Confirmed client details correct? Yes')
-        expect(page).not_to have_content('Evidence can be provided? No')
+        expect(page).to have_no_content('Passporting benefit check outcome No record of passporting benefit found')
+        expect(page).to have_no_content('Confirmed client details correct? Yes')
+        expect(page).to have_no_content('Evidence can be provided? No')
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
       let(:application_data) { super().merge('means_passport' => ['on_age_under18']) }
 
       it 'does not show the passporting benefit check section' do
-        expect(page).not_to have_content('Passporting Benefit Check')
+        expect(page).to have_no_content('Passporting Benefit Check')
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
       let(:application_data) { super().merge('means_passport' => ['on_not_means_tested']) }
 
       it 'does not show the passporting benefit check section' do
-        expect(page).not_to have_content('Passporting Benefit Check')
+        expect(page).to have_no_content('Passporting Benefit Check')
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
       end
 
       it 'does not show the passporting benefit check section' do
-        expect(page).not_to have_content('Passporting Benefit Check')
+        expect(page).to have_no_content('Passporting Benefit Check')
       end
     end
   end

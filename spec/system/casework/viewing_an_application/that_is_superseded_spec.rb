@@ -21,11 +21,11 @@ RSpec.describe 'Viewing an application that is superseded' do
   end
 
   it 'does not show the copy reference link' do
-    expect(page).not_to have_content('Copy reference number')
+    expect(page).to have_no_content('Copy reference number')
   end
 
   it 'does not show the copy urn link' do
-    expect(page).not_to have_content('Copy URN')
+    expect(page).to have_no_content('Copy URN')
   end
 
   it 'shows the resubmitted warning text' do
@@ -41,10 +41,10 @@ RSpec.describe 'Viewing an application that is superseded' do
   end
 
   it 'does not show button to assign' do
-    expect(page).not_to have_content('Assign to your list')
+    expect(page).to have_no_content('Assign to your list')
   end
 
   it 'does not show the CTAs' do
-    expect(page).not_to have_content('Mark as completed')
+    expect(page).to have_no_content('Mark as completed')
   end
 end
