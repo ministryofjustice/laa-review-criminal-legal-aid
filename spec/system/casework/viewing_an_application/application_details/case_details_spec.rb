@@ -14,7 +14,7 @@ RSpec.describe 'When viewing case details' do
       end
 
       it 'does not show appeal lodged date section' do
-        expect(page).not_to have_content('Appeal lodged')
+        expect(page).to have_no_content('Appeal lodged')
       end
     end
 
@@ -47,12 +47,12 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'does not show changes to financial circumstances question' do
-          expect(page).not_to have_content('Changes to financial circumstances')
+          expect(page).to have_no_content('Changes to financial circumstances')
         end
 
         it 'does not show MAAT ID or USN' do
-          expect(page).not_to have_content('Original application MAAT ID')
-          expect(page).not_to have_content('Original application USN')
+          expect(page).to have_no_content('Original application MAAT ID')
+          expect(page).to have_no_content('Original application USN')
         end
       end
 
@@ -69,7 +69,7 @@ RSpec.describe 'When viewing case details' do
 
         it 'displays the MAAT ID' do
           expect(page).to have_content('Original application MAAT ID 123456')
-          expect(page).not_to have_content('Original application USN')
+          expect(page).to have_no_content('Original application USN')
         end
       end
 
@@ -85,7 +85,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'displays the USN' do
-          expect(page).not_to have_content('Original application MAAT ID')
+          expect(page).to have_no_content('Original application MAAT ID')
           expect(page).to have_content('Original application USN 654321')
         end
       end
@@ -112,8 +112,8 @@ RSpec.describe 'When viewing case details' do
       end
 
       it 'does not show MAAT ID or USN' do
-        expect(page).not_to have_content('Original application MAAT ID')
-        expect(page).not_to have_content('Original application USN')
+        expect(page).to have_no_content('Original application MAAT ID')
+        expect(page).to have_no_content('Original application USN')
       end
     end
 
@@ -128,7 +128,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'hides has case concluded question' do
-          expect(page).not_to have_content('Has the case concluded?')
+          expect(page).to have_no_content('Has the case concluded?')
         end
       end
 
@@ -165,7 +165,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'hides pre-order work question' do
-          expect(page).not_to have_content('Do you intend to claim pre-order work?')
+          expect(page).to have_no_content('Do you intend to claim pre-order work?')
         end
       end
 
@@ -206,7 +206,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'hides custody is remanded question' do
-          expect(page).not_to have_content('Has a court remanded client in custody?')
+          expect(page).to have_no_content('Has a court remanded client in custody?')
         end
       end
 

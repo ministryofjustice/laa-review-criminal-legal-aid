@@ -35,7 +35,7 @@ RSpec.describe 'Viewing the other income details of an application' do
     end
 
     it 'does not show income section' do
-      expect(page).not_to have_content('Other sources of income')
+      expect(page).to have_no_content('Other sources of income')
     end
   end
 end

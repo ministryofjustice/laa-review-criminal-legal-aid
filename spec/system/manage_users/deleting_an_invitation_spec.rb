@@ -53,7 +53,7 @@ RSpec.describe 'Deleting an invitation' do
 
       it 'shows the confirm page without the warning' do
         expect(page).to have_text "Are you sure you want to delete #{user.email}'s invitation?"
-        expect(page).not_to have_text '!Warning'
+        expect(page).to have_no_text '!Warning'
       end
     end
   end

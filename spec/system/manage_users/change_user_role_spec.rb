@@ -60,7 +60,7 @@ RSpec.describe 'Change user role' do
       end
 
       it 'does not show change role action' do
-        expect(page).not_to have_content 'Change role'
+        expect(page).to have_no_content 'Change role'
         expect(page).to have_content 'Reactivate'
       end
     end
@@ -91,7 +91,7 @@ RSpec.describe 'Change user role' do
       end
 
       it 'does not show change role action' do
-        expect(page).not_to have_content 'Change role'
+        expect(page).to have_no_content 'Change role'
         expect(page).to have_content 'Revive'
       end
     end

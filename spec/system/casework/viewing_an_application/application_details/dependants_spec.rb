@@ -51,7 +51,7 @@ RSpec.describe 'Viewing the dependants details of an application' do
       let(:client_has_dependants) { nil }
 
       it 'does not show the dependants heading' do
-        expect(page).not_to have_content(title_text)
+        expect(page).to have_no_content(title_text)
       end
     end
   end

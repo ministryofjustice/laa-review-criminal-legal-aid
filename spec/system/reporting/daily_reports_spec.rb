@@ -32,7 +32,7 @@ RSpec.describe 'Daily reports' do
     let(:period) { '2023-01-02' }
 
     it 'does not show the next report link' do
-      expect(page).not_to have_content 'Next'
+      expect(page).to have_no_content 'Next'
     end
   end
 

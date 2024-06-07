@@ -25,7 +25,7 @@ RSpec.describe 'Viewing an applications address details' do
       end
 
       it 'does not show the home address' do
-        expect(page).not_to have_content('Home address')
+        expect(page).to have_no_content('Home address')
       end
     end
   end

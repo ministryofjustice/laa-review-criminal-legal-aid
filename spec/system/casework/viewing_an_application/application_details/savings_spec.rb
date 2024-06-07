@@ -38,7 +38,7 @@ RSpec.describe 'Viewing the savings of an application' do
           expect(card).to have_summary_row 'Is the account overdrawn?', 'Yes'
           expect(card).to have_summary_row 'Client’s wages or benefits paid into this account?', 'Yes'
           expect(card).to have_summary_row 'Name the account is in', 'Client'
-          expect(card).not_to have_content partner_wages_text
+          expect(card).to have_no_content partner_wages_text
         end
       end
 

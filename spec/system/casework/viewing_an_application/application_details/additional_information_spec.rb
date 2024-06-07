@@ -10,7 +10,7 @@ RSpec.describe 'Viewing any additional information provided' do
   end
 
   context 'when additional information not provided' do
-    it { expect(page).not_to have_content(additional_info_label) }
+    it { expect(page).to have_no_content(additional_info_label) }
   end
 
   context 'when additional information provided' do

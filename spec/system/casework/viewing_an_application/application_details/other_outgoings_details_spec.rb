@@ -15,7 +15,7 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
     let(:how_manage) { 'Use savings' }
 
     context 'when there are no answers' do
-      it { expect(page).not_to have_content(title_text) }
+      it { expect(page).to have_no_content(title_text) }
     end
 
     describe 'income tax threshold question' do
@@ -24,8 +24,8 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
       context 'when not answered' do
         let(:income_tax_rate_above_threshold) { nil }
 
-        it { expect(page).not_to have_content(title_text) }
-        it { expect(page).not_to have_content(question) }
+        it { expect(page).to have_no_content(title_text) }
+        it { expect(page).to have_no_content(question) }
       end
 
       context 'when yes' do
@@ -50,8 +50,8 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
       context 'when not answered' do
         let(:outgoings_more_than_income) { nil }
 
-        it { expect(page).not_to have_content(title_text) }
-        it { expect(page).not_to have_content(question) }
+        it { expect(page).to have_no_content(title_text) }
+        it { expect(page).to have_no_content(question) }
       end
 
       context 'when yes' do
@@ -67,7 +67,7 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
 
         it { expect(page).to have_content(title_text) }
         it { expect(page).to have_summary_row(question, 'No') }
-        it { expect(page).not_to have_content(how_manage_question) }
+        it { expect(page).to have_no_content(how_manage_question) }
       end
     end
   end

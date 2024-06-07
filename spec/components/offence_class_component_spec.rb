@@ -25,7 +25,7 @@ RSpec.describe OffenceClassComponent, type: :component do
 
       it 'prepends Class to class' do
         expect(page.text).to eq('Class A')
-        expect(page).not_to have_selector(tag_selector)
+        expect(page).to have_no_selector(tag_selector)
       end
     end
   end

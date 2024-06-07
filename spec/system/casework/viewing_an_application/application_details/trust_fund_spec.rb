@@ -32,8 +32,8 @@ RSpec.describe 'Viewing the trust fund details of an application' do
     end
 
     it 'does not show amount held in the fund and the yearly dividend' do
-      expect(page).not_to have_content('Enter the amount held in the fund £1,000.00')
-      expect(page).not_to have_content('Enter the yearly dividend £2,000.00')
+      expect(page).to have_no_content('Enter the amount held in the fund £1,000.00')
+      expect(page).to have_no_content('Enter the yearly dividend £2,000.00')
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe 'Viewing the trust fund details of an application' do
     end
 
     it 'does not show income section' do
-      expect(page).not_to have_content('Trust funds')
+      expect(page).to have_no_content('Trust funds')
     end
   end
 end

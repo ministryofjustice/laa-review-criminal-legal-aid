@@ -72,7 +72,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
       it 'are not normally listed' do
         visit manage_competencies_root_path
-        expect(page).not_to have_content('Amanda Manager')
+        expect(page).to have_no_content('Amanda Manager')
       end
 
       context 'when user managers have service access' do

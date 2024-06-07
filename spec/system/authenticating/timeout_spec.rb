@@ -25,7 +25,7 @@ RSpec.describe 'Session timeout' do
     let(:inactive_period) { timeout_in + 1.second }
 
     it 'signs the user out' do
-      expect(page).not_to have_content 'Your list'
+      expect(page).to have_no_content 'Your list'
     end
 
     it 'shows the notification banner' do

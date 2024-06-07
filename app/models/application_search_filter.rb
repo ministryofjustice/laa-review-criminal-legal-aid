@@ -56,7 +56,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
   # Hash of Datastore search constraints based on the active filters
   def datastore_params
     active_datastore_filters.each_with_object({}) do |filter, params|
-      params.merge!(send("#{filter}_datastore_param"))
+      params.merge!(send(:"#{filter}_datastore_param"))
     end
   end
 
@@ -142,7 +142,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
   # Returns an array application_ids for each active review filter
   def active_review_filters_application_ids
     active_review_filters.map do |filter|
-      send("#{filter}_filter_application_ids")
+      send(:"#{filter}_filter_application_ids")
     end
   end
 

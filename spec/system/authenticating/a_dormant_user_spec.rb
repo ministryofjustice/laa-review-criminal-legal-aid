@@ -10,7 +10,7 @@ RSpec.describe 'Authenticating a dormant user' do
   end
 
   it 'the user is not signed in' do
-    expect(page).not_to have_content 'Your list'
+    expect(page).to have_no_content 'Your list'
   end
 
   it 'informs the user that their invitation has expired' do

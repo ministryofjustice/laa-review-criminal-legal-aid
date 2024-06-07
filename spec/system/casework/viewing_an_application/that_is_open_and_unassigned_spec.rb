@@ -105,7 +105,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       let(:application_data) { super().merge('means_passport' => ['on_age_under18']) }
 
       it 'does not show the passporting benefit row' do
-        expect(page).not_to have_content('Passporting Benefit')
+        expect(page).to have_no_content('Passporting Benefit')
       end
     end
   end
@@ -141,7 +141,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'does not show the CTAs' do
-    expect(page).not_to have_content('Mark as completed')
+    expect(page).to have_no_content('Mark as completed')
   end
 
   context 'with optional fields not provided' do
@@ -293,8 +293,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'does not display' do
-          expect(page).not_to have_content(residence_question)
-          expect(page).not_to have_content(relationship_question)
+          expect(page).to have_no_content(residence_question)
+          expect(page).to have_no_content(relationship_question)
         end
       end
     end

@@ -13,7 +13,7 @@ module CaseworkerReports
       @user_id = user_id
 
       COUNTERS.each do |counter|
-        instance_variable_set("@#{counter}", 0)
+        instance_variable_set(:"@#{counter}", 0)
       end
     end
 

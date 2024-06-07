@@ -18,8 +18,8 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the simplified error page layout' do
-        expect(page).not_to have_css('nav.moj-primary-navigation')
-        expect(page).not_to have_link('Sign out')
+        expect(page).to have_no_css('nav.moj-primary-navigation')
+        expect(page).to have_no_link('Sign out')
       end
     end
 
@@ -122,7 +122,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the simplified errors page layout' do
-        expect(page).not_to have_css('nav.moj-primary-navigation')
+        expect(page).to have_no_css('nav.moj-primary-navigation')
       end
     end
 
@@ -137,7 +137,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the simplified errors page layout' do
-        expect(page).not_to have_css('nav.moj-primary-navigation')
+        expect(page).to have_no_css('nav.moj-primary-navigation')
       end
     end
 
@@ -153,8 +153,8 @@ RSpec.describe 'Error pages' do
 
       it 'uses the errors layout' do
         visit "/manage_users/history/#{user.id}"
-        expect(page).not_to have_css '#navigation'
-        expect(page).not_to have_content 'Sign out'
+        expect(page).to have_no_css '#navigation'
+        expect(page).to have_no_content 'Sign out'
       end
     end
   end
