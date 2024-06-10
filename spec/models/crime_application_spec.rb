@@ -292,7 +292,9 @@ RSpec.describe CrimeApplication do
   end
 
   describe '#last_jsa_appointment_date?' do
-    subject(:last_jsa_appointment_date?) { application.last_jsa_appointment_date? }
+    subject(:last_jsa_appointment_date?) do
+      application.last_jsa_appointment_date?(application.client_details.applicant)
+    end
 
     let(:last_jsa_date) { nil }
     let(:attributes) do

@@ -1,0 +1,43 @@
+<% if crime_application.last_jsa_appointment_date?(person) %>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:date_of_latest_jsa_appointment) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l person.last_jsa_appointment_date, format: :compact %>
+    </dd>
+  </div>
+<% end %>
+
+<% if person.benefit_check_status %>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:benefit_check_status) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= t(person.benefit_check_status, scope: 'values.benefit_check_status') %>
+    </dd>
+  </div>
+
+  <% if person.confirm_details %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:confirmed_details) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(person.confirm_details, scope: 'values') %>
+      </dd>
+    </div>
+  <% end %>
+
+  <% if person.has_benefit_evidence %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:has_benefit_evidence) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(person.has_benefit_evidence, scope: 'values') %>
+      </dd>
+    </div>
+  <% end  %>
+<% end %>

@@ -96,7 +96,7 @@ en:
     codefendants: Co-defendants
     correspondence_address: Correspondence address
     conflict_of_interest: Conflict of interest?
-    confirm_client_details: Confirmed client details correct?
+    confirmed_details: Confirmed details correct?
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
@@ -234,7 +234,8 @@ en:
     partner: Partner
     pays_council_tax: Does client pay Council Tax?
     passporting_benefit: Passporting Benefit
-    passporting_benefit_check: Passporting Benefit Check
+    passporting_benefit_check: 'Passporting benefit check: client'
+    passporting_benefit_check_partner: 'Passporting benefit check: partner'
     payment_board_from_family: Board from family members living with the client
     payment_financial_support_with_access: Financial support from someone who allows the client access to their assets or money
     payment_from_friends_relatives: Money from friends or family

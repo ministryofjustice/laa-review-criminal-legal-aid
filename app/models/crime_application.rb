@@ -122,7 +122,11 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def applicant
-    @applicant ||= ApplicantPresenter.present(self[:client_details][:applicant])
+    @applicant ||= PersonPresenter.present(self[:client_details][:applicant])
+  end
+
+  def partner
+    @partner ||= PersonPresenter.present(self[:client_details].partner)
   end
 
   def dependants
@@ -154,8 +158,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       case_details&.appeal_reference_number.present?
   end
 
-  def last_jsa_appointment_date?
-    client_details.applicant.benefit_type == 'jsa' && client_details.applicant.last_jsa_appointment_date.present?
+  def last_jsa_appointment_date?(person)
+    person.benefit_type == 'jsa' && person.last_jsa_appointment_date.present?
   end
 
   # TODO: ensure evidence_details always has a struct for PSE view?

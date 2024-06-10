@@ -39,7 +39,7 @@
           </dd>
         </div>
 
-        <% if overview.last_jsa_appointment_date? %>
+        <% if overview.last_jsa_appointment_date?(overview.client_details.applicant) %>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               <%= label_text(:date_of_latest_jsa_appointment) %>

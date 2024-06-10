@@ -1,0 +1,19 @@
+<% if crime_application.applicant.has_partner == 'yes' %>
+  <%= govuk_summary_card(title: label_text(:passporting_benefit_check_partner)) do %>
+    <dl class="govuk-summary-list">
+      <% if partner.benefit_type %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:passporting_benefit) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(partner.benefit_type, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
+
+      <%= render partial: 'casework/crime_applications/sections/passporting_benefit_check',
+                 locals: { crime_application: crime_application, person: partner } %>
+    </dl>
+  <% end %>
+<% end %>

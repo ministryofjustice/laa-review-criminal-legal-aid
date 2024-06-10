@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'When viewing the passporting benefit check details' do
+RSpec.describe "When viewing the client's passporting benefit check details" do
   include_context 'with stubbed application'
 
   before do
@@ -8,7 +8,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
   end
 
   context 'with passporting benefit check details' do
-    it { expect(page).to have_content('Passporting Benefit Check') }
+    it { expect(page).to have_content('Passporting benefit check: client') }
 
     it 'shows whether client has a passporting benefit' do
       expect(page).to have_content('Passporting Benefit Universal Credit')
@@ -16,7 +16,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
 
     it 'shows the passporting benefit check outcome rows' do # rubocop:disable RSpec/MultipleExpectations
       expect(page).to have_content('Passporting benefit check outcome No record of passporting benefit found')
-      expect(page).to have_content('Confirmed client details correct? Yes')
+      expect(page).to have_content('Confirmed details correct? Yes')
       expect(page).to have_content('Evidence can be provided? No')
     end
 
@@ -30,7 +30,7 @@ RSpec.describe 'When viewing the passporting benefit check details' do
 
       it 'does not display the passporting benefit check outcome rows' do # rubocop:disable RSpec/MultipleExpectations
         expect(page).to have_no_content('Passporting benefit check outcome No record of passporting benefit found')
-        expect(page).to have_no_content('Confirmed client details correct? Yes')
+        expect(page).to have_no_content('Confirmed details correct? Yes')
         expect(page).to have_no_content('Evidence can be provided? No')
       end
     end
