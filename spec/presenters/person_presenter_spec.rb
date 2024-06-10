@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe ApplicantPresenter do
-  subject(:applicant_presenter) { described_class.new(crime_application.client_details.applicant) }
+RSpec.describe PersonPresenter do
+  subject(:person_presenter) { described_class.new(crime_application.client_details.applicant) }
 
   let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
   let(:crime_application) { CrimeApplication.new(attributes) }
 
   describe '#formatted_applicant_nino' do
-    subject(:formatted_applicant_nino) { applicant_presenter.formatted_applicant_nino }
+    subject(:formatted_applicant_nino) { person_presenter.formatted_applicant_nino }
 
     it { is_expected.to eq 'AJ123456C' }
   end
 
   describe '#phone_number' do
-    subject(:phone_number) { applicant_presenter.phone_number }
+    subject(:phone_number) { person_presenter.phone_number }
 
     it { is_expected.to eq '07771 231 231' }
 

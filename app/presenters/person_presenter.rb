@@ -1,4 +1,4 @@
-class ApplicantPresenter < BasePresenter
+class PersonPresenter < BasePresenter
   def phone_number
     return if telephone_number.nil?
 

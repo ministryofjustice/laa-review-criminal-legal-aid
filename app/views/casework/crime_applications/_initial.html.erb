@@ -5,11 +5,10 @@
              nino: crime_application.applicant.formatted_applicant_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
-<%= render partial: 'passporting_benefit_check',
-           locals: {
-             crime_application: crime_application,
-             applicant: crime_application.applicant
-           } %>
+<%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_client',
+           locals: { crime_application: crime_application, applicant: crime_application.applicant } %>
+<%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_partner',
+           locals: { crime_application: crime_application, partner: crime_application.partner } %>
 <%= render partial: 'case_details', object: crime_application.case_details %>
 <%= render partial: 'offences', object: crime_application.case_details.offences %>
 <%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
