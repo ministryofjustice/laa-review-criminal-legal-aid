@@ -126,7 +126,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def partner
-    @partner ||= PersonPresenter.present(self[:client_details][:partner])
+    @partner ||= PersonPresenter.present(self[:client_details].partner)
   end
 
   def dependants
