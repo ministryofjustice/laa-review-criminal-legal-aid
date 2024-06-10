@@ -48,10 +48,10 @@ RSpec.describe "When viewing the partner's passporting benefit check details" do
     end
 
     context 'when applicant does not have partner' do
-      let(:application_data) { super().deep_merge('client_details' => { 'applicant' => { 'has_partner' => 'no' }})}
+      let(:application_data) { super().deep_merge('client_details' => { 'applicant' => { 'has_partner' => 'no' } }) }
 
       it 'does not show the partner passporting benefit check section' do
-        expect(page).not_to have_content('Passporting Benefit Check: partner')
+        expect(page).to have_no_content('Passporting Benefit Check: partner')
       end
     end
   end
