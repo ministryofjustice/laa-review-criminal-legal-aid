@@ -10,7 +10,6 @@
         </dd>
       </div>
       <% if outgoings_details.applicant_self_assessment_tax_bill == 'yes' %>
-        <% payment = outgoings_details.outgoings.detect{|outgoing| outgoing.payment_type == 'self_assessment_tax_bill'} %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:applicant_self_assessment_tax_bill_amount) %>
