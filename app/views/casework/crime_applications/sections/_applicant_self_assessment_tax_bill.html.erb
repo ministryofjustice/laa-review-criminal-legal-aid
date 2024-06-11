@@ -1,6 +1,25 @@
-<br><br><br>
-outgoings_details.applicant_self_assessment_tax_bill:
-<%= outgoings_details.applicant_self_assessment_tax_bill %>
-<br>
-outgoings_details.outgoings:
-<%= outgoings_details.outgoings.detect{|outgoing| outgoing.payment_type == 'self_assessment_tax_bill'}.inspect %>
+<%if outgoings_details.applicant_self_assessment_tax_bill.present? %>
+  <%= govuk_summary_card(title: label_text(:self_assessment_tax_bill)) do %>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:applicant_self_assessment_tax_bill) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(outgoings_details.applicant_self_assessment_tax_bill, scope: 'values') %>
+        </dd>
+      </div>
+      <% if outgoings_details.applicant_self_assessment_tax_bill == 'yes' %>
+        <% payment = outgoings_details.outgoings.detect{|outgoing| outgoing.payment_type == 'self_assessment_tax_bill'} %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:applicant_self_assessment_tax_bill_amount) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= simple_format(t('values.payment_with_frequency', amount: number_to_currency(payment.amount * 0.01), frequency: t(payment.frequency, scope: [:values, :frequency]))) %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  <% end %>
+<% end %>

@@ -320,6 +320,15 @@ en:
       relationship: Relationship to client
       percentage_owned: Percentage of the %{asset} they own
 
+    employment_income: Pay from employment
+    employment_income_amount: Salary or wage
+    work_benefits: Other work benefits
+    applicant_other_work_benefit_received: Does your client receive any other benefits from work?
+    applicant_other_work_benefit_received_amount: Total value every year
+    self_assessment_tax_bill: Self Assessment tax
+    applicant_self_assessment_tax_bill: Does the client pay a Self Assessment tax bill?
+    applicant_self_assessment_tax_bill_amount: Amount
+
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
     reference: Reference number

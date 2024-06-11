@@ -1,6 +1,25 @@
-<br><br><br>
-income_details.applicant_other_work_benefit_received:
-<%= income_details.applicant_other_work_benefit_received %>
-<br>
-income_details.income_payments:
-<%= income_details.income_payments.detect{|income_payment| income_payment.payment_type == 'work_benefits'}.inspect %>
+<%if income_details.applicant_other_work_benefit_received.present? %>
+  <%= govuk_summary_card(title: label_text(:work_benefits)) do %>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:applicant_other_work_benefit_received) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(income_details.applicant_other_work_benefit_received, scope: 'values') %>
+        </dd>
+      </div>
+      <% if income_details.applicant_other_work_benefit_received == 'yes' %>
+        <% payment = income_details.income_payments.detect{|income_payment| income_payment.payment_type == 'work_benefits'} %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:applicant_other_work_benefit_received_amount) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= simple_format(t('values.payment_with_frequency', amount: number_to_currency(payment.amount * 0.01), frequency: t(payment.frequency, scope: [:values, :frequency]))) %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  <% end %>
+<% end %>
