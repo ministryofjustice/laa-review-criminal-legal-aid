@@ -13,6 +13,10 @@ class OutgoingPaymentsPresenter < BasePresenter
     ordered_payments
   end
 
+  def self_assessment_tax_bill
+    @outgoing_payments&.detect { |outgoing| outgoing.payment_type == 'self_assessment_tax_bill' }
+  end
+
   private
 
   def ordered_payments

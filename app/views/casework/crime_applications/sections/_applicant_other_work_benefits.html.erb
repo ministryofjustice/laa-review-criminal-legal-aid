@@ -1,0 +1,24 @@
+<%if income_details.applicant_other_work_benefit_received.present? %>
+  <%= govuk_summary_card(title: label_text(:work_benefits)) do %>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:applicant_other_work_benefit_received) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(income_details.applicant_other_work_benefit_received, scope: 'values') %>
+        </dd>
+      </div>
+      <% if income_details.applicant_other_work_benefit_received == 'yes' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:applicant_other_work_benefit_received_amount) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= simple_format(t('values.payment_with_frequency', amount: number_to_currency(other_work_benefits.amount * 0.01), frequency: t(other_work_benefits.frequency, scope: [:values, :frequency]))) %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  <% end %>
+<% end %>
