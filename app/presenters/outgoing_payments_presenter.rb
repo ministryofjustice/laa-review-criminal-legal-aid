@@ -14,7 +14,7 @@ class OutgoingPaymentsPresenter < BasePresenter
   end
 
   def self_assessment_tax_bill
-    outgoing_payment_of_type('self_assessment_tax_bill')
+    @outgoing_payments&.detect { |outgoing| outgoing.payment_type == 'self_assessment_tax_bill' }
   end
 
   private
