@@ -9,9 +9,9 @@
 <%= render partial: 'casework/crime_applications/sections/income_payments', locals: { income_details: crime_application.means_details.income_details, income_payments: crime_application.income_payments.formatted_income_payments } %>
 <%= render partial: 'casework/crime_applications/sections/income_benefits', locals: { income_details: crime_application.means_details.income_details, income_benefits: crime_application.income_benefits.formatted_income_benefits } %>
 <%= render partial: 'casework/crime_applications/sections/employments', locals: { income_details: crime_application.means_details.income_details } %>
-<%= render partial: 'casework/crime_applications/sections/employment_income', locals: { income_details: crime_application.means_details.income_details } %>
-<%= render partial: 'casework/crime_applications/sections/work_benefits', locals: { income_details: crime_application.means_details.income_details } %>
-<%= render partial: 'casework/crime_applications/sections/applicant_self_assessment_tax_bill', locals: { outgoings_details: crime_application.means_details.outgoings_details } %>
+<%= render partial: 'casework/crime_applications/sections/employment_income', locals: { employment_income: crime_application.income_payments.employment_income } %>
+<%= render partial: 'casework/crime_applications/sections/applicant_other_work_benefits', locals: { income_details: crime_application.means_details.income_details, other_work_benefits: crime_application.income_payments.other_work_benefits } %>
+<%= render partial: 'casework/crime_applications/sections/applicant_self_assessment_tax_bill', locals: { outgoings_details: crime_application.means_details.outgoings_details, self_assessment_tax_bill: crime_application.outgoing_payments.self_assessment_tax_bill } %>
 
 <%= render(
       partial: 'casework/crime_applications/sections/dependants',

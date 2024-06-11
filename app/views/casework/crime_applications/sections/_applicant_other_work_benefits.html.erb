@@ -10,13 +10,12 @@
         </dd>
       </div>
       <% if income_details.applicant_other_work_benefit_received == 'yes' %>
-        <% payment = income_details.income_payments.detect{|income_payment| income_payment.payment_type == 'work_benefits'} %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:applicant_other_work_benefit_received_amount) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= simple_format(t('values.payment_with_frequency', amount: number_to_currency(payment.amount * 0.01), frequency: t(payment.frequency, scope: [:values, :frequency]))) %>
+            <%= simple_format(t('values.payment_with_frequency', amount: number_to_currency(other_work_benefits.amount * 0.01), frequency: t(other_work_benefits.frequency, scope: [:values, :frequency]))) %>
           </dd>
         </div>
       <% end %>
