@@ -7,10 +7,13 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
       visit crime_application_path(application_id)
     end
 
-    let(:outgoings_details) { { income_tax_rate_above_threshold:, outgoings_more_than_income:, how_manage: } }
+    let(:outgoings_details) {
+      { income_tax_rate_above_threshold:, partner_income_tax_rate_above_threshold:,
+                                outgoings_more_than_income:, how_manage: } }
 
     let(:title_text) { 'Other outgoings' }
     let(:income_tax_rate_above_threshold) { nil }
+    let(:partner_income_tax_rate_above_threshold) { nil }
     let(:outgoings_more_than_income) { nil }
     let(:how_manage) { 'Use savings' }
 
@@ -19,7 +22,7 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
     end
 
     describe 'income tax threshold question' do
-      let(:question) { 'In the last 2 years, has client paid the 40% income tax rate?' }
+      let(:question) { 'In the last 2 years, has the client paid the 40% income tax rate?' }
 
       context 'when not answered' do
         let(:income_tax_rate_above_threshold) { nil }
@@ -43,9 +46,34 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
       end
     end
 
+    # describe 'partner income tax threshold question' do
+    #   let(:question) { 'In the last 2 years, has the partner paid the 40% income tax rate?' }
+    #
+    #   context 'when not answered' do
+    #     let(:partner_income_tax_rate_above_threshold) { nil }
+    #
+    #     it { expect(page).to have_no_content(title_text) }
+    #     it { expect(page).to have_no_content(question) }
+    #   end
+    #
+    #   context 'when yes' do
+    #     let(:partner_income_tax_rate_above_threshold) { 'yes' }
+    #
+    #     it { expect(page).to have_content(title_text) }
+    #     it { expect(page).to have_summary_row(question, 'Yes') }
+    #   end
+    #
+    #   context 'when no' do
+    #     let(:partner_income_tax_rate_above_threshold) { 'no' }
+    #
+    #     it { expect(page).to have_content(title_text) }
+    #     it { expect(page).to have_summary_row(question, 'No') }
+    #   end
+    # end
+
     describe 'outgoings more then income question' do
-      let(:question) { "Are client's outgoings more than their income?" }
-      let(:how_manage_question) { 'How does client manage if their outgoings are more than their income?' }
+      let(:question) { 'Outgoings more than income?' }
+      let(:how_manage_question) { 'How they cover outgoings that are more than their income?' }
 
       context 'when not answered' do
         let(:outgoings_more_than_income) { nil }

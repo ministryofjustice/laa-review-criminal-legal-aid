@@ -29,8 +29,6 @@ RSpec.describe 'Viewing the properties of an application' do
 
       it 'shows properties details' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
         within(property_card) do |card|
-          expect(card).to have_summary_row 'Which assets does your client own or part-own inside or outside the UK?',
-                                           'Residential property'
           expect(card).to have_summary_row 'Type of property', 'other house type'
           expect(card).to have_summary_row 'Number of bedrooms', '2'
           expect(card).to have_summary_row 'Value of property', '£200,000.00'

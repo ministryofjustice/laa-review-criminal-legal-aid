@@ -11,7 +11,7 @@ RSpec.describe 'Viewing the trust fund details of an application' do
     it { expect(page).to have_content('Trust funds') }
 
     it 'shows whether client benefits from a trust fund' do
-      expect(page).to have_content('Does your client stand to benefit from a trust fund inside or outside the UK? Yes')
+      expect(page).to have_content('Stands to benefit from a trust fund? Yes')
     end
 
     it 'shows the amount held in the fund and the yearly dividend' do
@@ -28,7 +28,7 @@ RSpec.describe 'Viewing the trust fund details of an application' do
     end
 
     it 'shows whether client benefits from a trust fund' do
-      expect(page).to have_content('Does your client stand to benefit from a trust fund inside or outside the UK? No')
+      expect(page).to have_content('Stands to benefit from a trust fund? No')
     end
 
     it 'does not show amount held in the fund and the yearly dividend' do

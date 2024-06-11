@@ -1,6 +1,6 @@
 <% return unless payments.present? || details.has_no_other_outgoings == 'yes' %>
 
-<%= govuk_summary_card(title: label_text(:payments_the_client_pays)) do %>
+<%= govuk_summary_card(title: label_text(:payments_the_client_makes)) do %>
   <dl class="govuk-summary-list">
     <% if details.has_no_other_outgoings == 'yes' %>
       <div class="govuk-summary-list__row">

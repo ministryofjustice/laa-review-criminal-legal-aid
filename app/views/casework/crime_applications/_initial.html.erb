@@ -2,9 +2,19 @@
            locals: {
              crime_application: crime_application,
              applicant: crime_application.client_details.applicant,
-             nino: crime_application.applicant.formatted_applicant_nino,
+             nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
+<% if crime_application.partner.present? %>
+  <%= render partial: 'partner_details',
+             locals: {
+               crime_application: crime_application,
+               applicant: crime_application.client_details.applicant,
+               partner: crime_application.client_details.partner,
+               nino: crime_application.partner.formatted_nino,
+             } %>
+<% end %>
+
 <%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_client',
            locals: { crime_application: crime_application, applicant: crime_application.applicant } %>
 <%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_partner',

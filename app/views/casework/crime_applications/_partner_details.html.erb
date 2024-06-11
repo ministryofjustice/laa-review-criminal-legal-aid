@@ -1,0 +1,94 @@
+<% if applicant.has_partner == 'yes' %>
+  <%= govuk_summary_card(title: label_text(:partner_details)) do %>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:relationship_to_client) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(applicant.relationship_to_partner, scope: 'values.relationship_to_client')  %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:first_name) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= partner.first_name %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:last_name) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= partner.last_name %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:other_names) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= partner.other_names.presence || t(:not_provided, scope: 'values') %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:date_of_birth) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l partner.date_of_birth, format: :compact %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:national_insurance_number) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= nino.presence || t(:not_provided, scope: 'values') %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:involvement_in_case) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(partner.involvement_in_case, scope: 'values.involvement_in_case')%>
+        </dd>
+      </div>
+      <% if partner.involvement_in_case == 'codefendant' %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:conflict_of_interest) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(partner.conflict_of_interest, scope: 'values.conflict_of_interest') %>
+          </dd>
+        </div>
+      <% end %>
+      <% if partner.has_same_address_as_client.present? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:has_same_address_as_client) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(partner.has_same_address_as_client, scope: 'values') %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:home_address) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if partner.has_same_address_as_client == 'yes' %>
+              <%= render 'address', address: applicant.home_address %>
+            <% else %>
+              <%= render 'address', address: partner.home_address %>
+          <% end %>
+          </dd>
+        </div>
+      <% end  %>
+    </dl>
+  <% end %>
+<% end %>

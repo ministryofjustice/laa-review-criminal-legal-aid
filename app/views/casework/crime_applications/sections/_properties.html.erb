@@ -15,11 +15,6 @@
           property = card.item
           asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type.to_sym][:display_name]
           govuk_summary_list(actions: false) do |list|
-            list.with_row do |row|
-              row.with_key { label_text(:property_type, scope: 'properties') }
-              row.with_value { simple_format(t(property.property_type, scope: 'values.property_type')) }
-            end
-
             if property.property_type == PropertiesPresenter::RESIDENTIAL
               list.with_row do |row|
                 row.with_key { label_text(:house_type, scope: 'properties') }

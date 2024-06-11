@@ -8,13 +8,13 @@
 
           if details.has_premium_bonds == 'yes'
             list.with_row do |row|
-              row.with_key { label_text(:premium_bonds_total_value) }
-              row.with_value { number_to_currency(details.premium_bonds_total_value * 0.01) }
+              row.with_key { label_text(:premium_bonds_holder_number) }
+              row.with_value { details.premium_bonds_holder_number }
             end
 
             list.with_row do |row|
-              row.with_key { label_text(:premium_bonds_holder_number) }
-              row.with_value { details.premium_bonds_holder_number }
+              row.with_key { label_text(:premium_bonds_total_value) }
+              row.with_value { number_to_currency(details.premium_bonds_total_value * 0.01) }
             end
           end
         end %>

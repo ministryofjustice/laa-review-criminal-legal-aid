@@ -111,7 +111,7 @@ en:
     date_received: 'Date received:'
     dependants: Dependants
     details: Details
-    does_client_have_national_savings_certificates: Does the client have any National Savings Certificates?
+    does_client_have_national_savings_certificates: Any National Savings Certificates?
     employment: Employment
     employment_type: Client's employment status
     end_on: Date to
@@ -141,20 +141,21 @@ en:
       'false': No
     has_codefendants: Co-defendants?
     has_dependants: Has dependants?
-    has_frozen_income_or_assets: Has income, savings or assets under a restraint or freezing order?
-    has_no_other_assets: Client has no other assets or capital
-    has_premium_bonds: Does client have any Premium Bonds?
+    has_frozen_income_or_assets: Income, savings or assets under a restraint or freezing order
+    has_no_other_assets: Has no other assets or capital?
+    has_premium_bonds: Any Premium Bonds?
     has_savings: Has savings or investments?
+    has_same_address_as_client: Lives at same address as client?
     hearing_date: Date of next hearing
     home_address: Home address
     housing_payments: Housing payments
-    how_manage_outgoings: How does client manage if their outgoings are more than their income?
-    how_much_council_tax: Amount paid yearly in Council Tax
+    how_manage_outgoings: How they cover outgoings that are more than their income?
+    how_much_council_tax: Council Tax amount yearly
     how_much_rent: Amount paid for rent, after taking away Housing Benefit
     how_much_mortgage: Amount paid towards mortgage
     income: Income
     income_more_than: Income more than £12,475?
-    income_details: Your client's income
+    income_details: Income
     employments_title: Jobs
     employment_title: Job
     employments:
@@ -173,7 +174,8 @@ en:
         income_tax: Income Tax
         national_insurance: National Insurance
         other: Other deductions total
-    income_tax_rate_above_threshold: In the last 2 years, has client paid the 40% income tax rate?
+    income_tax_rate_above_threshold: In the last 2 years, has the client paid the 40% income tax rate?
+    partner_income_tax_rate_above_threshold: In the last 2 years, has the partner paid the 40% income tax rate?
     interests_of_justice: Justification for legal aid
     interests_of_justice_type: Criteria
     investment_type:
@@ -188,6 +190,7 @@ en:
     investment_ownership_type: Whose name is the investment in?
     investment_value: What is the value of the investment?
     investments: Investments
+    involvement_in_case: Partner involved in the case?
     is_client_remanded: Has a court remanded client in custody?
     is_overdrawn: Is the account overdrawn?
     is_preorder_work_claimed: Do you intend to claim pre-order work?
@@ -222,17 +225,18 @@ en:
     outgoing_payment_childcare: Childcare payments
     outgoing_payment_maintenance: Maintenance payments to a former partner
     outgoing_payment_legal_aid_contribution: Contributions towards criminal or civil legal aid
-    outgoings_details: Your client's outgoings
-    outgoings_more_than_income: Are client's outgoings more than their income?
+    outgoings_details: Outgoings
+    outgoings_more_than_income: Outgoings more than income?
     outgoings_metadata:
-      board_amount: Amount paid for board and lodgings
+      board_amount: Amount
       food_amount: Amount paid for food
-      payee_name: Person the client pays for board and lodgings
-      payee_relationship_to_client: Client's relationship to the person they pay
+      payee_name: Name of the person they pay
+      payee_relationship_to_client: Relationship to that person
     overall_offence_class: Overall offence class
     overview: Overview
     partner: Partner
-    pays_council_tax: Does client pay Council Tax?
+    partner_details: Partner details
+    pays_council_tax: Council Tax
     passporting_benefit: Passporting Benefit
     passporting_benefit_check: 'Passporting benefit check: client'
     passporting_benefit_check_partner: 'Passporting benefit check: partner'
@@ -247,7 +251,7 @@ en:
     payment_state_pension: State Pension
     payment_student_loan_grant: Student grant or loan
     payments_the_client_gets: Payments your client gets
-    payments_the_client_pays: Payments your client makes
+    payments_the_client_makes: Payments your client makes
     post_submission_evidence: Post submission evidence
     premium_bonds: Premium Bonds
     premium_bonds_holder_number: Holder number
@@ -258,6 +262,8 @@ en:
     provider_details: Provider details
     provider_email: Email address
     provider_phone_number: Phone
+    relationship_status: Relationship status
+    relationship_to_client: Relationship to client
     relationship_to_owner_of_usual_home_address: Relationship to client
     residence_type: Where the client usually lives
     return_reason_details: We'll share this information with the provider
@@ -278,6 +284,7 @@ en:
     search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
     select_return_reason: Select the reason for returning this application
+    separation_date: Date client separated from partner
     start_on: Date from
     supporting_evidence: Supporting evidence
     telephone_number: UK Telephone number
@@ -287,11 +294,11 @@ en:
     what: What
     when: When
     who: Who
-    which_housing_payment_type: Does client pay rent, mortgage, or board and lodgings?
+    which_housing_payment_type: Type of payment
     which_assets_does_the_client_own: Which assets does the client own or part-own inside or outside the UK?
-    will_benefit_from_trust_fund: Does your client stand to benefit from a trust fund inside or outside the UK?
+    will_benefit_from_trust_fund: Stands to benefit from a trust fund?
     which_benefits_does_the_client_get: Which benefits does the client get?
-    which_investments_does_client_have: Which investments does the client have inside or outside the UK?
+    which_investments_does_client_have: Investments?
     which_payments_does_the_client_get: Which payments does the client get?
     which_payments_does_the_client_pay: Which payments does the client pay?
     which_savings_does_client_have: Which savings does the client have inside or outside the UK?
@@ -350,7 +357,7 @@ en:
     appeal_to_crown_court_with_changes: Appeal to crown court with changes in financial circumstances
     applicant: Client
     partner: Partner
-    applicant_and_partner: Applicant and Partner
+    applicant_and_partner: Client and partner
     class: Class
     class_not_determined: Not determined
     committal: Committal for sentence
@@ -456,7 +463,7 @@ en:
       board_and_lodging: Board and lodgings
       mortgage: Mortgage
       rent: Rent
-      none: 'No'
+      none: 'None'
     pays_council_tax:
       'yes': 'Yes'
       'no': 'No'
@@ -470,10 +477,6 @@ en:
       semidetached: Semi-detached
       terraced: Terraced
       other: The type of property is not listed
-    property_type:
-      residential: Residential property
-      commercial: Commercial property
-      land: Land
     relationship_type:
       business_associates: Business Associates
       ex_partner: Ex-partner
@@ -497,6 +500,26 @@ en:
     before_or_after_tax:
       before_tax: before tax
       after_tax: after tax
+    relationship_to_client:
+      married_or_partnership: Married or in a civil partnership
+      living_together: Living together
+      prefer_not_to_say: They prefer not to say
+    involvement_in_case:
+      victim: Victim
+      prosecution_witness: Prosecution witness
+      codefendant: Co-defendant
+      none: No, the partner is not involved
+    relationship_status:
+      single: Single
+      widowed: Widowed
+      divorced: Divorced
+      separated: Separated
+      prefer_not_to_say: They prefer not to say
+    saving_account_holder:
+      applicant: Client's name
+      partner: Partner's name
+      applicant_and_partner: Client and partner
+
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
     assign_to_self: Assign to your list

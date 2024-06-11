@@ -5,7 +5,7 @@ class PersonPresenter < BasePresenter
     format_telephone_number(telephone_number)
   end
 
-  def formatted_applicant_nino
+  def formatted_nino
     return if nino.nil?
 
     nino
