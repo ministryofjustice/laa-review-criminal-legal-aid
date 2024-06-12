@@ -3,13 +3,12 @@
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= label_text(:manage_without_income) %>
+          <%= label_text(:manage_without_income, subject: subject_t) %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= t(income_details.manage_without_income, scope: 'values.manage_without_income') %>
         </dd>
       </div>
-      <%# TODO: confirm design for other option %>
       <% if income_details.manage_without_income == 'other' %>
         <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

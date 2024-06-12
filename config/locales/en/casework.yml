@@ -251,7 +251,7 @@ en:
     payment_state_pension: State Pension
     payment_student_loan_grant: Student grant or loan
     payments_the_client_gets: Payments your client gets
-    payments_the_client_makes: Payments your client makes
+    payments_the_client_makes: Payments your %{subject} makes
     post_submission_evidence: Post submission evidence
     premium_bonds: Premium Bonds
     premium_bonds_holder_number: Holder number
@@ -295,13 +295,13 @@ en:
     when: When
     who: Who
     which_housing_payment_type: Type of payment
-    which_assets_does_the_client_own: Which assets does the client own or part-own inside or outside the UK?
+    which_assets_does_the_client_own: Assets %{subject} owns or part-owns
     will_benefit_from_trust_fund: Stands to benefit from a trust fund?
     which_benefits_does_the_client_get: Which benefits does the client get?
     which_investments_does_client_have: Investments?
     which_payments_does_the_client_get: Which payments does the client get?
     which_payments_does_the_client_pay: Which payments does the client pay?
-    which_savings_does_client_have: Which savings does the client have inside or outside the UK?
+    which_savings_does_client_have: Savings %{subject} has
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
     properties_title: Assets

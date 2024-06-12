@@ -82,10 +82,14 @@
           </dt>
           <dd class="govuk-summary-list__value">
             <% if partner.has_same_address_as_client == 'yes' %>
-              <%= render 'address', address: applicant.home_address %>
+              <% if applicant.home_address %>
+                <%= render 'address', address: applicant.home_address %>
+              <% else %>
+                <%= t(:no_home_address, scope: 'values') %>
+              <% end %>
             <% else %>
               <%= render 'address', address: partner.home_address %>
-          <% end %>
+            <% end %>
           </dd>
         </div>
       <% end  %>

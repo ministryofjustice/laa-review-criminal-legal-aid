@@ -2,7 +2,7 @@
   <%= govuk_summary_card(title: label_text(:properties_title)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
-            row.with_key { label_text(:which_assets_does_the_client_own) }
+            row.with_key { label_text(:which_assets_does_the_client_own, subject: subject_t('or')) }
             row.with_value { value_text('none') }
           end
         end %>

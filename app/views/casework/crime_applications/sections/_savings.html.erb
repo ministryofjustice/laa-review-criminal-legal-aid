@@ -2,7 +2,7 @@
   <%= govuk_summary_card(title: label_text(:savings)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
-            row.with_key { label_text(:which_savings_does_client_have) }
+            row.with_key { label_text(:which_savings_does_client_have, subject: subject_t('or')) }
             row.with_value { value_text('none') }
           end
         end %>
