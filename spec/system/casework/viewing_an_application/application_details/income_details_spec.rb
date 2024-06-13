@@ -59,4 +59,25 @@ RSpec.describe 'Viewing the income details of an application' do
       expect(page).to have_no_content('Has savings or investments?')
     end
   end
+
+  context 'with `self assessment` and `work benefits` in income details' do
+    let(:application_data) do
+      super().deep_merge('means_details' => { 'income_details' => { 'applicant_other_work_benefit_received' => 'no',
+                                                                    'applicant_self_assessment_tax_bill' => 'yes',
+                                                                    'applicant_self_assessment_tax_bill_amount' => 555_00,
+                                                                    'applicant_self_assessment_tax_bill_frequency' => 'fortnight', } })
+    end
+
+    it 'shows Other work benefits' do
+      expect(page).to have_content('Does your client receive any other benefits from work? No')
+    end
+
+    it 'shows Self Assessment tax' do
+      expect(page).to have_content('Does the client pay a Self Assessment tax bill? Yes')
+    end
+
+    it 'shows Self Assessment tax amount with frequency' do
+      expect(page).to have_content("Amount\n£555.00 every 2 weeks")
+    end
+  end
 end
