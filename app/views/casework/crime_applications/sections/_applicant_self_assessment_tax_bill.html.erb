@@ -1,4 +1,4 @@
-<% if outgoings_details.applicant_self_assessment_tax_bill.present? %>
+<% if income_details.applicant_self_assessment_tax_bill.present? %>
   <%= govuk_summary_card(title: label_text(:self_assessment_tax_bill)) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
@@ -6,16 +6,18 @@
           <%= label_text(:applicant_self_assessment_tax_bill) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(outgoings_details.applicant_self_assessment_tax_bill, scope: 'values') %>
+          <%= t(income_details.applicant_self_assessment_tax_bill, scope: 'values') %>
         </dd>
       </div>
-      <% if outgoings_details.applicant_self_assessment_tax_bill == 'yes' %>
+      <% if income_details.applicant_self_assessment_tax_bill == 'yes' %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:applicant_self_assessment_tax_bill_amount) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= simple_format(t('values.payment_with_frequency', amount: number_to_currency(self_assessment_tax_bill.amount * 0.01), frequency: t(self_assessment_tax_bill.frequency, scope: [:values, :frequency]))) %>
+            <%= simple_format(t('values.payment_with_frequency',
+                                amount: number_to_currency(income_details.applicant_self_assessment_tax_bill_amount * 0.01),
+                                frequency: t(income_details.applicant_self_assessment_tax_bill_frequency, scope: [:values, :frequency]))) %>
           </dd>
         </div>
       <% end %>
