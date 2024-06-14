@@ -12,6 +12,14 @@ class IncomePaymentsPresenter < BasePresenter
     ordered_payments
   end
 
+  def employment_income
+    @income_payments&.detect { |income_payment| income_payment.payment_type == 'employment' }
+  end
+
+  def other_work_benefits
+    @income_payments&.detect { |income_payment| income_payment.payment_type == 'work_benefits' }
+  end
+
   private
 
   def payments_by_owner(ownership_type)

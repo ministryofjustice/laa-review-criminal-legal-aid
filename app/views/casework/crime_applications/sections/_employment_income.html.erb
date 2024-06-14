@@ -1,0 +1,14 @@
+<% if employment_income.present? %>
+  <%= govuk_summary_card(title: label_text(:employment_income)) do %>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:employment_income_amount) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= simple_format(t('values.payment_with_frequency_and_tax_status', amount: number_to_currency(employment_income.amount * 0.01), frequency: t(employment_income.frequency, scope: [:values, :frequency]), tax_status: t(employment_income.metadata.before_or_after_tax['value'], scope: 'values.before_or_after_tax'))) %>
+        </dd>
+      </div>
+  </dl>
+  <% end %>
+<% end %>
