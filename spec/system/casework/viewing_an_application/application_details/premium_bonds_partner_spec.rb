@@ -9,6 +9,7 @@ RSpec.describe 'Viewing the Premium Bond details of the partner' do
   end
 
   context 'when the partner has premium bonds' do
+    # rubocop:disable Layout/LineLength
     let(:application_data) do
       super().deep_merge('means_details' => { 'capital_details' => { 'has_premium_bonds' => 'no',
                                                                      'premium_bonds_total_value' => nil,
@@ -17,6 +18,7 @@ RSpec.describe 'Viewing the Premium Bond details of the partner' do
                                                                      'partner_premium_bonds_total_value' => 200_000,
                                                                      'partner_premium_bonds_holder_number' => '89548A' } })
     end
+    # rubocop:enable Layout/LineLength
 
     it 'shows the partner premium bonds card' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Premium Bonds: partner')

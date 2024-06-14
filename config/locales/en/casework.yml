@@ -83,6 +83,7 @@ en:
     benefit_jsa: Contribution-based Jobseeker's Allowance
     benefit_other: Other benefits
     benefits_the_client_gets: Benefits your client gets
+    benefits_the_partner_gets: Benefits the partner gets
     capital: Capital
     case_details: Case details
     case_details_and_offences: Case details and offences
@@ -254,6 +255,7 @@ en:
     payment_student_loan_grant: Student grant or loan
     payments_the_client_gets: Payments your client gets
     payments_the_client_makes: Payments your %{subject} makes
+    payments_the_partner_gets: Payments the partner gets
     post_submission_evidence: Post submission evidence
     premium_bonds_client: 'Premium Bonds: client'
     premium_bonds_holder_number: Holder number
@@ -302,9 +304,11 @@ en:
     which_assets_does_the_client_own: Assets %{subject} owns or part-owns
     will_benefit_from_trust_fund: Stands to benefit from a trust fund?
     which_benefits_does_the_client_get: Which benefits does the client get?
+    which_benefits_does_the_partner_get: Which benefits does the partner get?
     which_investments_does_client_have: Investments?
     which_payments_does_the_client_get: Which payments does the client get?
     which_payments_does_the_client_pay: Which payments does the client pay?
+    which_payments_does_the_partner_get: Which payments does the partner get?
     which_savings_does_client_have: Savings %{subject} has
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend

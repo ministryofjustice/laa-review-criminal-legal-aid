@@ -5,11 +5,19 @@ class IncomePaymentsPresenter < BasePresenter
     )
   end
 
-  def formatted_income_payments(ownership_type = 'applicant')
+  def applicant_income_payments
+    formatted_income_payments('applicant')
+  end
+
+  def partner_income_payments
+    formatted_income_payments('partner')
+  end
+
+  def formatted_income_payments(ownership_type)
     return {} if @income_payments.blank?
 
-    payments_by_owner(ownership_type)
-    ordered_payments
+    owners_payments = payments_by_owner(ownership_type)
+    ordered_payments(owners_payments)
   end
 
   def employment_income
@@ -23,17 +31,17 @@ class IncomePaymentsPresenter < BasePresenter
   private
 
   def payments_by_owner(ownership_type)
-    @income_payments.select! { |income_payment| income_payment.ownership_type == ownership_type }
+    @income_payments.select { |income_payment| income_payment.ownership_type == ownership_type }
   end
 
-  def ordered_payments
-    return {} if @income_payments.empty?
+  def ordered_payments(owners_payments)
+    return {} if owners_payments.blank?
 
-    income_payment_types.index_with { |val| income_payment_of_type(val) }
+    income_payment_types.index_with { |val| income_payment_of_type(owners_payments, val) }
   end
 
-  def income_payment_of_type(type)
-    @income_payments.detect { |income_payment| income_payment.payment_type == type }
+  def income_payment_of_type(owners_payments, type)
+    owners_payments.detect { |income_payment| income_payment.payment_type == type }
   end
 
   def income_payment_types
