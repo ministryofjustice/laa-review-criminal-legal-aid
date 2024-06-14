@@ -65,6 +65,19 @@ RSpec.describe 'Viewing the properties of an application' do
                                            'None'
         end
       end
+
+      context 'when partner is included in means assessment' do
+        let(:application_data) do
+          super().deep_merge('client_details' => { 'partner' => { 'is_included_in_means_assessment' => true } })
+        end
+
+        it 'shows joint absent answer assets details' do
+          within(property_card) do |card|
+            expect(card).to have_summary_row 'Assets client or partner owns or part-owns',
+                                             'None'
+          end
+        end
+      end
     end
   end
 end

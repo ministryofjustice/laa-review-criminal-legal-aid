@@ -1,5 +1,5 @@
 <% if income_details&.manage_without_income.present? %>
-  <%= govuk_summary_card(title: label_text(:other_income_details)) do %>
+  <%= govuk_summary_card(title: label_text(:other_income_details, subject: subject_t)) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

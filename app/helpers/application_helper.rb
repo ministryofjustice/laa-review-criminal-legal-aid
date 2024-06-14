@@ -71,6 +71,8 @@ module ApplicationHelper
   end
 
   def partner_subject?
-    current_crime_application.is_partner_included_in_means_assessment
+    return false unless current_crime_application.partner.present?
+
+    current_crime_application.partner.is_included_in_means_assessment
   end
 end

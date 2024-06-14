@@ -74,6 +74,18 @@ RSpec.describe 'Viewing the savings of an application' do
           expect(card).to have_summary_row 'Savings client has', 'None'
         end
       end
+
+      context 'when partner is included in means assessment' do
+        let(:application_data) do
+          super().deep_merge('client_details' => { 'partner' => { 'is_included_in_means_assessment' => true } })
+        end
+
+        it 'shows joint absent answer savings details' do
+          within(saving_card) do |card|
+            expect(card).to have_summary_row 'Savings client or partner has', 'None'
+          end
+        end
+      end
     end
   end
 end

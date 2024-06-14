@@ -8,7 +8,7 @@ RSpec.describe 'Viewing the trust fund details of an application' do
   end
 
   context 'with trust funds details' do
-    it { expect(page).to have_content('Trust funds') }
+    it { expect(page).to have_content('Trust funds: client') }
 
     it 'shows whether client benefits from a trust fund' do
       expect(page).to have_content('Stands to benefit from a trust fund? Yes')
@@ -42,8 +42,8 @@ RSpec.describe 'Viewing the trust fund details of an application' do
       super().deep_merge('means_details' => nil)
     end
 
-    it 'does not show income section' do
-      expect(page).to have_no_content('Trust funds')
+    it 'does not show client trust fund section' do
+      expect(page).to have_no_content('Trust funds: client')
     end
   end
 end

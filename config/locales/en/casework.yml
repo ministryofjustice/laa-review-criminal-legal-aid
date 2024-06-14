@@ -218,7 +218,7 @@ en:
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
-    other_income_details: Other sources of income
+    other_income_details: 'Other sources of income: %{subject}'
     other_names: Other names
     other_outgoings_details: Other outgoings
     other_payment_details: Other sources of income details
@@ -236,6 +236,8 @@ en:
     overview: Overview
     partner: Partner
     partner_details: Partner details
+    partner_employment: Partner's employment
+    partner_employment_type: Partner's employment status
     pays_council_tax: Council Tax
     passporting_benefit: Passporting Benefit
     passporting_benefit_check: 'Passporting benefit check: client'
@@ -253,8 +255,9 @@ en:
     payments_the_client_gets: Payments your client gets
     payments_the_client_makes: Payments your %{subject} makes
     post_submission_evidence: Post submission evidence
-    premium_bonds: Premium Bonds
+    premium_bonds_client: 'Premium Bonds: client'
     premium_bonds_holder_number: Holder number
+    premium_bonds_partner: 'Premium Bonds: partner'
     premium_bonds_total_value: Total value
     preorder_work_date: When you or your firm were first instructed
     preorder_work_details: Details about the urgency of the work
@@ -288,7 +291,8 @@ en:
     start_on: Date from
     supporting_evidence: Supporting evidence
     telephone_number: UK Telephone number
-    trust_funds: Trust funds
+    trust_funds_client: 'Trust funds: client'
+    trust_funds_partner: 'Trust funds: partner'
     undetermined: Undetermined
     urn: Unique reference number (URN)
     what: What

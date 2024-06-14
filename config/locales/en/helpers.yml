@@ -7,5 +7,5 @@ en:
       save_and_come_back_later: Save and come back later
     subjects:
       applicant: client
-      applicant_and_partner: client %{conjunction} their partner
+      applicant_and_partner: client %{conjunction} partner
 
