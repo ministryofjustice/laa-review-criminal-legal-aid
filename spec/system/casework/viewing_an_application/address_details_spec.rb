@@ -10,7 +10,7 @@ RSpec.describe 'Viewing an applications address details' do
 
   describe 'Home address' do
     context 'when home address is present' do
-      subject(:home_address) { page.find('dt', text: 'Home address').find('+dd') }
+      subject(:home_address) { page.first('dt', text: 'Home address').find('+dd') }
 
       it 'shows the applicants postal address' do
         expect(home_address).to have_content('1 Road Village Some nice city SW1A 2AA United Kingdom')
@@ -21,7 +21,8 @@ RSpec.describe 'Viewing an applications address details' do
       let(:application_data) do
         super().deep_merge('client_details' =>
                              { 'applicant' => { 'residence_type' => 'none',
-                                                'relationship_to_owner_of_usual_home_address' => nil } })
+                                                'relationship_to_owner_of_usual_home_address' => nil },
+                               'partner' => { 'home_address' => nil } })
       end
 
       it 'does not show the home address' do
@@ -32,7 +33,7 @@ RSpec.describe 'Viewing an applications address details' do
 
   describe 'Correspondence address' do
     subject(:correspondence_address) do
-      page.find('dt', text: 'Correspondence address').find('+dd')
+      page.first('dt', text: 'Correspondence address').find('+dd')
     end
 
     context 'when home address' do

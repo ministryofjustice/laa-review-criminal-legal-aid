@@ -8,6 +8,13 @@
           end
         end
 
+        if details.partner_income_tax_rate_above_threshold.present?
+          list.with_row do |row|
+            row.with_key { label_text(:partner_income_tax_rate_above_threshold) }
+            row.with_value { t(details.partner_income_tax_rate_above_threshold, scope: 'values') }
+          end
+        end
+
         if details.outgoings_more_than_income.present?
           list.with_row do |row|
             row.with_key { label_text(:outgoings_more_than_income) }

@@ -1,21 +1,22 @@
-<% return if capital_details.blank? %>
-<%= govuk_summary_card(title: label_text(:trust_funds_client)) do %>
+<% return if capital_details.partner_will_benefit_from_trust_fund.nil? %>
+
+<%= govuk_summary_card(title: label_text(:trust_funds_partner)) do %>
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:will_benefit_from_trust_fund) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= t(capital_details.will_benefit_from_trust_fund, scope: 'values') %>
+        <%= t(capital_details.partner_will_benefit_from_trust_fund, scope: 'values') %>
       </dd>
     </div>
-    <% if capital_details.will_benefit_from_trust_fund == 'yes' %>
+    <% if capital_details.partner_will_benefit_from_trust_fund == 'yes' %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= label_text(:trust_fund_amount_held) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= number_to_currency(capital_details.trust_fund_amount_held * 0.01) %>
+          <%= number_to_currency(capital_details.partner_trust_fund_amount_held * 0.01) %>
         </dd>
       </div>
 
@@ -24,7 +25,7 @@
           <%= label_text(:trust_fund_yearly_dividend) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= number_to_currency(capital_details.trust_fund_yearly_dividend * 0.01) %>
+          <%= number_to_currency(capital_details.partner_trust_fund_yearly_dividend * 0.01) %>
         </dd>
       </div>
     <% end %>

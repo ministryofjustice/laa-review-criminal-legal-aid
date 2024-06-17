@@ -1,3 +1,5 @@
+<% return if capital_details&.has_no_other_assets.nil? %>
+
 <%= govuk_summary_card(title: label_text(:other_capital_details)) do %>
   <dl class="govuk-summary-list">
     <% unless capital_details&.has_frozen_income_or_assets.nil? %>
@@ -10,7 +12,6 @@
       </dd>
     </div>
     <% end %>
-    <% unless capital_details&.has_no_other_assets.nil? %>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:has_no_other_assets) %>
@@ -19,6 +20,5 @@
         <%= t(capital_details.has_no_other_assets, scope: 'values.has_no_other_assets') %>
       </dd>
     </div>
-    <% end %>
   </dl>
 <% end %>

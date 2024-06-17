@@ -1,20 +1,20 @@
-<% unless details.has_premium_bonds.nil? %>
-  <%= govuk_summary_card(title: label_text(:premium_bonds_client)) do %>
+<% unless details.partner_has_premium_bonds.nil? %>
+  <%= govuk_summary_card(title: label_text(:premium_bonds_partner)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
             row.with_key { label_text(:has_premium_bonds) }
-            row.with_value { value_text(details.has_premium_bonds) }
+            row.with_value { value_text(details.partner_has_premium_bonds) }
           end
 
-          if details.has_premium_bonds == 'yes'
+          if details.partner_has_premium_bonds == 'yes'
             list.with_row do |row|
               row.with_key { label_text(:premium_bonds_holder_number) }
-              row.with_value { details.premium_bonds_holder_number }
+              row.with_value { details.partner_premium_bonds_holder_number }
             end
 
             list.with_row do |row|
               row.with_key { label_text(:premium_bonds_total_value) }
-              row.with_value { number_to_currency(details.premium_bonds_total_value * 0.01) }
+              row.with_value { number_to_currency(details.partner_premium_bonds_total_value * 0.01) }
             end
           end
         end %>

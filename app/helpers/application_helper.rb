@@ -61,4 +61,18 @@ module ApplicationHelper
   def closed_action?(action_name)
     action_name == 'closed'
   end
+
+  def subject_t(conjunction = 'and')
+    if partner_subject?
+      I18n.t('helpers.subjects.applicant_and_partner', conjunction:)
+    else
+      I18n.t('helpers.subjects.applicant')
+    end
+  end
+
+  def partner_subject?
+    return false if current_crime_application.partner.blank?
+
+    current_crime_application.partner.is_included_in_means_assessment
+  end
 end

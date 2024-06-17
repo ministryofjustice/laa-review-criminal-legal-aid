@@ -2,7 +2,7 @@
            locals: {
              crime_application: crime_application,
              applicant: crime_application.client_details.applicant,
-             nino: crime_application.applicant.formatted_applicant_nino,
+             nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>

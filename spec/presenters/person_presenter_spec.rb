@@ -6,8 +6,8 @@ RSpec.describe PersonPresenter do
   let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
   let(:crime_application) { CrimeApplication.new(attributes) }
 
-  describe '#formatted_applicant_nino' do
-    subject(:formatted_applicant_nino) { person_presenter.formatted_applicant_nino }
+  describe '#formatted_nino' do
+    subject(:formatted_nino) { person_presenter.formatted_nino }
 
     it { is_expected.to eq 'AJ123456C' }
   end

@@ -41,5 +41,10 @@ module Casework
       app_id_param = params.key?(:crime_application_id) ? params[:crime_application_id] : params[:id]
       @crime_application = CrimeApplication.find(app_id_param)
     end
+
+    def current_crime_application
+      @crime_application
+    end
+    helper_method :current_crime_application
   end
 end

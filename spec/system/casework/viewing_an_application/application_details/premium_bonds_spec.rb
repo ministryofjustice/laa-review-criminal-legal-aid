@@ -24,7 +24,7 @@ RSpec.describe 'Viewing the Premium Bond details' do
 
       it 'shows the Premium bonds details' do # rubocop:disable RSpec/MultipleExpectations
         within(premium_bonds_card) do |card|
-          expect(card).to have_summary_row 'Does client have any Premium Bonds?', 'Yes'
+          expect(card).to have_summary_row 'Any Premium Bonds?', 'Yes'
           expect(card).to have_summary_row 'Total value', '£1,000.00'
           expect(card).to have_summary_row 'Holder number', '123568A'
         end
@@ -50,7 +50,7 @@ RSpec.describe 'Viewing the Premium Bond details' do
 
       it 'only shows the first question' do
         within(premium_bonds_card) do |card|
-          expect(card).to have_summary_row 'Does client have any Premium Bonds?', 'No'
+          expect(card).to have_summary_row 'Any Premium Bonds?', 'No'
           expect(card.all('dd').size).to be 1
         end
       end

@@ -12,6 +12,14 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
 
     it { expect(page).to have_content('Payments your client makes') }
 
+    context 'when partner is included in means assessment' do
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'partner' => { 'is_included_in_means_assessment' => true } })
+      end
+
+      it { expect(page).to have_content('Payments your client and partner makes') }
+    end
+
     # rubocop:disable RSpec/MultipleExpectations
     it 'shows outgoing payments details' do
       expect(page).to have_content('Childcare payments £982.81 every week')

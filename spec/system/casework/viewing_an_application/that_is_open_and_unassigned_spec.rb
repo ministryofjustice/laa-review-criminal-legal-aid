@@ -299,4 +299,26 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
     end
   end
+
+  describe "displaying the client's relationship status details" do
+    context 'when the question was asked' do
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'applicant' => { 'has_partner' => 'no',
+                                                              'relationship_status' => 'separated',
+                                                             'separation_date' => '2008-03-12' } })
+      end
+
+      it 'does display relationship status details' do
+        expect(page).to have_content('Relationship status Separated')
+        expect(page).to have_content('Date client separated from partner 12/03/2008')
+      end
+    end
+
+    context 'when the question was not asked' do
+      it 'does not display relationship status details' do
+        expect(page).to have_no_content('Relationship status')
+        expect(page).to have_no_content('Date client separated from partner')
+      end
+    end
+  end
 end

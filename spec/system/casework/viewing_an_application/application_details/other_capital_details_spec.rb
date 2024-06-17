@@ -19,7 +19,7 @@ RSpec.describe 'Viewing the other capital details of an application' do
     it { expect(page).to have_content('Other capital') }
 
     it 'shows whether client has income, savings or assets under a restraint or freezing order' do
-      expect(page).to have_content('Has income, savings or assets under a restraint or freezing order? No')
+      expect(page).to have_content('Income, savings or assets under a restraint or freezing order No')
     end
   end
 end

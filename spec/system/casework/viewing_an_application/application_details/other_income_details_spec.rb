@@ -9,12 +9,20 @@ RSpec.describe 'Viewing the other income details of an application' do
 
   context 'with other income details' do
     context 'when Other free text option is selected' do
-      it { expect(page).to have_content('Other sources of income') }
+      it { expect(page).to have_content('Other sources of income: client') }
 
       it 'shows manage without income details' do
         expect(page).to have_content('How do they manage with no income? Other')
         expect(page).to have_content('Details Another way they manage')
       end
+    end
+
+    context 'when partner is included in means assessment' do
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'partner' => { 'is_included_in_means_assessment' => true } })
+      end
+
+      it { expect(page).to have_content('Other sources of income: client and partner') }
     end
 
     context 'when radio option selected' do
