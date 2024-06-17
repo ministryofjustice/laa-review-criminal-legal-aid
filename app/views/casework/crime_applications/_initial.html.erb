@@ -5,7 +5,7 @@
              nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
-<% if crime_application.partner.present? %>
+<% if FeatureFlags.partner_journey.enabled? %>
   <%= render partial: 'partner_details',
              locals: {
                crime_application: crime_application,

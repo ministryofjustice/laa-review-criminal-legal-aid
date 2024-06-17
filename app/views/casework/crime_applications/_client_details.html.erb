@@ -106,24 +106,26 @@
       </dd>
     </div>
 
-    <% if applicant.has_partner == 'no' %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:relationship_status) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(applicant.relationship_status, scope: 'values.relationship_status')%>
-        </dd>
-      </div>
-      <% if applicant.relationship_status == 'separated' %>
+    <% if FeatureFlags.partner_journey.enabled? %>
+      <% if applicant.has_partner == 'no' %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:separation_date) %>
+            <%= label_text(:relationship_status) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= l applicant.separation_date, format: :compact %>
+            <%= t(applicant.relationship_status, scope: 'values.relationship_status')%>
           </dd>
         </div>
+        <% if applicant.relationship_status == 'separated' %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:separation_date) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= l applicant.separation_date, format: :compact %>
+            </dd>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

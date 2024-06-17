@@ -15,6 +15,10 @@ feature_flags:
     local: true
     staging: true
     production: false
+  partner_journey:
+    local: true
+    staging: true
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:
