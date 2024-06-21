@@ -19,19 +19,19 @@ class DependantsPresenter < BasePresenter
 
     sorted_dependants.each do |dependant|
       case dependant[:age]
-      when 0, 1
+      when 0
         grouped_dependants['0 to 1'] += 1
-      when 2, 3, 4
+      when 1, 2, 3
         grouped_dependants['2 to 4'] += 1
-      when 5, 6, 7
+      when 4, 5, 6
         grouped_dependants['5 to 7'] += 1
-      when 8, 9, 10
+      when 7, 8, 9
         grouped_dependants['8 to 10'] += 1
-      when 11, 12
+      when 10, 11
         grouped_dependants['11 to 12'] += 1
-      when 13, 14, 15
+      when 12, 13, 14
         grouped_dependants['13 to 15'] += 1
-      else
+      when 15, 16, 17
         grouped_dependants['16 to 18'] += 1
       end
     end

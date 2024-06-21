@@ -28,7 +28,7 @@ RSpec.describe 'Viewing the dependants details of an application' do
       end
 
       it 'shows dependants grouped by age range' do
-        expect(page).to have_content('Number of dependants aged 0 to 1 on next birthday 1')
+        expect(page).to have_content('Number of dependants aged 2 to 4 on next birthday 1')
         expect(page).to have_content('Number of dependants aged 5 to 7 on next birthday 1')
       end
     end
