@@ -14,6 +14,8 @@ class DependantsPresenter < BasePresenter
   private
 
   # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+  # NOTE: Output is to show grouping by NEXT birthday age,
+  # not their current (user entered) age
   def dependants_by_age_range
     grouped_dependants = Hash.new(0)
 
