@@ -144,7 +144,9 @@ en:
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Income, savings or assets under a restraint or freezing order
     has_no_other_assets: Has no other assets or capital?
-    has_premium_bonds: Any Premium Bonds?
+    has_premium_bonds: Premium Bonds
+    has_premium_bonds_client: 'Premium Bonds: client'
+    has_premium_bonds_partner: 'Premium Bonds: partner'
     has_savings: Has savings or investments?
     has_same_address_as_client: Lives at same address as client?
     hearing_date: Date of next hearing
@@ -258,9 +260,10 @@ en:
     payments_the_client_makes: Payments your %{subject} makes
     payments_the_partner_gets: Payments the partner gets
     post_submission_evidence: Post submission evidence
-    premium_bonds_client: 'Premium Bonds: client'
+    premium_bonds: 'Premium Bonds'
     premium_bonds_holder_number: Holder number
-    premium_bonds_partner: 'Premium Bonds: partner'
+    premium_bonds_holder_number_client: 'Holder number: client'
+    premium_bonds_holder_number_partner: 'Holder number: partner'
     premium_bonds_total_value: Total value
     preorder_work_date: When you or your firm were first instructed
     preorder_work_details: Details about the urgency of the work

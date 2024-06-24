@@ -70,9 +70,10 @@ module ApplicationHelper
     end
   end
 
-  def partner_subject?
+  def partner_included_in_means?
     return false if current_crime_application.partner.blank?
 
     current_crime_application.partner.is_included_in_means_assessment
   end
+  alias partner_subject? partner_included_in_means?
 end
