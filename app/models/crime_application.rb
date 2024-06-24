@@ -133,6 +133,18 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     @dependants ||= DependantsPresenter.present(self[:means_details].income_details&.dependants)
   end
 
+  def employments
+    self[:means_details].income_details.employments
+  end
+
+  def applicant_employments
+    @applicant_employments ||= employments.select{|e| e.ownership_type == 'applicant'}
+  end
+
+  def partner_employments
+    @partner_employments ||= employments.select{|e| e.ownership_type == 'partner'}
+  end
+
   def income_benefits
     @income_benefits ||= IncomeBenefitsPresenter.present(self[:means_details].income_details&.income_benefits)
   end
