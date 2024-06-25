@@ -80,7 +80,7 @@ RSpec.describe 'Viewing the employments of an application' do
             end
           end
         end
-        context 'job_card 1' do
+        context 'job_card 2' do
           subject(:partner_job_card) do
             page.all('h2.govuk-summary-card__title', text: 'Job 2')[1].ancestor('div.govuk-summary-card')
           end
