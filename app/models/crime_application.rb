@@ -138,11 +138,11 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def applicant_employments
-    @applicant_employments ||= employments.select{|e| e.ownership_type == 'applicant'}
+    @applicant_employments ||= employments.select { |e| e.ownership_type == 'applicant' }
   end
 
   def partner_employments
-    @partner_employments ||= employments.select{|e| e.ownership_type == 'partner'}
+    @partner_employments ||= employments.select { |e| e.ownership_type == 'partner' }
   end
 
   def income_benefits

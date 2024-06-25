@@ -7,7 +7,7 @@ RSpec.describe 'Viewing the employments of an application' do
     visit crime_application_path(application_id)
   end
 
-  context 'when client has employments' do
+  context 'when client/partner has employments' do
     let(:means_details) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'means').read) }
 
     let(:application_data) do
@@ -22,14 +22,15 @@ RSpec.describe 'Viewing the employments of an application' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Job')
     end
 
+    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength, RSpec/NestedGroups
     describe 'a jobs card' do
       context 'with deductions' do
-        context 'job_card 1' do
+        context 'with job_card 1' do
           subject(:applicant_job_card) do
             page.all('h2.govuk-summary-card__title', text: 'Job 1')[0].ancestor('div.govuk-summary-card')
           end
 
-          it 'shows jobs details with deductions' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+          it 'shows jobs details with deductions' do
             within(applicant_job_card) do |card|
               expect(card).to have_summary_row "Employer's name", 'Joe Goodwin'
               expect(card).to have_summary_row 'Address',
@@ -43,12 +44,12 @@ RSpec.describe 'Viewing the employments of an application' do
           end
         end
 
-        context 'job_card 2' do
+        context 'with job_card 2' do
           subject(:partner_job_card) do
             page.all('h2.govuk-summary-card__title', text: 'Job 1')[1].ancestor('div.govuk-summary-card')
           end
 
-          it 'shows jobs details with deductions' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+          it 'shows jobs details with deductions' do
             within(partner_job_card) do |card|
               expect(card).to have_summary_row "Employer's name", 'Andy Murray'
               expect(card).to have_summary_row 'Address',
@@ -64,12 +65,12 @@ RSpec.describe 'Viewing the employments of an application' do
       end
 
       context 'without deductions' do
-        context 'job_card 1' do
+        context 'with job_card 1' do
           subject(:applicant_job_card) do
             page.all('h2.govuk-summary-card__title', text: 'Job 2')[0].ancestor('div.govuk-summary-card')
           end
 
-          it 'shows jobs details without deductions' do # rubocop:disable RSpec/MultipleExpectations
+          it 'shows jobs details without deductions' do
             within(applicant_job_card) do |card|
               expect(card).to have_summary_row "Employer's name", 'Teegan Ayala'
               expect(card).to have_summary_row 'Address',
@@ -80,12 +81,13 @@ RSpec.describe 'Viewing the employments of an application' do
             end
           end
         end
-        context 'job_card 2' do
+
+        context 'with job_card 2' do
           subject(:partner_job_card) do
             page.all('h2.govuk-summary-card__title', text: 'Job 2')[1].ancestor('div.govuk-summary-card')
           end
 
-          it 'shows jobs details without deductions' do # rubocop:disable RSpec/MultipleExpectations
+          it 'shows jobs details without deductions' do
             within(partner_job_card) do |card|
               expect(card).to have_summary_row "Employer's name", 'Joe Goodwin'
               expect(card).to have_summary_row 'Address',
@@ -98,5 +100,6 @@ RSpec.describe 'Viewing the employments of an application' do
         end
       end
     end
+    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength, RSpec/NestedGroups
   end
 end
