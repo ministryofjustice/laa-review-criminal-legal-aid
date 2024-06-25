@@ -20,12 +20,28 @@ class IncomePaymentsPresenter < BasePresenter
     ordered_payments(owners_payments)
   end
 
-  def employment_income
-    @income_payments&.detect { |income_payment| income_payment.payment_type == 'employment' }
+  def applicant_employment_income
+    @income_payments&.detect do |income_payment|
+      income_payment.payment_type == 'employment' && income_payment.ownership_type == 'applicant'
+    end
   end
 
-  def other_work_benefits
-    @income_payments&.detect { |income_payment| income_payment.payment_type == 'work_benefits' }
+  def partner_employment_income
+    @income_payments&.detect do |income_payment|
+      income_payment.payment_type == 'employment' && income_payment.ownership_type == 'partner'
+    end
+  end
+
+  def applicant_other_work_benefits
+    @income_payments&.detect do |income_payment|
+      income_payment.payment_type == 'work_benefits' && income_payment.ownership_type == 'applicant'
+    end
+  end
+
+  def partner_other_work_benefits
+    @income_payments&.detect do |income_payment|
+      income_payment.payment_type == 'work_benefits' && income_payment.ownership_type == 'partner'
+    end
   end
 
   private
