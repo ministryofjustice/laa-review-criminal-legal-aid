@@ -1,5 +1,5 @@
 <% unless details.has_premium_bonds.nil? %>
-  <%= govuk_summary_card(title: label_text(:premium_bonds_client)) do %>
+  <%= govuk_summary_card(title: label_text(:premium_bonds)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
             row.with_key { label_text(:has_premium_bonds) }
