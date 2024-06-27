@@ -351,6 +351,10 @@ en:
     applicant_self_assessment_tax_bill_amount: Amount
     partner_self_assessment_tax_bill: Does the their partner pay a Self Assessment tax bill?
     partner_self_assessment_tax_bill_amount: Amount
+    declarations: Declarations
+    client_declaration: Declaration from client?
+    partner_declaration: Declaration from partner?
+    no_partner_declaration_reason: Reason for no partner declaration
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name

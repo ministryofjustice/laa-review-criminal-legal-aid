@@ -1,0 +1,37 @@
+<h2 class="govuk-heading-l">
+  <%= label_text(:declarations) %>
+</h2>
+
+<%= govuk_summary_card(title: label_text(:declarations)) do %>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:client_declaration) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        Yes
+      </dd>
+    </div>
+    <% if provider_details.legal_rep_has_partner_declaration %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:partner_declaration) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(provider_details.legal_rep_has_partner_declaration.presence, scope: 'values') %>
+        </dd>
+      </div>
+    <% end %>
+    <% if provider_details.legal_rep_has_partner_declaration == 'no' &&
+      provider_details.legal_rep_no_partner_declaration_reason %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:no_partner_declaration_reason) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= provider_details.legal_rep_no_partner_declaration_reason %>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+<% end %>
