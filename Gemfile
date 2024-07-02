@@ -77,7 +77,7 @@ group :test do
   gem 'erb_lint', require: false
   gem 'rubocop', '>= 1.58.0', require: false
   gem 'rubocop-performance', '>= 1.20.0', require: false
-  gem 'rubocop-rails', '>= 2.24.0', require: false
+  gem 'rubocop-rails', '>= 2.25.1', require: false
   gem 'rubocop-rspec', '>= 2.26.0', require: false
   gem 'selenium-webdriver', '>= 4.15.0'
   gem 'simplecov', require: false
