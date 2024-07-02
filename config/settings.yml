@@ -13,7 +13,7 @@ feature_flags:
     production: true
   employment_journey:
     local: true
-    staging: false
+    staging: true
     production: false
   partner_journey:
     local: true
