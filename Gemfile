@@ -48,7 +48,7 @@ gem 'dry-schema'
 gem 'dry-struct'
 
 gem 'devise'
-gem 'omniauth_openid_connect', '0.7.1'
+gem 'omniauth_openid_connect', '0.8.0'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'aws-sdk-sns', '~> 1.60', require: false
