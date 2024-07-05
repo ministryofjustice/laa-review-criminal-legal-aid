@@ -1,66 +1,66 @@
 <% if businesses.present? %>
   <% businesses.group_by(&:business_type).each do |item_type, group| %>
     <%= app_card_list(items: group, item_name: label_text(item_type, scope: :business_type)) do |card|
-      govuk_summary_list(actions: false) do |list|
-        list.with_row do |row|
-          row.with_key { label_text(:trading_name, scope: 'businesses') }
-          row.with_value { simple_format(card.item.trading_name) }
-        end
+          govuk_summary_list(actions: false) do |list|
+            list.with_row do |row|
+              row.with_key { label_text(:trading_name, scope: 'businesses') }
+              row.with_value { simple_format(card.item.trading_name) }
+            end
 
-        list.with_row do |row|
-          row.with_key { label_text(:address, scope: 'businesses') }
-          row.with_value { render 'address', address: card.item.address }
-        end
+            list.with_row do |row|
+              row.with_key { label_text(:address, scope: 'businesses') }
+              row.with_value { render 'address', address: card.item.address }
+            end
 
-        list.with_row do |row|
-          row.with_key { label_text(:description, scope: 'businesses') }
-          row.with_value { simple_format(card.item.description) }
-        end
+            list.with_row do |row|
+              row.with_key { label_text(:description, scope: 'businesses') }
+              row.with_value { simple_format(card.item.description) }
+            end
 
-        list.with_row do |row|
-          row.with_key { label_text(:trading_start_date, scope: 'businesses') }
-          row.with_value { l card.item.trading_start_date }
-        end
+            list.with_row do |row|
+              row.with_key { label_text(:trading_start_date, scope: 'businesses') }
+              row.with_value { l card.item.trading_start_date }
+            end
 
-        list.with_row do |row|
-          row.with_key { label_text(:has_additional_owners, scope: 'businesses') }
-          row.with_value { value_text(card.item.has_additional_owners) }
-        end
+            list.with_row do |row|
+              row.with_key { label_text(:has_additional_owners, scope: 'businesses') }
+              row.with_value { value_text(card.item.has_additional_owners) }
+            end
 
-        if card.item.has_additional_owners == 'yes'
-          list.with_row do |row|
-            row.with_key { label_text(:additional_owners, scope: 'businesses') }
-            row.with_value { simple_format(card.item.additional_owners) }
+            if card.item.has_additional_owners == 'yes'
+              list.with_row do |row|
+                row.with_key { label_text(:additional_owners, scope: 'businesses') }
+                row.with_value { simple_format(card.item.additional_owners) }
+              end
+            end
+
+            list.with_row do |row|
+              row.with_key { label_text(:has_employees, scope: 'businesses') }
+              row.with_value { value_text(card.item.has_employees) }
+            end
+
+            if card.item.has_employees == 'yes'
+              list.with_row do |row|
+                row.with_key { label_text(:number_of_employees, scope: 'businesses') }
+                row.with_value { simple_format(card.item.number_of_employees.to_s) }
+              end
+            end
+
+            list.with_row do |row|
+              row.with_key { label_text(:turnover, scope: 'businesses') }
+              row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.turnover.amount * 0.01), frequency: t(card.item.turnover.frequency, scope: [:values, :frequency]))) }
+            end
+
+            list.with_row do |row|
+              row.with_key { label_text(:drawings, scope: 'businesses') }
+              row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.drawings.amount * 0.01), frequency: t(card.item.drawings.frequency, scope: [:values, :frequency]))) }
+            end
+
+            list.with_row do |row|
+              row.with_key { label_text(:profit, scope: 'businesses') }
+              row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.profit.amount * 0.01), frequency: t(card.item.profit.frequency, scope: [:values, :frequency]))) }
+            end
           end
-        end
-
-        list.with_row do |row|
-          row.with_key { label_text(:has_employees, scope: 'businesses') }
-          row.with_value { value_text(card.item.has_employees) }
-        end
-
-        if card.item.has_employees == 'yes'
-          list.with_row do |row|
-            row.with_key { label_text(:number_of_employees, scope: 'businesses') }
-            row.with_value { simple_format(card.item.number_of_employees.to_s) }
-          end
-        end
-
-        list.with_row do |row|
-          row.with_key { label_text(:turnover, scope: 'businesses') }
-          row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.turnover.amount * 0.01), frequency: t(card.item.turnover.frequency, scope: [:values, :frequency]))) }
-        end
-
-        list.with_row do |row|
-          row.with_key { label_text(:drawings, scope: 'businesses') }
-          row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.drawings.amount * 0.01), frequency: t(card.item.drawings.frequency, scope: [:values, :frequency]))) }
-        end
-
-        list.with_row do |row|
-          row.with_key { label_text(:profit, scope: 'businesses') }
-          row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.profit.amount * 0.01), frequency: t(card.item.profit.frequency, scope: [:values, :frequency]))) }
-        end
-      end
-    end %>
+        end %>
   <% end %>
 <% end %>
