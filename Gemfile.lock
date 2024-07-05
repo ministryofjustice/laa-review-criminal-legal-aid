@@ -232,8 +232,12 @@ GEM
     faraday-net_http (3.0.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.24.4)
-    google-protobuf (3.24.4-x86_64-linux)
+    google-protobuf (4.27.2)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.27.2-x86_64-linux)
+      bigdecimal
+      rake (>= 13)
     govuk-components (5.2.1)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (~> 6.0)
@@ -472,10 +476,6 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.31.3)
       parser (>= 3.3.1.0)
-    rubocop-capybara (2.20.0)
-      rubocop (~> 1.41)
-    rubocop-factory_bot (2.25.1)
-      rubocop (~> 1.41)
     rubocop-performance (1.21.0)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
@@ -484,13 +484,8 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
-    rubocop-rspec (2.31.0)
-      rubocop (~> 1.40)
-      rubocop-capybara (~> 2.17)
-      rubocop-factory_bot (~> 2.22)
-      rubocop-rspec_rails (~> 2.28)
-    rubocop-rspec_rails (2.28.3)
-      rubocop (~> 1.40)
+    rubocop-rspec (3.0.2)
+      rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     ruby_event_store (2.13.0)
@@ -502,11 +497,11 @@ GEM
       rack
       ruby_event_store (= 2.13.0)
     rubyzip (2.3.2)
-    sass-embedded (1.69.5)
-      google-protobuf (~> 3.23)
-      rake (>= 13.0.0)
-    sass-embedded (1.69.5-x86_64-linux)
-      google-protobuf (~> 3.23)
+    sass-embedded (1.77.5)
+      google-protobuf (>= 3.25, < 5.0)
+      rake (>= 13)
+    sass-embedded (1.77.5-x86_64-linux-gnu)
+      google-protobuf (>= 3.25, < 5.0)
     selenium-webdriver (4.21.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
@@ -641,7 +636,7 @@ DEPENDENCIES
   webmock (>= 3.20.0)
 
 RUBY VERSION
-   ruby 2.7.8p225
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.4.6

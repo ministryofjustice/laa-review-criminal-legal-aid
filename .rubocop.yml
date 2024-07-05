@@ -87,9 +87,6 @@ Rails/SkipsModelValidations:
 RSpec/ExpectChange:
   EnforcedStyle: block
 
-Capybara/ClickLinkOrButtonStyle:
-  Enabled: false
-
 Style/RedundantConstantBase:
   Exclude:
     - 'app/views/**/*'
