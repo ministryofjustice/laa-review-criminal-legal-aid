@@ -84,6 +84,26 @@ en:
     benefit_other: Other benefits
     benefits_the_client_gets: Benefits your client gets
     benefits_the_partner_gets: Benefits the partner gets
+    business_title: Test
+    businesses:
+      trading_name: Trading name of business
+      address: Business address
+      description: Nature of business
+      trading_start_date: Date began trading
+      has_additional_owners: In business with anyone else
+      additional_owners: Name of others in business
+      has_employees: Employees?
+      number_of_employees: Number of employees
+      turnover: Total turnover
+      drawings: Total drawings
+      profit: Total profit
+      salary: Salary or remuneration
+      total_income_share_sales: Income from share sales
+      percentage_profit_share: Share of profits
+    business_type:
+      self_employed: Self-employed business
+      partnership: Business partnership
+      director_or_shareholder: Company director or shareholder
     capital: Capital
     case_details: Case details
     case_details_and_offences: Case details and offences
