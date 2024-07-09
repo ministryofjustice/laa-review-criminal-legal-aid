@@ -54,7 +54,8 @@ RSpec.describe 'Workload Report' do
   it 'shows the correct row headers for each work stream' do
     within('#cat-1') do
       column = all('table tbody tr th:first-child').map(&:text)
-      expect(column).to eq ['Initial application', 'Post submission evidence', 'Total']
+      expect(column).to eq ['Initial application', 'Post submission evidence', 'Change in financial circumstances',
+                            'Total']
     end
   end
 end

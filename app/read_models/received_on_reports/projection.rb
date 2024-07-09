@@ -52,7 +52,8 @@ module ReceivedOnReports
       Types::WorkStreamType.values.index_with do |work_stream|
         {
           Types::ApplicationType['initial'] =>  Row.new(work_stream:),
-          Types::ApplicationType['post_submission_evidence'] => Row.new(work_stream:)
+          Types::ApplicationType['post_submission_evidence'] => Row.new(work_stream:),
+          Types::ApplicationType['change_in_financial_circumstances'] => Row.new(work_stream:)
         }
       end
     end
