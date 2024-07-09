@@ -6,7 +6,8 @@ class WorkStream
   PARAM_MAP = {
     'criminal_applications_team' => 'cat_1',
     'criminal_applications_team_2' => 'cat_2',
-    'extradition' => 'extradition'
+    'extradition' => 'extradition',
+    'non_means_tested' => 'non_means'
   }.freeze
 
   def initialize(work_stream)

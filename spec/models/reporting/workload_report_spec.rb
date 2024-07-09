@@ -6,8 +6,6 @@ RSpec.describe Reporting::WorkloadReport do
   let(:observed_at) { Date.parse('2023-01-02').in_time_zone('London').end_of_day }
 
   describe '#rows' do
-    subject(:rows) { report.rows }
-
     describe 'CAT 1 rows' do
       let(:rows) { report.rows.first }
 
@@ -31,10 +29,21 @@ RSpec.describe Reporting::WorkloadReport do
     end
 
     describe 'Extradition rows' do
-      let(:rows) { report.rows.last }
+      let(:rows) { report.rows.third }
 
       it 'returns expected rows' do
         expect(rows.map(&:work_stream)).to all eq(WorkStream.new('extradition'))
+
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence',
+                                                                'change_in_financial_circumstances')
+      end
+    end
+
+    describe 'Non-means rows' do
+      let(:rows) { report.rows.last }
+
+      it 'returns expected rows' do
+        expect(rows.map(&:work_stream)).to all eq(WorkStream.new('non_means_tested'))
 
         expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence',
                                                                 'change_in_financial_circumstances')

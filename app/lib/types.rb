@@ -93,6 +93,7 @@ module Types
     criminal_applications_team
     criminal_applications_team_2
     extradition
+    non_means_tested
   ].freeze
 
   CompetencyType = String.enum(
