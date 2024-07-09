@@ -14,7 +14,8 @@ RSpec.describe Reporting::WorkloadReport do
       it 'returns expected rows' do
         expect(rows.map(&:work_stream)).to all eq(WorkStream.new('criminal_applications_team'))
 
-        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence')
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence',
+                                                                'change_in_financial_circumstances')
       end
     end
 
@@ -24,7 +25,8 @@ RSpec.describe Reporting::WorkloadReport do
       it 'returns expected rows' do
         expect(rows.map(&:work_stream)).to all eq(WorkStream.new('criminal_applications_team_2'))
 
-        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence')
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence',
+                                                                'change_in_financial_circumstances')
       end
     end
 
@@ -34,7 +36,8 @@ RSpec.describe Reporting::WorkloadReport do
       it 'returns expected rows' do
         expect(rows.map(&:work_stream)).to all eq(WorkStream.new('extradition'))
 
-        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence')
+        expect(rows.map(&:application_type)).to contain_exactly('initial', 'post_submission_evidence',
+                                                                'change_in_financial_circumstances')
       end
     end
   end

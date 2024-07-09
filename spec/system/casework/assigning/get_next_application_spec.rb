@@ -34,7 +34,10 @@ RSpec.describe 'Assigning an application to myself' do
       context 'when competent in all work streams' do
         let(:current_user_competencies) { Types::CompetencyType.values }
         let(:gets_next_from) { Types::WorkStreamType.values }
-        let(:get_next_types) { [Types::ApplicationType['post_submission_evidence'], Types::ApplicationType['initial']] }
+        let(:get_next_types) do
+          [Types::ApplicationType['change_in_financial_circumstances'],
+           Types::ApplicationType['post_submission_evidence'], Types::ApplicationType['initial']]
+        end
 
         it 'gets next across all work streams' do
           expect_datastore_to_have_been_searched_with(expected_params, pagination: Pagination.new(limit_value: 1))

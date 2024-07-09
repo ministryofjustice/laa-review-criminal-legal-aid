@@ -31,7 +31,8 @@ module Reporting
     def application_types
       [
         Types::ApplicationType['initial'],
-        Types::ApplicationType['post_submission_evidence']
+        Types::ApplicationType['post_submission_evidence'],
+        Types::ApplicationType['change_in_financial_circumstances']
       ]
     end
 
