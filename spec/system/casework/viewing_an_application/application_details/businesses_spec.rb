@@ -7,11 +7,15 @@ RSpec.describe 'Viewing the businesses of an application' do
     visit crime_application_path(application_id)
   end
 
+  # rubocop:disable RSpec/MultipleMemoizedHelpers, RSpec/MultipleExpectations
   context 'when client has savings' do
     let(:has_additional_owners) { 'no' }
     let(:additional_owners) { nil }
     let(:has_employees) { 'no' }
     let(:number_of_employees) { nil }
+    let(:salary) { nil }
+    let(:total_income_share_sales) { nil }
+    let(:percentage_profit_share) { nil }
 
     let(:self_employed_business) do
       {
@@ -43,9 +47,9 @@ RSpec.describe 'Viewing the businesses of an application' do
           'amount' => 12_100,
           'frequency' => 'week'
         },
-        'salary' => nil,
-        'total_income_share_sales' => nil,
-        'percentage_profit_share' => nil,
+        'salary' => salary,
+        'total_income_share_sales' => total_income_share_sales,
+        'percentage_profit_share' => percentage_profit_share,
       }
     end
 
@@ -62,7 +66,7 @@ RSpec.describe 'Viewing the businesses of an application' do
         page.find('h2.govuk-summary-card__title', text: 'Self-employed business').ancestor('div.govuk-summary-card')
       end
 
-      it 'shows business details' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+      it 'shows business details' do # rubocop:disable RSpec/ExampleLength
         within(business_card) do |card|
           expect(card).to have_summary_row 'Trading name of business', 'Self employed business 1'
           expect(card).to have_summary_row 'Business address',
@@ -100,8 +104,23 @@ RSpec.describe 'Viewing the businesses of an application' do
           end
         end
       end
+
+      context 'when additional financial information is provided' do
+        let(:salary) { { 'amount' => 12_100, 'frequency' => 'annual' } }
+        let(:total_income_share_sales) { { 'amount' => 12_100, 'frequency' => 'annual' } }
+        let(:percentage_profit_share) { 70.6 }
+
+        it 'shows number of employees details' do
+          within(business_card) do |card|
+            expect(card).to have_summary_row 'Salary or remuneration', '£121.00 every year'
+            expect(card).to have_summary_row 'Income from share sales', '£121.00 every year'
+            expect(card).to have_summary_row 'Share of profits', '70.60%'
+          end
+        end
+      end
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers, RSpec/MultipleExpectations
 
   context 'when client does not have any businesses' do
     let(:application_data) do
