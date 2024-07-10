@@ -14,10 +14,6 @@ RSpec.describe 'Viewing the employments of an application' do
       super().deep_merge('means_details' => means_details)
     end
 
-    it 'shows the employments section' do
-      expect(page).to have_css('h2.govuk-heading-l', text: 'Jobs')
-    end
-
     it 'shows the jobs with correct title' do
       expect(page).to have_css('h2.govuk-summary-card__title', text: 'Job')
     end

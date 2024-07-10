@@ -12,14 +12,16 @@
         </div>
       <% end %>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:ended_employment_within_three_months) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(income_details.ended_employment_within_three_months, scope: 'values') %>
-        </dd>
-      </div>
+      <% unless income_details.ended_employment_within_three_months.nil? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:ended_employment_within_three_months) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(income_details.ended_employment_within_three_months, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
       <% unless income_details.lost_job_in_custody.nil? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
