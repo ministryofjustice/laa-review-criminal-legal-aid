@@ -60,6 +60,27 @@
               row.with_key { label_text(:profit, scope: 'businesses') }
               row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.profit.amount * 0.01), frequency: t(card.item.profit.frequency, scope: [:values, :frequency]))) }
             end
+
+            if card.item.salary
+              list.with_row do |row|
+                row.with_key { label_text(:salary, scope: 'businesses') }
+                row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.salary.amount * 0.01), frequency: t(card.item.salary.frequency, scope: [:values, :frequency]))) }
+              end
+            end
+
+            if card.item.total_income_share_sales
+              list.with_row do |row|
+                row.with_key { label_text(:total_income_share_sales, scope: 'businesses') }
+                row.with_value { simple_format(t('values.payment_with_frequency', amount: number_to_currency(card.item.total_income_share_sales.amount * 0.01), frequency: t(card.item.total_income_share_sales.frequency, scope: [:values, :frequency]))) }
+              end
+            end
+
+            if card.item.percentage_profit_share
+              list.with_row do |row|
+                row.with_key { label_text(:percentage_profit_share, scope: 'businesses') }
+                row.with_value { simple_format(number_to_percentage(card.item.percentage_profit_share, precision: 2)) }
+              end
+            end
           end
         end %>
   <% end %>
