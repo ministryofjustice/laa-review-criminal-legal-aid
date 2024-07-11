@@ -3,16 +3,18 @@
 </h2>
 
 <%= govuk_summary_card(title: label_text(:case_details)) do %>
-  <% if case_details.case_type.present? %>
+  <% unless crime_application.pse? %>
     <dl class="govuk-summary-list">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:case_type) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(case_details.case_type, scope: 'values') %>
-        </dd>
-      </div>
+      <% if case_details.case_type.present? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:case_type) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(case_details.case_type, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
       <% if case_details.appeal? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
