@@ -21,7 +21,7 @@ feature_flags:
     production: true
   self_employed_journey:
     local: true
-    staging: false
+    staging: true
     production: false
 # For settings that vary by HostEnv name
 host_env_settings:
