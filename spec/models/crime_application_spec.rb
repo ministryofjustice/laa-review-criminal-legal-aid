@@ -338,4 +338,28 @@ RSpec.describe CrimeApplication do
       it { is_expected.to eq 'on_offence' }
     end
   end
+
+  describe '#not_means_tested?' do
+    subject(:not_means_tested?) { application.not_means_tested? }
+
+    context 'when `is_means_tested` is nil' do
+      let(:attributes) do
+        super().deep_merge('is_means_tested' => nil)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the application is not means tested' do
+      let(:attributes) do
+        super().deep_merge('is_means_tested' => 'no')
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when the application is means tested' do
+      it { is_expected.to be false }
+    end
+  end
 end
