@@ -24,7 +24,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def not_means_tested?
-    means_passport.include?(Types::MeansPassportType['on_not_means_tested'])
+    is_means_tested == 'no'
   end
 
   def relevant_ioj_passport
