@@ -1,6 +1,7 @@
 <% if income_details.present? %>
   <%= govuk_summary_card(title: label_text(:income)) do %>
     <dl class="govuk-summary-list">
+      <% unless income_details.income_above_threshold.nil? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= label_text(:income_more_than) %>
@@ -9,6 +10,7 @@
           <%= t(income_details.income_above_threshold, scope: 'values') %>
         </dd>
       </div>
+      <% end %>
       <% unless income_details.has_frozen_income_or_assets.nil? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
