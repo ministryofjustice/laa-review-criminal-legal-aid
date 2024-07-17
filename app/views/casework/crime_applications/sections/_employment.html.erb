@@ -1,17 +1,14 @@
 <% if income_details.present? %>
   <%= govuk_summary_card(title: label_text(:employment)) do %>
     <dl class="govuk-summary-list">
-      <% income_details.employment_type.each do |et| %>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= label_text(:employment_type) %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <%= t(et, scope: 'values.employment_type')  %>
-          </dd>
-        </div>
-      <% end %>
-
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:employment_type) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(income_details.formatted_employment_type, scope: 'values.employment_type')  %>
+        </dd>
+      </div>
       <% unless income_details.ended_employment_within_three_months.nil? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">

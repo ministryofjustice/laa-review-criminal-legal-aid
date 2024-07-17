@@ -502,6 +502,7 @@ en:
     employment_type:
       employed: Employed
       self_employed: Self-employed
+      employed_and_self_employed: Employed and Self-employed
       business_partnership: In a business partnership
       director: Company directory in a private company
       shareholder: Shareholder in a private company
