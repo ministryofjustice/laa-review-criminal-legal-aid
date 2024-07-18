@@ -11,7 +11,16 @@ RSpec.describe 'Viewing the savings of an application' do
     let(:means_details) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'means').read) }
 
     let(:application_data) do
-      super().deep_merge('means_details' => means_details)
+      ig = means_details.deep_merge('income_details' => {'income_payments' => [      {
+        "payment_type": "employment",
+        "amount": 4500,
+        "frequency": "annual",
+        "ownership_type": "applicant",
+        "metadata": {"before_or_after_tax" => { "value" => "before_tax" }}
+      }
+]})
+
+      super().deep_merge('means_details' => ig)
     end
 
     it 'shows the savings section' do

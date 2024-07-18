@@ -13,7 +13,7 @@ module Datastore
       def call
         Rails.error.handle(fallback: -> { false }, context: @log_context, severity: :error) do
           DatastoreApi::Requests::Documents::PresignDownload.new(
-            object_key:, expires_in:, response_content_disposition:
+            object_key:
           ).call
         end
       end

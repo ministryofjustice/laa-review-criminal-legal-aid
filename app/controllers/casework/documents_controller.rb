@@ -6,9 +6,23 @@ module Casework
     class CannotDownloadUnlessAssigned < StandardError; end
     class CannotDownloadDocNotPartOfApp < StandardError; end
 
-    def show; end
+    def show
+      @presign_download = Datastore::Documents::Download.new(document: @document, log_context: log_context).call
+    end
 
     def download
+      presign_download = Datastore::Documents::Download.new(document: @document, log_context: log_context).call
+
+      if presign_download.respond_to?(:url)
+        data = open(presign_download.url)
+        send_data(data)
+      else
+        set_flash(:cannot_download_try_again, file_name: @document.filename, success: false)
+        redirect_to crime_application_path(params[:crime_application_id])
+      end
+    end
+
+    def downloady
       presign_download = Datastore::Documents::Download.new(document: @document, log_context: log_context).call
 
       if presign_download.respond_to?(:url)

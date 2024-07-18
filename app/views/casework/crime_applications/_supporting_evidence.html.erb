@@ -49,6 +49,17 @@
                 )
               end
             end
+            list.with_row do |row|
+              row.with_key { evidence.filename }
+              row.with_value do
+                govuk_link_to(
+                  sanitize(t(:download_file, scope: 'values',
+                             file_extension: evidence.file_extension,
+                             file_size: number_to_human_size(evidence.file_size))),
+                  documents_path(crime_application_id: crime_application.id, id: evidence.s3_object_key)
+                )
+              end
+            end
           end
         end
       end %>
