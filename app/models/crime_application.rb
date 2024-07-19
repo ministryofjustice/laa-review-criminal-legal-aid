@@ -4,6 +4,9 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   include Assignable
   include Reviewable
 
+  PRE_CIFC_MAAT_ID = 'pre_cifc_maat_id'.freeze
+  PRE_CIFC_USN = 'pre_cifc_usn'.freeze
+
   def supporting_evidence
     super.map { |document| Document.new(document.attributes) }
   end
@@ -181,6 +184,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     application_type == Types::ApplicationType['post_submission_evidence']
   end
 
+  def cifc?
+    application_type == Types::ApplicationType['change_in_financial_circumstances']
+  end
+
   def appeal_no_changes?
     case_details&.case_type == Types::CaseType['appeal_to_crown_court'] &&
       case_details&.appeal_reference_number.present?
@@ -200,5 +207,13 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       end
 
     @evidence_details ||= EvidenceDetailsPresenter.present(struct)
+  end
+
+  def maat_id_selected?
+    pre_cifc_reference_number == PRE_CIFC_MAAT_ID
+  end
+
+  def usn_selected?
+    pre_cifc_reference_number == PRE_CIFC_USN
   end
 end

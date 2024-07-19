@@ -22,7 +22,7 @@
            locals: { crime_application: crime_application, case_details: crime_application.case_details } %>
 <%= render partial: 'offences', object: crime_application.case_details.offences %>
 <%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
-<%= render partial: 'interests_of_justice', locals: { crime_application: } %>
+<%= render partial: 'interests_of_justice', locals: { crime_application: } unless crime_application.cifc?%>
 
 <% if FeatureFlags.means_journey.enabled? %>
   <%= render partial: 'income_details', locals: { crime_application: } %>
