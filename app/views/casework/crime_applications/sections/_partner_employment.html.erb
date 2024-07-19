@@ -1,14 +1,10 @@
 <% if income_details.partner_employment_type.present? %>
   <%= govuk_summary_card(title: label_text(:partner_employment)) do %>
-    <dl class="govuk-summary-list">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:partner_employment_type) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(income_details.formatted_partner_employment_type, scope: 'values.employment_type')  %>
-        </dd>
-      </div>
-    </dl>
+    <%= govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { label_text(:partner_employment_type) }
+            row.with_value { t(income_details.partner_employment_type, scope: 'values.employment_type').to_sentence }
+          end
+        end %>
   <% end %>
 <% end %>

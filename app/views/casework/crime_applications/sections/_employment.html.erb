@@ -6,7 +6,7 @@
           <%= label_text(:employment_type) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(income_details.formatted_employment_type, scope: 'values.employment_type')  %>
+          <%= t(income_details.employment_type, scope: 'values.employment_type').to_sentence  %>
         </dd>
       </div>
       <% unless income_details.ended_employment_within_three_months.nil? %>
