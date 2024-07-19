@@ -46,7 +46,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
     end
 
-    context 'with MATT ID provided' do
+    context 'with MAAT ID provided' do
       let(:application_data) do
         super().deep_merge(
           'application_type' => 'change_in_financial_circumstances',
