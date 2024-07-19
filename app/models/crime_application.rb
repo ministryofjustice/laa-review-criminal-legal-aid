@@ -181,6 +181,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     application_type == Types::ApplicationType['post_submission_evidence']
   end
 
+  def cifc?
+    application_type == Types::ApplicationType['change_in_financial_circumstances']
+  end
+
   def appeal_no_changes?
     case_details&.case_type == Types::CaseType['appeal_to_crown_court'] &&
       case_details&.appeal_reference_number.present?
