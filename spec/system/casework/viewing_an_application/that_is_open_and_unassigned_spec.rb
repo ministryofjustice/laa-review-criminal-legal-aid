@@ -32,7 +32,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   context 'when application_type is `change_in_financial_circumstances`' do
-    context 'with USN reference number provided' do
+    context 'with USN provided' do
       let(:application_data) do
         super().deep_merge(
           'application_type' => 'change_in_financial_circumstances',
@@ -46,7 +46,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
     end
 
-    context 'with USN reference number provided' do
+    context 'with MATT ID provided' do
       let(:application_data) do
         super().deep_merge(
           'application_type' => 'change_in_financial_circumstances',
