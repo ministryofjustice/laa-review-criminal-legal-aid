@@ -37,7 +37,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         super().deep_merge('application_type' => 'change_in_financial_circumstances', 'pre_cifc_reference_number' => 'pre_cifc_usn', 'pre_cifc_usn' => 'usn_abc')
       end
 
-      it 'includes the copy urn link' do
+      it 'includes USN reference number' do
         expect(page).to have_content('USN reference number of the original application usn_abc')
       end
     end
@@ -47,7 +47,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         super().deep_merge('application_type' => 'change_in_financial_circumstances', 'pre_cifc_reference_number' => 'pre_cifc_maat_id', 'pre_cifc_maat_id' => 'maat_id_abc')
       end
 
-      it 'includes the copy urn link' do
+      it 'includes MAAT ID reference number' do
         expect(page).to have_content('MAAT ID reference number of the original application maat_id_abc')
       end
     end
