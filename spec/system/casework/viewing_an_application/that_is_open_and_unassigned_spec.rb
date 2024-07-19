@@ -42,7 +42,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'includes USN reference number' do
-        expect(page).to have_content('USN reference number of the original application usn_abc')
+        expect(page).to have_content('USN of original application usn_abc')
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'includes MAAT ID reference number' do
-        expect(page).to have_content('MAAT ID reference number of the original application maat_id_abc')
+        expect(page).to have_content('MAAT ID of original application maat_id_abc')
       end
     end
   end
