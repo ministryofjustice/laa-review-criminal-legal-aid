@@ -4,6 +4,9 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   include Assignable
   include Reviewable
 
+  PRE_CIFC_MAAT_ID = 'pre_cifc_maat_id'
+  PRE_CIFC_USN = 'pre_cifc_usn'
+
   def supporting_evidence
     super.map { |document| Document.new(document.attributes) }
   end
@@ -204,5 +207,13 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       end
 
     @evidence_details ||= EvidenceDetailsPresenter.present(struct)
+  end
+
+  def maat_id_selected?
+    self.pre_cifc_reference_number == PRE_CIFC_MAAT_ID
+  end
+
+  def usn_selected?
+    self.pre_cifc_reference_number == PRE_CIFC_USN
   end
 end

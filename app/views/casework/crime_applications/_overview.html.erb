@@ -9,6 +9,32 @@
       </dd>
     </div>
 
+    <% if overview.cifc? %>
+      <% if overview.maat_id_selected? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:pre_cifc_maat_id) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+        <span id="pre_cifc_maat_id">
+          <%= overview.pre_cifc_maat_id.presence || t(:not_provided, scope: 'values') %>
+        </span>
+          </dd>
+        </div>
+      <% elsif overview.usn_selected? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:pre_cifc_usn) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+        <span id="pre_cifc_usn">
+          <%= overview.pre_cifc_usn.presence || t(:not_provided, scope: 'values') %>
+        </span>
+          </dd>
+        </div>
+      <% end %>
+    <% end %>
+
     <% unless overview.pse? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -84,42 +110,6 @@
           <% else %>
             <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
           <% end %>
-        </dd>
-      </div>
-    <% end %>
-
-    <% if overview.cifc? %>
-      <%# TODO: Awaiting design %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:pre_cifc_usn) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-        <span id="pre_cifc_usn">
-          <%= overview.pre_cifc_usn.presence || t(:not_provided, scope: 'values') %>
-        </span>
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:pre_cifc_reference_number) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-        <span id="pre_cifc_reference_number">
-          <%= overview.pre_cifc_reference_number.presence || t(:not_provided, scope: 'values') %>
-        </span>
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:pre_cifc_maat_id) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-        <span id="pre_cifc_maat_id">
-          <%= overview.pre_cifc_maat_id.presence || t(:not_provided, scope: 'values') %>
-        </span>
         </dd>
       </div>
     <% end %>
