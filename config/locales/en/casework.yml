@@ -374,6 +374,9 @@ en:
     client_declaration: Declaration from client?
     partner_declaration: Declaration from partner?
     no_partner_declaration_reason: Reason for no partner declaration
+    pre_cifc_reference_number: CIFC reference number
+    pre_cifc_maat_id: CIFC MAAT ID
+    pre_cifc_usn: CIFC USN
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
