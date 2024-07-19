@@ -375,7 +375,7 @@ en:
     partner_declaration: Declaration from partner?
     no_partner_declaration_reason: Reason for no partner declaration
     pre_cifc_maat_id: MAAT ID reference number of the original application
-    pre_cifc_usn: USN reference number of the original applicatio
+    pre_cifc_usn: USN reference number of the original application
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
