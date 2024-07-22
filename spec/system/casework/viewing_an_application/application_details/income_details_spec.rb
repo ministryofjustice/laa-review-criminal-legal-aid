@@ -8,8 +8,20 @@ RSpec.describe 'Viewing the income details of an application' do
   end
 
   context 'with income details' do
-    it 'shows income above threshold' do
-      expect(page).to have_content('Income more than £12,475? No')
+    context 'when partner is included in means' do
+      before do
+        allow_any_instance_of(ActionView::Base).to receive(:partner_included_in_means?).and_return(true)
+      end
+
+      it 'shows income above threshold' do
+        expect(page).to have_content('Joint annual income more than £12,475? No')
+      end
+    end
+
+    context 'when partner is not included in means' do
+      it 'shows income above threshold' do
+        expect(page).to have_content('Income more than £12,475? No')
+      end
     end
 
     it 'shows has income savings assets' do

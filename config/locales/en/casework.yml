@@ -176,7 +176,7 @@ en:
     how_much_rent: Amount paid for rent, after taking away Housing Benefit
     how_much_mortgage: Amount paid towards mortgage
     income: Income
-    income_more_than: Income more than £12,475?
+    income_more_than: "%{prefix} more than £12,475?"
     income_details: Income
     income_details_partner: Partner's income
     employments_title: Jobs
