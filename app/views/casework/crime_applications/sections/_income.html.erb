@@ -8,7 +8,7 @@
       <% unless income_details.income_above_threshold.nil? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:income_more_than) %>
+            <%= label_text(:income_more_than, prefix: (partner_included_in_means? ? 'Joint annual income' : 'Income')) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= t(income_details.income_above_threshold, scope: 'values') %>
