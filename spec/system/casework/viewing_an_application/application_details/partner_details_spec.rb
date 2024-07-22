@@ -40,9 +40,14 @@ RSpec.describe 'When viewing partner details' do
         expect(page).to have_content('Conflict of interest? No')
       end
 
+      # rubocop:disable RSpec/NestedGroups
       context 'when partner is codefendant' do
         let(:application_data) do
-          super().deep_merge('client_details' => { 'partner' => { 'involvement_in_case' => 'codefendant', 'conflict_of_interest' => conflict_of_interest } })
+          super().deep_merge('client_details' => {
+                               'partner' => {
+                                 'involvement_in_case' => 'codefendant', 'conflict_of_interest' => conflict_of_interest
+                               }
+                             })
         end
 
         context 'when yes' do
@@ -61,6 +66,7 @@ RSpec.describe 'When viewing partner details' do
           end
         end
       end
+      # rubocop:enable RSpec/NestedGroups
 
       context 'when partner is not a codefendant' do
         let(:application_data) do
