@@ -37,7 +37,29 @@ RSpec.describe 'When viewing partner details' do
 
       it "displays the partner's case details" do
         expect(page).to have_content('Partner involved in the case? Co-defendant')
-        expect(page).to have_content('Conflict of interest? No conflict of interest')
+        expect(page).to have_content('Conflict of interest? No')
+      end
+
+      context 'when partner is codefendant' do
+        let(:application_data) do
+          super().deep_merge('client_details' => { 'partner' => { 'involvement_in_case' => 'codefendant', 'conflict_of_interest' => conflict_of_interest } })
+        end
+
+        context 'when yes' do
+          let(:conflict_of_interest) { 'yes' }
+
+          it "display the partner's conflict of interest details" do
+            expect(page).to have_content('Conflict of interest? Yes')
+          end
+        end
+
+        context 'when no' do
+          let(:conflict_of_interest) { 'no' }
+
+          it "display the partner's conflict of interest details" do
+            expect(page).to have_content('Conflict of interest? No')
+          end
+        end
       end
 
       context 'when partner is not a codefendant' do
@@ -46,7 +68,7 @@ RSpec.describe 'When viewing partner details' do
         end
 
         it "does not display the partner's conflict of interest details" do
-          expect(page).to have_no_content('Conflict of interest? No conflict of interest')
+          expect(page).to have_no_content('Conflict of interest? No')
         end
       end
 
