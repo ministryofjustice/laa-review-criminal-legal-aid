@@ -9,8 +9,8 @@ RSpec.describe 'Viewing the income details of an application' do
 
   context 'with income details' do
     context 'when partner is included in means' do
-      before do
-        allow_any_instance_of(ActionView::Base).to receive(:partner_included_in_means?).and_return(true)
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'partner' => { 'is_included_in_means_assessment' => true } })
       end
 
       it 'shows income above threshold' do
