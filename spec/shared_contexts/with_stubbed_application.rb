@@ -5,11 +5,13 @@ RSpec.shared_context 'with stubbed application' do # rubocop:disable RSpec/Multi
   let(:capital_details) { {} }
   let(:means_details) { { income_details:, outgoings_details:, capital_details: } }
   let(:partner_included?) { false }
+  let(:case_type) { 'appeal_to_crown_court' }
 
   let(:application_data) do
     JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
       'client_details' => { 'partner' => { 'is_included_in_means_assessment' => partner_included? } },
-      'means_details' => means_details.deep_stringify_keys
+      'means_details' => means_details.deep_stringify_keys,
+      'case_details' => { 'case_type' => case_type }
     )
   end
 
