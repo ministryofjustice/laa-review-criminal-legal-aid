@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Viewing an application unassigned, open, post submission evidence application' do
+RSpec.describe 'Viewing an apeal with no changes application' do
   include_context 'with stubbed application'
 
   let(:application_data) do
