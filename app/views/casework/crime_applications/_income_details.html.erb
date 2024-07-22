@@ -4,7 +4,7 @@
   <%= label_text(:income_details) %>
 </h2>
 
-<%= render partial: 'casework/crime_applications/sections/employment', locals: { income_details: crime_application.income_details } %>
+<%= render partial: 'casework/crime_applications/sections/employment', locals: { income_details: crime_application.means_details.income_details } %>
 <%= render partial: 'casework/crime_applications/sections/income', locals: { income_details: crime_application.means_details.income_details } %>
 <% if FeatureFlags.employment_journey.enabled? %>
   <%= render partial: 'casework/crime_applications/sections/employment_income', locals: { employment_income: crime_application.income_payments.applicant_employment_income } %>
@@ -31,7 +31,7 @@
       }
     ) %>
 <% if FeatureFlags.partner_journey.enabled? %>
-  <%= render partial: 'casework/crime_applications/sections/partner_employment', locals: { income_details: crime_application.income_details } %>
+  <%= render partial: 'casework/crime_applications/sections/partner_employment', locals: { income_details: crime_application.means_details.income_details } %>
   <% if FeatureFlags.employment_journey.enabled? %>
     <%= render partial: 'casework/crime_applications/sections/employment_income', locals: { employment_income: crime_application.income_payments.partner_employment_income } %>
     <%= render partial: 'casework/crime_applications/sections/employments', locals: { employments: crime_application.partner_employments } %>

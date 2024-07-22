@@ -3,7 +3,6 @@
 </h2>
 
 <%= govuk_summary_card(title: label_text(:case_details)) do %>
-  <% unless crime_application.pse? %>
     <dl class="govuk-summary-list">
       <% if case_details.case_type.present? %>
         <div class="govuk-summary-list__row">
@@ -70,7 +69,6 @@
                 </dd>
               </div>
           <% end %>
-        <% end %>
         <% end %>
       <% end %>
 

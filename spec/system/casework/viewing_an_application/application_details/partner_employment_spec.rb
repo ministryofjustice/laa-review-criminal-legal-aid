@@ -8,10 +8,32 @@ RSpec.describe 'Viewing the employment details of the partner' do
   end
 
   context 'with employment details' do
-    it { expect(page).to have_content("Partner's employment") }
+    let(:card) do
+      page.find('h2.govuk-summary-card__title', text: "Partner's employment").ancestor('div.govuk-summary-card')
+    end
 
-    it 'shows employment type' do
-      expect(page).to have_content("Partner's employment status Not working")
+    it 'shows partners employment type' do
+      within(card) do |card|
+        expect(card).to have_summary_row "Partner's employment status", 'Not working'
+      end
+    end
+
+    context 'when partner is employed and self employed' do
+      let(:application_data) do
+        JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+          'means_details' => {
+            'income_details' => {
+              'partner_employment_type' => %w[employed self_employed]
+            }
+          }
+        )
+      end
+
+      it 'shows partners employment type' do
+        within(card) do |card|
+          expect(card).to have_summary_row "Partner's employment status", 'Employed and Self-employed'
+        end
+      end
     end
   end
 
