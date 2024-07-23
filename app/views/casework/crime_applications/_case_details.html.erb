@@ -74,31 +74,34 @@
       <% end %>
       <% end %>
 
-      <!-- Court hearing -->
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:first_court_hearing) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.first_court_hearing %>
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:next_court_hearing) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.next_court_hearing %>
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:hearing_date) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.next_court_hearing_at %>
-        </dd>
-      </div>
+      <% unless crime_application.cifc? %>
+        <!-- Court hearing -->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:first_court_hearing) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= case_details.first_court_hearing %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:next_court_hearing) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= case_details.next_court_hearing %>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:hearing_date) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= case_details.next_court_hearing_at %>
+          </dd>
+        </div>
+      <% end %>
+
       <% if FeatureFlags.means_journey.enabled? %>
         <% if case_details.has_case_concluded.present? %>
           <div class="govuk-summary-list__row">
