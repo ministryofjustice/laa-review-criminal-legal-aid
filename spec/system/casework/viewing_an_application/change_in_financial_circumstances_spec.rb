@@ -18,6 +18,10 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
   end
 
   context 'without not-asked details' do
+    it 'does not display overall offence class' do
+      expect(page).to have_no_content('Overall offence class')
+    end
+
     it 'does not display first court hearing details' do
       expect(page).to have_no_content('First court hearing the case')
     end
