@@ -55,7 +55,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     it 'does not display offence details' do
-      expect(page).to have_no_content('Offence details')
+      expect(page).to have_no_content('Offence')
     end
 
     it 'does not display co-defendants details' do
@@ -63,7 +63,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     it 'does not display interest of justice details' do
-      expect(page).to have_no_content('Interest of Justice')
+      expect(page).to have_no_content('Justification for legal aid')
     end
   end
 

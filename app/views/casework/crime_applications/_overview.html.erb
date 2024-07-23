@@ -100,18 +100,20 @@
         </dd>
       </div>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:overall_offence_class) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if overview.case_details.offence_class %>
-            <%= govuk_tag(text: "#{t('values.class')} #{overview.case_details.offence_class}", colour: 'blue') %>
-          <% else %>
-            <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
-          <% end %>
-        </dd>
-      </div>
+      <% unless overview.cifc? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:overall_offence_class) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if overview.case_details.offence_class %>
+              <%= govuk_tag(text: "#{t('values.class')} #{overview.case_details.offence_class}", colour: 'blue') %>
+            <% else %>
+              <%= govuk_tag(text: label_text('undetermined'), colour: 'red') %>
+            <% end %>
+          </dd>
+        </div>
+      <% end %>
     <% end %>
   </dl>
 <% end %>

@@ -20,11 +20,12 @@ RSpec.describe 'Workload Report' do
     end
   end
 
-  it 'shows the expected caption' do
+  it 'shows the expected caption' do # rubocop:disable RSpec/ExampleLength
     expected_captions = [
       'CAT 1 workload',
       'CAT 2 workload',
-      'Extradition workload'
+      'Extradition workload',
+      'Non-means workload',
     ]
 
     page.all('table caption').each_with_index do |el, i|
