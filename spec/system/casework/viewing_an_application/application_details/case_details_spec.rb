@@ -2,9 +2,26 @@ require 'rails_helper'
 
 RSpec.describe 'When viewing case details' do
   include_context 'with stubbed application'
+  let(:case_type) { 'indictable' }
+  let(:card) do
+    page.find('h2.govuk-summary-card__title', text: 'Case details').ancestor('div.govuk-summary-card')
+  end
 
   before do
     visit crime_application_path(application_id)
+  end
+
+  it 'shows the case hearing details' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+    within(card) do |card|
+      expect(card).to have_summary_row(
+        'First court hearing the case', 'Bristol Magistrates Court'
+      )
+      expect(card).to have_summary_row(
+        'Next court hearing the case', "Cardiff Magistrates' Court"
+      )
+      expect(card).to have_summary_row 'Case type', 'Indictable'
+      expect(card).to have_summary_row 'Date of next hearing', '11/11/2024'
+    end
   end
 
   context 'with case details' do
@@ -19,6 +36,8 @@ RSpec.describe 'When viewing case details' do
     end
 
     context 'when case type is an appeal' do
+      let(:case_type) { 'appeal_to_crown_court' }
+
       it 'shows appeal lodged date' do
         expect(page).to have_content('Date the appeal was lodged 25/10/2021')
       end
