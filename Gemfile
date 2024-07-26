@@ -63,7 +63,7 @@ group :development, :test do
   gem 'debug'
   gem 'dotenv-rails', '~> 2.8.1'
   gem 'pry'
-  gem 'rspec-rails', '>= 6.1.1'
+  gem 'rspec-rails', '>= 6.1.3'
 end
 
 group :development do
@@ -75,11 +75,11 @@ group :test do
   gem 'brakeman'
   gem 'capybara', '>= 3.40.0'
   gem 'erb_lint', require: false
-  gem 'rubocop', '>= 1.58.0', require: false
-  gem 'rubocop-performance', '>= 1.20.0', require: false
+  gem 'rubocop', '>= 1.65.0', require: false
+  gem 'rubocop-performance', '>= 1.21.1', require: false
   gem 'rubocop-rails', '>= 2.25.1', require: false
-  gem 'rubocop-rspec', '>= 2.26.0', require: false
-  gem 'selenium-webdriver', '>= 4.15.0'
+  gem 'rubocop-rspec', '>= 3.0.3', require: false
+  gem 'selenium-webdriver', '>= 4.22.0'
   gem 'simplecov', require: false
   gem 'webmock', '>= 3.20.0'
 end
