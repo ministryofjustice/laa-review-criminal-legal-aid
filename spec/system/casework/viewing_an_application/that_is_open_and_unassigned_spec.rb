@@ -84,19 +84,17 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         .sibling('.govuk-summary-list__value')
     end
 
-    context 'when the application is means passported' do
+    context 'when the application is subject to the means test' do
       it 'shows the blue passported badge' do
-        expect(means_tested_badge).to have_content('Passported')
-        expect(means_tested_badge).to have_css('.govuk-tag--blue')
+        expect(means_tested_badge).to have_content('Yes')
       end
     end
 
-    context 'when the application is not means passported' do
-      let(:application_data) { super().merge('means_passport' => []) }
+    context 'when the application is not subject to the means test' do
+      let(:application_data) { super().merge('is_means_tested' => 'no') }
 
       it 'shows the red undetermined badge' do
-        expect(means_tested_badge).to have_content('Undetermined')
-        expect(means_tested_badge).to have_css('.govuk-tag--red')
+        expect(means_tested_badge).to have_content('No')
       end
     end
   end
