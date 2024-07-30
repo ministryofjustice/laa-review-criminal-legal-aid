@@ -318,6 +318,7 @@ en:
     telephone_number: UK Telephone number
     trust_funds_client: 'Trust funds: client'
     trust_funds_partner: 'Trust funds: partner'
+    type_of_payment: Type of payment
     undetermined: Undetermined
     urn: Unique reference number (URN)
     what: What
@@ -330,7 +331,6 @@ en:
     which_benefits_does_the_partner_get: Which benefits does the partner get?
     which_investments_does_client_have: Investments?
     which_payments_does_the_client_get: Which payments does the client get?
-    which_payments_does_the_client_pay: Which payments does the client pay?
     which_payments_does_the_partner_get: Which payments does the partner get?
     which_savings_does_client_have: Savings %{subject} has
     trust_fund_amount_held: Enter the amount held in the fund
