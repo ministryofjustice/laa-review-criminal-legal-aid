@@ -34,7 +34,7 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
     let(:outgoings_details) { { outgoings: [], has_no_other_outgoings: 'yes' } }
 
     it 'shows outgoing payment details' do
-      expect(page).to have_content('Which payments does the client pay? None')
+      expect(page).to have_content('Type of payment None')
     end
   end
 end
