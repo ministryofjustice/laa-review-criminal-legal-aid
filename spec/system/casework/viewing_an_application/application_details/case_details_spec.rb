@@ -24,6 +24,21 @@ RSpec.describe 'When viewing case details' do
     end
   end
 
+  context 'when next court hearing is missing' do
+    let(:application_data) do
+      super().deep_merge('case_details' => { 'hearing_date' => nil })
+    end
+
+    it 'shows the case hearing details' do
+      within(card) do |card|
+        expect(card).to have_summary_row(
+          'First court hearing the case', 'Bristol Magistrates Court'
+        )
+        expect(card).to have_summary_row 'Date of next hearing', ''
+      end
+    end
+  end
+
   context 'with case details' do
     context 'when case type is not an appeal type' do
       let(:application_data) do

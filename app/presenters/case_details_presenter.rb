@@ -16,6 +16,8 @@ class CaseDetailsPresenter < BasePresenter
   end
 
   def next_court_hearing_at
+    return nil if hearing_date.blank?
+
     l(hearing_date, format: :compact)
   end
 
