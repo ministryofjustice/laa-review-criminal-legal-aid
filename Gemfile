@@ -37,7 +37,7 @@ gem 'turbo-rails', '>= 2.0.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'dartsass-rails', '~> 0.5.0'
+gem 'dartsass-rails', '~> 0.5.1'
 
 # Exceptions notifications
 gem 'sentry-rails', '>= 5.15.1'
@@ -54,7 +54,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'aws-sdk-sns', '~> 1.60', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store'
+gem 'rails_event_store', '>= 2.14.0'
 
 # Monitoring
 gem 'prometheus_exporter'
