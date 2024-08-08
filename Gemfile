@@ -11,7 +11,7 @@ gem 'faraday'
 gem 'govuk-components'
 gem 'govuk_design_system_formbuilder'
 
-gem 'govuk_notify_rails'
+gem 'govuk_notify_rails', '>= 3.0.0'
 
 gem 'kaminari'
 
