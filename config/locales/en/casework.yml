@@ -366,9 +366,9 @@ en:
     partner_other_work_benefit_received: Does the partner receive any other benefits from work?
     partner_other_work_benefit_received_amount: Total value every year
     self_assessment_tax_bill: Self Assessment tax
-    applicant_self_assessment_tax_bill: Does the client pay a Self Assessment tax bill?
+    applicant_self_assessment_tax_bill: "Self Assessment tax calculation: client?"
     applicant_self_assessment_tax_bill_amount: Amount
-    partner_self_assessment_tax_bill: Does the partner pay a Self Assessment tax bill?
+    partner_self_assessment_tax_bill: "Self Assessment tax calculation: partner?"
     partner_self_assessment_tax_bill_amount: Amount
     declarations: Declarations
     client_declaration: Declaration from client?
