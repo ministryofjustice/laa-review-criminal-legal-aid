@@ -96,7 +96,7 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'shows Self Assessment tax' do
-      expect(page).to have_content('Does the client pay a Self Assessment tax bill? Yes')
+      expect(page).to have_content('Self Assessment tax calculation: client? Yes')
     end
 
     it 'shows Self Assessment tax amount with frequency' do
