@@ -32,6 +32,20 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   context 'when application_type is `change_in_financial_circumstances`' do
+    context 'with reason provided' do
+      let(:application_data) do
+        super().deep_merge(
+          'application_type' => 'change_in_financial_circumstances',
+          'pre_cifc_reason' => 'Won the lottery'
+        )
+      end
+
+      it 'displays reason' do
+        expect(page).to have_content("Changes in client's financial circumstances")
+        expect(page).to have_content('Won the lottery')
+      end
+    end
+
     context 'with USN provided' do
       let(:application_data) do
         super().deep_merge(

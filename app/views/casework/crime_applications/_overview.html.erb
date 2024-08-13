@@ -10,15 +10,26 @@
     </div>
 
     <% if overview.cifc? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:pre_cifc_reason) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <span id="pre_cifc_reason">
+            <%= overview.pre_cifc_reason.presence || t(:not_provided, scope: 'values') %>
+          </span>
+        </dd>
+      </div>
+
       <% if overview.maat_id_selected? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:pre_cifc_maat_id) %>
           </dt>
           <dd class="govuk-summary-list__value">
-        <span id="pre_cifc_maat_id">
-          <%= overview.pre_cifc_maat_id.presence || t(:not_provided, scope: 'values') %>
-        </span>
+            <span id="pre_cifc_maat_id">
+              <%= overview.pre_cifc_maat_id.presence || t(:not_provided, scope: 'values') %>
+            </span>
           </dd>
         </div>
       <% elsif overview.usn_selected? %>
@@ -27,9 +38,9 @@
             <%= label_text(:pre_cifc_usn) %>
           </dt>
           <dd class="govuk-summary-list__value">
-        <span id="pre_cifc_usn">
-          <%= overview.pre_cifc_usn.presence || t(:not_provided, scope: 'values') %>
-        </span>
+            <span id="pre_cifc_usn">
+              <%= overview.pre_cifc_usn.presence || t(:not_provided, scope: 'values') %>
+            </span>
           </dd>
         </div>
       <% end %>

@@ -11,9 +11,9 @@ RSpec.describe OutgoingPaymentsPresenter do
 
     # rubocop:disable Layout/LineLength
     it {
-      expect(formatted_outgoing_payments).to include({ 'childcare' => be_a(LaaCrimeSchemas::Structs::OutgoingsDetails::Outgoing),
+      expect(formatted_outgoing_payments).to include({ 'childcare' => be_a(LaaCrimeSchemas::Structs::Outgoing),
                                                      'maintenance' => nil,
-                                                     'legal_aid_contribution' => be_a(LaaCrimeSchemas::Structs::OutgoingsDetails::Outgoing) })
+                                                     'legal_aid_contribution' => be_a(LaaCrimeSchemas::Structs::Outgoing) })
     }
     # rubocop:enable Layout/LineLength
 
