@@ -24,9 +24,8 @@ gem 'laa-criminal-applications-datastore-api-client',
     require: 'datastore_api'
 
 gem 'laa-criminal-legal-aid-schemas',
-path: '/Users/mohammed.seedat/development/laa-criminal-legal-aid-schemas'
-    # github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
-    # tag: 'v1.2.2'
+    github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
+    tag: 'v1.2.3'
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
