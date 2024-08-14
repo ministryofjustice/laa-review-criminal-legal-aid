@@ -376,6 +376,7 @@ en:
     no_partner_declaration_reason: Reason for no partner declaration
     pre_cifc_maat_id: MAAT ID of original application
     pre_cifc_usn: USN of original application
+    pre_cifc_reason: Changes in client's financial circumstances
 
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
