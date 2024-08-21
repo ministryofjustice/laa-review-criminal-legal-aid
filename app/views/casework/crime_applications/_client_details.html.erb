@@ -41,6 +41,16 @@
         <%= nino.presence || t(:not_provided, scope: 'values') %>
       </dd>
     </div>
+    <% if applicant.arc.present? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:arc) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= applicant.arc %>
+        </dd>
+      </div>
+    <% end %>
     <% unless crime_application.appeal_no_changes? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
