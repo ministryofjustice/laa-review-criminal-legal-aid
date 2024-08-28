@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# rubocop:disable RSpec/RSpec/SpecFilePathFormat
+# rubocop:disable RSpec/SpecFilePathFormat
 
 RSpec.describe ApplicationController do
   controller do
@@ -81,4 +81,4 @@ RSpec.describe ApplicationController do
   end
 end
 
-# rubocop:enable RSpec/RSpec/SpecFilePathFormat
+# rubocop:enable RSpec/SpecFilePathFormat
