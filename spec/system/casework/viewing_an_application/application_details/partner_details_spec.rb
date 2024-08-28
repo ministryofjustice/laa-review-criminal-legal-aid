@@ -35,6 +35,19 @@ RSpec.describe 'When viewing partner details' do
         expect(page).to have_content('National Insurance number AB123456C')
       end
 
+      context 'when the partner has an arc number' do
+        let(:application_data) do
+          super().deep_merge('client_details' => {
+                               'partner' => { 'nino' => nil, 'arc' => 'ABC12/345678/A', }
+                             })
+        end
+
+        it "displays the partner's arc number" do
+          expect(page).to have_content('National Insurance number Not provided')
+          expect(page).to have_content('Application registration card (ARC) number ABC12/345678/A')
+        end
+      end
+
       it "displays the partner's case details" do
         expect(page).to have_content('Partner involved in the case? Co-defendant')
         expect(page).to have_content('Conflict of interest? No')

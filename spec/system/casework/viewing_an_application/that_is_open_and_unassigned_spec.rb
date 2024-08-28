@@ -160,11 +160,37 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
   end
 
-  it 'includes the applicant details' do
-    expect(page).to have_content('AJ123456C')
+  describe 'displaying applicant details' do
+    context 'when national insurance information is provided' do
+      it 'displays the national insurance row' do
+        expect(page).to have_content('National Insurance number AJ123456C')
+      end
+    end
+
+    context 'when national insurance information is not provided' do
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'applicant' => { 'nino' => nil } })
+      end
+
+      it 'displays the national insurance row' do
+        expect(page).to have_content('National Insurance number Not provided')
+        expect(page).not_to have_content('Application registration card (ARC) number')
+      end
+    end
+
+    context 'when arc information is provided' do
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'applicant' => { 'nino' => nil, 'arc' => 'ABC12/345678/A' } })
+      end
+
+      it 'displays the national insurance row' do
+        expect(page).to have_content('National Insurance number Not provided')
+        expect(page).to have_content('Application registration card (ARC) number ABC12/345678/A')
+      end
+    end
   end
 
-  describe 'the overaall offence class' do
+  describe 'the overall offence class' do
     context 'when at least one of the offences is manually input' do
       it 'displays undetermined overall offence class badge' do
         expect(page).to have_content('Overall offence class Undetermined')

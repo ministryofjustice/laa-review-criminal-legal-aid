@@ -71,6 +71,7 @@ en:
     application_start_date: Date stamp
     application_status: Status
     application_type: Application type
+    arc: Application registration card (ARC) number
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
     are_wages_paid_into_account: Client’s wages or benefits paid into this account?
     assigned_to: 'Assigned to:'
