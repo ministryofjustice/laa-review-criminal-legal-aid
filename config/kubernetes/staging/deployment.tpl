@@ -54,7 +54,7 @@ spec:
                 value: https
               - name: X-Forwarded-Ssl
                 value: "on"
-	  failureThreshold: 1
+          failureThreshold: 1
           periodSeconds: 10
         startupProbe:
           httpGet:
@@ -65,7 +65,7 @@ spec:
                 value: https
               - name: X-Forwarded-Ssl
                 value: "on"
-	  failureThreshold: 20
+          failureThreshold: 20
           periodSeconds: 10
         envFrom:
           - configMapRef:
