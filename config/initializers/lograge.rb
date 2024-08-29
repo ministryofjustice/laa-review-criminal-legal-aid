@@ -5,13 +5,15 @@ Rails.application.configure do
   config.lograge.logger = ActiveSupport::Logger.new($stdout)
   config.lograge.formatter = Lograge::Formatters::Logstash.new
 
-  # Reduce noise in the logs by ignoring the healthcheck actions
-  config.lograge.ignore_actions = %w[
-    HealthcheckController#show
-    HealthcheckController#ping
-    DatastoreApi::HealthEngine::HealthcheckController#show
-    DatastoreApi::HealthEngine::HealthcheckController#ping
-  ]
+
+  # Commenting out ignoring of healthcheck to aid with debugging
+  # # Reduce noise in the logs by ignoring the healthcheck actions
+  # config.lograge.ignore_actions = %w[
+  #   HealthcheckController#show
+  #   HealthcheckController#ping
+  #   DatastoreApi::HealthEngine::HealthcheckController#show
+  #   DatastoreApi::HealthEngine::HealthcheckController#ping
+  # ]
 
   config.lograge.custom_options = lambda do |event|
     request = event.payload[:request]
