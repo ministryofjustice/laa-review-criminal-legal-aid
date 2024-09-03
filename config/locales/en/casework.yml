@@ -588,6 +588,7 @@ en:
     view_daily_count: Check when applications were received
     view_closed_on_count: Check when applications were closed
     mark_complete: Mark as completed
+    complete: Mark as completed
     send_back: Send back to provider
     mark_as_ready: Mark as ready for MAAT
     sign_out: Sign out

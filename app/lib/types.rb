@@ -32,6 +32,10 @@ module Types
     *REVIEW_STATUS_GROUPS.keys
   )
 
+  ReviewState = Symbol.default(:open).enum(*%i[open sent_back completed marked_as_ready])
+
+  ReviewType = Symbol.enum(*%i[means non_means pse])
+
   CASEWORKER_ROLE = 'caseworker'.freeze
   SUPERVISOR_ROLE = 'supervisor'.freeze
   DATA_ANALYST_ROLE = 'data_analyst'.freeze

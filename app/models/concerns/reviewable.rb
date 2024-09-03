@@ -4,7 +4,7 @@ module Reviewable
   end
 
   delegate :reviewed_at, :reviewer_id, :reviewed?, :superseded_by, :superseded_at,
-           :business_day, to: :review
+           :business_day, :available_reviewer_actions, to: :review
 
   def review_status
     review.state
