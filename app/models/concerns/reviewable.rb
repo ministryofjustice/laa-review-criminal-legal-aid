@@ -32,6 +32,25 @@ module Reviewable
     self
   end
 
+  ACTIONS = {
+    initial: {
+      open: [:send_back, :mark_as_ready],
+      marked_as_ready: [:complete, :send_back],
+      complete: [],
+      sent_back: []
+    },
+    pse: {
+      open: [:complete],
+      mark_as_ready: [:complete]
+    }
+  }
+
+  def actions
+    ACTIONS.dig(
+      application_type.to_sym, review_status
+    ) || []
+  end
+
   def status?(status)
     review_status == status
   end

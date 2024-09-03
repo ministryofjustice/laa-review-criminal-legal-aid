@@ -14,4 +14,9 @@ module ComponentsHelper
   def conflict_of_interest(codefendant)
     render ConflictOfInterestComponent.new(codefendant:)
   end
+
+  def reviewing_actions(application)
+    render ReviewActionComponent.with_collection(
+      application.actions, application:)
+  end
 end
