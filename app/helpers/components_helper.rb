@@ -17,6 +17,7 @@ module ComponentsHelper
 
   def reviewing_actions(application)
     render ReviewActionComponent.with_collection(
-      application.actions, application:)
+      application.available_reviewer_actions, application:
+    )
   end
 end

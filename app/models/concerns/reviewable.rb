@@ -4,7 +4,7 @@ module Reviewable
   end
 
   delegate :reviewed_at, :reviewer_id, :reviewed?, :superseded_by, :superseded_at,
-           :business_day, to: :review
+           :business_day, :available_reviewer_actions, to: :review
 
   def review_status
     review.state
@@ -30,25 +30,6 @@ module Reviewable
     @review = nil
 
     self
-  end
-
-  ACTIONS = {
-    initial: {
-      open: [:send_back, :mark_as_ready],
-      marked_as_ready: [:complete, :send_back],
-      complete: [],
-      sent_back: []
-    },
-    pse: {
-      open: [:complete],
-      mark_as_ready: [:complete]
-    }
-  }
-
-  def actions
-    ACTIONS.dig(
-      application_type.to_sym, review_status
-    ) || []
   end
 
   def status?(status)

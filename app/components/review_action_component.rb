@@ -2,6 +2,8 @@ class ReviewActionComponent < ViewComponent::Base
   def initialize(review_action:, application:)
     @application = application
     @action = review_action
+
+    super
   end
 
   attr_reader :application, :action
@@ -17,7 +19,7 @@ class ReviewActionComponent < ViewComponent::Base
   end
 
   def target
-    case action 
+    case action
     when :complete
       complete_crime_application_path(application)
     when :send_back
@@ -28,15 +30,16 @@ class ReviewActionComponent < ViewComponent::Base
   end
 
   def method
-    if action == :send_back
-      :get
-    else
-      :put
-    end
+    return :get if confirmed?
+
+    :put
+  end
+
+  def confirmed?
+    action == :send_back
   end
 
   def warning
     action == :send_back
   end
 end
-
