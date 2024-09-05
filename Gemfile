@@ -20,12 +20,12 @@ gem 'logstash-event'
 
 gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client',
-    tag: 'v1.2.0',
+    tag: 'v1.2.1',
     require: 'datastore_api'
 
 gem 'laa-criminal-legal-aid-schemas',
     github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
-    tag: 'v1.2.5'
+    tag: 'v1.2.9'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'

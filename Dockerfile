@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-alpine3.19
+FROM ruby:3.3.4-alpine3.20
 LABEL maintainer="LAA Crime Apply Team"
 
 RUN apk --no-cache add --virtual build-deps \
