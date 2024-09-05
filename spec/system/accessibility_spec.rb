@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Accessibility' do
+RSpec.describe 'Accessibility', :accessibility do
   include_context 'with an existing user'
   include_context 'with an existing application'
   include_context 'with a stubbed mailer'

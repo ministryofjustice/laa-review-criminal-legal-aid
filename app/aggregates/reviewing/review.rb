@@ -69,7 +69,7 @@ module Reviewing
     end
 
     on ApplicationReceived do |event|
-      @state = :open
+      @state = Types::ReviewState[:open]
       @received_at = event.timestamp
       @submitted_at = event.data[:submitted_at]
       @parent_id = event.data[:parent_id]
@@ -78,7 +78,7 @@ module Reviewing
     end
 
     on SentBack do |event|
-      @state = :sent_back
+      @state = Types::ReviewState[:sent_back]
       @return_reason = event.data.fetch(:reason, nil)
       @reviewer_id = event.data.fetch(:user_id)
       @reviewed_at = event.timestamp
@@ -90,13 +90,13 @@ module Reviewing
     end
 
     on Completed do |event|
-      @state = :completed
+      @state = Types::ReviewState[:completed]
       @reviewer_id = event.data.fetch(:user_id)
       @reviewed_at = event.timestamp
     end
 
     on MarkedAsReady do |_event|
-      @state = :marked_as_ready
+      @state = Types::ReviewState[:marked_as_ready]
     end
 
     def reviewed?
@@ -117,6 +117,10 @@ module Reviewing
       return nil unless @reviewed_at
 
       @reviewed_at.in_time_zone('London').to_date
+    end
+
+    def available_reviewer_actions
+      AvailableReviewerActions.for(self)
     end
   end
 end
