@@ -43,6 +43,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     @history ||= ApplicationHistory.new(application: self)
   end
 
+  def funding_decisions
+    @funding_decisions ||= [Mock::FundingDecision.draft_maat]
+  end
+
   def to_param
     id
   end

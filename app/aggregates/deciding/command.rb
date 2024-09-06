@@ -1,10 +1,12 @@
-module Reviewing
+module Deciding
   class Command < Dry::Struct
-    attribute :application_id, Types::Uuid
+    attribute :decision_id, Types::Uuid
 
-    def with_review(&block)
+    def with_decision(&block)
       repository.with_aggregate(
-        Review.new(application_id), stream_name, &block
+        Decision.new(decision_id),
+        stream_name,
+        &block
       )
     end
 
@@ -17,7 +19,7 @@ module Reviewing
     end
 
     def stream_name
-      "Reviewing$#{application_id}"
+      Deciding.stream_name(decision_id)
     end
 
     class << self

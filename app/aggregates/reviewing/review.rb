@@ -15,11 +15,12 @@ module Reviewing
       @superseded_by = nil
       @parent_id = nil
       @work_stream = nil
+      @decision_ids = []
     end
 
     attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
                 :submitted_at, :superseded_by, :superseded_at, :parent_id,
-                :work_stream, :application_type
+                :work_stream, :application_type, :decision_ids
 
     alias application_id id
 
@@ -68,6 +69,16 @@ module Reviewing
       )
     end
 
+    def add_decision(user_id:, decision_id:)
+      # raise unless Non-means application
+      # raise if completed / decision sent
+      # raise decision_ids.include?(decision_id)
+
+      apply DecisionAdded.new(
+        data: { application_id:, user_id:, decision_id: }
+      )
+    end
+
     on ApplicationReceived do |event|
       @state = Types::ReviewState[:open]
       @received_at = event.timestamp
@@ -75,6 +86,10 @@ module Reviewing
       @parent_id = event.data[:parent_id]
       @application_type = event.data.fetch(:application_type, Types::ApplicationType['initial'])
       @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
+    end
+
+    on DecisionAdded do |event|
+      @decision_ids << event.data.fetch(:decision_id)
     end
 
     on SentBack do |event|

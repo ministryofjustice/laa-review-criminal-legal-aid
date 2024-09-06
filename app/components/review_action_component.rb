@@ -24,13 +24,16 @@ class ReviewActionComponent < ViewComponent::Base
       complete_crime_application_path(application)
     when :send_back
       new_crime_application_return_path(application)
+    when :add_funding_decision
+      crime_application_decisions_path(application)
     when :mark_as_ready
       ready_crime_application_path(application)
     end
   end
 
   def method
-    return :get if action == :send_back
+    return :get if %i[send_back].include? action
+    return :post if %i[add_funding_decision].include? action
 
     :put
   end

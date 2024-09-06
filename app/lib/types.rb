@@ -34,6 +34,8 @@ module Types
 
   ReviewState = Symbol.default(:open).enum(*%i[open sent_back completed marked_as_ready])
 
+  DecisionState = Symbol.enum(*%i[draft])
+
   ReviewType = Symbol.enum(*%i[means non_means pse])
 
   CASEWORKER_ROLE = 'caseworker'.freeze
@@ -55,6 +57,17 @@ module Types
   ReturnDetails = Hash.schema(
     reason: ReturnReason,
     details: String
+  )
+
+  # MAAT also returns other result values which we may also need to handle.
+  MeansResult = String.enum('pass', 'fail')
+  InterestsOfJusticeResult = String.enum('pass', 'fail')
+
+  InterestsOfJusticeDecision = Hash.schema(
+    result: InterestsOfJusticeResult,
+    reason: String,
+    assessed_by: String,
+    assessed_on: Date
   )
 
   Report = String.enum(*%w[

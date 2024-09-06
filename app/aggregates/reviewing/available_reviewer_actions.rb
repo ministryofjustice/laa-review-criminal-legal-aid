@@ -6,8 +6,7 @@ module Reviewing
         marked_as_ready: [:complete, :send_back],
       },
       non_means: {
-        open: [:complete, :send_back],
-        marked_as_ready: [:complete, :send_back] # TODO: remove once all non-means in this state processed
+        open: FeatureFlags.adding_decisions.enabled? ? [:add_funding_decision, :send_back] : [:complete, :send_back],
       },
       pse: {
         open: [:complete]

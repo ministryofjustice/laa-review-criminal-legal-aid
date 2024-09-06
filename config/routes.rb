@@ -36,6 +36,13 @@ Rails.application.routes.draw do
       put :ready, on: :member
       resource :reassign, only: [:new, :create]
       resource :return, only: [:new, :create]
+      post 'add_a_funding_decision', to: 'decisions#create'
+
+      resources :decisions do
+        scope module: :decisions do
+          resource :interests_of_justice
+        end
+      end
     end
 
     get 'applications/open/:work_stream', to: 'crime_applications#open', as: :open_work_stream

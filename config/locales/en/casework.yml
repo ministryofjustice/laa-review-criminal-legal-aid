@@ -180,6 +180,13 @@ en:
     income_more_than: "%{prefix} more than £12,475?"
     income_details: Income
     income_details_partner: Partner's income
+
+    decisions:
+      interests_of_justice:
+        result: Interests of justice test results
+        reason: Interests of justice reason 
+        assessed_by: Interests of justice test caseworker name
+        assessed_on: Date of interests of justice test
     employments_title: Jobs
     employment_title: Job
     employments:
@@ -575,6 +582,7 @@ en:
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
+    add_funding_decision: Add a funding decision
     assign_to_self: Assign to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
