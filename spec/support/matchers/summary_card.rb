@@ -9,7 +9,15 @@ RSpec::Matchers.define :have_summary_row do |question, answer|
     "renders a summary list row with question '#{question}' and answer '#{answer}'"
   end
 
-  failure_message do |_object|
+  failure_message do
     "Expected answer to be '#{answer}, got '#{@value}'"
+  end
+end
+
+RSpec::Matchers.define :have_rows do |*rows|
+  match do |card|
+    rows.each_slice(2).each do |key, value|
+      expect(card).to have_summary_row(key, value)
+    end
   end
 end

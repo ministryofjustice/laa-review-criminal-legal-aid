@@ -32,6 +32,14 @@ module Reviewable
     self
   end
 
+  def draft_decisions
+    @draft_decisions ||= review.decision_ids.map do |decision_id|
+      Deciding::LoadDecision.call(
+        application_id: id, decision_id: decision_id
+      )
+    end
+  end
+
   def status?(status)
     review_status == status
   end

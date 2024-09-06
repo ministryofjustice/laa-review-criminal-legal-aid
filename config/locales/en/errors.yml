@@ -4,14 +4,30 @@ en:
     format: "%{message}"
     page_title_prefix: "Error: "
     attributes:
+      assessed_by: 
+        blank: Enter the name of the caseworker who assessed this
+      assessed_on: 
+        blank: Enter the date of assessemnt
+      comment:
+        blank: Enter additional comments for the provider
+      comment_required:
+        blank: Select yes if you need to add comments for the provider
+        inclusion: Select yes if you need to add comments for the provider
       details:
         blank: Give further details
-      reason:
-        inclusion: Choose a reason
       email:
-        blank: Please enter an email
+        blank: Enter an email
         invalid: Invalid email format
         taken: User already exists
+      funding_decision:
+        blank: Select the funding decision
+        inclusion: Select the funding decision
+      reason:
+        inclusion: Choose a reason
+      result: 
+        blank: Select the test result
+        inclusion: Select the test result
+
 
     error_summary:
       heading: There is a problem on this page

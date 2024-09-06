@@ -4,22 +4,11 @@ module Reviewing
 
     def initialize(id)
       @id = id
-      @application_type = nil
-      @state = nil
-      @return_reason = nil
-      @reviewer_id = nil
-      @reviewed_at = nil
-      @received_at = nil
-      @submitted_at = nil
-      @superseded_at = nil
-      @superseded_by = nil
-      @parent_id = nil
-      @work_stream = nil
+      @decision_ids = []
     end
 
-    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
-                :submitted_at, :superseded_by, :superseded_at, :parent_id,
-                :work_stream, :application_type
+    attr_reader :id, :decision_ids, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at, :superseded_by,
+                :superseded_at, :parent_id, :work_stream, :application_type
 
     alias application_id id
 
@@ -36,15 +25,11 @@ module Reviewing
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
 
-      apply SentBack.new(
-        data: { application_id:, user_id:, reason: }
-      )
+      apply SentBack.new(data: { application_id:, user_id:, reason: })
     end
 
     def supersede(superseded_at:, superseded_by:)
-      apply Superseded.new(
-        data: { application_id:, superseded_at:, superseded_by: }
-      )
+      apply Superseded.new(data: { application_id:, superseded_at:, superseded_by: })
     end
 
     def complete(user_id:)
@@ -52,9 +37,7 @@ module Reviewing
       raise AlreadyCompleted if @state.equal?(:completed)
       raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
 
-      apply Completed.new(
-        data: { application_id:, user_id: }
-      )
+      apply Completed.new(data: { application_id:, user_id: })
     end
 
     def mark_as_ready(user_id:)
@@ -63,9 +46,11 @@ module Reviewing
       raise CannotMarkAsReadyWhenSentBack if @state.equal?(:sent_back)
       raise CannotMarkAsReadyWhenCompleted if @state.equal?(:completed)
 
-      apply MarkedAsReady.new(
-        data: { application_id:, user_id: }
-      )
+      apply MarkedAsReady.new(data: { application_id:, user_id: })
+    end
+
+    def add_decision(user_id:, decision_id:)
+      apply DecisionAdded.new(data: { application_id:, user_id:, decision_id: })
     end
 
     on ApplicationReceived do |event|
@@ -75,6 +60,10 @@ module Reviewing
       @parent_id = event.data[:parent_id]
       @application_type = event.data.fetch(:application_type, Types::ApplicationType['initial'])
       @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
+    end
+
+    on DecisionAdded do |event|
+      @decision_ids << event.data.fetch(:decision_id)
     end
 
     on SentBack do |event|
@@ -108,15 +97,11 @@ module Reviewing
     end
 
     def business_day
-      return nil unless @submitted_at
-
-      BusinessDay.new(day_zero: @submitted_at)
+      BusinessDay.new(day_zero: @submitted_at) if @submitted_at.present?
     end
 
     def reviewed_on
-      return nil unless @reviewed_at
-
-      @reviewed_at.in_time_zone('London').to_date
+      @reviewed_at.in_time_zone('London').to_date if @reviewed_at.present?
     end
 
     def available_reviewer_actions

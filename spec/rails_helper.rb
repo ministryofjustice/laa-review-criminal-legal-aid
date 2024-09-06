@@ -52,6 +52,7 @@ RSpec.configure do |config|
   # For time travel.
   config.include ActiveSupport::Testing::TimeHelpers
   config.include GdsHelper
+  config.include CapybaraHelpers
 
   # Use a separate in-memory event store for each spec, instead of the
   # event store configured by the initializer. Having a separate store
