@@ -1,19 +1,18 @@
 module Casework
   class DecisionsController < Casework::BaseController
     before_action :set_crime_application
+    before_action :set_decision, only: [:show]
 
     def index
       @decisions = current_crime_application.review.decision_ids.map do |decision_id|
-        Deciding::LoadDecision.call(decision_id:)
+        agg = Deciding::LoadDecision.call(
+          application_id: params[:crime_application_id],
+          decision_id:
+        )
       end
     end
 
     def show
-      agg = Deciding::LoadDecision.call(
-        decision_id: params[:id]
-      )
-
-      @interests_of_justice = ::Decisions::InterestsOfJustice.new(**agg.interests_of_justice)
     end
 
     def edit

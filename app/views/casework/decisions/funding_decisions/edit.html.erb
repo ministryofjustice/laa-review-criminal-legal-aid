@@ -7,17 +7,15 @@
     </p>
 
     <%= form_with model: @form_object,  
-      url: crime_application_decision_interests_of_justice_path(), method: :put do |f| %>
+      url: crime_application_decision_funding_decision_path(), method: :put do |f| %>
 
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_collection_radio_buttons :result,
-          @form_object.possible_results,
+        @form_object.possible_results,
         :to_s
       %>
       <%= f.govuk_text_area :details %>
-      <%= f.govuk_text_field :assessed_by %>
-      <%= f.govuk_date_field :assessed_on, maxlength_enabled: true %>
       <%= f.govuk_submit %>
     <% end %>
   </div>

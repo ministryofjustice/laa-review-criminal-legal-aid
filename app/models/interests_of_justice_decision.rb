@@ -8,7 +8,7 @@ class InterestsOfJusticeDecision
   include ActiveRecord::AttributeAssignment
 
   attribute :result, :string
-  attribute :reason, :string
+  attribute :details, :string
   attribute :assessed_by, :string
   attribute :assessed_on, :date
 

@@ -181,12 +181,15 @@ en:
     income_details: Income
     income_details_partner: Partner's income
 
-    decisions:
+    decision:
+      card_title: Case
       interests_of_justice:
         result: Interests of justice test results
-        reason: Interests of justice reason 
+        details: Interests of justice reason 
         assessed_by: Interests of justice test caseworker name
         assessed_on: Date of interests of justice test
+      result: Overall result
+      details: Further information about the decision
     employments_title: Jobs
     employment_title: Job
     employments:

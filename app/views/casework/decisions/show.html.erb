@@ -1,25 +1,5 @@
 <% title ':K:LKJ:LKJ:LKJ' %>
 
 
-<%= govuk_summary_card(title: 'Case') do |card|
-  card.with_action { govuk_link_to('Change', { action: :edit }) }
-  card.with_summary_list do |list|
-    list.with_row do |row|
-      row.with_key { label_text(:result, scope: [:decisions, :interests_of_justice] ) }
-      row.with_value { @interests_of_justice.result }
-    end
-    list.with_row do |row|
-      row.with_key { label_text(:reason, scope: [:decisions, :interests_of_justice] ) }
-      row.with_value { simple_format(@interests_of_justice.reason) }
-    end
+<%= render @decision %>
 
-    list.with_row do |row|
-      row.with_key { label_text(:assessed_by, scope: [:decisions, :interests_of_justice] ) }
-      row.with_value { @interests_of_justice.assessed_by }
-    end
-    list.with_row do |row|
-      row.with_key { label_text(:assessed_on, scope: [:decisions, :interests_of_justice] ) }
-      row.with_value { l @interests_of_justice.assessed_on, format: :compact }
-    end
-  end
-end %>

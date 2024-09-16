@@ -1,6 +1,10 @@
 module Deciding
+  class DecisionNotFound < StandardError; end
+  class ApplicationNotAssignedToUser < StandardError; end
+
   class DraftCreated < RailsEventStore::Event; end
   class InterestsOfJusticeSet < RailsEventStore::Event; end
+  class FundingDecisionSet < RailsEventStore::Event; end
 
   class << self
     def stream_name(decision_id)

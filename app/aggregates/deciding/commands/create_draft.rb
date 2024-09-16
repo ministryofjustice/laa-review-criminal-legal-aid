@@ -5,7 +5,7 @@ module Deciding
 
     def call
       with_decision do |decision|
-        decision.create_draft(user_id:)
+        decision.create_draft(user_id:, application_id:)
       end
     end
   end

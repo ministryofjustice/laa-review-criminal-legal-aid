@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
+  mount RailsEventStore::Browser => "/res" if Rails.env.development?
 
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
       resources :decisions do
         scope module: :decisions do
           resource :interests_of_justice
+          resource :funding_decision
         end
       end
     end
