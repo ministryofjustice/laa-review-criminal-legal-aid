@@ -79,6 +79,8 @@ module LaaReviewCriminalLegalAid
     config.action_dispatch.rescue_responses.merge!(
       'Reporting::ReportNotFound' => :not_found,
       'Allocating::WorkStreamNotFound' => :not_found,
+      'Deciding::DecisionNotFound' => :not_found,
+      'Deciding::ApplicationNotAssignedToUser' => :forbidden,
       'ApplicationController::ForbiddenError' => :forbidden
     )
   end

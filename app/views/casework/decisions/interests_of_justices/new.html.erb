@@ -1,0 +1,23 @@
+<% title 'TESING' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body-l govuk-!-margin-bottom-2">
+      <%= @crime_application.reference %>
+    </p>
+
+    <%= form_with model: @interests_of_justice, url: crime_application_add_ioj_decision_path(@crime_application), method: :post do |f| %>
+
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_collection_radio_buttons :result,
+        ::Types::InterestsOfJusticeResult.values,
+        :to_s
+      %>
+      <%= f.govuk_text_area :reason %>
+      <%= f.govuk_text_field :assessed_by %>
+      <%= f.govuk_date_field :assessed_on, maxlength_enabled: true %>
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>

@@ -15,6 +15,9 @@ module Reviewing
   class CannotSendBackWhenCompleted < Error; end
   class NotReceived < Error; end
 
+  class DecisionAdded < Event; end
+  class DecisionRemoved < Event; end
+
   class << self
     def stream_name(application_id)
       "Reviewing$#{application_id}"

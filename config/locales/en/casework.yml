@@ -180,6 +180,16 @@ en:
     income_more_than: "%{prefix} more than £12,475?"
     income_details: Income
     income_details_partner: Partner's income
+
+    decision:
+      card_title: Case
+      interests_of_justice:
+        result: Interests of justice test results
+        details: Interests of justice reason 
+        assessed_by: Interests of justice test caseworker name
+        assessed_on: Date of interests of justice test
+      result: Overall result
+      details: Further information about the decision
     employments_title: Jobs
     employment_title: Job
     employments:
@@ -415,6 +425,13 @@ en:
     change_in_financial_circumstances: Change in financial circumstances
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
+    decision_result:
+      pass: Passed
+      fail: Failed
+      granted_on_ioj: Granted
+      fail_on_ioj: Rejected 
+
+
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit
@@ -575,6 +592,7 @@ en:
 
   calls_to_action:
     abandon_reassign_to_self: No, do not reassign
+    add_funding_decision: Add a funding decision
     assign_to_self: Assign to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
@@ -645,7 +663,6 @@ en:
 
 
   casework:
-
     assigned_applications:
       index:
         page_title: Your list
@@ -725,3 +742,15 @@ en:
         <<: *LABELS
       values:
         <<: *VALUES
+    decisions:
+      index:
+        title: 
+          zero: Add a funding decision
+          one: Check the funding decision
+          other: You have added %{count} case
+      interests_of_justices:
+        edit:
+          title: Interests of justice test
+      funding_decisions:
+        edit:
+          title: Overall result
