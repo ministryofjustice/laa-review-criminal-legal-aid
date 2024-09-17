@@ -9,7 +9,7 @@ module UserRole
 
   included do
     # NOTE: mapping to PostgreSQL enum type via dry-types definition
-    enum role: Types::UserRole.mapping
+    enum :role, Types::UserRole.mapping
   end
 
   def can_read_application?
