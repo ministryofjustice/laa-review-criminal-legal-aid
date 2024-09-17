@@ -78,4 +78,10 @@ module ApplicationHelper
     current_crime_application.partner.is_included_in_means_assessment
   end
   alias partner_subject? partner_included_in_means?
+
+  def determine_app_view(app)
+    return history_crime_application_path(app) if app.parent_id.present?
+
+    crime_application_path(app)
+  end
 end
