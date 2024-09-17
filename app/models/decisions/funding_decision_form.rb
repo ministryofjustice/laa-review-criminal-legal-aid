@@ -11,14 +11,14 @@ module Decisions
     attribute :result, :string
     attribute :details, :string
 
-    validates :result, inclusion: { in: :possible_results  }
+    validates :result, inclusion: { in: :possible_results }
 
     def possible_results
       Types::FundingDecisionResult.values
     end
 
     def update_with_user!(attributes, user_id)
-      assign_attributes(attributes) 
+      assign_attributes(attributes)
       validate!
       return unless changed?
 

@@ -22,7 +22,7 @@ module Decisions
     end
 
     def update_with_user!(attributes, user_id)
-      assign_attributes(attributes) 
+      assign_attributes(attributes)
       validate!
       return unless changed?
 

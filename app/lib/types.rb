@@ -70,7 +70,6 @@ module Types
     assessed_by: String,
     assessed_on: Date
   )
-  
 
   Report = String.enum(*%w[
                          caseworker_report

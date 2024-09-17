@@ -4,17 +4,10 @@ module Deciding
 
     def initialize(decision_id)
       @decision_id = decision_id
-      @application_id = nil
-      @case_id = nil
-      @maat_id = nil
       @interests_of_justice = nil
-      @result = nil
-      @details = nil
-      @means = nil
-      @state = nil
     end
 
-    attr_reader :interests_of_justice, :application_id, :decision_id, :result, :details
+    attr_accessor :application_id, :decision_id, :result, :details, :state
 
     def create_draft(user_id:, application_id:)
       apply DraftCreated.new(
@@ -23,19 +16,17 @@ module Deciding
     end
 
     def set_interests_of_justice(user_id:, interests_of_justice:)
-      # TODO: ignore if not changed
       apply InterestsOfJusticeSet.new(
         data: { decision_id:, application_id:, user_id:, interests_of_justice: }
       )
     end
-    
+
     def set_funding_decision(user_id:, result:, details:)
-      # TODO: ignore if not changed
       apply FundingDecisionSet.new(
         data: { decision_id:, application_id:, user_id:, result:, details: }
       )
     end
-    
+
     on DraftCreated do |event|
       @application_id = event.data.fetch(:application_id)
       @state = Types::DecisionState[:draft]

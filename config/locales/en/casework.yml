@@ -425,6 +425,13 @@ en:
     change_in_financial_circumstances: Change in financial circumstances
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
+    decision_result:
+      pass: Passed
+      fail: Failed
+      granted_on_ioj: Granted
+      fail_on_ioj: Rejected 
+
+
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit
@@ -656,7 +663,6 @@ en:
 
 
   casework:
-
     assigned_applications:
       index:
         page_title: Your list
@@ -736,3 +742,15 @@ en:
         <<: *LABELS
       values:
         <<: *VALUES
+    decisions:
+      index:
+        title: 
+          zero: Add a funding decision
+          one: Check the funding decision
+          other: You have added %{count} case
+      interests_of_justices:
+        edit:
+          title: Interests of justice test
+      funding_decisions:
+        edit:
+          title: Overall result

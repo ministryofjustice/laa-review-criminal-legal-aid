@@ -38,11 +38,13 @@ Rails.application.routes.draw do
       resource :reassign, only: [:new, :create]
       resource :return, only: [:new, :create]
       post 'add_a_funding_decision', to: 'decisions#create'
+      post 'add_a_funding_decision', to: 'decisions#create'
 
       resources :decisions do
+        get :confirm_destroy, on: :member
         scope module: :decisions do
-          resource :interests_of_justice
-          resource :funding_decision
+          resource :interests_of_justice, only: [:edit, :update]
+          resource :funding_decision, only: [:edit, :update]
         end
       end
     end

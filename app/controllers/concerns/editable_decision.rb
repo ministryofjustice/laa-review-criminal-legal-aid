@@ -1,11 +1,10 @@
-module EditableDecision 
+module EditableDecision
   extend ActiveSupport::Concern
 
   included do
     before_action :set_crime_application
     before_action :set_decision
     before_action :confirm_assigned
-    before_action :set_form
   end
 
   def edit; end
@@ -24,10 +23,10 @@ module EditableDecision
 
   def set_decision
     decision = Deciding::LoadDecision.call(
-      decision_id: params[:decision_id]
+      decision_id: params[:decision_id] || params[:id]
     )
 
-    raise Deciding::DecisionNotFound unless decision.application_id == current_crime_application.id 
+    raise Deciding::DecisionNotFound unless decision.application_id == current_crime_application.id
 
     @decision = decision
   end

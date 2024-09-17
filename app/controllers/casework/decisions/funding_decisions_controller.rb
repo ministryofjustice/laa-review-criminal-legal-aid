@@ -1,7 +1,10 @@
 module Casework
   module Decisions
+    # rename overall result?
     class FundingDecisionsController < Casework::BaseController
       include EditableDecision
+
+      before_action :set_form
 
       private
 

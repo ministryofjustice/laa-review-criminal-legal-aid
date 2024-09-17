@@ -4,23 +4,13 @@ module Reviewing
 
     def initialize(id)
       @id = id
-      @application_type = nil
-      @state = nil
-      @return_reason = nil
-      @reviewer_id = nil
-      @reviewed_at = nil
-      @received_at = nil
-      @submitted_at = nil
-      @superseded_at = nil
-      @superseded_by = nil
-      @parent_id = nil
-      @work_stream = nil
       @decision_ids = []
     end
 
-    attr_reader :id, :state, :return_reason, :reviewed_at, :reviewer_id,
-                :submitted_at, :superseded_by, :superseded_at, :parent_id,
-                :work_stream, :application_type, :decision_ids
+    attr_accessor :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at, :superseded_by,
+                  :superseded_at, :parent_id, :work_stream, :application_type
+
+    attr_reader :id, :decision_ids
 
     alias application_id id
 
@@ -70,11 +60,13 @@ module Reviewing
     end
 
     def add_decision(user_id:, decision_id:)
-      # raise unless Non-means application
-      # raise if completed / decision sent
-      # raise decision_ids.include?(decision_id)
-
       apply DecisionAdded.new(
+        data: { application_id:, user_id:, decision_id: }
+      )
+    end
+
+    def remove_decision(user_id:, decision_id:)
+      apply DecisionRemoved.new(
         data: { application_id:, user_id:, decision_id: }
       )
     end
@@ -90,6 +82,10 @@ module Reviewing
 
     on DecisionAdded do |event|
       @decision_ids << event.data.fetch(:decision_id)
+    end
+
+    on DecisionRemoved do |event|
+      @decision_ids -= [event.data.fetch(:decision_id)]
     end
 
     on SentBack do |event|
@@ -123,15 +119,11 @@ module Reviewing
     end
 
     def business_day
-      return nil unless @submitted_at
-
-      BusinessDay.new(day_zero: @submitted_at)
+      BusinessDay.new(day_zero: @submitted_at) if @submitted_at.present?
     end
 
     def reviewed_on
-      return nil unless @reviewed_at
-
-      @reviewed_at.in_time_zone('London').to_date
+      @reviewed_at.in_time_zone('London').to_date if @reviewed_at.present?
     end
 
     def available_reviewer_actions

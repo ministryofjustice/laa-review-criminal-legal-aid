@@ -1,6 +1,21 @@
-<% title ':K:LKJ:LKJ:LKJ' %>
-<%= render(
-        DecisionComponent.with_collection(
-          @decisions
-        )) %>
+<% title t '.title', count: @decisions.size %>
 
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body-l govuk-!-margin-bottom-2">
+      <%= @crime_application.reference %>
+    </p>
+
+    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
+      <%= @crime_application.applicant.full_name %>
+    </h2>
+    
+    <h1 class="govuk-heading-xl">
+      <%= t '.title', count: @decisions.size %>
+    </h1>
+  </div>
+</div>
+
+<%= render(DecisionComponent.with_collection(@decisions)) %>
+
+<%= govuk_button_to(t(:add_funding_decision, scope: 'calls_to_action')) %>
