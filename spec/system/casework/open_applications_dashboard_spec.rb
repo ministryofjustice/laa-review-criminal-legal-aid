@@ -131,6 +131,8 @@ RSpec.describe 'Open Applications' do
   end
 
   context 'when viewing a resubmitted application' do
+    let(:application_type) { 'initial' }
+
     let(:stubbed_search_results) do
       [
         ApplicationSearchResult.new(
@@ -142,16 +144,28 @@ RSpec.describe 'Open Applications' do
           submitted_at: '2022-10-27T14:09:11.000+00:00',
           parent_id: 'parent_id_uuid',
           case_type: 'summary_only',
-          application_type: 'initial',
+          application_type: application_type,
           means_passport: ['on_benefit_check']
         )
       ]
     end
 
-    it 'navigates to the application history page' do
+    before do
       click_on('Jessica Rhode')
+    end
 
-      expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/history')
+    context 'when viewing an application of type `initial`' do
+      it 'navigates to the application history page' do
+        expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/history')
+      end
+    end
+
+    context 'when viewing an application of type `post submission evidence`' do
+      let(:application_type) { 'post_submission_evidence' }
+
+      it 'navigates to the application details page' do
+        expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a')
+      end
     end
   end
 end

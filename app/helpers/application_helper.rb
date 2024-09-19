@@ -80,7 +80,8 @@ module ApplicationHelper
   alias partner_subject? partner_included_in_means?
 
   def determine_app_view(app)
-    return history_crime_application_path(app) if app.parent_id.present?
+    return history_crime_application_path(app) if app.parent_id.present? &&
+                                                  app.application_type != 'post_submission_evidence'
 
     crime_application_path(app)
   end
