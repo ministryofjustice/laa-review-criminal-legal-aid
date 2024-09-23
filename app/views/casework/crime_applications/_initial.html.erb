@@ -5,6 +5,12 @@
              nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
+<%= render partial: 'date_stamp',
+           locals: {
+             crime_application: crime_application,
+             applicant: crime_application.client_details.applicant,
+             date_stamp_context: crime_application.date_stamp_context,
+           } %>
 <% if FeatureFlags.partner_journey.enabled? %>
   <%= render partial: 'partner_details',
              locals: {
