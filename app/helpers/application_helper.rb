@@ -1,5 +1,6 @@
 module ApplicationHelper
   include GOVUKDesignSystemFormBuilder::BuilderHelper
+  include CaseworkHelper
 
   # Convert to the London time zone before localizing.
   def tz_l(timestamp, options = {})
@@ -79,11 +80,4 @@ module ApplicationHelper
   end
 
   alias partner_subject? partner_included_in_means?
-
-  def history_item_link_text(application)
-    return 'latest_application' if current_crime_application.id == application.id &&
-                                   application.application_type != 'post_submission_evidence'
-
-    'selected_application'
-  end
 end

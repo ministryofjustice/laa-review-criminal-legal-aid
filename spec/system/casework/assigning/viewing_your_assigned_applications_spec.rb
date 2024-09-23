@@ -40,6 +40,11 @@ RSpec.describe 'Viewing your assigned application' do
     it 'shows shows how many assignments' do
       expect(page).to have_content '1 application is assigned to you for review.'
     end
+
+    it 'navigates to the application details tab when clicked' do
+      click_on('Kit Pound')
+      expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a')
+    end
   end
 
   context 'when multiple applications are assigned' do
@@ -118,6 +123,30 @@ RSpec.describe 'Viewing your assigned application' do
     it 'shows the assignment in the counts' do
       expect(page).to have_content 'Your list (1)'
       expect(page).to have_content '1 application is assigned to you for review.'
+    end
+  end
+
+  context 'when a resubmitted application is assigned to user' do
+    let(:application_data) do
+      super().deep_merge('id' => '012a553f-e9b7-4e9a-a265-67682b572fd0',
+                         'client_details' => { 'applicant' => { 'first_name' => 'Jessica', 'last_name' => 'Rhode' } })
+    end
+
+    before do
+      stub_request(
+        :get,
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/012a553f-e9b7-4e9a-a265-67682b572fd0"
+      ).to_return(body: application_data.to_json, status: 200)
+
+      click_on 'Open applications'
+      click_on('Jessica Rhode')
+      click_on(assign_cta)
+      visit '/'
+    end
+
+    it 'navigates to the application history tab when clicked' do
+      click_on('Jessica Rhode')
+      expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0/history')
     end
   end
 end

@@ -73,7 +73,6 @@ module Casework
 
       set_flash(:assigned_to_self)
       app = CrimeApplication.find(next_app_id)
-      # pp app
       redirect_to application_start_path(app)
     end
   end

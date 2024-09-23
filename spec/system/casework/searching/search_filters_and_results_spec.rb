@@ -38,13 +38,13 @@ RSpec.describe 'Search Page' do
   end
 
   context 'when navigating to an application via search' do
-    it 'navigates to the application details page for first time applications' do
+    it 'navigates to the application details tab for applications submitted once' do
       click_on('Kit Pound')
 
       expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a')
     end
 
-    it 'navigates to the application details page for resubmitted applications' do
+    it 'navigates to the application history tab for resubmitted applications' do
       click_on('Jessica Rhode')
 
       expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0/history')

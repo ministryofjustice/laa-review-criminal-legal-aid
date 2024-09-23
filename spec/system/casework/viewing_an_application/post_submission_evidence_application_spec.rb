@@ -103,9 +103,9 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
       expect(first_row).to match('Joe EXAMPLE Post submission evidence assigned to Joe EXAMPLE')
     end
 
-    # it 'does not display the `Go to latest version` link' do
-    #   expect(page).to have_no_content('Go to latest version')
-    # end
+    it 'does not display the `Go to latest version` link' do
+      expect(page).to have_no_content('Go to latest version')
+    end
 
     context 'with a completed pse application' do
       include_context 'with a completed application'
