@@ -1,7 +1,7 @@
 module Deciding
   class SetComment < Command
     attribute :user_id, Types::Uuid
-    attribute :comment, Types::String
+    attribute :comment, Types::Params::String
 
     def call
       with_decision do |decision|

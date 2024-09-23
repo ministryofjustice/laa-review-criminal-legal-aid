@@ -8,6 +8,13 @@ module Decisions
     validates :comment_required, inclusion: [true, false]
     validates :comment, presence: { if: :comment_required }
 
+    # Set comment to be empty if comment not required
+    def attributes
+      return super if comment_required
+
+      super.merge(comment: '') unless comment_required
+    end
+
     class << self
       def build(decision)
         new(
