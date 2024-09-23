@@ -25,7 +25,7 @@ feature_flags:
     production: true
   adding_decisions:
     local: true
-    staging: false
+    staging: true
     production: false
 
 # For settings that vary by HostEnv name
