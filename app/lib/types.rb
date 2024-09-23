@@ -62,11 +62,18 @@ module Types
   # MAAT also returns other result values which we may also need to handle.
   MeansResult = String.enum('pass', 'fail')
   InterestsOfJusticeResult = String.enum('pass', 'fail')
-  FundingDecisionResult = String.enum(*%w[granted_on_ioj fail_on_ioj])
+  FundingDecisionResult = String.enum(*%w[granted granted_on_ioj fail_on_ioj])
 
   InterestsOfJusticeDecision = Hash.schema(
     result: InterestsOfJusticeResult,
-    details: String,
+    details?: String,
+    assessed_by: String,
+    assessed_on: Date
+  )
+
+  MeansDecision = Hash.schema(
+    result: MeansResult,
+    details?: String,
     assessed_by: String,
     assessed_on: Date
   )
