@@ -1,4 +1,6 @@
 RSpec.shared_context 'with stubbed search', shared_context: :metadata do
+  let(:application_type) { 'initial' }
+
   let(:stubbed_search_results) do
     [
       ApplicationSearchResult.new(
@@ -23,6 +25,18 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         parent_id: nil,
         case_type: 'summary_only',
         application_type: 'initial',
+        means_passport: ['on_benefit_check']
+      ),
+      ApplicationSearchResult.new(
+        applicant_name: 'Jessica Rhode',
+        resource_id: '012a553f-e9b7-4e9a-a265-67682b572fd0',
+        reference: 120_398_120,
+        status: 'submitted',
+        work_stream: 'extradition',
+        submitted_at: '2022-10-27T14:09:11.000+00:00',
+        parent_id: 'parent_id_uuid',
+        case_type: 'summary_only',
+        application_type: application_type,
         means_passport: ['on_benefit_check']
       )
     ]

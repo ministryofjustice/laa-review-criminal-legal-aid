@@ -77,12 +77,13 @@ module ApplicationHelper
 
     current_crime_application.partner.is_included_in_means_assessment
   end
+
   alias partner_subject? partner_included_in_means?
 
-  def determine_app_view(app)
-    return history_crime_application_path(app) if app.parent_id.present? &&
-                                                  app.application_type != 'post_submission_evidence'
+  def history_item_link_text(application)
+    return 'latest_application' if current_crime_application.id == application.id &&
+                                   application.application_type != 'post_submission_evidence'
 
-    crime_application_path(app)
+    'selected_application'
   end
 end

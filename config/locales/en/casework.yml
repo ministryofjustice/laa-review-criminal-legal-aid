@@ -660,6 +660,7 @@ en:
           change_in_financial_circumstances: Change in financial circumstances submitted
         application_resubmitted: Application resubmitted
         selected_application: Go to this version
+        latest_application: Go to latest version
         completed:
           initial: Application completed
           resubmission: Application completed

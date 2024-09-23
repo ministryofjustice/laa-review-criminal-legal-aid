@@ -15,6 +15,7 @@ RSpec.describe 'Closed Applications' do
         work_stream: 'criminal_applications_team',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
         reviewed_at: '2022-12-15T16:58:15.000+00:00',
+        parent_id: parent_id,
         case_type: 'summary_only',
         application_type: 'initial'
       )
@@ -22,6 +23,8 @@ RSpec.describe 'Closed Applications' do
   end
 
   let(:user_id) { current_user_id }
+  let(:parent_id) { nil }
+  let(:application_type) { 'initial' }
 
   before do
     visit '/'
@@ -117,6 +120,29 @@ RSpec.describe 'Closed Applications' do
         sorting: ApplicationSearchSorting.new(sort_by: 'reviewed_at', sort_direction: 'descending'),
         number_of_times: 2
       )
+    end
+  end
+
+  context 'when viewing a resubmitted application' do
+    let(:parent_id) { 'test_parent_id' }
+
+    before do
+      click_on 'Closed applications'
+      click_on('John Potter')
+    end
+
+    context 'when viewing an application of type `initial`' do
+      it 'navigates to the application history page' do
+        expect(current_url).to match('applications/47a93336-7da6-48ac-b139-808ddd555a41/history')
+      end
+    end
+
+    context 'when viewing an application of type `post submission evidence`' do
+      let(:application_type) { 'post_submission_evidence' }
+
+      it 'navigates to the application details page' do
+        expect(current_url).to match('applications/47a93336-7da6-48ac-b139-808ddd555a41')
+      end
     end
   end
 end

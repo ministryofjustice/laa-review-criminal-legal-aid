@@ -2,8 +2,6 @@
   <%= t(application.submission_type, scope: 'event.description.reviewing.application_received') %> <br>
 </strong>
 
-<% unless event_is_for_current_version %>
-  <%= link_to t('reviewing.selected_application', scope: 'event.description'),
-              crime_application_path(application.id),
-              class: 'govuk-link--no-visited-state' %>
-<% end %>
+<%= link_to t("reviewing.#{history_item_link_text(application)}", scope: 'event.description'),
+            crime_application_path(application.id),
+            class: 'govuk-link--no-visited-state' %>

@@ -42,7 +42,7 @@ RSpec.describe 'Open Applications' do
   end
 
   it 'has the correct count' do
-    expect(page).to have_content('There are 2 open applications that need to be reviewed.')
+    expect(page).to have_content('There are 3 open applications that need to be reviewed.')
   end
 
   it 'can be used to navigate to an application' do
@@ -131,32 +131,14 @@ RSpec.describe 'Open Applications' do
   end
 
   context 'when viewing a resubmitted application' do
-    let(:application_type) { 'initial' }
-
-    let(:stubbed_search_results) do
-      [
-        ApplicationSearchResult.new(
-          applicant_name: 'Jessica Rhode',
-          resource_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
-          reference: 120_398_120,
-          status: 'submitted',
-          work_stream: 'extradition',
-          submitted_at: '2022-10-27T14:09:11.000+00:00',
-          parent_id: 'parent_id_uuid',
-          case_type: 'summary_only',
-          application_type: application_type,
-          means_passport: ['on_benefit_check']
-        )
-      ]
-    end
-
     before do
+      click_on 'Open applications'
       click_on('Jessica Rhode')
     end
 
     context 'when viewing an application of type `initial`' do
       it 'navigates to the application history page' do
-        expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/history')
+        expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0/history')
       end
     end
 
@@ -164,7 +146,7 @@ RSpec.describe 'Open Applications' do
       let(:application_type) { 'post_submission_evidence' }
 
       it 'navigates to the application details page' do
-        expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a')
+        expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0')
       end
     end
   end

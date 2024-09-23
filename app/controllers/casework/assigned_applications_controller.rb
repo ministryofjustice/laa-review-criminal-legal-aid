@@ -2,6 +2,7 @@ module Casework
   class AssignedApplicationsController < Casework::BaseController
     include ApplicationSearchable
     include WorkStreamable
+    include CaseworkHelper
 
     before_action :set_crime_application, only: [:create]
 
@@ -31,14 +32,8 @@ module Casework
     def next_application
       next_app_id = GetNext.call(work_streams: current_user.work_streams,
                                  application_types: current_user.application_types_competencies)
-
       if next_app_id
-        Assigning::AssignToUser.new(
-          assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id
-        ).call
-
-        set_flash(:assigned_to_self)
-        redirect_to crime_application_path(next_app_id)
+        assign_and_redirect(next_app_id)
       else
         set_flash(:no_next_to_assign, success: false)
         redirect_to assigned_applications_path
@@ -69,6 +64,17 @@ module Casework
       set_flash(:no_work_streams_to_assign_from, success: false)
 
       redirect_to assigned_applications_path
+    end
+
+    def assign_and_redirect(next_app_id)
+      Assigning::AssignToUser.new(
+        assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id
+      ).call
+
+      set_flash(:assigned_to_self)
+      app = CrimeApplication.find(next_app_id)
+      # pp app
+      redirect_to application_start_path(app)
     end
   end
 end
