@@ -34,7 +34,12 @@
           <%= render partial: item,
                      layout: 'history_item',
                      as: :item,
-                     locals: { application: history.application } %>
+                     locals: {
+                       event_is_for_current_version: (
+                         @crime_application.id == history.application.id
+                       ),
+                       application: history.application
+                     } %>
         <% end %>
       <% end %>
     </tbody>

@@ -33,7 +33,8 @@ module Casework
       next_app_id = GetNext.call(work_streams: current_user.work_streams,
                                  application_types: current_user.application_types_competencies)
       if next_app_id
-        assign_and_redirect(next_app_id)
+        app = assign_application(next_app_id)
+        redirect_to application_start_path(app)
       else
         set_flash(:no_next_to_assign, success: false)
         redirect_to assigned_applications_path
@@ -66,14 +67,13 @@ module Casework
       redirect_to assigned_applications_path
     end
 
-    def assign_and_redirect(next_app_id)
+    def assign_application(next_app_id)
       Assigning::AssignToUser.new(
         assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id
       ).call
 
       set_flash(:assigned_to_self)
-      app = CrimeApplication.find(next_app_id)
-      redirect_to application_start_path(app)
+      CrimeApplication.find(next_app_id)
     end
   end
 end
