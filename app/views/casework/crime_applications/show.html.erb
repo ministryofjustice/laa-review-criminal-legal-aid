@@ -21,6 +21,9 @@
     <% else %>
       <%= render partial: 'initial', locals: { crime_application: @crime_application } %>
     <% end %>
+
+    <%= render partial: 'funding_decision', locals: { crime_application: @crime_application } %>
+
   </div>
 </div>
 

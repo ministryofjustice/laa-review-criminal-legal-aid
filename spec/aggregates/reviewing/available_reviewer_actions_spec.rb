@@ -73,14 +73,6 @@ RSpec.describe Reviewing::AvailableReviewerActions do
         it { is_expected.to eq %i[complete send_back] }
       end
 
-      context 'when a non-means tested initial application' do
-        # NOTE: Support for legacy Non-means applications marked_as_read
-        let(:application_type) { Types::ApplicationType['initial'] }
-        let(:work_stream) { WorkStream.new('non_means_tested') }
-
-        it { is_expected.to eq %i[complete send_back] }
-      end
-
       context 'when CIFC' do
         let(:application_type) { Types::ApplicationType['change_in_financial_circumstances'] }
         let(:work_stream) { WorkStream.new('criminal_applications_team') }

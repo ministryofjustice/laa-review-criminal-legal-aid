@@ -111,6 +111,8 @@ en:
     case_reference: Case reference of the criminal rep order or civil certificate
     caseworker: Caseworker
     client_details: Client details
+    client_other_charges: Other charges
+    client_other_charges_explicit: "Other charges: client"
     client_owns_property: Has land or property?
     closed_by: 'Closed by:'
     codefendant: Co-defendant
@@ -162,6 +164,7 @@ en:
     further_information_present:
       'true': Yes
       'false': No
+    funding_decision: Funding decision
     has_codefendants: Co-defendants?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Income, savings or assets under a restraint or freezing order
@@ -182,6 +185,16 @@ en:
     income_more_than: "%{prefix} more than £12,475?"
     income_details: Income
     income_details_partner: Partner's income
+
+    decision:
+      card_title: Case
+      interests_of_justice:
+        result: Interests of justice test results
+        details: Interests of justice reason 
+        assessed_by: Interests of justice test caseworker name
+        assessed_on: Date of interests of justice test
+      funding_decision: Overall result
+      comment: Further information about the decision
     employments_title: Jobs
     employment_title: Job
     employments:
@@ -244,6 +257,10 @@ en:
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
+    other_charges_charge: What is the charge?
+    other_charges_hearing_court_name: Court
+    other_charges_next_hearing_date: Next hearing
+    other_charges_question: Other charges?
     other_income_details: 'Other sources of income: %{subject}'
     other_names: Other names
     other_outgoings_details: Other outgoings
@@ -264,6 +281,7 @@ en:
     partner_details: Partner details
     partner_employment: Partner's employment
     partner_employment_type: Partner's employment status
+    partner_other_charges: "Other charges: partner"
     pays_council_tax: Council Tax
     passporting_benefit: Passporting Benefit
     passporting_benefit_check: 'Passporting benefit check: client'
@@ -417,6 +435,13 @@ en:
     change_in_financial_circumstances: Change in financial circumstances
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
+    decision_result:
+      pass: Passed
+      fail: Failed
+      granted_on_ioj: Granted
+      fail_on_ioj: Rejected 
+
+
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit
@@ -575,8 +600,13 @@ en:
       partner: Partner's name
       applicant_and_partner: Client and partner
 
-  calls_to_action:
+  calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
+    add_another_funding_decision: 
+      zero: Add a funding decision
+      one: Add another funding decision
+      other: Add another funding decision
+    add_funding_decision: Add a funding decision
     assign_to_self: Assign to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
@@ -596,6 +626,9 @@ en:
     sign_out: Sign out
     sign_in: Sign in
     start_now: Start now
+    start: Start
+
+  actions: *ACTIONS
   confirmations:
     reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
   warnings:
@@ -647,7 +680,6 @@ en:
 
 
   casework:
-
     assigned_applications:
       index:
         page_title: Your list
@@ -723,7 +755,24 @@ en:
         show_title: Application
       section:
         headings:
+      funding_decision:
+        manually_enter_decision: You need to manually enter a decision for this application. 
       labels:
         <<: *LABELS
       values:
         <<: *VALUES
+    decisions:
+      index:
+        title: 
+          zero: Add a funding decision
+          one: Check the funding decision
+          other: You have added %{count} cases
+      interests_of_justices:
+        edit:
+          title: Interests of justice test
+      overall_results:
+        edit:
+          title: Overall result
+      comments:
+        edit:
+          title: Do you need to add comments for the provider

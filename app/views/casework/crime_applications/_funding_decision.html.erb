@@ -1,0 +1,13 @@
+<% return unless FeatureFlags.adding_decisions.enabled? %>
+
+<h2 class="govuk-heading-l">
+  <%= label_text(:funding_decision) %>
+</h2>
+
+<p><%= t '.manually_enter_decision' %></p>
+
+<% if crime_application.draft_decisions.empty? %>
+  <%= govuk_button_to action_text(:start), crime_application_decisions_path(crime_application)  %>
+<% end %>
+
+<%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>

@@ -44,6 +44,13 @@ RSpec.describe 'Authorisation' do
       search_application_searches
       open_work_stream
       closed_work_stream
+      edit_crime_application_decision_interests_of_justice
+      crime_application_decision_interests_of_justice
+      edit_crime_application_decision_overall_result
+      crime_application_decision_overall_result
+      edit_crime_application_decision_comment
+      crime_application_decision_comment
+      crime_application_decisions
     ]
   end
 
@@ -250,7 +257,7 @@ RSpec.describe 'Authorisation' do
   # Returns the params required to construct a valid path
   def dummy_params(route)
     path = '/'
-    id = crime_application_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
+    id = crime_application_id = decision_id = '696dd4fd-b619-4637-ab42-a5f4565bcf4a'
     report_type = 'processed_report'
     interval = 'monthly'
     period = '2023-August'
@@ -258,7 +265,7 @@ RSpec.describe 'Authorisation' do
     time = '23:59'
     work_stream = 'criminal_applications_team'
     { id:, crime_application_id:, path:, report_type:, interval:, period:, date:,
-time:, work_stream: }.slice(*route.required_keys.dup)
+      time:, work_stream:, decision_id: }.slice(*route.required_keys.dup)
   end
 end
 
