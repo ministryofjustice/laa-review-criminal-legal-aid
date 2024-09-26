@@ -7,14 +7,20 @@ RSpec.describe 'Assigning an application to myself' do
 
     let(:current_user_competencies) { Types::CompetencyType.values }
 
-    before do
-      visit '/'
-    end
+    describe 'get next' do
+      before do
+        visit '/'
+        click_on 'Review next application'
+      end
 
-    it 'allows you to get the next application' do
-      click_on 'Review next application'
-      expect(page).to have_content('Kit Pound')
-      expect(page).to have_content('Remove from your list')
+      it 'allows you to get the next application' do
+        expect(page).to have_content('Kit Pound')
+        expect(page).to have_content('Remove from your list')
+      end
+
+      it 'redirects to application details' do
+        expect(current_url).to match('applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a')
+      end
     end
 
     describe 'getting next according to competencies' do
