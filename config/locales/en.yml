@@ -27,6 +27,7 @@ en:
       timestamp: '%A %-d %b %H:%M'  # Thursday 3 Jan 14:45
       snapshot: '%A %-d %B %H:%M'
       now: '%A %-d %B'
+      datestamp: '%-d %B %Y %H:%M'
 
   flash:
     success:
@@ -52,7 +53,7 @@ en:
     extradition: Extradition
     criminal_applications_team: CAT 1
     change_in_financial_circumstances: Change in financial circumstances
-    non_means_tested: Non-means 
+    non_means_tested: Non-means
     initial: Initial
 
   number:

@@ -87,6 +87,12 @@ html {
 
   td:first-child {
     overflow-x: scroll;
-    max-width: 10em; 
+    max-width: 10em;
   }
+}
+
+.date-stamp-context-tag { display: block; margin-top: 1em; }
+.date-stamp-context-tag .govuk-tag {
+  display: inline;
+  padding: 3px 5px;
 }

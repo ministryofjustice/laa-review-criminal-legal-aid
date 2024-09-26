@@ -5,7 +5,7 @@
       <%= label_text(:date_stamp) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l date_stamp_context.date_stamp, format: :compact %>
+      <%= l date_stamp_context.date_stamp, format: :datestamp %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -15,6 +15,11 @@
     <dd class="govuk-summary-list__value">
       <%= date_stamp_context.first_name %>
     </dd>
+    <span class="date-stamp-context-tag">
+    <% if date_stamp_context.first_name != applicant.first_name %>
+      <%= govuk_tag(text: t(:changed_date_stamp_detail, scope: 'values'), colour: 'red') %>
+    <% end %>
+    </span>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -22,17 +27,26 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <%= date_stamp_context.last_name %>
-
+      <span class="date-stamp-context-tag">
+      <% if date_stamp_context.last_name != applicant.last_name %>
+        <%= govuk_tag(text: t(:changed_date_stamp_detail, scope: 'values'), colour: 'red') %>
+      <% end %>
+      </span>
     </dd>
   </div>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:date_of_birth) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <%= l date_stamp_context.date_of_birth, format: :compact %>
+  <div class="govuk-summary-list__row date-stamp-context">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:date_of_birth) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= l date_stamp_context.date_of_birth %>
 
-    </dd>
+        <span class="date-stamp-context-tag">
+        <% if date_stamp_context.date_of_birth != applicant.date_of_birth %>
+          <%= govuk_tag(text: t(:changed_date_stamp_detail, scope: 'values'), colour: 'red') %>
+        <% end %>
+        </span>
+      </dd>
   </div>
 </dl>
 <% end %>

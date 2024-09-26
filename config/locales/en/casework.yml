@@ -415,6 +415,7 @@ en:
     class: Class
     class_not_determined: Not determined
     change_in_financial_circumstances: Change in financial circumstances
+    changed_date_stamp_detail: Changed after date stamp
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
     either_way: Either way
