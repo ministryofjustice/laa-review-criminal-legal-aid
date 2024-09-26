@@ -125,7 +125,7 @@ RSpec.describe 'When viewing case details' do
       end
     end
 
-    context 'when case type is an appeal with changes to financial circumstances' do
+    context 'when case type is an appeal with changes to financial circumstances with a new application' do
       let(:application_data) do
         super().deep_merge('case_details' => { 'case_type' => 'appeal_to_crown_court_with_changes',
                                                'appeal_original_app_submitted' => 'yes',
@@ -148,6 +148,26 @@ RSpec.describe 'When viewing case details' do
       it 'does not show MAAT ID or USN' do
         expect(page).to have_no_content('Original application MAAT ID')
         expect(page).to have_no_content('Original application USN')
+      end
+    end
+
+    context 'when case type is appeal and application is a change in financial circumstances' do
+      let(:application_data) do
+        super().deep_merge('application_type' => 'change_in_financial_circumstances',
+                           'pre_cifc_reason' => 'Has a new high paying job',
+                           'pre_cifc_reference_number' => 'pre_cifc_usn',
+                           'pre_cifc_usn' => 'MY199992',
+                           'case_details' => { 'case_type' => 'appeal_to_crown_court',
+                                               'appeal_original_app_submitted' => 'yes',
+                                               'appeal_with_changes_details' => nil })
+      end
+
+      it 'does not show original MAAT ID or USN' do
+        expect(page).to have_no_content('Original application MAAT ID')
+      end
+
+      it 'does not show changes to financial circumstances question' do
+        expect(page).to have_no_content('Changes to financial circumstances since original application?')
       end
     end
 

@@ -15,7 +15,8 @@
       </div>
     <% end %>
 
-    <%= render partial: 'casework/crime_applications/sections/appeal_case_details', locals: { case_details: } if case_details.appeal? %>
+    <%= render partial: 'casework/crime_applications/sections/appeal_case_details',
+               locals: { crime_application:, case_details: } if case_details.appeal? %>
 
     <% unless crime_application.cifc? %>
       <!-- Court hearing -->
