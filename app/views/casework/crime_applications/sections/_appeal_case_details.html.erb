@@ -17,14 +17,16 @@
 </div>
 
 <% if case_details.original_app_submitted? %>
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      <%= label_text(:appeal_financial_circumstances_changed) %>
-    </dt>
-    <dd class="govuk-summary-list__value">
-      <%= t(case_details.appeal_financial_circumstances_changed, scope: 'values') %>
-    </dd>
-  </div>
+  <% unless crime_application.cifc? %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:appeal_financial_circumstances_changed) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= t(case_details.appeal_financial_circumstances_changed, scope: 'values') %>
+      </dd>
+    </div>
+  <% end %>
 
   <% if case_details.financial_circumstances_changed? %>
     <div class="govuk-summary-list__row">
@@ -35,7 +37,7 @@
         <%= case_details.appeal_with_changes_details %>
       </dd>
     </div>
-  <% else %>
+  <% elsif !crime_application.cifc? %>
     <% if case_details.appeal_maat_id.present? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
