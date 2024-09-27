@@ -17,7 +17,7 @@ module SubmissionHistory
     def reference_from_event(event)
       reference = event.data[:reference]
 
-      reference if reference.present?
+      reference.presence
 
       # app = DatastoreApi::Requests::GetApplication.new(application_id: event.data.fetch(:application_id)).call
       # app.reference

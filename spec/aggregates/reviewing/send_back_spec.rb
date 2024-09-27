@@ -8,7 +8,7 @@ RSpec.describe Reviewing::SendBack do
   before do
     Reviewing::ReceiveApplication.call(
       application_id: application_id, submitted_at: 1.day.ago.to_s, work_stream: 'extradition',
-      application_type: 'initial'
+      application_type: 'initial', reference: 345
     )
 
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
