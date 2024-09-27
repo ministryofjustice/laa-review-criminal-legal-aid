@@ -1,13 +1,24 @@
 <% return unless FeatureFlags.adding_decisions.enabled? %>
 
-<h2 class="govuk-heading-l">
-  <%= label_text(:funding_decision) %>
-</h2>
+<% if crime_application.work_stream == ::Types::WorkStreamType['non_means_tested'] %>
 
-<p><%= t '.manually_enter_decision' %></p>
+  <h2 class="govuk-heading-l">
+    <%= label_text(:funding_decision) %>
+  </h2>
 
-<% if crime_application.draft_decisions.empty? %>
-  <%= govuk_button_to action_text(:start), crime_application_decisions_path(crime_application)  %>
+  <p><%= t '.manually_enter_decision' %></p>
+
+  <% if crime_application.draft_decisions.empty? %>
+    <%= govuk_button_to action_text(:start), crime_application_decisions_path(crime_application)  %>
+  <% end %>
+
+  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
 <% end %>
 
-<%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
+<% if crime_application.status? ::Types::ReviewState[:marked_as_ready] %>
+  <h2 class="govuk-heading-l">
+    <%= label_text(:funding_decision) %>
+  </h2>
+
+  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
+<% end %>
