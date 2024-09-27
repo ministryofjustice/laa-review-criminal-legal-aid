@@ -25,10 +25,10 @@ RSpec.describe ReceivedOnReports::Projection do
         a, b, c, d, = Array.new(4) { SecureRandom.uuid }
 
         # Receive four CAT 1 (including 1 PSE) and one extradition application
-        receive_application(a, cat1, initial)
-        receive_application(b, cat1, initial)
-        receive_application(c, cat1, pse)
-        receive_application(d, extradition, initial)
+        receive_application(a, cat1, initial, 123)
+        receive_application(b, cat1, initial, 124)
+        receive_application(c, cat1, pse, 123)
+        receive_application(d, extradition, initial, 125)
 
         event_store.publish(Reviewing::Completed.new(
                               data: { application_id: b }
@@ -45,7 +45,7 @@ RSpec.describe ReceivedOnReports::Projection do
                             ))
 
         # This application should not be included in the data
-        receive_application(SecureRandom.uuid, cat1, initial)
+        receive_application(SecureRandom.uuid, cat1, initial, 127)
 
         travel_back
       end
@@ -118,11 +118,11 @@ RSpec.describe ReceivedOnReports::Projection do
   end
   # rubocop:enable RSpec/MultipleMemoizedHelpers, RSpec/IndexedLet
 
-  def receive_application(application_id, work_stream, application_type)
+  def receive_application(application_id, work_stream, application_type, reference)
     submitted_at = Time.current
 
     Reviewing::ReceiveApplication.new(
-      application_id:, submitted_at:, work_stream:, application_type:
+      application_id:, submitted_at:, work_stream:, application_type:, reference:
     ).call
   end
 end

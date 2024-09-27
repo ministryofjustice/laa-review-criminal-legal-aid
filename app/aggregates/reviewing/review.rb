@@ -111,18 +111,5 @@ module Reviewing
     def available_reviewer_actions
       AvailableReviewerActions.for(self)
     end
-
-    private
-
-    def event_data(_args)
-      {
-        application_id:,
-        reference:,
-        submitted_at:,
-        parent_id:,
-        work_stream:,
-        application_type:
-      }
-    end
   end
 end
