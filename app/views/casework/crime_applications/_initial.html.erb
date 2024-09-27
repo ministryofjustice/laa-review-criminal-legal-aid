@@ -22,6 +22,15 @@
            locals: { crime_application: crime_application, case_details: crime_application.case_details } %>
 <%= render partial: 'offences', object: crime_application.case_details.offences %>
 <%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
+<% if FeatureFlags.other_charges.enabled? %>
+  <% if crime_application.case_details.client_other_charge_in_progress.present? %>
+    <% title_key = crime_application.case_details.partner_other_charge_in_progress.present? ? :client_other_charges_explicit : :client_other_charges %>
+    <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.client_other_charge_in_progress, other_charge: crime_application.case_details.client_other_charge, title_key: title_key } %>
+  <% end %>
+  <% if crime_application.case_details.partner_other_charge_in_progress.present? %>
+    <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.partner_other_charge_in_progress, other_charge: crime_application.case_details.partner_other_charge, title_key: :partner_other_charges } %>
+  <% end %>
+<% end %>
 <%= render partial: 'interests_of_justice', locals: { crime_application: } unless crime_application.cifc?%>
 
 <% if FeatureFlags.means_journey.enabled? %>
