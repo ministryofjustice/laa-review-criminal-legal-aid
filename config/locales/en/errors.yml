@@ -27,7 +27,14 @@ en:
       result: 
         blank: Select the test result
         inclusion: Select the test result
-
+      maat_id:
+        blank: &invalid_maat_id "Enter the MAAT ID of the corresponding application on MAAT"
+        greated_than: *invalid_maat_id
+        not_a_number: *invalid_maat_id
+        greater_than: *invalid_maat_id
+        not_found: An application with this MAAT ID could not be found on MAAT
+        reference_mismatch: The application on MAAT with this MAAT ID is associated with another reference number (USN) 
+        already_linked: This MAAT ID is already linked
 
     error_summary:
       heading: There is a problem on this page

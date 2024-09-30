@@ -25,6 +25,7 @@ RSpec.describe ApplicationHelper do
     before do
       allow(helper).to receive_messages(controller_name: 'my_controller', action_name: 'an_action')
       allow(helper).to receive(:title)
+      allow(Rails.env).to receive(:local?).and_return(false)
     end
 
     it 'calls #title with a blank value' do

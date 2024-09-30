@@ -11,6 +11,15 @@ module Maat
       get(format(USN_FORMAT, usn))
     end
 
+    def by_usn!(usn)
+      record = by_usn(usn)
+
+      raise Maat::RecordNotFound if record.blank?
+
+      record
+    end
+
+    # Only returns results from the configured starting id
     def by_maat_id(maat_id)
       get(format(MAAT_ID_FORMAT, maat_id))
     end
@@ -26,8 +35,8 @@ module Maat
 
       # NOTE: The MAAT API returns a 200 status even if a decision has not been found.
       # The existence of the decision can only be determined by checking if
-      # the response body is empty.
-      return nil if response.body.empty?
+      # the response body includes a MAAT ID (maat_ref).
+      return nil unless response.body.present? && response.body['maat_ref'].present?
 
       Decision.build(response.body)
     end

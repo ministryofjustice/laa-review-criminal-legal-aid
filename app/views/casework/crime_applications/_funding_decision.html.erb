@@ -1,26 +1,29 @@
 <% return unless FeatureFlags.adding_decisions.enabled? %>
 
-<% if crime_application.work_stream == ::Types::WorkStreamType['non_means_tested'] %>
+<h2 class="govuk-heading-l">
+  <%= label_text(:funding_decision) %>
+</h2>
 
-  <h2 class="govuk-heading-l">
-    <%= label_text(:funding_decision) %>
-  </h2>
+<%= render(DecisionComponent.with_collection(
+             crime_application.decisions,
+             show_actions: crime_application.reviewable_by?(current_user_id)
+           )) %>
 
-  <% unless crime_application.status? ::Types::ReviewState[:completed] %>
-    <p><%= t '.manually_enter_decision' %></p>
-  <% end %>
+<% if crime_application.decisions.empty? && crime_application.reviewable_by?(current_user_id) %>
+    <% if crime_application.means_tested? %>
+      <p><%= t('.create_application_on_maat',
+               reference: crime_application.reference) %></p>
 
-  <% if crime_application.draft_decisions.empty? %>
-    <%= govuk_button_to action_text(:start), crime_application_decisions_path(crime_application)  %>
-  <% end %>
+      <%= govuk_button_to(
+            action_text(:add_funding_decision),
+            create_by_reference_crime_application_maat_decisions_path(
+              crime_application
+            )
+          ) %>
+    <% else %>
+      <p><%= t '.manually_enter_decision' %></p>
 
-  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
-<% end %>
-
-<% if crime_application.status? ::Types::ReviewState[:marked_as_ready] %>
-  <h2 class="govuk-heading-l">
-    <%= label_text(:funding_decision) %>
-  </h2>
-
-  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
+      <%= govuk_button_to action_text(:start),
+                          crime_application_decisions_path(crime_application)  %>
+    <% end %>
 <% end %>

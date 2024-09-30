@@ -43,6 +43,7 @@ RSpec.describe Reviewing::Complete do
       args = {
         application_id: application_id,
         user_id: SecureRandom.uuid,
+        reference: rand(100_000..1_000_000),
         decision_id: SecureRandom.uuid
       }
 

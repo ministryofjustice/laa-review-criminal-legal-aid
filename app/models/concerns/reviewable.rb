@@ -35,10 +35,16 @@ module Reviewable
 
   def draft_decisions
     @draft_decisions ||= review.decision_ids.map do |decision_id|
-      Deciding::LoadDecision.call(
-        application_id: id, decision_id: decision_id
+      Decisions::Draft.build(
+        Deciding::LoadDecision.call(
+          application_id: id, decision_id: decision_id
+        )
       )
     end
+  end
+
+  def means_tested?
+    work_stream != ::Types::WorkStreamType['non_means_tested']
   end
 
   def status?(status)

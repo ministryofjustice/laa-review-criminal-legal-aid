@@ -21,6 +21,7 @@ module Decisions
           comment: decision.comment,
           comment_required: decision.comment.present? ? true : nil,
           application_id: decision.application_id,
+          reference: decision.reference,
           decision_id: decision.decision_id
         )
       end

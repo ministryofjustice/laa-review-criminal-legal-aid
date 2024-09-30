@@ -1,0 +1,27 @@
+<% title t '.title' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body-l govuk-!-margin-bottom-2">
+      <%= @crime_application.reference %>
+    </p>
+
+    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
+      <%= @crime_application.applicant.full_name %>
+    </h2>
+
+    <%= govuk_error_summary(@form_object) %>
+
+    <h1 class="govuk-heading-xl">
+      <%= t '.title' %>
+    </h1>
+
+    <%= form_with model: @form_object,
+                  url: crime_application_maat_decisions_path do |f| %>
+
+        <%= f.govuk_number_field :maat_id, autocomplete: 'off', width: 'one-quarter', extra_letter_spacing: true %>
+
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>

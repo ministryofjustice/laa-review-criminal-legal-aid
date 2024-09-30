@@ -74,6 +74,8 @@ RSpec.configure do |config|
     Reviews::Configuration.new.call(event_store)
     CaseworkerReports::Configuration.new.call(event_store)
   end
+
+  # Use production error handling in these specs
 end
 
 RSpec::Matchers.define_negated_matcher :not_change, :change

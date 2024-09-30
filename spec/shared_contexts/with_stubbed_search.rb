@@ -34,7 +34,7 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         status: 'submitted',
         work_stream: 'extradition',
         submitted_at: '2022-10-27T14:09:11.000+00:00',
-        parent_id: 'parent_id_uuid',
+        parent_id: 'ff32c3e6-a88e-4d3d-a595-5a11b0aea9ef',
         case_type: 'summary_only',
         application_type: application_type,
         means_passport: ['on_benefit_check']

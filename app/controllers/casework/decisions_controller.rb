@@ -10,7 +10,8 @@ module Casework
       args = {
         application_id: @crime_application.id,
         user_id: current_user_id,
-        decision_id: decision_id
+        decision_id: decision_id,
+        reference: @crime_application.reference
       }
 
       ActiveRecord::Base.transaction do
