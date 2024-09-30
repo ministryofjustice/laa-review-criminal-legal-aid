@@ -7,7 +7,8 @@ RSpec.describe Reviewing::ReceiveApplication do
       submitted_at: Time.zone.now.to_s,
       parent_id: nil,
       work_stream: 'extradition',
-      application_type: 'initial'
+      application_type: 'initial',
+      reference: 123_456
     )
   end
 

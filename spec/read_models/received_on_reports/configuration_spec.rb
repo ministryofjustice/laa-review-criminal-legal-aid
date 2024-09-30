@@ -19,7 +19,7 @@ RSpec.describe ReceivedOnReports::Configuration do
 
       Reviewing::ReceiveApplication.call(
         application_id: application_id, submitted_at: submitted_at.to_s, work_stream: 'extradition',
-        application_type: 'initial'
+        application_type: 'initial', reference: 123
       )
 
       travel_to submitted_at + 3.days

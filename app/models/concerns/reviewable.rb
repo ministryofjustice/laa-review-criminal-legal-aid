@@ -24,7 +24,8 @@ module Reviewable
       submitted_at: submitted_at,
       parent_id: parent_id,
       work_stream: work_stream,
-      application_type: application_type
+      application_type: application_type,
+      reference: reference
     )
 
     @review = nil

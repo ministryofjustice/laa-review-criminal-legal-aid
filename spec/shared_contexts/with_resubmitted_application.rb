@@ -28,6 +28,7 @@ RSpec.shared_context 'with resubmitted application' do
       parent_id: nil,
       work_stream: 'extradition',
       submitted_at: Time.zone.now.to_s,
+      reference: 123,
       application_type: Types::ApplicationType['initial']
     )
 
@@ -59,6 +60,7 @@ RSpec.shared_context 'with resubmitted application' do
       parent_id: parent_id,
       work_stream: 'extradition',
       submitted_at: Time.zone.now.to_s,
+      reference: 123,
       application_type: Types::ApplicationType['initial']
     )
   end

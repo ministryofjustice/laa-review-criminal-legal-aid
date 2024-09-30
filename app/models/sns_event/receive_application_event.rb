@@ -17,7 +17,8 @@ module SnsEvent
         work_stream:,
         application_type:,
         causation_id:,
-        submitted_at:
+        submitted_at:,
+        reference:
       )
     end
 
@@ -46,6 +47,10 @@ module SnsEvent
 
     def work_stream
       message['data']&.fetch('work_stream')
+    end
+
+    def reference
+      message['data']&.fetch('reference')
     end
 
     def causation_id
