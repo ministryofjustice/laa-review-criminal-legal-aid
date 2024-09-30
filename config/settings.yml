@@ -23,6 +23,15 @@ feature_flags:
     local: true
     staging: true
     production: true
+  adding_decisions:
+    local: true
+    staging: true
+    production: false
+  other_charges:
+    local: true
+    staging: true
+    production: false
+
 # For settings that vary by HostEnv name
 host_env_settings:
   phase_banner_tag:

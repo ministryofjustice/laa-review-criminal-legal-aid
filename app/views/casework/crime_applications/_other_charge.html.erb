@@ -1,0 +1,28 @@
+<%= govuk_summary_card(title: label_text(title_key)) do
+      govuk_summary_list(actions: false) do |list|
+        list.with_row do |row|
+          row.with_key { label_text(:other_charges_question) }
+          row.with_value { value_text(other_charge_in_progress) }
+        end
+        if other_charge.present?
+          if other_charge.charge.present?
+            list.with_row do |row|
+              row.with_key { label_text(:other_charges_charge) }
+              row.with_value { other_charge.charge }
+            end
+          end
+          if other_charge.hearing_court_name.present?
+            list.with_row do |row|
+              row.with_key { label_text(:other_charges_hearing_court_name) }
+              row.with_value { other_charge.hearing_court_name }
+            end
+          end
+          if other_charge.next_hearing_date.present?
+            list.with_row do |row|
+              row.with_key { label_text(:other_charges_next_hearing_date) }
+              row.with_value { l(other_charge.next_hearing_date, format: :compact) }
+            end
+          end
+        end
+      end
+    end %>

@@ -2,10 +2,41 @@
 en:
   helpers:
     back_link: Back
+
+    hint:
+      decisions_interests_of_justice_form:
+        assessed_on: For example, DD/MM/YYY 
+
+    legend:
+      decisions_interests_of_justice_form:
+        result: What is the interests of justice test result?
+        assessed_on: Enter the date of assessment
+      decisions_overall_result_form:
+        funding_decision: What is the funding decision for this application?
+      decisions_comment_form:
+        comment_required: Do you need to add comments for the provider?
+
+    label:
+      decisions_interests_of_justice_form:
+        result_options:
+          pass: Passed
+          fail: Refused
+        details: What is the reason for this?
+        assessed_by: What is the name of the caseworker who assessed this?
+
+      decisions_overall_result_form:
+        funding_decision_options:
+          granted_on_ioj: Granted
+          fail_on_ioj: Failed interests of justice test
+      decisions_comment_form:
+        comment_required_options: 
+          'true': 'Yes'
+          'false': 'No'
+        comment: Additional comments for the provider
+
     submit:
       save_and_continue: Save and continue
       save_and_come_back_later: Save and come back later
     subjects:
       applicant: client
       applicant_and_partner: client %{conjunction} partner
-

@@ -6,8 +6,7 @@ module Reviewing
         marked_as_ready: [:complete, :send_back],
       },
       non_means: {
-        open: [:complete, :send_back],
-        marked_as_ready: [:complete, :send_back] # TODO: remove once all non-means in this state processed
+        open:  [:complete, :send_back],
       },
       pse: {
         open: [:complete]

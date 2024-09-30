@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include GOVUKDesignSystemFormBuilder::BuilderHelper
+
   # Convert to the London time zone before localizing.
   def tz_l(timestamp, options = {})
     return if timestamp.nil?

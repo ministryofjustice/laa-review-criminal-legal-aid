@@ -82,7 +82,7 @@ RSpec.describe 'Invites from manage users dashboard' do
 
       error_message = first('#user-email-error').text.squish
 
-      expect(error_message).to have_text('Please enter an email')
+      expect(error_message).to have_text('Enter an email')
     end
 
     it 'errors when email is in the wrong format' do
