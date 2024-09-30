@@ -29,7 +29,9 @@ module Casework
       render :index
     end
 
-    def show; end
+    def show
+      Maat::Synch.call(@crime_application)
+    end
 
     def history; end
 

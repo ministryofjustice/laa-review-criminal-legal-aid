@@ -1,0 +1,24 @@
+# Sync draft application decision with MAAT.
+#
+module Maat
+  class Sync
+    def initialize(application)
+      @application = application
+    end
+
+    def call
+      return if non_means_tested?
+
+      check_for_usn_draft 
+    end
+
+    private
+
+    def check_for_usn_draft
+    end
+    
+    def non_means_tested?
+      @application.work_stream == Types::WorkStreamType[:non_means_tested]
+    end
+  end
+end

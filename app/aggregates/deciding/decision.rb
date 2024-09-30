@@ -35,6 +35,9 @@ module Deciding
     on DraftCreated do |event|
       @application_id = event.data.fetch(:application_id)
       @state = Types::DecisionState[:draft]
+      @source = :drafted_on_review
+      @source = :maat_by_usn
+      @source = :maat_by_maat_id
     end
 
     on InterestsOfJusticeSet do |event|
