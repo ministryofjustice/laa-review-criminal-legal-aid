@@ -1,5 +1,6 @@
 module ApplicationHelper
   include GOVUKDesignSystemFormBuilder::BuilderHelper
+  include CaseworkHelper
 
   # Convert to the London time zone before localizing.
   def tz_l(timestamp, options = {})
@@ -77,5 +78,6 @@ module ApplicationHelper
 
     current_crime_application.partner.is_included_in_means_assessment
   end
+
   alias partner_subject? partner_included_in_means?
 end

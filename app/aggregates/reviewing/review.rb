@@ -8,15 +8,18 @@ module Reviewing
     end
 
     attr_reader :id, :decision_ids, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at, :superseded_by,
-                :superseded_at, :parent_id, :work_stream, :application_type
+                :superseded_at, :parent_id, :work_stream, :application_type, :reference
 
     alias application_id id
 
-    def receive_application(submitted_at:, application_type:, parent_id: nil, work_stream: nil)
+    def receive_application(submitted_at:, application_type:, reference:, parent_id: nil, work_stream: nil)
       raise AlreadyReceived if received?
 
       apply ApplicationReceived.new(
-        data: { application_id:, submitted_at:, parent_id:, work_stream:, application_type: }
+        data: {
+          application_id:, reference:, submitted_at:,
+          parent_id:, work_stream:, application_type:
+        }
       )
     end
 
@@ -25,11 +28,11 @@ module Reviewing
       raise AlreadySentBack if @state.equal?(:sent_back)
       raise CannotSendBackWhenCompleted if @state.equal?(:completed)
 
-      apply SentBack.new(data: { application_id:, user_id:, reason: })
+      apply SentBack.build(self, user_id:, reason:)
     end
 
     def supersede(superseded_at:, superseded_by:)
-      apply Superseded.new(data: { application_id:, superseded_at:, superseded_by: })
+      apply Superseded.build(self, superseded_at:, superseded_by:)
     end
 
     def complete(user_id:)
@@ -37,7 +40,7 @@ module Reviewing
       raise AlreadyCompleted if @state.equal?(:completed)
       raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
 
-      apply Completed.new(data: { application_id:, user_id: })
+      apply Completed.build(self, user_id:)
     end
 
     def mark_as_ready(user_id:)
@@ -46,11 +49,11 @@ module Reviewing
       raise CannotMarkAsReadyWhenSentBack if @state.equal?(:sent_back)
       raise CannotMarkAsReadyWhenCompleted if @state.equal?(:completed)
 
-      apply MarkedAsReady.new(data: { application_id:, user_id: })
+      apply MarkedAsReady.build(self, user_id:)
     end
 
     def add_decision(user_id:, decision_id:)
-      apply DecisionAdded.new(data: { application_id:, user_id:, decision_id: })
+      apply DecisionAdded.build(self, user_id:, decision_id:)
     end
 
     on ApplicationReceived do |event|
@@ -60,6 +63,7 @@ module Reviewing
       @parent_id = event.data[:parent_id]
       @application_type = event.data.fetch(:application_type, Types::ApplicationType['initial'])
       @work_stream = event.data.fetch(:work_stream, Types::WorkStreamType['criminal_applications_team'])
+      @reference = event.data.fetch(:reference, nil)
     end
 
     on DecisionAdded do |event|

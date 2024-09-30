@@ -42,7 +42,7 @@ RSpec.describe 'Open Applications' do
   end
 
   it 'has the correct count' do
-    expect(page).to have_content('There are 2 open applications that need to be reviewed.')
+    expect(page).to have_content('There are 3 open applications that need to be reviewed.')
   end
 
   it 'can be used to navigate to an application' do
@@ -126,6 +126,27 @@ RSpec.describe 'Open Applications' do
       it 'shows not found when trying to view a stream that does not exist' do
         visit open_crime_applications_path(work_stream: 'not_a_stream')
         expect(page).to have_http_status :not_found
+      end
+    end
+  end
+
+  context 'when viewing a resubmitted application' do
+    before do
+      click_on 'Open applications'
+      click_on('Jessica Rhode')
+    end
+
+    context 'when viewing an application of type `initial`' do
+      it 'navigates to the application history page' do
+        expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0/history')
+      end
+    end
+
+    context 'when viewing an application of type `post submission evidence`' do
+      let(:application_type) { 'post_submission_evidence' }
+
+      it 'navigates to the application details page' do
+        expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0')
       end
     end
   end

@@ -83,5 +83,10 @@ module LaaReviewCriminalLegalAid
       'Deciding::ApplicationNotAssignedToUser' => :forbidden,
       'ApplicationController::ForbiddenError' => :forbidden
     )
+
+    config.x.maat_api.oauth_url = ENV["MAAT_API_OAUTH_URL"]
+    config.x.maat_api.client_id = ENV["MAAT_API_CLIENT_ID"]
+    config.x.maat_api.client_secret = ENV["MAAT_API_CLIENT_SECRET"]
+    config.x.maat_api.api_url = ENV["MAAT_API_API_URL"]
   end
 end

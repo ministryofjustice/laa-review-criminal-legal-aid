@@ -1,6 +1,7 @@
 module Reviewing
   class ReceiveApplication < Command
     attribute :application_id, Types::Uuid
+    attribute :reference, Types::Integer
     attribute :submitted_at, Types::DateTime
     attribute? :parent_id, Types::Uuid.optional
     attribute :work_stream, Types::WorkStreamType
@@ -10,7 +11,7 @@ module Reviewing
 
     def call
       with_review do |review|
-        review.receive_application(submitted_at:, application_type:, parent_id:, work_stream:)
+        review.receive_application(submitted_at:, application_type:, reference:, parent_id:, work_stream:)
       end
 
       return unless supersedes?

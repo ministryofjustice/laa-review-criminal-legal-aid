@@ -439,6 +439,7 @@ en:
     decision_result:
       pass: Passed
       fail: Failed
+      granted: Granted
       granted_on_ioj: Granted
       fail_on_ioj: Rejected 
 
