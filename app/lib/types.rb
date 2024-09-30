@@ -1,18 +1,18 @@
 require 'laa_crime_schemas/types/types'
 require 'dry-schema'
 
-module Types # rubocop:disable Metrics/ModuleLength
+module Types
   include LaaCrimeSchemas::Types
 
-  Uuid = Strict::String
-
-  # Uuid = Strict::String.constrained(
-  #   format: /\A[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\z/i
-  # )
+  Uuid = Strict::String.constrained(
+    format: /\A[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\z/i
+  )
 
   PhoneNumber = String
   Date = Date | JSON::Date
   DateTime = JSON::DateTime | Nominal::DateTime
+  MaatId = Params::Integer
+  DecisionId = Uuid | MaatId
 
   #
   # Map of review status groups to LaaCrimeSchemas::Types:REVIEW_APPLICATION_STATUSES
@@ -62,34 +62,6 @@ module Types # rubocop:disable Metrics/ModuleLength
   ReturnDetails = Hash.schema(
     reason: ReturnReason,
     details: String
-  )
-
-  # MAAT also returns other result values which we may also need to handle.
-  MeansResult = String.enum('pass', 'fail')
-  InterestsOfJusticeResult = String.enum('pass', 'fail')
-  FundingDecisionResult = String.enum(*%w[granted granted_on_ioj fail_on_ioj])
-
-  InterestsOfJusticeDecision = Hash.schema(
-    result: InterestsOfJusticeResult,
-    details?: String,
-    assessed_by: String,
-    assessed_on: Date
-  )
-
-  MeansDecision = Hash.schema(
-    result: MeansResult,
-    details?: String,
-    assessed_by: String,
-    assessed_on: Date
-  )
-
-  Decision = Hash.schema(
-    reference?: Integer,
-    maat_id?: Integer,
-    interests_of_justice?: Types::InterestsOfJusticeDecision,
-    means?: Types::MeansDecision,
-    funding_decision: Types::FundingDecisionResult,
-    comment?: String
   )
 
   Report = String.enum(*%w[

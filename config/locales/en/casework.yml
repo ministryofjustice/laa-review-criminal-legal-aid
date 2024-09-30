@@ -16,6 +16,12 @@ en:
       sent_back: You sent the application back to the provider
       completed: You marked the application as complete
       marked_as_ready: You marked the application as ready for assessment
+      maat_decision_linked:
+        - Linked to MAAT application with MAAT ID %{maat_id} 
+        - Check the decision, and make any required amendments on MAAT. 
+      updated_from_maat:
+        - Updated from MAAT application with MAAT ID %{maat_id} 
+        - Check the decision, and make any required amendments on MAAT. 
     important:
       reassigned_to_someone_else:
         - This application could not be reassigned to your list
@@ -26,6 +32,12 @@ en:
       no_next_to_assign:
         - There are no new applications to be reviewed
         - You can check again later
+      linked_maat_decision_not_found:
+        - Couldn't find an application on MAAT using the reference number (USN) %{reference}
+        - Enter the MAAT ID of the corresponding application on MAAT here and we'll use that instead of the reference number
+      no_change_since_last_update:
+        - The application on MAAT has not changed.
+        - Make any required amendments on MAAT using the MAAT ID %{maat_id}. 
       already_sent_back: This application was already sent back to the provider
       already_completed: This application was already marked as complete
       already_marked_as_ready: This application was already marked as ready for assessment
@@ -60,14 +72,14 @@ en:
   labels: &LABELS
     about_the_provider: About the provider
     age_in_business_days: Business days since application was received
-    appeal_original_app_submitted: Legal aid application for original case?
     appeal_financial_circumstances_changed: Changes to financial circumstances since original application?
-    appeal_with_changes_details: Changes details
-    appeal_maat_id_or_usn: "Original application %{ref_type}"
     appeal_maat_id: MAAT ID
+    appeal_maat_id_or_usn: "Original application %{ref_type}"
+    appeal_original_app_submitted: Legal aid application for original case?
     appeal_usn: USN
-    applicant_details: Applicant details
+    appeal_with_changes_details: Changes details
     applicant_date_of_birth: Applicant's date of birth
+    applicant_details: Applicant details
     application_information: Application information
     application_start_date: Date stamp
     application_status: Status
@@ -76,13 +88,13 @@ en:
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
     are_wages_paid_into_account: Client’s wages or benefits paid into this account?
     assigned_to: 'Assigned to:'
-    benefit_child: Child Benefit
     benefit_check_status: Passporting benefit check outcome
-    benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
+    benefit_child: Child Benefit
     benefit_incapacity: Incapacity Benefit
     benefit_industrial_injuries_disablement: Industrial Injuries Disablement Benefit
     benefit_jsa: Contribution-based Jobseeker's Allowance
     benefit_other: Other benefits
+    benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
     benefits_the_client_gets: Benefits your client gets
     benefits_the_partner_gets: Benefits the partner gets
     business_title: Test
@@ -108,8 +120,9 @@ en:
     capital: Capital
     case_details: Case details
     case_details_and_offences: Case details and offences
-    case_type: Case type
+    case_number: Case number
     case_reference: Case reference of the criminal rep order or civil certificate
+    case_type: Case type
     caseworker: Caseworker
     client_details: Client details
     client_other_charges: Other charges
@@ -118,9 +131,9 @@ en:
     closed_by: 'Closed by:'
     codefendant: Co-defendant
     codefendants: Co-defendants
-    correspondence_address: Correspondence address
-    conflict_of_interest: Conflict of interest?
     confirmed_details: Confirmed details correct?
+    conflict_of_interest: Conflict of interest?
+    correspondence_address: Correspondence address
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
@@ -135,6 +148,9 @@ en:
     date_received: 'Date received:'
     date_stamp: Date stamp
     date_stamp_details: Details entered for date stamp
+    decision_card_title: Case
+    decision_case_reference: Case
+    decision_comment: Further information about the decision
     dependants: Dependants
     details: Details
     does_client_have_national_savings_certificates: Any National Savings Certificates?
@@ -182,20 +198,14 @@ en:
     how_much_council_tax: Council Tax amount yearly
     how_much_rent: Amount paid for rent, after taking away Housing Benefit
     how_much_mortgage: Amount paid towards mortgage
+    ioj_result: Interests of justice test results
+    ioj_details: Interests of justice reason
+    ioj_assessed_by: Interests of justice test caseworker name
+    ioj_assessed_on: Date of interests of justice test
     income: Income
     income_more_than: "%{prefix} more than £12,475?"
     income_details: Income
     income_details_partner: Partner's income
-
-    decision:
-      card_title: Case
-      interests_of_justice:
-        result: Interests of justice test results
-        details: Interests of justice reason
-        assessed_by: Interests of justice test caseworker name
-        assessed_on: Date of interests of justice test
-      funding_decision: Overall result
-      comment: Further information about the decision
     employments_title: Jobs
     employment_title: Job
     employments:
@@ -215,6 +225,8 @@ en:
         national_insurance: National Insurance
         other: Other deductions total
     income_tax_rate_above_threshold: In the last 2 years, has the client paid the 40% income tax rate?
+
+    overall_result: Overall result
     partner_income_tax_rate_above_threshold: In the last 2 years, has the partner paid the 40% income tax rate?
     interests_of_justice: Justification for legal aid
     interests_of_justice_type: Criteria
@@ -238,8 +250,13 @@ en:
     last_name: Last name
     legal_representative: Legal representative
     lost_job_in_custody: Did they lose their job as a result of being in custody?
+    maat_id: MAAT ID
     manage_without_income: How do they manage with no income?
     means_tested: Is application subject to means test?
+    means_assessed_by: Means test caseworker name
+    means_assessed_on: Date of means test
+    means_details: Means reason 
+    means_result: Means test results
     name: Name
     national_crime_team: CAT 2
     national_insurance_number: National Insurance number
@@ -443,7 +460,10 @@ en:
       granted: Granted
       granted_on_ioj: Granted
       fail_on_ioj: Rejected
-
+      failmeans: Failed on means
+      failioj: Rejected
+      inel: Ineligible 
+      full: Full means 
 
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
@@ -606,12 +626,6 @@ en:
       applicant: Client's name
       partner: Partner's name
       applicant_and_partner: Client and partner
-    overall_funding_decision:
-      split_case: Split case
-      # TODO: Confirm content with design
-      granted: Granted
-      granted_on_ioj: Granted interests of justice
-      fail_on_ioj: Failed interests of justice
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
@@ -619,9 +633,10 @@ en:
       zero: Add a funding decision
       one: Add another funding decision
       other: Add another funding decision
-    add_funding_decision: Add a funding decision
+    add_funding_decision: Add funding decision from MAAT
     assign_to_self: Assign to your list
     back_to_list: Back to your list
+    change: Change
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
     copy_reference_number: Copy reference number
@@ -642,6 +657,7 @@ en:
     start_now: Start now
     start: Start
     submit_decision: Submit decision
+    update_from_maat: Update from MAAT
 
   actions: *ACTIONS
   confirmations:
@@ -778,6 +794,7 @@ en:
         headings:
       funding_decision:
         manually_enter_decision: You need to manually enter a decision for this application.
+        create_application_on_maat: First you will need to create an application on MAAT using the reference number (USN) %{reference}
       labels:
         <<: *LABELS
       values:
@@ -797,3 +814,8 @@ en:
       comments:
         edit:
           title: Do you need to add comments for the provider
+    maat_decisions:
+      new:
+        title: "Make a funding decision"
+      edit:
+        title: "OIOI"

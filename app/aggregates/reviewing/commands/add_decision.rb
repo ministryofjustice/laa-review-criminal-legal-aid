@@ -2,7 +2,7 @@ module Reviewing
   class AddDecision < Command
     attribute :application_id, Types::Uuid
     attribute :user_id, Types::Uuid
-    attribute :decision_id, Types::Uuid
+    attribute :decision_id, Types::DecisionId
 
     def call
       with_review do |review|

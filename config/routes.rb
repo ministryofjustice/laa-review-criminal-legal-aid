@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  Rails.application.routes.draw { mount RailsEventStore::Browser => "/res" if Rails.env.development? }
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
   get :health, to: 'healthcheck#show'
@@ -43,6 +44,10 @@ Rails.application.routes.draw do
           resource :overall_result, only: [:edit, :update]
           resource :comment, only: [:edit, :update]
         end
+      end
+      
+      resources :maat_decisions, only: [:new, :create, :update] do
+        post :create_by_reference, on: :collection
       end
     end
 

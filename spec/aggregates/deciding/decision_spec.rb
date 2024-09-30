@@ -5,9 +5,14 @@ describe Deciding::Decision do
 
   describe '#attributes' do
     let(:interests_of_justice) do
-      Types::InterestsOfJusticeDecision.call(result: 'pass', details: 'details', assessed_by: 'Grace Nolan',
-                                             assessed_on: Date.new(2024, 10, 1))
+      LaaCrimeSchemas::Structs::TestResult.new(
+        result: 'pass',
+        details: 'details',
+        assessed_by: 'Grace Nolan',
+        assessed_on: Date.new(2024, 10, 1)
+      )
     end
+
     let(:funding_decision) { 'granted' }
     let(:comment) { 'Caseworker comment' }
 

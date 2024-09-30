@@ -17,9 +17,12 @@ module Decisions
 
     class << self
       def build(decision)
+        ioj_attrs = decision.interests_of_justice.to_h
+
         new(
-          **decision.interests_of_justice,
+          **ioj_attrs,
           application_id: decision.application_id,
+          reference: decision.reference,
           decision_id: decision.decision_id
         )
       end

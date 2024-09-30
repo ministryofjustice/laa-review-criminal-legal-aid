@@ -1,4 +1,6 @@
 class DecisionResultComponent < ViewComponent::Base
+  with_collection_parameter :result
+
   def initialize(result: nil)
     @result = result
 

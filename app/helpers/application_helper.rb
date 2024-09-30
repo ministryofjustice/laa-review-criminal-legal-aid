@@ -38,7 +38,7 @@ module ApplicationHelper
   # In local/test we raise an exception, so we are aware a title has not been set
   def fallback_title
     exception = StandardError.new("page title missing: #{controller_name}##{action_name}")
-    raise exception if Rails.application.config.consider_all_requests_local
+    raise exception if Rails.env.local?
 
     title ''
   end
