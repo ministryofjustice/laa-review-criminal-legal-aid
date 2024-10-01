@@ -29,7 +29,7 @@
       <%= label_text(:date_of_birth) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l applicant.date_of_birth, format: :dob %>
+      <%= l applicant.date_of_birth, format: :compact %>
     </dd>
   </div>
   <% unless crime_application.pse? %>

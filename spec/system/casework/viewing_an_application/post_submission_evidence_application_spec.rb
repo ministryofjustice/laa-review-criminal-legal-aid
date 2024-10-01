@@ -28,7 +28,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     it 'displays date of birth' do
-      expect(page).to have_content('Date of birth 9 June 2001')
+      expect(page).to have_content('Date of birth 09/06/2001')
     end
 
     it 'does not display NI number' do
