@@ -190,7 +190,7 @@ en:
       card_title: Case
       interests_of_justice:
         result: Interests of justice test results
-        details: Interests of justice reason 
+        details: Interests of justice reason
         assessed_by: Interests of justice test caseworker name
         assessed_on: Date of interests of justice test
       funding_decision: Overall result
@@ -433,7 +433,7 @@ en:
     class: Class
     class_not_determined: Not determined
     change_in_financial_circumstances: Change in financial circumstances
-    changed_date_stamp_detail: Changed after date stamp
+    date_stamp_context_changed: Changed after date stamp
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
     decision_result:
@@ -441,7 +441,7 @@ en:
       fail: Failed
       granted: Granted
       granted_on_ioj: Granted
-      fail_on_ioj: Rejected 
+      fail_on_ioj: Rejected
 
 
     either_way: Either way
@@ -604,7 +604,7 @@ en:
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
-    add_another_funding_decision: 
+    add_another_funding_decision:
       zero: Add a funding decision
       one: Add another funding decision
       other: Add another funding decision
@@ -758,14 +758,14 @@ en:
       section:
         headings:
       funding_decision:
-        manually_enter_decision: You need to manually enter a decision for this application. 
+        manually_enter_decision: You need to manually enter a decision for this application.
       labels:
         <<: *LABELS
       values:
         <<: *VALUES
     decisions:
       index:
-        title: 
+        title:
           zero: Add a funding decision
           one: Check the funding decision
           other: You have added %{count} cases

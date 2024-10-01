@@ -14,12 +14,13 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <%= date_stamp_context.first_name %>
+
+      <% if date_stamp_context.first_name_changed? %>
+        <span class="date-stamp-context-tag">
+          <%= govuk_tag(text: t(:date_stamp_context_changed, scope: 'values'), colour: 'red') %>
+        </span>
+      <% end %>
     </dd>
-    <span class="date-stamp-context-tag">
-    <% if date_stamp_context.first_name != applicant.first_name %>
-      <%= govuk_tag(text: t(:changed_date_stamp_detail, scope: 'values'), colour: 'red') %>
-    <% end %>
-    </span>
   </div>
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
@@ -27,11 +28,12 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <%= date_stamp_context.last_name %>
-      <span class="date-stamp-context-tag">
-      <% if date_stamp_context.last_name != applicant.last_name %>
-        <%= govuk_tag(text: t(:changed_date_stamp_detail, scope: 'values'), colour: 'red') %>
+
+      <% if date_stamp_context.last_name_changed? %>
+        <span class="date-stamp-context-tag">
+          <%= govuk_tag(text: t(:date_stamp_context_changed, scope: 'values'), colour: 'red') %>
+        </span>
       <% end %>
-      </span>
     </dd>
   </div>
   <div class="govuk-summary-list__row date-stamp-context">
@@ -39,13 +41,13 @@
         <%= label_text(:date_of_birth) %>
       </dt>
       <dd class="govuk-summary-list__value">
-        <%= l date_stamp_context.date_of_birth %>
+        <%= l date_stamp_context.date_of_birth, format: :dob %>
 
-        <span class="date-stamp-context-tag">
-        <% if date_stamp_context.date_of_birth != applicant.date_of_birth %>
-          <%= govuk_tag(text: t(:changed_date_stamp_detail, scope: 'values'), colour: 'red') %>
+        <% if date_stamp_context.date_of_birth_changed? %>
+          <span class="date-stamp-context-tag">
+            <%= govuk_tag(text: t(:date_stamp_context_changed, scope: 'values'), colour: 'red') %>
+          </span>
         <% end %>
-        </span>
       </dd>
   </div>
 </dl>

@@ -5,12 +5,9 @@
              nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
-<%= render partial: 'date_stamp',
-           locals: {
-             crime_application: crime_application,
-             applicant: crime_application.client_details.applicant,
-             date_stamp_context: crime_application.date_stamp_context,
-           } if [crime_application.date_stamp_context.last_name, crime_application.date_stamp_context.date_of_birth].map(&:present?).any?  %>
+
+<%= render partial: crime_application.date_stamp_context if crime_application.date_stamp_context.show? %>
+
 <% if FeatureFlags.partner_journey.enabled? %>
   <%= render partial: 'partner_details',
              locals: {
