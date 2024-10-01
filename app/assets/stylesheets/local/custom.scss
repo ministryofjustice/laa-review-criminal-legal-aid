@@ -87,6 +87,14 @@ html {
 
   td:first-child {
     overflow-x: scroll;
-    max-width: 10em; 
+    max-width: 10em;
+  }
+}
+
+.date-stamp-context-tag {
+  float: right;
+
+  .govuk-tag {
+    display: inline;
   }
 }

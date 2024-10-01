@@ -1,0 +1,54 @@
+<%= govuk_summary_card(title: label_text(:date_stamp_details)) do %>
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:date_stamp) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= l date_stamp_context.date_stamp, format: :datestamp %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:first_name) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= date_stamp_context.first_name %>
+
+      <% if date_stamp_context.first_name_changed? %>
+        <span class="date-stamp-context-tag">
+          <%= govuk_tag(text: t(:date_stamp_context_changed, scope: 'values'), colour: 'red') %>
+        </span>
+      <% end %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <%= label_text(:last_name) %>
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= date_stamp_context.last_name %>
+
+      <% if date_stamp_context.last_name_changed? %>
+        <span class="date-stamp-context-tag">
+          <%= govuk_tag(text: t(:date_stamp_context_changed, scope: 'values'), colour: 'red') %>
+        </span>
+      <% end %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row date-stamp-context">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:date_of_birth) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= l date_stamp_context.date_of_birth, format: :compact %>
+
+        <% if date_stamp_context.date_of_birth_changed? %>
+          <span class="date-stamp-context-tag">
+            <%= govuk_tag(text: t(:date_stamp_context_changed, scope: 'values'), colour: 'red') %>
+          </span>
+        <% end %>
+      </dd>
+  </div>
+</dl>
+<% end %>
