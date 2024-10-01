@@ -21,7 +21,7 @@ class ReviewActionComponent < ViewComponent::Base
   def target
     case action
     when :complete
-      complete_crime_application_path(application)
+      crime_application_complete_path(application)
     when :send_back
       new_crime_application_return_path(application)
     when :mark_as_ready
@@ -31,6 +31,7 @@ class ReviewActionComponent < ViewComponent::Base
 
   def method
     return :get if action == :send_back
+    return :post if action == :complete
 
     :put
   end

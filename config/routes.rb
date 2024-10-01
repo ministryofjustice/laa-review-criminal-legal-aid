@@ -32,10 +32,10 @@ Rails.application.routes.draw do
       get :open, on: :collection
       get :closed, on: :collection
       get :history, on: :member
-      put :complete, on: :member
       put :ready, on: :member
       resource :reassign, only: [:new, :create]
       resource :return, only: [:new, :create]
+      resource :complete, only: [:show, :create]
 
       resources :decisions, only: [:create] do 
         scope module: :decisions do
