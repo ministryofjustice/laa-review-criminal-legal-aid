@@ -710,7 +710,7 @@ en:
       show:
         page_title: Decision sent
         panel_text: Decision sent
-        body: Your decision has been sent to the provider
+        body: Your decision has been sent to the provider.
 
     application_searches:
       application_search_filter:

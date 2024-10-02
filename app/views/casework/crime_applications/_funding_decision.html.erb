@@ -6,7 +6,9 @@
     <%= label_text(:funding_decision) %>
   </h2>
 
-  <p><%= t '.manually_enter_decision' %></p>
+  <% unless crime_application.status? ::Types::ReviewState[:completed] %>
+    <p><%= t '.manually_enter_decision' %></p>
+  <% end %>
 
   <% if crime_application.draft_decisions.empty? %>
     <%= govuk_button_to action_text(:start), crime_application_decisions_path(crime_application)  %>

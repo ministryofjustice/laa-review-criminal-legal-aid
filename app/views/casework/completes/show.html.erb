@@ -3,24 +3,24 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-!-margin-top-5 govuk-!-margin-bottom-4">
-      <%= govuk_tag(text: t(crime_application.review_status, scope: 'values.review_status'), colour: t(crime_application.review_status, scope: 'values.color')) %>
+      <%= govuk_tag(text: t(@crime_application.review_status, scope: 'values.review_status'), colour: t(@crime_application.review_status, scope: 'values.color')) %>
     </div>
 
-    <% if crime_application.superseded? %>
+    <% if @crime_application.superseded? %>
       <% id = 'superseded_' %>
     <% end %>
 
     <p class="govuk-body-l govuk-!-margin-bottom-2" id="<%= id %>style">
       <span class="govuk-!-margin-right-2" id="reference-number">
-        <%= crime_application.reference %>
+        <%= @crime_application.reference %>
       </span>
-      <% unless crime_application.superseded? %>
+      <% unless @crime_application.superseded? %>
         <%= link_to t('calls_to_action.copy_reference_number'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
       <% end %>
     </p>
 
     <h2 class="govuk-heading-xl govuk-!-margin-bottom-4" id="<%= id %>style">
-      <%= crime_application.applicant.full_name %>
+      <%= @crime_application.applicant.full_name %>
     </h2>
   </div>
 </div>
@@ -37,7 +37,7 @@
       <%= t('.body') %>
     </p>
 
-    <%= render partial: 'crime_applications/funding_decision', locals: { crime_application: @crime_application } %>
+    <%= render partial: 'casework/crime_applications/funding_decision', locals: { crime_application: @crime_application } %>
 
     <%= link_to t('calls_to_action.back_to_list'), assigned_applications_path, class: 'govuk-link govuk-link--no-visited-state' %>
   </div>
