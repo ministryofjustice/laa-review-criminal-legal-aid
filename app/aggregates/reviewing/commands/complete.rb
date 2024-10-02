@@ -2,7 +2,7 @@ module Reviewing
   class Complete < Command
     attribute :application_id, Types::Uuid
     attribute :user_id, Types::Uuid
-    attribute :decisions, Types::ReturnDetails
+    attribute :decisions, Types::Array.of(Types::Decision)
 
     def call
       ActiveRecord::Base.transaction do

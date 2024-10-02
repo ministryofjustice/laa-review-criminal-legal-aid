@@ -54,5 +54,13 @@ module Deciding
 
       Types::InterestsOfJusticeDecision[@interests_of_justice]
     end
+
+    def attributes
+      {
+        interests_of_justice: interests_of_justice,
+        funding_decision: funding_decision,
+        comment: comment
+      }
+    end
   end
 end

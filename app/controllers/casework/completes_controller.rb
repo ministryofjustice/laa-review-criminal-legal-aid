@@ -7,7 +7,8 @@ module Casework
     def create
       Reviewing::Complete.new(
         application_id: @crime_application.id,
-        user_id: current_user_id
+        user_id: current_user_id,
+        decisions: @crime_application.draft_decisions.map(&:attributes)
       ).call
 
       set_flash :completed

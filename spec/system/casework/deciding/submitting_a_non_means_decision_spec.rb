@@ -6,8 +6,6 @@ RSpec.describe 'Submitting a Non-means decision' do
   include_context 'with stubbed application' do
     let(:application_data) do
       JSON.parse(LaaCrimeSchemas.fixture(1.0).read).merge(
-        'reference' => '1234',
-        'client_details' => { 'applicant' => { 'first_name' => 'Grace', 'last_name' => 'Nolan' } },
         'is_means_tested' => 'no',
         'work_stream' => 'non_means_tested'
       )
@@ -57,7 +55,6 @@ RSpec.describe 'Submitting a Non-means decision' do
     end
 
     it 'shows the `Submit decision` button' do
-      pp page.source
       expect(page).to have_button('Submit decision')
     end
 
@@ -79,20 +76,20 @@ RSpec.describe 'Submitting a Non-means decision' do
       click_on 'Submit decision'
       click_on 'Back to your list'
 
-      expect(page).not_to have_text('1234')
+      expect(page).not_to have_text('6000001')
     end
 
     it 'moves the application to `Closed applications` after submission' do
       click_on 'Submit decision'
       click_on 'Closed applications'
 
-      expect(page).to have_text('1234')
+      expect(page).to have_text('6000001')
     end
 
     it 'shows funding decision on closed application' do # rubocop:disable RSpec/ExampleLength
       click_on 'Submit decision'
       click_on 'Closed applications'
-      click_on 'Grace Nolan'
+      click_on 'Kit Pound'
 
       expect(summary_card('Case')).to have_rows(
         'Interests of justice test results', 'Passed',
