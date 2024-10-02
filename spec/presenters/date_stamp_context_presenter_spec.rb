@@ -67,5 +67,31 @@ RSpec.describe DateStampContextPresenter do
         it { is_expected.to be true }
       end
     end
+
+    context 'with missing date stamp context' do
+      let(:attributes) do
+        attrs = super()
+        attrs['date_stamp_context'] = nil
+        attrs
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'with corrupted date stamp context' do
+      let(:attributes) do
+        attrs = super()
+
+        # Missing last_name, date_of_birth, etc
+        attrs['date_stamp_context'] = {
+          'date_stamp' => Date.new(2022, 10, 24).to_s,
+          'first_name' => 'Kitten',
+        }
+
+        attrs
+      end
+
+      it { is_expected.to be true }
+    end
   end
 end
