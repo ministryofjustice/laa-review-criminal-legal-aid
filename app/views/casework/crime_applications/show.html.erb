@@ -31,6 +31,7 @@
   <div class="govuk-grid-column-full">
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= funding_actions(@crime_application) %>
         <%= reviewing_actions(@crime_application) %>
 
         <%= button_to t('calls_to_action.unassign_from_self'),

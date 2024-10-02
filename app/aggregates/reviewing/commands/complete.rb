@@ -2,6 +2,7 @@ module Reviewing
   class Complete < Command
     attribute :application_id, Types::Uuid
     attribute :user_id, Types::Uuid
+    attribute :decisions, Types::ReturnDetails
 
     def call
       ActiveRecord::Base.transaction do
@@ -11,7 +12,7 @@ module Reviewing
 
         DatastoreApi::Requests::UpdateApplication.new(
           application_id: application_id,
-          payload: true,
+          payload: { decisions: },
           member: :complete
         ).call
       end

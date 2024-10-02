@@ -111,5 +111,9 @@ module Reviewing
     def available_reviewer_actions
       AvailableReviewerActions.for(self)
     end
+
+    def available_funding_actions
+      AvailableFundingActions.for(self)
+    end
   end
 end

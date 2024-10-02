@@ -610,6 +610,7 @@ en:
       other: Add another funding decision
     add_funding_decision: Add a funding decision
     assign_to_self: Assign to your list
+    back_to_list: Back to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
     copy_reference_number: Copy reference number
@@ -629,6 +630,7 @@ en:
     sign_in: Sign in
     start_now: Start now
     start: Start
+    submit_decision: Submit decision
 
   actions: *ACTIONS
   confirmations:
@@ -703,6 +705,12 @@ en:
       new:
         page_title: Send back application
         header: "Send %{applicant_name}'s application back to the provider"
+
+    completes:
+      show:
+        page_title: Decision sent
+        panel_text: Decision sent
+        body: Your decision has been sent to the provider
 
     application_searches:
       application_search_filter:
