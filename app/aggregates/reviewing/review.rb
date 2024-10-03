@@ -5,6 +5,7 @@ module Reviewing
     def initialize(id)
       @id = id
       @decision_ids = []
+      @maat_ids = []
     end
 
     attr_reader :id, :decision_ids, :state, :return_reason, :reviewed_at, :reviewer_id, :submitted_at, :superseded_by,
@@ -52,8 +53,12 @@ module Reviewing
       apply MarkedAsReady.build(self, user_id:)
     end
 
-    def add_decision(user_id:, decision_id:)
+    def add_decision(decision_id:, user_id: nil)
       apply DecisionAdded.build(self, user_id:, decision_id:)
+    end
+
+    def add_maat_decision(maat_id:, decision_id:)
+      apply MaatDecisionAdded.build(self, maat_id:, decision_id:)
     end
 
     on ApplicationReceived do |event|
@@ -68,6 +73,11 @@ module Reviewing
 
     on DecisionAdded do |event|
       @decision_ids << event.data.fetch(:decision_id)
+    end
+
+    on MaatDecisionAdded do |event|
+      @decision_ids << event.data.fetch(:decision_id)
+      @maat_ids << event.data.fetch(:maat_id)
     end
 
     on SentBack do |event|

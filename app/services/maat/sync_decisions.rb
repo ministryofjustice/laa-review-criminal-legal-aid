@@ -1,30 +1,48 @@
 # Sync draft application decision with MAAT.
-#
 module Maat
-  class Sync
-    def initialize(application)
-      @application = application
+  class SyncDecisions
+    def initialize(application_id:, reference:, decision_ids:)
+      @application_id = application_id
+      @reference = reference
+      @decision_ids = decision_ids
     end
 
     def call
-      return if non_means_tested?
+      find_and_link if decision_ids.empty?
 
-      check_for_usn_draft 
+      decision_ids.each do |decision_id|
+        Deciding::UpdateFromLinkedDecision.call(decision_id:)
+      end
+    end
+
+    class << self
+      def call(application)
+        return unless application.status?(Types::ReviewState[:marked_as_ready])
+
+        new(
+          decision_ids: application.review.decision_ids,
+          reference: 10_002_679, # application.reference,
+          application_id: application.id
+        ).call
+      end
     end
 
     private
 
-    def check_for_usn_draft
-    end
-    
-    def non_means_tested?
-      @application.work_stream == Types::WorkStreamType[:non_means_tested]
+    attr_reader :application_id, :decision_ids, :reference
+
+    def find_and_link
+      linked_decision = Maat::GetDecision.new.by_usn(reference)
+
+      return unless linked_decision
+
+      decision_id = SecureRandom.uuid
+      maat_id = linked_decision.maat_id
+
+      ActiveRecord::Base.transaction do
+        Deciding::LinkDraft.call(application_id:, linked_decision:, decision_id:)
+        Reviewing::AddMaatDecision.call(application_id:, decision_id:, maat_id:)
+      end
     end
   end
 end
-
-create a maat synch aggregate
-
-check_for_linked_decision
-
-linked_decision

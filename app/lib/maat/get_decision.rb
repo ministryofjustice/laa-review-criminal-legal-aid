@@ -26,8 +26,9 @@ module Maat
 
       # NOTE: The MAAT API returns a 200 status even if a decision has not been found.
       # The existence of the decision can only be determined by checking if
-      # the response body is empty.
-      return nil if response.body.empty?
+      # the response body includes a MAAT Reference.
+      #
+      return nil unless response.body.present? && response.body['maat_ref'].present?
 
       Decision.build(response.body)
     end

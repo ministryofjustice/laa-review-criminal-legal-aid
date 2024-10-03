@@ -30,7 +30,7 @@ module Casework
     end
 
     def show
-      Maat::Synch.call(@crime_application)
+      Maat::SyncDecisions.call(@crime_application)
     end
 
     def history; end

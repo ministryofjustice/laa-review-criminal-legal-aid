@@ -16,6 +16,7 @@ module Reviewing
   class NotReceived < Error; end
 
   class DecisionAdded < Event; end
+  class MaatDecisionAdded < Event; end
 
   class << self
     def stream_name(application_id)

@@ -77,10 +77,10 @@ module Types
   )
 
   MeansDecision = Hash.schema(
-    result: MeansResult,
-    details?: String,
-    assessed_by: String,
-    assessed_on: Date
+    result: MeansResult.optional,
+    details?: String.optional,
+    assessed_by: String.optional,
+    assessed_on: Date.optional
   )
 
   Report = String.enum(*%w[

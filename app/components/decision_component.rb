@@ -31,7 +31,22 @@ class DecisionComponent < ViewComponent::Base
   end
 
   def rows
-    ioj_rows
+    maat_rows + ioj_rows + means_rows
+  end
+
+  def maat_rows
+    return [] if decision.maat_id.blank?
+
+    [
+      {
+        key: { text: label_text(:maat_id, scope: :decision) },
+        value: { text: decision.maat_id }
+      },
+      {
+        key: { text: label_text(:case_id, scope: :decision) },
+        value: { text: decision.case_id }
+      }
+    ]
   end
 
   def ioj_rows # rubocop:disable Metrics/MethodLength
@@ -53,13 +68,43 @@ class DecisionComponent < ViewComponent::Base
       },
       {
         key: { text: label_text(:assessed_on, scope:) },
-        value: { text: l(interests_of_justice[:assessed_on], format: :compact) }
+        value: { text: date(interests_of_justice[:assessed_on]) }
+      }
+    ]
+  end
+
+  def means_rows # rubocop:disable Metrics/MethodLength
+    return [] if interests_of_justice.blank?
+
+    scope = [:decision, :means]
+    [
+      {
+        key: { text: label_text(:result, scope:) },
+        value: { text: means_result }
+      },
+      {
+        key: { text: label_text(:assessed_by, scope:) },
+        value: { text: means[:assessed_by] }
+      },
+      {
+        key: { text: label_text(:assessed_on, scope:) },
+        value: { text: date(means[:assessed_on]) }
       }
     ]
   end
 
   def ioj_result
     t(interests_of_justice[:result], scope: [:values, :decision_result])
+  end
+
+  def date(value)
+    return unless value
+
+    l(value, format: :compact)
+  end
+
+  def means_result
+    t(means[:result], scope: [:values, :decision_result])
   end
 
   attr_reader :decision, :decision_iteration

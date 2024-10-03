@@ -186,11 +186,18 @@ en:
 
     decision:
       card_title: Case
+      maat_id: MAAT ID
+      case_id: Case number
       interests_of_justice:
         result: Interests of justice test results
         details: Interests of justice reason 
         assessed_by: Interests of justice test caseworker name
         assessed_on: Date of interests of justice test
+      means:
+        result: Means test results
+        details: Means reason 
+        assessed_by: Means test caseworker name
+        assessed_on: Date of means test
       funding_decision: Overall result
       comment: Further information about the decision
     employments_title: Jobs
