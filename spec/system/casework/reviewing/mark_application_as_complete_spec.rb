@@ -14,6 +14,10 @@ RSpec.describe 'Marking an application as complete' do
     let(:assignee_id) { current_user_id }
 
     before do
+      allow(FeatureFlags).to receive(:adding_decisions) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+
       allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
         .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
@@ -39,7 +43,7 @@ RSpec.describe 'Marking an application as complete' do
     it 'redirects to the correct page' do
       expect { click_button(complete_cta) }.to change { page.current_path }
         .from(crime_application_path(crime_application_id)).to(
-          crime_application_complete_path(crime_application_id)
+          assigned_applications_path
         )
     end
 

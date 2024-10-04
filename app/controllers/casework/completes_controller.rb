@@ -4,7 +4,7 @@ module Casework
 
     def show; end
 
-    def create
+    def create # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
       Reviewing::Complete.new(
         application_id: @crime_application.id,
         user_id: current_user_id,

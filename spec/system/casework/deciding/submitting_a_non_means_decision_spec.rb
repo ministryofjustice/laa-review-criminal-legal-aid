@@ -11,6 +11,26 @@ RSpec.describe 'Submitting a Non-means decision' do
       )
     end
 
+    let(:updated_application_data) do
+      application_data.merge(
+        'decisions' => [
+          {
+            'reference' => 6_000_001,
+            'maat_id' => nil,
+            'interests_of_justice' => {
+              'result' => 'pass',
+              'details' => 'reason',
+              'assessed_by' => 'Test User',
+              'assessed_on' => '2024-10-01 00:00:00'
+            },
+            'means' => nil,
+            'funding_decision' => 'granted',
+            'comment' => 'Test comment'
+          }
+        ]
+      )
+    end
+
     before do
       allow(FeatureFlags).to receive(:adding_decisions) {
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
@@ -55,10 +75,16 @@ RSpec.describe 'Submitting a Non-means decision' do
       )
 
       visit crime_application_path(application_id)
-      click_on 'Submit decision'
+
+      stub_request(
+        :get,
+        "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+      ).to_return(body: updated_application_data.to_json, status: 200)
     end
 
     it 'shows the confirmation page' do # rubocop:disable RSpec/ExampleLength
+      click_on 'Submit decision'
+
       expect(page).to have_text('Decision sent')
       expect(summary_card('Case')).to have_rows(
         'Interests of justice test results', 'Passed',
@@ -70,21 +96,17 @@ RSpec.describe 'Submitting a Non-means decision' do
       )
     end
 
-    it 'removes application from my list' do
-      click_on 'Back to your list'
+    it 'removes the application from "Your list"' do
+      expect(page).to have_content('Your list (1)')
 
-      expect(page).not_to have_text('6000001')
-    end
+      click_on 'Submit decision'
 
-    it 'moves the application to `Closed applications`' do
-      click_on 'Closed applications'
-
-      expect(page).to have_text('6000001')
+      expect(page).to have_content('Your list (0)')
     end
 
     it 'shows funding decision on closed application' do # rubocop:disable RSpec/ExampleLength
-      click_on 'Closed applications'
-      click_on 'Kit Pound'
+      click_on 'Submit decision'
+      visit crime_application_path(application_id)
 
       expect(summary_card('Case')).to have_rows(
         'Interests of justice test results', 'Passed',

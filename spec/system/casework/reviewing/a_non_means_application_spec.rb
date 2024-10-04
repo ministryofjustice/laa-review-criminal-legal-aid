@@ -10,6 +10,10 @@ RSpec.describe 'Reviewing a Non-means application' do
     end
 
     before do
+      allow(FeatureFlags).to receive(:adding_decisions) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+
       allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).and_return(
         instance_double(DatastoreApi::Requests::UpdateApplication, call: {})
       )
