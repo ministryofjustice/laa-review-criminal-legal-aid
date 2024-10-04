@@ -16,6 +16,9 @@ RSpec.describe 'Submitting a Non-means decision' do
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
       }
 
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
       Assigning::AssignToUser.new(
         assignment_id: application_id,
         user_id: current_user_id,
@@ -52,15 +55,10 @@ RSpec.describe 'Submitting a Non-means decision' do
       )
 
       visit crime_application_path(application_id)
-    end
-
-    it 'shows the `Submit decision` button' do
-      expect(page).to have_button('Submit decision')
-    end
-
-    it 'shows the confirmation page on submission' do # rubocop:disable RSpec/ExampleLength
       click_on 'Submit decision'
+    end
 
+    it 'shows the confirmation page' do # rubocop:disable RSpec/ExampleLength
       expect(page).to have_text('Decision sent')
       expect(summary_card('Case')).to have_rows(
         'Interests of justice test results', 'Passed',
@@ -72,22 +70,19 @@ RSpec.describe 'Submitting a Non-means decision' do
       )
     end
 
-    it 'removes application from my list after submission' do
-      click_on 'Submit decision'
+    it 'removes application from my list' do
       click_on 'Back to your list'
 
       expect(page).not_to have_text('6000001')
     end
 
-    it 'moves the application to `Closed applications` after submission' do
-      click_on 'Submit decision'
+    it 'moves the application to `Closed applications`' do
       click_on 'Closed applications'
 
       expect(page).to have_text('6000001')
     end
 
     it 'shows funding decision on closed application' do # rubocop:disable RSpec/ExampleLength
-      click_on 'Submit decision'
       click_on 'Closed applications'
       click_on 'Kit Pound'
 

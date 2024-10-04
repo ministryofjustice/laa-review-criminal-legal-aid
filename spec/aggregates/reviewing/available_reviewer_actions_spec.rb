@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe Reviewing::AvailableReviewerActions do
   describe '#actions' do
     subject(:actions) do
-      described_class.new(state:, application_type:, work_stream:).actions
+      described_class.new(state:, application_type:, work_stream:, has_decisions:).actions
     end
+
+    let(:has_decisions) { false }
 
     context 'when state "open"' do
       let(:state) { Types::ReviewState[:open] }
@@ -113,13 +115,29 @@ RSpec.describe Reviewing::AvailableReviewerActions do
       end
     end
 
+    context 'when has decisions' do
+      let(:state) { Types::ReviewState[:open] }
+      let(:application_type) { Types::ApplicationType['initial'] }
+      let(:work_stream) { WorkStream.new('criminal_applications_team') }
+      let(:has_decisions) { true }
+
+      before do
+        allow(FeatureFlags).to receive(:adding_decisions) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        }
+      end
+
+      it { is_expected.to include(:submit_decision) }
+    end
+
     describe '.for(reviewable)' do
       let(:reviewable) do
         instance_double(
           Reviewing::Review,
           state: :open,
           application_type: 'post_submission_evidence',
-          work_stream: 'criminal_applications_team'
+          work_stream: 'criminal_applications_team',
+          decision_ids: []
         )
       end
 
@@ -133,7 +151,8 @@ RSpec.describe Reviewing::AvailableReviewerActions do
             Reviewing::Review,
             state: :open,
             application_type: nil,
-            work_stream: :criminal_applications_team
+            work_stream: :criminal_applications_team,
+            decision_ids: []
           )
         end
 

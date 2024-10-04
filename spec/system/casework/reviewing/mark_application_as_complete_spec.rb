@@ -39,7 +39,7 @@ RSpec.describe 'Marking an application as complete' do
     it 'redirects to the correct page' do
       expect { click_button(complete_cta) }.to change { page.current_path }
         .from(crime_application_path(crime_application_id)).to(
-          assigned_applications_path
+          crime_application_complete_path(crime_application_id)
         )
     end
 

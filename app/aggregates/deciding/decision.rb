@@ -57,9 +57,9 @@ module Deciding
 
     def attributes
       {
-        interests_of_justice: interests_of_justice,
-        funding_decision: funding_decision,
-        comment: comment
+        interests_of_justice:,
+        funding_decision:,
+        comment:
       }
     end
   end

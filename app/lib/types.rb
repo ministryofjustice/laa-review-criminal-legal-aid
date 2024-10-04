@@ -1,7 +1,7 @@
 require 'laa_crime_schemas/types/types'
 require 'dry-schema'
 
-module Types
+module Types # rubocop:disable Metrics/ModuleLength
   include LaaCrimeSchemas::Types
 
   Uuid = Strict::String

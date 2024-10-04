@@ -24,12 +24,4 @@ module ComponentsHelper
       application.available_reviewer_actions, application:
     )
   end
-
-  def funding_actions(application)
-    return unless FeatureFlags.adding_decisions.enabled?
-
-    render FundingActionComponent.with_collection(
-      application.available_funding_actions, application:
-    )
-  end
 end
