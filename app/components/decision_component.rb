@@ -28,13 +28,14 @@ class DecisionComponent < ViewComponent::Base
   private
 
   def actions
-    return [] unless show_actions 
+    return [] unless show_actions
 
     [change_action]
   end
 
   def change_action
-    params = {crime_application_id: decision.application_id, decision_id: decision.decision_id, id: decision.decision_id}
+    params = { crime_application_id: decision.application_id, decision_id: decision.decision_id,
+id: decision.decision_id }
     if decision.maat_id.present?
       govuk_link_to(
         'Change', edit_crime_application_maat_decision_path(**params)

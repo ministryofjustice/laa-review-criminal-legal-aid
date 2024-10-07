@@ -4,8 +4,8 @@ module Casework
     # See DefaultMaatDecisionsController
     include SetDecisionAndAuthorise
 
-    before_action :set_decision, except: [:create, :new]
-    before_action :set_maat_decision, except: [:create, :new]
+    before_action :set_decision, except: [:create, :new, :create_by_reference]
+    before_action :set_maat_decision, except: [:create, :new, :create_by_reference]
 
     def new
       @form_object = ::Decisions::MaatIdForm.new(
@@ -22,24 +22,13 @@ module Casework
       )
     end
 
-    def update
-      sync_with_maat
-
-      redirect_to crime_application_path(@crime_application)
-    end
-
-    # Create by the current applications reference, which is the default
-    # in most cases. See create #create_by_maat_id for other case.
+    # create is used when a caseworker needs to link to a decision
+    # not imported directly from CrimeApply. (Such as split case or when importing
+    # failed for a technical reason.)
     def create
-      permitted_params = ::Decisions::MaatIdForm.permit_params(params)
-    
-      maat_id = permitted_params['maat_id']
-
-      if maat_id.present?
-        maat_decision = Maat::GetDecision.new.by_maat_id(maat_id)
-      else
-        maat_decision = Maat::GetDecision.new.by_usn(@crime_application.reference)
-      end
+      maat_decision = Maat::GetDecision.new.by_maat_id(
+        ::Decisions::MaatIdForm.permit_params(params)['maat_id']
+      )
 
       # raise if reference is set and does not match current application
       #
@@ -68,13 +57,16 @@ module Casework
       end
     end
 
-    # #create_by_maat_id is used when a caseworker needs to link to a decision
-    # not imported directly from CrimeApply. (Such as split case or when importing
-    # failed for a technical reason.)
-    def create_by_maat_id
-      maat_decision = Maat::GetDecision.new.by_maat_id(
-        ::Decisions::MaatIdForm.permit_params(params)['maat_id']
-      )
+    def update
+      sync_with_maat
+
+      redirect_to crime_application_path(@crime_application)
+    end
+
+    # Create by the current applications reference, which is the default
+    # method of adding a MAAT decision. See create #create_by_maat_id for other case.
+    def create_by_reference
+      maat_decision = Maat::GetDecision.new.by_usn(@crime_application.reference)
 
       if maat_decision.present?
         args = {
@@ -101,7 +93,6 @@ module Casework
       end
     end
 
-
     private
 
     def sync_with_maat
@@ -109,7 +100,9 @@ module Casework
         @decision.maat_id
       )
 
-      if maat_decision&.checksum != @decision.checksum
+      if maat_decision&.checksum == @decision.checksum
+        set_flash(:no_change_since_last_update, success: false, maat_id: maat_decision.maat_id)
+      else
         Deciding::UpdateFromMaatDecision.call(
           user_id: current_user_id,
           decision_id: @decision.decision_id,
@@ -117,15 +110,13 @@ module Casework
         )
 
         set_flash(:updated_from_maat, maat_id: maat_decision.maat_id)
-      else
-        set_flash(:no_change_since_last_update, success: false, maat_id: maat_decision.maat_id)
       end
     end
 
     def set_maat_decision
       set_decision
 
-      raise Deciding::DecisionNotFound unless @decision.maat_id.present?
+      raise Deciding::DecisionNotFound if @decision.maat_id.blank?
     end
   end
 end

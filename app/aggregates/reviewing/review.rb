@@ -58,7 +58,7 @@ module Reviewing
     end
 
     def add_maat_decision(decision_id:)
-      raise AlreadyLinked if @decision_ids.include?(decision_id) 
+      raise AlreadyLinked if @decision_ids.include?(decision_id)
 
       apply MaatDecisionAdded.build(self, decision_id:)
     end

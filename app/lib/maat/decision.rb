@@ -40,6 +40,7 @@ module Maat
 
         {
           result: response['ioj_result'].downcase,
+          details: response['ioj_reason'],
           assessed_by: response['ioj_assessor_name'],
           assessed_on: response['app_created_date']
         }

@@ -51,7 +51,7 @@ module Deciding
       @reference = event.data.fetch(:reference, nil)
       @state = Types::DecisionState[:draft]
     end
-    
+
     # When the decision is linked to a decision drafted on MAAT
     on DraftCreatedFromMaat do |event|
       @application_id = event.data.fetch(:application_id)
@@ -66,7 +66,6 @@ module Deciding
 
       update_from_maat(event.data.fetch(:maat_decision))
     end
-
 
     on InterestsOfJusticeSet do |event|
       @interests_of_justice = event.data.fetch(:interests_of_justice)

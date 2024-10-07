@@ -71,7 +71,7 @@ module Types
 
   InterestsOfJusticeDecision = Hash.schema(
     result: InterestsOfJusticeResult,
-    details?: String,
+    details?: String.optional,
     assessed_by: String,
     assessed_on: Date
   )

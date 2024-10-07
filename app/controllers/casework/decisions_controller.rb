@@ -4,6 +4,16 @@ module Casework
 
     before_action :set_decision, except: [:create]
 
+    def create_linked_maat_decision
+      # redirect to crime app show if already linked
+      maat_decision = Maat::GetDecision.new.by_usn(reference)
+
+      ActiveRecord::Base.transaction do
+        Deciding::CreateMaatDraft.call(application_id:, maat_decision:, decision_id:)
+        Reviewing::AddMaatDecision.call(application_id:, decision_id:, maat_id:)
+      end
+    end
+
     def create
       decision_id = SecureRandom.uuid
 

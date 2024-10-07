@@ -11,7 +11,6 @@ module Deciding
   end
 end
 
-
 # #Add remove and change links which take you to the decsion and maat decision controllers.
 #
 # Add a funding decision you have entered from MAAT

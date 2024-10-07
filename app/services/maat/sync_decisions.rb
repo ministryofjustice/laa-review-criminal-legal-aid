@@ -32,7 +32,7 @@ module Maat
     attr_reader :application_id, :decision_ids, :reference
 
     def find_and_link
-     maat_decision = Maat::GetDecision.new.by_usn(reference)
+      maat_decision = Maat::GetDecision.new.by_usn(reference)
 
       return unless maat_decision
 

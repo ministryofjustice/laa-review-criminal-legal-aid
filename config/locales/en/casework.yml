@@ -33,8 +33,8 @@ en:
         - There are no new applications to be reviewed
         - You can check again later
       linked_maat_decision_not_found:
-        - Application not found on MAAT 
-        - Create an application on MAAT using the reference number (USN) %{reference} and try again.
+        - Couldn't find the application on MAAT using the reference number (USN) %{reference}
+        - Enter the MAAT ID of this application here and we'll use that instead of the reference number
       no_change_since_last_update:
         - MAAT record %{maat_id} has not changed.
         - Make any required amendments to the decision on MAAT. 

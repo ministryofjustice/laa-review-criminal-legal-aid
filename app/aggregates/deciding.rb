@@ -20,7 +20,7 @@ module Deciding
   class InterestsOfJusticeSet < RailsEventStore::Event; end
   class FundingDecisionSet < RailsEventStore::Event; end
   class SynchedWithMaat < Event; end
-  class CommentSet <  Event; end
+  class CommentSet < Event; end
 
   class << self
     def stream_name(decision_id)

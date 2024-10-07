@@ -12,6 +12,7 @@ RSpec.describe Maat::Decision do
         'case_type' => 'SUMMARY ONLY',
         'ioj_result' => 'PASS',
         'ioj_assessor_name' => 'System Test IoJ',
+        'ioj_reason' => 'Details of IoJ',
         'app_created_date' => '2024-09-23T00:00:00',
         'means_result' => 'PASS',
         'means_assessor_name' => 'System Test Means',
@@ -28,6 +29,7 @@ RSpec.describe Maat::Decision do
       expect(build.interests_of_justice).to eq(
         assessed_by: 'System Test IoJ',
         assessed_on: Date.new(2024, 9, 23),
+        details: 'Details of IoJ',
         result: 'pass'
       )
     end

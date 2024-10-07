@@ -21,13 +21,9 @@
   </h2>
 
   <% if crime_application.draft_decisions.empty? %>
-    <p>First you will need to create an application on MAAT using the reference number (USN)<%= @crime_application.reference %>.
-    <%= govuk_button_to 'Import funding decision from MAAT', crime_application_maat_decisions_path(crime_application)  %>
+    <p>First you will need to create an application on MAAT using the reference number (USN) <%= @crime_application.reference %>.
+    <%= govuk_button_to 'Add funding decision from MAAT', create_by_reference_crime_application_maat_decisions_path(crime_application)  %>
     </p>
-    <p>I need to link to a an application manually created on MAAT, 
-    <%= govuk_link_to 'Add decision using a MAAT ID', crime_application_path(crime_application)  %>
-    </p>
-
   <% else %>
     <%= render(DecisionComponent.with_collection(crime_application.draft_decisions, show_actions: true)) %>
   <% end %>

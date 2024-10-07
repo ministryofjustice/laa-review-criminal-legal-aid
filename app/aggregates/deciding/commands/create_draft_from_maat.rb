@@ -7,12 +7,11 @@ module Deciding
     def call
       with_decision do |decision|
         decision.create_draft_from_maat(
-          application_id: application_id,
-          maat_decision: maat_decision,
+          application_id:,
+          maat_decision:,
           user_id:
         )
       end
     end
   end
 end
-

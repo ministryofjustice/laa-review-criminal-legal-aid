@@ -11,4 +11,3 @@ module Decisions
     end
   end
 end
-
