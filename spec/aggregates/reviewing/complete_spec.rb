@@ -11,7 +11,7 @@ RSpec.describe Reviewing::Complete do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
       {
         application_id: application_id,
-        payload: true,
+        payload: { decisions: [] },
         member: :complete
       }
     ).and_return(return_request)

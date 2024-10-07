@@ -524,6 +524,10 @@ en:
       sent_back: red
       completed: green
       marked_as_ready: blue
+      split_case: blue
+      granted: green
+      granted_on_ioj: green
+      fail_on_ioj: red
     download_file: "Download file (%{file_extension}, %{file_size})"
     no_hearing_yet: There has not been a hearing yet
     manage_without_income:
@@ -601,6 +605,12 @@ en:
       applicant: Client's name
       partner: Partner's name
       applicant_and_partner: Client and partner
+    overall_funding_decision:
+      split_case: Split case
+      # TODO: Confirm content with design
+      granted: Granted
+      granted_on_ioj: Granted interests of justice
+      fail_on_ioj: Failed interests of justice
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
@@ -610,6 +620,7 @@ en:
       other: Add another funding decision
     add_funding_decision: Add a funding decision
     assign_to_self: Assign to your list
+    back_to_list: Back to your list
     clear_search: Clear
     confirm_reassign_to_self: Yes, reassign
     copy_reference_number: Copy reference number
@@ -629,6 +640,7 @@ en:
     sign_in: Sign in
     start_now: Start now
     start: Start
+    submit_decision: Submit decision
 
   actions: *ACTIONS
   confirmations:
@@ -703,6 +715,12 @@ en:
       new:
         page_title: Send back application
         header: "Send %{applicant_name}'s application back to the provider"
+
+    completes:
+      show:
+        page_title: Decision sent
+        panel_text: Decision sent
+        body: Your decision has been sent to the provider.
 
     application_searches:
       application_search_filter:

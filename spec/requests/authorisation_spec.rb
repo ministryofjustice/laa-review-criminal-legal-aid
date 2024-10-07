@@ -20,10 +20,10 @@ RSpec.describe 'Authorisation' do
       assigned_application
       assigned_applications
       closed_crime_applications
-      complete_crime_application
       crime_application
       crime_application_reassign
       crime_application_return
+      crime_application_complete
       crime_applications
       download_documents
       documents

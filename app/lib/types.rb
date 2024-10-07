@@ -1,7 +1,7 @@
 require 'laa_crime_schemas/types/types'
 require 'dry-schema'
 
-module Types
+module Types # rubocop:disable Metrics/ModuleLength
   include LaaCrimeSchemas::Types
 
   Uuid = Strict::String
@@ -81,6 +81,15 @@ module Types
     details?: String,
     assessed_by: String,
     assessed_on: Date
+  )
+
+  Decision = Hash.schema(
+    reference?: Integer,
+    maat_id?: Integer,
+    interests_of_justice?: Types::InterestsOfJusticeDecision,
+    means?: Types::MeansDecision,
+    funding_decision: Types::FundingDecisionResult,
+    comment?: String
   )
 
   Report = String.enum(*%w[

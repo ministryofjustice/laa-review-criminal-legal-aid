@@ -5,7 +5,7 @@ module Casework
 
     before_action :require_a_user_work_stream, only: %i[open closed]
     before_action :set_current_work_stream, only: %i[open closed]
-    before_action :set_crime_application, only: %i[show history complete ready]
+    before_action :set_crime_application, only: %i[show history ready]
 
     def open
       set_search(
@@ -32,19 +32,6 @@ module Casework
     def show; end
 
     def history; end
-
-    def complete
-      Reviewing::Complete.new(
-        application_id: @crime_application.id,
-        user_id: current_user_id
-      ).call
-
-      set_flash :completed
-      redirect_to assigned_applications_path
-    rescue Reviewing::Error => e
-      set_flash(e.message_key, success: false)
-      redirect_to crime_application_path(@crime_application)
-    end
 
     def ready
       Reviewing::MarkAsReady.new(
