@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application unassigned, open, change in financial circumstances application' do
+  include_context 'with stubbed application'
+
   let(:crime_application_id) { '98ab235c-f125-4dcb-9604-19e81782e53b' }
-  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'change_in_financial_circumstances').read) }
+  let(:fixture_name) { 'change_in_financial_circumstances' }
 
   before do
     stub_request(
@@ -13,8 +15,124 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
     visit crime_application_path(crime_application_id)
   end
 
-  it 'includes the application type' do
+  section_titles = [
+    'About the provider',
+    'Applicant details',
+    'Assets',
+    'Bank account',
+    'Benefits the partner gets',
+    'Benefits your client gets',
+    'Case details and offences',
+    'Case details',
+    'Client details',
+    'Declarations',
+    'Declarations',
+    'Details entered for date stamp',
+    'Employment',
+    'Files',
+    'Further information',
+    'Housing payments',
+    'Income',
+    'National Savings Certificate',
+    'Other capital',
+    'Other outgoings',
+    'Other sources of income: client',
+    'Other work benefits',
+    'Outgoings',
+    'Overview',
+    'Partner details',
+    'Partner\'s employment',
+    'Passporting benefit check: client',
+    'Payments the partner gets',
+    'Payments your client gets',
+    'Payments your client makes',
+    'Premium Bonds',
+    'Provider details',
+    'Residential property',
+    'Savings and investments',
+    'Self Assessment tax',
+    'Supporting evidence',
+    'Trust funds: client',
+    'Trust funds: partner',
+    'Unit trust',
+    'We asked the provider to upload:',
+  ]
+
+  it 'shows applicant name' do
+    expect(page).to have_selector 'h1', text: 'Kit Pound', exact_text: true
+  end
+
+  it 'shows expected sections', :aggregate_failures do
+    section_titles.each do |title|
+      expect(page).to have_selector 'h2', text: title, exact_text: true
+    end
+  end
+
+  it 'shows the application type' do
     expect(page).to have_content('Change in financial circumstances')
+  end
+
+  describe '#date_stamp_context' do
+    context 'when it is unavailable' do
+      let(:application_data) do
+        JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+          'date_stamp_context' => nil
+        )
+      end
+
+      it 'does not show date stamp details' do
+        expect(page).not_to have_content('Details entered for date stamp')
+      end
+    end
+
+    context 'when attributes are missing' do
+      let(:application_data) do
+        data = super()
+
+        # first_name, last_name deliberately removed
+        data['date_stamp_context'] = {
+          'date_of_birth' => '2005-06-09',
+        }
+
+        data
+      end
+
+      it 'shows missing attributes as blank' do
+        expected_details = [
+          "First name\n",
+          "Last name\n",
+          'Date of birth 09/06/2005 Changed after date stamp',
+        ]
+
+        expected_details.each do |detail|
+          expect(page).to have_content(detail)
+        end
+      end
+    end
+
+    context 'when it is changed' do
+      let(:application_data) do
+        super().deep_merge(
+          'date_stamp_context' => {
+            'first_name' => 'Rodney',
+            'last_name' => 'Trotter',
+            'date_of_birth' => '2005-06-09',
+          }
+        )
+      end
+
+      it 'shows date stamp details with changed tag' do
+        expected_details = [
+          'First name Rodney Changed after date stamp',
+          'Last name Trotter Changed after date stamp',
+          'Date of birth 09/06/2005 Changed after date stamp',
+        ]
+
+        expected_details.each do |detail|
+          expect(page).to have_content(detail)
+        end
+      end
+    end
   end
 
   context 'without not-asked details' do
