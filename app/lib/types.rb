@@ -83,7 +83,6 @@ module Types # rubocop:disable Metrics/ModuleLength
     assessed_on: Date
   )
 
-  # TODO: double check what is required at submission (of decision)
   Decision = Hash.schema(
     reference?: Integer,
     maat_id?: Integer,

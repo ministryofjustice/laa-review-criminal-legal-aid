@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Reviewing::Complete do
   subject(:command) do
-    described_class.new(application_id:, user_id:, decisions:)
+    described_class.new(application_id:, user_id:)
   end
 
   include_context 'with review'
@@ -11,7 +11,7 @@ RSpec.describe Reviewing::Complete do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
       {
         application_id: application_id,
-        payload: { decisions: },
+        payload: { decisions: [] },
         member: :complete
       }
     ).and_return(return_request)
@@ -32,7 +32,6 @@ RSpec.describe Reviewing::Complete do
   end
 
   let(:user_id) { SecureRandom.uuid }
-  let(:decisions) { [] }
 
   it 'changes the state from :received to :completed' do
     expect { command.call }.to change { review.state }

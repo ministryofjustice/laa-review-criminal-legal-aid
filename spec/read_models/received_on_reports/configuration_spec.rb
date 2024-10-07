@@ -24,7 +24,7 @@ RSpec.describe ReceivedOnReports::Configuration do
 
       travel_to submitted_at + 3.days
 
-      Reviewing::Complete.call(application_id: application_id, user_id: user_id, decisions: [])
+      Reviewing::Complete.call(application_id:, user_id:)
     end
 
     it 'links events to the business day the application was first recived on' do

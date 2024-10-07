@@ -4,11 +4,10 @@ module Casework
 
     def show; end
 
-    def create # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    def create # rubocop:disable Metrics/MethodLength
       Reviewing::Complete.new(
         application_id: @crime_application.id,
-        user_id: current_user_id,
-        decisions: @crime_application.draft_decisions.map(&:attributes)
+        user_id: current_user_id
       ).call
 
       if FeatureFlags.adding_decisions.enabled?

@@ -20,8 +20,7 @@ RSpec.shared_context 'with a completed application' do
 
     Reviewing::Complete.new(
       user_id: user.id,
-      application_id: crime_application_id,
-      decisions: []
+      application_id: crime_application_id
     ).call
   end
 end

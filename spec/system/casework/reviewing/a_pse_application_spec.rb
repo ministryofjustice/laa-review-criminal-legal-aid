@@ -8,10 +8,6 @@ RSpec.describe 'Reviewing a PSE application' do
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
 
   before do
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-    }
-
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).and_return(
       instance_double(DatastoreApi::Requests::UpdateApplication, call: {})
     )
