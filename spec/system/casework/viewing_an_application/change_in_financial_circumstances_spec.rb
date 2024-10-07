@@ -72,6 +72,69 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
     expect(page).to have_content('Change in financial circumstances')
   end
 
+  describe '#date_stamp_context' do
+    context 'when it is unavailable' do
+      let(:application_data) do
+        JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+          'date_stamp_context' => nil
+        )
+      end
+
+      it 'does not show date stamp details' do
+        expect(page).not_to have_content('Details entered for date stamp')
+      end
+    end
+
+    context 'when attributes are missing' do
+      let(:application_data) do
+        data = super()
+
+        # first_name, last_name deliberately removed
+        data['date_stamp_context'] = {
+          'date_of_birth' => '2005-06-09',
+        }
+
+        data
+      end
+
+      it 'shows missing attributes as blank' do
+        expected_details = [
+          "First name\n",
+          "Last name\n",
+          'Date of birth 09/06/2005 Changed after date stamp',
+        ]
+
+        expected_details.each do |detail|
+          expect(page).to have_content(detail)
+        end
+      end
+    end
+
+    context 'when it is changed' do
+      let(:application_data) do
+        super().deep_merge(
+          'date_stamp_context' => {
+            'first_name' => 'Rodney',
+            'last_name' => 'Trotter',
+            'date_of_birth' => '2005-06-09',
+          }
+        )
+      end
+
+      it 'shows date stamp details with changed tag' do
+        expected_details = [
+          'First name Rodney Changed after date stamp',
+          'Last name Trotter Changed after date stamp',
+          'Date of birth 09/06/2005 Changed after date stamp',
+        ]
+
+        expected_details.each do |detail|
+          expect(page).to have_content(detail)
+        end
+      end
+    end
+  end
+
   context 'without not-asked details' do
     it 'does not display overall offence class' do
       expect(page).to have_no_content('Overall offence class')
