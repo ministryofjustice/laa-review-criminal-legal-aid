@@ -32,15 +32,15 @@ module Maat
     attr_reader :application_id, :decision_ids, :reference
 
     def find_and_link
-      linked_decision = Maat::GetDecision.new.by_usn(reference)
+     maat_decision = Maat::GetDecision.new.by_usn(reference)
 
-      return unless linked_decision
+      return unless maat_decision
 
-      decision_id = SecureRandom.uuid
-      maat_id = linked_decision.maat_id
+      decision_id = maat_decision.decision_id
+      maat_id = maat_decision.maat_id
 
       ActiveRecord::Base.transaction do
-        Deciding::LinkDraft.call(application_id:, linked_decision:, decision_id:)
+        Deciding::CreateMaatDraft.call(application_id:, maat_decision:, decision_id:)
         Reviewing::AddMaatDecision.call(application_id:, decision_id:, maat_id:)
       end
     end

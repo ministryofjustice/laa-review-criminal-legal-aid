@@ -45,6 +45,10 @@ Rails.application.routes.draw do
           resource :comment, only: [:edit, :update]
         end
       end
+      
+      resources :maat_decisions, only: [:new, :create, :update, :edit] do
+        post :create_by_maat_id, on: :collection
+      end
     end
 
     get 'applications/open/:work_stream', to: 'crime_applications#open', as: :open_work_stream

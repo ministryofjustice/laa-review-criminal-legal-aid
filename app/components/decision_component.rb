@@ -3,9 +3,10 @@ class DecisionComponent < ViewComponent::Base
   include AppTextHelper
   include ComponentsHelper
 
-  def initialize(decision:, decision_iteration: nil, editable: false)
+  def initialize(decision:, decision_iteration: nil, show_actions: false)
     @decision = decision
     @decision_iteration = decision_iteration
+    @show_actions = show_actions
 
     super
   end
@@ -27,7 +28,22 @@ class DecisionComponent < ViewComponent::Base
   private
 
   def actions
-    []
+    return [] unless show_actions 
+
+    [change_action]
+  end
+
+  def change_action
+    params = {crime_application_id: decision.application_id, decision_id: decision.decision_id, id: decision.decision_id}
+    if decision.maat_id.present?
+      govuk_link_to(
+        'Change', edit_crime_application_maat_decision_path(**params)
+      )
+    else
+      govuk_link_to(
+        'Change', edit_crime_application_decision_interests_of_justice_path(**params)
+      )
+    end
   end
 
   def rows
@@ -107,7 +123,7 @@ class DecisionComponent < ViewComponent::Base
     t(means[:result], scope: [:values, :decision_result])
   end
 
-  attr_reader :decision, :decision_iteration
+  attr_reader :decision, :decision_iteration, :show_actions
 
   delegate :means, :interests_of_justice, to: :decision
 

@@ -57,8 +57,10 @@ module Reviewing
       apply DecisionAdded.build(self, user_id:, decision_id:)
     end
 
-    def add_maat_decision(maat_id:, decision_id:)
-      apply MaatDecisionAdded.build(self, maat_id:, decision_id:)
+    def add_maat_decision(decision_id:)
+      raise AlreadyLinked if @decision_ids.include?(decision_id) 
+
+      apply MaatDecisionAdded.build(self, decision_id:)
     end
 
     on ApplicationReceived do |event|
@@ -77,7 +79,6 @@ module Reviewing
 
     on MaatDecisionAdded do |event|
       @decision_ids << event.data.fetch(:decision_id)
-      @maat_ids << event.data.fetch(:maat_id)
     end
 
     on SentBack do |event|

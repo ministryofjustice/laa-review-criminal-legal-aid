@@ -12,7 +12,7 @@
     <%= govuk_button_to action_text(:start), crime_application_decisions_path(crime_application)  %>
   <% end %>
 
-  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
+  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions, show_actions: true)) %>
 <% end %>
 
 <% if crime_application.status? ::Types::ReviewState[:marked_as_ready] %>
@@ -20,5 +20,15 @@
     <%= label_text(:funding_decision) %>
   </h2>
 
-  <%= render(DecisionComponent.with_collection(crime_application.draft_decisions)) %>
+  <% if crime_application.draft_decisions.empty? %>
+    <p>First you will need to create an application on MAAT using the reference number (USN)<%= @crime_application.reference %>.
+    <%= govuk_button_to 'Import funding decision from MAAT', crime_application_maat_decisions_path(crime_application)  %>
+    </p>
+    <p>I need to link to a an application manually created on MAAT, 
+    <%= govuk_link_to 'Add decision using a MAAT ID', crime_application_path(crime_application)  %>
+    </p>
+
+  <% else %>
+    <%= render(DecisionComponent.with_collection(crime_application.draft_decisions, show_actions: true)) %>
+  <% end %>
 <% end %>

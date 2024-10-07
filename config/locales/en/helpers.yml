@@ -6,6 +6,8 @@ en:
     hint:
       decisions_interests_of_justice_form:
         assessed_on: For example, DD/MM/YYY 
+      decisions_maat_id_form:
+        maat_id: Make a decision one case at a time. You can add more later.
 
     legend:
       decisions_interests_of_justice_form:
@@ -15,6 +17,8 @@ en:
         funding_decision: What is the funding decision for this application?
       decisions_comment_form:
         comment_required: Do you need to add comments for the provider?
+      decisions_maat_id_form:
+        maat_id: MAAT ID  
 
     label:
       decisions_interests_of_justice_form:
@@ -33,6 +37,8 @@ en:
           'true': 'Yes'
           'false': 'No'
         comment: Additional comments for the provider
+      decisions_maat_id_form:
+        maat_id: MAAT ID  
 
     submit:
       save_and_continue: Save and continue

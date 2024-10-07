@@ -11,20 +11,26 @@ module Deciding
 
     # For decisions entered on CrimeReview by the caseworker
     def create_draft(user_id:, application_id:, reference:)
+      raise AlreadyCreated unless @state.nil?
+
       apply DraftCreated.new(
         data: { decision_id:, application_id:, user_id:, reference: }
       )
     end
 
-    # For decisions from MAAT
-    def link_draft(application_id:, linked_decision:)
-      apply DraftLinked.new(
-        data: { decision_id:, application_id:, linked_decision: }
+    def create_draft_from_maat(application_id:, maat_decision:, user_id:)
+      maat_decision = maat_decision.to_h
+      # raise AlreadyCreated unless @state.nil?
+
+      apply DraftCreatedFromMaat.new(
+        data: { decision_id:, application_id:, maat_decision:, user_id: }
       )
     end
 
-    def sync_with_maat(maat_decision:)
-      apply SynchedWithMaat.build(self, maat_decision:)
+    def sync_with_maat(maat_decision:, user_id:)
+      maat_decision = maat_decision.to_h
+
+      apply SynchedWithMaat.build(self, maat_decision:, user_id:)
     end
 
     def set_interests_of_justice(user_id:, interests_of_justice:)
@@ -39,28 +45,28 @@ module Deciding
       apply CommentSet.build(self, user_id:, comment:)
     end
 
-    on DraftLinked do |event|
+    # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
+    on DraftCreated do |event|
+      @application_id = event.data.fetch(:application_id)
+      @reference = event.data.fetch(:reference, nil)
+      @state = Types::DecisionState[:draft]
+    end
+    
+    # When the decision is linked to a decision drafted on MAAT
+    on DraftCreatedFromMaat do |event|
       @application_id = event.data.fetch(:application_id)
 
-      maat_decision = Maat::Decision.new(event.data.fetch(:linked_decision))
-      set_attributes(maat_decision)
+      update_from_maat(event.data.fetch(:maat_decision))
 
-      @maat_id = maat_decision.maat_id
       @state = Types::DecisionState[:draft]
     end
 
     on SynchedWithMaat do |event|
       return if event.data[:maat_decision].blank?
 
-      maat_decision = Maat::Decision.new(event.data.fetch(:maat_decision))
-      set_attributes(maat_decision)
+      update_from_maat(event.data.fetch(:maat_decision))
     end
 
-    on DraftCreated do |event|
-      @application_id = event.data.fetch(:application_id)
-      @reference = event.data.fetch(:reference, nil)
-      @state = Types::DecisionState[:draft]
-    end
 
     on InterestsOfJusticeSet do |event|
       @interests_of_justice = event.data.fetch(:interests_of_justice)
@@ -74,7 +80,10 @@ module Deciding
       @comment = event.data.fetch(:comment)
     end
 
-    def set_attributes(decision)
+    def update_from_maat(maat_attributes)
+      decision = Maat::Decision.new(maat_attributes)
+
+      @maat_id = decision.maat_id
       @reference = decision.reference
       @case_id = decision.case_id
       @interests_of_justice = decision.interests_of_justice

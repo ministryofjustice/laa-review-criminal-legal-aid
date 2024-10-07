@@ -16,11 +16,11 @@ module Deciding
   end
 
   class DraftCreated < RailsEventStore::Event; end
-  class DraftLinked < RailsEventStore::Event; end
+  class DraftCreatedFromMaat < RailsEventStore::Event; end
   class InterestsOfJusticeSet < RailsEventStore::Event; end
   class FundingDecisionSet < RailsEventStore::Event; end
   class SynchedWithMaat < Event; end
-  class CommentSet < RailsEventStore::Event; end
+  class CommentSet <  Event; end
 
   class << self
     def stream_name(decision_id)

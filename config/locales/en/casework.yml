@@ -16,6 +16,12 @@ en:
       sent_back: You sent the application back to the provider
       completed: You marked the application as complete
       marked_as_ready: You marked the application as ready for assessment
+      maat_decision_linked:
+        - Linked to MAAT record %{maat_id} 
+        - Check the decision, and make any required amendments on MAAT. 
+      updated_from_maat:
+        - Updated from MAAT %{maat_id} 
+        - Check the decision, and make any required amendments on MAAT. 
     important:
       reassigned_to_someone_else:
         - This application could not be reassigned to your list
@@ -26,6 +32,12 @@ en:
       no_next_to_assign:
         - There are no new applications to be reviewed
         - You can check again later
+      linked_maat_decision_not_found:
+        - Application not found on MAAT 
+        - Create an application on MAAT using the reference number (USN) %{reference} and try again.
+      no_change_since_last_update:
+        - MAAT record %{maat_id} has not changed.
+        - Make any required amendments to the decision on MAAT. 
       already_sent_back: This application was already sent back to the provider
       already_completed: This application was already marked as complete
       already_marked_as_ready: This application was already marked as ready for assessment
@@ -446,6 +458,7 @@ en:
       granted: Granted
       granted_on_ioj: Granted
       fail_on_ioj: Rejected 
+      failmeans: Failed on means
 
 
     either_way: Either way
@@ -782,3 +795,8 @@ en:
       comments:
         edit:
           title: Do you need to add comments for the provider
+    maat_decisions:
+      new:
+        title: "Make a funding decision"
+      edit:
+        title: "OIOI"

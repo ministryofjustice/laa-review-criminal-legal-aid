@@ -12,6 +12,10 @@ module Maat
       Digest::MD5.hexdigest(to_json)
     end
 
+    def decision_id
+      "MAAT#{maat_id}"
+    end
+
     class << self
       def build(response)
         Rails.logger.debug response

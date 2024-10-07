@@ -5,7 +5,10 @@ module Deciding
 
     def call
       with_decision do |decision|
-        decision.link_draft(application_id: application_id, linked_decision: linked_decision.to_h)
+        decision.link_draft(
+          application_id: application_id,
+          linked_decision: linked_decision.to_h
+        )
       end
     end
   end
