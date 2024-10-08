@@ -37,4 +37,23 @@ RSpec.describe Reviewing::Complete do
     expect { command.call }.to change { review.state }
       .from(:open).to(:completed)
   end
+
+  context 'when there are incomplete decisions' do
+    before do
+      args = {
+        application_id: application_id,
+        user_id: SecureRandom.uuid,
+        decision_id: SecureRandom.uuid
+      }
+
+      Reviewing::AddDecision.call(**args)
+      Deciding::CreateDraft.call(**args)
+    end
+
+    it 'throws an error' do
+      expect do
+        command.call
+      end.to raise_error(Reviewing::IncompleteDecisions)
+    end
+  end
 end

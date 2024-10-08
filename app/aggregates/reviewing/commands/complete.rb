@@ -9,9 +9,12 @@ module Reviewing
           review.complete(user_id:)
 
           decisions = review.decision_ids.map do |decision_id|
-            Deciding::LoadDecision.call(
+            decision = Deciding::LoadDecision.call(
               application_id:, decision_id:
             )
+            raise IncompleteDecisions unless decision.complete?
+
+            decision.attributes
           end
 
           DatastoreApi::Requests::UpdateApplication.new(

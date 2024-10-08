@@ -55,6 +55,10 @@ module Deciding
       Types::InterestsOfJusticeDecision[@interests_of_justice]
     end
 
+    def complete?
+      @funding_decision.present?
+    end
+
     def attributes
       {
         interests_of_justice:,
