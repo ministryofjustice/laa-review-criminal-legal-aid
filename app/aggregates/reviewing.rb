@@ -14,6 +14,7 @@ module Reviewing
   class CannotMarkAsReadyWhenSentBack < Error; end
   class CannotSendBackWhenCompleted < Error; end
   class NotReceived < Error; end
+  class IncompleteDecisions < Error; end
 
   class DecisionAdded < Event; end
 

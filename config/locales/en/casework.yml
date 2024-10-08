@@ -45,6 +45,7 @@ en:
       not_allocated_to_appropriate_work_stream:
         - You must be allocated to the %{work_queue} work queue to review this application
         - Contact your supervisor to arrange this
+      incomplete_decisions: Please complete any pending funding decisions
 
 
   primary_navigation:

@@ -4,13 +4,13 @@ module Casework
 
     def show; end
 
-    def create # rubocop:disable Metrics/MethodLength
+    def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       Reviewing::Complete.new(
         application_id: @crime_application.id,
         user_id: current_user_id
       ).call
 
-      if FeatureFlags.adding_decisions.enabled?
+      if FeatureFlags.adding_decisions.enabled? && @crime_application.draft_decisions.any?
         redirect_to crime_application_complete_path(@crime_application)
       else
         set_flash :completed
