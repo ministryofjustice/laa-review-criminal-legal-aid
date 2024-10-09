@@ -92,17 +92,26 @@ RSpec.describe 'When viewing partner details' do
       end
 
       context 'when home address is present' do
-        subject(:home_address) { page.find('dt', text: 'Home address').find('+dd') }
-
-        let(:application_data) do
-          super().deep_merge('client_details' =>
-                               { 'applicant' => { 'residence_type' => 'none',
-                                                  'relationship_to_owner_of_usual_home_address' => nil } })
-        end
+        subject(:home_address) { page.all('dt', text: 'Home address').last.find('+dd') }
 
         it "displays the partner's address details" do
           expect(page).to have_content('Lives at same address as client? No')
           expect(home_address).to have_content('53 Road Street Another nice city W1 2AA United Kingdom')
+        end
+      end
+
+      context 'when partner home address is missing' do
+        subject(:home_address) { page.all('dt', text: 'Home address').last.find('+dd') }
+
+        let(:application_data) do
+          super().deep_merge('client_details' =>
+                               { 'partner' => { 'has_same_address_as_client' => 'no',
+                                                                  'home_address' => nil } })
+        end
+
+        it "displays the partner's address details" do
+          expect(page).to have_content('Lives at same address as client? No')
+          expect(home_address).to have_content ''
         end
       end
 
