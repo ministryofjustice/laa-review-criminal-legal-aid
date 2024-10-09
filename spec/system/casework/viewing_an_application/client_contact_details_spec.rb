@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Viewing an applications address details' do
+RSpec.describe 'Viewing Client contact details' do
   include_context 'with stubbed application'
 
   before do
@@ -8,9 +8,13 @@ RSpec.describe 'Viewing an applications address details' do
     visit crime_application_path(application_id)
   end
 
-  describe 'Home address' do
+  describe 'Client details Home address' do
     context 'when home address is present' do
-      subject(:home_address) { page.first('dt', text: 'Home address').find('+dd') }
+      subject(:home_address) do
+        within summary_card('Client details') do
+          page.first('dt', text: 'Home address').find('+dd')
+        end
+      end
 
       it 'shows the applicants postal address' do
         expect(home_address).to have_content('1 Road Village Some nice city SW1A 2AA United Kingdom')
@@ -26,14 +30,18 @@ RSpec.describe 'Viewing an applications address details' do
       end
 
       it 'does not show the home address' do
-        expect(page).to have_no_content('Home address')
+        within summary_card('Client details') do
+          expect(page).to have_no_content('Home address')
+        end
       end
     end
   end
 
   describe 'Correspondence address' do
     subject(:correspondence_address) do
-      page.first('dt', text: 'Correspondence address').find('+dd')
+      within summary_card('Client details') do
+        page.first('dt', text: 'Correspondence address').find('+dd')
+      end
     end
 
     context 'when home address' do
