@@ -98,7 +98,7 @@
                 <%= t(:no_home_address, scope: 'values') %>
               <% end %>
             <% else %>
-              <%= render 'address', address: partner.home_address %>
+              <%= render('address', address: partner.home_address) if partner.home_address.present? %>
             <% end %>
           </dd>
         </div>
