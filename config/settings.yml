@@ -25,7 +25,7 @@ feature_flags:
     production: true
   adding_decisions:
     local: false
-    staging: false
+    staging: true
     production: false
   other_charges:
     local: true
