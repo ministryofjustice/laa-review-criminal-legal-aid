@@ -33,7 +33,7 @@ module Types # rubocop:disable Metrics/ModuleLength
     'all' => REVIEW_APPLICATION_STATUSES
   }.freeze
 
-  ReviewStatusGroup = String.default('all'.freeze).enum(
+  ReviewStatusGroup = String.default('open'.freeze).enum(
     *REVIEW_STATUS_GROUPS.keys
   )
 

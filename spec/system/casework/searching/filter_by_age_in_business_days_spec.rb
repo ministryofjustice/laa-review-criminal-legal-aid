@@ -21,7 +21,7 @@ RSpec.describe 'Search applications by age in business days' do
       expect_datastore_to_have_been_searched_with(
         {
           application_id_in: unassigned_application_ids,
-          review_status: Types::REVIEW_STATUS_GROUPS['all']
+          review_status: Types::REVIEW_STATUS_GROUPS['open']
         }
       )
     end

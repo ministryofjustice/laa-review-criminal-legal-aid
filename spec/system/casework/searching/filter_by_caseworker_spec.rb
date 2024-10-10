@@ -22,7 +22,7 @@ RSpec.describe 'Search applications casewoker filter' do
 
     it 'excludes assigned applications from the search' do
       expect_datastore_to_have_been_searched_with({
-                                                    review_status: Types::REVIEW_STATUS_GROUPS['all'],
+                                                    review_status: Types::REVIEW_STATUS_GROUPS['open'],
         application_id_in: unassigned_application_ids
                                                   })
     end
@@ -40,7 +40,7 @@ RSpec.describe 'Search applications casewoker filter' do
 
     it 'excludes unassigned applications from the search' do
       expect_datastore_to_have_been_searched_with({
-                                                    review_status: Types::REVIEW_STATUS_GROUPS['all'],
+                                                    review_status: Types::REVIEW_STATUS_GROUPS['open'],
         application_id_in: current_assignment_ids
                                                   })
     end
@@ -58,7 +58,7 @@ RSpec.describe 'Search applications casewoker filter' do
 
     it 'excludes unassigned applications from the search' do
       expect_datastore_to_have_been_searched_with({
-                                                    review_status: Types::REVIEW_STATUS_GROUPS['all'],
+                                                    review_status: Types::REVIEW_STATUS_GROUPS['open'],
         application_id_in: davids_applications
                                                   })
     end
