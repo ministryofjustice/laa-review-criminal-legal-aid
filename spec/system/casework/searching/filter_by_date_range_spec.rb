@@ -22,7 +22,7 @@ RSpec.describe 'Search by submitted date' do
       {
         submitted_before: '2023-01-09 00:00:00 +0000',
         submitted_after: '2023-06-08 00:00:00 +0100',
-        review_status: Types::REVIEW_STATUS_GROUPS['open']
+        review_status: Types::REVIEW_STATUS_GROUPS['all']
       }
     )
   end

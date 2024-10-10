@@ -9,10 +9,6 @@ RSpec.describe 'Search applications status filter' do
     click_link 'Search'
   end
 
-  it 'filters by "Open" by default' do
-    expect(page).to have_select(filter_field, selected: 'Open')
-  end
-
   it "can choose from 'Open', 'Completed', 'Sent back to provider' or 'All applications'" do
     choices = ['Open', 'Closed', 'Completed', 'Sent back to provider', 'All applications']
     expect(page).to have_select(filter_field, options: choices)
@@ -20,8 +16,8 @@ RSpec.describe 'Search applications status filter' do
 
   describe 'search by:' do
     describe 'default' do
-      it 'filters by status "open"' do
-        expect(page).to have_select(filter_field, selected: 'Open')
+      it 'filters by status "all"' do
+        expect(page).to have_select(filter_field, selected: 'All applications')
       end
     end
 
