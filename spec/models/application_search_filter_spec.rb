@@ -33,7 +33,7 @@ RSpec.describe ApplicationSearchFilter do
     context 'when the filter is empty' do
       let(:expected_datastore_params) do
         {
-          review_status: %w[application_received ready_for_assessment],
+          review_status: %w[application_received returned_to_provider ready_for_assessment assessment_completed],
         }
       end
 

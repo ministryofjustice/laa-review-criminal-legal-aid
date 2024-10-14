@@ -18,6 +18,7 @@ module Types # rubocop:disable Metrics/ModuleLength
   # Map of review status groups to LaaCrimeSchemas::Types:REVIEW_APPLICATION_STATUSES
   #
   REVIEW_STATUS_GROUPS = {
+    'all' => REVIEW_APPLICATION_STATUSES,
     'open' => [
       Types::ReviewApplicationStatus['application_received'],
       Types::ReviewApplicationStatus['ready_for_assessment']
@@ -30,10 +31,9 @@ module Types # rubocop:disable Metrics/ModuleLength
     'sent_back' => [
       Types::ReviewApplicationStatus['returned_to_provider']
     ],
-    'all' => REVIEW_APPLICATION_STATUSES
   }.freeze
 
-  ReviewStatusGroup = String.default('open'.freeze).enum(
+  ReviewStatusGroup = String.default('all'.freeze).enum(
     *REVIEW_STATUS_GROUPS.keys
   )
 
