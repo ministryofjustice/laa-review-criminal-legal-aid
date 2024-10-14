@@ -13,7 +13,7 @@ module Casework
       return unless assignments_count.positive?
 
       set_search(
-        default_filter: { assigned_status: current_user_id },
+        default_filter: { assigned_status: current_user_id, application_status: 'open' },
         default_sorting: { sort_by: 'submitted_at', sort_direction: 'ascending' }
       )
     end
