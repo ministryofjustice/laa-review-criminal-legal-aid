@@ -16,5 +16,4 @@ data:
   OMNIAUTH_AZURE_REDIRECT_URI: https://staging.review-criminal-legal-aid.service.justice.gov.uk/users/auth/azure_ad/callback
   MAAT_API_API_URL: https://laa-crime-applications-adaptor-uat.apps.live.cloud-platform.service.justice.gov.uk
   MAAT_API_OAUTH_URL: https://caa-api-uat.auth.eu-west-2.amazoncognito.com
-  MAAT_API_FIRST_SUPPORTED_MAAT_ID: 6039300 
-
+  MAAT_API_FIRST_SUPPORTED_MAAT_ID: '6039330'

@@ -15,4 +15,6 @@ data:
   OMNIAUTH_AZURE_CLIENT_ID: 7dfb0abc-3b2e-41cf-a2ae-639c5f6b54ba
   OMNIAUTH_AZURE_TENANT_ID: c6874728-71e6-41fe-a9e1-2e8c36776ad8
   OMNIAUTH_AZURE_REDIRECT_URI: https://review-criminal-legal-aid.service.justice.gov.uk/users/auth/azure_ad/callback
-  MAAT_API_FIRST_SUPPORTED_MAAT_ID: 8022414
+  MAAT_API_API_URL: https://laa-crime-applications-adaptor-prod.apps.live.cloud-platform.service.justice.gov.uk
+  MAAT_API_OAUTH_URL: https://caa-api-prod.auth.eu-west-2.amazoncognito.com
+  MAAT_API_FIRST_SUPPORTED_MAAT_ID: '8022414'
