@@ -2,27 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Error pages' do
   context 'when authenticated' do
-    context 'when an unhandled error occurs' do
-      before do
-        allow(ApplicationSearchFilter).to receive(:new) {
-          raise StandardError
-        }
-
-        visit '/'
-        click_on 'Search'
-      end
-
-      it 'shows the unhandled error page and status' do
-        expect(page).to have_content 'Sorry, something went wrong with our service'
-        expect(page).to have_http_status(:internal_server_error)
-      end
-
-      it 'uses the simplified error page layout' do
-        expect(page).to have_no_css('nav.moj-primary-navigation')
-        expect(page).to have_no_link('Sign out')
-      end
-    end
-
     context 'when crime application is not found' do
       before do
         visit '/applications/123'

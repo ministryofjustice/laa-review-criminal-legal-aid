@@ -350,19 +350,23 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'shows the relationship to client' do
-          expect(page).to have_summary_row(residence_question, "In someone else's home")
-          expect(page).to have_summary_row(relationship_question, 'Friend')
+          within_card('Client details') do |card|
+            expect(card).to have_summary_row(residence_question, "In someone else's home")
+            expect(card).to have_summary_row(relationship_question, 'Friend')
+          end
         end
       end
 
       context 'when it was not asked at time of application' do
         let(:application_data) do
-          super().merge('client_details' => { 'applicant' => {} })
+          super().merge('client_details' => { 'applicant' => { 'date_of_birth' => '2000-11-11' } })
         end
 
         it 'does not display' do
-          expect(page).to have_no_content(residence_question)
-          expect(page).to have_no_content(relationship_question)
+          within_card('Client details') do |card|
+            expect(card).to have_no_content(residence_question)
+            expect(card).to have_no_content(relationship_question)
+          end
         end
       end
     end
@@ -377,15 +381,19 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'does display relationship status details' do
-        expect(page).to have_content('Relationship status Separated')
-        expect(page).to have_content('Date client separated from partner 12/03/2008')
+        within_card('Client details') do |card|
+          expect(card).to have_content('Relationship status Separated')
+          expect(card).to have_content('Date client separated from partner 12/03/2008')
+        end
       end
     end
 
     context 'when the question was not asked' do
       it 'does not display relationship status details' do
-        expect(page).to have_no_content('Relationship status')
-        expect(page).to have_no_content('Date client separated from partner')
+        within_card('Client details') do |card|
+          expect(card).to have_no_content('Relationship status')
+          expect(card).to have_no_content('Date client separated from partner')
+        end
       end
     end
   end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing supporting evidence' do
   include_context 'with stubbed application'
+  include_context 'when downloading a document'
 
   before do
     visit crime_application_path(application_id)
