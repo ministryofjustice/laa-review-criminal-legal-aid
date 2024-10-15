@@ -218,9 +218,10 @@ RSpec.describe 'Api::Events' do
     end
 
     it 'throws exception' do
-      do_request
-
-      expect(response).to have_http_status :internal_server_error
+      expect { do_request }.to raise_error(
+        Aws::SNS::MessageVerifier::VerificationError,
+        'The certificate does not match expected X509 PEM format.'
+      )
     end
   end
 
