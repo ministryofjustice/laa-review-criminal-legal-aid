@@ -6,8 +6,10 @@ RSpec.describe DecisionComponent, type: :component do
   before do
     allow(decision).to receive_messages(
       interests_of_justice: {},
+      means: {},
       funding_decision: 'fail',
-      comment: nil
+      comment: nil,
+      maat_id: nil
     )
   end
 

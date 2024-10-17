@@ -124,7 +124,7 @@ RSpec.describe 'Closed Applications' do
   end
 
   context 'when viewing a resubmitted application' do
-    let(:parent_id) { 'test_parent_id' }
+    let(:parent_id) { SecureRandom.uuid }
 
     before do
       click_on 'Closed applications'

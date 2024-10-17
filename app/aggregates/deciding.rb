@@ -1,11 +1,28 @@
 module Deciding
-  class DecisionNotFound < StandardError; end
+  class AlreadyCreated < StandardError; end
   class ApplicationNotAssignedToUser < StandardError; end
+  class DecisionNotFound < StandardError; end
+  class MaatRecordNotChanged < StandardError; end
 
-  class DraftCreated < RailsEventStore::Event; end
-  class InterestsOfJusticeSet < RailsEventStore::Event; end
-  class FundingDecisionSet < RailsEventStore::Event; end
-  class CommentSet < RailsEventStore::Event; end
+  class Event < RailsEventStore::Event
+    class << self
+      def build(decision, data = {})
+        args = {
+          application_id: decision.application_id,
+          decision_id: decision.decision_id
+        }
+
+        new(data: args.merge(data))
+      end
+    end
+  end
+
+  class DraftCreated < Event; end
+  class DraftCreatedFromMaat < Event; end
+  class InterestsOfJusticeSet < Event; end
+  class FundingDecisionSet < Event; end
+  class SynchedWithMaat < Event; end
+  class CommentSet < Event; end
 
   class << self
     def stream_name(decision_id)

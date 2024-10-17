@@ -6,7 +6,8 @@ RSpec.describe Decisions::CommentForm do
       comment: comment,
       comment_required: comment_required,
       application_id: 'aid',
-      decision_id: 'did'
+      decision_id: 'did',
+      reference: 123
     )
   end
 
@@ -15,7 +16,7 @@ RSpec.describe Decisions::CommentForm do
 
   describe '#update_with_user!' do
     subject(:update_with_user) do
-      form_object.update_with_user!(params, 'uid')
+      form_object.update_with_user!(params.with_indifferent_access, 'uid')
     end
 
     before do
@@ -29,7 +30,7 @@ RSpec.describe Decisions::CommentForm do
 
       it 'sets the comment as blank' do
         expect(Deciding::SetComment).to have_received(:call).with(
-          application_id: 'aid', decision_id: 'did',
+          application_id: 'aid', decision_id: 'did', reference: 123,
           comment: '', comment_required: false, user_id: 'uid'
         )
       end
@@ -40,7 +41,7 @@ RSpec.describe Decisions::CommentForm do
 
       it 'sets the new comment' do
         expect(Deciding::SetComment).to have_received(:call).with(
-          application_id: 'aid', decision_id: 'did',
+          application_id: 'aid', decision_id: 'did', reference: 123,
           comment: 'New comment', comment_required: true, user_id: 'uid'
         )
       end
@@ -85,7 +86,7 @@ RSpec.describe Decisions::CommentForm do
     subject(:form) { described_class.build(decision) }
 
     let(:decision) do
-      instance_double(Deciding::Decision, comment: comment, application_id: 'a123', decision_id: 'b456')
+      instance_double(Deciding::Decision, comment: comment, application_id: 'a123', decision_id: 'b456', reference: 123)
     end
 
     context 'when the decision has a comment' do

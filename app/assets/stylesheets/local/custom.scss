@@ -1,4 +1,16 @@
 // App-specific custom styles and overrides
+
+@mixin app-button-reset {
+  padding: 0;
+  margin: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  box-sizing: unset;
+  background-color: transparent;
+}
+
 span.offence_class {
   display: block;
 }
@@ -38,6 +50,15 @@ html {
 
 .govuk-summary-list__key {
   width: 45%
+}
+
+.app-button--link {
+  @include app-button-reset;
+  @extend %govuk-link;
+
+  // Buttons can't have different colours for visited/unvisited
+  font-family: $govuk-font-family;
+  color: $govuk-link-colour;
 }
 
 .app-table {

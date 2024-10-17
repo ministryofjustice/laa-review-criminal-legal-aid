@@ -9,14 +9,16 @@ module Reviewing
   class AlreadyMarkedAsReady < Error; end
   class AlreadyReceived < Error; end
   class AlreadySentBack < Error; end
+  class DecisionAlreadyLinked < Error; end
   class CannotCompleteWhenSentBack < Error; end
   class CannotMarkAsReadyWhenCompleted < Error; end
   class CannotMarkAsReadyWhenSentBack < Error; end
   class CannotSendBackWhenCompleted < Error; end
-  class NotReceived < Error; end
   class IncompleteDecisions < Error; end
+  class NotReceived < Error; end
 
   class DecisionAdded < Event; end
+  class MaatDecisionAdded < Event; end
 
   class << self
     def stream_name(application_id)

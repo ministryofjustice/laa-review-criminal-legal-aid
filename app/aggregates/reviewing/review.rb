@@ -52,7 +52,11 @@ module Reviewing
       apply MarkedAsReady.build(self, user_id:)
     end
 
-    def add_decision(user_id:, decision_id:)
+    def add_decision(decision_id:, user_id: nil)
+      raise AlreadyCompleted if @state.equal?(:completed)
+      raise AlreadySentBack if @state.equal?(:sent_back)
+      raise DecisionAlreadyLinked if @decision_ids.include?(decision_id)
+
       apply DecisionAdded.build(self, user_id:, decision_id:)
     end
 

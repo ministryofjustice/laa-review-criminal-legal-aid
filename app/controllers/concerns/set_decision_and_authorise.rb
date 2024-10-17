@@ -17,7 +17,7 @@ module SetDecisionAndAuthorise
 
     raise Deciding::DecisionNotFound unless decision.application_id == current_crime_application.id
 
-    @decision = decision
+    @decision = Decisions::Draft.build(decision)
   end
 
   def confirm_assigned

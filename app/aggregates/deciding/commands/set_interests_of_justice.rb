@@ -8,10 +8,9 @@ module Deciding
 
     def call
       with_decision do |decision|
-        decision.set_interests_of_justice(
-          user_id: user_id,
-          interests_of_justice: Types::InterestsOfJusticeDecision[**attributes]
-        )
+        interests_of_justice = LaaCrimeSchemas::Structs::TestResult.new(result:, details:, assessed_by:, assessed_on:)
+
+        decision.set_interests_of_justice(user_id:, interests_of_justice:)
       end
     end
   end

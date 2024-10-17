@@ -88,5 +88,6 @@ module LaaReviewCriminalLegalAid
     config.x.maat_api.client_id = ENV["MAAT_API_CLIENT_ID"]
     config.x.maat_api.client_secret = ENV["MAAT_API_CLIENT_SECRET"]
     config.x.maat_api.api_url = ENV["MAAT_API_API_URL"]
+    config.x.maat_api.starting_maat_id = ENV.fetch("MAAT_API_STARTING_MAAT_ID")
   end
 end
