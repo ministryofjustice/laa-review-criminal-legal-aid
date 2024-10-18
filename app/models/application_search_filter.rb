@@ -16,7 +16,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
   attribute? :age_in_business_days, Types::Params::Nil | Types::Params::Integer
   attribute? :applicant_date_of_birth, Types::Params::Nil | Types::Params::Date
   attribute? :application_status, Types::ReviewStatusGroup
-  attribute? :assigned_status, Types::AssignedStatus | Types::Uuid
+  attribute? :assigned_status, Types::Params::Nil | Types::AssignedStatus | Types::Uuid
   attribute? :search_text, Types::Params::Nil | Types::Params::String
   attribute? :submitted_after, Types::Params::Nil | Types::Params::Date
   attribute? :submitted_before, Types::Params::Nil | Types::Params::Date

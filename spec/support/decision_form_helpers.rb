@@ -11,4 +11,17 @@ module DecisionFormHelpers
     choose_answer('What is the funding decision for this application?', 'Granted')
     save_and_continue
   end
+
+  def complete_comment_form
+    choose('Yes')
+    fill_in('Additional comments for the provider', with: 'Caseworker comment')
+    save_and_continue
+  end
+
+  def add_a_non_means_decision
+    click_button 'Start'
+    complete_ioj_form
+    complete_overall_result_form
+    complete_comment_form
+  end
 end

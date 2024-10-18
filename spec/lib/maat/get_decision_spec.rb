@@ -7,19 +7,17 @@ RSpec.describe Maat::GetDecision do
   let(:response) { instance_double(Faraday::Response, body:) }
   let(:connection) { instance_double(Faraday::Connection) }
   let(:usn) { 123_456 }
-  let(:maat_id) { '123456B' }
+  let(:maat_id) { 60_123 }
 
-  let(:body) { { funding_decision: 'GRANTED' } }
+  let(:body) { { 'maat_ref' => 60_123, 'funding_decision' => 'GRANTED' } }
 
   before do
     allow(connection).to receive(:get) { response }
-    allow(Maat::Decision).to receive(:build).with(body)
+    allow(Maat::Decision).to receive(:build).with(body) { instance_double(Maat::Decision) }
   end
 
   describe '#by_usn' do
-    before do
-      get_decision.by_usn(usn)
-    end
+    before { get_decision.by_usn(usn) }
 
     it 'makes a GET request to the MAAT API USN path' do
       expect(connection).to have_received(:get)
@@ -31,8 +29,42 @@ RSpec.describe Maat::GetDecision do
     context 'when decision is empty found' do
       let(:body) { {} }
 
-      it 'builds a Maat::Decision from the results' do
+      it 'returns nil' do
         expect(Maat::Decision).not_to have_received(:build)
+      end
+    end
+
+    context 'when decision found has no maat id' do
+      let(:body) { { 'maat_ref' => nil } }
+
+      it 'returns nil' do
+        expect(Maat::Decision).not_to have_received(:build)
+      end
+    end
+  end
+
+  describe '#by_usn!' do
+    subject(:get_by_usn!) { get_decision.by_usn!(usn) }
+
+    it 'makes a GET request to the MAAT API USN path' do
+      get_by_usn!
+
+      expect(Maat::Decision).to have_received(:build).with(body)
+    end
+
+    context 'when decision is empty found' do
+      let(:body) { {} }
+
+      it 'raises Maat::RecordNotFound' do
+        expect { get_by_usn! }.to raise_error(Maat::RecordNotFound)
+      end
+    end
+
+    context 'when decision found has no maat id' do
+      let(:body) { { 'maat_ref' => nil } }
+
+      it 'raises Maat::RecordNotFound' do
+        expect { get_by_usn! }.to raise_error(Maat::RecordNotFound)
       end
     end
   end
@@ -42,7 +74,7 @@ RSpec.describe Maat::GetDecision do
 
     it 'makes a GET request to the MAAT API ID path' do
       expect(connection).to have_received(:get)
-        .with('/api/external/v1/crime-application/result/rep-order-id/123456B')
+        .with('/api/external/v1/crime-application/result/rep-order-id/60123')
 
       expect(Maat::Decision).to have_received(:build).with(body)
     end

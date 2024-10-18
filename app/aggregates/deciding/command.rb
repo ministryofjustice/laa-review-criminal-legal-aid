@@ -1,6 +1,6 @@
 module Deciding
   class Command < Dry::Struct
-    attribute :decision_id, Types::Uuid
+    attribute :decision_id, Types::DecisionId
 
     def with_decision(&block)
       repository.with_aggregate(

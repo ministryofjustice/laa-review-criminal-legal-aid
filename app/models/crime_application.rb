@@ -72,6 +72,12 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     @work_stream ||= WorkStream.new(attributes[:work_stream])
   end
 
+  def decisions
+    return draft_decisions unless status?(::Types::ReviewState[:completed])
+
+    super
+  end
+
   class << self
     def find(id)
       application = new(

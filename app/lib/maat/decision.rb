@@ -1,11 +1,14 @@
 module Maat
-  class Decision < Dry::Struct
-    attribute :reference, Types::Integer.optional
+  class Decision < LaaCrimeSchemas::Structs::Decision
     attribute :maat_id, Types::Integer
-    attribute :interests_of_justice, Types::InterestsOfJusticeDecision
-    attribute :means, Types::MeansDecision
-    attribute :funding_decision, Types::FundingDecisionResult
-    attribute? :comment, Types::String.optional
+    attribute? :case_id, Types::String.optional
+    attribute :funding_decision, Types::FundingDecisionResult.optional
+
+    def checksum
+      Digest::MD5.hexdigest(to_json)
+    end
+
+    alias decision_id maat_id
 
     class << self
       def build(response)
@@ -26,17 +29,20 @@ module Maat
       end
 
       def interests_of_justice(response)
-        return {} if response['ioj_result'].blank?
+        return nil if response['ioj_result'].blank?
 
         {
           result: response['ioj_result'].downcase,
+          details: response['ioj_reason'],
           assessed_by: response['ioj_assessor_name'],
           assessed_on: response['app_created_date']
         }
       end
 
+      def result(maat_result); end
+
       def means(response)
-        return {} if response['means_result'].blank?
+        return nil if response['means_result'].blank?
 
         {
           result: response['means_result'].downcase,
