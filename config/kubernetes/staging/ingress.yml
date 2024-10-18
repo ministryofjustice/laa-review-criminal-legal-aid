@@ -28,6 +28,13 @@ metadata:
       SecRule REQUEST_URI "@beginsWith /api/events" "id:555001, phase:1, pass, t:none, nolog, chain" \
         SecRule REQUEST_METHOD "@streq POST" "chain" \
           SecRule REQUEST_HEADERS:Content-Type "@rx [\s]*text/plain[\s]*" "ctl:ruleRemoveById=920420"
+      SecRule REQUEST_URI "@endsWith /return" \
+        "id:1002,phase:2,pass,nolog,\
+        ctl:ruleRemoveById=921110,\
+        ctl:ruleRemoveById=932100,\
+        ctl:ruleRemoveById=932110,\
+        ctl:ruleRemoveById=932115,\
+        ctl:ruleRemoveById=942230"
 spec:
   ingressClassName: modsec
   tls:
