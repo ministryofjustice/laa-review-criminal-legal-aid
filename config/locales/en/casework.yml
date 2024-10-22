@@ -629,10 +629,7 @@ en:
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
-    add_another_funding_decision:
-      zero: Add a funding decision
-      one: Add another funding decision
-      other: Add another funding decision
+    add_another_decision: Add another funding decision
     add_funding_decision: Add funding decision from MAAT
     assign_to_self: Assign to your list
     back_to_list: Back to your list
@@ -652,11 +649,12 @@ en:
     complete: Mark as completed
     send_back: Send back to provider
     mark_as_ready: Mark as ready for MAAT
+    save_and_come_back_later: Save and come back later
     sign_out: Sign out
     sign_in: Sign in
     start_now: Start now
     start: Start
-    submit_decision: Submit decision
+    submit_decision: Send decision
     update_from_maat: Update from MAAT
 
   actions: *ACTIONS
@@ -803,7 +801,7 @@ en:
       index:
         title:
           zero: Add a funding decision
-          one: Check the funding decision
+          one: You have added %{count} case
           other: You have added %{count} cases
       interests_of_justices:
         edit:

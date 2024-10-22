@@ -13,12 +13,19 @@ module DecisionFormHelpers
   end
 
   def complete_comment_form
-    choose('Yes')
+    choose_answer('Do you need to add comments for the provider?', 'Yes')
     fill_in('Additional comments for the provider', with: 'Caseworker comment')
     save_and_continue
   end
 
   def add_a_non_means_decision
+    click_button 'Start'
+    complete_ioj_form
+    complete_overall_result_form
+    complete_comment_form
+  end
+  
+  def add_a_maat_decision
     click_button 'Start'
     complete_ioj_form
     complete_overall_result_form

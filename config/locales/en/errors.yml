@@ -4,6 +4,8 @@ en:
     format: "%{message}"
     page_title_prefix: "Error: "
     attributes:
+      add_another_decision:
+        inclusion: Select yes to add another case
       assessed_by: 
         blank: Enter the name of the caseworker who assessed this
       assessed_on: 

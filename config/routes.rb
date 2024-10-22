@@ -38,7 +38,9 @@ Rails.application.routes.draw do
       resource :return, only: [:new, :create]
       resource :complete, only: [:show, :create]
 
-      resources :decisions, only: [:create] do 
+      resources :decisions, only: [:create, :index] do 
+        put :add_another, on: :collection
+        
         scope module: :decisions do
           resource :interests_of_justice, only: [:edit, :update]
           resource :overall_result, only: [:edit, :update]

@@ -10,7 +10,11 @@ module Casework
       end
 
       def next_step
-        crime_application_path(@crime_application)
+        if @crime_application.means_tested?
+          crime_application_decisions_path(@crime_application)
+        else
+          crime_application_path(@crime_application)
+        end
       end
     end
   end

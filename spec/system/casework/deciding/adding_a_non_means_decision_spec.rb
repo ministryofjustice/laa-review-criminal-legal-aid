@@ -64,7 +64,7 @@ RSpec.describe 'Adding a Non-means application' do
         'Select yes if you need to add comments for the provider'
       )
 
-      choose('Yes')
+      choose_answer('Do you need to add comments for the provider?', 'Yes')
       save_and_continue
 
       expect(page).to have_error(

@@ -4,6 +4,15 @@ module Casework
 
     before_action :set_decision, :require_maat_decision!, except: [:create, :new, :create_by_reference]
 
+    def index
+      @decisions = current_crime_application.review.decision_ids.map do |decision_id|
+        Deciding::LoadDecision.call(
+          application_id: params[:crime_application_id],
+          decision_id: decision_id
+        )
+      end
+    end
+
     def new
       @form_object = ::Decisions::MaatIdForm.new(
         application_id: @crime_application.id
