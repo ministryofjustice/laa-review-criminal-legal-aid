@@ -199,7 +199,7 @@ RSpec.describe 'Authorisation' do
 
         visit_configured_route(route)
 
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to have_http_status(:forbidden), "#{route.name} did not have forbidden status"
       end
     end
 

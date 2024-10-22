@@ -2,7 +2,11 @@ module Casework
   class DecisionsController < Casework::BaseController
     include SetDecisionAndAuthorise
 
-    before_action :set_decision, except: [:create]
+    before_action :set_decision, except: [:create, :index]
+
+    def index
+      @decisions = current_crime_application.draft_decisions
+    end
 
     def create
       decision_id = SecureRandom.uuid

@@ -48,7 +48,7 @@ RSpec.describe ReviewActionComponent, type: :component do
       describe 'text' do
         subject { page.first('button').text }
 
-        it { is_expected.to eq('Submit decision') }
+        it { is_expected.to eq('Send to provider') }
       end
     end
 

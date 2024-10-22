@@ -10,7 +10,7 @@ module Casework
       end
 
       def next_step
-        crime_application_path(@crime_application)
+        crime_application_decisions_path(@crime_application)
       end
     end
   end

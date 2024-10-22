@@ -1,24 +1,35 @@
 module Casework
   class CompletesController < Casework::BaseController
-    before_action :set_crime_application, only: %i[show create]
+    before_action :set_crime_application
 
-    def show; end
-
-    def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def create
       Reviewing::Complete.new(
         application_id: @crime_application.id,
         user_id: current_user_id
       ).call
 
-      if FeatureFlags.adding_decisions.enabled? && @crime_application.draft_decisions.any?
-        redirect_to crime_application_complete_path(@crime_application)
-      else
-        set_flash :completed
-        redirect_to assigned_applications_path
-      end
+      set_flash with_decisions ? :completed_with_decisions : :completed
+
+      redirect_to assigned_applications_path
     rescue Reviewing::Error => e
       set_flash(e.message_key, success: false)
-      redirect_to crime_application_path(@crime_application)
+
+      redirect_to failure_path
+    end
+
+    private
+
+    def failure_path
+      if with_decisions
+        crime_application_decisions_path(@crime_application)
+      else
+        crime_application_path(@crime_application)
+      end
+    end
+
+    # TODO: remove once adding decision feature fully enabled
+    def with_decisions
+      @with_decisions ||= @crime_application.review.decision_ids.present?
     end
   end
 end

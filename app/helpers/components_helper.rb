@@ -11,10 +11,6 @@ module ComponentsHelper
     render OffenceDatesComponent.new(offence:)
   end
 
-  def decision_results(results)
-    render DecisionResultComponent.with_collection(results)
-  end
-
   def decision_result(result)
     render DecisionResultComponent.new(result:)
   end
