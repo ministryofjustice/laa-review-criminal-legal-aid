@@ -31,8 +31,10 @@ RSpec.describe 'Viewing supporting evidence' do
         super().deep_merge('supporting_evidence' => [], 'evidence_details' => nil)
       end
 
-      it 'not show the files card' do
-        expect { files_card }.to raise_error Capybara::ElementNotFound
+      it 'shows the files card' do
+        within(files_card) do |card|
+          expect(card).to have_text 'No files were uploaded'
+        end
       end
     end
   end

@@ -267,6 +267,7 @@ en:
     national_savings_certificate_value: What is the value of the certificate?
     national_savings_certificate_ownership_type: Who owns the certificate?
     next_court_hearing: Next court hearing the case
+    no_files_uploaded: No files were uploaded
     number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
     offence_class: Class

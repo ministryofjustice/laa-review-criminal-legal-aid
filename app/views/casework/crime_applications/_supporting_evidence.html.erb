@@ -10,7 +10,7 @@
 
 <% if crime_application.evidence_details.show? %>
   <h2
-    class="govuk-heading-s govuk-!-margin-bottom-7"
+    class="govuk-heading-s govuk-!-margin-bottom-5"
     data-evidence-last-run-at="<%= crime_application.evidence_details.last_run_at %>">
       <%= label_text(:evidence_asked_for) %>:
   </h2>
@@ -34,9 +34,9 @@
       title: label_text(:evidence_other)
     } %>
 
-<% if crime_application.supporting_evidence.present? %>
-  <%= govuk_summary_card(title: label_text(:file_name)) do
-        govuk_summary_list(actions: false) do |list|
+<%= govuk_summary_card(title: label_text(:file_name)) do
+      govuk_summary_list(actions: false) do |list|
+        if crime_application.supporting_evidence.present?
           crime_application.supporting_evidence.each do |evidence|
             list.with_row do |row|
               row.with_key { evidence.filename }
@@ -50,6 +50,10 @@
               end
             end
           end
+        else
+          list.with_row do |row|
+            row.with_key { label_text(:no_files_uploaded) }
+          end
         end
-      end %>
-<% end %>
+      end
+    end %>
