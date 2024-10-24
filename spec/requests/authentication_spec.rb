@@ -23,7 +23,7 @@ RSpec.describe 'Authentication Session Initialisation' do
   end
 
   context 'when user info is returned by Azure Ad' do
-    let(:auth_subject_id) { SecureRandom.uuid }
+    let(:auth_subject_id) { "#{SecureRandom.hex(16)}_ABde1" }
     let(:expires_in) { 1.minute }
 
     before do
