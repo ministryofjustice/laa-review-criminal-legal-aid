@@ -13,6 +13,7 @@ module Types
   DateTime = JSON::DateTime | Nominal::DateTime
   MaatId = Params::Integer
   DecisionId = Uuid | MaatId
+  AuthSubjectId = String
 
   #
   # Map of review status groups to LaaCrimeSchemas::Types:REVIEW_APPLICATION_STATUSES

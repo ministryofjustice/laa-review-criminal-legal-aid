@@ -1,6 +1,6 @@
 module Authorising
   class Activate < Command
-    attribute :auth_subject_id, Types::Uuid
+    attribute :auth_subject_id, Types::AuthSubjectId
 
     def call
       user.transaction do
