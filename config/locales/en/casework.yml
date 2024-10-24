@@ -15,6 +15,7 @@ en:
       unassigned_from_self: You removed the application from your list
       sent_back: You sent the application back to the provider
       completed: You marked the application as complete
+      completed_with_decisions: Application complete. Decision sent to provider.  
       marked_as_ready: You marked the application as ready for assessment
       maat_decision_linked:
         - Linked to MAAT application with MAAT ID %{maat_id} 
@@ -630,10 +631,7 @@ en:
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
-    add_another_funding_decision:
-      zero: Add a funding decision
-      one: Add another funding decision
-      other: Add another funding decision
+    add_another_decision: Add another case 
     add_funding_decision: Add funding decision from MAAT
     assign_to_self: Assign to your list
     back_to_list: Back to your list
@@ -653,11 +651,12 @@ en:
     complete: Mark as completed
     send_back: Send back to provider
     mark_as_ready: Mark as ready for MAAT
+    save_and_come_back: Save and come back later
     sign_out: Sign out
     sign_in: Sign in
     start_now: Start now
     start: Start
-    submit_decision: Submit decision
+    submit_decision: Send to provider
     update_from_maat: Update from MAAT
 
   actions: *ACTIONS
@@ -804,7 +803,7 @@ en:
       index:
         title:
           zero: Add a funding decision
-          one: Check the funding decision
+          one: You have added %{count} case
           other: You have added %{count} cases
       interests_of_justices:
         edit:

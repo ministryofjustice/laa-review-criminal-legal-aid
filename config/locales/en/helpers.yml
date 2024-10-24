@@ -19,6 +19,8 @@ en:
         comment_required: Do you need to add comments for the provider?
       decisions_maat_id_form:
         maat_id: MAAT ID  
+      decisions_add_another_form:
+        add_another_decision: Do you want to add another case?  
 
     label:
       decisions_interests_of_justice_form:
@@ -27,7 +29,6 @@ en:
           fail: Refused
         details: What is the reason for this?
         assessed_by: What is the name of the caseworker who assessed this?
-
       decisions_overall_result_form:
         funding_decision_options:
           granted_on_ioj: Granted
@@ -39,10 +40,13 @@ en:
         comment: Additional comments for the provider
       decisions_maat_id_form:
         maat_id: MAAT ID  
+      decisions_add_another_form:
+        add_another_decision_options: 
+          'true': 'Yes'
+          'false': 'No'
 
     submit:
       save_and_continue: Save and continue
-      save_and_come_back_later: Save and come back later
     subjects:
       applicant: client
       applicant_and_partner: client %{conjunction} partner

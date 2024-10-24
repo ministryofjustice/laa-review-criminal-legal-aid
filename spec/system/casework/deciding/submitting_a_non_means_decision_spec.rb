@@ -53,18 +53,11 @@ RSpec.describe 'Submitting a Non-means decision' do
     it 'shows the confirmation page' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       expect(page).to have_content('Your list (1)')
 
-      click_on 'Submit decision'
+      click_on 'Send to provider'
 
       expect(page).to have_content('Your list (0)')
-
-      expect(page).to have_text('Decision sent')
-      expect(summary_card('Case')).to have_rows(
-        'Interests of justice test results', 'Passed',
-        'Interests of justice reason', 'reason',
-        'Interests of justice test caseworker name', 'Test User',
-        'Date of interests of justice test', '01/10/2024',
-        'Overall result', 'Granted',
-        'Further information about the decision', 'Test comment'
+      expect(page).to have_success_notification_banner(
+        text: 'Application complete. Decision sent to provider.'
       )
 
       visit crime_application_path(application_id)

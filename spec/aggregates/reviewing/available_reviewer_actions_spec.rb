@@ -3,10 +3,8 @@ require 'rails_helper'
 RSpec.describe Reviewing::AvailableReviewerActions do
   describe '#actions' do
     subject(:actions) do
-      described_class.new(state:, application_type:, work_stream:, has_decisions:).actions
+      described_class.new(state:, application_type:, work_stream:).actions
     end
-
-    let(:has_decisions) { false }
 
     context 'when state "open"' do
       let(:state) { Types::ReviewState[:open] }
@@ -83,6 +81,30 @@ RSpec.describe Reviewing::AvailableReviewerActions do
       end
     end
 
+    context 'when state "marked_as_ready" and decisions enabled' do
+      let(:state) { Types::ReviewState[:marked_as_ready] }
+
+      before do
+        allow(FeatureFlags).to receive(:adding_decisions) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        }
+      end
+
+      context 'when a means tested initial application' do
+        let(:application_type) { Types::ApplicationType['initial'] }
+        let(:work_stream) { WorkStream.new('criminal_applications_team') }
+
+        it { is_expected.to eq %i[send_back] }
+      end
+
+      context 'when CIFC' do
+        let(:application_type) { Types::ApplicationType['change_in_financial_circumstances'] }
+        let(:work_stream) { WorkStream.new('criminal_applications_team') }
+
+        it { is_expected.to eq %i[send_back] }
+      end
+    end
+
     context 'when state "completed"' do
       let(:state) { Types::ReviewState[:completed] }
 
@@ -113,21 +135,6 @@ RSpec.describe Reviewing::AvailableReviewerActions do
 
         it { is_expected.to be_empty }
       end
-    end
-
-    context 'when has decisions' do
-      let(:state) { Types::ReviewState[:open] }
-      let(:application_type) { Types::ApplicationType['initial'] }
-      let(:work_stream) { WorkStream.new('criminal_applications_team') }
-      let(:has_decisions) { true }
-
-      before do
-        allow(FeatureFlags).to receive(:adding_decisions) {
-          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-        }
-      end
-
-      it { is_expected.to include(:submit_decision) }
     end
 
     describe '.for(reviewable)' do

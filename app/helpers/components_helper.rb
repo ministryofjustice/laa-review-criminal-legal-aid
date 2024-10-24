@@ -11,10 +11,6 @@ module ComponentsHelper
     render OffenceDatesComponent.new(offence:)
   end
 
-  def decision_results(results)
-    render DecisionResultComponent.with_collection(results)
-  end
-
   def decision_result(result)
     render DecisionResultComponent.new(result:)
   end
@@ -27,5 +23,9 @@ module ComponentsHelper
     render ReviewActionComponent.with_collection(
       application.available_reviewer_actions, application:
     )
+  end
+
+  def reviewing_action(review_action, application)
+    render ReviewActionComponent.new(review_action:, application:)
   end
 end

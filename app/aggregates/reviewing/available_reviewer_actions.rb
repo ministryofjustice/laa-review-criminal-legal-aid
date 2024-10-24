@@ -13,23 +13,38 @@ module Reviewing
       }
     }.freeze
 
-    def initialize(state:, application_type:, work_stream:, has_decisions:)
+    AVAILABLE_ACTIONS_WITH_DECISIONS = {
+      means: {
+        open: [:mark_as_ready, :send_back],
+        marked_as_ready: [:send_back],
+      },
+      non_means: {
+        open:  [:send_back],
+      },
+      pse: {
+        open: [:complete]
+      }
+    }.freeze
+
+    def initialize(state:, application_type:, work_stream:)
       @application_type = application_type
       @state = state
       @work_stream = work_stream
-      @has_decisions = has_decisions
     end
 
-    attr_reader :state, :application_type, :work_stream, :has_decisions
+    attr_reader :state, :application_type, :work_stream
 
     def actions
-      result = AVAILABLE_ACTIONS.dig(review_type, state).dup || []
-      result.prepend(:submit_decision) if funding_decision_actions_enabled?
-
-      result
+      config.dig(review_type, state) || []
     end
 
     private
+
+    def config
+      return AVAILABLE_ACTIONS_WITH_DECISIONS if FeatureFlags.adding_decisions.enabled?
+
+      AVAILABLE_ACTIONS
+    end
 
     def review_type
       return Types::ReviewType[:pse] if pse?
@@ -46,17 +61,12 @@ module Reviewing
       work_stream == Types::WorkStreamType['non_means_tested']
     end
 
-    def funding_decision_actions_enabled?
-      FeatureFlags.adding_decisions.enabled? && has_decisions
-    end
-
     class << self
       def for(reviewable)
         new(
           state: reviewable.state,
           application_type: reviewable.application_type || Types::ApplicationType['initial'],
-          work_stream: reviewable.work_stream,
-          has_decisions: reviewable.decision_ids.any?
+          work_stream: reviewable.work_stream
         ).actions
       end
     end

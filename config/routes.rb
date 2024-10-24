@@ -36,9 +36,9 @@ Rails.application.routes.draw do
       put :ready, on: :member
       resource :reassign, only: [:new, :create]
       resource :return, only: [:new, :create]
-      resource :complete, only: [:show, :create]
+      resource :complete, only: [:create]
 
-      resources :decisions, only: [:create] do 
+      resources :decisions, only: [:create, :index] do 
         scope module: :decisions do
           resource :interests_of_justice, only: [:edit, :update]
           resource :overall_result, only: [:edit, :update]
