@@ -3,10 +3,8 @@ require 'rails_helper'
 RSpec.describe Reviewing::AvailableReviewerActions do
   describe '#actions' do
     subject(:actions) do
-      described_class.new(state:, application_type:, work_stream:, has_decisions:).actions
+      described_class.new(state:, application_type:, work_stream:).actions
     end
-
-    let(:has_decisions) { false }
 
     context 'when state "open"' do
       let(:state) { Types::ReviewState[:open] }

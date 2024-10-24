@@ -26,17 +26,16 @@ module Reviewing
       }
     }.freeze
 
-    def initialize(state:, application_type:, work_stream:, has_decisions:)
+    def initialize(state:, application_type:, work_stream:)
       @application_type = application_type
       @state = state
       @work_stream = work_stream
-      @has_decisions = has_decisions
     end
 
-    attr_reader :state, :application_type, :work_stream, :has_decisions
+    attr_reader :state, :application_type, :work_stream
 
     def actions
-      config.dig(review_type, state).dup || []
+      config.dig(review_type, state) || []
     end
 
     private
@@ -67,8 +66,7 @@ module Reviewing
         new(
           state: reviewable.state,
           application_type: reviewable.application_type || Types::ApplicationType['initial'],
-          work_stream: reviewable.work_stream,
-          has_decisions: reviewable.decision_ids.any?
+          work_stream: reviewable.work_stream
         ).actions
       end
     end

@@ -16,12 +16,12 @@
   </div>
 
   <div class="govuk-grid-column-full">
-    <%= render(DecisionComponent.with_collection(@decisions), show_actions: true) %>
+    <%= render DecisionComponent.with_collection(@decisions, show_actions: true) %>
   </div>
 
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-button-group govuk-!-margin-bottom-6">
-      <%= govuk_button_to action_text(:submit_decision), crime_application_complete_path(@crime_application) %>
+      <%= reviewing_action(:submit_decision, @crime_application) %>
       <%= govuk_button_to action_text(:save_and_come_back), assigned_applications_path, method: :get, secondary: true %>
     </div>
     <div class="govuk-button-group govuk-!-margin-bottom-6">
