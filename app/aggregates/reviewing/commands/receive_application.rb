@@ -6,8 +6,8 @@ module Reviewing
     attribute? :parent_id, Types::Uuid.optional
     attribute :work_stream, Types::WorkStreamType
     attribute :application_type, Types::ApplicationType
-    attribute? :correlation_id, Types::Uuid.optional
-    attribute? :causation_id, Types::Uuid.optional
+    attribute? :correlation_id, Types::String.optional
+    attribute? :causation_id, Types::String.optional
 
     def call
       with_review do |review|

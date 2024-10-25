@@ -5,7 +5,7 @@ require 'aws-sdk-sns'
 RSpec.describe 'Api::Events' do
   include_context 'with review'
 
-  let(:sns_message_id) { SecureRandom.uuid }
+  let(:sns_message_id) { SecureRandom.hex }
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   let(:message) do

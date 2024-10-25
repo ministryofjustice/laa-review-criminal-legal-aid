@@ -45,7 +45,7 @@ RSpec.describe SnsEvent::ReceiveApplicationEvent do
     @sns_message ||= {
       'Type' => 'Notificxation',
       'Token' => '2336412f37f',
-      'MessageId' => SecureRandom.uuid,
+      'MessageId' => SecureRandom.hex,
       'TopicArn' => 'arn:aws:sns:eu-west-2:754256621582:ImportantMaatTopic',
       'Subject' => 'apply.submission',
       'Message' => { event_name: 'apply.submission' }.to_json,
