@@ -166,7 +166,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
           end
         end
 
-        it 'does not display unanswered questions' do
+        it 'does not display unanswered questions' do # rubocop:disable RSpec/MultipleExpectations
           expect(card).to have_no_content 'National Insurance Number'
           expect(card).to have_no_content 'Application registration card (ARC) number'
           expect(card).to have_no_content 'Partner'
