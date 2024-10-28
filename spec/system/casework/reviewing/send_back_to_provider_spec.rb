@@ -160,28 +160,12 @@ RSpec.describe 'Send an application back to the provider' do
       click_button(send_back_cta)
     end
 
-    describe 'AlreadySentBack' do
-      let(:error_class) { Reviewing::AlreadySentBack }
+    describe 'AlreadyReviewed' do
+      let(:error_class) { Reviewing::AlreadyReviewed }
+      let(:message) { 'This application was already reviewed' }
 
-      let(:message) do
-        'This application was already sent back to the provider'
-      end
-
-      it 'notifies that the application has already been sent back' do
-        expect(page).to have_content message
-      end
-
-      it 'does not send the notification email' do
-        expect(NotifyMailer).not_to have_received(:application_returned_email)
-      end
-    end
-
-    describe 'CannotSendBackWhenCompleted' do
-      let(:error_class) { Reviewing::CannotSendBackWhenCompleted }
-      let(:message) { 'This application was already marked as complete' }
-
-      it 'notifies that the application was already completed' do
-        expect(page).to have_content message
+      it 'notifies that the application was already reviewed' do
+        expect(page).to have_notification_banner text: message
       end
 
       it 'does not send the notification email' do

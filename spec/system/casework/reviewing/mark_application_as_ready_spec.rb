@@ -59,25 +59,16 @@ RSpec.describe 'Marking an application as ready for assessment' do
         end
 
         it 'notifies that the application has already been marked as ready for assessment' do
-          expect(page).to have_content message
-        end
-      end
-
-      describe 'CannotMarkAsReadyWhenSentBack' do
-        let(:error_class) { Reviewing::CannotMarkAsReadyWhenSentBack }
-        let(:message) { 'This application was already sent back to the provider' }
-
-        it 'notifies that the application has already been sent back' do
-          expect(page).to have_content message
+          expect(page).to have_notification_banner text: message
         end
       end
 
       describe 'CannotMarkAsReadyWhenCompleted' do
-        let(:error_class) { Reviewing::CannotMarkAsReadyWhenCompleted }
-        let(:message) { 'This application was already marked as complete' }
+        let(:error_class) { Reviewing::AlreadyReviewed }
+        let(:message) { 'This application was already reviewed' }
 
-        it 'notifies that the application has already been complete' do
-          expect(page).to have_content message
+        it 'notifies that the application has already been completed' do
+          expect(page).to have_notification_banner text: message
         end
       end
     end

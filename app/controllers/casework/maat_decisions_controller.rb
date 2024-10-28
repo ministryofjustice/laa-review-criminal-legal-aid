@@ -57,6 +57,22 @@ module Casework
       )
     end
 
+    def destroy
+      Deciding::Unlink.call(
+        application_id: @crime_application.id,
+        user_id: current_user_id,
+        decision_id: @decision.decision_id
+      )
+
+      set_flash :decision_removed, success: true
+
+      if @crime_application.decision_ids.size > 1
+        redirect_to crime_application_decisions_path
+      else
+        redirect_to crime_application_path(@crime_application)
+      end
+    end
+
     private
 
     def permitted_params

@@ -82,6 +82,13 @@ RSpec.describe 'Adding another MAAT decision' do
     end
   end
 
+  it 'returns to the decisions page when one of the deicisons is removed' do
+    within_card('Case 1') { click_button('Remove') }
+
+    expect(page).to have_success_notification_banner(text: 'Decision removed')
+    expect(current_path).to eq(crime_application_decisions_path(application_id))
+  end
+
   it 'returns an error if submitting with an incomplete decision' do
     click_button('Send to provider')
 

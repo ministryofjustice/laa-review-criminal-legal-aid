@@ -6,7 +6,6 @@ module Casework
       @return_details = ReturnDetails.new
     end
 
-    # rubocop:disable Metrics/MethodLength
     def create
       @return_details = ReturnDetails.new(return_params)
 
@@ -21,12 +20,9 @@ module Casework
       flash_and_redirect :success, :sent_back
     rescue ActiveModel::ValidationError
       render :new
-    rescue Reviewing::AlreadySentBack
-      flash_and_redirect :important, :already_sent_back
-    rescue Reviewing::CannotSendBackWhenCompleted
-      flash_and_redirect :important, :cannot_send_back_when_completed
+    rescue Reviewing::AlreadyReviewed
+      flash_and_redirect :important, :already_reviewed
     end
-    # rubocop:enable Metrics/MethodLength
 
     private
 

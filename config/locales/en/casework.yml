@@ -12,11 +12,12 @@ en:
   flash:
     success:
       assigned_to_self: You assigned this application to your list
-      unassigned_from_self: You removed the application from your list
-      sent_back: You sent the application back to the provider
       completed: You marked the application as complete
       completed_with_decisions: Application complete. Decision sent to provider.  
+      decision_removed: Decision removed
       marked_as_ready: You marked the application as ready for assessment
+      sent_back: You sent the application back to the provider
+      unassigned_from_self: You removed the application from your list
       maat_decision_linked:
         - Linked to MAAT application with MAAT ID %{maat_id} 
         - Check the decision, and make any required amendments on MAAT. 
@@ -39,13 +40,11 @@ en:
       no_change_since_last_update:
         - The application on MAAT has not changed.
         - Make any required amendments on MAAT using the MAAT ID %{maat_id}. 
-      already_sent_back: This application was already sent back to the provider
-      already_completed: This application was already marked as complete
+      already_reviewed: This application was already reviewed
       already_marked_as_ready: This application was already marked as ready for assessment
       cannot_complete_when_sent_back: This application was already sent back to the provider
       cannot_mark_as_ready_when_completed: This application was already marked as complete
       cannot_mark_as_ready_when_sent_back: This application was already sent back to the provider
-      cannot_send_back_when_completed: This application was already marked as complete
       cannot_send_back_when_marked_as_ready: This application was already marked as ready for assessment
       cannot_download_doc_uploaded_to_another_app: File must be uploaded to current application to download
       cannot_download_try_again: "%{file_name} could not be downloaded – try again"
@@ -637,27 +636,28 @@ en:
     back_to_list: Back to your list
     change: Change
     clear_search: Clear
+    complete: Mark as completed
     confirm_reassign_to_self: Yes, reassign
     copy_reference_number: Copy reference number
     copy_urn: Copy URN
     go_to_latest: Go to the latest version
-    reassign_to_self: Reassign to your list
-    search: Search
-    unassign_from_self: Remove from your list
-    view_all_open_applications: Check open applications
-    view_daily_count: Check when applications were received
-    view_closed_on_count: Check when applications were closed
-    mark_complete: Mark as completed
-    complete: Mark as completed
-    send_back: Send back to provider
     mark_as_ready: Mark as ready for MAAT
+    mark_complete: Mark as completed
+    reassign_to_self: Reassign to your list
     save_and_come_back: Save and come back later
-    sign_out: Sign out
+    search: Search
+    send_back: Send back to provider
     sign_in: Sign in
-    start_now: Start now
+    sign_out: Sign out
     start: Start
+    start_now: Start now
     submit_decision: Send to provider
+    unassign_from_self: Remove from your list
+    unlink_decision: Remove
     update_from_maat: Update from MAAT
+    view_all_open_applications: Check open applications
+    view_closed_on_count: Check when applications were closed
+    view_daily_count: Check when applications were received
 
   actions: *ACTIONS
   confirmations:

@@ -5,20 +5,16 @@ module Reviewing
     end
   end
 
-  class AlreadyCompleted < Error; end
   class AlreadyMarkedAsReady < Error; end
   class AlreadyReceived < Error; end
   class AlreadySentBack < Error; end
+  class AlreadyReviewed < Error; end
   class DecisionAlreadyLinked < Error; end
-  class CannotCompleteWhenSentBack < Error; end
-  class CannotMarkAsReadyWhenCompleted < Error; end
-  class CannotMarkAsReadyWhenSentBack < Error; end
-  class CannotSendBackWhenCompleted < Error; end
+  class DecisionNotLinked < Error; end
   class IncompleteDecisions < Error; end
-  class NotReceived < Error; end
 
   class DecisionAdded < Event; end
-  class MaatDecisionAdded < Event; end
+  class DecisionRemoved < Event; end
 
   class << self
     def stream_name(application_id)
