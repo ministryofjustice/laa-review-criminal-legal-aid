@@ -26,7 +26,7 @@
                 row.with_cell(text: '1 day', numeric: true, classes: 'colgroup-detail')
                 row.with_cell(text: '2 days', numeric: true, classes: 'colgroup-detail')
                 row.with_cell(text: '3 days', numeric: true, classes: 'colgroup-detail')
-                row.with_cell(text: '4-9 days', numeric: true, classes: 'colgroup-detail')
+                row.with_cell(text: '4 days', numeric: true, classes: 'colgroup-detail')
                 row.with_cell(text: 'Total', numeric: true, classes: 'colgroup-total')
               end
             end
@@ -69,7 +69,7 @@
                     classes: 'colgroup-detail'
                   )
                   row.with_cell(
-                    text: data_row.day4_to_last_day,
+                    text: data_row.day4,
                     numeric: true,
                     classes: 'colgroup-detail'
                   )
@@ -117,7 +117,7 @@
                   classes: 'colgroup-detail'
                 )
                 row.with_cell(
-                  text: data_rows.sum(&:day4_to_last_day),
+                  text: data_rows.sum(&:day4),
                   numeric: true,
                   classes: 'colgroup-detail'
                 )

@@ -54,8 +54,7 @@ RSpec.describe Reporting::WorkloadReport do
   describe '#business_days' do
     it 'returns an array of the business days included in the report' do
       expect(report.business_days).to eq(
-        %w[2023-01-03 2022-12-30 2022-12-29 2022-12-28 2022-12-23 2022-12-22 2022-12-21 2022-12-20 2022-12-19
-           2022-12-16]
+        %w[2023-01-03 2022-12-30 2022-12-29 2022-12-28 2022-12-23]
       )
     end
   end

@@ -11,7 +11,7 @@ RSpec.describe 'Workload Report' do
   end
 
   it 'shows the correct detail column headers' do
-    expected_headers = ['', 'Received', 'Closed', '0 days', '1 day', '2 days', '3 days', '4-9 days', 'Total']
+    expected_headers = ['', 'Received', 'Closed', '0 days', '1 day', '2 days', '3 days', '4 days', 'Total']
 
     within('#cat-1') do
       page.all('table thead tr.colgroup-details th').each_with_index do |el, i|
