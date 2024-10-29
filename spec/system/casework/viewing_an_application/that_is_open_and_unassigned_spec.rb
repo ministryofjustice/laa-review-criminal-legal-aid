@@ -149,6 +149,30 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       it 'does not show the passporting benefit row' do
         expect(page).to have_no_content('Passporting Benefit')
       end
+
+      describe 'client details card' do
+        let(:card) do
+          page.find('h2.govuk-summary-card__title', text: 'Client details').ancestor('div.govuk-summary-card')
+        end
+
+        it 'shows relevant details' do # rubocop:disable RSpec/MultipleExpectations
+          within(card) do |card|
+            expect(card).to have_summary_row 'First name', 'Kit'
+            expect(card).to have_summary_row 'Last name', 'Pound'
+            expect(card).to have_summary_row 'Other names', 'Not provided'
+            expect(card).to have_summary_row 'Date of birth', '09/06/2001'
+            expect(card).to have_summary_row 'UK Telephone number', '07771 231 231'
+            expect(card).to have_summary_row 'Correspondence address', 'Same as home address'
+          end
+        end
+
+        it 'does not display unanswered questions' do # rubocop:disable RSpec/MultipleExpectations
+          expect(card).to have_no_content 'National Insurance Number'
+          expect(card).to have_no_content 'Application registration card (ARC) number'
+          expect(card).to have_no_content 'Partner'
+          expect(card).to have_no_content 'Relationship status'
+        end
+      end
     end
   end
 

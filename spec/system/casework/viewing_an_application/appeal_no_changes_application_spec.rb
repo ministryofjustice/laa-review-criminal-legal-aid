@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Viewing an apeal with no changes application' do
+RSpec.describe 'Viewing an appeal with no changes application' do
   include_context 'with stubbed application'
 
   let(:application_data) do
@@ -17,8 +17,36 @@ RSpec.describe 'Viewing an apeal with no changes application' do
     )
   end
 
+  let(:appeal_maat_id) { nil }
+  let(:appeal_usn) { '456DEF' }
+
   before do
     visit crime_application_path(application_id)
+  end
+
+  describe 'client details card' do
+    let(:card) do
+      page.find('h2.govuk-summary-card__title', text: 'Client details').ancestor('div.govuk-summary-card')
+    end
+
+    it 'shows relevant details' do # rubocop:disable RSpec/MultipleExpectations
+      within(card) do |card|
+        expect(card).to have_summary_row 'First name', 'Kit'
+        expect(card).to have_summary_row 'Last name', 'Pound'
+        expect(card).to have_summary_row 'Other names', 'Not provided'
+        expect(card).to have_summary_row 'Date of birth', '09/06/2001'
+      end
+    end
+
+    it 'does not display unanswered questions' do # rubocop:disable RSpec/MultipleExpectations
+      expect(card).to have_no_content 'National Insurance Number'
+      expect(card).to have_no_content 'Application registration card (ARC) number'
+      expect(card).to have_no_content 'UK Telephone number'
+      expect(card).to have_no_content 'Where the client usually lives'
+      expect(card).to have_no_content 'Correspondence address'
+      expect(card).to have_no_content 'Partner'
+      expect(card).to have_no_content 'Relationship status'
+    end
   end
 
   describe 'case details card' do
@@ -27,9 +55,6 @@ RSpec.describe 'Viewing an apeal with no changes application' do
     end
 
     context 'when appeal no changes with USN' do
-      let(:appeal_maat_id) { nil }
-      let(:appeal_usn) { '456DEF' }
-
       it 'shows savings details' do # rubocop:disable RSpec/MultipleExpectations
         within(card) do |card|
           expect(card).to have_summary_row 'Case type', 'Appeal to crown court'
