@@ -77,7 +77,7 @@ group :test do
   gem 'brakeman'
   gem 'capybara', '>= 3.40.0'
   gem 'erb_lint', require: false
-  gem 'rubocop', '>= 1.65.0', require: false
+  gem 'rubocop', '>= 1.66.0', require: false
   gem 'rubocop-performance', '>= 1.21.1', require: false
   gem 'rubocop-rails', '>= 2.26.0', require: false
   gem 'rubocop-rspec', '>= 3.0.3', require: false
