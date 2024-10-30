@@ -24,9 +24,7 @@ module Reviewing
     end
 
     def send_back(user_id:, reason:)
-      raise NotReceived unless received?
-      raise AlreadySentBack if @state.equal?(:sent_back)
-      raise CannotSendBackWhenCompleted if @state.equal?(:completed)
+      raise AlreadyReviewed if reviewed?
 
       apply SentBack.build(self, user_id:, reason:)
     end
@@ -36,28 +34,30 @@ module Reviewing
     end
 
     def complete(user_id:)
-      raise NotReceived unless received?
-      raise AlreadyCompleted if @state.equal?(:completed)
-      raise CannotCompleteWhenSentBack if @state.equal?(:sent_back)
+      raise AlreadyReviewed if reviewed?
 
       apply Completed.build(self, user_id:)
     end
 
     def mark_as_ready(user_id:)
-      raise NotReceived unless received?
+      raise AlreadyReviewed if reviewed?
       raise AlreadyMarkedAsReady if @state.equal?(:marked_as_ready)
-      raise CannotMarkAsReadyWhenSentBack if @state.equal?(:sent_back)
-      raise CannotMarkAsReadyWhenCompleted if @state.equal?(:completed)
 
       apply MarkedAsReady.build(self, user_id:)
     end
 
     def add_decision(decision_id:, user_id: nil)
-      raise AlreadyCompleted if @state.equal?(:completed)
-      raise AlreadySentBack if @state.equal?(:sent_back)
+      raise AlreadyReviewed if reviewed?
       raise DecisionAlreadyLinked if @decision_ids.include?(decision_id)
 
       apply DecisionAdded.build(self, user_id:, decision_id:)
+    end
+
+    def remove_decision(decision_id:, user_id:)
+      raise AlreadyReviewed if reviewed?
+      raise DecisionNotLinked unless @decision_ids.include?(decision_id)
+
+      apply DecisionRemoved.build(self, user_id:, decision_id:)
     end
 
     on ApplicationReceived do |event|
@@ -74,11 +74,15 @@ module Reviewing
       @decision_ids << event.data.fetch(:decision_id)
     end
 
+    on DecisionRemoved do |event|
+      @decision_ids.delete(event.data.fetch(:decision_id))
+    end
+
     on SentBack do |event|
       @state = Types::ReviewState[:sent_back]
       @return_reason = event.data.fetch(:reason, nil)
       @reviewer_id = event.data.fetch(:user_id)
-      @reviewed_at = event.timestamp
+      @reviewed_at = event.timestamp || Time.zone.now
     end
 
     on Superseded do |event|
@@ -89,7 +93,7 @@ module Reviewing
     on Completed do |event|
       @state = Types::ReviewState[:completed]
       @reviewer_id = event.data.fetch(:user_id)
-      @reviewed_at = event.timestamp
+      @reviewed_at = event.timestamp || Time.zone.now
     end
 
     on MarkedAsReady do |_event|

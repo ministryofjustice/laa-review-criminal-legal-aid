@@ -21,12 +21,17 @@ module Deciding
 
     # When the decision is created from a MAAT record
     def create_draft_from_maat(application_id:, maat_decision:, user_id:)
-      maat_decision = maat_decision.to_h
-      raise AlreadyCreated unless @state.nil?
+      if @state.nil?
+        maat_decision = maat_decision.to_h
 
-      apply DraftCreatedFromMaat.new(
-        data: { decision_id:, application_id:, maat_decision:, user_id: }
-      )
+        apply DraftCreatedFromMaat.new(
+          data: { decision_id:, application_id:, maat_decision:, user_id: }
+        )
+      else
+        raise AlreadyCreated if @application_id.present?
+
+        apply Linked.build(self, user_id:, application_id:)
+      end
     end
 
     def sync_with_maat(maat_decision:, user_id:)
@@ -45,6 +50,12 @@ module Deciding
 
     def set_comment(user_id:, comment:)
       apply CommentSet.build(self, user_id:, comment:)
+    end
+
+    def unlink(user_id:, application_id:)
+      raise NotLinked unless @application_id == application_id
+
+      apply Unlinked.build(self, user_id:)
     end
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
@@ -79,6 +90,15 @@ module Deciding
 
     on CommentSet do |event|
       @comment = event.data.fetch(:comment)
+    end
+
+    on Unlinked do |_event|
+      @application_id = nil
+      @comment = nil
+    end
+
+    on Linked do |event|
+      @application_id = event.data.fetch(:application_id)
     end
 
     def update_from_maat(maat_attributes)

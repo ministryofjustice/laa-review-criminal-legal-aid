@@ -45,6 +45,11 @@ describe Reviewing::Review do
 
     it 'becomes "sent_back"' do
       expect(review.state).to eq :sent_back
+      expect(review.reviewed_at).to be_present
+    end
+
+    it 'becomes "reviewed"' do
+      expect(review).to be_reviewed
     end
 
     it 'creates an event' do
@@ -56,19 +61,19 @@ describe Reviewing::Review do
     it 'can only happen once' do
       expect do
         review.send_back(user_id:, reason:)
-      end.to raise_error Reviewing::AlreadySentBack
+      end.to raise_error Reviewing::AlreadyReviewed
     end
 
     it 'cannot then be completed' do
       expect do
         review.complete(user_id:)
-      end.to raise_error Reviewing::CannotCompleteWhenSentBack
+      end.to raise_error Reviewing::AlreadyReviewed
     end
 
     it 'cannot then be marked as ready' do
       expect do
         review.mark_as_ready(user_id:)
-      end.to raise_error Reviewing::CannotMarkAsReadyWhenSentBack
+      end.to raise_error Reviewing::AlreadyReviewed
     end
   end
 
@@ -84,6 +89,10 @@ describe Reviewing::Review do
       expect(review.state).to eq :completed
     end
 
+    it 'becomes "reviewed"' do
+      expect(review).to be_reviewed
+    end
+
     it 'creates an event' do
       expect(review.unpublished_events.map(&:event_type)).to match [
         'Reviewing::ApplicationReceived', 'Reviewing::Completed'
@@ -92,20 +101,20 @@ describe Reviewing::Review do
 
     it 'can only happen once' do
       expect { review.complete(user_id:) }.to raise_error(
-        Reviewing::AlreadyCompleted
+        Reviewing::AlreadyReviewed
       )
     end
 
     it 'cannot then be sent back' do
       expect do
         review.send_back(user_id:, reason:)
-      end.to raise_error Reviewing::CannotSendBackWhenCompleted
+      end.to raise_error Reviewing::AlreadyReviewed
     end
 
     it 'cannot then be marked as ready' do
       expect do
         review.mark_as_ready(user_id:)
-      end.to raise_error Reviewing::CannotMarkAsReadyWhenCompleted
+      end.to raise_error Reviewing::AlreadyReviewed
     end
   end
 

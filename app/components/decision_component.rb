@@ -20,7 +20,7 @@ class DecisionComponent < ViewComponent::Base
   def actions
     return [] unless draft? && show_actions
 
-    [change_action]
+    [change_action, remove_action].compact
   end
 
   def draft?
@@ -41,8 +41,23 @@ class DecisionComponent < ViewComponent::Base
     end
   end
 
+  def remove_action
+    return unless linked_to_maat?
+
+    button_to(
+      action_text(:unlink_decision),
+      crime_application_maat_decision_path(
+        crime_application_id: decision.application_id, id: decision.decision_id
+      ),
+      method: :delete,
+      class: 'govuk-link app-button--link'
+    )
+  end
+
   def update_path
-    crime_application_maat_decision_path(crime_application_id: decision.application_id, id: decision.decision_id)
+    crime_application_maat_decision_path(
+      crime_application_id: decision.application_id, id: decision.decision_id
+    )
   end
 
   def ioj_result

@@ -70,22 +70,22 @@ RSpec.describe 'Marking an application as complete' do
       end
 
       describe 'AlreadyCompleted' do
-        let(:error_class) { Reviewing::AlreadyCompleted }
+        let(:error_class) { Reviewing::AlreadyReviewed }
         let(:message) do
-          'This application was already marked as complete'
+          'This application was already reviewed'
         end
 
         it 'notifies that the application has already been completed' do
-          expect(page).to have_content message
+          expect(page).to have_notification_banner text: message
         end
       end
 
-      describe 'CannotCompleteWhenSentBack' do
-        let(:error_class) { Reviewing::CannotCompleteWhenSentBack }
-        let(:message) { 'This application was already sent back to the provider' }
+      describe 'IncompleteDecisions' do
+        let(:error_class) { Reviewing::IncompleteDecisions }
+        let(:message) { 'Please complete any pending funding decisions' }
 
         it 'notifies that the application has already been sent back' do
-          expect(page).to have_content message
+          expect(page).to have_notification_banner text: message
         end
       end
     end

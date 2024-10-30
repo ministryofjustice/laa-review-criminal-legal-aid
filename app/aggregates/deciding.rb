@@ -17,12 +17,16 @@ module Deciding
     end
   end
 
+  class CommentSet < Event; end
   class DraftCreated < Event; end
   class DraftCreatedFromMaat < Event; end
-  class InterestsOfJusticeSet < Event; end
   class FundingDecisionSet < Event; end
+  class InterestsOfJusticeSet < Event; end
+  class Linked < Event; end
   class SynchedWithMaat < Event; end
-  class CommentSet < Event; end
+  class Unlinked < Event; end
+
+  class ApplyDraftLinked < Event; end
 
   class << self
     def stream_name(decision_id)

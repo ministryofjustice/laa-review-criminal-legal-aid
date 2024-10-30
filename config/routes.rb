@@ -46,7 +46,7 @@ Rails.application.routes.draw do
         end
       end
       
-      resources :maat_decisions, only: [:new, :create, :update] do
+      resources :maat_decisions, only: [:new, :create, :update, :destroy] do
         post :create_by_reference, on: :collection
       end
     end
