@@ -31,6 +31,8 @@ RSpec.describe 'Submitting a Non-means decision' do
       )
     end
 
+    let(:send_decisions_form_prompt) { 'What do you want to do next?' }
+
     before do
       allow(FeatureFlags).to receive(:adding_decisions) {
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
@@ -46,14 +48,14 @@ RSpec.describe 'Submitting a Non-means decision' do
 
       visit crime_application_path(application_id)
       click_button 'Assign to your list'
-
-      add_a_non_means_decision
     end
 
     it 'shows the confirmation page' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+      add_a_non_means_decision
       expect(page).to have_content('Your list (1)')
 
-      click_on 'Send to provider'
+      choose_answer(send_decisions_form_prompt, 'Send to provider')
+      save_and_continue
 
       expect(page).to have_content('Your list (0)')
       expect(page).to have_success_notification_banner(
@@ -62,7 +64,7 @@ RSpec.describe 'Submitting a Non-means decision' do
 
       visit crime_application_path(application_id)
 
-      # NB: the decision displayed should be that form the datastore
+      # NB: the decision displayed should be that from the datastore
       # not the event sourced decision.
       expect(summary_card('Case')).to have_rows(
         'Interests of justice test results', 'Passed',
@@ -72,6 +74,33 @@ RSpec.describe 'Submitting a Non-means decision' do
         'Overall result', 'Granted',
         'Further information about the decision', 'Test comment'
       )
+    end
+
+    context 'when navigating to the send decision page with an incomplete decision' do
+      before do
+        click_button 'Start'
+        complete_ioj_form
+
+        visit new_crime_application_send_decisions_path(application_id)
+      end
+
+      it 'does not show the send decision form' do
+        expect(current_path).to eq new_crime_application_send_decisions_path(application_id)
+        expect(page).not_to have_content send_decisions_form_prompt
+      end
+    end
+
+    context 'when "what do you want to do next?" not answered' do
+      before do
+        add_a_non_means_decision
+        save_and_continue
+      end
+
+      it 'shows an error message' do
+        expect(page).to have_error(
+          send_decisions_form_prompt, 'Select what you want to do next'
+        )
+      end
     end
   end
 end

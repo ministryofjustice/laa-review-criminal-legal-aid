@@ -66,11 +66,7 @@ module Casework
 
       set_flash :decision_removed, success: true
 
-      if @crime_application.decision_ids.size > 1
-        redirect_to crime_application_decisions_path
-      else
-        redirect_to crime_application_path(@crime_application)
-      end
+      redirect_to new_crime_application_send_decisions_path
     end
 
     private

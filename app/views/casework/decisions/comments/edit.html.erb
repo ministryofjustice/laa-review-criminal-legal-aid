@@ -1,7 +1,12 @@
 <% title t '.title' %>
 
+<% unless @decision.complete? %>
+  <%= render FlashNotice.new(:important, t(:incomplete_maat_decision, scope: 'flash.important')) %>
+<% end %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
     <p class="govuk-body-l govuk-!-margin-bottom-2">
       <%= @crime_application.reference %>
     </p>
@@ -17,18 +22,20 @@
     <%= render DecisionComponent.new(decision: @decision, show_actions: true) %>
   </div>
 
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @form_object, url: crime_application_decision_comment_path, method: :put do |f| %>
+  <% if @decision.complete? %>
+    <div class="govuk-grid-column-two-thirds">
+      <%= form_with model: @form_object, url: crime_application_decision_comment_path, method: :put do |f| %>
 
-      <%= f.govuk_radio_buttons_fieldset :comment_required do %>
-        <%= f.govuk_radio_button :comment_required, 'true' do %>
-          <%= f.govuk_text_area :comment %>
+        <%= f.govuk_radio_buttons_fieldset :comment_required do %>
+          <%= f.govuk_radio_button :comment_required, 'true' do %>
+            <%= f.govuk_text_area :comment %>
+          <% end %>
+
+          <%= f.govuk_radio_button :comment_required, 'false' %>
         <% end %>
 
-        <%= f.govuk_radio_button :comment_required, 'false' %>
+        <%= f.govuk_submit %>
       <% end %>
-
-      <%= f.govuk_submit %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

@@ -2,7 +2,7 @@ module GdsHelper
   def have_notification_banner(text:, details: nil, success: false)
     title_text = success ? 'Success' : 'Important'
 
-    within('.govuk-notification-banner') do
+    within('.govuk-notification-banner', text:) do
       assertion = have_css('h2', text: title_text)
                   .and(have_css('div', text:))
 

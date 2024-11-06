@@ -19,7 +19,6 @@
 
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @form_object, url: crime_application_maat_decision_path, method: :put do |f| %>
-
       <%= f.govuk_radio_buttons_fieldset :comment_required do %>
         <%= f.govuk_radio_button :comment_required, 'true' do %>
           <%= f.govuk_text_area :comment %>

@@ -58,6 +58,9 @@ en:
         - You must be allocated to the %{work_queue} work queue to review this application
         - Contact your supervisor to arrange this
       incomplete_decisions: Please complete any pending funding decisions
+      incomplete_maat_decision: 
+        - Information missing
+        - Complete details in MAAT and then update this page.
 
 
   primary_navigation:
@@ -819,5 +822,9 @@ en:
     maat_decisions:
       new:
         title: "Make a funding decision"
-      edit:
-        title: "OIOI"
+    send_decisions:
+      new:
+        title:
+          zero: Add a funding decision
+          one: You have added %{count} case
+          other: You have added %{count} cases

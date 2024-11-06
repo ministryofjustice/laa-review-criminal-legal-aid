@@ -37,11 +37,11 @@ RSpec.describe 'Adding another MAAT decision' do
         assessed_on:  1.hour.ago.to_s
       },
       means: {
-        result: 'pass',
+        result: 'fail',
         assessed_by: 'Jo Bloggs',
         assessed_on:  1.hour.ago.to_s
       },
-      funding_decision: nil
+      funding_decision: 'failmeans'
     )
   end
 
@@ -65,7 +65,8 @@ RSpec.describe 'Adding another MAAT decision' do
     fill_in('MAAT ID', with: maat_id)
     save_and_continue
     complete_comment_form
-    click_link('Add another case')
+    choose_answer('What do you want to do next?', 'Add another MAAT ID')
+    save_and_continue
     fill_in('MAAT ID', with: maat_id2)
     save_and_continue
     complete_comment_form
@@ -82,16 +83,19 @@ RSpec.describe 'Adding another MAAT decision' do
     end
   end
 
-  it 'returns to the decisions page when one of the deicisons is removed' do
+  it 'returns to the decisions page when one of the decisions is removed' do
     within_card('Case 1') { click_button('Remove') }
 
     expect(page).to have_success_notification_banner(text: 'Decision removed')
-    expect(current_path).to eq(crime_application_decisions_path(application_id))
+    expect(current_path).to eq(new_crime_application_send_decisions_path(application_id))
   end
 
-  it 'returns an error if submitting with an incomplete decision' do
-    click_button('Send to provider')
+  it 'sends the decisions' do
+    choose_answer('What do you want to do next?', 'Send to provider')
+    save_and_continue
 
-    expect(page).to have_notification_banner(text: 'Please complete any pending funding decisions')
+    expect(page).to have_success_notification_banner(text: 'Application complete. Decision sent to provider.')
+
+    expect(current_path).to eq(assigned_applications_path)
   end
 end

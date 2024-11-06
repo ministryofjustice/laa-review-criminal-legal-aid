@@ -56,6 +56,8 @@ RSpec.describe 'Authorisation' do
       edit_crime_application_maat_decision
       crime_application_maat_decision
       crime_application_maat_decisions
+      crime_application_send_decisions
+      new_crime_application_send_decisions
     ]
   end
 

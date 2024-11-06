@@ -37,8 +37,9 @@ Rails.application.routes.draw do
       resource :reassign, only: [:new, :create]
       resource :return, only: [:new, :create]
       resource :complete, only: [:create]
+      resource :send_decisions, only: [:new, :create]
 
-      resources :decisions, only: [:create, :index] do 
+      resources :decisions, only: [:create] do 
         scope module: :decisions do
           resource :interests_of_justice, only: [:edit, :update]
           resource :overall_result, only: [:edit, :update]

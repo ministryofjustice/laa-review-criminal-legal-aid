@@ -12,6 +12,10 @@ module Decisions
       { crime_application_id: application_id, decision_id: decision_id }
     end
 
+    def complete?
+      funding_decision.present?
+    end
+
     class << self
       def build(aggregate)
         new(
