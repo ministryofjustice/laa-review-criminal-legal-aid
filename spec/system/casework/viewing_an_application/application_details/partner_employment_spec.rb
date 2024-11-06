@@ -18,6 +18,22 @@ RSpec.describe 'Viewing the employment details of the partner' do
       end
     end
 
+    it 'shows partners armed forces details' do
+      within(card) do |card|
+        expect(card).to have_summary_row 'Partner in armed forces?', 'No'
+      end
+    end
+
+    context 'when armed forces question is not answered' do
+      let(:application_data) do
+        super().deep_merge('means_details' => { 'income_details' => { 'partner_in_armed_forces' => nil } })
+      end
+
+      it 'does not show armed forces details' do
+        expect(page).to have_no_content('Partner in armed forces?')
+      end
+    end
+
     context 'when partner is employed and self employed' do
       let(:application_data) do
         JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(

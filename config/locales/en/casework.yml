@@ -125,6 +125,7 @@ en:
     case_type: Case type
     caseworker: Caseworker
     client_details: Client details
+    client_in_armed_forces: Client in armed forces?
     client_other_charges: Other charges
     client_other_charges_explicit: "Other charges: client"
     client_owns_property: Has land or property?
@@ -300,6 +301,7 @@ en:
     partner_details: Partner details
     partner_employment: Partner's employment
     partner_employment_type: Partner's employment status
+    partner_in_armed_forces: Partner in armed forces?
     partner_other_charges: "Other charges: partner"
     pays_council_tax: Council Tax
     passporting_benefit: Passporting Benefit
