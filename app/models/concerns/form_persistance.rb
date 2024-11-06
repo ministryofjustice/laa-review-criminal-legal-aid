@@ -13,15 +13,23 @@ module FormPersistance
 
     old_values = editable_attribute_values
     assign_attributes(new_attributes)
-
     validate!
 
     persist(user_id) unless old_values == editable_attribute_values
   end
 
+  def create_with_user!(attrs, user_id)
+    raise_if_read_only!(attrs)
+
+    assign_attributes(attrs)
+    validate!
+
+    persist(user_id)
+  end
+
   class_methods do
     def permit_params(params = {})
-      params[model_name.singular].permit(*editable_attributes)
+      params[model_name.singular]&.permit(*editable_attributes) || {}
     end
 
     def editable_attributes

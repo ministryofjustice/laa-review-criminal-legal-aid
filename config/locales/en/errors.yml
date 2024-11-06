@@ -10,6 +10,8 @@ en:
         blank: Enter the name of the caseworker who assessed this
       assessed_on: 
         blank: Enter the date of assessemnt
+      base: 
+        incomplete_decisions: Complete decision details first
       comment:
         blank: Enter additional comments for the provider
       comment_required:
@@ -37,6 +39,8 @@ en:
         not_found: An application with this MAAT ID could not be found on MAAT
         reference_mismatch: The application on MAAT with this MAAT ID is associated with another reference number (USN) 
         already_linked: This MAAT ID is already linked
+      next_step:
+        inclusion: Select what you want to do next
 
     error_summary:
       heading: There is a problem on this page

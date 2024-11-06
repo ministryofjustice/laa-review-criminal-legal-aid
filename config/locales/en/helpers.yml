@@ -21,6 +21,8 @@ en:
         maat_id: MAAT ID  
       decisions_add_another_form:
         add_another_decision: Do you want to add another case?  
+      decisions_send_to_provider_form:
+        next_step: What do you want to do next?
 
     label:
       decisions_interests_of_justice_form:
@@ -40,10 +42,10 @@ en:
         comment: Additional comments for the provider
       decisions_maat_id_form:
         maat_id: MAAT ID  
-      decisions_add_another_form:
-        add_another_decision_options: 
-          'true': 'Yes'
-          'false': 'No'
+      decisions_send_to_provider_form:
+        next_step_options: 
+          add_another: Add another MAAT ID
+          send_to_provider: Send to provider
 
     submit:
       save_and_continue: Save and continue

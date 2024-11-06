@@ -24,8 +24,4 @@ module ComponentsHelper
       application.available_reviewer_actions, application:
     )
   end
-
-  def reviewing_action(review_action, application)
-    render ReviewActionComponent.new(review_action:, application:)
-  end
 end

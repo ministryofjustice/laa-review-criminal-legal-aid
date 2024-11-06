@@ -37,8 +37,10 @@ Rails.application.routes.draw do
       resource :reassign, only: [:new, :create]
       resource :return, only: [:new, :create]
       resource :complete, only: [:create]
+      get 'what_do_you_want_to_do_next', to: 'send_decisions#new', as: :send_decisions
+      post 'what_do_you_want_to_do_next', to: 'send_decisions#create'
 
-      resources :decisions, only: [:create, :index] do 
+      resources :decisions, only: [:create] do 
         scope module: :decisions do
           resource :interests_of_justice, only: [:edit, :update]
           resource :overall_result, only: [:edit, :update]
