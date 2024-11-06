@@ -5,6 +5,13 @@
             row.with_key { label_text(:partner_employment_type) }
             row.with_value { t(income_details.partner_employment_type, scope: 'values.employment_type').to_sentence }
           end
+
+          if income_details.partner_in_armed_forces == 'yes'
+            list.with_row do |row|
+              row.with_key { label_text(:partner_in_armed_forces) }
+              row.with_value { t(income_details.partner_in_armed_forces, scope: 'values') }
+            end
+          end
         end %>
   <% end %>
 <% end %>

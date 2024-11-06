@@ -8,19 +8,29 @@ RSpec.describe 'Viewing the employment details of an application' do
   end
 
   context 'with employment details' do
+    let(:card) do
+      page.find('h2.govuk-summary-card__title', text: 'Employment').ancestor('div.govuk-summary-card')
+    end
+
     it { expect(page).to have_content('Employment') }
 
     it 'shows employment type' do
-      expect(page).to have_content("Client's employment status Not working")
+      within(card) do |card|
+        expect(card).to have_summary_row "Client's employment status", 'Not working'
+      end
     end
 
     it 'shows whether employment has ended in the last three months' do
-      expect(page).to have_content('Have they ended employment in the last 3 months? Yes')
+      within(card) do |card|
+        expect(card).to have_summary_row 'Have they ended employment in the last 3 months?', 'Yes'
+      end
     end
 
     it 'shows whether job was lost in custody and date details' do
-      expect(page).to have_content('Did they lose their job as a result of being in custody? Yes')
-      expect(page).to have_content('When did they lose their job? 01/09/2023')
+      within(card) do |card|
+        expect(card).to have_summary_row 'Did they lose their job as a result of being in custody?', 'Yes'
+        expect(card).to have_summary_row 'When did they lose their job?', '01/09/2023'
+      end
     end
 
     context 'when job was not lost in custody' do
@@ -30,8 +40,36 @@ RSpec.describe 'Viewing the employment details of an application' do
       end
 
       it 'does not show date custody lost details' do
-        expect(page).to have_content('Did they lose their job as a result of being in custody? No')
+        within(card) do |card|
+          expect(card).to have_summary_row 'Did they lose their job as a result of being in custody?', 'No'
+        end
         expect(page).to have_no_content('When did they lose their job?')
+      end
+    end
+
+    it 'does not show armed forces row if client is not part of armed forces' do
+      expect(page).to have_no_content('Client in armed forces? No')
+    end
+
+    context 'when armed forces question has been answered' do
+      let(:application_data) do
+        super().deep_merge('means_details' => { 'income_details' => { 'client_in_armed_forces' => 'yes' } })
+      end
+
+      it 'shows if client is part of armed forces' do
+        within(card) do |card|
+          expect(card).to have_summary_row 'Client in armed forces?', 'Yes'
+        end
+      end
+    end
+
+    context 'when armed forces question is not answered' do
+      let(:application_data) do
+        super().deep_merge('means_details' => { 'income_details' => { 'client_in_armed_forces' => nil } })
+      end
+
+      it 'does not show armed forces details' do
+        expect(page).to have_no_content('Client in armed forces?')
       end
     end
   end
