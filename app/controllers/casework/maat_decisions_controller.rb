@@ -66,7 +66,7 @@ module Casework
 
       set_flash :decision_removed, success: true
 
-      redirect_to new_crime_application_send_decisions_path
+      redirect_to crime_application_send_decisions_path
     end
 
     private

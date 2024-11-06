@@ -57,7 +57,7 @@ RSpec.describe 'Authorisation' do
       crime_application_maat_decision
       crime_application_maat_decisions
       crime_application_send_decisions
-      new_crime_application_send_decisions
+      crime_application_what_do_you_want_to_do_next
     ]
   end
 

@@ -81,12 +81,25 @@ RSpec.describe 'Submitting a Non-means decision' do
         click_button 'Start'
         complete_ioj_form
 
-        visit new_crime_application_send_decisions_path(application_id)
+        visit crime_application_send_decisions_path(application_id)
       end
 
       it 'does not show the send decision form' do
-        expect(current_path).to eq new_crime_application_send_decisions_path(application_id)
+        expect(current_path).to eq crime_application_send_decisions_path(application_id)
         expect(page).not_to have_content send_decisions_form_prompt
+      end
+    end
+
+    context 'when choosing to "save and come back later"' do
+      include_context 'with stubbed search'
+
+      before do
+        add_a_non_means_decision
+        click_on 'Save and come back later'
+      end
+
+      it 'redirects to the assigned applications page' do
+        expect(current_path).to eq assigned_applications_path
       end
     end
 
