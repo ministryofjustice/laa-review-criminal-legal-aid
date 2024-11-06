@@ -33,12 +33,6 @@ RSpec.describe 'Viewing the employment details of an application' do
       end
     end
 
-    it 'shows whether client is member of armed forces' do
-      within(card) do |card|
-        expect(card).to have_summary_row 'Client in armed forces?', 'No'
-      end
-    end
-
     context 'when job was not lost in custody' do
       let(:application_data) do
         super().deep_merge('means_details' => { 'income_details' => { 'lost_job_in_custody' => 'no',
@@ -50,6 +44,22 @@ RSpec.describe 'Viewing the employment details of an application' do
           expect(card).to have_summary_row 'Did they lose their job as a result of being in custody?', 'No'
         end
         expect(page).to have_no_content('When did they lose their job?')
+      end
+    end
+
+    it 'does not show armed forces row if client is not part of armed forces' do
+      expect(page).to have_no_content('Client in armed forces? No')
+    end
+
+    context 'when armed forces question has been answered' do
+      let(:application_data) do
+        super().deep_merge('means_details' => { 'income_details' => { 'client_in_armed_forces' => 'yes' } })
+      end
+
+      it 'shows if client is part of armed forces' do
+        within(card) do |card|
+          expect(card).to have_summary_row 'Client in armed forces?', 'Yes'
+        end
       end
     end
 

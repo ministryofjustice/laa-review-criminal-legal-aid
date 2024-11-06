@@ -18,9 +18,19 @@ RSpec.describe 'Viewing the employment details of the partner' do
       end
     end
 
-    it 'shows partners armed forces details' do
-      within(card) do |card|
-        expect(card).to have_summary_row 'Partner in armed forces?', 'No'
+    it 'does not show armed forces row if partner is not part of armed forces' do
+      expect(page).to have_no_content('Partner in armed forces? No')
+    end
+
+    context 'when armed forces question has been answered' do
+      let(:application_data) do
+        super().deep_merge('means_details' => { 'income_details' => { 'partner_in_armed_forces' => 'yes' } })
+      end
+
+      it 'shows if partner is part of armed forces' do
+        within(card) do |card|
+          expect(card).to have_summary_row 'Partner in armed forces?', 'Yes'
+        end
       end
     end
 
