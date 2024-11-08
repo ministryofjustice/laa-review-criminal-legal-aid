@@ -10,12 +10,21 @@
            )) %>
 
 <% if crime_application.decisions.empty? && crime_application.reviewable_by?(current_user_id) %>
+  <% if crime_application.cifc? %>
+    <p><%= t('.update_application_on_maat') %></p>
+
+    <%= govuk_button_to(
+          action_text(:add_funding_decision),
+          new_crime_application_link_decision_path(crime_application),
+          method: :get
+        ) %>
+  <% else %>
     <% if crime_application.status?(::Types::ReviewState[:marked_as_ready]) %>
       <p><%= t('.create_application_on_maat', reference: crime_application.reference) %></p>
 
       <%= govuk_button_to(
             action_text(:add_funding_decision),
-            create_by_reference_crime_application_maat_decisions_path(
+            crime_application_link_decisions_path(
               crime_application
             )
           ) %>
@@ -27,4 +36,5 @@
       <%= govuk_button_to action_text(:start),
                           crime_application_decisions_path(crime_application)  %>
     <% end %>
+  <% end %>
 <% end %>

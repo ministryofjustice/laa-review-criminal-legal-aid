@@ -799,7 +799,8 @@ en:
         headings:
       funding_decision:
         manually_enter_decision: You need to manually enter a decision for this application.
-        create_application_on_maat: First you will need to create an application on MAAT using the reference number (USN) %{reference}
+        create_application_on_maat: To add one or more funding decisions, link the application in MAAT first.
+        update_application_on_maat: To add the funding decision, update the origional application in MAAT first.
       labels:
         <<: *LABELS
       values:
@@ -822,6 +823,9 @@ en:
     maat_decisions:
       new:
         title: "Make a funding decision"
+    link_decisions:
+      new:
+        title: "Link CIFC application to MAAT ID"
     send_decisions:
       new:
         title:

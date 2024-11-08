@@ -23,6 +23,14 @@ module Maat
     def by_maat_id(maat_id)
       get(format(MAAT_ID_FORMAT, maat_id))
     end
+    
+    def by_maat_id!(maat_id)
+      record = by_maat_id(maat_id)
+      
+      raise Maat::RecordNotFound if record.blank?
+
+      record
+    end
 
     private
 

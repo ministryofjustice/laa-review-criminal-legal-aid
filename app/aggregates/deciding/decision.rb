@@ -21,17 +21,16 @@ module Deciding
 
     # When the decision is created from a MAAT record
     def create_draft_from_maat(application_id:, maat_decision:, user_id:)
-      if @state.nil?
-        maat_decision = maat_decision.to_h
+      raise AlreadyCreated unless @state.nil?
 
-        apply DraftCreatedFromMaat.new(
-          data: { decision_id:, application_id:, maat_decision:, user_id: }
-        )
-      else
-        raise AlreadyCreated if @application_id.present?
+      maat_decision = maat_decision.to_h
+      apply DraftCreatedFromMaat.new(
+        data: { decision_id:, application_id:, maat_decision:, user_id: }
+      )
+    end
 
-        apply Linked.build(self, user_id:, application_id:)
-      end
+    def link(application_id:, user_id:)
+      apply Linked.build(self, user_id:, application_id:)
     end
 
     def sync_with_maat(maat_decision:, user_id:)
@@ -56,6 +55,12 @@ module Deciding
       raise NotLinked unless @application_id == application_id
 
       apply Unlinked.build(self, user_id:)
+    end
+
+    on CifcLinked do |event|
+      @application_id = event.data.fetch(:application_id)
+      @reference = event.data.fetch(:reference, nil) # should the reference number in the event stay the same?
+      @state = Types::DecisionState[:draft]
     end
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
@@ -94,11 +99,13 @@ module Deciding
 
     on Unlinked do |_event|
       @application_id = nil
+      @reference = nil
       @comment = nil
     end
 
     on Linked do |event|
       @application_id = event.data.fetch(:application_id)
+      @reference = event.data.fetch(:reference, nil)
     end
 
     def update_from_maat(maat_attributes)

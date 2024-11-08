@@ -50,8 +50,10 @@
         row.with_value { decision_result(decision.funding_decision) }
       end
 
-      list.with_row do |row|
-        row.with_key { label_text(:decision_comment) }
-        row.with_value { decision.comment }
+      if decision.comment.present?
+        list.with_row do |row|
+          row.with_key { label_text(:decision_comment) }
+          row.with_value { decision.comment }
+        end
       end
     end %>
