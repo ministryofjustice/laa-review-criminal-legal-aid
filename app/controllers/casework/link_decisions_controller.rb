@@ -44,12 +44,11 @@ module Casework
     end
 
     def maat_decision
-      if reference.present?
-        @maat_decision ||= Maat::GetDecision.new.by_usn!(reference)
-      else
-        @maat_decision ||= Maat::GetDecision.new.by_maat_id!(maat_id)
-      end
+      @maat_decision ||= if reference.present?
+                           Maat::GetDecision.new.by_usn!(reference)
+                         else
+                           Maat::GetDecision.new.by_maat_id!(maat_id)
+                         end
     end
   end
 end
-

@@ -18,9 +18,7 @@ module Deciding
             decision.link(application_id:, user_id:)
           end
 
-          if maat_decision&.checksum != decision.checksum
-            decision.sync_with_maat(maat_decision:, user_id:)
-          end
+          decision.sync_with_maat(maat_decision:, user_id:) if maat_decision&.checksum != decision.checksum
         end
       end
     end

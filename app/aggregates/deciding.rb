@@ -12,7 +12,7 @@ module Deciding
   class InterestsOfJusticeSet < Event; end
   class Linked < Event; end
   class LinkedToCifc < Event; end
-  class Sent < Event; end
+  class SentToProvider < Event; end
   class SynchedWithMaat < Event; end
   class Unlinked < Event; end
 
@@ -21,6 +21,10 @@ module Deciding
       "Deciding$#{decision_id}"
     end
   end
+
+  # TODO: REMVOE
+
+  class Sent < Event; end
 
   # class Configuration
   #   def call(event_store)

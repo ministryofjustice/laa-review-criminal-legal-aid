@@ -28,7 +28,7 @@ module Decisions
     alias decision_id maat_id
 
     def maat_decision_found_for_id
-      return errors.add(:maat_id, :not_found) if maat_decision.blank?
+      errors.add(:maat_id, :not_found) if maat_decision.blank?
     end
 
     def persist(user_id)

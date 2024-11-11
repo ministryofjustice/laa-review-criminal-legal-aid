@@ -6,15 +6,15 @@ module Reviewing
     def call
       ActiveRecord::Base.transaction do
         with_review do |review|
-          review.draft_decisions.each do |draft|
-            draft.send_to_provider(user_id:, application_id:)
-          end
-
           review.complete(user_id:)
+
+          review.decision_ids.each do |decision_id|
+            Deciding::SendToProvider.call(user_id:, application_id:, decision_id:)
+          end
 
           DatastoreApi::Requests::UpdateApplication.new(
             application_id: application_id,
-            payload: { decisions: decisions(review)},
+            payload: { decisions: decisions(review) },
             member: :complete
           ).call
         end
@@ -25,7 +25,7 @@ module Reviewing
 
     def decisions(review)
       review.draft_decisions.map do |draft|
-        Decisions::Draft.build(draft).as_json
+        Decisions::Draft.build(draft)
       end
     end
   end

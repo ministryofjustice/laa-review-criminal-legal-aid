@@ -7,7 +7,7 @@ module Casework
     def new
       @form_object = ::Decisions::MaatIdForm.new(
         application_id: @crime_application.id,
-        application_type: @crime_application.application_type,
+        application_type: @crime_application.application_type
       )
     end
 

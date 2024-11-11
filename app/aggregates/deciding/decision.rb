@@ -30,15 +30,15 @@ module Deciding
     end
 
     # Can only be linked if the decision is not linked
-    def link(application_id:, user_id:, application_type:)
-      raise AlreadyLinked if @application_id.present? 
+    def link(application_id:, user_id:)
+      raise AlreadyLinked if @application_id.present?
 
       apply Linked.build(self, user_id:, application_id:)
     end
 
     # A CIFC application can only be linked when the decision is in a sent state.
     def link_to_cifc(application_id:, user_id:)
-#      raise AlreadyLinked unless @state == :sent
+      raise AlreadyLinked unless @state == :sent_to_provider
 
       apply LinkedToCifc.build(self, user_id:, application_id:)
     end
@@ -71,7 +71,7 @@ module Deciding
     def send_to_provider(user_id:, application_id:)
       raise NotLinked unless @application_id == application_id
 
-      apply Sent.build(self, user_id:)
+      apply SentToProvider.build(self, user_id:)
     end
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
@@ -124,8 +124,12 @@ module Deciding
       @application_id = event.data.fetch(:application_id)
     end
 
+    # TODO: REMOVE
     on Sent do |event|
-      @state = Types::DecisionState[:sent]
+    end
+
+    on SentToProvider do |_event|
+      @state = Types::DecisionState[:sent_to_provider]
     end
 
     def update_from_maat(maat_attributes)
