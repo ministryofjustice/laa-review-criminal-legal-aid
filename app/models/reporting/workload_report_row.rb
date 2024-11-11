@@ -24,10 +24,6 @@ module Reporting
       define_method(:"day#{i}") { backlogs[i] }
     end
 
-    def day4_to_last_day
-      day0_to_last_day - backlogs.first(4).sum
-    end
-
     def day0_to_last_day
       backlogs.sum
     end

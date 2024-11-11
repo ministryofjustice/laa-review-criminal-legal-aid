@@ -1,6 +1,6 @@
 module Reporting
   class WorkloadReport
-    AGE_LIMIT = 9
+    AGE_LIMIT = 4
 
     # Builds a Workload Report from "observed_at" until "age_limit" business days
     # ago.
