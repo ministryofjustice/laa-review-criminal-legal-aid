@@ -16,6 +16,10 @@ module Decisions
       funding_decision.present?
     end
 
+    def as_json
+      LaaCrimeSchemas::Structs::Decision.new(self)
+    end
+
     class << self
       def build(aggregate)
         new(

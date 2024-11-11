@@ -29,23 +29,16 @@ module Decisions
 
     def maat_decision_found_for_id
       return errors.add(:maat_id, :not_found) if maat_decision.blank?
-
-      errors.add(:maat_id, :reference_mismatch) if reference_mismatch
-    end
-
-    def reference_mismatch
-      return if maat_decision&.reference.blank?
-
-      maat_decision.reference.to_i != reference.to_i
     end
 
     def persist(user_id)
       ActiveRecord::Base.transaction do
-        Deciding::CreateDraftFromMaat.call(application_id:, user_id:, decision_id:, maat_decision:)
+        Deciding::CreateDraftFromMaat.call(application_id:, user_id:, decision_id:, maat_decision:, application_type:)
         Reviewing::AddDecision.call(application_id:, user_id:, decision_id:)
       end
-    rescue Deciding::AlreadyCreated => e
-      errors.add(:maat_id, :already_linked)
+    rescue Deciding::Error => e
+      errors.add(:maat_id, e.message_key)
+
       raise e
     end
   end

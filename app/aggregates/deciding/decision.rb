@@ -11,7 +11,7 @@ module Deciding
                 :interests_of_justice
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
-    def create_draft(user_id:, application_id:, reference:)
+    def create_draft(application_id:, user_id:, reference:)
       raise AlreadyCreated unless @state.nil?
 
       apply DraftCreated.new(
@@ -20,17 +20,27 @@ module Deciding
     end
 
     # When the decision is created from a MAAT record
-    def create_draft_from_maat(application_id:, maat_decision:, user_id:)
+    def create_draft_from_maat(application_id:, maat_decision:, user_id:, application_type:)
       raise AlreadyCreated unless @state.nil?
+      raise ReferenceMismatch if maat_decision.reference.to_i != reference.to_i
 
-      maat_decision = maat_decision.to_h
       apply DraftCreatedFromMaat.new(
-        data: { decision_id:, application_id:, maat_decision:, user_id: }
+        data: { decision_id:, application_id:, maat_decision:, user_id:, application_type: }
       )
     end
 
-    def link(application_id:, user_id:)
+    # Can only be linked if the decision is not linked
+    def link(application_id:, user_id:, application_type:)
+      raise AlreadyLinked if @application_id.present? 
+
       apply Linked.build(self, user_id:, application_id:)
+    end
+
+    # A CIFC application can only be linked when the decision is in a sent state.
+    def link_to_cifc(application_id:, user_id:)
+#      raise AlreadyLinked unless @state == :sent
+
+      apply LinkedToCifc.build(self, user_id:, application_id:)
     end
 
     def sync_with_maat(maat_decision:, user_id:)
@@ -53,14 +63,15 @@ module Deciding
 
     def unlink(user_id:, application_id:)
       raise NotLinked unless @application_id == application_id
+      raise NotDraft unless @state == :draft
 
       apply Unlinked.build(self, user_id:)
     end
 
-    on CifcLinked do |event|
-      @application_id = event.data.fetch(:application_id)
-      @reference = event.data.fetch(:reference, nil) # should the reference number in the event stay the same?
-      @state = Types::DecisionState[:draft]
+    def send_to_provider(user_id:, application_id:)
+      raise NotLinked unless @application_id == application_id
+
+      apply Sent.build(self, user_id:)
     end
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
@@ -106,6 +117,15 @@ module Deciding
     on Linked do |event|
       @application_id = event.data.fetch(:application_id)
       @reference = event.data.fetch(:reference, nil)
+    end
+
+    # Original reference is retained when linking to CIFC
+    on LinkedToCifc do |event|
+      @application_id = event.data.fetch(:application_id)
+    end
+
+    on Sent do |event|
+      @state = Types::DecisionState[:sent]
     end
 
     def update_from_maat(maat_attributes)

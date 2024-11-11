@@ -40,7 +40,7 @@ module Types
 
   ReviewState = Symbol.default(:open).enum(*%i[open sent_back completed marked_as_ready])
 
-  DecisionState = Symbol.enum(*%i[draft])
+  DecisionState = Symbol.enum(*%i[draft changed sent])
 
   ReviewType = Symbol.enum(*%i[means non_means pse])
 

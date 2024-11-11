@@ -6,7 +6,8 @@ module Casework
 
     def new
       @form_object = ::Decisions::MaatIdForm.new(
-        application_id: @crime_application.id
+        application_id: @crime_application.id,
+        application_type: @crime_application.application_type,
       )
     end
 
@@ -16,6 +17,7 @@ module Casework
     def create
       @form_object = ::Decisions::MaatIdForm.new(
         application_id: @crime_application.id,
+        application_type: @crime_application.application_type,
         reference: @crime_application.reference
       )
 
@@ -24,7 +26,7 @@ module Casework
       set_flash(:maat_decision_linked, maat_id: @form_object.maat_id)
 
       redirect_to edit_crime_application_decision_comment_path(decision_id: @form_object.maat_id)
-    rescue ActiveModel::ValidationError, Deciding::AlreadyCreated
+    rescue ActiveModel::ValidationError, Deciding::Error
       render :new
     end
 

@@ -1,19 +1,22 @@
 module Deciding
   class CreateDraftFromMaat < Command
     attribute :application_id, Types::Uuid
+    attribute :application_type, Types::ApplicationType
     attribute :maat_decision, Maat::Decision
     attribute :user_id, Types::Uuid
 
     def call
       with_decision do |decision|
-        raise AlreadyCreated if decision.application_id.present? 
-
         if decision.state.nil?
           decision.create_draft_from_maat(
-            application_id:, maat_decision:, user_id:
+            application_id:, maat_decision:, user_id:, application_type:
           )
         else
-          decision.link(application_id:, user_id:)
+          if application_type == Types::ApplicationType['change_in_financial_circumstances']
+            decision.link_to_cifc(application_id:, user_id:)
+          else
+            decision.link(application_id:, user_id:)
+          end
 
           if maat_decision&.checksum != decision.checksum
             decision.sync_with_maat(maat_decision:, user_id:)
@@ -23,7 +26,3 @@ module Deciding
     end
   end
 end
-
-# is it okay to link based on what we've given???? 
-# Should we do it by USN
-#

@@ -116,6 +116,12 @@ module Reviewing
       @reviewed_at.in_time_zone('London').to_date if @reviewed_at.present?
     end
 
+    def draft_decisions
+      @draft_decisions ||= decision_ids.map do |decision_id|
+        Deciding::LoadDecision.call(application_id:, decision_id:)
+      end
+    end
+
     def available_reviewer_actions
       AvailableReviewerActions.for(self)
     end

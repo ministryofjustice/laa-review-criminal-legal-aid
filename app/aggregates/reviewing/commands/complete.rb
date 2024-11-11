@@ -6,11 +6,15 @@ module Reviewing
     def call
       ActiveRecord::Base.transaction do
         with_review do |review|
+          review.draft_decisions.each do |draft|
+            draft.send_to_provider(user_id:, application_id:)
+          end
+
           review.complete(user_id:)
 
           DatastoreApi::Requests::UpdateApplication.new(
             application_id: application_id,
-            payload: { decisions: decisions(review) },
+            payload: { decisions: decisions(review)},
             member: :complete
           ).call
         end
@@ -20,20 +24,8 @@ module Reviewing
     private
 
     def decisions(review)
-      draft_decisions(review).map do |draft|
-        LaaCrimeSchemas::Structs::Decision.new(draft).as_json
-      end
-    end
-
-    def draft_decisions(review)
-      review.decision_ids.map do |decision_id|
-        decision = Deciding::LoadDecision.call(
-          application_id:, decision_id:
-        )
-
-        raise IncompleteDecisions unless decision.complete?
-
-        Decisions::Draft.build(decision)
+      review.draft_decisions.map do |draft|
+        Decisions::Draft.build(draft).as_json
       end
     end
   end
