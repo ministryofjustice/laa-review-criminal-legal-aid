@@ -4,6 +4,7 @@ module Deciding
   class ApplicationNotAssignedToUser < Error; end
   class DecisionNotFound < Error; end
   class MaatRecordNotChanged < Error; end
+  class ReferenceMismatch < Error; end
 
   class CommentSet < Event; end
   class DraftCreated < Event; end

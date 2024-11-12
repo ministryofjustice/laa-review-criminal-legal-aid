@@ -9,6 +9,6 @@ module DecisionFormPersistance
     attribute :reference, :integer
     attribute :decision_id, :immutable_string
 
-    attr_readonly :application_id, :decision_id, :reference
+    attr_readonly :application_id, :application_type, :decision_id, :reference
   end
 end
