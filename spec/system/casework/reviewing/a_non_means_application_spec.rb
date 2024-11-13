@@ -19,7 +19,7 @@ RSpec.describe 'Reviewing a Non-means application' do
     end
 
     it 'can be completed by the caseworker' do
-      expect(page).to have_button('Send back to provider')
+      expect(page).to have_link('Send back to provider')
 
       click_button 'Mark as completed'
 
