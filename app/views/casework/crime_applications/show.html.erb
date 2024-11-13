@@ -2,7 +2,7 @@
 <%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full govuk-!-margin-bottom-9">
+  <div class="govuk-grid-column-full">
     <%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
 
     <h2 class="govuk-heading-l">
@@ -31,11 +31,6 @@
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">
         <%= reviewing_actions(@crime_application) %>
-
-        <%= button_to t('calls_to_action.unassign_from_self'),
-                      assigned_application_path(@crime_application),
-                      method: :delete,
-                      class: 'govuk-button govuk-button--secondary' %>
       </div>
     <% end %>
 

@@ -13,8 +13,7 @@ module DecisionFormHelpers
   end
 
   def complete_comment_form
-    choose_answer('Do you need to add comments for the provider?', 'Yes')
-    fill_in('Additional comments for the provider', with: 'Caseworker comment')
+    fill_in('Comments for provider (optional)', with: 'Caseworker comment')
     save_and_continue
   end
 

@@ -22,7 +22,7 @@ module Casework
     rescue Maat::RecordNotFound
       set_flash(:linked_maat_decision_not_found, success: false, reference: @crime_application.reference)
 
-      redirect_to new_crime_application_maat_decision_path(@crime_application)
+      redirect_to crime_application_link_maat_id_path(@crime_application)
     end
 
     private

@@ -25,10 +25,10 @@
     <% if @decisions.all? &:complete? %>
       <%= form_with model: @form_object, url: crime_application_send_decisions_path do |f| %>
 
-        <%= f.govuk_radio_buttons_fieldset :next_step do %>
-          <%= f.govuk_radio_button :next_step, :add_another, link_errors: true %>
+        <%= f.govuk_radio_buttons_fieldset :next_step, legend: {tag: 'h2', size: 'm'} do %>
 
-          <%= f.govuk_radio_button :next_step, :send_to_provider %>
+          <%= f.govuk_radio_button :next_step, :send_to_provider, link_errors: true %>
+          <%= f.govuk_radio_button :next_step, :add_another %>
         <% end %>
 
         <div class="govuk-button-group govuk-!-margin-bottom-6">

@@ -1,21 +1,21 @@
 <% return unless FeatureFlags.adding_decisions.enabled? %>
 
-<h2 class="govuk-heading-l">
-  <%= label_text(:funding_decision) %>
-</h2>
+<% if crime_application.decisions.present? %>
+  <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
 
-<%= render(DecisionComponent.with_collection(
-             crime_application.decisions,
-             show_actions: crime_application.reviewable_by?(current_user_id)
-           )) %>
+  <%= render(DecisionComponent.with_collection(
+               crime_application.decisions,
+               show_actions: crime_application.reviewable_by?(current_user_id)
+             )) %>
+<% elsif crime_application.reviewable_by?(current_user_id) %>
+  <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
 
-<% if crime_application.decisions.empty? && crime_application.reviewable_by?(current_user_id) %>
   <% if crime_application.cifc? %>
     <p><%= t('.update_application_on_maat') %></p>
 
     <%= govuk_button_to(
           action_text(:add_funding_decision),
-          new_crime_application_maat_decision_path(crime_application),
+          crime_application_link_maat_id_path(crime_application),
           method: :get
         ) %>
   <% else %>
@@ -24,7 +24,7 @@
 
       <%= govuk_button_to(
             action_text(:add_funding_decision),
-            crime_application_link_decisions_path(
+            create_by_reference_crime_application_maat_decisions_path(
               crime_application
             )
           ) %>

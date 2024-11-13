@@ -16,13 +16,13 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       instance_double(FeatureFlags::EnabledFeature, enabled?: true)
     }
 
-    allow(mock_get_decision).to receive(:by_maat_id).with(maat_id).and_return(maat_decision)
+    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id).and_return(maat_decision)
     allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
 
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
     click_button 'Mark as ready for MAAT'
-    visit new_crime_application_maat_decision_path(application_id)
+    visit crime_application_link_maat_id_path(application_id)
 
     fill_in('MAAT ID', with: maat_id)
 
@@ -34,7 +34,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     it 'shows an error' do
       expect(page).to have_error(
-        'MAAT ID', 'Enter the MAAT ID of the corresponding application on MAAT'
+        'MAAT ID', 'Enter a valid MAAT ID'
       )
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     it 'shows an error' do
       expect(page).to have_error(
-        'MAAT ID', 'Enter the MAAT ID of the corresponding application on MAAT'
+        'MAAT ID', 'Enter a valid MAAT ID'
       )
     end
   end
@@ -72,8 +72,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     it 'creates the decision and shows the success message' do
       expect(page).to have_success_notification_banner(
-        text: 'Linked to MAAT application with MAAT ID 123',
-        details: 'Check the decision, and make any required amendments on MAAT.'
+        text: 'MAAT ID 123 linked'
       )
 
       expect(current_path).to eq(
@@ -97,7 +96,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     it 'shows an error' do
       expect(page).to have_error(
-        'MAAT ID', 'The application on MAAT with this MAAT ID is associated with another reference number (USN)'
+        'MAAT ID', 'This MAAT ID is linked to another LAA reference number'
       )
     end
   end
@@ -116,7 +115,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
     end
 
     it 'shows an error' do
-      visit new_crime_application_maat_decision_path(application_id)
+      visit crime_application_link_maat_id_path(application_id)
       fill_in('MAAT ID', with: maat_id)
       save_and_continue
 

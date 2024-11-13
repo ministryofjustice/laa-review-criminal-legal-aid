@@ -52,7 +52,7 @@ RSpec.describe 'Authorisation' do
       crime_application_decision_comment
       crime_application_decisions
       create_by_reference_crime_application_maat_decisions
-      new_crime_application_maat_decision
+      crime_application_link_maat_id_path
       edit_crime_application_maat_decision
       crime_application_maat_decision
       crime_application_maat_decisions

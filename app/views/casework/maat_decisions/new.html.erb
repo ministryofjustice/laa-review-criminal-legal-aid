@@ -19,9 +19,12 @@
     <%= form_with model: @form_object,
                   url: crime_application_maat_decisions_path do |f| %>
 
-        <%= f.govuk_number_field :maat_id, autocomplete: 'off', width: 'one-quarter', extra_letter_spacing: true %>
+                  <%= f.govuk_number_field :maat_id, autocomplete: 'off', width: 'one-quarter', extra_letter_spacing: true, label: {tag: 'h2', size: 'm'} %>
 
-      <%= f.govuk_submit %>
+        <div class="govuk-button-group govuk-!-margin-bottom-6">
+          <%= f.govuk_submit %>
+          <%= govuk_button_link_to action_text(:save_and_come_back), assigned_applications_path, secondary: true %>
+        </div>
     <% end %>
   </div>
 </div>

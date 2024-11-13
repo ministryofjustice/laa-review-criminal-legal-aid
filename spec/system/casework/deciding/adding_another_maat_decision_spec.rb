@@ -53,14 +53,14 @@ RSpec.describe 'Adding another MAAT decision' do
       instance_double(FeatureFlags::EnabledFeature, enabled?: true)
     }
 
-    allow(mock_get_decision).to receive(:by_maat_id).with(maat_id).and_return(maat_decision)
-    allow(mock_get_decision).to receive(:by_maat_id).with(maat_id2).and_return(maat_decision2)
+    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id).and_return(maat_decision)
+    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id2).and_return(maat_decision2)
     allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
 
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
     click_button 'Mark as ready for MAAT'
-    visit new_crime_application_maat_decision_path(application_id)
+    visit crime_application_link_maat_id_path(application_id)
 
     fill_in('MAAT ID', with: maat_id)
     save_and_continue

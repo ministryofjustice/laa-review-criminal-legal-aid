@@ -12,7 +12,7 @@ module Maat
         )
 
         Deciding::CreateDraftFromMaat.call(
-          application_id:, user_id:, decision_id:, maat_decision:
+          application_id:, user_id:, decision_id:, maat_decision:, application_type:
         )
       end
 
@@ -33,7 +33,7 @@ module Maat
       application.id
     end
 
-    delegate :reference, to: :application
+    delegate :reference, :application_type, to: :application
     delegate :decision_id, to: :maat_decision
 
     def maat_decision

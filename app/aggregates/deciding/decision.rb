@@ -22,7 +22,6 @@ module Deciding
     # When the decision is created from a MAAT record
     def create_draft_from_maat(application_id:, maat_decision:, user_id:, application_type:)
       raise AlreadyCreated unless @state.nil?
-      raise ReferenceMismatch if maat_decision.reference.to_i != reference.to_i
 
       apply DraftCreatedFromMaat.new(
         data: { decision_id:, application_id:, maat_decision:, user_id:, application_type: }

@@ -5,28 +5,21 @@ module Casework
     before_action :set_decision, :require_maat_decision!, except: [:create, :new, :create_by_reference]
 
     def new
-      @form_object = ::Decisions::MaatIdForm.new(
-        application_id: @crime_application.id,
-        application_type: @crime_application.application_type
-      )
+      @form_object = ::Decisions::MaatIdForm.new(application: @crime_application)
     end
 
     # Used to create a decision when a caseworker needs to link to a decision
     # not imported directly from CrimeApply (e.g., for split cases or when an
     # import failed due to a technical issue).
     def create
-      @form_object = ::Decisions::MaatIdForm.new(
-        application_id: @crime_application.id,
-        application_type: @crime_application.application_type,
-        reference: @crime_application.reference
-      )
+      @form_object = ::Decisions::MaatIdForm.new(application: @crime_application)
 
       @form_object.create_with_user!(permitted_params, current_user_id)
 
       set_flash(:maat_decision_linked, maat_id: @form_object.maat_id)
 
       redirect_to edit_crime_application_decision_comment_path(decision_id: @form_object.maat_id)
-    rescue ActiveModel::ValidationError, Deciding::Error
+    rescue ActiveModel::ValidationError, Maat::RecordNotFound, Deciding::Error, Reviewing::Error
       render :new
     end
 
@@ -47,7 +40,7 @@ module Casework
     rescue Maat::RecordNotFound
       set_flash(:linked_maat_decision_not_found, success: false, reference: @crime_application.reference)
 
-      redirect_to new_crime_application_maat_decision_path(@crime_application)
+      redirect_to crime_application_link_maat_id_path(@crime_application)
     end
 
     def update
@@ -78,7 +71,9 @@ module Casework
     end
 
     def sync_with_maat
-      Maat::UpdateDraftDecision.call(decision: @decision, user_id: current_user_id)
+      Maat::UpdateDraftDecision.call(
+        application: @crime_application, maat_id: @decision.decision_id, user_id: current_user_id
+      )
 
       set_flash(:updated_from_maat, maat_id: @decision.maat_id)
     rescue Deciding::MaatRecordNotChanged

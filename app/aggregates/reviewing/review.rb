@@ -48,7 +48,7 @@ module Reviewing
 
     def add_decision(decision_id:, user_id: nil)
       raise AlreadyReviewed if reviewed?
-      raise DecisionAlreadyLinked if @decision_ids.include?(decision_id)
+      raise Reviewing::DecisionAlreadyLinked if @decision_ids.include?(decision_id)
 
       apply DecisionAdded.build(self, user_id:, decision_id:)
     end

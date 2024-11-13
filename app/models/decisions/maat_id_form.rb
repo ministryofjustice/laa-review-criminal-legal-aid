@@ -8,14 +8,6 @@ module Decisions
     validates :maat_id, presence: true
     validates :maat_id, numericality: { greater_than: FIRST_MAAT_ID }
 
-    validate :maat_decision_found_for_id
-
-    def maat_decision
-      return nil if maat_id.to_i.blank?
-
-      @maat_decision ||= Maat::GetDecision.new.by_maat_id(maat_id)
-    end
-
     def create_with_user!(params, user_id)
       self.maat_id = params[:maat_id]
       validate!
@@ -27,17 +19,10 @@ module Decisions
 
     alias decision_id maat_id
 
-    def maat_decision_found_for_id
-      errors.add(:maat_id, :not_found) if maat_decision.blank?
-    end
-
     def persist(user_id)
-      ActiveRecord::Base.transaction do
-        Deciding::CreateDraftFromMaat.call(application_id:, user_id:, decision_id:, maat_decision:, application_type:)
-        Reviewing::AddDecision.call(application_id:, user_id:, decision_id:)
-      end
-    rescue Deciding::Error => e
-      errors.add(:maat_id, e.message_key)
+      Maat::CreateDraftDecisionFromMaatId.call(application:, maat_id:, user_id:)
+    rescue Maat::RecordNotFound, Deciding::Error, Reviewing::Error => e
+      errors.add(:maat_id, e.class.name.demodulize.underscore.to_sym)
 
       raise e
     end

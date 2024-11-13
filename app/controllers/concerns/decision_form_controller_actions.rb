@@ -20,7 +20,9 @@ module DecisionFormControllerActions
   private
 
   def set_form
-    @form_object = form_class.build(@decision)
+    @form_object = form_class.build(
+      application: @crime_application, decision: @decision
+    )
   end
 
   def permitted_params

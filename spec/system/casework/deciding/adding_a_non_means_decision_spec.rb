@@ -53,26 +53,6 @@ RSpec.describe 'Adding a Non-means application' do
       )
     end
 
-    it 'validates the comment form' do
-      click_button 'Start'
-      complete_ioj_form
-      complete_overall_result_form
-      save_and_continue
-
-      expect(page).to have_error(
-        'Do you need to add comments for the provider?',
-        'Select yes if you need to add comments for the provider'
-      )
-
-      choose_answer('Do you need to add comments for the provider?', 'Yes')
-      save_and_continue
-
-      expect(page).to have_error(
-        'Additional comments for the provider',
-        'Enter additional comments for the provider'
-      )
-    end
-
     it 'A valid draft decisions can be created' do
       add_a_non_means_decision
 

@@ -4,11 +4,11 @@ module DecisionFormPersistance
   included do
     include FormPersistance
 
-    attribute :application_id, :immutable_string
-    attribute :application_type, :immutable_string
-    attribute :reference, :integer
+    attribute :application
     attribute :decision_id, :immutable_string
 
-    attr_readonly :application_id, :application_type, :decision_id, :reference
+    attr_readonly :application, :decision_id
+
+    delegate :application_id, :application_type, to: :application
   end
 end
