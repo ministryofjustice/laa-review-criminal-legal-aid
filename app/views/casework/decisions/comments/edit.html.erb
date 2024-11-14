@@ -25,7 +25,7 @@
   <% if @decision.complete? %>
     <div class="govuk-grid-column-two-thirds">
       <%= form_with model: @form_object, url: crime_application_decision_comment_path, method: :put do |f| %>
-        <%= f.govuk_text_area :comment, label: {size: 'm'} %>
+        <%= f.govuk_text_area :comment, label: { size: 'm' } %>
         <div class="govuk-button-group govuk-!-margin-bottom-6">
           <%= f.govuk_submit %>
           <%= govuk_button_link_to action_text(:save_and_come_back), assigned_applications_path, secondary: true %>

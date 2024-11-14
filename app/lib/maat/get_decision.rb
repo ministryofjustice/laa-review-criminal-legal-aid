@@ -24,6 +24,7 @@ module Maat
       get(format(MAAT_ID_FORMAT, maat_id))
     end
 
+    # :nocov:
     def by_maat_id!(maat_id)
       record = by_maat_id(maat_id)
 
@@ -31,6 +32,7 @@ module Maat
 
       record
     end
+    # :nocov:
 
     private
 

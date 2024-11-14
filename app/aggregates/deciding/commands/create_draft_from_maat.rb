@@ -7,11 +7,13 @@ module Deciding
 
     def call
       with_decision do |decision|
-        return link_and_sync(decision) if decision.state.present?
-
-        decision.create_draft_from_maat(
-          application_id:, maat_decision:, user_id:, application_type:
-        )
+        if decision.state.present?
+          link_and_sync(decision)
+        else
+          decision.create_draft_from_maat(
+            application_id:, maat_decision:, user_id:, application_type:
+          )
+        end
       end
     end
 
