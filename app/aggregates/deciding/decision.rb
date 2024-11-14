@@ -7,8 +7,7 @@ module Deciding
     end
 
     attr_reader :application_id, :decision_id, :funding_decision, :comment,
-                :state, :reference, :maat_id, :checksum, :case_id, :means,
-                :interests_of_justice
+                :state, :reference, :maat_id, :checksum, :case_id, :means, :interests_of_justice
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
     def create_draft(application_id:, user_id:, reference:)
@@ -69,6 +68,7 @@ module Deciding
 
     def send_to_provider(user_id:, application_id:)
       raise NotLinked unless @application_id == application_id
+      raise IncompleteDecision unless complete?
 
       apply SentToProvider.build(self, user_id:)
     end
@@ -123,10 +123,6 @@ module Deciding
       @application_id = event.data.fetch(:application_id)
     end
 
-    # TODO: REMOVE
-    on Sent do |event|
-    end
-
     on SentToProvider do |_event|
       @state = Types::DecisionState[:sent_to_provider]
     end
@@ -145,14 +141,6 @@ module Deciding
 
     def complete?
       @funding_decision.present?
-    end
-
-    def attributes
-      {
-        interests_of_justice:,
-        funding_decision:,
-        comment:
-      }
     end
   end
 end

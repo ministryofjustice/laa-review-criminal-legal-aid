@@ -52,9 +52,13 @@ module FormPersistance
   end
 
   def persist(user_id)
-    command_class.call(
-      **attributes.symbolize_keys.merge(user_id:)
-    )
+    attrs = attributes.slice(*self.class.editable_attributes)
+
+    base_attrs = {
+      application_id:, reference:, application_type:, decision_id:, user_id:
+    }
+
+    command_class.call(**attrs.symbolize_keys.merge(base_attrs))
   end
 
   # :nocov:

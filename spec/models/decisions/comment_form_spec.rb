@@ -4,21 +4,27 @@ RSpec.describe Decisions::CommentForm do
   subject(:form_object) do
     described_class.new(
       comment: comment,
-      application:,
+      application: application,
       decision_id: 'did'
     )
   end
 
-  let(:application) { instance_double(CrimeApplication, id: 'aid') }
+  let(:application) do
+    instance_double(
+      CrimeApplication,
+      id: 'aid',
+      reference: 123,
+      application_type: 'initial'
+    )
+  end
 
   let(:decision) do
     instance_double(
       Deciding::Decision,
       comment: comment,
-      decision_id: 'did',
+      decision_id: 'did'
     )
   end
-
 
   let(:comment) { 'Old comment' }
 
@@ -34,12 +40,12 @@ RSpec.describe Decisions::CommentForm do
     end
 
     context 'when comment is no longer required' do
-      let(:params) { { comment: 'New comment' } }
+      let(:params) { { comment: '' } }
 
       it 'sets the comment as blank' do
         expect(Deciding::SetComment).to have_received(:call).with(
           application_id: 'aid', decision_id: 'did', reference: 123,
-          comment: '', user_id: 'uid'
+          comment: '', user_id: 'uid', application_type: 'initial'
         )
       end
     end
@@ -50,7 +56,7 @@ RSpec.describe Decisions::CommentForm do
       it 'sets the new comment' do
         expect(Deciding::SetComment).to have_received(:call).with(
           application_id: 'aid', decision_id: 'did', reference: 123,
-          comment: 'New comment', user_id: 'uid'
+          comment: 'New comment', user_id: 'uid', application_type: 'initial'
         )
       end
     end

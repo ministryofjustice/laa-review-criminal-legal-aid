@@ -3,6 +3,7 @@ module Deciding
   class AlreadyLinked < Error; end
   class ApplicationNotAssignedToUser < Error; end
   class DecisionNotFound < Error; end
+  class IncompleteDecision < Error; end
   class MaatRecordNotChanged < Error; end
   class ReferenceMismatch < Error; end
 
@@ -22,20 +23,4 @@ module Deciding
       "Deciding$#{decision_id}"
     end
   end
-
-  # TODO: REMVOE
-
-  class Sent < Event; end
-
-  # class Configuration
-  #   def call(event_store)
-  #     event_store.subscribe(
-  #       DecisionHandler, to: [Reviewing::AddDecision]
-  #     )
-  #   end
-  # end
-  #
-  # class DecisionHandler
-  #   def call(event); end
-  # end
 end

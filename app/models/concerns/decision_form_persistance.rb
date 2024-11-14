@@ -7,8 +7,10 @@ module DecisionFormPersistance
     attribute :application
     attribute :decision_id, :immutable_string
 
-    attr_readonly :application, :decision_id
+    attr_readonly :application, :decision_id, :application_id, :reference, :application_type
 
-    delegate :application_id, :application_type, to: :application
+    delegate :reference, :application_type, to: :application
+
+    delegate :id, to: :application, prefix: true
   end
 end
