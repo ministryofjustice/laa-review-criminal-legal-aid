@@ -30,45 +30,17 @@ RSpec.describe ReviewActionComponent, type: :component do
       end
     end
 
-    context 'when review_action is :submit_decision' do
-      let(:review_action) { :submit_decision }
-
-      describe 'target' do
-        subject { page.first('form')['action'] }
-
-        it { is_expected.to eq('/applications/1234/complete') }
-      end
-
-      describe 'method' do
-        subject { page.first('form')['method'] }
-
-        it { is_expected.to eq('post') }
-      end
-
-      describe 'text' do
-        subject { page.first('button').text }
-
-        it { is_expected.to eq('Send to provider') }
-      end
-    end
-
     context 'when review_action is :send_back' do
       let(:review_action) { :send_back }
 
       describe 'target' do
-        subject { page.first('form')['action'] }
+        subject { page.first('a')['href'] }
 
         it { is_expected.to eq('/applications/1234/return/new') }
       end
 
-      describe 'method' do
-        subject { page.first('form')['method'] }
-
-        it { is_expected.to eq('get') }
-      end
-
       describe 'text' do
-        subject { page.first('button').text }
+        subject { page.first('a').text }
 
         it { is_expected.to eq('Send back to provider') }
       end

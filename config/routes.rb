@@ -48,7 +48,10 @@ Rails.application.routes.draw do
         end
       end
       
-      resources :maat_decisions, only: [:new, :create, :update, :destroy] do
+      get 'link_maat_id', to: 'maat_decisions#new', as: :maat_decisions
+      post 'link_maat_id', to: 'maat_decisions#create'
+
+      resources :maat_decisions, only: [:update, :destroy] do
         post :create_by_reference, on: :collection
       end
     end

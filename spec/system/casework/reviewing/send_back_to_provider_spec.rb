@@ -29,7 +29,7 @@ RSpec.describe 'Send an application back to the provider' do
     end
 
     it 'the "Send back to provider" button is visable and accessible' do
-      expect { click_button(send_back_cta) }.to change { page.current_path }
+      expect { click_link(send_back_cta) }.to change { page.current_path }
         .from(crime_application_path(crime_application_id)).to(
           new_return_path
         )
@@ -40,7 +40,7 @@ RSpec.describe 'Send an application back to the provider' do
         allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
           .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-        click_button(send_back_cta)
+        click_link(send_back_cta)
       end
 
       it 'shows the applicant name in the heading' do
@@ -101,7 +101,7 @@ RSpec.describe 'Send an application back to the provider' do
         allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
           .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-        click_button(send_back_cta)
+        click_link(send_back_cta)
 
         choose 'Duplicate application'
         fill_in 'return-details-details-field', with: 'This application was duplicated'

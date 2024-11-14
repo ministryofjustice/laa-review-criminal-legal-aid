@@ -8,33 +8,29 @@ module Reviewing
         with_review do |review|
           review.complete(user_id:)
 
-          DatastoreApi::Requests::UpdateApplication.new(
-            application_id: application_id,
-            payload: { decisions: decisions(review) },
-            member: :complete
-          ).call
+          review.decision_ids.each do |decision_id|
+            Deciding::SendToProvider.call(user_id:, application_id:, decision_id:)
+          end
+
+          update_datastore(review)
         end
       end
+    rescue Deciding::IncompleteDecision
+      raise Reviewing::IncompleteDecisions
     end
 
     private
 
-    def decisions(review)
-      draft_decisions(review).map do |draft|
-        LaaCrimeSchemas::Structs::Decision.new(draft).as_json
+    def update_datastore(review)
+      decisions = review.draft_decisions.map do |draft|
+        Decisions::Draft.build(draft).as_json
       end
-    end
 
-    def draft_decisions(review)
-      review.decision_ids.map do |decision_id|
-        decision = Deciding::LoadDecision.call(
-          application_id:, decision_id:
-        )
-
-        raise IncompleteDecisions unless decision.complete?
-
-        Decisions::Draft.build(decision)
-      end
+      DatastoreApi::Requests::UpdateApplication.new(
+        application_id: application_id,
+        payload: { decisions: },
+        member: :complete
+      ).call
     end
   end
 end

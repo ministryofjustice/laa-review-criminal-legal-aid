@@ -7,11 +7,10 @@ module Deciding
     end
 
     attr_reader :application_id, :decision_id, :funding_decision, :comment,
-                :state, :reference, :maat_id, :checksum, :case_id, :means,
-                :interests_of_justice
+                :state, :reference, :maat_id, :checksum, :case_id, :means, :interests_of_justice
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
-    def create_draft(user_id:, application_id:, reference:)
+    def create_draft(application_id:, user_id:, reference:)
       raise AlreadyCreated unless @state.nil?
 
       apply DraftCreated.new(
@@ -20,18 +19,26 @@ module Deciding
     end
 
     # When the decision is created from a MAAT record
-    def create_draft_from_maat(application_id:, maat_decision:, user_id:)
-      if @state.nil?
-        maat_decision = maat_decision.to_h
+    def create_draft_from_maat(application_id:, maat_decision:, user_id:, application_type:)
+      raise AlreadyCreated unless @state.nil?
 
-        apply DraftCreatedFromMaat.new(
-          data: { decision_id:, application_id:, maat_decision:, user_id: }
-        )
-      else
-        raise AlreadyCreated if @application_id.present?
+      apply DraftCreatedFromMaat.new(
+        data: { decision_id:, application_id:, maat_decision:, user_id:, application_type: }
+      )
+    end
 
-        apply Linked.build(self, user_id:, application_id:)
-      end
+    # Can only be linked if the decision is not linked
+    def link(application_id:, user_id:)
+      raise AlreadyLinked if @application_id.present?
+
+      apply Linked.build(self, user_id:, application_id:)
+    end
+
+    # A CIFC application can only be linked when the decision is in a sent state.
+    def link_to_cifc(application_id:, user_id:)
+      raise AlreadyLinked unless @state == :sent_to_provider
+
+      apply LinkedToCifc.build(self, user_id:, application_id:)
     end
 
     def sync_with_maat(maat_decision:, user_id:)
@@ -54,8 +61,16 @@ module Deciding
 
     def unlink(user_id:, application_id:)
       raise NotLinked unless @application_id == application_id
+      raise NotDraft unless @state == :draft
 
       apply Unlinked.build(self, user_id:)
+    end
+
+    def send_to_provider(user_id:, application_id:)
+      raise NotLinked unless @application_id == application_id
+      raise IncompleteDecision unless complete?
+
+      apply SentToProvider.build(self, user_id:)
     end
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
@@ -94,11 +109,22 @@ module Deciding
 
     on Unlinked do |_event|
       @application_id = nil
+      @reference = nil
       @comment = nil
     end
 
     on Linked do |event|
       @application_id = event.data.fetch(:application_id)
+      @reference = event.data.fetch(:reference, nil)
+    end
+
+    # Original reference is retained when linking to CIFC
+    on LinkedToCifc do |event|
+      @application_id = event.data.fetch(:application_id)
+    end
+
+    on SentToProvider do |_event|
+      @state = Types::DecisionState[:sent_to_provider]
     end
 
     def update_from_maat(maat_attributes)
@@ -115,14 +141,6 @@ module Deciding
 
     def complete?
       @funding_decision.present?
-    end
-
-    def attributes
-      {
-        interests_of_justice:,
-        funding_decision:,
-        comment:
-      }
     end
   end
 end

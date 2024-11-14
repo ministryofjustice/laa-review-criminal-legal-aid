@@ -23,9 +23,9 @@ describe Deciding::Decision do
     end
 
     it 'returns the expected attributes' do # rubocop:disable RSpec/MultipleExpectations
-      expect(decision.attributes[:interests_of_justice]).to eq(interests_of_justice)
-      expect(decision.attributes[:funding_decision]).to eq(funding_decision)
-      expect(decision.attributes[:comment]).to eq(comment)
+      expect(decision.interests_of_justice).to eq(interests_of_justice)
+      expect(decision.funding_decision).to eq(funding_decision)
+      expect(decision.comment).to eq(comment)
     end
   end
 

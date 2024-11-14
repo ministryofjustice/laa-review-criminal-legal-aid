@@ -24,6 +24,16 @@ module Maat
       get(format(MAAT_ID_FORMAT, maat_id))
     end
 
+    # :nocov:
+    def by_maat_id!(maat_id)
+      record = by_maat_id(maat_id)
+
+      raise Maat::RecordNotFound if record.blank?
+
+      record
+    end
+    # :nocov:
+
     private
 
     # By default, Maat::HttpClient configures the Faraday client to

@@ -12,11 +12,6 @@ en:
         blank: Enter the date of assessemnt
       base: 
         incomplete_decisions: Complete decision details first
-      comment:
-        blank: Enter additional comments for the provider
-      comment_required:
-        blank: Select yes if you need to add comments for the provider
-        inclusion: Select yes if you need to add comments for the provider
       details:
         blank: Give further details
       email:
@@ -32,13 +27,14 @@ en:
         blank: Select the test result
         inclusion: Select the test result
       maat_id:
-        blank: &invalid_maat_id "Enter the MAAT ID of the corresponding application on MAAT"
+        blank: &invalid_maat_id "Enter a valid MAAT ID"
         greated_than: *invalid_maat_id
         not_a_number: *invalid_maat_id
         greater_than: *invalid_maat_id
-        not_found: An application with this MAAT ID could not be found on MAAT
-        reference_mismatch: The application on MAAT with this MAAT ID is associated with another reference number (USN) 
-        already_linked: This MAAT ID is already linked
+        record_not_found: *invalid_maat_id
+        reference_mismatch: This MAAT ID is linked to another LAA reference number 
+        already_linked: This MAAT ID is linked to another application
+        decision_already_linked: This MAAT ID is already linked
       next_step:
         inclusion: Select what you want to do next
 

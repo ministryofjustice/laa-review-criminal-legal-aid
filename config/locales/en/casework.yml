@@ -19,8 +19,7 @@ en:
       sent_back: You sent the application back to the provider
       unassigned_from_self: You removed the application from your list
       maat_decision_linked:
-        - Linked to MAAT application with MAAT ID %{maat_id} 
-        - Check the decision, and make any required amendments on MAAT. 
+        - MAAT ID %{maat_id} linked
       updated_from_maat:
         - Updated from MAAT application with MAAT ID %{maat_id} 
         - Check the decision, and make any required amendments on MAAT. 
@@ -35,8 +34,7 @@ en:
         - There are no new applications to be reviewed
         - You can check again later
       linked_maat_decision_not_found:
-        - Couldn't find an application on MAAT using the reference number (USN) %{reference}
-        - Enter the MAAT ID of the corresponding application on MAAT here and we'll use that instead of the reference number
+        - No MAAT ID found that links to LAA reference number %{reference}
       no_change_since_last_update:
         - The application on MAAT has not changed.
         - Make any required amendments on MAAT using the MAAT ID %{maat_id}. 
@@ -799,7 +797,8 @@ en:
         headings:
       funding_decision:
         manually_enter_decision: You need to manually enter a decision for this application.
-        create_application_on_maat: First you will need to create an application on MAAT using the reference number (USN) %{reference}
+        create_application_on_maat: To add one or more funding decisions, link the application in MAAT first.
+        update_application_on_maat: To add the funding decision, update the origional application in MAAT first.
       labels:
         <<: *LABELS
       values:
@@ -818,10 +817,10 @@ en:
           title: Overall result
       comments:
         edit:
-          title: Do you need to add comments for the provider
+          title: Comments for provider
     maat_decisions:
       new:
-        title: "Make a funding decision"
+        title: Link this application to a MAAT ID
     send_decisions:
       new:
         title:

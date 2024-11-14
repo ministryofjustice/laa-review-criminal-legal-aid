@@ -9,34 +9,22 @@ class ReviewActionComponent < ViewComponent::Base
   attr_reader :application, :action
 
   def call
-    govuk_button_to(button_text, target, method:, warning:)
+    case action
+    when :complete
+      govuk_button_to(action_text, crime_application_complete_path(application), method: :post)
+    when :send_back
+      govuk_link_to(
+        action_text,
+        new_crime_application_return_path(application)
+      )
+    when :mark_as_ready
+      govuk_button_to(action_text, ready_crime_application_path(application), method: :put)
+    end
   end
 
   private
 
-  def button_text
+  def action_text
     I18n.t(action, scope: 'calls_to_action')
-  end
-
-  def target
-    case action
-    when :complete, :submit_decision
-      crime_application_complete_path(application)
-    when :send_back
-      new_crime_application_return_path(application)
-    when :mark_as_ready
-      ready_crime_application_path(application)
-    end
-  end
-
-  def method
-    return :get if action == :send_back
-    return :put if action == :mark_as_ready
-
-    :post
-  end
-
-  def warning
-    action == :send_back
   end
 end

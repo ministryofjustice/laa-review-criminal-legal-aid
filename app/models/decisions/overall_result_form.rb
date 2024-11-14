@@ -10,9 +10,9 @@ module Decisions
     end
 
     class << self
-      def build(decision)
+      def build(application:, decision:)
         new(
-          application_id: decision.application_id,
+          application: application,
           decision_id: decision.decision_id,
           funding_decision: decision.funding_decision
         )

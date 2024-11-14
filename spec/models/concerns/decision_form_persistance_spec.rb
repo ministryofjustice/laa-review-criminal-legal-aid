@@ -21,9 +21,13 @@ RSpec.describe DecisionFormPersistance do
     end
   end
 
+  let(:application) do
+    instance_double(CrimeApplication, id: application_id, reference: reference, application_type: 'initial')
+  end
+
   let(:form_object) do
     dummy_form_class.new(
-      application_id:, decision_id:, reference:, example_form_attribute:
+      application:, decision_id:, example_form_attribute:
     )
   end
 
@@ -47,7 +51,8 @@ RSpec.describe DecisionFormPersistance do
         update_with_user
 
         expect(Deciding::SetComment).to have_received(:call).with(
-          application_id: application_id, decision_id: decision_id, reference: reference,
+          application_id: application_id, decision_id: decision_id,
+          application_type: 'initial', reference: reference,
           example_form_attribute: 'new_value', user_id: user_id
         )
       end
@@ -56,14 +61,14 @@ RSpec.describe DecisionFormPersistance do
     context 'when called with read only attributes' do
       let(:params) do
         {
-          application_id: 'aid', decision_id: 'did',
-          reference: 345, example_form_attribute: 'new_value'
+          application: instance_double(CrimeApplication, id: SecureRandom.uuid, reference: reference),
+          decision_id: 'did', example_form_attribute: 'new_value'
         }
       end
 
       it 'raises a ReadonlyAttributeError' do
         expect { update_with_user }.to raise_error(
-          ActiveRecord::ReadonlyAttributeError, 'application_id'
+          ActiveRecord::ReadonlyAttributeError, 'application'
         )
       end
     end

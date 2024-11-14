@@ -34,19 +34,18 @@ RSpec.describe 'Adding a decision by MAAT reference' do
     expect(page).to have_selector 'h2', text: 'Funding decision'
     expect(page).to have_selector(
       'p',
-      text: 'First you will need to create an application on MAAT using the reference number (USN) 6000001'
+      text: 'To add one or more funding decisions, link the application in MAAT first.'
     )
   end
 
   context 'when an application for the reference is not found on MAAT' do
     it 'informs the caseworker and redirects them to add by MAAT ID' do
       click_button 'Add funding decision from MAAT'
-      text = "Couldn't find an application on MAAT using the reference number (USN) 6000001"
-      details = 'Enter the MAAT ID of the corresponding application on MAAT ' \
-                "here and we'll use that instead of the reference number"
 
-      expect(page).to have_notification_banner(text:, details:)
-      expect(current_path).to eq('/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/maat_decisions/new')
+      expect(page).to have_notification_banner(
+        text: 'No MAAT ID found that links to LAA reference number 6000001'
+      )
+      expect(current_path).to eq('/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/link_maat_id')
     end
   end
 
@@ -73,8 +72,7 @@ RSpec.describe 'Adding a decision by MAAT reference' do
       click_button 'Add funding decision from MAAT'
 
       expect(page).to have_success_notification_banner(
-        text: 'Linked to MAAT application with MAAT ID 999333',
-        details: 'Check the decision, and make any required amendments on MAAT.'
+        text: 'MAAT ID 999333 linked'
       )
 
       expect(current_path).to eq(

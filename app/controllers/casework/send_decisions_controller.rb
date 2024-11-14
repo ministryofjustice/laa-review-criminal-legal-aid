@@ -18,7 +18,7 @@ module Casework
     def redirect_if_add_another
       return unless permitted_params[:next_step] == 'add_another'
 
-      redirect_to new_crime_application_maat_decision_path
+      redirect_to crime_application_link_maat_id_path
     end
 
     def set_decisions
