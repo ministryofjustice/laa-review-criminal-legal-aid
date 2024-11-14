@@ -23,7 +23,7 @@ module Reviewing
 
     def update_datastore(review)
       decisions = review.draft_decisions.map do |draft|
-        Decisions::Draft.build(draft)
+        Decisions::Draft.build(draft).as_json
       end
 
       DatastoreApi::Requests::UpdateApplication.new(

@@ -9,11 +9,9 @@ RSpec.describe Reviewing::Complete do
 
   before do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
-      {
-        application_id: application_id,
-        payload: { decisions: [] },
-        member: :complete
-      }
+      application_id: application_id,
+      payload: { decisions: },
+      member: :complete
     ).and_return(return_request)
 
     Reviewing::ReceiveApplication.call(
@@ -32,10 +30,41 @@ RSpec.describe Reviewing::Complete do
   end
 
   let(:user_id) { SecureRandom.uuid }
+  let(:reference) { rand(100_000..1_000_000) }
+  let(:decision_id) { SecureRandom.uuid }
+  let(:decisions) { [] }
 
   it 'changes the state from :received to :completed' do
     expect { command.call }.to change { review.state }
       .from(:open).to(:completed)
+  end
+
+  context 'when there are complete decisions' do
+    let(:decisions) do
+      [
+        Decisions::Draft.new(
+          reference: reference, maat_id: nil, case_id: nil, interests_of_justice: nil, means: nil,
+          funding_decision: 'granted', comment: nil, decision_id: decision_id, application_id: application_id
+        ).as_json
+      ]
+    end
+
+    before do
+      args = {
+        application_id: application_id,
+        user_id: SecureRandom.uuid,
+        reference: reference, decision_id: decision_id
+      }
+
+      Reviewing::AddDecision.call(**args)
+      Deciding::CreateDraft.call(**args)
+      Deciding::SetFundingDecision.call(**args.merge(funding_decision: 'granted'))
+    end
+
+    it 'changes the state from :received to :completed' do
+      expect { command.call }.to change { review.state }
+        .from(:open).to(:completed)
+    end
   end
 
   context 'when there are incomplete decisions' do
