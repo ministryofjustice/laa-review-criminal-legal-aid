@@ -42,9 +42,14 @@ Rails.application.routes.draw do
 
       resources :decisions, only: [:create] do 
         scope module: :decisions do
-          resource :interests_of_justice, only: [:edit, :update]
-          resource :overall_result, only: [:edit, :update]
-          resource :comment, only: [:edit, :update]
+          get 'interests_of_justice', to: 'interests_of_justices#edit'
+          put 'interests_of_justice', to: 'interests_of_justices#update'
+
+          get 'overall_result', to: 'overall_results#edit'
+          put 'overall_result', to: 'overall_results#update'
+
+          get 'comment', to: 'comments#edit'
+          put 'comment', to: 'comments#update'
         end
       end
       

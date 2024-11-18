@@ -19,7 +19,7 @@ module Casework
         Deciding::CreateDraft.call(**args)
       end
 
-      redirect_to edit_crime_application_decision_interests_of_justice_path(**args)
+      redirect_to crime_application_decision_interests_of_justice_path(**args)
     end
   end
 end

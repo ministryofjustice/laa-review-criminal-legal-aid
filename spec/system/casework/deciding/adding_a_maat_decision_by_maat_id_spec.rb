@@ -76,7 +76,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       )
 
       expect(current_path).to eq(
-        "/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/decisions/#{maat_id}/comment/edit"
+        "/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/decisions/#{maat_id}/comment"
       )
     end
   end

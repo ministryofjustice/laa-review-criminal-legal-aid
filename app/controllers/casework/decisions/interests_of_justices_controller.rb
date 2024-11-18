@@ -10,7 +10,7 @@ module Casework
       end
 
       def next_step
-        edit_crime_application_decision_overall_result_path
+        crime_application_decision_overall_result_path
       end
     end
   end
