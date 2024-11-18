@@ -18,7 +18,7 @@ module Casework
 
       set_flash(:maat_decision_linked, maat_id: @form_object.maat_id)
 
-      redirect_to edit_crime_application_decision_comment_path(decision_id: @form_object.maat_id)
+      redirect_to crime_application_decision_comment_path(decision_id: @form_object.maat_id)
     rescue ActiveModel::ValidationError, Maat::RecordNotFound, Deciding::Error, Reviewing::Error
       render :new
     end
@@ -33,7 +33,7 @@ module Casework
 
       set_flash(:maat_decision_linked, maat_id: maat_decision.maat_id)
 
-      redirect_to edit_crime_application_decision_comment_path(
+      redirect_to crime_application_decision_comment_path(
         crime_application_id: @crime_application.id,
         decision_id: maat_decision.decision_id
       )
@@ -46,7 +46,7 @@ module Casework
     def update
       sync_with_maat
 
-      redirect_to edit_crime_application_decision_comment_path(
+      redirect_to crime_application_decision_comment_path(
         crime_application_id: @crime_application.id,
         decision_id: @decision.decision_id
       )

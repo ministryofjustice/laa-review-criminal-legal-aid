@@ -64,7 +64,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       )
 
       expect(current_path).to eq(
-        "/applications/98ab235c-f125-4dcb-9604-19e81782e53b/decisions/#{maat_id}/comment/edit"
+        "/applications/98ab235c-f125-4dcb-9604-19e81782e53b/decisions/#{maat_id}/comment"
       )
     end
 
@@ -93,7 +93,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
         expect(page).to have_success_notification_banner(text: "MAAT ID #{maat_id} linked")
 
         expect(current_path).to eq(
-          "/applications/98ab235c-f125-4dcb-9604-19e81782e53b/decisions/#{maat_id}/comment/edit"
+          "/applications/98ab235c-f125-4dcb-9604-19e81782e53b/decisions/#{maat_id}/comment"
         )
       end
     end

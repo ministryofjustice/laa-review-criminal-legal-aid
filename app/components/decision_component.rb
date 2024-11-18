@@ -36,7 +36,7 @@ class DecisionComponent < ViewComponent::Base
       button_to(action_text(:update_from_maat), update_path, method: :patch, class: 'govuk-link app-button--link')
     else
       govuk_link_to(
-        action_text(:change), edit_crime_application_decision_interests_of_justice_path(decision.to_param)
+        action_text(:change), crime_application_decision_interests_of_justice_path(decision.to_param)
       )
     end
   end

@@ -44,11 +44,8 @@ RSpec.describe 'Authorisation' do
       search_application_searches
       open_work_stream
       closed_work_stream
-      edit_crime_application_decision_interests_of_justice
       crime_application_decision_interests_of_justice
-      edit_crime_application_decision_overall_result
       crime_application_decision_overall_result
-      edit_crime_application_decision_comment
       crime_application_decision_comment
       crime_application_decisions
       create_by_reference_crime_application_maat_decisions
