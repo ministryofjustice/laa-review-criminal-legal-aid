@@ -56,7 +56,7 @@ gem 'oauth2'
 gem 'aws-sdk-sns', '~> 1.60', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store'
+gem 'rails_event_store', '>= 2.15.0'
 
 # Monitoring
 gem 'prometheus_exporter'
