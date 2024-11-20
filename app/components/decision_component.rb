@@ -61,7 +61,7 @@ class DecisionComponent < ViewComponent::Base
   end
 
   def ioj_result
-    t(interests_of_justice.result, scope: [:values, :decision_result])
+    t(interests_of_justice.result, scope: [:values, :decision_ioj_test_result])
   end
 
   def date(value)
@@ -69,7 +69,7 @@ class DecisionComponent < ViewComponent::Base
   end
 
   def means_result
-    t(means.result, scope: [:values, :decision_result])
+    t(means.result, scope: [:values, :decision_means_test_result])
   end
 
   def title

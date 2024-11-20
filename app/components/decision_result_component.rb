@@ -11,7 +11,7 @@ class DecisionResultComponent < ViewComponent::Base
     return if result.nil?
 
     govuk_tag(
-      text: t(result, scope: [:values, :decision_result]),
+      text: t(result, scope: [:values, :decision_overall_result]),
       colour: colour
     )
   end
@@ -22,7 +22,7 @@ class DecisionResultComponent < ViewComponent::Base
 
   def colour
     case result
-    when /fail/
+    when /fail|inel/
       'red'
     else
       'green'

@@ -57,22 +57,33 @@ RSpec.describe 'Adding a decision by MAAT ID' do
         maat_id: maat_id,
         reference: 6_000_001,
         interests_of_justice: {
-          result: 'pass',
-          assessed_by: 'Jo Bloggs',
-          assessed_on:  1.day.ago.to_s
+          result: 'fail',
+          assessed_by: 'Jo Blogs',
+          assessed_on:  Date.new(2024, 2, 1)
         },
         means: {
-          result: 'pass',
-          assessed_by: 'Jo Bloggs',
-          assessed_on:  1.day.ago.to_s
+          result: 'fail',
+          assessed_by: 'Jan Blogs',
+          assessed_on:  Date.new(2024, 2, 2)
         },
-        funding_decision: 'granted'
+        funding_decision: 'failmeioj'
       )
     end
 
-    it 'creates the decision and shows the success message' do
+    it 'creates the decision and shows the success message' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       expect(page).to have_success_notification_banner(
         text: 'MAAT ID 123 linked'
+      )
+
+      expect(summary_card('Case')).to have_rows(
+        'Interests of justice (IoJ) test result', 'Refused',
+        'IoJ comments', '',
+        'IoJ caseworker', 'Jo Blogs',
+        'IoJ test date', '01/02/2024',
+        'Means test result', 'Failed',
+        'Means test caseworker', 'Jan Blogs',
+        'Means test date', '02/02/2024',
+        'Overall result', 'Failed means and IoJ'
       )
 
       expect(current_path).to eq(

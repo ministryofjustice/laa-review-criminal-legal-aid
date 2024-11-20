@@ -67,12 +67,12 @@ RSpec.describe 'Submitting a Non-means decision' do
       # NB: the decision displayed should be that from the datastore
       # not the event sourced decision.
       expect(summary_card('Case')).to have_rows(
-        'Interests of justice test results', 'Passed',
-        'Interests of justice reason', 'reason',
-        'Interests of justice test caseworker name', 'Test User',
-        'Date of interests of justice test', '01/10/2024',
+        'Interests of justice (IoJ) test result', 'Passed',
+        'IoJ comments', 'reason',
+        'IoJ caseworker', 'Test User',
+        'IoJ test date', '01/10/2024',
         'Overall result', 'Granted',
-        'Further information about the decision', 'Test comment'
+        'Comments', 'Test comment'
       )
     end
 
