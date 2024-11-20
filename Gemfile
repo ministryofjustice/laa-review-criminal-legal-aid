@@ -80,7 +80,7 @@ group :test do
   gem 'rubocop', '>= 1.65.0', require: false
   gem 'rubocop-performance', '>= 1.21.1', require: false
   gem 'rubocop-rails', '>= 2.26.0', require: false
-  gem 'rubocop-rspec', '>= 3.0.3', require: false
+  gem 'rubocop-rspec', '>= 3.2.0', require: false
   gem 'selenium-webdriver', '>= 4.22.0'
   gem 'simplecov', require: false
   gem 'webmock', '>= 3.20.0'
