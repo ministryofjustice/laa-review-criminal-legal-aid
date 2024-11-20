@@ -58,7 +58,7 @@ module FormPersistance
       application_id:, reference:, application_type:, decision_id:, user_id:
     }
 
-    command_class.call(**attrs.symbolize_keys.merge(base_attrs))
+    command_class.call(**attrs.symbolize_keys, **base_attrs)
   end
 
   # :nocov:
