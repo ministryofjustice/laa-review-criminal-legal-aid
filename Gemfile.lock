@@ -157,7 +157,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    dartsass-rails (0.5.0)
+    dartsass-rails (0.5.1)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
     date (3.3.4)
@@ -230,10 +230,10 @@ GEM
       net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.27.5)
+    google-protobuf (4.28.3)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.5-x86_64-linux)
+    google-protobuf (4.28.3-x86_64-linux)
       bigdecimal
       rake (>= 13)
     govuk-components (5.2.1)
@@ -503,11 +503,11 @@ GEM
       rack
       ruby_event_store (= 2.13.0)
     rubyzip (2.3.2)
-    sass-embedded (1.77.5)
-      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.81.0)
+      google-protobuf (~> 4.28)
       rake (>= 13)
-    sass-embedded (1.77.5-x86_64-linux-gnu)
-      google-protobuf (>= 3.25, < 5.0)
+    sass-embedded (1.81.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.28)
     securerandom (0.3.1)
     selenium-webdriver (4.23.0)
       base64 (~> 0.2)
@@ -605,7 +605,7 @@ DEPENDENCIES
   brakeman
   business
   capybara (>= 3.40.0)
-  dartsass-rails (~> 0.5.0)
+  dartsass-rails (~> 0.5.1)
   debug
   devise
   dotenv-rails (~> 2.8.1)
