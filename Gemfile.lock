@@ -245,8 +245,8 @@ GEM
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       html-attributes-utils (~> 1)
-    govuk_notify_rails (2.2.0)
-      notifications-ruby-client (~> 5.1)
+    govuk_notify_rails (3.0.0)
+      notifications-ruby-client (~> 6.2)
       rails (>= 4.1.0)
     hashdiff (1.1.0)
     hashie (5.0.0)
@@ -333,7 +333,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
-    notifications-ruby-client (5.4.0)
+    notifications-ruby-client (6.2.0)
       jwt (>= 1.5, < 3)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -615,7 +615,7 @@ DEPENDENCIES
   faraday
   govuk-components
   govuk_design_system_formbuilder
-  govuk_notify_rails
+  govuk_notify_rails (>= 3.0.0)
   importmap-rails (>= 2.0.0)
   kaminari
   laa-criminal-applications-datastore-api-client!
