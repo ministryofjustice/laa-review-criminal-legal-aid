@@ -214,7 +214,7 @@ GEM
     dumb_delegator (1.0.0)
     email_validator (2.2.4)
       activemodel
-    erb_lint (0.6.0)
+    erb_lint (0.7.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
@@ -611,7 +611,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.8.1)
   dry-schema
   dry-struct
-  erb_lint
+  erb_lint (>= 0.7.0)
   faraday
   govuk-components
   govuk_design_system_formbuilder
