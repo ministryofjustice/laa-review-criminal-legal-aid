@@ -152,7 +152,7 @@ en:
     date_stamp_details: Details entered for date stamp
     decision_card_title: Case
     decision_case_reference: Case
-    decision_comment: Further information about the decision
+    decision_comment: Comments 
     dependants: Dependants
     details: Details
     does_client_have_national_savings_certificates: Any National Savings Certificates?
@@ -200,10 +200,10 @@ en:
     how_much_council_tax: Council Tax amount yearly
     how_much_rent: Amount paid for rent, after taking away Housing Benefit
     how_much_mortgage: Amount paid towards mortgage
-    ioj_result: Interests of justice test results
-    ioj_details: Interests of justice reason
-    ioj_assessed_by: Interests of justice test caseworker name
-    ioj_assessed_on: Date of interests of justice test
+    ioj_result: Interests of justice (IoJ) test result
+    ioj_details: IoJ comments
+    ioj_assessed_by: IoJ caseworker
+    ioj_assessed_on: IoJ test date
     income: Income
     income_more_than: "%{prefix} more than £12,475?"
     income_details: Income
@@ -255,10 +255,10 @@ en:
     maat_id: MAAT ID
     manage_without_income: How do they manage with no income?
     means_tested: Is application subject to means test?
-    means_assessed_by: Means test caseworker name
-    means_assessed_on: Date of means test
+    means_assessed_by: Means test caseworker
+    means_assessed_on: Means test date
     means_details: Means reason 
-    means_result: Means test results
+    means_result: Means test result
     name: Name
     national_crime_team: CAT 2
     national_insurance_number: National Insurance number
@@ -458,16 +458,23 @@ en:
     date_stamp_context_changed: Changed after date stamp
     committal: Committal for sentence
     deleted_user_name: '[deleted]'
-    decision_result:
+    decision_ioj_test_result:
+      pass: Passed
+      fail: Refused
+    decision_means_test_result:
       pass: Passed
       fail: Failed
+      full: Contribution
+      inel: Ineligible
+    decision_overall_result:
       granted: Granted
       granted_on_ioj: Granted
-      fail_on_ioj: Rejected
-      failmeans: Failed on means
-      failioj: Rejected
+      fail_on_ioj: Failed IoJ
+      failmeans: Failed means
+      failmeioj: Failed means and IoJ
+      failioj: Failed IoJ
       inel: Ineligible 
-      full: Full means 
+      full: Granted - with a contribution 
 
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
@@ -806,9 +813,9 @@ en:
     decisions:
       index:
         title:
-          zero: Add a funding decision
-          one: You have added %{count} case
-          other: You have added %{count} cases
+          zero: Add a MAAT ID 
+          one: You have added %{count} MAAT ID
+          other: You have added %{count} MAAT IDs
       interests_of_justices:
         edit:
           title: Interests of justice test

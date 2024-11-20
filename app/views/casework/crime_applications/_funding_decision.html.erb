@@ -8,9 +8,9 @@
                show_actions: crime_application.reviewable_by?(current_user_id)
              )) %>
 <% elsif crime_application.reviewable_by?(current_user_id) %>
-  <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
-
   <% if crime_application.cifc? %>
+    <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
+
     <p><%= t('.update_application_on_maat') %></p>
 
     <%= govuk_button_to(
@@ -20,6 +20,8 @@
         ) %>
   <% else %>
     <% if crime_application.status?(::Types::ReviewState[:marked_as_ready]) %>
+      <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
+
       <p><%= t('.create_application_on_maat', reference: crime_application.reference) %></p>
 
       <%= govuk_button_to(
@@ -31,6 +33,7 @@
     <% end %>
 
     <% unless crime_application.means_tested?  %>
+      <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
       <p><%= t '.manually_enter_decision' %></p>
 
       <%= govuk_button_to action_text(:start),
