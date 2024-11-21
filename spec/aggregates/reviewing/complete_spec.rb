@@ -58,7 +58,7 @@ RSpec.describe Reviewing::Complete do
 
       Reviewing::AddDecision.call(**args)
       Deciding::CreateDraft.call(**args)
-      Deciding::SetFundingDecision.call(**args.merge(funding_decision: 'granted'))
+      Deciding::SetFundingDecision.call(**args, funding_decision: 'granted')
     end
 
     it 'changes the state from :received to :completed' do

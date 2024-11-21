@@ -11,7 +11,7 @@ gem 'faraday'
 gem 'govuk-components'
 gem 'govuk_design_system_formbuilder'
 
-gem 'govuk_notify_rails'
+gem 'govuk_notify_rails', '>= 3.0.0'
 
 gem 'kaminari'
 
@@ -37,7 +37,7 @@ gem 'turbo-rails', '>= 2.0.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'dartsass-rails', '~> 0.5.0'
+gem 'dartsass-rails', '~> 0.5.1'
 
 # Exceptions notifications
 gem 'sentry-rails', '>= 5.15.1'
@@ -56,7 +56,7 @@ gem 'oauth2'
 gem 'aws-sdk-sns', '~> 1.60', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store'
+gem 'rails_event_store', '>= 2.15.0'
 
 # Monitoring
 gem 'prometheus_exporter'
@@ -65,7 +65,7 @@ group :development, :test do
   gem 'debug'
   gem 'dotenv-rails', '~> 2.8.1'
   gem 'pry'
-  gem 'rspec-rails', '>= 6.1.3'
+  gem 'rspec-rails', '>= 7.0.1'
 end
 
 group :development do
@@ -76,11 +76,11 @@ group :test do
   gem 'axe-core-rspec'
   gem 'brakeman'
   gem 'capybara', '>= 3.40.0'
-  gem 'erb_lint', require: false
+  gem 'erb_lint', '>= 0.7.0', require: false
   gem 'rubocop', '>= 1.65.0', require: false
   gem 'rubocop-performance', '>= 1.21.1', require: false
   gem 'rubocop-rails', '>= 2.26.0', require: false
-  gem 'rubocop-rspec', '>= 3.0.3', require: false
+  gem 'rubocop-rspec', '>= 3.2.0', require: false
   gem 'selenium-webdriver', '>= 4.22.0'
   gem 'simplecov', require: false
   gem 'webmock', '>= 3.20.0'

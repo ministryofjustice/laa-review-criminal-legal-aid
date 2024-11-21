@@ -31,7 +31,7 @@ jobs:
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the issues to GitHub Code Scanning
         continue-on-error: true
-        uses: snyk/actions/iac@14818c4695ecc4045f33c9cee9e795a788711ca4
+        uses: snyk/actions/iac@0.4.0
         env:
           # In order to use the Snyk Action you will need to have a Snyk API token.
           # More details in https://github.com/snyk/actions#getting-your-snyk-token
@@ -43,6 +43,6 @@ jobs:
           # or `main.tf` for a Terraform configuration file
           file: config/kubernetes/production/**
       - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
