@@ -59,6 +59,10 @@ en:
       incomplete_maat_decision: 
         - Information missing
         - Complete details in MAAT and then update this page.
+      finish_adding_decisions:
+        - You need to finish adding the funding decision details
+        - "%{continue_adding_decision_link}"
+      continue_adding_decision: Continue adding funding decision
 
 
   primary_navigation:
@@ -650,6 +654,7 @@ en:
     confirm_reassign_to_self: Yes, reassign
     copy_reference_number: Copy reference number
     copy_urn: Copy URN
+    edit: Edit
     go_to_latest: Go to the latest version
     mark_as_ready: Mark as ready for MAAT
     mark_complete: Mark as completed
@@ -665,6 +670,7 @@ en:
     unassign_from_self: Remove from your list
     unlink_decision: Remove
     update_from_maat: Update from MAAT
+    view_application: View application
     view_all_open_applications: Check open applications
     view_closed_on_count: Check when applications were closed
     view_daily_count: Check when applications were received
@@ -806,6 +812,7 @@ en:
         manually_enter_decision: You need to manually enter a decision for this application.
         create_application_on_maat: To add one or more funding decisions, link the application in MAAT first.
         update_application_on_maat: To add the funding decision, update the origional application in MAAT first.
+        finish_adding_decisions: You need to finish adding the funding decision details.
       labels:
         <<: *LABELS
       values:

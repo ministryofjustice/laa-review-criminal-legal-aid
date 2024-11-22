@@ -57,14 +57,6 @@ RSpec.describe FlashNotice do
         expect(details.first).to eq expected_detail
       end
     end
-
-    context 'when the message details include html tags' do
-      let(:message) { ['Message with a link', 'Detail <em>with</em> html <a href="https://example.com">link</a> for help.'] }
-
-      it 'tags are stripped from the details' do
-        expect(details.first).to eq 'Detail with html link for help.'
-      end
-    end
   end
 
   describe '#success?' do

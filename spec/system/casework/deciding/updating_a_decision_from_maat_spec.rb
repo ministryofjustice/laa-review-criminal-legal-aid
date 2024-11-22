@@ -45,6 +45,8 @@ RSpec.describe 'Adding a decision by MAAT reference' do
     click_button 'Mark as ready for MAAT'
     click_button 'Add funding decision from MAAT'
     visit crime_application_path(application_id)
+    click_on 'Edit'
+    click_on 'Change'
     click_button 'Update from MAAT'
   end
 

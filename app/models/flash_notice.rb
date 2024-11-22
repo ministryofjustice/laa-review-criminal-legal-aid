@@ -19,8 +19,7 @@ class FlashNotice
 
   def details
     @details ||= @raw_details.map do |raw_detail|
-      # Remove all tags and replace placeholder with link
-      strip_tags(raw_detail).sub('ONBOARDING_EMAIL_LINK', onboarding_email_link)
+      raw_detail.sub('ONBOARDING_EMAIL_LINK', onboarding_email_link)
     end
   end
 

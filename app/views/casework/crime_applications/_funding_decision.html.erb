@@ -3,6 +3,10 @@
 <% if crime_application.decisions.present? %>
   <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
 
+  <% if crime_application.decisions_pending? && crime_application.reviewable_by?(current_user_id) %>
+    <%= govuk_warning_text(text: t('.finish_adding_decisions')) %>
+  <% end %>
+
   <%= render(DecisionComponent.with_collection(
                crime_application.decisions,
                show_actions: crime_application.reviewable_by?(current_user_id)

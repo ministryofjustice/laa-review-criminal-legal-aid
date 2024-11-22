@@ -222,4 +222,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   def usn_selected?
     pre_cifc_reference_number == PRE_CIFC_USN
   end
+
+  def decisions_pending?
+    decisions.present? && !status?(::Types::ReviewState[:completed])
+  end
 end

@@ -3,17 +3,18 @@ class DecisionComponent < ViewComponent::Base
   include AppTextHelper
   include ComponentsHelper
 
-  def initialize(decision:, decision_iteration: nil, show_actions: false)
+  def initialize(decision:, decision_iteration: nil, show_actions: false, action_context: :summary)
     @decision = decision
     @decision_iteration = decision_iteration
     @show_actions = show_actions
+    @action_context = action_context
 
     super
   end
 
   private
 
-  attr_reader :decision, :decision_iteration, :show_actions
+  attr_reader :decision, :decision_iteration, :show_actions, :action_context
 
   delegate :means, :interests_of_justice, to: :decision
 
@@ -32,17 +33,26 @@ class DecisionComponent < ViewComponent::Base
   end
 
   def change_action
-    if linked_to_maat?
+    return maat_decision_change_action if linked_to_maat?
+
+    govuk_link_to(action_text(:change), crime_application_decision_interests_of_justice_path(decision.to_param))
+  end
+
+  def maat_decision_change_action
+    case action_context
+    when :summary
+      govuk_link_to(action_text(:edit), crime_application_send_decisions_path(decision.application_id))
+    when :submit
+      govuk_link_to(action_text(:change),
+                    crime_application_decision_comment_path(crime_application_id: decision.application_id,
+                                                            decision_id: decision.decision_id))
+    when :update
       button_to(action_text(:update_from_maat), update_path, method: :patch, class: 'govuk-link app-button--link')
-    else
-      govuk_link_to(
-        action_text(:change), crime_application_decision_interests_of_justice_path(decision.to_param)
-      )
     end
   end
 
   def remove_action
-    return unless linked_to_maat?
+    return unless linked_to_maat? && action_context != :summary
 
     button_to(
       action_text(:unlink_decision),
