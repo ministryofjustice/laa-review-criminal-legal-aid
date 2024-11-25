@@ -4,6 +4,7 @@
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body-l govuk-!-margin-bottom-2">
       <%= @crime_application.reference %>
+      <%= govuk_link_to(t('calls_to_action.view_application'), crime_application_path(@crime_application), no_visited_state: true) %>
     </p>
 
     <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
