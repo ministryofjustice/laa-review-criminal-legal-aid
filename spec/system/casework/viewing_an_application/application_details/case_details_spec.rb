@@ -269,8 +269,8 @@ RSpec.describe 'When viewing case details' do
           { 'is_client_remanded' => 'yes', 'date_client_remanded' => '2021-10-25' }
         end
 
-        it 'shows custody remanded as yes' do
-          expect(page).to have_content('Has a court remanded client in custody? Yes')
+        it 'shows custody remanded as `In court custody`' do
+          expect(page).to have_content('Remanded in court custody? In court custody')
           expect(page).to have_content('When they were remanded 25/10/2021')
         end
       end
@@ -281,7 +281,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'shows custody remanded as no' do
-          expect(page).to have_content('Has a court remanded client in custody? No')
+          expect(page).to have_content('Remanded in court custody? No')
         end
       end
     end

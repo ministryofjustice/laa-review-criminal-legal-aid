@@ -61,10 +61,10 @@
       <% unless overview.means_passported_on_age? || overview.not_means_tested? || overview.appeal_no_changes? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:passporting_benefit) %>
+            <%= label_text(:is_passported) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= t(overview.client_details.applicant.benefit_type.presence, scope: 'values') || t(:not_asked, scope: 'values') %>
+            <%= overview.client_details.client_or_partner_passported %>
           </dd>
         </div>
 
@@ -80,19 +80,21 @@
         <% end %>
       <% end %>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:urn) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-        <span id="urn">
-          <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
-        </span>
-          <% if overview.case_details.urn.presence && !overview.superseded? %>
-            <%=link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
-          <% end %>
-        </dd>
-      </div>
+      <% unless overview.not_means_tested? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:urn) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+          <span id="urn">
+            <%= overview.case_details.urn.presence || t(:not_provided, scope: 'values') %>
+          </span>
+            <% if overview.case_details.urn.presence && !overview.superseded? %>
+              <%=link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
+            <% end %>
+          </dd>
+        </div>
+      <% end %>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -103,7 +105,16 @@
         </dd>
       </div>
 
-      <% unless overview.cifc? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:application_submitted) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l(overview.submitted_at, format: :compact) %>
+        </dd>
+      </div>
+
+      <% unless overview.cifc? || overview.not_means_tested? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:overall_offence_class) %>

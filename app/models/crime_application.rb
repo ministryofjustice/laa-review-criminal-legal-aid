@@ -130,6 +130,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     @case_details ||= CaseDetailsPresenter.present(self[:case_details])
   end
 
+  def client_details
+    @client_details ||= ClientDetailsPresenter.present(self[:client_details])
+  end
+
   def applicant
     @applicant ||= PersonPresenter.present(self[:client_details][:applicant])
   end
