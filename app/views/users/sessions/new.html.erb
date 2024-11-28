@@ -11,10 +11,6 @@
       Only caseworkers who have received an email invitation will have access.
     </p>
 
-    <p class="govuk-body">
-      If you do not have access, you should <%= link_to 'continue using eForms', t('urls.eforms_url'), { rel: 'external' } %>.
-    </p>
-
   <div class="govuk-!-margin-top-9">
     <%= govuk_start_button(text: t('calls_to_action.start_now'), href: user_azure_ad_omniauth_authorize_path, as_button: true) %>
   </div>
