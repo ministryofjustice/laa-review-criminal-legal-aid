@@ -88,6 +88,7 @@ en:
     application_information: Application information
     application_start_date: Date stamp
     application_status: Status
+    application_submitted: Date submitted
     application_type: Application type
     arc: Application registration card (ARC) number
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
@@ -249,8 +250,9 @@ en:
     investment_value: What is the value of the investment?
     investments: Investments
     involvement_in_case: Partner involved in the case?
-    is_client_remanded: Has a court remanded client in custody?
+    is_client_remanded: Remanded in court custody?
     is_overdrawn: Is the account overdrawn?
+    is_passported: Passporting Benefit?
     is_preorder_work_claimed: Do you intend to claim pre-order work?
     justification: Justification
     last_name: Last name
@@ -258,7 +260,7 @@ en:
     lost_job_in_custody: Did they lose their job as a result of being in custody?
     maat_id: MAAT ID
     manage_without_income: How do they manage with no income?
-    means_tested: Is application subject to means test?
+    means_tested: Subject to means test?
     means_assessed_by: Means test caseworker
     means_assessed_on: Means test date
     means_details: Means reason 
@@ -641,6 +643,13 @@ en:
       applicant: Client's name
       partner: Partner's name
       applicant_and_partner: Client and partner
+    client_or_partner_passported:
+      client: 'Yes'
+      partner: 'Yes - partner'
+      neither: 'No'
+    client_remanded:
+      'yes': In court custody
+      'no': 'No'
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign

@@ -107,7 +107,7 @@
           <%= label_text(:is_client_remanded) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(case_details.is_client_remanded, scope: 'values') %>
+          <%= client_remanded_value(case_details.is_client_remanded) %>
         </dd>
       </div>
 

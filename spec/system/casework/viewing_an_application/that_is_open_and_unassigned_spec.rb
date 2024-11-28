@@ -83,10 +83,6 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     expect(page).to have_content('Assign to your list')
   end
 
-  it 'includes the date received' do
-    expect(page).to have_content('Date received: 24/10/2022')
-  end
-
   it 'includes the application type' do
     expect(page).to have_content('Initial application')
   end
@@ -94,7 +90,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   describe 'showing the means tested value' do
     subject(:means_tested_badge) do
       find('.govuk-summary-list__key',
-           text: 'Is application subject to means test')
+           text: 'Subject to means test?')
         .sibling('.govuk-summary-list__value')
     end
 

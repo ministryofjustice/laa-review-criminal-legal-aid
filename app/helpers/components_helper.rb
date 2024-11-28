@@ -24,4 +24,8 @@ module ComponentsHelper
       application.available_reviewer_actions, application:
     )
   end
+
+  def client_remanded_value(raw_value)
+    render ClientRemandedValueComponent.new(raw_value:)
+  end
 end
