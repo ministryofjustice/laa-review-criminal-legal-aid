@@ -176,7 +176,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     let(:application_data) { super().deep_merge('date_stamp' => '2022-11-21T16:57:51.000+00:00') }
 
     it 'includes the correct date stamp' do
-      expect(page).to have_content('Date stamp 21/11/2022 16:57pm')
+      expect(page).to have_content('Date stamp 21/11/2022 4:57pm')
     end
   end
 

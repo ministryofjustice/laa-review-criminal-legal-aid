@@ -24,10 +24,10 @@ en:
     formats:
       <<: *DATE_FORMATS
       datetime: '%-l:%M%P %-d %b %Y'  # 2:45pm 3 Jan 2019
-      timestamp: '%A %-d %b %H:%M'  # Thursday 3 Jan 14:45
-      snapshot: '%A %-d %B %H:%M'
+      timestamp: '%A %-d %b %-l:%M%P'  # Thursday 3 Jan 2:45pm
+      snapshot: '%A %-d %B %-l:%M%P'
       now: '%A %-d %B'
-      datestamp: '%d/%m/%Y %H:%M%P' # 03/01/2019 15:29pm
+      datestamp: '%d/%m/%Y %-l:%M%P' # 03/01/2019 3:29pm
       dob: '%-d %B %Y' # 1 January 1990
 
   flash:
