@@ -34,8 +34,8 @@ RSpec.describe 'Workload Report' do
   end
 
   it 'shows the expected colgroup headers' do
-    expected_headers = ['', 'From 00:00 until 23:59',
-                        'Applications still open by age in business days at 23:59']
+    expected_headers = ['', 'From midnight until 11:59pm',
+                        'Applications still open by age in business days at 11:59pm']
 
     within('#cat-1') do
       page.all('table thead tr.colgroup-headers th').each_with_index do |el, i|

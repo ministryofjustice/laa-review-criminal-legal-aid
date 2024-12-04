@@ -17,7 +17,7 @@ RSpec.describe 'Viewing application history' do
 
     it 'includes the submission event' do
       first_row = page.first('.app-dashboard-table tbody tr').text
-      expect(first_row).to match('Monday 24 Oct 10:50 John Doe Application submitted')
+      expect(first_row).to match('Monday 24 Oct 10:50am John Doe Application submitted')
     end
   end
 

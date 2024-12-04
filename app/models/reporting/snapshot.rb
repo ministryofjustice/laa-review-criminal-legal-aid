@@ -46,14 +46,14 @@ module Reporting
       starts_on = observed_business_day.starts_on
 
       if observed_business_day == starts_on
-        I18n.l(observed_at, format: '00:00 until %H:%M')
+        I18n.l(observed_at, format: 'midnight until %-l:%M%P')
       else
-        starts_on.strftime('00:00 %A to ') + I18n.l(observed_at, format: '%H:%M %A')
+        starts_on.strftime('midnight %A to ') + I18n.l(observed_at, format: '%-l:%M%P %A')
       end
     end
 
     def observed_at_time
-      I18n.l(observed_at, format: '%H:%M')
+      I18n.l(observed_at, format: '%-l:%M%P')
     end
 
     private

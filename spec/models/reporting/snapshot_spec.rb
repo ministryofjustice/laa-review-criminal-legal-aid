@@ -31,7 +31,7 @@ RSpec.describe Reporting::Snapshot do
 
     context 'when observed business day follows a non-working day' do
       it 'shows the start and end days and times' do
-        expect(text).to eq '00:00 Saturday to 12:11 Monday'
+        expect(text).to eq 'midnight Saturday to 12:11pm Monday'
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe Reporting::Snapshot do
       let(:observed_at) { Time.zone.local(2023, 10, 11, 11, 11) }
 
       it 'shows the start and end time' do
-        expect(text).to eq '00:00 until 12:11'
+        expect(text).to eq 'midnight until 12:11pm'
       end
     end
   end

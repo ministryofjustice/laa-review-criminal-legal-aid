@@ -92,7 +92,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
     it 'includes the submission event' do
       first_row = page.first('.app-dashboard-table tbody tr').text
-      expect(first_row).to match('Monday 24 Oct 10:50 John Doe Post submission evidence submitted')
+      expect(first_row).to match('Monday 24 Oct 10:50am John Doe Post submission evidence submitted')
     end
 
     it 'includes the assigned event' do
