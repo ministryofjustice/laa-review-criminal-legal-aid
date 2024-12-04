@@ -56,7 +56,6 @@ RSpec.describe 'Snapshot report' do
     end
 
     it 'shows the report at the specified time' do
-      pp page
       expect(page).to have_text yesterday.strftime('%A %-d %B 12:00')
     end
   end
