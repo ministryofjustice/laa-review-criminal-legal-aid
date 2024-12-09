@@ -46,11 +46,11 @@ RSpec.describe 'View caseworker competencies history' do
 
       it 'shows the correct table content' do
         first_data_row = page.first('tbody tr.govuk-table__row:nth-of-type(1)').text
-        expected_event = ['10:04am 13 Nov 2023 Competencies set to no competencies Joe EXAMPLE'].join(' ')
+        expected_event = ['13 Nov 2023 10:04am Competencies set to no competencies Joe EXAMPLE'].join(' ')
         expect(first_data_row).to eq(expected_event)
 
         second_data_row = page.first('tbody tr.govuk-table__row:nth-of-type(2)').text
-        expected_event = ['10:04am 13 Nov 2023 Competencies set to CAT 2 Joe EXAMPLE'].join(' ')
+        expected_event = ['13 Nov 2023 10:04am Competencies set to CAT 2 Joe EXAMPLE'].join(' ')
         expect(second_data_row).to eq(expected_event)
       end
     end
