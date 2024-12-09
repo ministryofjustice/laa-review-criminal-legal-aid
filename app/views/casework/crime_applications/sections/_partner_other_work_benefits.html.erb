@@ -1,5 +1,5 @@
 <%if income_details.partner_other_work_benefit_received.present? %>
-  <%= govuk_summary_card(title: label_text(:work_benefits)) do %>
+  <%= govuk_summary_card(title: label_text_with_subject(:work_benefits, 'partner')) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

@@ -30,7 +30,7 @@
           <%= label_text(:other_names) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= partner.other_names.presence || t(:not_provided, scope: 'values') %>
+          <%= partner.other_names.presence || t(:none, scope: 'values') %>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -41,14 +41,16 @@
           <%= l partner.date_of_birth, format: :compact %>
         </dd>
       </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:national_insurance_number) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= crime_application.partner.formatted_nino.presence || t(:not_provided, scope: 'values') %>
-        </dd>
-      </div>
+      <% if crime_application.partner.formatted_nino.present? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:national_insurance_number) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= crime_application.partner.formatted_nino %>
+          </dd>
+        </div>
+      <% end %>
       <% if crime_application.partner.arc.present? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
@@ -86,23 +88,18 @@
             <%= t(partner.has_same_address_as_client, scope: 'values') %>
           </dd>
         </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= label_text(:home_address) %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <% if partner.has_same_address_as_client == 'yes' %>
-              <% if applicant.home_address %>
-                <%= render 'address', address: applicant.home_address %>
-              <% else %>
-                <%= t(:no_home_address, scope: 'values') %>
-              <% end %>
-            <% else %>
-              <%= render('address', address: partner.home_address) if partner.home_address.present? %>
-            <% end %>
-          </dd>
-        </div>
-      <% end  %>
+        <% partner_home_address = partner.has_same_address_as_client == 'yes' ? applicant.home_address : partner.home_address %>
+        <% if partner_home_address.present? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:home_address) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= render 'address', address: partner_home_address %>
+            </dd>
+          </div>
+        <% end %>
+      <% end %>
     </dl>
   <% end %>
 <% end %>

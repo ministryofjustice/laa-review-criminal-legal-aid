@@ -1,5 +1,5 @@
 <% if income_details.present? %>
-  <%= govuk_summary_card(title: label_text(:employment)) do %>
+  <%= govuk_summary_card(title: label_text_with_subject(:employment, 'client')) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

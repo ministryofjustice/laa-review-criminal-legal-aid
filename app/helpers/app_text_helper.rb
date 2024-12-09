@@ -15,6 +15,17 @@ module AppTextHelper
     named_text(:labels, key, options)
   end
 
+  def label_text_with_subject(key, subject, options = {}, subject_appended: true)
+    options[:count] = /client.+partner/.match?(subject) ? 2 : 1
+    options[:subject] = subject unless subject_appended
+    label = label_text(key, options)
+    if subject_appended
+      return current_crime_application.applicant.has_partner == 'yes' ? "#{label}: #{subject}" : label
+    end
+
+    label
+  end
+
   def value_text(key, options = {})
     named_text(:values, key, options)
   end

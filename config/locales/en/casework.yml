@@ -84,7 +84,7 @@ en:
     appeal_usn: USN
     appeal_with_changes_details: Changes details
     applicant_date_of_birth: Applicant's date of birth
-    applicant_details: Applicant details
+    application_details: Application details
     application_information: Application information
     application_start_date: Date stamp
     application_status: Status
@@ -101,8 +101,7 @@ en:
     benefit_jsa: Contribution-based Jobseeker's Allowance
     benefit_other: Other benefits
     benefit_working_or_child_tax_credit: Working Tax Credit or Child Tax Credit
-    benefits_the_client_gets: Benefits your client gets
-    benefits_the_partner_gets: Benefits the partner gets
+    benefits: Benefits
     business_title: Test
     businesses:
       trading_name: Trading name of business
@@ -131,16 +130,17 @@ en:
     case_type: Case type
     caseworker: Caseworker
     client_details: Client details
+    client_contact_details: Client contact details
     client_in_armed_forces: Client in armed forces?
     client_other_charges: Other charges
     client_other_charges_explicit: "Other charges: client"
-    client_owns_property: Has land or property?
+    client_owns_property: '%{subject} owns home, land or property?'
     closed_by: 'Closed by:'
     codefendant: Co-defendant
     codefendants: Co-defendants
     confirmed_details: Confirmed details correct?
     conflict_of_interest: Conflict of interest?
-    correspondence_address: Correspondence address
+    correspondence_address: Correspondence
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
@@ -164,7 +164,7 @@ en:
     employment: Employment
     employment_type: Client's employment status
     end_on: Date to
-    ended_employment_within_three_months: Have they ended employment in the last 3 months?
+    ended_employment_within_three_months: Employment ended in last 3 months?
     evidence_asked_for: We asked the provider to upload
     evidence_client_income: Evidence of their client's income
     evidence_client_outgoings: Evidence of their client's outgoings
@@ -178,10 +178,10 @@ en:
     extradition: Extradition
     file_name: Files
     financial_change_details: Changes in the client’s financial circumstances
-    first_court_hearing: First court hearing the case
+    first_court_hearing: First court hearing
     first_name: First name
     has_benefit_evidence: Evidence can be provided?
-    has_case_concluded: Has the case concluded?
+    has_case_concluded: Case concluded?
     further_information: Further information
     further_information_any: Any additional information?
     further_information_details: Details
@@ -196,9 +196,8 @@ en:
     has_premium_bonds: Premium Bonds
     has_premium_bonds_client: 'Premium Bonds: client'
     has_premium_bonds_partner: 'Premium Bonds: partner'
-    has_savings: Has savings or investments?
+    has_savings: Savings or investments?
     has_same_address_as_client: Lives at same address as client?
-    hearing_date: Date of next hearing
     home_address: Home address
     housing_payments: Housing payments
     how_manage_outgoings: How they cover outgoings that are more than their income?
@@ -210,7 +209,7 @@ en:
     ioj_assessed_by: IoJ caseworker
     ioj_assessed_on: IoJ test date
     income: Income
-    income_more_than: "%{prefix} more than £12,475?"
+    income_more_than: "%{prefix} more than £12,475 a year before tax?"
     income_details: Income
     income_details_partner: Partner's income
     employments_title: Jobs
@@ -259,7 +258,9 @@ en:
     legal_representative: Legal representative
     lost_job_in_custody: Did they lose their job as a result of being in custody?
     maat_id: MAAT ID
-    manage_without_income: How do they manage with no income?
+    manage_without_income:
+      one: How %{subject} lives with no income
+      other: How %{subject} live with no income
     means_tested: Subject to means test?
     means_assessed_by: Means test caseworker
     means_assessed_on: Means test date
@@ -274,13 +275,12 @@ en:
     national_savings_certificate_certificate_number: 'What is the certificate number?'
     national_savings_certificate_value: What is the value of the certificate?
     national_savings_certificate_ownership_type: Who owns the certificate?
-    next_court_hearing: Next court hearing the case
+    next_court_hearing: Next court hearing
     no_files_uploaded: No files were uploaded
     number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
-    offence_class: Class
-    offence_date: Date
-    offence_type: Type
+    offence_date: Offence date
+    offence_type_and_class: Offence type and class
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
@@ -288,7 +288,7 @@ en:
     other_charges_hearing_court_name: Court
     other_charges_next_hearing_date: Next hearing
     other_charges_question: Other charges?
-    other_income_details: 'Other sources of income: %{subject}'
+    other_income_details: Other sources of income
     other_names: Other names
     other_outgoings_details: Other outgoings
     other_payment_details: Other sources of income details
@@ -306,7 +306,6 @@ en:
     overview: Overview
     partner: Partner
     partner_details: Partner details
-    partner_employment: Partner's employment
     partner_employment_type: Partner's employment status
     partner_in_armed_forces: Partner in armed forces?
     partner_other_charges: "Other charges: partner"
@@ -324,9 +323,8 @@ en:
     payment_rent: Rent from a tenant
     payment_state_pension: State Pension
     payment_student_loan_grant: Student grant or loan
-    payments_the_client_gets: Payments your client gets
-    payments_the_client_makes: Payments your %{subject} makes
-    payments_the_partner_gets: Payments the partner gets
+    payments: Payments
+    payments_the_client_makes: Payments the %{subject} makes
     post_submission_evidence: Post submission evidence
     premium_bonds: 'Premium Bonds'
     premium_bonds_holder_number: Holder number
@@ -345,6 +343,7 @@ en:
     residence_type: Where the client usually lives
     return_reason_details: We'll share this information with the provider
     return_reason_details_legend: Give further details
+    same_court_as_first_hearing: Same court as first hearing?
     saving_account_balance: Account balance
     saving_account_holder: Name the account is in
     saving_account_number: Account number
@@ -357,14 +356,14 @@ en:
       national_savings_or_post_office: National Savings or Post Office accounts
       other: Cash investment
     savings: Savings
-    savings_and_investments: Savings and investments
+    savings_and_investments: 'Capital: Savings and investments'
     search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
     select_return_reason: Select the reason for returning this application
     separation_date: Date client separated from partner
     start_on: Date from
-    supporting_evidence: Supporting evidence
-    telephone_number: UK Telephone number
+    supporting_evidence: Supporting evidence and information
+    telephone_number: Telephone number
     trust_funds_client: 'Trust funds: client'
     trust_funds_partner: 'Trust funds: partner'
     type_of_payment: Type of payment
@@ -373,18 +372,20 @@ en:
     what: What
     when: When
     who: Who
+    what_court_is_the_hearing_at: What court is the hearing at
+    when_is_the_next_hearing: When is the next hearing?
     which_housing_payment_type: Type of payment
     which_assets_does_the_client_own: Assets %{subject} owns or part-owns
     will_benefit_from_trust_fund: Stands to benefit from a trust fund?
-    which_benefits_does_the_client_get: Which benefits does the client get?
-    which_benefits_does_the_partner_get: Which benefits does the partner get?
+    which_benefits_does_the_client_get: Benefits the client gets
+    which_benefits_does_the_partner_get: Benefits the partner gets
     which_investments_does_client_have: Investments?
-    which_payments_does_the_client_get: Which payments does the client get?
-    which_payments_does_the_partner_get: Which payments does the partner get?
+    which_payments_does_the_client_get: Payments the client gets
+    which_payments_does_the_partner_get: Payments the partner gets
     which_savings_does_client_have: Savings %{subject} has
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
-    properties_title: Assets
+    properties_title: 'Capital: Assets'
     property_type:
       residential: Residential property
       commercial: Commercial property
@@ -410,14 +411,14 @@ en:
     employment_income: Pay from employment
     employment_income_amount: Salary or wage
     work_benefits: Other work benefits
-    applicant_other_work_benefit_received: Does your client receive any other benefits from work?
+    applicant_other_work_benefit_received: Other work benefits?
     applicant_other_work_benefit_received_amount: Total value every year
-    partner_other_work_benefit_received: Does the partner receive any other benefits from work?
+    partner_other_work_benefit_received: Other work benefits?
     partner_other_work_benefit_received_amount: Total value every year
-    self_assessment_tax_bill: Self Assessment tax
-    applicant_self_assessment_tax_bill: "Self Assessment tax calculation: client?"
+    self_assessment_tax_bill: Self Assessment
+    applicant_self_assessment_tax_bill: Self assessment tax calculation?
     applicant_self_assessment_tax_bill_amount: Amount
-    partner_self_assessment_tax_bill: "Self Assessment tax calculation: partner?"
+    partner_self_assessment_tax_bill: Self assessment tax calculation?
     partner_self_assessment_tax_bill_amount: Amount
     declarations: Declarations
     client_declaration: Declaration from client?
@@ -632,7 +633,7 @@ en:
       victim: Victim
       prosecution_witness: Prosecution witness
       codefendant: Co-defendant
-      none: No, the partner is not involved
+      none: 'No'
     relationship_status:
       single: Single
       widowed: Widowed
@@ -650,6 +651,10 @@ en:
     client_remanded:
       'yes': In court custody
       'no': 'No'
+    is_first_court_hearing:
+      'yes': 'Yes'
+      'no': 'No'
+      no_hearing_yet: There has not been a hearing yet
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign

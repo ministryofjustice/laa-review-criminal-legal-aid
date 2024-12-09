@@ -19,7 +19,7 @@ RSpec.describe 'Viewing the income benefits of the partner' do
     end
     # rubocop:enable Layout/LineLength
 
-    it { expect(page).to have_content('Benefits the partner gets') }
+    it { expect(page).to have_content('Benefits: partner') }
 
     # rubocop:disable RSpec/MultipleExpectations
     it 'shows income benefit details' do
@@ -43,7 +43,7 @@ RSpec.describe 'Viewing the income benefits of the partner' do
     end
 
     it 'shows income benefit details' do
-      expect(page).to have_content('Which benefits does the partner get? None')
+      expect(page).to have_content('Benefits the partner gets None')
     end
   end
 end

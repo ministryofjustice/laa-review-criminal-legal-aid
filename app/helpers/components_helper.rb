@@ -3,6 +3,10 @@ module ComponentsHelper
     render CardComponent.with_collection(items, title: item_name), &block
   end
 
+  def ownership_card_list(items:, item_name:, &block)
+    render OwnershipCardComponent.with_collection(items, title: item_name), &block
+  end
+
   def offence_class(offence)
     render OffenceClassComponent.new(offence:)
   end

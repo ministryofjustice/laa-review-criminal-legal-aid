@@ -1,5 +1,5 @@
 <% if income_details.has_no_income_benefits == 'yes' ||  income_benefits.present? %>
-  <%= govuk_summary_card(title: label_text(:benefits_the_client_gets)) do %>
+  <%= govuk_summary_card(title: label_text_with_subject(:benefits, 'client')) do %>
     <dl class="govuk-summary-list">
       <% if income_details.has_no_income_benefits == 'yes' %>
         <div class="govuk-summary-list__row">

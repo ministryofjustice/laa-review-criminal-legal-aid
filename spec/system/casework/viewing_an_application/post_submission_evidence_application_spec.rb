@@ -24,7 +24,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     it 'displays other name details' do
-      expect(page).to have_content('Other names Not provided')
+      expect(page).to have_content('Other names None')
     end
 
     it 'displays date of birth' do

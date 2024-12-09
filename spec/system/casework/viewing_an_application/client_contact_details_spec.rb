@@ -11,7 +11,7 @@ RSpec.describe 'Viewing Client contact details' do
   describe 'Client details Home address' do
     context 'when home address is present' do
       subject(:home_address) do
-        within summary_card('Client details') do
+        within summary_card('Client contact details') do
           page.first('dt', text: 'Home address').find('+dd')
         end
       end
@@ -30,7 +30,7 @@ RSpec.describe 'Viewing Client contact details' do
       end
 
       it 'does not show the home address' do
-        within summary_card('Client details') do
+        within summary_card('Client contact details') do
           expect(page).to have_no_content('Home address')
         end
       end
@@ -39,8 +39,8 @@ RSpec.describe 'Viewing Client contact details' do
 
   describe 'Correspondence address' do
     subject(:correspondence_address) do
-      within summary_card('Client details') do
-        page.first('dt', text: 'Correspondence address').find('+dd')
+      within summary_card('Client contact details') do
+        page.first('dt', text: 'Correspondence').find('+dd')
       end
     end
 

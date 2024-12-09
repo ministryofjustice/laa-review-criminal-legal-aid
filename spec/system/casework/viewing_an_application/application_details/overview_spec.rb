@@ -42,7 +42,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
         'Passporting Benefit?', 'Yes',
-        'Unique reference number (URN)', 'Not provided',
+        'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
@@ -68,7 +68,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
         'Passporting Benefit?', 'No',
-        'Unique reference number (URN)', 'Not provided',
+        'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
@@ -97,7 +97,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
         'Passporting Benefit?', 'Yes - partner',
-        'Unique reference number (URN)', 'Not provided',
+        'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
@@ -115,7 +115,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'MAAT ID of original application', '987654321',
         'Subject to means test?', 'Yes',
         'Passporting Benefit?', 'Yes',
-        'Unique reference number (URN)', 'Not provided',
+        'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am'
       )
@@ -130,7 +130,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
         'Passporting Benefit?', 'Yes',
-        'Unique reference number (URN)', 'Not provided',
+        'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'

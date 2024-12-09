@@ -9,11 +9,11 @@ RSpec.describe 'Viewing the other income details of an application' do
 
   context 'with other income details' do
     context 'when Other free text option is selected' do
-      it { expect(page).to have_content('Other sources of income: client') }
-
       it 'shows manage without income details' do
-        expect(page).to have_content('How do they manage with no income? Other')
-        expect(page).to have_content('Details Another way they manage')
+        within_card('Other sources of income') do |card|
+          expect(card).to have_summary_row('How client lives with no income', 'Other')
+          expect(card).to have_summary_row('Details', 'Another way they manage')
+        end
       end
     end
 
@@ -22,7 +22,12 @@ RSpec.describe 'Viewing the other income details of an application' do
         super().deep_merge('client_details' => { 'partner' => { 'is_included_in_means_assessment' => true } })
       end
 
-      it { expect(page).to have_content('Other sources of income: client and partner') }
+      it 'shows manage without income details' do
+        within_card('Other sources of income') do |card|
+          expect(card).to have_summary_row('How client and partner live with no income', 'Other')
+          expect(card).to have_summary_row('Details', 'Another way they manage')
+        end
+      end
     end
 
     context 'when radio option selected' do
@@ -32,7 +37,7 @@ RSpec.describe 'Viewing the other income details of an application' do
       end
 
       it 'shows manage without income details' do
-        expect(page).to have_content('How do they manage with no income? They stay with family for free')
+        expect(page).to have_content('How client lives with no income They stay with family for free')
       end
     end
   end

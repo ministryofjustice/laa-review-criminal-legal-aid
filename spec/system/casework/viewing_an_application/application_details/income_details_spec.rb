@@ -14,13 +14,13 @@ RSpec.describe 'Viewing the income details of an application' do
       end
 
       it 'shows income above threshold' do
-        expect(page).to have_content('Joint annual income more than £12,475? No')
+        expect(page).to have_content('Joint annual income more than £12,475 a year before tax? No')
       end
     end
 
     context 'when partner is not included in means' do
       it 'shows income above threshold' do
-        expect(page).to have_content('Income more than £12,475? No')
+        expect(page).to have_content('Income more than £12,475 a year before tax? No')
       end
     end
 
@@ -29,11 +29,11 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'shows land or property' do
-      expect(page).to have_content('Has land or property? No')
+      expect(page).to have_content('Client owns home, land or property? No')
     end
 
     it 'shows savings or investments' do
-      expect(page).to have_content('Has savings or investments? Yes')
+      expect(page).to have_content('Savings or investments? Yes')
     end
   end
 
@@ -62,7 +62,7 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'shows income above threshold' do
-      expect(page).to have_content('Income more than £12,475? Yes')
+      expect(page).to have_content('Income more than £12,475 a year before tax? Yes')
     end
 
     it 'shows has income savings assets' do
@@ -92,11 +92,11 @@ RSpec.describe 'Viewing the income details of an application' do
     end
 
     it 'shows Other work benefits' do
-      expect(page).to have_content('Does your client receive any other benefits from work? No')
+      expect(page).to have_content('Other work benefits? No')
     end
 
     it 'shows Self Assessment tax' do
-      expect(page).to have_content('Self Assessment tax calculation: client? Yes')
+      expect(page).to have_content('Self assessment tax calculation? Yes')
     end
 
     it 'shows Self Assessment tax amount with frequency' do

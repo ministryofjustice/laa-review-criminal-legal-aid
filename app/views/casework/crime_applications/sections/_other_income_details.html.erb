@@ -1,9 +1,9 @@
 <% if income_details&.manage_without_income.present? %>
-  <%= govuk_summary_card(title: label_text(:other_income_details, subject: subject_t)) do %>
+  <%= govuk_summary_card(title: label_text(:other_income_details)) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= label_text(:manage_without_income, subject: subject_t) %>
+          <%= label_text_with_subject(:manage_without_income, subject_t, subject_appended: false) %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= t(income_details.manage_without_income, scope: 'values.manage_without_income') %>
