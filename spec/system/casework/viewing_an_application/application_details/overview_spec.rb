@@ -19,7 +19,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Application type', 'Initial application',
         'Subject to means test?', 'No',
         'Date stamp', '24/10/2022 10:50am',
-        'Date submitted', '24/10/2022'
+        'Date submitted', '24/10/2022 10:50am'
       )
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Passporting Benefit?', 'Yes',
         'Unique reference number (URN)', 'Not provided',
         'Date stamp', '24/10/2022 10:50am',
-        'Date submitted', '24/10/2022',
+        'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
       )
     end
@@ -70,7 +70,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Passporting Benefit?', 'No',
         'Unique reference number (URN)', 'Not provided',
         'Date stamp', '24/10/2022 10:50am',
-        'Date submitted', '24/10/2022',
+        'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
       )
     end
@@ -99,7 +99,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Passporting Benefit?', 'Yes - partner',
         'Unique reference number (URN)', 'Not provided',
         'Date stamp', '24/10/2022 10:50am',
-        'Date submitted', '24/10/2022',
+        'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
       )
     end
@@ -117,7 +117,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Passporting Benefit?', 'Yes',
         'Unique reference number (URN)', 'Not provided',
         'Date stamp', '24/10/2022 10:50am',
-        'Date submitted', '24/10/2022'
+        'Date submitted', '24/10/2022 10:50am'
       )
     end
   end
@@ -132,7 +132,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Passporting Benefit?', 'Yes',
         'Unique reference number (URN)', 'Not provided',
         'Date stamp', '24/10/2022 10:50am',
-        'Date submitted', '24/10/2022',
+        'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
       )
     end
