@@ -4,6 +4,19 @@
 
 <%= govuk_summary_card(title: label_text(:case_details)) do %>
   <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:urn) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+      <span id="urn">
+        <%= case_details.urn.presence || t(:none, scope: 'values') %>
+      </span>
+        <% if case_details.urn.presence && !crime_application.superseded? %>
+          <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
+        <% end %>
+      </dd>
+    </div>
     <% if case_details.case_type.present? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -17,36 +30,6 @@
 
     <%= render partial: 'casework/crime_applications/sections/appeal_case_details',
                locals: { crime_application:, case_details: } if case_details.appeal? %>
-
-    <% unless crime_application.cifc? %>
-      <!-- Court hearing -->
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:first_court_hearing) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.first_court_hearing %>
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:next_court_hearing) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.next_court_hearing %>
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:hearing_date) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= case_details.next_court_hearing_at %>
-        </dd>
-      </div>
-    <% end %>
 
     <% if case_details.has_case_concluded.present? %>
       <div class="govuk-summary-list__row">

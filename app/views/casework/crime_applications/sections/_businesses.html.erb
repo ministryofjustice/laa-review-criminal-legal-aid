@@ -1,6 +1,6 @@
 <% if businesses.present? %>
   <% businesses.group_by(&:business_type).each do |item_type, group| %>
-    <%= app_card_list(items: group, item_name: label_text(item_type, scope: :business_type)) do |card|
+    <%= ownership_card_list(items: group, item_name: label_text(item_type, scope: :business_type)) do |card|
           govuk_summary_list(actions: false) do |list|
             list.with_row do |row|
               row.with_key { label_text(:trading_name, scope: 'businesses') }

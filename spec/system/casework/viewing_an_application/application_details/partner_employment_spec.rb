@@ -9,7 +9,7 @@ RSpec.describe 'Viewing the employment details of the partner' do
 
   context 'with employment details' do
     let(:card) do
-      page.find('h2.govuk-summary-card__title', text: "Partner's employment").ancestor('div.govuk-summary-card')
+      page.find('h2.govuk-summary-card__title', text: 'Employment: partner').ancestor('div.govuk-summary-card')
     end
 
     it 'shows partners employment type' do

@@ -1,5 +1,5 @@
 <% if income_details.partner_has_no_income_payments == 'yes' ||  income_payments.present? %>
-  <%= govuk_summary_card(title: label_text(:payments_the_partner_gets)) do %>
+  <%= govuk_summary_card(title: label_text_with_subject(:payments, 'partner')) do %>
     <dl class="govuk-summary-list">
       <% if income_details.partner_has_no_income_payments == 'yes' %>
         <div class="govuk-summary-list__row">

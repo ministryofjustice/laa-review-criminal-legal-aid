@@ -46,7 +46,6 @@ RSpec.describe 'When viewing partner details' do
 
         it "displays the partner's arc number" do
           expect(summary_card('Partner details')).to have_rows(
-            'National Insurance number', 'Not provided',
             'Application registration card (ARC) number', 'ABC12/345678/A'
           )
         end
@@ -124,8 +123,7 @@ RSpec.describe 'When viewing partner details' do
 
         it "displays the partner's address details" do
           expect(summary_card('Partner details')).to have_rows(
-            'Lives at same address as client?', 'No',
-            'Home address', ''
+            'Lives at same address as client?', 'No'
           )
         end
       end

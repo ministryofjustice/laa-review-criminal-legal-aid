@@ -1,0 +1,14 @@
+<% return if case_details.first_court_hearing.nil? %>
+
+<%= govuk_summary_card(title: label_text(:first_court_hearing)) do %>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:what_court_is_the_hearing_at) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= case_details.first_court_hearing %>
+      </dd>
+    </div>
+  </dl>
+<% end %>

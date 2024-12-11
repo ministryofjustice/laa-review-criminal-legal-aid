@@ -1,5 +1,5 @@
 <% if income_details.partner_employment_type.present? %>
-  <%= govuk_summary_card(title: label_text(:partner_employment)) do %>
+  <%= govuk_summary_card(title: label_text_with_subject(:employment, 'partner')) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
             row.with_key { label_text(:partner_employment_type) }

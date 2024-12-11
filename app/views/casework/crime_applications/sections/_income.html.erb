@@ -28,7 +28,7 @@
       <% unless income_details.client_owns_property.nil? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <%= label_text(:client_owns_property) %>
+            <%= label_text(:client_owns_property, subject: (partner_included_in_means? ? 'Client or partner' : 'Client')) %>
           </dt>
           <dd class="govuk-summary-list__value">
             <%= t(income_details.client_owns_property, scope: 'values') %>

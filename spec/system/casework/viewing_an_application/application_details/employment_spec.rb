@@ -9,10 +9,10 @@ RSpec.describe 'Viewing the employment details of an application' do
 
   context 'with employment details' do
     let(:card) do
-      page.find('h2.govuk-summary-card__title', text: 'Employment').ancestor('div.govuk-summary-card')
+      page.find('h2.govuk-summary-card__title', text: 'Employment: client').ancestor('div.govuk-summary-card')
     end
 
-    it { expect(page).to have_content('Employment') }
+    it { expect(page).to have_content('Employment: client') }
 
     it 'shows employment type' do
       within(card) do |card|
@@ -22,7 +22,7 @@ RSpec.describe 'Viewing the employment details of an application' do
 
     it 'shows whether employment has ended in the last three months' do
       within(card) do |card|
-        expect(card).to have_summary_row 'Have they ended employment in the last 3 months?', 'Yes'
+        expect(card).to have_summary_row 'Employment ended in last 3 months?', 'Yes'
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe 'Viewing the employment details of an application' do
     end
 
     it 'does not show income section' do
-      expect(page).to have_no_content('Employment')
+      expect(page).to have_no_content('Employment: client')
     end
   end
 end

@@ -9,6 +9,8 @@
            locals: { crime_application: crime_application, case_details: crime_application.case_details } %>
 <%= render partial: 'offences', object: crime_application.case_details.offences %>
 <%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
+<%= render partial: 'casework/crime_applications/sections/next_court_hearing', locals: { case_details: crime_application.case_details } %>
+<%= render partial: 'casework/crime_applications/sections/first_court_hearing', locals: { case_details: crime_application.case_details } %>
 <%= render partial: 'interests_of_justice', locals: { crime_application: } %>
 
 <% if FeatureFlags.means_journey.enabled? %>

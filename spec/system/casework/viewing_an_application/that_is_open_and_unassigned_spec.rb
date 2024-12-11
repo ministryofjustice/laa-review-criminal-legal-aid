@@ -155,10 +155,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
           within(card) do |card|
             expect(card).to have_summary_row 'First name', 'Kit'
             expect(card).to have_summary_row 'Last name', 'Pound'
-            expect(card).to have_summary_row 'Other names', 'Not provided'
+            expect(card).to have_summary_row 'Other names', 'None'
             expect(card).to have_summary_row 'Date of birth', '09/06/2001'
-            expect(card).to have_summary_row 'UK Telephone number', '07771 231 231'
-            expect(card).to have_summary_row 'Correspondence address', 'Same as home address'
           end
         end
 
@@ -238,15 +236,15 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
 
     it 'shows that the URN was not provided' do
-      expect(page).to have_content('Unique reference number (URN) Not provided')
+      expect(page).to have_content('Unique reference number (URN) None')
     end
 
     it 'shows that other names were not provided' do
-      expect(page).to have_content('Other names Not provided')
+      expect(page).to have_content('Other names None')
     end
 
     it 'shows that the client telephone number was not provided' do
-      expect(page).to have_content('UK Telephone number Not provided')
+      expect(page).to have_content('Telephone number None')
     end
 
     it 'shows that the client home address was not provided' do
@@ -259,13 +257,9 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       super().deep_merge('case_details' => hearing_details)
     end
 
-    let(:first_court_hearing) do
-      first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'First court hearing the case')]")
-    end
-
-    let(:next_court_hearing) do
-      first(:xpath, "//div[@class='govuk-summary-list__row'][contains(dt, 'Next court hearing the case')]")
-    end
+    let(:first_court_hearing) { 'First court hearing' }
+    let(:next_court_hearing) { 'Next court hearing' }
+    let(:what_court) { 'What court is the hearing at' }
 
     context 'when first court hearing' do
       let(:hearing_details) do
@@ -277,8 +271,12 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'shows same next and first court hearing the case' do
-        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
-        expect(first_court_hearing).to have_content('Westminster Magistrates Court')
+        within_card(next_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
+        within_card(first_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
       end
     end
 
@@ -292,8 +290,12 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'shows different next and first court hearing the case' do
-        expect(next_court_hearing).to have_content('Southwark Crown Court')
-        expect(first_court_hearing).to have_content('Westminster Magistrates Court')
+        within_card(next_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Southwark Crown Court')
+        end
+        within_card(first_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
       end
     end
 
@@ -307,8 +309,12 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'shows both the next and first court hearing the case' do
-        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
-        expect(first_court_hearing).to have_content('Westminster Magistrates Court')
+        within_card(next_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
+        within_card(first_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
       end
     end
 
@@ -321,11 +327,15 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'shows next court hearing the case' do
-        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
+        within_card(next_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
       end
 
       it 'shows a `no hearing yet` message' do
-        expect(first_court_hearing).to have_content('There has not been a hearing yet')
+        within_card(next_court_hearing) do |card|
+          expect(card).to have_summary_row('Same court as first hearing?', 'There has not been a hearing yet')
+        end
       end
     end
 
@@ -338,11 +348,15 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'shows next court hearing the case' do
-        expect(next_court_hearing).to have_content('Westminster Magistrates Court')
+        within_card(next_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Westminster Magistrates Court')
+        end
       end
 
       it 'shows a `not asked` message' do
-        expect(first_court_hearing).to have_content('Not asked when this application was submitted')
+        within_card(first_court_hearing) do |card|
+          expect(card).to have_summary_row(what_court, 'Not asked when this application was submitted')
+        end
       end
     end
   end
@@ -370,7 +384,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'shows the relationship to client' do
-          within_card('Client details') do |card|
+          within_card('Client contact details') do |card|
             expect(card).to have_summary_row(residence_question, "In someone else's home")
             expect(card).to have_summary_row(relationship_question, 'Friend')
           end

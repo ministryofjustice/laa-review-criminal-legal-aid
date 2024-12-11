@@ -1,12 +1,10 @@
-<% if crime_application.evidence_details.show? || crime_application.supporting_evidence.present? %>
-  <h2 class="govuk-heading-l">
-    <% if crime_application.pse? %>
-      <%= label_text(:post_submission_evidence) %>
-    <% else %>
-      <%= label_text(:supporting_evidence) %>
-    <% end %>
-  </h2>
-<% end %>
+<h2 class="govuk-heading-l">
+  <% if crime_application.pse? %>
+    <%= label_text(:post_submission_evidence) %>
+  <% else %>
+    <%= label_text(:supporting_evidence) %>
+  <% end %>
+</h2>
 
 <% if crime_application.evidence_details.show? %>
   <h2

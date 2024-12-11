@@ -5,6 +5,11 @@
              nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
+<%= render partial: 'casework/crime_applications/sections/client_contact_details',
+           locals: {
+             applicant: crime_application.client_details.applicant,
+             applicant_tel: crime_application.applicant.phone_number
+           } %>
 
 <%= render partial: crime_application.date_stamp_context if crime_application.date_stamp_context.show? %>
 

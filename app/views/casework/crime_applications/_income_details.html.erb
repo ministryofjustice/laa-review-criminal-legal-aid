@@ -8,7 +8,7 @@
 <%= render partial: 'casework/crime_applications/sections/income', locals: { income_details: crime_application.means_details.income_details } %>
 <% if FeatureFlags.employment_journey.enabled? %>
   <%= render partial: 'casework/crime_applications/sections/employment_income', locals: { employment_income: crime_application.income_payments.applicant_employment_income } %>
-  <%= render partial: 'casework/crime_applications/sections/employments', locals: { employments: crime_application.applicant_employments } %>
+  <%= render partial: 'casework/crime_applications/sections/employments', locals: { employments: crime_application.applicant_employments, subject: 'client' } %>
 <% end %>
 
 <% if FeatureFlags.self_employed_journey.enabled? %>
@@ -34,7 +34,7 @@
   <%= render partial: 'casework/crime_applications/sections/partner_employment', locals: { income_details: crime_application.means_details.income_details } %>
   <% if FeatureFlags.employment_journey.enabled? %>
     <%= render partial: 'casework/crime_applications/sections/employment_income', locals: { employment_income: crime_application.income_payments.partner_employment_income } %>
-    <%= render partial: 'casework/crime_applications/sections/employments', locals: { employments: crime_application.partner_employments } %>
+    <%= render partial: 'casework/crime_applications/sections/employments', locals: { employments: crime_application.partner_employments, subject: 'partner' } %>
     <%= render partial: 'casework/crime_applications/sections/partner_self_assessment_tax_bill', locals: { income_details: crime_application.means_details.income_details } %>
     <%= render partial: 'casework/crime_applications/sections/partner_other_work_benefits', locals: { income_details: crime_application.means_details.income_details, other_work_benefits: crime_application.income_payments.partner_other_work_benefits } %>
   <% end %>

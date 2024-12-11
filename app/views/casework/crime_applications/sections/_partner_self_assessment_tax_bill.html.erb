@@ -1,5 +1,5 @@
 <% if income_details.partner_self_assessment_tax_bill.present? %>
-  <%= govuk_summary_card(title: label_text(:self_assessment_tax_bill)) do %>
+  <%= govuk_summary_card(title: label_text_with_subject(:self_assessment_tax_bill, 'partner')) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

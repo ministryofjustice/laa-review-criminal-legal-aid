@@ -21,7 +21,7 @@
       <%= label_text(:other_names) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= applicant.other_names.presence || t(:not_provided, scope: 'values') %>
+      <%= applicant.other_names.presence || t(:none, scope: 'values') %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -53,60 +53,6 @@
         </div>
       <% end %>
     <% end %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:telephone_number) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= applicant_tel.presence || t(:not_provided, scope: 'values') %>
-      </dd>
-    </div>
-    <% if applicant.residence_type.present? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:residence_type) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(applicant.residence_type, scope: 'values.residence_type') %>
-        </dd>
-      </div>
-      <% if applicant.residence_type == 'someone_else' %>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= label_text(:relationship_to_owner_of_usual_home_address) %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <%= applicant.relationship_to_owner_of_usual_home_address %>
-          </dd>
-        </div>
-      <% end %>
-    <% end %>
-    <% if applicant.residence_type != 'none' %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:home_address) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if applicant.home_address %>
-            <%= render 'address', address: applicant.home_address %>
-          <% else %>
-            <%= t(:no_home_address, scope: 'values') %>
-          <% end %>
-        </dd>
-      </div>
-    <% end %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:correspondence_address) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <% if applicant.correspondence_address_type == 'other_address' %>
-          <%= render 'address', address: applicant.correspondence_address %>
-        <% else %>
-          <%= t(applicant.correspondence_address_type, scope: 'values') %>
-        <% end %>
-      </dd>
-    </div>
     <% unless crime_application.means_passported_on_age? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

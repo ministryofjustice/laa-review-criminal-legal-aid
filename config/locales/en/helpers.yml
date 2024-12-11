@@ -49,3 +49,4 @@ en:
     subjects:
       applicant: client
       applicant_and_partner: client %{conjunction} partner
+      partner: partner

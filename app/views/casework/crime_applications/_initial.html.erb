@@ -5,6 +5,11 @@
              nino: crime_application.applicant.formatted_nino,
              applicant_tel: crime_application.applicant.phone_number
            } %>
+<%= render partial: 'casework/crime_applications/sections/client_contact_details',
+           locals: {
+             applicant: crime_application.client_details.applicant,
+             applicant_tel: crime_application.applicant.phone_number
+           } %>
 
 <%= render partial: crime_application.date_stamp_context if crime_application.date_stamp_context.show? %>
 
@@ -34,6 +39,8 @@
     <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.partner_other_charge_in_progress, other_charge: crime_application.case_details.partner_other_charge, title_key: :partner_other_charges } %>
   <% end %>
 <% end %>
+<%= render partial: 'casework/crime_applications/sections/next_court_hearing', locals: { case_details: crime_application.case_details } %>
+<%= render partial: 'casework/crime_applications/sections/first_court_hearing', locals: { case_details: crime_application.case_details } %>
 <%= render partial: 'interests_of_justice', locals: { crime_application: } unless crime_application.cifc?%>
 
 <% if FeatureFlags.means_journey.enabled? %>

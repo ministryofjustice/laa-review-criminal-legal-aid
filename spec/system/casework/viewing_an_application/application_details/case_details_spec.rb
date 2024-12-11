@@ -11,34 +11,6 @@ RSpec.describe 'When viewing case details' do
     visit crime_application_path(application_id)
   end
 
-  it 'shows the case hearing details' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
-    within(card) do |card|
-      expect(card).to have_summary_row(
-        'First court hearing the case', 'Bristol Magistrates Court'
-      )
-      expect(card).to have_summary_row(
-        'Next court hearing the case', "Cardiff Magistrates' Court"
-      )
-      expect(card).to have_summary_row 'Case type', 'Indictable'
-      expect(card).to have_summary_row 'Date of next hearing', '11/11/2024'
-    end
-  end
-
-  context 'when next court hearing is missing' do
-    let(:application_data) do
-      super().deep_merge('case_details' => { 'hearing_date' => nil })
-    end
-
-    it 'shows the case hearing details' do
-      within(card) do |card|
-        expect(card).to have_summary_row(
-          'First court hearing the case', 'Bristol Magistrates Court'
-        )
-        expect(card).to have_summary_row 'Date of next hearing', ''
-      end
-    end
-  end
-
   context 'with case details' do
     context 'when case type is not an appeal type' do
       let(:application_data) do
@@ -192,7 +164,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'shows has case concluded as yes' do
-          expect(page).to have_content('Has the case concluded? Yes')
+          expect(page).to have_content('Case concluded? Yes')
           expect(page).to have_content('When the case concluded 25/10/2021')
         end
       end
@@ -203,7 +175,7 @@ RSpec.describe 'When viewing case details' do
         end
 
         it 'shows has case concluded as no' do
-          expect(page).to have_content('Has the case concluded? No')
+          expect(page).to have_content('Case concluded? No')
         end
       end
     end

@@ -8,7 +8,7 @@ RSpec.describe 'Viewing the income benefits of an application' do
   end
 
   context 'with income benefit details' do
-    it { expect(page).to have_content('Benefits your client gets') }
+    it { expect(page).to have_content('Benefits') }
 
     # rubocop:disable RSpec/MultipleExpectations
     it 'shows income benefit details' do
@@ -33,7 +33,7 @@ RSpec.describe 'Viewing the income benefits of an application' do
     end
 
     it 'shows income benefit details' do
-      expect(page).to have_content('Which benefits does the client get? None')
+      expect(page).to have_content('Benefits the client gets None')
     end
   end
 end
