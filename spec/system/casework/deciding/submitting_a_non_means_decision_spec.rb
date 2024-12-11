@@ -24,7 +24,7 @@ RSpec.describe 'Submitting a Non-means decision' do
               'assessed_on' => '2024-10-01 00:00:00'
             },
             'means' => nil,
-            'funding_decision' => 'granted',
+            'funding_decision' => 'grant',
             'comment' => 'Test comment'
           }
         ]
