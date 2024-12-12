@@ -3,8 +3,13 @@ RSpec.shared_context 'when downloading a document' do
   let(:s3_object_key) { '123/abcdef1234' }
 
   let(:expected_query) do
-    { object_key: %r{123/.*}, s3_opts: { expires_in: Datastore::Documents::Download::PRESIGNED_URL_EXPIRES_IN,
-                                         response_content_disposition:  "attachment; filename=\"#{filename}\"" } }
+    {
+      object_key: %r{123/.*},
+      s3_opts: {
+        expires_in: Datastore::Documents::Download::PRESIGNED_URL_EXPIRES_IN,
+        response_content_disposition: "attachment; filename=#{filename}; filename*= UTF-8''#{filename};"
+      }
+    }
   end
 
   let(:presign_download_url) do

@@ -30,7 +30,9 @@ module Datastore
 
       def response_content_disposition
         # To force download of file rather than opening in another window
-        %(attachment; filename="#{@document.filename}")
+        filename_safe = @document.filename.gsub(/[^a-zA-Z0-9._-]/, '_')
+        filename_escaped = ERB::Util.url_encode(@document.filename)
+        %(attachment; filename=#{filename_safe}; filename*= UTF-8''#{filename_escaped};)
       end
     end
   end
