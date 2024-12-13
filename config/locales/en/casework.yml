@@ -75,7 +75,7 @@ en:
 
   labels: &LABELS
     about_the_provider: About the provider
-    age_in_business_days: Business days since application was received
+    age_in_business_days: Business days since received
     appeal_financial_circumstances_changed: Changes to financial circumstances since original application?
     appeal_maat_id: MAAT ID
     appeal_maat_id_or_usn: "Original application %{ref_type}"
@@ -334,8 +334,8 @@ en:
     preorder_work_details: Details about the urgency of the work
     previous_maat_id: Previous MAAT ID
     provider_details: Provider details
-    provider_email: Email address
-    provider_phone_number: Phone
+    provider_email: Email
+    provider_phone_number: Telephone
     relationship_status: Relationship status
     relationship_to_client: Relationship to client
     relationship_to_owner_of_usual_home_address: Relationship to client
@@ -429,7 +429,7 @@ en:
   table_headings: &TABLE_HEADINGS
     applicant_name: Applicant's name
     reference: Reference number
-    time_passed: "Business days since <br>application\xA0was\xA0received"
+    time_passed: Business days since received
     received_at: Date received
     submitted_at: Date received
     reviewed_at: Date closed
