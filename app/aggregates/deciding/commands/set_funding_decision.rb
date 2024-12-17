@@ -1,7 +1,7 @@
 module Deciding
   class SetFundingDecision < Command
     attribute :user_id, Types::Uuid
-    attribute :funding_decision, Types::FundingDecisionResult
+    attribute :funding_decision, Types::FundingDecision
 
     def call
       with_decision do |decision|

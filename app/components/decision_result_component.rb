@@ -21,11 +21,6 @@ class DecisionResultComponent < ViewComponent::Base
   attr_reader :result
 
   def colour
-    case result
-    when /fail|inel/
-      'red'
-    else
-      'green'
-    end
+    { 'grant' => 'green', 'refuse' => 'red' }.fetch(result, nil)
   end
 end

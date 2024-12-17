@@ -26,7 +26,11 @@ module Maat
     end
 
     def maat_decision
-      @maat_decision ||= Maat::GetDecision.new.by_maat_id!(maat_id)
+      return @maat_decision if @maat_decision
+
+      maat_decision = Maat::GetDecision.new.by_maat_id!(maat_id)
+
+      Maat::DecisionTranslator.translate(maat_decision) if maat_decision.present?
     end
   end
 end

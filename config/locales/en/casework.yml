@@ -467,13 +467,18 @@ en:
     deleted_user_name: '[deleted]'
     decision_ioj_test_result:
       pass: Passed
-      fail: Refused
+      fail: Failed
     decision_means_test_result:
       pass: Passed
       fail: Failed
+# deprecate >
       full: Contribution
       inel: Ineligible
+# < deprecate 
     decision_overall_result:
+      grant: Granted
+      refuse: Refused
+# deprecate >
       granted: Granted
       granted_on_ioj: Granted
       fail_on_ioj: Failed IoJ
@@ -482,6 +487,7 @@ en:
       failioj: Failed IoJ
       inel: Ineligible 
       full: Granted - with a contribution 
+# < deprecate 
 
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)

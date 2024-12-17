@@ -13,7 +13,6 @@ module Casework
     # import failed due to a technical issue).
     def create
       @form_object = ::Decisions::MaatIdForm.new(application: @crime_application)
-
       @form_object.create_with_user!(permitted_params, current_user_id)
 
       set_flash(:maat_decision_linked, maat_id: @form_object.maat_id)

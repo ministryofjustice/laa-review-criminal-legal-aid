@@ -33,8 +33,8 @@ en:
         assessed_by: What is the name of the caseworker who assessed this?
       decisions_overall_result_form:
         funding_decision_options:
-          granted_on_ioj: Granted
-          fail_on_ioj: Failed interests of justice test
+          grant: Granted
+          fail: Failed interests of justice test
       decisions_comment_form:
         comment: Comments for provider (optional)
       decisions_maat_id_form:
