@@ -52,7 +52,7 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
 
       it 'shows absent answer national savings certificates details' do
         within(certificates_card) do |card|
-          expect(card).to have_summary_row 'Any National Savings Certificates?', 'No'
+          expect(card).to have_summary_row 'National Savings Certificates?', 'No'
         end
       end
     end

@@ -1,6 +1,6 @@
 <% return if capital_details.partner_will_benefit_from_trust_fund.nil? %>
 
-<%= govuk_summary_card(title: label_text(:trust_funds_partner)) do %>
+<%= govuk_summary_card(title: label_text_with_subject(:trust_funds, 'partner')) do %>
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
