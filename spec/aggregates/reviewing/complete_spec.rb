@@ -44,7 +44,7 @@ RSpec.describe Reviewing::Complete do
       [
         Decisions::Draft.new(
           reference: reference, maat_id: nil, case_id: nil, interests_of_justice: nil, means: nil,
-          funding_decision: 'granted', comment: nil, decision_id: decision_id, application_id: application_id
+          funding_decision: 'grant', comment: nil, decision_id: decision_id, application_id: application_id
         ).as_json
       ]
     end
@@ -58,7 +58,7 @@ RSpec.describe Reviewing::Complete do
 
       Reviewing::AddDecision.call(**args)
       Deciding::CreateDraft.call(**args)
-      Deciding::SetFundingDecision.call(**args, funding_decision: 'granted')
+      Deciding::SetFundingDecision.call(**args, funding_decision: 'grant')
     end
 
     it 'changes the state from :received to :completed' do
