@@ -93,6 +93,7 @@ en:
     arc: Application registration card (ARC) number
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
     are_wages_paid_into_account: Client’s wages or benefits paid into this account?
+    assets: 'Capital: Assets'
     assigned_to: 'Assigned to:'
     benefit_check_status: Passporting benefit check outcome
     benefit_child: Child Benefit
@@ -160,7 +161,7 @@ en:
     decision_comment: Comments 
     dependants: Dependants
     details: Details
-    does_client_have_national_savings_certificates: Any National Savings Certificates?
+    does_client_have_national_savings_certificates: National Savings Certificates?
     employment: Employment
     employment_type: Client's employment status
     end_on: Date to
@@ -210,7 +211,7 @@ en:
     ioj_assessed_on: IoJ test date
     income: Income
     income_more_than: "%{prefix} more than £12,475 a year before tax?"
-    income_details: Income
+    income_details: Income and employment
     income_details_partner: Partner's income
     employments_title: Jobs
     employment_title: Job
@@ -230,10 +231,10 @@ en:
         income_tax: Income Tax
         national_insurance: National Insurance
         other: Other deductions total
-    income_tax_rate_above_threshold: In the last 2 years, has the client paid the 40% income tax rate?
+    income_tax_rate_above_threshold: Client paid 40% Income Tax in last 2 years?
 
     overall_result: Overall result
-    partner_income_tax_rate_above_threshold: In the last 2 years, has the partner paid the 40% income tax rate?
+    partner_income_tax_rate_above_threshold: Partner paid 40% Income Tax in last 2 years?
     interests_of_justice: Justification for legal aid
     interests_of_justice_type: Criteria
     investment_type:
@@ -311,8 +312,7 @@ en:
     partner_other_charges: "Other charges: partner"
     pays_council_tax: Council Tax
     passporting_benefit: Passporting Benefit
-    passporting_benefit_check: 'Passporting benefit check: client'
-    passporting_benefit_check_partner: 'Passporting benefit check: partner'
+    passporting_benefit_check: Passporting benefit check
     payment_board_from_family: Board from family members living with the client
     payment_financial_support_with_access: Financial support from someone who allows the client access to their assets or money
     payment_from_friends_relatives: Money from friends or family
@@ -364,8 +364,7 @@ en:
     start_on: Date from
     supporting_evidence: Supporting evidence and information
     telephone_number: Telephone number
-    trust_funds_client: 'Trust funds: client'
-    trust_funds_partner: 'Trust funds: partner'
+    trust_funds: Trust funds
     type_of_payment: Type of payment
     undetermined: Undetermined
     urn: Unique reference number (URN)
@@ -385,7 +384,7 @@ en:
     which_savings_does_client_have: Savings %{subject} has
     trust_fund_amount_held: Enter the amount held in the fund
     trust_fund_yearly_dividend: Enter the yearly dividend
-    properties_title: 'Capital: Assets'
+    properties_title: Assets
     property_type:
       residential: Residential property
       commercial: Commercial property
@@ -415,7 +414,7 @@ en:
     applicant_other_work_benefit_received_amount: Total value every year
     partner_other_work_benefit_received: Other work benefits?
     partner_other_work_benefit_received_amount: Total value every year
-    self_assessment_tax_bill: Self Assessment
+    self_assessment_tax_bill: Self assessment
     applicant_self_assessment_tax_bill: Self assessment tax calculation?
     applicant_self_assessment_tax_bill_amount: Amount
     partner_self_assessment_tax_bill: Self assessment tax calculation?

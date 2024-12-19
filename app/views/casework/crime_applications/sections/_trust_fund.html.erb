@@ -1,5 +1,5 @@
 <% return if capital_details.blank? %>
-<%= govuk_summary_card(title: label_text(:trust_funds_client)) do %>
+<%= govuk_summary_card(title: label_text_with_subject(:trust_funds, 'client')) do %>
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">

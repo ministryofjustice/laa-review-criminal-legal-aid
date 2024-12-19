@@ -1,5 +1,9 @@
 <% return if crime_application.means_details.capital_details.will_benefit_from_trust_fund.blank? %>
 
+<h2 class="govuk-heading-l">
+  <%= label_text(:assets) %>
+</h2>
+
 <%= render(
       partial: 'casework/crime_applications/sections/properties',
       locals: { capital_details: crime_application.means_details.capital_details }

@@ -8,8 +8,6 @@
         end %>
   <% end %>
 <% elsif capital_details.properties.present? %>
-  <h2 class="govuk-heading-l"><%= label_text(:properties_title) %></h2>
-
   <% capital_details.properties.group_by(&:property_type).each do |item_type, group| %>
     <%= app_card_list(items: group, item_name: label_text("property_type.#{item_type}")) do |card|
           property = card.item

@@ -23,7 +23,7 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
     end
 
     describe 'income tax threshold question' do
-      let(:question) { 'In the last 2 years, has the client paid the 40% income tax rate?' }
+      let(:question) { 'Client paid 40% Income Tax in last 2 years?' }
 
       context 'when not answered' do
         let(:income_tax_rate_above_threshold) { nil }
@@ -48,7 +48,7 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
     end
 
     describe 'partner income tax threshold question' do
-      let(:question) { 'In the last 2 years, has the partner paid the 40% income tax rate?' }
+      let(:question) { 'Partner paid 40% Income Tax in last 2 years?' }
       let(:income_tax_rate_above_threshold) { 'yes' }
 
       context 'when not answered' do
