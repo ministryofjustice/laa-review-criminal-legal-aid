@@ -18,7 +18,7 @@ RSpec.describe 'Submitting a Non-means decision' do
             'reference' => 6_000_001,
             'maat_id' => nil,
             'interests_of_justice' => {
-              'result' => 'pass',
+              'result' => 'passed',
               'details' => 'reason',
               'assessed_by' => 'Test User',
               'assessed_on' => '2024-10-01 00:00:00'

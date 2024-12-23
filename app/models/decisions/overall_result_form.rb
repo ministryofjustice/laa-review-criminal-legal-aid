@@ -6,7 +6,7 @@ module Decisions
     validates :funding_decision, inclusion: { in: :possible_decisions }
 
     def possible_decisions
-      [Types::FundingDecisionResult['granted_on_ioj'], Types::FundingDecisionResult['fail_on_ioj']]
+      [Types::FundingDecision['granted'], Types::FundingDecision['refused']]
     end
 
     class << self

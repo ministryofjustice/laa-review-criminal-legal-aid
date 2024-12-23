@@ -6,7 +6,7 @@ RSpec.describe Decisions::OverallResultForm do
   describe '#possible_decisions' do
     subject(:possible_decisions) { form_object.possible_decisions }
 
-    it { is_expected.to eq %w[granted_on_ioj fail_on_ioj] }
+    it { is_expected.to eq %w[granted refused] }
   end
 
   describe '#command_class' do

@@ -1,55 +1,28 @@
 module Maat
-  class Decision < LaaCrimeSchemas::Structs::Decision
-    attribute :maat_id, Types::Integer
-    attribute? :case_id, Types::String.optional
-    attribute :funding_decision, Types::FundingDecisionResult.optional
+  class Decision < Dry::Struct
+    transform_keys(&:to_sym)
 
-    def checksum
-      Digest::MD5.hexdigest(to_json)
-    end
+    attribute? :maat_ref, Types::MaatId
+    attribute? :usn, Types::ApplicationReference.optional
+    attribute? :case_id, Types::String
+    attribute? :case_type, Types::String
+    attribute? :app_created_date, Types::DateTime.optional
 
-    alias decision_id maat_id
+    attribute? :ioj_result, Types::String.optional
+    attribute? :ioj_reason, Types::String.optional
+    attribute? :ioj_assessor_name, Types::String.optional
 
-    class << self
-      def build(response)
-        new(
-          reference: response['usn'],
-          maat_id: response['maat_ref'],
-          case_id: response['case_id'],
-          funding_decision: funding_decision(response['funding_decision']),
-          interests_of_justice: interests_of_justice(response),
-          means: means(response)
-        )
-      end
+    attribute? :ioj_appeal_result, Types::String.optional
 
-      def funding_decision(maat_value)
-        return nil if maat_value.blank?
+    attribute? :means_result, Types::String.optional
+    attribute? :means_assessor_name, Types::String.optional
+    attribute? :date_means_created, Types::DateTime.optional
 
-        maat_value.downcase
-      end
+    attribute? :passport_result, Types::String.optional
+    attribute? :passport_assessor_name, Types::String.optional
+    attribute? :date_passport_created, Types::DateTime.optional
 
-      def interests_of_justice(response)
-        return nil if response['ioj_result'].blank?
-
-        {
-          result: response['ioj_result'].downcase,
-          details: response['ioj_reason'],
-          assessed_by: response['ioj_assessor_name'],
-          assessed_on: response['app_created_date']
-        }
-      end
-
-      def result(maat_result); end
-
-      def means(response)
-        return nil if response['means_result'].blank?
-
-        {
-          result: response['means_result'].downcase,
-          assessed_by: response['means_assessor_name'],
-          assessed_on: response['date_means_created']
-        }
-      end
-    end
+    attribute? :funding_decision, Types::String.optional
+    attribute? :cc_rep_decision, Types::String.optional
   end
 end

@@ -48,7 +48,7 @@ module Maat
       # the response body includes a MAAT ID (maat_ref).
       return nil unless response.body.present? && response.body['maat_ref'].present?
 
-      Decision.build(response.body)
+      Decision.new(response.body)
     end
 
     attr_reader :http_client

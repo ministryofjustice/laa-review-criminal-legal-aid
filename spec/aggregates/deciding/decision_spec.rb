@@ -6,7 +6,7 @@ describe Deciding::Decision do
   describe '#attributes' do
     let(:interests_of_justice) do
       LaaCrimeSchemas::Structs::TestResult.new(
-        result: 'pass',
+        result: 'passed',
         details: 'details',
         assessed_by: 'Grace Nolan',
         assessed_on: Date.new(2024, 10, 1)

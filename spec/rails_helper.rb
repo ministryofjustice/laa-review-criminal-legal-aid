@@ -1,9 +1,9 @@
 require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
+require 'laa_crime_schemas'
 require 'spec_helper'
 require 'rspec/rails'
-require 'laa_crime_schemas'
 require 'axe-rspec'
 
 ['init/*.rb', 'shared_contexts/*.rb', 'shared_examples/*.rb', 'support/**/*.rb'].each do |path|

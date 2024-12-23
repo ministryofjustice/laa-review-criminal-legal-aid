@@ -1,12 +1,12 @@
+require 'laa_crime_schemas'
 module Decisions
   class Draft < LaaCrimeSchemas::Structs::Decision
-    attribute? :funding_decision, Types::Nil | Types::FundingDecisionResult
+    attribute? :funding_decision, Types::Nil | Types::FundingDecision
     attribute? :reference, Types::Nil | Types::Integer
     attribute? :decision_id, Types::Nil | Types::Integer | Types::Uuid
     attribute? :application_id, Types::Uuid
     attribute? :maat_id, Types::Integer.optional
     attribute? :case_id, Types::String.optional
-    attribute? :checksum, Types::String.optional
 
     def to_param
       { crime_application_id: application_id, decision_id: decision_id }
@@ -16,8 +16,8 @@ module Decisions
       funding_decision.present?
     end
 
-    def as_json
-      LaaCrimeSchemas::Structs::Decision.new(self)
+    def checksum
+      Digest::MD5.hexdigest(to_json)
     end
 
     class << self
