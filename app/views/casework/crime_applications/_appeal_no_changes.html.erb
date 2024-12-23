@@ -13,9 +13,7 @@
 <%= render partial: 'casework/crime_applications/sections/first_court_hearing', locals: { case_details: crime_application.case_details } %>
 <%= render partial: 'interests_of_justice', locals: { crime_application: } %>
 
-<% if FeatureFlags.means_journey.enabled? %>
-  <%= render partial: 'appeal_income_details', locals: { crime_application: } %>
-<% end %>
+<%= render partial: 'appeal_income_details', locals: { crime_application: } %>
 
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
 
