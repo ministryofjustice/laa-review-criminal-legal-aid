@@ -22,6 +22,7 @@ module Deciding
     def create_draft_from_maat(application_id:, maat_decision:, user_id:, application_type:)
       raise AlreadyCreated unless @state.nil?
 
+      maat_decision = maat_decision.to_h
       apply DraftCreatedFromMaat.new(
         data: { decision_id:, application_id:, maat_decision:, user_id:, application_type: }
       )
@@ -42,9 +43,7 @@ module Deciding
     end
 
     def sync_with_maat(maat_decision:, user_id:)
-      raise MaatRecordNotChanged unless maat_decision&.checksum != checksum
-
-      apply SynchedWithMaat.build(self, maat_decision:, user_id:)
+      apply SynchedWithMaat.build(self, maat_decision: maat_decision.to_h, user_id: user_id)
     end
 
     def set_interests_of_justice(user_id:, interests_of_justice:)
@@ -128,7 +127,7 @@ module Deciding
     end
 
     def update_from_maat(maat_attributes)
-      decision = Maat::Decision.new(maat_attributes)
+      decision = Decisions::Draft.new(maat_attributes)
 
       @maat_id = decision.maat_id
       @reference = decision.reference

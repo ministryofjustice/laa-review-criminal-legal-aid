@@ -4,21 +4,11 @@ RSpec.describe 'Adding a decision by MAAT ID' do
   include DecisionFormHelpers
 
   include_context 'with stubbed application'
+  include_context 'when adding a decision by MAAT ID'
 
-  let(:mock_get_decision) { instance_double(Maat::GetDecision) }
-  let(:maat_decision) { nil }
+  let(:maat_decision_maat_id) { maat_id }
 
   before do
-    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
-      .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
-
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
-    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id).and_return(maat_decision)
-    allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
-
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
     click_button 'Mark as ready for MAAT'
@@ -31,6 +21,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
   context 'when MAAT ID not entered' do
     let(:maat_id) { nil }
+    let(:maat_decision) { nil }
 
     it 'shows an error' do
       expect(page).to have_error(
@@ -54,19 +45,15 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     let(:maat_decision) do
       Maat::Decision.new(
-        maat_id: maat_id,
-        reference: 6_000_001,
-        interests_of_justice: {
-          result: 'fail',
-          assessed_by: 'Jo Blogs',
-          assessed_on:  Date.new(2024, 2, 1)
-        },
-        means: {
-          result: 'fail',
-          assessed_by: 'Jan Blogs',
-          assessed_on:  Date.new(2024, 2, 2)
-        },
-        funding_decision: 'failmeioj'
+        maat_ref: maat_id,
+        usn: 6_000_001,
+        ioj_result: 'FAIL',
+        ioj_assessor_name: 'Jo Blogs',
+        app_created_date: Date.new(2024, 2, 1),
+        means_result: 'FAIL',
+        means_assessor_name: 'Jan Blogs',
+        date_means_created:  Date.new(2024, 2, 2),
+        funding_decision: 'FAILMEIOJ'
       )
     end
 
@@ -76,14 +63,14 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       )
 
       expect(summary_card('Case')).to have_rows(
-        'Interests of justice (IoJ) test result', 'Refused',
+        'Interests of justice (IoJ) test result', 'Failed',
         'IoJ comments', '',
         'IoJ caseworker', 'Jo Blogs',
         'IoJ test date', '01/02/2024',
         'Means test result', 'Failed',
         'Means test caseworker', 'Jan Blogs',
         'Means test date', '02/02/2024',
-        'Overall result', 'Failed means and IoJ'
+        'Overall result', 'Refused'
       )
 
       expect(current_path).to eq(
@@ -97,11 +84,8 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     let(:maat_decision) do
       Maat::Decision.new(
-        maat_id: maat_id,
-        reference: 6_000_002,
-        interests_of_justice: nil,
-        means: nil,
-        funding_decision: nil
+        maat_ref: maat_id,
+        usn: 6_000_002
       )
     end
 
@@ -117,11 +101,8 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     let(:maat_decision) do
       Maat::Decision.new(
-        maat_id: maat_id,
-        reference: 6_000_001,
-        interests_of_justice: nil,
-        means: nil,
-        funding_decision: nil
+        maat_ref: maat_id,
+        usn: 6_000_001
       )
     end
 

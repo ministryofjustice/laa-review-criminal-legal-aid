@@ -4,44 +4,23 @@ RSpec.describe 'Adding another MAAT decision' do
   include DecisionFormHelpers
 
   include_context 'with stubbed application'
+  include_context 'when adding a decision by MAAT ID'
 
-  let(:mock_get_decision) { instance_double(Maat::GetDecision) }
   let(:maat_id) { 12_312_345 }
   let(:maat_id2) { 12_312_347 }
-
-  let(:maat_decision) do
-    Maat::Decision.new(
-      maat_id: maat_id,
-      reference: 6_000_001,
-      interests_of_justice: {
-        result: 'pass',
-        assessed_by: 'Jo Bloggs',
-        assessed_on:  1.day.ago.to_s
-      },
-      means: {
-        result: 'pass',
-        assessed_by: 'Jo Bloggs',
-        assessed_on:  1.day.ago.to_s
-      },
-      funding_decision: 'granted'
-    )
-  end
+  let(:maat_decision_maat_id) { maat_id }
 
   let(:maat_decision2) do
     Maat::Decision.new(
-      maat_id: maat_id2,
-      reference: nil,
-      interests_of_justice: {
-        result: 'pass',
-        assessed_by: 'Jo Bloggs',
-        assessed_on:  1.hour.ago.to_s
-      },
-      means: {
-        result: 'fail',
-        assessed_by: 'Jo Bloggs',
-        assessed_on:  1.hour.ago.to_s
-      },
-      funding_decision: 'failmeans'
+      maat_ref: maat_id2,
+      usn: nil,
+      ioj_result: 'PASS',
+      ioj_assessor_name: 'Jo Bloggs',
+      app_created_date: 1.day.ago.to_s,
+      means_result: 'FAIL',
+      means_assessor_name: 'Jo Bloggs',
+      date_means_created:  1.day.ago.to_s,
+      funding_decision: 'FAILMEANS'
     )
   end
 
@@ -49,13 +28,7 @@ RSpec.describe 'Adding another MAAT decision' do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
       .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
-    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id).and_return(maat_decision)
     allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id2).and_return(maat_decision2)
-    allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
 
     visit crime_application_path(application_id)
     click_button 'Assign to your list'

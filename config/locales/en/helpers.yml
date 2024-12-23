@@ -5,7 +5,7 @@ en:
 
     hint:
       decisions_interests_of_justice_form:
-        assessed_on: For example, DD/MM/YYY 
+        assessed_on: For example, DD/MM/YYY
       decisions_maat_id_form:
         maat_id: If you have created more that one MAAT ID, link one at a time.
 
@@ -18,29 +18,29 @@ en:
       decisions_comment_form:
         comment_required: Comments for provider (optional)
       decisions_maat_id_form:
-        maat_id: MAAT ID  
+        maat_id: MAAT ID
       decisions_add_another_form:
-        add_another_decision: Do you want to add another case?  
+        add_another_decision: Do you want to add another case?
       decisions_send_to_provider_form:
         next_step: What do you want to do next?
 
     label:
       decisions_interests_of_justice_form:
         result_options:
-          pass: Passed
-          fail: Refused
+          passed: Passed
+          failed: Failed
         details: What is the reason for this?
         assessed_by: What is the name of the caseworker who assessed this?
       decisions_overall_result_form:
         funding_decision_options:
-          granted_on_ioj: Granted
-          fail_on_ioj: Failed interests of justice test
+          granted: Granted
+          refused: Refused
       decisions_comment_form:
         comment: Comments for provider (optional)
       decisions_maat_id_form:
-        maat_id: MAAT ID  
+        maat_id: MAAT ID
       decisions_send_to_provider_form:
-        next_step_options: 
+        next_step_options:
           add_another: Add another MAAT ID
           send_to_provider: Send to provider
 
