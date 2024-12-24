@@ -64,8 +64,7 @@
       </div>
     <% end %>
 
-    <% if FeatureFlags.partner_journey.enabled? %>
-      <% if applicant.has_partner == 'no' %>
+    <% if applicant.has_partner == 'no' %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= label_text(:relationship_status) %>
@@ -85,7 +84,6 @@
           </div>
         <% end %>
       <% end %>
-    <% end %>
   <% end %>
 </dl>
 <% end %>
