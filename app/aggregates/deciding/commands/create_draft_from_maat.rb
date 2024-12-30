@@ -2,7 +2,7 @@ module Deciding
   class CreateDraftFromMaat < Command
     attribute :application_id, Types::Uuid
     attribute :application_type, Types::ApplicationType
-    attribute :maat_decision, Maat::Decision
+    attribute :maat_decision, Decisions::Draft
     attribute :user_id, Types::Uuid
 
     def call

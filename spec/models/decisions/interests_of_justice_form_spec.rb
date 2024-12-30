@@ -6,7 +6,7 @@ RSpec.describe Decisions::InterestsOfJusticeForm do
   describe '#possible_results' do
     subject(:possible_results) { form_object.possible_results }
 
-    it { is_expected.to eq %w[pass fail] }
+    it { is_expected.to eq %w[passed failed] }
   end
 
   describe '#command_class' do

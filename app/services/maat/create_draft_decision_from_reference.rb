@@ -37,7 +37,11 @@ module Maat
     delegate :decision_id, to: :maat_decision
 
     def maat_decision
-      @maat_decision ||= Maat::GetDecision.new.by_usn!(reference)
+      return @maat_decision if @maat_decision
+
+      maat_decision = Maat::GetDecision.new.by_usn!(reference)
+
+      Maat::DecisionTranslator.translate(maat_decision) if maat_decision.present?
     end
   end
 end

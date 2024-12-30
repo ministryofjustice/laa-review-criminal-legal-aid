@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Maat::Decision do
-  describe '.build()' do
-    subject(:build) { described_class.build(response) }
+  describe '.new' do
+    subject(:new) { described_class.new(response) }
 
     let(:response) do
       {
@@ -21,29 +21,76 @@ RSpec.describe Maat::Decision do
       }
     end
 
-    it 'returns an instance of a Maat::Decision' do
-      expect(build).to be_a described_class
+    describe '#usn' do
+      subject(:usn) { new.usn }
+
+      it { is_expected.to be 10 }
     end
 
-    it 'sets the interests of justice' do
-      expect(build.interests_of_justice.attributes).to eq(
-        assessed_by: 'System Test IoJ',
-        assessed_on: Date.new(2024, 9, 23),
-        details: 'Details of IoJ',
-        result: 'pass'
-      )
+    describe '#maat_ref' do
+      subject(:maat_ref) { new.maat_ref }
+
+      it { is_expected.to be 600 }
     end
 
-    it 'sets the means' do
-      expect(build.means.attributes).to eq(
-        assessed_by: 'System Test Means',
-        assessed_on: Date.new(2024, 9, 23),
-        result: 'pass'
-      )
+    describe '#case_id' do
+      subject(:case_id) { new.case_id }
+
+      it { is_expected.to eq '123123123' }
     end
 
-    it 'sets the funding decision' do
-      expect(build.funding_decision).to eq('granted')
+    describe '#case_type' do
+      subject(:case_type) { new.case_type }
+
+      it { is_expected.to eq 'SUMMARY ONLY' }
+    end
+
+    describe '#ioj_result' do
+      subject(:ioj_result) { new.ioj_result }
+
+      it { is_expected.to eq 'PASS' }
+    end
+
+    describe '#ioj_assessor_name' do
+      subject(:ioj_assessor_name) { new.ioj_assessor_name }
+
+      it { is_expected.to eq 'System Test IoJ' }
+    end
+
+    describe '#ioj_reason' do
+      subject(:ioj_reason) { new.ioj_reason }
+
+      it { is_expected.to eq 'Details of IoJ' }
+    end
+
+    describe '#app_created_date' do
+      subject(:app_created_date) { new.app_created_date }
+
+      it { is_expected.to eq '2024-09-23T00:00:00' }
+    end
+
+    describe '#means_result' do
+      subject(:means_result) { new.means_result }
+
+      it { is_expected.to eq 'PASS' }
+    end
+
+    describe '#means_assessor_name' do
+      subject(:means_assessor_name) { new.means_assessor_name }
+
+      it { is_expected.to eq 'System Test Means' }
+    end
+
+    describe '#date_means_created' do
+      subject(:date_means_created) { new.date_means_created }
+
+      it { is_expected.to eq '2024-09-23T17:18:56' }
+    end
+
+    describe '#funding_decision' do
+      subject(:funding_decision) { new.funding_decision }
+
+      it { is_expected.to eq 'GRANTED' }
     end
   end
 end
