@@ -62,6 +62,10 @@ html {
   color: $govuk-link-colour;
 }
 
+.app-table-container {
+  overflow-x: auto
+}
+
 .app-table {
   thead {
     position: sticky;
