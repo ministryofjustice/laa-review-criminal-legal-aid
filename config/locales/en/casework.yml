@@ -13,7 +13,7 @@ en:
     success:
       assigned_to_self: You assigned this application to your list
       completed: You marked the application as complete
-      completed_with_decisions: Application complete. Decision sent to provider.  
+      completed_with_decisions: Application complete. Decision sent to provider.
       decision_removed: Decision removed
       marked_as_ready: You marked the application as ready for assessment
       sent_back: You sent the application back to the provider
@@ -21,8 +21,8 @@ en:
       maat_decision_linked:
         - MAAT ID %{maat_id} linked
       updated_from_maat:
-        - Updated from MAAT application with MAAT ID %{maat_id} 
-        - Check the decision, and make any required amendments on MAAT. 
+        - Updated from MAAT application with MAAT ID %{maat_id}
+        - Check the decision, and make any required amendments on MAAT.
     important:
       reassigned_to_someone_else:
         - This application could not be reassigned to your list
@@ -37,7 +37,7 @@ en:
         - No MAAT ID found that links to LAA reference number %{reference}
       no_change_since_last_update:
         - The application on MAAT has not changed.
-        - Make any required amendments on MAAT using the MAAT ID %{maat_id}. 
+        - Make any required amendments on MAAT using the MAAT ID %{maat_id}.
       already_reviewed: This application was already reviewed
       already_marked_as_ready: This application was already marked as ready for assessment
       cannot_complete_when_sent_back: This application was already sent back to the provider
@@ -56,14 +56,13 @@ en:
         - You must be allocated to the %{work_queue} work queue to review this application
         - Contact your supervisor to arrange this
       incomplete_decisions: Please complete any pending funding decisions
-      incomplete_maat_decision: 
+      incomplete_maat_decision:
         - Information missing
         - Complete details in MAAT and then update this page.
       finish_adding_decisions:
         - You need to finish adding the funding decision details
         - "%{continue_adding_decision_link}"
       continue_adding_decision: Continue adding funding decision
-
 
   primary_navigation:
     your_list: "Your list (%{count})"
@@ -93,8 +92,8 @@ en:
     arc: Application registration card (ARC) number
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
     are_wages_paid_into_account: Client’s wages or benefits paid into this account?
-    assets: 'Capital: Assets'
-    assigned_to: 'Assigned to:'
+    assets: "Capital: Assets"
+    assigned_to: "Assigned to:"
     benefit_check_status: Passporting benefit check outcome
     benefit_child: Child Benefit
     benefit_incapacity: Incapacity Benefit
@@ -135,8 +134,8 @@ en:
     client_in_armed_forces: Client in armed forces?
     client_other_charges: Other charges
     client_other_charges_explicit: "Other charges: client"
-    client_owns_property: '%{subject} owns home, land or property?'
-    closed_by: 'Closed by:'
+    client_owns_property: "%{subject} owns home, land or property?"
+    closed_by: "Closed by:"
     codefendant: Co-defendant
     codefendants: Co-defendants
     confirmed_details: Confirmed details correct?
@@ -145,20 +144,20 @@ en:
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
-      completed: 'Date closed:'
-      sent_back: 'Date closed:'
+      completed: "Date closed:"
+      sent_back: "Date closed:"
     date_appeal_lodged: Date the appeal was lodged
     date_case_concluded: When the case concluded
     date_client_remanded: When they were remanded
     date_job_lost: When did they lose their job?
     date_of_birth: Date of birth
     date_of_latest_jsa_appointment: Date of latest JSA appointment
-    date_received: 'Date received:'
+    date_received: "Date received:"
     date_stamp: Date stamp
     date_stamp_details: Details entered for date stamp
     decision_card_title: Case
     decision_case_reference: Case
-    decision_comment: Comments 
+    decision_comment: Comments
     dependants: Dependants
     details: Details
     does_client_have_national_savings_certificates: National Savings Certificates?
@@ -187,16 +186,16 @@ en:
     further_information_any: Any additional information?
     further_information_details: Details
     further_information_present:
-      'true': Yes
-      'false': No
+      "true": Yes
+      "false": No
     funding_decision: Funding decision
     has_codefendants: Co-defendants?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Income, savings or assets under a restraint or freezing order
     has_no_other_assets: Has no other assets or capital?
     has_premium_bonds: Premium Bonds
-    has_premium_bonds_client: 'Premium Bonds: client'
-    has_premium_bonds_partner: 'Premium Bonds: partner'
+    has_premium_bonds_client: "Premium Bonds: client"
+    has_premium_bonds_partner: "Premium Bonds: partner"
     has_savings: Savings or investments?
     has_same_address_as_client: Lives at same address as client?
     home_address: Home address
@@ -265,7 +264,7 @@ en:
     means_tested: Subject to means test?
     means_assessed_by: Means test caseworker
     means_assessed_on: Means test date
-    means_details: Means reason 
+    means_details: Means reason
     means_result: Means test result
     name: Name
     national_crime_team: CAT 2
@@ -273,7 +272,7 @@ en:
     national_savings_certificates: National Savings Certificates
     national_savings_certificate: National Savings Certificate
     national_savings_certificate_holder_number: What is the customer number or holder number?
-    national_savings_certificate_certificate_number: 'What is the certificate number?'
+    national_savings_certificate_certificate_number: "What is the certificate number?"
     national_savings_certificate_value: What is the value of the certificate?
     national_savings_certificate_ownership_type: Who owns the certificate?
     next_court_hearing: Next court hearing
@@ -326,10 +325,10 @@ en:
     payments: Payments
     payments_the_client_makes: Payments the %{subject} makes
     post_submission_evidence: Post submission evidence
-    premium_bonds: 'Premium Bonds'
+    premium_bonds: "Premium Bonds"
     premium_bonds_holder_number: Holder number
-    premium_bonds_holder_number_client: 'Holder number: client'
-    premium_bonds_holder_number_partner: 'Holder number: partner'
+    premium_bonds_holder_number_client: "Holder number: client"
+    premium_bonds_holder_number_partner: "Holder number: partner"
     premium_bonds_total_value: Total value
     preorder_work_date: When you or your firm were first instructed
     preorder_work_details: Details about the urgency of the work
@@ -356,7 +355,7 @@ en:
       national_savings_or_post_office: National Savings or Post Office accounts
       other: Cash investment
     savings: Savings
-    savings_and_investments: 'Capital: Savings and investments'
+    savings_and_investments: "Capital: Savings and investments"
     search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
     select_return_reason: Select the reason for returning this application
@@ -463,25 +462,21 @@ en:
     change_in_financial_circumstances: Change in financial circumstances
     date_stamp_context_changed: Changed after date stamp
     committal: Committal for sentence
-    deleted_user_name: '[deleted]'
+    deleted_user_name: "[deleted]"
     decision_ioj_test_result:
-      pass: Passed
-      fail: Refused
+      passed: Passed
+      failed: Failed
     decision_means_test_result:
-      pass: Passed
-      fail: Failed
-      full: Contribution
-      inel: Ineligible
+      passed: Passed
+      passed_with_contribution: Passed - with a contribution
+      failed: Failed
+    decision_funding_decision:
+      granted: Granted
+      refused: Refused
     decision_overall_result:
       granted: Granted
-      granted_on_ioj: Granted
-      fail_on_ioj: Failed IoJ
-      failmeans: Failed means
-      failmeioj: Failed means and IoJ
-      failioj: Failed IoJ
-      inel: Ineligible 
-      full: Granted - with a contribution 
-
+      refused: Refused
+      granted_failed_means: Granted - failed means test
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit
@@ -587,10 +582,10 @@ en:
       board_and_lodging: Board and lodgings
       mortgage: Mortgage
       rent: Rent
-      none: 'None'
+      none: "None"
     pays_council_tax:
-      'yes': 'Yes'
-      'no': 'No'
+      "yes": "Yes"
+      "no": "No"
     residential: Residential Property
     commercial: Commercial Property
     land: Land
@@ -613,7 +608,7 @@ en:
       property_company: Property company
       other: Their relationship is not listed
     has_no_other_assets:
-      'yes': Confirmed
+      "yes": Confirmed
     benefit_check_status:
       confirmed: Confirmed
       no_check_required: No check required
@@ -632,7 +627,7 @@ en:
       victim: Victim
       prosecution_witness: Prosecution witness
       codefendant: Co-defendant
-      none: 'No'
+      none: "No"
     relationship_status:
       single: Single
       widowed: Widowed
@@ -644,20 +639,20 @@ en:
       partner: Partner's name
       applicant_and_partner: Client and partner
     client_or_partner_passported:
-      client: 'Yes'
-      partner: 'Yes - partner'
-      neither: 'No'
+      client: "Yes"
+      partner: "Yes - partner"
+      neither: "No"
     client_remanded:
-      'yes': In court custody
-      'no': 'No'
+      "yes": In court custody
+      "no": "No"
     is_first_court_hearing:
-      'yes': 'Yes'
-      'no': 'No'
+      "yes": "Yes"
+      "no": "No"
       no_hearing_yet: There has not been a hearing yet
 
   calls_to_action: &ACTIONS
     abandon_reassign_to_self: No, do not reassign
-    add_another_decision: Add another case 
+    add_another_decision: Add another case
     add_funding_decision: Add funding decision from MAAT
     assign_to_self: Assign to your list
     back_to_list: Back to your list
@@ -737,7 +732,6 @@ en:
         revival_awaited: Account revival requested
         revived: Account revived
         role_changed: Role changed from %{from} to %{to}
-
 
   casework:
     assigned_applications:
@@ -833,7 +827,7 @@ en:
     decisions:
       index:
         title:
-          zero: Add a MAAT ID 
+          zero: Add a MAAT ID
           one: You have added %{count} MAAT ID
           other: You have added %{count} MAAT IDs
       interests_of_justices:

@@ -1,8 +1,10 @@
 <% title t('.page_title') %>
+
 <% if FeatureFlags.adding_decisions.enabled? && @crime_application.decisions_pending? && @crime_application.reviewable_by?(current_user_id) %>
   <% message = t(:finish_adding_decisions, scope: 'flash.important', continue_adding_decision_link: govuk_link_to(t(:continue_adding_decision, scope: 'flash.important'), crime_application_send_decisions_path(@crime_application))) %>
   <%= render FlashNotice.new(:important, message) %>
 <% end %>
+
 <%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
 
 <div class="govuk-grid-row">

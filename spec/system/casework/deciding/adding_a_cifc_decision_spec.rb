@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Adding a decision by MAAT ID' do
   include_context 'with stubbed application'
+  include_context 'when adding a decision by MAAT ID'
+
   let(:application_id) { '98ab235c-f125-4dcb-9604-19e81782e53b' }
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'change_in_financial_circumstances').read) }
-
-  let(:mock_get_decision) { instance_double(Maat::GetDecision) }
 
   let(:origional_application) do
     instance_double(
@@ -18,16 +18,6 @@ RSpec.describe 'Adding a decision by MAAT ID' do
   end
 
   before do
-    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
-      .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
-
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
-    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id).and_return(maat_decision)
-    allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
-
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
     click_button 'Mark as ready for MAAT'
@@ -39,23 +29,8 @@ RSpec.describe 'Adding a decision by MAAT ID' do
   context 'when the original maat record is found' do
     let(:maat_id) { 987_654_321 }
 
-    let(:maat_decision) do
-      Maat::Decision.new(
-        maat_id: maat_id,
-        reference: origional_application.reference,
-        interests_of_justice: {
-          result: 'pass',
-          assessed_by: 'Jo Bloggs',
-          assessed_on:  1.day.ago.to_s
-        },
-        means: {
-          result: 'pass',
-          assessed_by: 'Jo Bloggs',
-          assessed_on:  1.day.ago.to_s
-        },
-        funding_decision: 'granted'
-      )
-    end
+    let(:maat_decision_maat_id) { maat_id }
+    let(:maat_decision_reference) { origional_application.reference }
 
     it 'creates the decision and shows the success message' do
       save_and_continue

@@ -13,7 +13,7 @@ RSpec.describe Maat::GetDecision do
 
   before do
     allow(connection).to receive(:get) { response }
-    allow(Maat::Decision).to receive(:build).with(body) { instance_double(Maat::Decision) }
+    allow(Maat::Decision).to receive(:new).with(body) { instance_double(Maat::Decision) }
   end
 
   describe '#by_usn' do
@@ -23,14 +23,14 @@ RSpec.describe Maat::GetDecision do
       expect(connection).to have_received(:get)
         .with('/api/external/v1/crime-application/result/usn/123456')
 
-      expect(Maat::Decision).to have_received(:build).with(body)
+      expect(Maat::Decision).to have_received(:new).with(body)
     end
 
     context 'when decision is empty found' do
       let(:body) { {} }
 
       it 'returns nil' do
-        expect(Maat::Decision).not_to have_received(:build)
+        expect(Maat::Decision).not_to have_received(:new)
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe Maat::GetDecision do
       let(:body) { { 'maat_ref' => nil } }
 
       it 'returns nil' do
-        expect(Maat::Decision).not_to have_received(:build)
+        expect(Maat::Decision).not_to have_received(:new)
       end
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe Maat::GetDecision do
     it 'makes a GET request to the MAAT API USN path' do
       get_by_usn!
 
-      expect(Maat::Decision).to have_received(:build).with(body)
+      expect(Maat::Decision).to have_received(:new).with(body)
     end
 
     context 'when decision is empty found' do
@@ -76,7 +76,7 @@ RSpec.describe Maat::GetDecision do
       expect(connection).to have_received(:get)
         .with('/api/external/v1/crime-application/result/rep-order-id/60123')
 
-      expect(Maat::Decision).to have_received(:build).with(body)
+      expect(Maat::Decision).to have_received(:new).with(body)
     end
   end
 end

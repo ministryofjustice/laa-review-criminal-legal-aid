@@ -4,39 +4,12 @@ RSpec.describe 'Removing a MAAT decision' do
   include DecisionFormHelpers
 
   include_context 'with stubbed application'
-
-  let(:mock_get_decision) { instance_double(Maat::GetDecision) }
-  let(:maat_decision) do
-    Maat::Decision.new(
-      maat_id: maat_id,
-      reference: 6_000_001,
-      interests_of_justice: {
-        result: 'pass',
-        assessed_by: 'Jo Bloggs',
-        assessed_on:  1.day.ago.to_s
-      },
-      means: {
-        result: 'pass',
-        assessed_by: 'Jo Bloggs',
-        assessed_on:  1.day.ago.to_s
-      },
-      funding_decision: 'granted'
-    )
-  end
+  include_context 'when adding a decision by MAAT ID'
 
   let(:maat_id) { 123 }
+  let(:maat_decision_maat_id) { maat_id }
 
   before do
-    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
-      .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
-
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
-    allow(mock_get_decision).to receive(:by_maat_id!).with(maat_id).and_return(maat_decision)
-    allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
-
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
     click_button 'Mark as ready for MAAT'

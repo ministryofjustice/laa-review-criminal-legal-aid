@@ -52,19 +52,15 @@ RSpec.describe 'Adding a decision by MAAT reference' do
   context 'when an application for the reference is found on MAAT' do
     let(:maat_decision) do
       Maat::Decision.new(
-        maat_id: 999_333,
-        reference: 6_000_001,
-        interests_of_justice: {
-          result: 'pass',
-          assessed_by: 'Jo Bloggs',
-          assessed_on:  1.day.ago.to_s
-        },
-        means: {
-          result: 'pass',
-          assessed_by: 'Jo Bloggs',
-          assessed_on:  1.day.ago.to_s
-        },
-        funding_decision: 'granted'
+        maat_ref: 999_333,
+        usn: 6_000_001,
+        ioj_result: 'PASS',
+        ioj_assessor_name: 'Jo Bloggs',
+        app_created_date: 1.day.ago.to_s,
+        means_result: 'PASS',
+        means_assessor_name: 'Jo Bloggs',
+        date_means_created:  1.day.ago.to_s,
+        funding_decision: 'GRANTED'
       )
     end
 
