@@ -2,13 +2,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
-    <h1 class="govuk-heading-xl"><%=t '.heading' %></h1>
+    <h1 class="govuk-heading-xl"><%= t '.heading' %></h1>
     <%= render @search.filter %>
   </div>
 </div>
 
 <% if @search.results.empty? %>
-  <%= render 'no_search_results'%>
+  <%= render 'no_search_results' %>
 <% else %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
@@ -19,20 +19,20 @@
   </div>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-full app-table-container">
       <table class="govuk-table app-table">
-        <%= render DataTable::HeadComponent.new(sorting: @search.sorting, filter: @search.filter) do |head|
-              head.with_row do |row|
-                row.with_cell(colname: :applicant_name)
-                row.with_cell(colname: :reference)
-                row.with_cell(colname: :application_type)
-                row.with_cell(colname: :case_type)
-                row.with_cell(colname: :submitted_at)
-                row.with_cell(colname: :reviewed_at)
-                row.with_cell(colname: :closed_by)
-                row.with_cell(colname: :status)
-              end
-            end %>
+        <%= render DataTable::HeadComponent.new(sorting: @search.sorting, filter: @search.filter) do |head| %>
+          <% head.with_row do |row|
+               row.with_cell(colname: :applicant_name)
+               row.with_cell(colname: :reference)
+               row.with_cell(colname: :application_type)
+               row.with_cell(colname: :case_type)
+               row.with_cell(colname: :submitted_at)
+               row.with_cell(colname: :reviewed_at)
+               row.with_cell(colname: :closed_by)
+               row.with_cell(colname: :status)
+             end %>
+        <% end %>
         <tbody class="govuk-table__body">
           <%= render partial: 'search_results_table_body',
                      collection: @search.results,
