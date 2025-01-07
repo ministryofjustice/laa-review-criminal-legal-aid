@@ -20,7 +20,7 @@
         <% end %>
       </ul>
 
-      <div class=govuk-tabs__panel>
+      <div class='govuk-tabs__panel'>
         <%= render partial: 'block_pagination', locals: { report: @report } %>
 
         <h2 class="govuk-heading-m"><%= @report.period_name %></h2>
@@ -29,9 +29,11 @@
           <h3 class="govuk-heading-s"><%= @report.period_text %></h3>
         <% end %>
 
-        <%= turbo_frame_tag @report.id, data: { turbo: 'true' } do %>
-          <%= render partial: @report_type, locals: { report: @report, sorting: @sorting } %>
-        <% end %>
+        <div class="app-table-container">
+          <%= turbo_frame_tag @report.id, data: { turbo: 'true' } do %>
+            <%= render partial: @report_type, locals: { report: @report, sorting: @sorting } %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

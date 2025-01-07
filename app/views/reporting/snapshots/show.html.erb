@@ -29,7 +29,7 @@
 </div>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full app-table-container">
     <%= turbo_frame_tag @report_type, data: { turbo: 'true' } do %>
       <%= render partial: @report_type, locals: { report: @report } %>
     <% end %>
