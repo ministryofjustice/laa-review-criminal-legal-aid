@@ -32,7 +32,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
       end
 
       it 'warns about the impact of deactivating' do
-        within('div.govuk-warning-text') do
+        within('.govuk-warning-text') do
           expect(page).to have_content(
             'This will mean Zoe Blogs can no longer access this service.'
           )
@@ -110,7 +110,7 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
     end
 
     it 'shows error message on manage users page' do
-      within('div.govuk-notification-banner__heading') do
+      within('.govuk-notification-banner__heading') do
         expect(page).to have_content(
           'Unable to deactivate user. There must be at least two users who can manage others'
         )

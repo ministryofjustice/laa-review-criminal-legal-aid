@@ -1,44 +1,13 @@
-<div class="moj-primary-navigation">
-
-  <div class="moj-primary-navigation__container">
-
-    <div class="moj-primary-navigation__nav">
-      <nav class="moj-primary-navigation" aria-label="Primary navigation">
-
-        <!-- Applications -->
-        <% if current_user.service_user? %>
-          <ul class="moj-primary-navigation__list">
-            <li class="moj-primary-navigation__item">
-              <%= link_to t('primary_navigation.your_list',
-                            count: assignments_count),
-                          assigned_applications_path,
-                          class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(assigned_applications_path) ? 'page' : nil } %>
-            </li>
-
-            <li class="moj-primary-navigation__item">
-              <%= link_to t('primary_navigation.search'),
-                          new_application_searches_path,
-                          class: 'moj-primary-navigation__link',
-                          aria: { current: request.url.include?('searches') ? 'page' : nil } %>
-            </li>
-
-            <li class="moj-primary-navigation__item">
-              <%= link_to t('primary_navigation.open_apps'),
-                          open_crime_applications_path,
-                          class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(open_crime_applications_path) ? 'page' : nil } %>
-            </li>
-
-            <li class="moj-primary-navigation__item">
-              <%= link_to t('primary_navigation.closed_apps'),
-                          closed_crime_applications_path,
-                          class: 'moj-primary-navigation__link',
-                          aria: { current: current_page?(closed_crime_applications_path) ? 'page' : nil } %>
-            </li>
-          </ul>
-        <% end %>
-      </nav>
-    </div>
-  </div>
-</div>
+<%= govuk_service_navigation(navigation_id: 'example-5', current_path: request.path, classes: 'app-service-navigation') do |sn| %>
+  <%= sn.with_navigation_item(
+        text: t('primary_navigation.your_list', count: assignments_count),
+        href: assigned_applications_path
+      ) %>
+  <%= sn.with_navigation_item(
+        text: t('primary_navigation.search'),
+        href: new_application_searches_path,
+        active_when: /application_searches/
+      ) %>
+  <%= sn.with_navigation_item(text: t('primary_navigation.open_apps'), href: open_crime_applications_path) %>
+  <%= sn.with_navigation_item(text: t('primary_navigation.closed_apps'), href: closed_crime_applications_path) %>
+<% end %>

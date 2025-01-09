@@ -13,7 +13,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the system user layout with navigation' do
-        expect(page).to have_css('nav.moj-primary-navigation')
+        expect(page).to have_css('nav.govuk-service-navigation__wrapper')
         expect(page).to have_link('Sign out')
       end
     end
@@ -51,7 +51,7 @@ RSpec.describe 'Error pages' do
           end
 
           it 'uses the system user layout with navigation' do
-            expect(page).to have_css('nav.moj-primary-navigation')
+            expect(page).to have_css('nav.govuk-service-navigation__wrapper')
             expect(page).to have_link('Sign out')
           end
         end
@@ -85,7 +85,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the system user layout with navigation' do
-        expect(page).to have_css('nav.moj-primary-navigation')
+        expect(page).to have_css('nav.govuk-service-navigation__wrapper')
         expect(page).to have_link('Sign out')
       end
     end
@@ -101,7 +101,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the simplified errors page layout' do
-        expect(page).to have_no_css('nav.moj-primary-navigation')
+        expect(page).to have_no_css('nav.govuk-service-navigation__wrapper')
       end
     end
 
@@ -116,7 +116,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'uses the simplified errors page layout' do
-        expect(page).to have_no_css('nav.moj-primary-navigation')
+        expect(page).to have_no_css('nav.govuk-service-navigation__wrapper')
       end
     end
 
