@@ -117,7 +117,7 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
       end
 
       it 'shows error message' do
-        within('div.govuk-notification-banner__heading') do
+        within('.govuk-notification-banner__heading') do
           expect(page).to have_content('You cannot reactivate yourself')
         end
       end
