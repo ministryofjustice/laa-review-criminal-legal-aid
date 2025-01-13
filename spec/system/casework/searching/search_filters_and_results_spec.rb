@@ -23,7 +23,7 @@ RSpec.describe 'Search Page' do
 
     expect(column_headings).to eq(
       ["Applicant's name", 'Reference number', 'Type of application', 'Case type', 'Date received', 'Date closed',
-       'Closed by', 'Status']
+       'Caseworker', 'Status']
     )
   end
 
