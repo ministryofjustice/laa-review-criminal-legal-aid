@@ -36,6 +36,32 @@ RSpec.describe 'Search Page' do
     )
   end
 
+  context 'when result is PSE' do
+    let(:stubbed_search_results) do
+      [
+        ApplicationSearchResult.new(
+          applicant_name: 'Kit Pound',
+          resource_id: '21c37e3e-520f-46f1-bd1f-5c25ffc57d70',
+          reference: 120_398_120,
+          status: 'submitted',
+          work_stream: 'criminal_applications_team',
+          submitted_at: '2022-10-24T09:50:04.019Z',
+          parent_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
+          application_type: 'post_submission_evidence'
+        )
+      ]
+    end
+
+    it 'shows the correct results' do
+      first_row_text = page.first('.app-table tbody tr').text
+
+      expect(first_row_text).to eq(
+        'Kit Pound 120398120 Post submission evidence No data exists for Case type ' \
+        '24 Oct 2022 No data exists for Date closed No data exists for Caseworker Open'
+      )
+    end
+  end
+
   it 'has the correct search results count' do
     expect(page).to have_content('3 search results')
   end
