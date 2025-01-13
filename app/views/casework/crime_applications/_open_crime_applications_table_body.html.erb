@@ -17,6 +17,6 @@
     <%= t('values.days_passed', count: app.days_passed) %>
   </td>
   <td class="govuk-table__cell">
-    <%= app.assignee_name %>
+    <%= app.assignee_name || no_data(:caseworker) %>
   </td>
 </tr>

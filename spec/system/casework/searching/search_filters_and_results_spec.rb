@@ -30,7 +30,10 @@ RSpec.describe 'Search Page' do
   it 'shows the correct results' do
     first_row_text = page.first('.app-table tbody tr').text
 
-    expect(first_row_text).to eq('Kit Pound 120398120 Initial Summary only 27 Oct 2022 Open')
+    expect(first_row_text).to eq(
+      'Kit Pound 120398120 Initial Summary only 27 Oct 2022 ' \
+      'No data exists for Date closed No data exists for Closed by Open'
+    )
   end
 
   it 'has the correct search results count' do

@@ -17,10 +17,10 @@
     <%= l(result.submitted_at) %>
   </td>
   <td class="govuk-table__cell">
-    <%= l(result.reviewed_at) if result.reviewed_at %>
+    <%= result.reviewed_at ? l(result.reviewed_at) : no_data(:reviewed_at)  %>
   </td>
   <td class="govuk-table__cell">
-    <%= result.caseworker_name %>
+    <%= result.caseworker_name || no_data(:closed_by) %>
   </td>
   <td class="govuk-table__cell">
     <%= t(result.review_status, scope: 'values.review_status') %>
