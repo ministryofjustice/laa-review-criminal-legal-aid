@@ -32,7 +32,7 @@ RSpec.describe 'Search Page' do
 
     expect(first_row_text).to eq(
       'Kit Pound 120398120 Initial Summary only 27 Oct 2022 ' \
-      'No data exists for Date closed No data exists for Closed by Open'
+      'No data exists for Date closed No data exists for Caseworker Open'
     )
   end
 
