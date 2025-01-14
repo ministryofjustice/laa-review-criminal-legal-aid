@@ -477,6 +477,7 @@ en:
       granted: Granted
       refused: Refused
       granted_failed_means: Granted - failed means test
+      granted_with_contribution: Granted - with contribution
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit
