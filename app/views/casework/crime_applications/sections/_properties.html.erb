@@ -1,3 +1,7 @@
+<% if capital_details.has_no_properties == 'yes' || capital_details.properties.present?  %>
+  <h2 class="govuk-heading-l"><%= label_text(:assets) %></h2>
+<% end  %>
+
 <% if capital_details.has_no_properties == 'yes'  %>
   <%= govuk_summary_card(title: label_text(:properties_title)) do %>
     <%= govuk_summary_list(actions: false) do |list|
