@@ -15,8 +15,8 @@ module ComponentsHelper
     render OffenceDatesComponent.new(offence:)
   end
 
-  def decision_result(result)
-    render DecisionResultComponent.new(result:)
+  def decision_overall_result(decision:)
+    render DecisionOverallResultComponent.new(decision:)
   end
 
   def conflict_of_interest(codefendant)

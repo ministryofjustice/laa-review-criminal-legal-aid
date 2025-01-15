@@ -47,7 +47,7 @@
 
       list.with_row do |row|
         row.with_key { label_text(:overall_result) }
-        row.with_value { decision_result(decision.funding_decision) }
+        row.with_value { decision_overall_result(decision:) }
       end
 
       if decision.comment.present?

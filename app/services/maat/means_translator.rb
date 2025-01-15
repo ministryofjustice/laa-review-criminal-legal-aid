@@ -39,7 +39,7 @@ module Maat
     end
 
     def result
-      Maat::MeansResultTranslator.translate(maat_result)
+      MeansResultTranslator.translate(maat_result)
     end
 
     def maat_result
