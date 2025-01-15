@@ -30,7 +30,9 @@ RSpec.describe 'Open Applications' do
       Date.parse('2022-10-27'), Time.current.in_time_zone('London')
     )
 
-    expect(first_row_text).to eq("Kit Pound 120398120 Initial 27 Oct 2022 #{days_ago} days")
+    expect(first_row_text).to eq(
+      "Kit Pound 120398120 Initial 27 Oct 2022 #{days_ago} days No data exists for Caseworker"
+    )
   end
 
   it 'receives the application if not already received' do

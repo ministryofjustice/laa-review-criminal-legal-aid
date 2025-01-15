@@ -1,4 +1,4 @@
-<%= govuk_service_navigation(navigation_id: 'example-5', current_path: request.path, classes: 'app-service-navigation') do |sn| %>
+<%= govuk_service_navigation(current_path: request.path, classes: 'app-service-navigation') do |sn| %>
   <%= sn.with_navigation_item(
         text: t('primary_navigation.your_list', count: assignments_count),
         href: assigned_applications_path

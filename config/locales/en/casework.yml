@@ -490,6 +490,7 @@ en:
     no_one: no one
     none: None
     not_asked: Not asked when this application was submitted
+    no_data_for: No data exists for %{column_name}
     not_provided: Not provided
     post_submission_evidence: Post submission evidence
     provider_address: Same as provider address

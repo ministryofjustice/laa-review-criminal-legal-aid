@@ -61,6 +61,12 @@ module ApplicationHelper
     )
   end
 
+  def no_data(colname)
+    column_name = t(colname, scope: 'table_headings')
+
+    govuk_visually_hidden(value_text(:no_data_for, column_name:))
+  end
+
   def closed_action?(action_name)
     action_name == 'closed'
   end
