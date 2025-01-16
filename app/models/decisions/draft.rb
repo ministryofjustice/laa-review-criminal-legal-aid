@@ -7,6 +7,7 @@ module Decisions
     attribute? :application_id, Types::Uuid
     attribute? :maat_id, Types::Integer.optional
     attribute? :case_id, Types::String.optional
+    attribute? :court_type, Types::CourtType.optional
 
     def to_param
       { crime_application_id: application_id, decision_id: decision_id }

@@ -44,6 +44,8 @@ module Types
 
   ReviewType = Symbol.enum(*%i[means non_means pse])
 
+  CourtType = String.enum('crown', 'magistrates')
+
   CASEWORKER_ROLE = 'caseworker'.freeze
   SUPERVISOR_ROLE = 'supervisor'.freeze
   DATA_ANALYST_ROLE = 'data_analyst'.freeze
