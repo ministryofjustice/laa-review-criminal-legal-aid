@@ -6,8 +6,7 @@ RSpec.describe 'Invites from manage users dashboard' do
   let(:notify_mailer_method) { :access_granted_email }
 
   before do
-    visit '/'
-    visit '/manage_users'
+    visit '/manage-users'
     click_on 'Invite a user'
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Authenticating a signed out user' do
   before do
     click_on 'Sign out'
-    visit '/assigned_applications'
+    visit '/assigned-applications'
   end
 
   it 'the cannot access their list' do

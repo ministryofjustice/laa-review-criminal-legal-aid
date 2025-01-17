@@ -45,7 +45,7 @@ RSpec.describe 'Adding a decision by MAAT reference' do
       expect(page).to have_notification_banner(
         text: 'No MAAT ID found that links to LAA reference number 6000001'
       )
-      expect(current_path).to eq('/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/link_maat_id')
+      expect(current_path).to eq('/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/link-maat-id')
     end
   end
 
