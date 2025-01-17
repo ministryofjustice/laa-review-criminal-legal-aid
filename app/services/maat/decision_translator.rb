@@ -13,7 +13,7 @@ module Maat
     def translate
       Decisions::Draft.new(
         maat_id:, case_id:, reference:, interests_of_justice:,
-        means:, funding_decision:, decision_id:
+        means:, funding_decision:, decision_id:, court_type:
       )
     end
 
@@ -33,14 +33,25 @@ module Maat
     end
 
     def means
-      MeansTranslator.translate(maat_decision)
+      MeansTranslator.translate(maat_decision, court_type:)
+    end
+
+    # infer the court type of the decision from the MAAT decision.
+    def court_type
+      if crown_court_decision
+        Types::CourtType['crown']
+      elsif maat_decision.funding_decision
+        Types::CourtType['magistrates']
+      end
     end
 
     def funding_decision
-      return crown_court_decision if crown_court_decision
-      return nil unless maat_decision.funding_decision
-
-      FundingDecisionTranslator.translate(maat_decision.funding_decision)
+      case court_type
+      when Types::CourtType['crown']
+        crown_court_decision
+      when Types::CourtType['magistrates']
+        FundingDecisionTranslator.translate(maat_decision.funding_decision)
+      end
     end
 
     delegate :case_id, to: :maat_decision

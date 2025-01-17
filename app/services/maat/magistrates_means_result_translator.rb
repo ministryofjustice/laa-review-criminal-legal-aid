@@ -1,7 +1,7 @@
 module Maat
-  class MeansResultTranslator < BaseTranslator
+  class MagistratesMeansResultTranslator < BaseTranslator
     def translate
-      return nil if original.blank?
+      return nil unless means_result
 
       Types::TestResult[means_result]
     end
@@ -12,9 +12,7 @@ module Maat
       case original
       when /PASS/
         'passed'
-      when /FULL/
-        'passed_with_contribution'
-      when /FAIL|INEL/
+      when /FAIL/
         'failed'
       end
     end

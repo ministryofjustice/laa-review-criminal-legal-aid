@@ -112,7 +112,7 @@ RSpec.describe Maat::DecisionTranslator do
 
       before do
         allow(Maat::MeansTranslator).to receive(:translate)
-          .with(maat_decision) { translated_means }
+          .with(maat_decision, court_type: nil) { translated_means }
       end
 
       it { is_expected.to be translated_means }
@@ -135,6 +135,26 @@ RSpec.describe Maat::DecisionTranslator do
       end
 
       it { is_expected.to be translated_interests_of_justice }
+    end
+
+    describe '#court_type' do
+      subject(:court_type) { translate.court_type }
+
+      context 'when not decided' do
+        it { is_expected.to be_nil }
+      end
+
+      context 'when funding decision exists' do
+        let(:maat_decision) { Maat::Decision.new(funding_decision: 'FAILIOJ') }
+
+        it { is_expected.to eq Types::CourtType['magistrates'] }
+      end
+
+      context 'when a crown court decision exists' do
+        let(:maat_decision) { Maat::Decision.new(cc_rep_decision: 'Granted - Passported') }
+
+        it { is_expected.to eq Types::CourtType['crown'] }
+      end
     end
   end
 end
