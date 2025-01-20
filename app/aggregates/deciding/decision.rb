@@ -1,5 +1,5 @@
 module Deciding
-  class Decision
+  class Decision # rubocop:disable Metrics/ClassLength
     include AggregateRoot
 
     def initialize(decision_id)
@@ -7,7 +7,8 @@ module Deciding
     end
 
     attr_reader :application_id, :decision_id, :funding_decision, :comment,
-                :state, :reference, :maat_id, :checksum, :case_id, :means, :interests_of_justice
+                :state, :reference, :maat_id, :checksum, :case_id, :means, :interests_of_justice,
+                :court_type, :overall_result
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
     def create_draft(application_id:, user_id:, reference:)
@@ -129,13 +130,15 @@ module Deciding
     def update_from_maat(maat_attributes)
       decision = Decisions::Draft.new(maat_attributes)
 
-      @maat_id = decision.maat_id
-      @reference = decision.reference
       @case_id = decision.case_id
-      @interests_of_justice = decision.interests_of_justice
-      @means = decision.means
-      @funding_decision = decision.funding_decision
       @checksum = decision.checksum
+      @court_type = decision.court_type
+      @funding_decision = decision.funding_decision
+      @interests_of_justice = decision.interests_of_justice
+      @maat_id = decision.maat_id
+      @means = decision.means
+      @overall_result = decision.overall_result
+      @reference = decision.reference
     end
 
     def complete?

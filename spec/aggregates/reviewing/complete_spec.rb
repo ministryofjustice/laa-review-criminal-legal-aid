@@ -43,8 +43,17 @@ RSpec.describe Reviewing::Complete do
     let(:decisions) do
       [
         Decisions::Draft.new(
-          reference: reference, maat_id: nil, case_id: nil, interests_of_justice: nil, means: nil,
-          funding_decision: 'granted', comment: nil, decision_id: decision_id, application_id: application_id
+          reference: reference,
+          maat_id: nil,
+          case_id: nil,
+          interests_of_justice: nil,
+          means: nil,
+          funding_decision: 'granted',
+          comment: nil,
+          decision_id: decision_id,
+          application_id: application_id,
+          court_type: nil,
+          overall_result: nil
         ).as_json
       ]
     end

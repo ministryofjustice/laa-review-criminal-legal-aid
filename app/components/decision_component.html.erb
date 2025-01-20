@@ -11,6 +11,13 @@
         end
       end
 
+      if means.present?
+        list.with_row do |row|
+          row.with_key { label_text(:means_court_type) }
+          row.with_value { value_text(court_type, scope: :court_type) }
+        end
+      end
+
       if interests_of_justice.present?
         list.with_row do |row|
           row.with_key { label_text(:ioj_result) }

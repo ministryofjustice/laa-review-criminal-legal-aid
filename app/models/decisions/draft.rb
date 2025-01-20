@@ -18,18 +18,20 @@ module Decisions
     end
 
     class << self
-      def build(aggregate)
+      def build(aggregate) # rubocop:disable Metrics/MethodLength
         new(
-          maat_id: aggregate.maat_id,
-          case_id: aggregate.case_id,
           application_id: aggregate.application_id,
-          reference: aggregate.reference,
-          interests_of_justice: aggregate.interests_of_justice,
-          means: aggregate.means,
-          funding_decision: aggregate.funding_decision,
+          case_id: aggregate.case_id,
+          checksum: aggregate.checksum,
           comment: aggregate.comment,
+          court_type: aggregate.court_type,
           decision_id: aggregate.decision_id,
-          checksum: aggregate.checksum
+          funding_decision: aggregate.funding_decision,
+          interests_of_justice: aggregate.interests_of_justice,
+          maat_id: aggregate.maat_id,
+          means: aggregate.means,
+          overall_result: aggregate.overall_result,
+          reference: aggregate.reference
         )
       end
     end
