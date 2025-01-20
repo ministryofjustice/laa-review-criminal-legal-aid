@@ -89,7 +89,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
       end
     end
 
-    it_behaves_like 'a paginated page', path: '/manage_competencies?page=2'
+    it_behaves_like 'a paginated page', path: '/manage-competencies?page=2'
 
     it_behaves_like 'an ordered user list' do
       let(:path) { manage_competencies_root_path }

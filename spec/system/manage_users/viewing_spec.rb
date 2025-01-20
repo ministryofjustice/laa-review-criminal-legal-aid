@@ -41,7 +41,7 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes', 'Caseworker'].join(' '))
     end
 
-    it_behaves_like 'a paginated page', path: '/manage_users?page=2'
+    it_behaves_like 'a paginated page', path: '/manage-users?page=2'
     it_behaves_like 'an ordered user list' do
       let(:path) { manage_users_root_path }
       let(:expected_order) do

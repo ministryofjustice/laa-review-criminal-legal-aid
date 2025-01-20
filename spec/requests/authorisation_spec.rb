@@ -55,6 +55,10 @@ RSpec.describe 'Authorisation' do
       crime_application_maat_decisions
       crime_application_send_decisions
       crime_application_what_do_you_want_to_do_next
+      application_searches_new
+      application_searches_search
+      assigned_applications_next_application
+      reporting
     ]
   end
 
@@ -77,6 +81,9 @@ RSpec.describe 'Authorisation' do
       new_manage_users_deactivated_user
       new_manage_users_invitation
       reactivate_manage_users_deactivated_user
+      manage_users
+      manage_users_deactivated_users_new
+      manage_competencies
     ]
   end
 
@@ -248,6 +255,7 @@ RSpec.describe 'Authorisation' do
       turbo_resume_historical_location
       user_azure_ad_omniauth_authorize
       user_azure_ad_omniauth_callback
+      sign_out
     ]
   end
 
