@@ -472,7 +472,7 @@ en:
       failed: Failed
     decision_means_test_result:
       passed: Passed
-      passed_with_contribution: Passed - with a contribution
+      passed_with_contribution: Passed - with contribution
       failed: Failed
     decision_funding_decision:
       granted: Granted
@@ -481,7 +481,7 @@ en:
       granted: Granted
       refused: Refused
       granted_failed_means: Granted - failed means test
-      granted_with_contribution: Granted - with a contribution
+      granted_with_contribution: Granted - with contribution
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit
