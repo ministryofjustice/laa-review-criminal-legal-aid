@@ -264,6 +264,7 @@ en:
     means_tested: Subject to means test?
     means_assessed_by: Means test caseworker
     means_assessed_on: Means test date
+    means_court_type: Means test
     means_details: Means reason
     means_result: Means test result
     name: Name
@@ -460,6 +461,9 @@ en:
     class: Class
     class_not_determined: Not determined
     change_in_financial_circumstances: Change in financial circumstances
+    court_type:
+      magistrates: Magistrates Court
+      crown: Crown Court
     date_stamp_context_changed: Changed after date stamp
     committal: Committal for sentence
     deleted_user_name: "[deleted]"
@@ -477,7 +481,7 @@ en:
       granted: Granted
       refused: Refused
       granted_failed_means: Granted - failed means test
-      granted_with_contribution: Granted - with contribution
+      granted_with_contribution: Granted - with a contribution
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit

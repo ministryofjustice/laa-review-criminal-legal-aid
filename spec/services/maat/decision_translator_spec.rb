@@ -3,6 +3,14 @@ require 'rails_helper'
 RSpec.describe Maat::DecisionTranslator do
   let(:maat_decision) { Maat::Decision.new(funding_decision: nil) }
 
+  let(:translated_means) do
+    LaaCrimeSchemas::Structs::TestResult.new(
+      result: 'passed',
+      assessed_by: 'Ken',
+      assessed_on: '2024-12-12'
+    )
+  end
+
   describe '.translate' do
     subject(:translate) { described_class.translate(maat_decision) }
 
@@ -13,18 +21,36 @@ RSpec.describe Maat::DecisionTranslator do
     describe '#funding_decision' do
       subject(:funding_decision) { translate.funding_decision }
 
+      before do
+        allow(Maat::MeansTranslator).to receive(:translate) { translated_means }
+      end
+
       context 'when not decided' do
         it { is_expected.to be_nil }
       end
 
       context 'when funding decision exists' do
-        let(:maat_decision) { Maat::Decision.new(funding_decision: 'FAILIOJ') }
+        let(:maat_decision) do
+          Maat::Decision.new(funding_decision: 'FAILIOJ')
+        end
 
         it { is_expected.to eq 'refused' }
       end
 
+      context 'when funding decision exists but means is empty' do
+        let(:maat_decision) do
+          Maat::Decision.new(funding_decision: 'FAILIOJ')
+        end
+
+        let(:translated_means) { nil }
+
+        it { is_expected.to be_nil }
+      end
+
       context 'when a crown court decision exists' do
-        let(:maat_decision) { Maat::Decision.new(cc_rep_decision: 'Granted - Passported') }
+        let(:maat_decision) do
+          Maat::Decision.new(cc_rep_decision: 'Granted - Passported')
+        end
 
         it { is_expected.to eq 'granted' }
       end
@@ -101,14 +127,6 @@ RSpec.describe Maat::DecisionTranslator do
 
     describe '#means' do
       subject(:means) { translate.means }
-
-      let(:translated_means) do
-        LaaCrimeSchemas::Structs::TestResult.new(
-          result: 'passed',
-          assessed_by: 'Ken',
-          assessed_on: '2024-12-12'
-        )
-      end
 
       before do
         allow(Maat::MeansTranslator).to receive(:translate)

@@ -13,11 +13,15 @@ module Maat
     def translate
       Decisions::Draft.new(
         maat_id:, case_id:, reference:, interests_of_justice:,
-        means:, funding_decision:, decision_id:, court_type:
+        means:, funding_decision:, decision_id:, court_type:, overall_result:
       )
     end
 
     private
+
+    attr_reader :maat_decision
+
+    delegate :case_id, to: :maat_decision
 
     def maat_id
       maat_decision.maat_ref
@@ -45,7 +49,13 @@ module Maat
       end
     end
 
+    # The MAAT API can return partially completed results. During reassessment,
+    # the MAAT API maintains the previous funding decision until the means
+    # assessment is completed. Therefore, funding decisions that exist without
+    # a corresponding means result should be ignored.
     def funding_decision
+      return if means.blank?
+
       case court_type
       when Types::CourtType['crown']
         crown_court_decision
@@ -54,12 +64,19 @@ module Maat
       end
     end
 
-    delegate :case_id, to: :maat_decision
+    # Store the overall result as provided by the MAAT API and used by eForms.
+    # This is stored temporarily in case the simplified status values are not
+    # approved.
+    # Note: The MAAT API returns a string for Crown Court decisions and
+    # a constant for Magistrates Court decisions.
+    def overall_result
+      return maat_decision.cc_rep_decision if court_type == Types::CourtType['crown']
+
+      maat_decision.funding_decision
+    end
 
     def crown_court_decision
       CrownCourtDecisionTranslator.translate(maat_decision.cc_rep_decision)
     end
-
-    attr_reader :maat_decision
   end
 end

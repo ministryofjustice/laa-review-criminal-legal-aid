@@ -47,6 +47,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       Maat::Decision.new(
         maat_ref: maat_id,
         usn: 6_000_001,
+        case_id: 'NOL-123',
         ioj_result: 'FAIL',
         ioj_assessor_name: 'Jo Blogs',
         app_created_date: Date.new(2024, 2, 1),
@@ -63,6 +64,9 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       )
 
       expect(summary_card('Case')).to have_rows(
+        'MAAT ID', '123',
+        'Case number', 'NOL-123',
+        'Means test', 'Magistrates Court',
         'Interests of justice (IoJ) test result', 'Failed',
         'IoJ comments', '',
         'IoJ caseworker', 'Jo Blogs',

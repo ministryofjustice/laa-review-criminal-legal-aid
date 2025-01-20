@@ -23,7 +23,7 @@ RSpec.describe DecisionOverallResultComponent, type: :component do
           instance_double(LaaCrimeSchemas::Structs::TestResult, result: 'passed_with_contribution')
         end
 
-        it { is_expected.to have_text('Granted - with contribution') }
+        it { is_expected.to have_text('Granted - with a contribution') }
         it { is_expected.to have_css('.govuk-tag--green') }
       end
 
