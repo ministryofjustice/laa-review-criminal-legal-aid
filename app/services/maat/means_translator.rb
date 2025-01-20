@@ -1,7 +1,8 @@
 module Maat
   class MeansTranslator
-    def initialize(maat_decision:)
+    def initialize(maat_decision:, court_type:)
       @maat_decision = maat_decision
+      @court_type = court_type
     end
 
     def translate
@@ -13,14 +14,14 @@ module Maat
     end
 
     class << self
-      def translate(maat_decision)
-        new(maat_decision:).translate
+      def translate(maat_decision, court_type:)
+        new(maat_decision:, court_type:).translate
       end
     end
 
     private
 
-    attr_reader :maat_decision
+    attr_reader :maat_decision, :court_type
 
     def assessed_on
       if passport_result_most_recent?
@@ -39,15 +40,22 @@ module Maat
     end
 
     def result
-      MeansResultTranslator.translate(maat_result)
+      return passport_result if passport_result_most_recent?
+      return crown_court_result if court_type == 'crown'
+
+      MagistratesMeansResultTranslator.translate(maat_decision.means_result)
     end
 
-    def maat_result
-      if passport_result_most_recent?
+    def passport_result
+      PassportMeansResultTranslator.translate(
         maat_decision.passport_result
-      else
+      )
+    end
+
+    def crown_court_result
+      CrownCourtMeansResultTranslator.translate(
         maat_decision.means_result
-      end
+      )
     end
 
     def passport_result_most_recent?
