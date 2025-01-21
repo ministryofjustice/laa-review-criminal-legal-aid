@@ -34,7 +34,7 @@ RSpec.describe Reviewing::AvailableReviewerActions do
         let(:application_type) { Types::ApplicationType['change_in_financial_circumstances'] }
         let(:work_stream) { WorkStream.new('criminal_applications_team') }
 
-        it { is_expected.to eq %i[mark_as_ready send_back] }
+        it { is_expected.to eq %i[complete send_back] }
       end
     end
 

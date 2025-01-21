@@ -5,6 +5,10 @@ module Reviewing
         open: [:mark_as_ready, :send_back],
         marked_as_ready: [:complete, :send_back],
       },
+      cifc: {
+        open: [:complete, :send_back],
+        marked_as_ready: [:complete, :send_back]
+      },
       non_means: {
         open:  [:complete, :send_back],
       },
@@ -17,6 +21,10 @@ module Reviewing
       means: {
         open: [:mark_as_ready, :send_back],
         marked_as_ready: [:send_back],
+      },
+      cifc: {
+        open: [:send_back],
+        marked_as_ready: [:send_back]
       },
       non_means: {
         open:  [:send_back],
@@ -47,6 +55,7 @@ module Reviewing
     end
 
     def review_type
+      return Types::ReviewType[:cifc] if cifc?
       return Types::ReviewType[:pse] if pse?
       return Types::ReviewType[:non_means] if non_means?
 
@@ -55,6 +64,10 @@ module Reviewing
 
     def pse?
       application_type == Types::ApplicationType['post_submission_evidence']
+    end
+
+    def cifc?
+      application_type == Types::ApplicationType['change_in_financial_circumstances']
     end
 
     def non_means?

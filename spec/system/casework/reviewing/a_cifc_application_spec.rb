@@ -17,7 +17,6 @@ RSpec.describe 'Reviewing a CIFC application' do
 
   it 'can be completed by the caseworker' do
     expect(page).to have_content('Change in financial circumstances')
-    click_button 'Mark as ready for MAAT'
     click_button 'Mark as completed'
     expect(page).to have_content('You marked the application as complete')
   end

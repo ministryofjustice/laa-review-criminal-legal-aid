@@ -20,7 +20,6 @@ RSpec.describe 'Adding a decision by MAAT ID' do
   before do
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
-    click_button 'Mark as ready for MAAT'
     find('p', text: 'To add the funding decision, update the origional application in MAAT first.')
     click_button 'Add funding decision from MAAT'
     fill_in('MAAT ID', with: maat_id)
