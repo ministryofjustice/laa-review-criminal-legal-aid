@@ -42,7 +42,7 @@ module Types
 
   DecisionState = Symbol.enum(*%i[draft sent_to_provider])
 
-  ReviewType = Symbol.enum(*%i[means non_means pse])
+  ReviewType = Symbol.enum(*%i[means non_means pse cifc])
 
   CourtType = String.enum('crown', 'magistrates')
 
