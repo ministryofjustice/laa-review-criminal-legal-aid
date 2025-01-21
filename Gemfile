@@ -62,7 +62,7 @@ gem 'rails_event_store', '>= 2.15.0'
 gem 'prometheus_exporter'
 
 group :development, :test do
-  gem 'debug'
+  gem 'debug', '~> 1.10'
   gem 'dotenv-rails', '~> 2.8.1'
   gem 'pry'
   gem 'rspec-rails', '>= 7.0.1'
