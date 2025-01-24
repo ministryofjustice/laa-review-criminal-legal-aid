@@ -64,7 +64,7 @@ RSpec.describe 'Adding another MAAT decision' do
   end
 
   it 'sends the decisions' do
-    choose_answer('What do you want to do next?', 'Send to provider')
+    choose_answer('What do you want to do next?', 'Send decision to provider')
     save_and_continue
 
     expect(page).to have_success_notification_banner(text: 'Application complete. Decision sent to provider.')
