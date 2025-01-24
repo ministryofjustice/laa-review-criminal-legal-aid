@@ -54,7 +54,7 @@ RSpec.describe 'Submitting a Non-means decision' do
       add_a_non_means_decision
       expect(page).to have_content('Your list (1)')
 
-      choose_answer(send_decisions_form_prompt, 'Send to provider')
+      choose_answer(send_decisions_form_prompt, 'Send decision to provider')
       save_and_continue
 
       expect(page).to have_content('Your list (0)')

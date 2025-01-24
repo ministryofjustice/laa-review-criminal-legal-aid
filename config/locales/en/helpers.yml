@@ -42,7 +42,7 @@ en:
       decisions_send_to_provider_form:
         next_step_options:
           add_another: Add another MAAT ID
-          send_to_provider: Send to provider
+          send_to_provider: Send decision to provider
 
     submit:
       save_and_continue: Save and continue
