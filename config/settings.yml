@@ -8,7 +8,7 @@ feature_flags:
     staging: true
     production: false # user managers should not access the service in production
   adding_decisions:
-    local: true
+    local: false
     staging: true
     production: false
 
