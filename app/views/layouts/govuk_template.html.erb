@@ -32,10 +32,10 @@
   <%= yield(:header) %>
 
   <div class="govuk-width-container">
-    <%= govuk_phase_banner %>
+    <%= govuk_phase_banner text: t('helpers.phase_banner_text_html') %>
   </div>
 
-  <%= yield(:primary_navgation) %>
+  <%= yield(:primary_navigation) %>
 
   <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-width-container">
