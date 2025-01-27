@@ -2,11 +2,12 @@ module Reporting
   class Snapshot
     include ActiveModel::Model
 
-    attr_reader :observed_at, :report_type
+    attr_reader :observed_at, :report_type, :work_streams
 
-    def initialize(report_type:, observed_at: Time.current)
+    def initialize(report_type:, observed_at: Time.current, work_streams: [])
       @observed_at = observed_at.in_time_zone('London')
       @report_type = Types::SnapshotReportType[report_type]
+      @work_streams = work_streams
     end
 
     def to_param
@@ -22,15 +23,16 @@ module Reporting
     end
 
     def next_report
-      self.class.new(report_type: report_type, observed_at: observed_at.tomorrow.end_of_day)
+      self.class.new(report_type: report_type, observed_at: observed_at.tomorrow.end_of_day, work_streams: work_streams)
     end
 
     def previous_report
-      self.class.new(report_type: report_type, observed_at: (observed_at - 1.day).end_of_day)
+      self.class.new(report_type: report_type, observed_at: (observed_at - 1.day).end_of_day,
+                     work_streams: work_streams)
     end
 
     def rows
-      @rows ||= read_model_klass.new(observed_at:).rows
+      @rows ||= read_model_klass.new(observed_at:, work_streams:).rows
     end
 
     # returns true if the report includes the current day
@@ -75,10 +77,10 @@ module Reporting
         Time.current.in_time_zone('London').to_date
       end
 
-      def from_param(report_type:, date:, time:)
+      def from_param(report_type:, date:, time:, work_streams:)
         observed_at = ActiveSupport::TimeZone['London'].parse("#{date} #{time}")
 
-        new(report_type:, observed_at:)
+        new(report_type:, observed_at:, work_streams:)
       rescue ArgumentError, Dry::Types::ConstraintError
         raise Reporting::ReportNotFound
       end
