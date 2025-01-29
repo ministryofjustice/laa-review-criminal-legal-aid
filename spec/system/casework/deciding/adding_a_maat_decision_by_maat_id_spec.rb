@@ -74,7 +74,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
         'Means test result', 'Failed',
         'Means test caseworker', 'Jan Blogs',
         'Means test date', '02/02/2024',
-        'Overall result', 'Refused'
+        'Overall result', 'Failed Means & IoJ'
       )
 
       expect(current_path).to eq(

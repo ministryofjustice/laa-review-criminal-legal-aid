@@ -18,13 +18,14 @@ RSpec.describe 'Submitting a Non-means decision' do
             'reference' => 6_000_001,
             'maat_id' => nil,
             'interests_of_justice' => {
-              'result' => 'passed',
+              'result' => 'failed',
               'details' => 'reason',
               'assessed_by' => 'Test User',
               'assessed_on' => '2024-10-01 00:00:00'
             },
             'means' => nil,
-            'funding_decision' => 'granted',
+            'funding_decision' => 'refused',
+            'overall_result' => 'Failed IoJ',
             'comment' => 'Test comment'
           }
         ]
@@ -51,9 +52,12 @@ RSpec.describe 'Submitting a Non-means decision' do
     end
 
     it 'shows the confirmation page' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
-      add_a_non_means_decision
+      add_a_failed_non_means_decision
       expect(page).to have_content('Your list (1)')
-
+      expect(summary_card('Case')).to have_rows(
+        'Interests of justice (IoJ) test result', 'Failed',
+        'Overall result', 'Failed IoJ'
+      )
       choose_answer(send_decisions_form_prompt, 'Send decision to provider')
       save_and_continue
 
@@ -67,11 +71,11 @@ RSpec.describe 'Submitting a Non-means decision' do
       # NB: the decision displayed should be that from the datastore
       # not the event sourced decision.
       expect(summary_card('Case')).to have_rows(
-        'Interests of justice (IoJ) test result', 'Passed',
+        'Interests of justice (IoJ) test result', 'Failed',
         'IoJ comments', 'reason',
         'IoJ caseworker', 'Test User',
         'IoJ test date', '01/10/2024',
-        'Overall result', 'Granted',
+        'Overall result', 'Failed IoJ',
         'Comments', 'Test comment'
       )
     end

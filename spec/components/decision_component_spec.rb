@@ -8,6 +8,7 @@ RSpec.describe DecisionComponent, type: :component do
       interests_of_justice: nil,
       means: nil,
       funding_decision: 'granted',
+      overall_result: 'Granted',
       comment: nil,
       maat_id: nil
     )

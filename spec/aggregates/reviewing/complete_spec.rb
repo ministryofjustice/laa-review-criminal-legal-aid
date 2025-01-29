@@ -48,12 +48,12 @@ RSpec.describe Reviewing::Complete do
           case_id: nil,
           interests_of_justice: nil,
           means: nil,
-          funding_decision: 'granted',
+          funding_decision: 'refused',
           comment: nil,
           decision_id: decision_id,
           application_id: application_id,
           court_type: nil,
-          overall_result: nil
+          overall_result: 'Failed IoJ'
         ).as_json
       ]
     end
@@ -67,7 +67,7 @@ RSpec.describe Reviewing::Complete do
 
       Reviewing::AddDecision.call(**args)
       Deciding::CreateDraft.call(**args)
-      Deciding::SetFundingDecision.call(**args, funding_decision: 'granted')
+      Deciding::SetFundingDecision.call(**args, funding_decision: 'refused')
     end
 
     it 'changes the state from :received to :completed' do
