@@ -1,4 +1,4 @@
-@import "local/govuk";
-@import "local/moj";
-@import "local/phase_banner";
-@import "local/custom";
+@use "govuk-frontend/dist/govuk/index";
+@use "local/moj";
+@use "local/phase_banner";
+@use "local/custom";
