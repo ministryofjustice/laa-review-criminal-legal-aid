@@ -2,7 +2,7 @@
   "name": "laa-review-criminal-legal-aid",
   "private": "true",
   "dependencies": {
-    "govuk-frontend": "5.7.1",
+    "govuk-frontend": "5.8.0",
     "@ministryofjustice/frontend": "2.2.5"
   }
 }
