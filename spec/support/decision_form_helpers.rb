@@ -1,14 +1,14 @@
 module DecisionFormHelpers
-  def complete_ioj_form
-    choose_answer('What is the interests of justice test result?', 'Passed')
+  def complete_ioj_form(result = 'Passed')
+    choose_answer('What is the interests of justice test result?', result)
     fill_in('What is the reason for this?', with: 'Test result reason details')
     fill_in('What is the name of the caseworker who assessed this?', with: 'Zoe Blogs')
     fill_date('Enter the date of assessment', with: Date.new(2024, 2, 1))
     save_and_continue
   end
 
-  def complete_overall_result_form
-    choose_answer('What is the funding decision for this application?', 'Granted')
+  def complete_overall_result_form(decision = 'Granted')
+    choose_answer('What is the funding decision for this application?', decision)
     save_and_continue
   end
 
@@ -21,6 +21,13 @@ module DecisionFormHelpers
     click_button 'Start'
     complete_ioj_form
     complete_overall_result_form
+    complete_comment_form
+  end
+
+  def add_a_failed_non_means_decision
+    click_button 'Start'
+    complete_ioj_form('Failed')
+    complete_overall_result_form('Refused')
     complete_comment_form
   end
 

@@ -64,15 +64,16 @@ module Maat
       end
     end
 
-    # Store the overall result as provided by the MAAT API and used by eForms.
-    # This is stored temporarily in case the simplified status values are not
-    # approved.
-    # Note: The MAAT API returns a string for Crown Court decisions and
-    # a constant for Magistrates Court decisions.
+    # Store the overall result in the format previously shown to eForms users.
+    # Storing the string since rules as to what is shown are complex and vary
+    # by court and case type.
+    #
+    # Note: The MAAT API returns a string for Crown Court decisions
+    # but a constant for Magistrates' Court decisions.
     def overall_result
       return maat_decision.cc_rep_decision if court_type == Types::CourtType['crown']
 
-      maat_decision.funding_decision
+      OverallResultTranslator.translate(maat_decision.funding_decision)
     end
 
     def crown_court_decision

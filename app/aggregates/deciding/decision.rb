@@ -51,8 +51,8 @@ module Deciding
       apply InterestsOfJusticeSet.build(self, user_id:, interests_of_justice:)
     end
 
-    def set_funding_decision(user_id:, funding_decision:)
-      apply FundingDecisionSet.build(self, user_id:, funding_decision:)
+    def set_funding_decision(user_id:, funding_decision:, overall_result: nil)
+      apply FundingDecisionSet.build(self, user_id:, funding_decision:, overall_result:)
     end
 
     def set_comment(user_id:, comment:)
@@ -101,6 +101,7 @@ module Deciding
 
     on FundingDecisionSet do |event|
       @funding_decision = event.data.fetch(:funding_decision)
+      @overall_result = event.data.fetch(:overall_result, nil)
     end
 
     on CommentSet do |event|
