@@ -8,7 +8,7 @@ module Deciding
 
     attr_reader :application_id, :decision_id, :funding_decision, :comment,
                 :state, :reference, :maat_id, :checksum, :case_id, :means, :interests_of_justice,
-                :court_type, :overall_result
+                :court_type
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
     def create_draft(application_id:, user_id:, reference:)
@@ -51,8 +51,8 @@ module Deciding
       apply InterestsOfJusticeSet.build(self, user_id:, interests_of_justice:)
     end
 
-    def set_funding_decision(user_id:, funding_decision:, overall_result: nil)
-      apply FundingDecisionSet.build(self, user_id:, funding_decision:, overall_result:)
+    def set_funding_decision(user_id:, funding_decision:)
+      apply FundingDecisionSet.build(self, user_id:, funding_decision:)
     end
 
     def set_comment(user_id:, comment:)
@@ -101,7 +101,6 @@ module Deciding
 
     on FundingDecisionSet do |event|
       @funding_decision = event.data.fetch(:funding_decision)
-      @overall_result = event.data.fetch(:overall_result, nil)
     end
 
     on CommentSet do |event|
@@ -138,8 +137,13 @@ module Deciding
       @interests_of_justice = decision.interests_of_justice
       @maat_id = decision.maat_id
       @means = decision.means
-      @overall_result = decision.overall_result
       @reference = decision.reference
+    end
+
+    def overall_result
+      return unless funding_decision
+
+      OverallResultCalculator.new(self).calculate
     end
 
     def complete?

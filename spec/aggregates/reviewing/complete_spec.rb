@@ -53,7 +53,7 @@ RSpec.describe Reviewing::Complete do
           decision_id: decision_id,
           application_id: application_id,
           court_type: nil,
-          overall_result: 'Failed IoJ'
+          overall_result: 'refused'
         ).as_json
       ]
     end
