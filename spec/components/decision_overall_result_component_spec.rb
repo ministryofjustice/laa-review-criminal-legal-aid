@@ -16,15 +16,15 @@ RSpec.describe DecisionOverallResultComponent, type: :component do
       let(:funding_decision) { 'granted' }
       let(:overall_result) { Types::OverallResult['granted_with_contribution'] }
 
-      it { is_expected.to have_text('Granted') }
+      it { is_expected.to have_text('Granted - with contribution', exact: true) }
       it { is_expected.to have_css('.govuk-tag--green') }
     end
 
     context 'when funding is "refused"' do
       let(:funding_decision) { 'refused' }
-      let(:overall_result) { 'refused' }
+      let(:overall_result) { 'refused_failed_ioj_and_means' }
 
-      it { is_expected.to have_text('Refused') }
+      it { is_expected.to have_text('Refused - failed IoJ & means', exact: true) }
       it { is_expected.to have_css('.govuk-tag--red') }
     end
 
@@ -32,7 +32,7 @@ RSpec.describe DecisionOverallResultComponent, type: :component do
       let(:funding_decision) { 'refused' }
       let(:overall_result) { nil }
 
-      it { is_expected.to have_text('') }
+      it { is_expected.to have_text('', exact: true) }
       it { is_expected.not_to have_css('.govuk-tag') }
     end
 
