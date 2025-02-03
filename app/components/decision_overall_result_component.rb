@@ -1,4 +1,6 @@
 class DecisionOverallResultComponent < ViewComponent::Base
+  include AppTextHelper
+
   with_collection_parameter :decision
 
   def initialize(decision:)
@@ -10,7 +12,7 @@ class DecisionOverallResultComponent < ViewComponent::Base
   def call
     return if overall_result.nil?
 
-    govuk_tag(text: overall_result, colour: colour)
+    govuk_tag(text: value_text(overall_result, scope: :decision_overall_result), colour: colour)
   end
 
   private

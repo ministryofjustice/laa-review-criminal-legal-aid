@@ -5,6 +5,14 @@ module Decisions
     attribute? :application_id, Types::Uuid
     attribute? :court_type, Types::CourtType.optional
 
+    # NOTE: Allow strings for the overall result in draft decisions
+    # instead of restricting them to `Types::OverallResult`.
+    # This flexibility enables storing the `Maat::Decision` overall_result
+    # in the event, allowing comparison during the initial phase of
+    # the Outcome Playback release. However, only the `OverallResult` type,
+    # not the MAAT value, is stored in the datastore.
+    attribute? :overall_result, Types::String.optional
+
     def to_param
       { crime_application_id: application_id, decision_id: decision_id }
     end

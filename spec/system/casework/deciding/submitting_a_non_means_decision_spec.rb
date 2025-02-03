@@ -25,7 +25,7 @@ RSpec.describe 'Submitting a Non-means decision' do
             },
             'means' => nil,
             'funding_decision' => 'refused',
-            'overall_result' => 'Failed IoJ',
+            'overall_result' => Types::OverallResult['refused_failed_ioj'],
             'comment' => 'Test comment'
           }
         ]
@@ -56,7 +56,7 @@ RSpec.describe 'Submitting a Non-means decision' do
       expect(page).to have_content('Your list (1)')
       expect(summary_card('Case')).to have_rows(
         'Interests of justice (IoJ) test result', 'Failed',
-        'Overall result', 'Failed IoJ'
+        'Overall result', 'Refused - failed IoJ'
       )
       choose_answer(send_decisions_form_prompt, 'Send decision to provider')
       save_and_continue
@@ -75,7 +75,7 @@ RSpec.describe 'Submitting a Non-means decision' do
         'IoJ comments', 'reason',
         'IoJ caseworker', 'Test User',
         'IoJ test date', '01/10/2024',
-        'Overall result', 'Failed IoJ',
+        'Overall result', 'Refused - failed IoJ',
         'Comments', 'Test comment'
       )
     end
