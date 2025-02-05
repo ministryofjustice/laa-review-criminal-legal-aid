@@ -10,15 +10,19 @@ module Reviewing
           review.send_back(user_id:, reason:)
         end
 
-        DatastoreApi::Requests::UpdateApplication.new(
-          application_id: application_id,
-          payload: { return_details: },
-          member: :return
-        ).call
+        update_datastore
       end
     end
 
     private
+
+    def update_datastore
+      DatastoreApi::Requests::UpdateApplication.new(
+        application_id: application_id,
+        payload: { return_details: },
+        member: :return
+      ).call
+    end
 
     def reason
       return_details.fetch(:reason)
