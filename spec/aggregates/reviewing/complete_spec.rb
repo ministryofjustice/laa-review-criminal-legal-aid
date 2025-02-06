@@ -52,7 +52,7 @@ RSpec.describe Reviewing::Complete do
           comment: nil,
           decision_id: decision_id,
           application_id: application_id,
-          court_type: nil,
+          assessment_rules: 'non_means',
           overall_result: 'refused'
         ).as_json
       ]

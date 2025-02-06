@@ -23,6 +23,7 @@ module Deciding
     end
 
     def refusal_qualification
+      return 'ineligible' if ineligible?
       return 'failed_ioj_and_means' if failed_means? && failed_ioj?
       return 'failed_ioj' if failed_ioj?
 
@@ -39,6 +40,12 @@ module Deciding
 
     def failed_means?
       decision.means&.result == 'failed'
+    end
+
+    def ineligible?
+      return false unless decision.assessment_rules == 'crown_court'
+
+      failed_means?
     end
 
     def granted?

@@ -4,9 +4,7 @@ RSpec.describe Maat::MeansTranslator do
   let(:maat_decision) { Maat::Decision.new }
 
   describe '.translate' do
-    subject(:translate) { described_class.translate(maat_decision, court_type:) }
-
-    let(:court_type) { 'magistrates' }
+    subject(:translate) { described_class.translate(maat_decision:) }
 
     context 'when the means result and passport result are both nil' do
       let(:maat_decision) { Maat::Decision.new(maat_ref: 6_000_001) }
@@ -49,9 +47,12 @@ RSpec.describe Maat::MeansTranslator do
         Maat::Decision.new(
           means_assessor_name: 'Kit',
           means_result: 'FAIL',
+          case_type: case_type,
           date_means_created: DateTime.new(2024, 12, 12, 12)
         )
       end
+
+      let(:case_type) { 'SUMMARY_ONLY' }
 
       it 'returns the means result details' do
         expect(translate).to eq LaaCrimeSchemas::Structs::TestResult.new(
@@ -61,10 +62,10 @@ RSpec.describe Maat::MeansTranslator do
         )
       end
 
-      context 'when a crown court decision' do
-        let(:court_type) { 'crown' }
+      context 'when a Crown Court decision' do
+        let(:case_type) { 'INDICTABLE' }
 
-        it 'returns the crown court means result' do
+        it 'returns the Crown Court court means result' do
           expect(translate).to eq LaaCrimeSchemas::Structs::TestResult.new(
             assessed_by: 'Kit',
             assessed_on: DateTime.new(2024, 12, 12, 12),

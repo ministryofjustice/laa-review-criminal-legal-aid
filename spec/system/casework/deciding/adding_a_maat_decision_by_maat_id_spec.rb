@@ -48,6 +48,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
         maat_ref: maat_id,
         usn: 6_000_001,
         case_id: 'NOL-123',
+        case_type: 'SUMMARY ONLY',
         ioj_result: 'FAIL',
         ioj_assessor_name: 'Jo Blogs',
         app_created_date: Date.new(2024, 2, 1),
@@ -74,7 +75,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
         'Means test result', 'Failed',
         'Means test caseworker', 'Jan Blogs',
         'Means test date', '02/02/2024',
-        'Overall result', 'Refused - failed IoJ & means'
+        'Overall result', 'Refused - failed IoJ and means'
       )
 
       expect(current_path).to eq(

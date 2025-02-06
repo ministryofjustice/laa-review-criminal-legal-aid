@@ -92,6 +92,7 @@ en:
     arc: Application registration card (ARC) number
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
     are_wages_paid_into_account: Client’s wages or benefits paid into this account?
+    assessment_rules: Means test
     assets: "Capital: Assets"
     assigned_to: "Assigned to:"
     benefit_check_status: Passporting benefit check outcome
@@ -458,6 +459,12 @@ en:
     applicant: Client
     partner: Partner
     applicant_and_partner: Client and partner
+    assessment_rules:
+      appeal_to_crown_court: Appeal to Crown Court
+      committal_for_sentence: Committal for sentence
+      crown_court: Crown Court
+      magistrates_court: Magistrates Court
+      non_means: Non-means
     class: Class
     class_not_determined: Not determined
     change_in_financial_circumstances: Change in financial circumstances
@@ -483,8 +490,9 @@ en:
       granted_failed_means: Granted - failed means
       refused: Refused
       refused_failed_ioj: Refused - failed IoJ
-      refused_failed_ioj_and_means: Refused - failed IoJ & means
+      refused_failed_ioj_and_means: Refused - failed IoJ and means
       refused_failed_means: Refused - failed means
+      refused_ineligible: Refused - ineligible
     either_way: Either way
     esa: Income-related Employment and Support Allowance (ESA)
     guarantee_pension: Guarantee Credit element of Pension Credit

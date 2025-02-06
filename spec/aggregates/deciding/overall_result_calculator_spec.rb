@@ -12,6 +12,7 @@ RSpec.describe Deciding::OverallResultCalculator do
         means: instance_double(
           LaaCrimeSchemas::Structs::TestResult, result: means_result
         ),
+        assessment_rules: assessment_rules,
         funding_decision: funding_decision,
         interests_of_justice: instance_double(
           LaaCrimeSchemas::Structs::TestResult, result: ioj_result
@@ -21,6 +22,7 @@ RSpec.describe Deciding::OverallResultCalculator do
 
     context 'when funding is granted' do
       let(:funding_decision) { 'granted' }
+      let(:assessment_rules) { 'magistrates_court' }
 
       context 'when means test is failed' do
         let(:ioj_result) { 'passed' }
@@ -44,31 +46,18 @@ RSpec.describe Deciding::OverallResultCalculator do
       end
     end
 
-    context 'when funding is refused' do
+    context 'when funding is refused and `assessment_rules` "crown_court"' do
+      let(:ioj_result) { 'passed' }
       let(:funding_decision) { 'refused' }
+      let(:assessment_rules) { 'crown_court' }
 
-      context 'when both means and IoJ tests failed' do
-        let(:ioj_result) { 'failed' }
+      context 'when the means test failed' do
         let(:means_result) { 'failed' }
 
-        it { is_expected.to eq('refused_failed_ioj_and_means') }
+        it { is_expected.to eq('refused_ineligible') }
       end
 
-      context 'when only IoJ test failed' do
-        let(:ioj_result) { 'failed' }
-        let(:means_result) { 'passed' }
-
-        it { is_expected.to eq('refused_failed_ioj') }
-      end
-
-      context 'when only means test failed' do
-        let(:ioj_result) { 'passed' }
-        let(:means_result) { 'failed' }
-
-        it { is_expected.to eq('refused_failed_means') }
-      end
-
-      context 'when neither test failed' do
+      context 'when both tests pass' do
         let(:ioj_result) { 'passed' }
         let(:means_result) { 'passed' }
 
