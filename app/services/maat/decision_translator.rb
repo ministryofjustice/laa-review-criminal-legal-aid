@@ -13,7 +13,7 @@ module Maat
     def translate
       Decisions::Draft.new(
         maat_id:, case_id:, reference:, interests_of_justice:,
-        means:, funding_decision:, decision_id:, court_type:, overall_result:
+        means:, funding_decision:, decision_id:, assessment_rules:
       )
     end
 
@@ -33,20 +33,15 @@ module Maat
     end
 
     def interests_of_justice
-      InterestsOfJusticeTranslator.translate(maat_decision)
+      InterestsOfJusticeTranslator.translate(maat_decision:)
     end
 
     def means
-      MeansTranslator.translate(maat_decision, court_type:)
+      MeansTranslator.translate(maat_decision:)
     end
 
-    # infer the court type of the decision from the MAAT decision.
-    def court_type
-      if crown_court_decision
-        Types::CourtType['crown']
-      elsif maat_decision.funding_decision
-        Types::CourtType['magistrates']
-      end
+    def assessment_rules
+      AssessmentRulesTranslator.translate(maat_decision:)
     end
 
     # The MAAT API can return partially completed results. During reassessment,
@@ -56,28 +51,11 @@ module Maat
     def funding_decision
       return if means.blank?
 
-      case court_type
-      when Types::CourtType['crown']
-        crown_court_decision
-      when Types::CourtType['magistrates']
+      if maat_decision.cc_rep_decision.present?
+        CrownCourtDecisionTranslator.translate(maat_decision.cc_rep_decision)
+      else
         FundingDecisionTranslator.translate(maat_decision.funding_decision)
       end
-    end
-
-    # Store the overall result in the format previously shown to eForms users.
-    # Storing the string since rules as to what is shown are complex and vary
-    # by court and case type.
-    #
-    # Note: The MAAT API returns a string for Crown Court decisions
-    # but a constant for Magistrates' Court decisions.
-    def overall_result
-      return maat_decision.cc_rep_decision if court_type == Types::CourtType['crown']
-
-      OverallResultTranslator.translate(maat_decision.funding_decision)
-    end
-
-    def crown_court_decision
-      CrownCourtDecisionTranslator.translate(maat_decision.cc_rep_decision)
     end
   end
 end

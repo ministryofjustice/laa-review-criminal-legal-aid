@@ -5,7 +5,7 @@ module Maat
     end
 
     class << self
-      def translate(maat_decision)
+      def translate(maat_decision:)
         new(maat_decision:).translate
       end
     end

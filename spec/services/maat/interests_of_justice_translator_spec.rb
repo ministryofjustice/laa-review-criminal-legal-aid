@@ -15,7 +15,7 @@ RSpec.describe Maat::InterestsOfJusticeTranslator do
   let(:ioj_appeal_result) { nil }
 
   describe '.translate' do
-    subject(:translate) { described_class.translate(maat_decision) }
+    subject(:translate) { described_class.translate(maat_decision:) }
 
     context 'when IoJ result is nil' do
       let(:ioj_result) { nil }

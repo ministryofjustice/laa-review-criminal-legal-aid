@@ -9,6 +9,7 @@ RSpec.describe DecisionComponent, type: :component do
       means: nil,
       funding_decision: 'granted',
       overall_result: 'granted',
+      assessment_rules: nil,
       comment: nil,
       maat_id: nil
     )

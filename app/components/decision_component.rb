@@ -16,7 +16,7 @@ class DecisionComponent < ViewComponent::Base
 
   attr_reader :decision, :decision_iteration, :show_actions, :action_context
 
-  delegate :means, :interests_of_justice, :court_type, to: :decision
+  delegate :means, :interests_of_justice, :assessment_rules, to: :decision
 
   def actions
     return [] unless draft? && show_actions

@@ -8,7 +8,7 @@ module Deciding
 
     attr_reader :application_id, :decision_id, :funding_decision, :comment,
                 :state, :reference, :maat_id, :checksum, :case_id, :means, :interests_of_justice,
-                :court_type
+                :assessment_rules
 
     # When decision is drafted on Review by the caseworker (e.g. Non-means tested)
     def create_draft(application_id:, user_id:, reference:)
@@ -77,6 +77,7 @@ module Deciding
     on DraftCreated do |event|
       @application_id = event.data.fetch(:application_id)
       @reference = event.data.fetch(:reference, nil)
+      @assessment_rules = Types::AssessmentRules['non_means']
       @state = Types::DecisionState[:draft]
     end
 
@@ -128,11 +129,11 @@ module Deciding
     end
 
     def update_from_maat(maat_attributes)
-      decision = Decisions::Draft.new(maat_attributes)
+      decision = Decisions::Draft.new(maat_attributes.except(:overall_result))
 
       @case_id = decision.case_id
       @checksum = decision.checksum
-      @court_type = decision.court_type
+      @assessment_rules = decision.assessment_rules
       @funding_decision = decision.funding_decision
       @interests_of_justice = decision.interests_of_justice
       @maat_id = decision.maat_id
