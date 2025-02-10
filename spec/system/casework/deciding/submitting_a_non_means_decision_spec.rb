@@ -58,8 +58,7 @@ RSpec.describe 'Submitting a Non-means decision' do
         'Interests of justice (IoJ) test result', 'Failed',
         'Overall result', 'Refused - failed IoJ'
       )
-      choose_answer(send_decisions_form_prompt, 'Send decision to provider')
-      save_and_continue
+      click_button('Send decision to provider')
 
       expect(page).to have_content('Your list (0)')
       expect(page).to have_success_notification_banner(
@@ -104,19 +103,6 @@ RSpec.describe 'Submitting a Non-means decision' do
 
       it 'redirects to the assigned applications page' do
         expect(current_path).to eq assigned_applications_path
-      end
-    end
-
-    context 'when "what do you want to do next?" not answered' do
-      before do
-        add_a_non_means_decision
-        save_and_continue
-      end
-
-      it 'shows an error message' do
-        expect(page).to have_error(
-          send_decisions_form_prompt, 'Select what you want to do next'
-        )
       end
     end
   end
