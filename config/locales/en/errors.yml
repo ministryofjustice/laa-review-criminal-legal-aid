@@ -9,7 +9,7 @@ en:
       assessed_by: 
         blank: Enter the name of the caseworker who assessed this
       assessed_on: 
-        blank: Enter the date of assessemnt
+        blank: Enter the date of assessment
       base: 
         incomplete_decisions: Complete decision details first
       details:
