@@ -29,9 +29,7 @@
       <%= form_with model: @form_object, url: crime_application_send_decisions_path do |f| %>
 
         <% if @crime_application.work_stream == 'non_means_tested' %>
-          <%= f.govuk_radio_buttons_fieldset :next_step, legend: { hidden: true }, hidden: true do %>
-            <%= f.govuk_radio_button :next_step, :send_to_provider, checked: true, hidden: true %>
-          <% end %>
+          <%= f.hidden_field :next_step, value: :send_to_provider %>
 
           <div class="govuk-button-group govuk-!-margin-bottom-6">
             <%= f.govuk_submit t('helpers.label.decisions_send_to_provider_form.next_step_options.send_to_provider') %>
