@@ -11,7 +11,7 @@
       <%= @crime_application.applicant.full_name %>
     </h1>
 
-    <% unless @crime_application.work_stream == 'non_means_tested' %>
+    <% unless @crime_application.non_means? %>
       <h2 class="govuk-heading-m">
         <%= t '.title', count: @decisions.size %>
       </h2>
@@ -28,7 +28,7 @@
     <% if @decisions.all? &:complete? %>
       <%= form_with model: @form_object, url: crime_application_send_decisions_path do |f| %>
 
-        <% if @crime_application.work_stream == 'non_means_tested' %>
+        <% if @crime_application.non_means? %>
           <%= f.hidden_field :next_step, value: :send_to_provider %>
 
           <div class="govuk-button-group govuk-!-margin-bottom-6">
