@@ -71,7 +71,7 @@ spec:
           - configMapRef:
               name: configmap-production
           - secretRef:
-              name: secrets-production
+              name: laa-review-criminal-legal-aid-secrets
         env:
           # secrets created by terraform
           - name: DATABASE_URL
