@@ -12,7 +12,7 @@ en:
   flash:
     success:
       assigned_to_self: You assigned this application to your list
-      completed: You marked the application as complete # TODO: CRIMAPP-1606
+      completed: You marked the application as complete
       completed_with_decisions: Application complete. Decision sent to provider.
       decision_removed: Decision removed
       marked_as_ready: Application ready for assessment in MAAT.
