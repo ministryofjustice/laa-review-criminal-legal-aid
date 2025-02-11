@@ -833,7 +833,7 @@ en:
       funding_decision:
         manually_enter_decision: You need to manually enter a decision for this application.
         create_application_on_maat: To add one or more funding decisions, link the application in MAAT first.
-        update_application_on_maat: To add the funding decision, update the origional application in MAAT first.
+        update_application_on_maat: To add the funding decision, update the original application in MAAT first.
         finish_adding_decisions: You need to finish adding the funding decision details.
       labels:
         <<: *LABELS
