@@ -11,14 +11,12 @@
       <%= @crime_application.applicant.full_name %>
     </h2>
 
-    <h1 class="govuk-heading-xl">
-      <%= t '.title' %>
-    </h1>
+    <h2 class="govuk-heading-l"> <%= t '.title' %> </h2>
 
     <%= form_with model: @form_object,
                   url: crime_application_decision_overall_result_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_collection_radio_buttons :funding_decision, @form_object.possible_decisions, :to_s %>
+      <%= f.govuk_collection_radio_buttons :funding_decision, @form_object.possible_decisions, :to_s, legend: { tag: 'h3', size: 'm' } %>
       <%= f.govuk_submit %>
     <% end %>
   </div>

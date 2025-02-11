@@ -1,9 +1,9 @@
 module DecisionFormHelpers
   def complete_ioj_form(result = 'Passed')
-    choose_answer('What is the interests of justice test result?', result)
-    fill_in('What is the reason for this?', with: 'Test result reason details')
-    fill_in('What is the name of the caseworker who assessed this?', with: 'Zoe Blogs')
-    fill_date('Enter the date of assessment', with: Date.new(2024, 2, 1))
+    choose_answer('Interests of justice test result', result)
+    fill_in('Reason for result', with: 'Test result reason details')
+    fill_in('Caseworker name', with: 'Zoe Blogs')
+    fill_date('Date of test', with: Date.new(2024, 2, 1))
     save_and_continue
   end
 

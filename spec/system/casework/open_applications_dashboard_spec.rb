@@ -19,7 +19,7 @@ RSpec.describe 'Open Applications' do
   it 'includes the correct headings' do
     column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
-    expect(column_headings).to eq(["Applicant's name", 'Reference number', 'Type of application', 'Date received',
+    expect(column_headings).to eq(["Applicant's name", 'Reference number', 'Application type', 'Date received',
                                    'Business days since received', 'Caseworker'])
   end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Open Applications' do
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date received', 'Business days since received'] }
     let(:active_sort_direction) { 'ascending' }
-    let(:inactive_sort_headers) { ['Applicant\'s name', 'Type of application'] }
+    let(:inactive_sort_headers) { ['Applicant\'s name', 'Application type'] }
   end
 
   it 'includes tabs for work streams' do
