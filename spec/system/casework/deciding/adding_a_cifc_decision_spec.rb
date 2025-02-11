@@ -70,6 +70,19 @@ RSpec.describe 'Adding a decision by MAAT ID' do
           "/applications/98ab235c-f125-4dcb-9604-19e81782e53b/decisions/#{maat_id}/comment"
         )
       end
+
+      it 'the CIFC decision can be removed' do
+        Reviewing::Complete.call(
+          application_id: origional_application.id, user_id: SecureRandom.uuid
+        )
+
+        save_and_continue
+        click_button('Remove')
+
+        expect(page).to have_success_notification_banner(
+          text: 'Decision removed'
+        )
+      end
     end
   end
 end
