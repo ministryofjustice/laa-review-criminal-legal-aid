@@ -26,7 +26,7 @@ module Casework
     # This is the preferred method for adding a MAAT decision, but cannot
     # be used if the caseworker manually added the application to MAAT.
     def create_by_reference
-      maat_decision = Maat::CreateDraftDecisionFromReference.call(
+      maat_decision = Maat::LinkDecision.call(
         application: @crime_application, user_id: current_user_id
       )
 
@@ -71,7 +71,7 @@ module Casework
 
     def sync_with_maat
       Maat::UpdateDraftDecision.call(
-        application: @crime_application, maat_id: @decision.decision_id, user_id: current_user_id
+        maat_id: @decision.decision_id, user_id: current_user_id
       )
 
       set_flash(:updated_from_maat, maat_id: @decision.maat_id)

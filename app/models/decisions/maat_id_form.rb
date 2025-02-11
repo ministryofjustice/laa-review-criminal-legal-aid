@@ -20,7 +20,7 @@ module Decisions
     alias decision_id maat_id
 
     def persist(user_id)
-      Maat::CreateDraftDecisionFromMaatId.call(application:, maat_id:, user_id:)
+      Maat::LinkDecision.call(application:, maat_id:, user_id:)
     rescue Maat::RecordNotFound, Deciding::Error, Reviewing::Error => e
       errors.add(:maat_id, e.class.name.demodulize.underscore.to_sym)
 
