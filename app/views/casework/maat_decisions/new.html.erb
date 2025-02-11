@@ -7,15 +7,13 @@
       <%= govuk_link_to(t('calls_to_action.view_application'), crime_application_path(@crime_application), no_visited_state: true) %>
     </p>
 
-    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
       <%= @crime_application.applicant.full_name %>
-    </h2>
+    </h1>
 
     <%= govuk_error_summary(@form_object) %>
 
-    <h1 class="govuk-heading-xl">
-      <%= t '.title' %>
-    </h1>
+    <h2 class="govuk-heading-l"> <%= t '.title' %> </h2>
 
     <%= form_with model: @form_object,
                   url: crime_application_maat_decisions_path do |f| %>

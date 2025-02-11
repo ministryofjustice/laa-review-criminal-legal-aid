@@ -44,7 +44,7 @@ RSpec.describe 'Send an application back to the provider' do
       end
 
       it 'shows the applicant name in the heading' do
-        expect(page).to have_content "Send Kit Pound's application back to the provider"
+        expect(page).to have_content "Return Kit Pound's application to provider"
       end
 
       it 'requires further details' do
@@ -53,7 +53,7 @@ RSpec.describe 'Send an application back to the provider' do
         click_button(send_back_cta)
 
         within '.govuk-error-summary__body' do
-          expect(page).to have_content 'Give further details'
+          expect(page).to have_content 'Enter a reason for the result'
         end
       end
 

@@ -36,7 +36,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
     it 'shows success flash message' do
       click_button(ready_for_assessment_cta)
-      expect(page).to have_content('You marked the application as ready for assessment')
+      expect(page).to have_content('Application ready for assessment in MAAT.')
     end
 
     context 'with errors Reviewing::' do
