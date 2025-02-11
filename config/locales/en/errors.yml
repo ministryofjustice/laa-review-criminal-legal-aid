@@ -7,13 +7,13 @@ en:
       add_another_decision:
         inclusion: Select yes to add another case
       assessed_by: 
-        blank: Enter the name of the caseworker who assessed this
+        blank: Enter the caseworker name
       assessed_on: 
-        blank: Enter the date of assessment
+        blank: Enter the date of the test
       base: 
         incomplete_decisions: Complete decision details first
       details:
-        blank: Give further details
+        blank: Enter a reason for the result
       email:
         blank: Enter an email
         invalid: Invalid email format
@@ -24,8 +24,8 @@ en:
       reason:
         inclusion: Choose a reason
       result: 
-        blank: Select the test result
-        inclusion: Select the test result
+        blank: Select a result for the Interest of justice test
+        inclusion: Select a result for the Interest of justice test
       maat_id:
         blank: &invalid_maat_id "Enter a valid MAAT ID"
         greated_than: *invalid_maat_id

@@ -32,10 +32,10 @@ RSpec.describe 'Adding a Non-means application' do
       save_and_continue
 
       expect(page).to have_errors(
-        'Caseworker name', 'Enter the name of the caseworker who assessed this',
-        'Interests of justice test result', 'Select the test result',
-        'Reason for result', 'Give further details',
-        'Date of test', 'Enter the date of assessment'
+        'Caseworker name', 'Enter the caseworker name',
+        'Interests of justice test result', 'Select a result for the Interest of justice test',
+        'Reason for result', 'Enter a reason for the result',
+        'Date of test', 'Enter the date of the test'
       )
     end
 
