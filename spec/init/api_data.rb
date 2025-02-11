@@ -38,7 +38,7 @@ RSpec.configure do |config|
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/012a553f-e9b7-4e9a-a265-67682b572fd0"
     ).to_return(body: resubmission_data.to_json, status: 200)
 
-    origional_submission_data = JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+    original_submission_data = JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
       'id' => 'ff32c3e6-a88e-4d3d-a595-5a11b0aea9ef',
       'parent_id' => nil,
       'client_details' => { 'applicant' => { 'first_name' => 'Jessica', 'last_name' => 'Rhode' } }
@@ -47,7 +47,7 @@ RSpec.configure do |config|
     stub_request(
       :get,
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/ff32c3e6-a88e-4d3d-a595-5a11b0aea9ef"
-    ).to_return(body: origional_submission_data.to_json, status: 200)
+    ).to_return(body: original_submission_data.to_json, status: 200)
 
     #
     # For an application not found on the datastore
