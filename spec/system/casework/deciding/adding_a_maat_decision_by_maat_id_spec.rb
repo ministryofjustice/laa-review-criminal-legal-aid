@@ -88,10 +88,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
     let(:maat_id) { 123 }
 
     let(:maat_decision) do
-      Maat::Decision.new(
-        maat_ref: maat_id,
-        usn: 6_000_002
-      )
+      Maat::Decision.new(maat_ref: maat_id, usn: 6_000_002)
     end
 
     it 'shows an error' do
@@ -105,10 +102,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
     let(:maat_id) { 123 }
 
     let(:maat_decision) do
-      Maat::Decision.new(
-        maat_ref: maat_id,
-        usn: 6_000_001
-      )
+      Maat::Decision.new(maat_ref: maat_id, usn: 6_000_001)
     end
 
     it 'shows an error' do

@@ -1,18 +1,14 @@
 module Deciding
   class CreateDraftFromMaat < Command
-    attribute :application_id, Types::Uuid
-    attribute :application_type, Types::ApplicationType
     attribute :maat_decision, Decisions::Draft
     attribute :user_id, Types::Uuid
 
     def call
       with_decision do |decision|
         if decision.state.present?
-          link_and_sync(decision)
+          decision.sync_with_maat(maat_decision:, user_id:) if maat_decision&.checksum != decision.checksum
         else
-          decision.create_draft_from_maat(
-            application_id:, maat_decision:, user_id:, application_type:
-          )
+          decision.create_draft_from_maat(maat_decision:, user_id:)
         end
       end
     end
@@ -25,8 +21,6 @@ module Deciding
       else
         decision.link(application_id:, user_id:)
       end
-
-      decision.sync_with_maat(maat_decision:, user_id:) if maat_decision&.checksum != decision.checksum
     end
   end
 end

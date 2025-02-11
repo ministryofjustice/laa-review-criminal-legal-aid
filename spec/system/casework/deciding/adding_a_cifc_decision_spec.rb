@@ -44,7 +44,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
 
     context 'when the MAAT ID is linked on review' do
       before do
-        Maat::CreateDraftDecisionFromMaatId.call(
+        Maat::LinkDecision.call(
           application: original_application,
           maat_id: maat_id, user_id: SecureRandom.uuid
         )

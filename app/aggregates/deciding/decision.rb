@@ -20,12 +20,13 @@ module Deciding
     end
 
     # When the decision is created from a MAAT record
-    def create_draft_from_maat(application_id:, maat_decision:, user_id:, application_type:)
+    def create_draft_from_maat(maat_decision:, user_id:)
       raise AlreadyCreated unless @state.nil?
 
       maat_decision = maat_decision.to_h
+
       apply DraftCreatedFromMaat.new(
-        data: { decision_id:, application_id:, maat_decision:, user_id:, application_type: }
+        data: { decision_id:, maat_decision:, user_id: }
       )
     end
 
@@ -39,7 +40,7 @@ module Deciding
     # A CIFC application can only be linked if decision is not
     # linked or sent_to_provider
     def link_to_cifc(application_id:, user_id:)
-      raise AlreadyLinked if @state == :draft
+      raise AlreadyLinked if @application_id.present? && @state == :draft
 
       apply LinkedToCifc.build(self, user_id:, application_id:)
     end
@@ -84,8 +85,6 @@ module Deciding
 
     # When the decision is created from a MAAT record
     on DraftCreatedFromMaat do |event|
-      @application_id = event.data.fetch(:application_id)
-
       update_from_maat(event.data.fetch(:maat_decision))
 
       @state = Types::DecisionState[:draft]
