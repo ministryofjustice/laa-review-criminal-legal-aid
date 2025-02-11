@@ -44,7 +44,7 @@ RSpec.describe 'Send an application back to the provider' do
       end
 
       it 'shows the applicant name in the heading' do
-        expect(page).to have_content "Send Kit Pound's application back to the provider"
+        expect(page).to have_content "Return Kit Pound's application to provider"
       end
 
       it 'requires further details' do

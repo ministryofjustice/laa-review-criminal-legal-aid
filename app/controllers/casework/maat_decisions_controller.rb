@@ -52,7 +52,7 @@ module Casework
     end
 
     def destroy
-      Deciding::Unlink.call(
+      Reviewing::RemoveDecision.call(
         application_id: @crime_application.id,
         user_id: current_user_id,
         decision_id: @decision.decision_id

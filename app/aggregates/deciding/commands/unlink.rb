@@ -6,10 +6,7 @@ module Deciding
 
     def call
       with_decision do |decision|
-        ActiveRecord::Base.transaction do
-          decision.unlink(application_id:, user_id:)
-          Reviewing::RemoveDecision.call(decision_id:, application_id:, user_id:)
-        end
+        decision.unlink(application_id:, user_id:)
       end
     end
   end

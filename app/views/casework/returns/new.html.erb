@@ -1,4 +1,4 @@
-<% title t('.page_title') %>
+<% title t('.header', applicant_name: @crime_application.applicant.full_name) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -19,9 +19,10 @@
       <% end %>
 
       <%= f.govuk_text_area :details,
-                            label: { text: t(:return_reason_details_legend, scope: 'labels'), class: 'govuk-label--m' },
-                            hint: { text: t(:return_reason_details, scope: 'labels') },
+                            label: { text: label_text(:return_reason_details_legend), class: 'govuk-label--m' },
                             autocomplete: 'off' %>
+
+      <%= govuk_inset_text(text: label_text(:return_unlink_notice)) if @crime_application.draft_decisions.any? %>
 
       <%= f.govuk_submit t(:send_back, scope: 'calls_to_action') %>
     <% end %>

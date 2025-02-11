@@ -342,8 +342,8 @@ en:
     relationship_to_client: Relationship to client
     relationship_to_owner_of_usual_home_address: Relationship to client
     residence_type: Where the client usually lives
-    return_reason_details: We'll share this information with the provider
-    return_reason_details_legend: Give further details
+    return_reason_details_legend: Give details
+    return_unlink_notice: Any linked MAAT IDs will be removed.
     same_court_as_first_hearing: Same court as first hearing?
     saving_account_balance: Account balance
     saving_account_holder: Name the account is in
@@ -360,7 +360,7 @@ en:
     savings_and_investments: "Capital: Savings and investments"
     search_criteria: Search criteria
     search_text: Reference number or applicant's first or last name
-    select_return_reason: Select the reason for returning this application
+    select_return_reason: Why are you returning this application?
     separation_date: Date client separated from partner
     start_on: Date from
     supporting_evidence: Supporting evidence and information
@@ -562,12 +562,12 @@ en:
       assigned: All assigned
       unassigned: Unassigned
     return_reason:
-      clarification_required: Clarification required
+      clarification_required: Need clarification
       evidence_issue: Evidence issue
       duplicate_application: Duplicate application
-      case_concluded: Case has already concluded
+      case_concluded: Case already concluded
       provider_request: Provider request
-      split_case: The case has been split, so we need justification for all offences
+      split_case: Split case, so justification needed for all offences
     color:
       submitted: blue
       open: blue
@@ -769,8 +769,7 @@ en:
 
     returns:
       new:
-        page_title: Send back application
-        header: "Send %{applicant_name}'s application back to the provider"
+        header: "Return %{applicant_name}'s application to provider"
 
     completes:
       show:

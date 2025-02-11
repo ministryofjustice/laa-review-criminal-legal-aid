@@ -23,4 +23,12 @@ module Deciding
       "Deciding$#{decision_id}"
     end
   end
+
+  class Configuration
+    def call(event_store)
+      event_store.subscribe(to: [Reviewing::DecisionRemoved]) do |event|
+        Deciding::Unlink.call(event.data.slice(:application_id, :decision_id, :user_id))
+      end
+    end
+  end
 end

@@ -71,4 +71,17 @@ RSpec.describe 'Adding another MAAT decision' do
 
     expect(current_path).to eq(assigned_applications_path)
   end
+
+  it 'removes the decisions if application is returned to provider' do
+    click_link 'View application'
+    click_link 'Send back to provider'
+
+    expect(page).to have_content('Any linked MAAT IDs will be removed.')
+    choose 'Evidence issue'
+    fill_in 'return-details-details-field', with: 'As requested'
+
+    expect { click_button('Send back to provider') }
+      .to(change { Deciding::LoadDecision.call(decision_id: maat_id).application_id }.to(nil)
+        .and(change { Deciding::LoadDecision.call(decision_id: maat_id2).application_id }.to(nil)))
+  end
 end

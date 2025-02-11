@@ -73,6 +73,7 @@ RSpec.configure do |config|
     CurrentAssignments::Configuration.new.call(event_store)
     Reviews::Configuration.new.call(event_store)
     CaseworkerReports::Configuration.new.call(event_store)
+    Deciding::Configuration.new.call(event_store)
   end
 
   # Use production error handling in these specs
