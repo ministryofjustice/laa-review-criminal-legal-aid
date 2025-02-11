@@ -36,9 +36,10 @@ module Deciding
       apply Linked.build(self, user_id:, application_id:)
     end
 
-    # A CIFC application can only be linked when the decision is in a sent state.
+    # A CIFC application can only be linked if decision is not
+    # linked or sent_to_provider
     def link_to_cifc(application_id:, user_id:)
-      raise AlreadyLinked unless @state == :sent_to_provider
+      raise AlreadyLinked if @state == :draft
 
       apply LinkedToCifc.build(self, user_id:, application_id:)
     end
@@ -122,6 +123,7 @@ module Deciding
     # Original reference is retained when linking to CIFC
     on LinkedToCifc do |event|
       @application_id = event.data.fetch(:application_id)
+      @state = Types::DecisionState[:draft]
     end
 
     on SentToProvider do |_event|
