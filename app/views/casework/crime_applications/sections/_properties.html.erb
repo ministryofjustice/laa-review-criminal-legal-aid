@@ -2,7 +2,7 @@
   <h2 class="govuk-heading-l"><%= label_text(:assets) %></h2>
 <% end  %>
 
-<% if capital_details.has_no_properties == 'yes'  %>
+<% if capital_details.properties.empty?  %>
   <%= govuk_summary_card(title: label_text(:properties_title)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
@@ -11,7 +11,7 @@
           end
         end %>
   <% end %>
-<% elsif capital_details.properties.present? %>
+<% else %>
   <% capital_details.properties.group_by(&:property_type).each do |item_type, group| %>
     <%= app_card_list(items: group, item_name: label_text("property_type.#{item_type}")) do |card|
           property = card.item
