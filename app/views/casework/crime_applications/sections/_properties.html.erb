@@ -1,8 +1,7 @@
 <% if capital_details.has_no_properties == 'yes' || capital_details.properties.present?  %>
   <h2 class="govuk-heading-l"><%= label_text(:assets) %></h2>
-<% end  %>
 
-<% if capital_details.properties.empty?  %>
+<% if capital_details.has_no_properties == 'yes' && capital_details.properties.empty? %>
   <%= govuk_summary_card(title: label_text(:properties_title)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
@@ -11,95 +10,96 @@
           end
         end %>
   <% end %>
-<% else %>
-  <% capital_details.properties.group_by(&:property_type).each do |item_type, group| %>
-    <%= app_card_list(items: group, item_name: label_text("property_type.#{item_type}")) do |card|
-          property = card.item
-          asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type.to_sym][:display_name]
-          govuk_summary_list(actions: false) do |list|
-            if property.property_type == PropertiesPresenter::RESIDENTIAL
-              list.with_row do |row|
-                row.with_key { label_text(:house_type, scope: 'properties') }
-                row.with_value { simple_format(property.house_type == PropertiesPresenter::OTHER ? property.other_house_type : t(property.house_type, scope: 'values.house_type')) }
-              end
-              list.with_row do |row|
-                row.with_key { label_text(:bedrooms, scope: 'properties') }
-                row.with_value { simple_format(property.bedrooms.to_s) }
-              end
-            end
+<% end %>
 
-            if property.property_type == PropertiesPresenter::LAND
-              list.with_row do |row|
-                row.with_key { label_text(:size_in_acres, scope: 'properties') }
-                row.with_value { simple_format("#{property.size_in_acres} acres") }
-              end
-            end
-
-            if property.property_type == PropertiesPresenter::LAND || property.property_type == PropertiesPresenter::COMMERCIAL
-              list.with_row do |row|
-                row.with_key { label_text(:usage, scope: 'properties', asset: asset) }
-                row.with_value { simple_format(property.usage) }
-              end
-            end
-
+<% capital_details.properties.group_by(&:property_type).each do |item_type, group| %>
+  <%= app_card_list(items: group, item_name: label_text("property_type.#{item_type}")) do |card|
+        property = card.item
+        asset = PropertiesPresenter::PROPERTY_TYPE_MAPPING[property.property_type.to_sym][:display_name]
+        govuk_summary_list(actions: false) do |list|
+          if property.property_type == PropertiesPresenter::RESIDENTIAL
             list.with_row do |row|
-              row.with_key { label_text(:value, scope: 'properties', asset: asset) }
-              row.with_value { simple_format(number_to_currency(property.value * 0.01)) }
+              row.with_key { label_text(:house_type, scope: 'properties') }
+              row.with_value { simple_format(property.house_type == PropertiesPresenter::OTHER ? property.other_house_type : t(property.house_type, scope: 'values.house_type')) }
             end
-
             list.with_row do |row|
-              row.with_key { label_text(:outstanding_mortgage, scope: 'properties') }
-              row.with_value { simple_format(number_to_currency(property.outstanding_mortgage * 0.01)) }
-            end
-
-            list.with_row do |row|
-              row.with_key { label_text(:percentage_applicant_owned, scope: 'properties', asset: asset) }
-              row.with_value { simple_format(number_to_percentage(property.percentage_applicant_owned, precision: 2)) }
-            end
-
-            if property.percentage_partner_owned
-              list.with_row do |row|
-                row.with_key { label_text(:percentage_partner_owned, scope: 'properties', asset: asset) }
-                row.with_value { simple_format(number_to_percentage(property.percentage_partner_owned, precision: 2)) }
-              end
-            end
-
-            unless property.is_home_address.nil?
-              list.with_row do |row|
-                row.with_key { label_text(:is_home_address, scope: 'properties', asset: asset) }
-                row.with_value { simple_format(t(property.is_home_address, scope: 'values')) }
-              end
-            end
-
-            unless property.address.nil?
-              list.with_row do |row|
-                row.with_key { label_text(:address, scope: 'properties', asset: asset) }
-                row.with_value { render 'address', address: property.address }
-              end
-            end
-
-            list.with_row do |row|
-              row.with_key { label_text(:has_other_owners, scope: 'properties', asset: asset) }
-              row.with_value { simple_format(t(property.has_other_owners, scope: 'values')) }
-            end
-
-            property.property_owners.each_with_index do |property_owner, index|
-              list.with_row do |row|
-                row.with_key { label_text(:name, scope: 'property_owners', index: index + 1) }
-                row.with_value { simple_format(property_owner.name) }
-              end
-
-              list.with_row do |row|
-                row.with_key { label_text(:relationship, scope: 'property_owners') }
-                row.with_value { simple_format(property_owner.relationship == PropertiesPresenter::OTHER ? property_owner.other_relationship : t(property_owner.relationship, scope: 'values.relationship_type')) }
-              end
-
-              list.with_row do |row|
-                row.with_key { label_text(:percentage_owned, scope: 'property_owners', asset: asset) }
-                row.with_value { simple_format(number_to_percentage(property_owner.percentage_owned, precision: 2)) }
-              end
+              row.with_key { label_text(:bedrooms, scope: 'properties') }
+              row.with_value { simple_format(property.bedrooms.to_s) }
             end
           end
-        end %>
-     <% end %>
-<% end %>
+
+          if property.property_type == PropertiesPresenter::LAND
+            list.with_row do |row|
+              row.with_key { label_text(:size_in_acres, scope: 'properties') }
+              row.with_value { simple_format("#{property.size_in_acres} acres") }
+            end
+          end
+
+          if property.property_type == PropertiesPresenter::LAND || property.property_type == PropertiesPresenter::COMMERCIAL
+            list.with_row do |row|
+              row.with_key { label_text(:usage, scope: 'properties', asset: asset) }
+              row.with_value { simple_format(property.usage) }
+            end
+          end
+
+          list.with_row do |row|
+            row.with_key { label_text(:value, scope: 'properties', asset: asset) }
+            row.with_value { simple_format(number_to_currency(property.value * 0.01)) }
+          end
+
+          list.with_row do |row|
+            row.with_key { label_text(:outstanding_mortgage, scope: 'properties') }
+            row.with_value { simple_format(number_to_currency(property.outstanding_mortgage * 0.01)) }
+          end
+
+          list.with_row do |row|
+            row.with_key { label_text(:percentage_applicant_owned, scope: 'properties', asset: asset) }
+            row.with_value { simple_format(number_to_percentage(property.percentage_applicant_owned, precision: 2)) }
+          end
+
+          if property.percentage_partner_owned
+            list.with_row do |row|
+              row.with_key { label_text(:percentage_partner_owned, scope: 'properties', asset: asset) }
+              row.with_value { simple_format(number_to_percentage(property.percentage_partner_owned, precision: 2)) }
+            end
+          end
+
+          unless property.is_home_address.nil?
+            list.with_row do |row|
+              row.with_key { label_text(:is_home_address, scope: 'properties', asset: asset) }
+              row.with_value { simple_format(t(property.is_home_address, scope: 'values')) }
+            end
+          end
+
+          unless property.address.nil?
+            list.with_row do |row|
+              row.with_key { label_text(:address, scope: 'properties', asset: asset) }
+              row.with_value { render 'address', address: property.address }
+            end
+          end
+
+          list.with_row do |row|
+            row.with_key { label_text(:has_other_owners, scope: 'properties', asset: asset) }
+            row.with_value { simple_format(t(property.has_other_owners, scope: 'values')) }
+          end
+
+          property.property_owners.each_with_index do |property_owner, index|
+            list.with_row do |row|
+              row.with_key { label_text(:name, scope: 'property_owners', index: index + 1) }
+              row.with_value { simple_format(property_owner.name) }
+            end
+
+            list.with_row do |row|
+              row.with_key { label_text(:relationship, scope: 'property_owners') }
+              row.with_value { simple_format(property_owner.relationship == PropertiesPresenter::OTHER ? property_owner.other_relationship : t(property_owner.relationship, scope: 'values.relationship_type')) }
+            end
+
+            list.with_row do |row|
+              row.with_key { label_text(:percentage_owned, scope: 'property_owners', asset: asset) }
+              row.with_value { simple_format(number_to_percentage(property_owner.percentage_owned, precision: 2)) }
+            end
+          end
+        end
+      end %>
+   <% end %>
+<% end  %>
