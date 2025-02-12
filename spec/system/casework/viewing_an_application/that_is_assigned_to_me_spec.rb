@@ -22,11 +22,15 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   describe 'Conditional display of review buttons' do
     it 'displays mark as ready for MAAT button as default' do
       expect(page).to have_content('Mark as ready for MAAT')
-      expect(page).to have_no_content('Mark as completed')
+      expect(page).to have_no_content('Mark as completed') # TODO: conditional?
     end
 
     context 'when the application is already marked as ready' do
       before do
+        allow(FeatureFlags).to receive(:adding_decisions) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+        }
+
         allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
           .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 

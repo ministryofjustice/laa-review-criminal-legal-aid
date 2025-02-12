@@ -26,7 +26,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
       click_on 'Kit Pound'
     end
 
-    it 'has a visable "Mark as ready for MAAT" CTA' do
+    it 'has a visible "Mark as ready for MAAT" CTA' do
       expect(page).to have_content('Mark as ready for MAAT')
     end
 
@@ -80,7 +80,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
       click_on('Kit Pound')
     end
 
-    it 'the "Ready for assessment" button is not visable' do
+    it 'the "Ready for assessment" button is not visible' do
       expect(page).to have_no_button(ready_for_assessment_cta)
     end
   end

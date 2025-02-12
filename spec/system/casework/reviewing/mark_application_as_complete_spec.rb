@@ -6,6 +6,10 @@ RSpec.describe 'Marking an application as complete' do
   let(:complete_cta) { 'Mark as completed' }
 
   before do
+    allow(FeatureFlags).to receive(:adding_decisions) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+
     visit '/'
     click_on 'Open applications'
   end
@@ -32,7 +36,7 @@ RSpec.describe 'Marking an application as complete' do
       click_on 'Kit Pound'
     end
 
-    it 'has a visable "Mark as completed" CTA' do
+    it 'has a visible "Mark as completed" CTA' do
       expect(page).to have_content('Mark as completed')
     end
 
@@ -97,7 +101,7 @@ RSpec.describe 'Marking an application as complete' do
       click_on('Kit Pound')
     end
 
-    it 'the "Mark as completed" button is not visable' do
+    it 'the "Mark as completed" button is not visible' do
       expect(page).to have_no_button(complete_cta)
     end
   end
