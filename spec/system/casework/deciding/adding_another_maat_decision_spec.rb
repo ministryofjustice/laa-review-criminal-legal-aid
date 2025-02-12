@@ -63,6 +63,13 @@ RSpec.describe 'Adding another MAAT decision' do
     expect(current_path).to eq(crime_application_send_decisions_path(application_id))
   end
 
+  context 'when "what do you want to do next?" not answered' do
+    it 'shows an error message' do
+      save_and_continue
+      expect(page).to have_error('What do you want to do next?', 'Select what you want to do next')
+    end
+  end
+
   it 'sends the decisions' do
     choose_answer('What do you want to do next?', 'Send decision to provider')
     save_and_continue

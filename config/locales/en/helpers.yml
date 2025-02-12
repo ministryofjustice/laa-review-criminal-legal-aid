@@ -12,8 +12,8 @@ en:
 
     legend:
       decisions_interests_of_justice_form:
-        result: What is the interests of justice test result?
-        assessed_on: Enter the date of assessment
+        result: Interests of justice test result
+        assessed_on: Date of test
       decisions_overall_result_form:
         funding_decision: What is the funding decision for this application?
       decisions_comment_form:
@@ -30,8 +30,8 @@ en:
         result_options:
           passed: Passed
           failed: Failed
-        details: What is the reason for this?
-        assessed_by: What is the name of the caseworker who assessed this?
+        details: Reason for result
+        assessed_by: Caseworker name
       decisions_overall_result_form:
         funding_decision_options:
           granted: Granted

@@ -13,7 +13,7 @@ RSpec.describe 'Sorting search results' do
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date received'] }
     let(:active_sort_direction) { 'ascending' }
-    let(:inactive_sort_headers) { ['Applicant\'s name', 'Case type', 'Date closed', 'Type of application'] }
+    let(:inactive_sort_headers) { ['Applicant\'s name', 'Case type', 'Date closed', 'Application type'] }
   end
 
   describe 'Search results remain after sorting' do

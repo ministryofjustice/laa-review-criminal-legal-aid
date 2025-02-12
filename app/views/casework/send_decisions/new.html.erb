@@ -11,9 +11,11 @@
       <%= @crime_application.applicant.full_name %>
     </h1>
 
-    <h2 class="govuk-heading-m">
-      <%= t '.title', count: @decisions.size %>
-    </h2>
+    <% unless @crime_application.non_means? %>
+      <h2 class="govuk-heading-m">
+        <%= t '.title', count: @decisions.size %>
+      </h2>
+    <% end %>
 
     <%= govuk_error_summary(@form_object) %>
   </div>
@@ -26,16 +28,25 @@
     <% if @decisions.all? &:complete? %>
       <%= form_with model: @form_object, url: crime_application_send_decisions_path do |f| %>
 
-        <%= f.govuk_radio_buttons_fieldset :next_step, legend: { tag: 'h2', size: 'm' } do %>
+        <% if @crime_application.non_means? %>
+          <%= f.hidden_field :next_step, value: :send_to_provider %>
 
-          <%= f.govuk_radio_button :next_step, :send_to_provider, link_errors: true %>
-          <%= f.govuk_radio_button :next_step, :add_another %>
+          <div class="govuk-button-group govuk-!-margin-bottom-6">
+            <%= f.govuk_submit t('helpers.label.decisions_send_to_provider_form.next_step_options.send_to_provider') %>
+            <%= govuk_button_link_to action_text(:save_and_come_back), assigned_applications_path, secondary: true %>
+          </div>
+
+        <% else %>
+          <%= f.govuk_radio_buttons_fieldset :next_step, legend: { tag: 'h2', size: 'm' } do %>
+            <%= f.govuk_radio_button :next_step, :send_to_provider, link_errors: true %>
+            <%= f.govuk_radio_button :next_step, :add_another %>
+          <% end %>
+
+          <div class="govuk-button-group govuk-!-margin-bottom-6">
+            <%= f.govuk_submit %>
+            <%= govuk_button_link_to action_text(:save_and_come_back), assigned_applications_path, secondary: true %>
+          </div>
         <% end %>
-
-        <div class="govuk-button-group govuk-!-margin-bottom-6">
-          <%= f.govuk_submit %>
-          <%= govuk_button_link_to action_text(:save_and_come_back), assigned_applications_path, secondary: true %>
-        </div>
       <% end %>
     <% end %>
   </div>

@@ -3,6 +3,7 @@ require 'laa_crime_schemas'
 class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:disable Metrics/ClassLength
   include Assignable
   include Reviewable
+  include TypeOfApplication
 
   PRE_CIFC_MAAT_ID = 'pre_cifc_maat_id'.freeze
   PRE_CIFC_USN = 'pre_cifc_usn'.freeze
@@ -188,19 +189,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
 
   def date_stamp_context
     @date_stamp_context ||= DateStampContextPresenter.present(DateStampContext.new(self))
-  end
-
-  def pse?
-    application_type == Types::ApplicationType['post_submission_evidence']
-  end
-
-  def cifc?
-    application_type == Types::ApplicationType['change_in_financial_circumstances']
-  end
-
-  def appeal_no_changes?
-    case_details&.case_type == Types::CaseType['appeal_to_crown_court'] &&
-      case_details&.appeal_reference_number.present?
   end
 
   def last_jsa_appointment_date?(person)

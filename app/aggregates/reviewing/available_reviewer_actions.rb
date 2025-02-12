@@ -1,5 +1,7 @@
 module Reviewing
   class AvailableReviewerActions
+    include TypeOfApplication
+
     AVAILABLE_ACTIONS = {
       means: {
         open: [:mark_as_ready, :send_back],
@@ -60,18 +62,6 @@ module Reviewing
       return Types::ReviewType[:non_means] if non_means?
 
       Types::ReviewType[:means]
-    end
-
-    def pse?
-      application_type == Types::ApplicationType['post_submission_evidence']
-    end
-
-    def cifc?
-      application_type == Types::ApplicationType['change_in_financial_circumstances']
-    end
-
-    def non_means?
-      work_stream == Types::WorkStreamType['non_means_tested']
     end
 
     class << self

@@ -36,7 +36,7 @@ en:
       weekly: week 
       daily: day 
   table_headings:
-    application_type: Type of application
+    application_type: Application type
     applications_closed: Number of closed applications
     applications_received: Applications received
     assigned_to_user: "from<br>list"

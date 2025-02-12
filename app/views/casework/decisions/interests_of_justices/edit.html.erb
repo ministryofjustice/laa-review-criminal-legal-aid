@@ -7,13 +7,11 @@
       <%= govuk_link_to(t('calls_to_action.view_application'), crime_application_path(@crime_application), no_visited_state: true) %>
     </p>
 
-    <h2 class="govuk-heading-xl govuk-!-margin-bottom-4">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
       <%= @crime_application.applicant.full_name %>
-    </h2>
-
-    <h1 class="govuk-heading-xl">
-      <%= t '.title' %>
     </h1>
+
+    <h2 class="govuk-heading-l"> <%= t '.title' %> </h2>
 
     <%= form_with model: @form_object,
                   url: crime_application_decision_interests_of_justice_path, method: :put do |f| %>
@@ -22,10 +20,11 @@
 
       <%= f.govuk_collection_radio_buttons :result,
                                            @form_object.possible_results,
-                                           :to_s %>
-      <%= f.govuk_text_area :details %>
-      <%= f.govuk_text_field :assessed_by, autocomplete: 'off' %>
-      <%= f.govuk_date_field :assessed_on, maxlength_enabled: true, autocomplete: 'off' %>
+                                           :to_s,
+                                           legend: { tag: 'h3', size: 'm' } %>
+      <%= f.govuk_text_area :details, label: { tag: 'h3', size: 'm' } %>
+      <%= f.govuk_text_field :assessed_by, autocomplete: 'off', label: { tag: 'h3', size: 'm' }  %>
+      <%= f.govuk_date_field :assessed_on, maxlength_enabled: true, autocomplete: 'off', legend: { tag: 'h3', size: 'm' }  %>
       <%= f.govuk_submit %>
     <% end %>
   </div>
