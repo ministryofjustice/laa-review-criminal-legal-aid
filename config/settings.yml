@@ -10,7 +10,7 @@ feature_flags:
   adding_decisions:
     local: false
     staging: true
-    production: false
+    production: true
 
 # For settings that vary by HostEnv name
 host_env_settings:
