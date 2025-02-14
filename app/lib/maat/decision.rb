@@ -24,5 +24,14 @@ module Maat
 
     attribute? :funding_decision, Types::String.optional
     attribute? :cc_rep_decision, Types::String.optional
+
+    # [CRIMAPP-1647] An application may only be determined as NAFI
+    # during the process of being added to MAAT. The MAAT API
+    # will hopefully be updated to include the `review_type` of
+    # the latest means assessment. As a temporary workaround,
+    # we check for the presence of the string "NAFI" in the `ioj_reason`.
+    def nafi?
+      ioj_reason.present? && !!ioj_reason['NAFI']
+    end
   end
 end
