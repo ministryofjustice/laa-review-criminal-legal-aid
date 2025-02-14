@@ -113,4 +113,7 @@ module Types
   CompetencyType = String.enum(
     *WORK_STREAM_COMPETENCIES, *APPLICATION_TYPE_COMPETENCIES
   )
+
+  # [CRIMAPP-1647] NAFI application type is currently only relevant to Crime Review.
+  ApplicationType = String.enum(*APPLICATION_TYPES, 'new_application_following_ineligibility')
 end

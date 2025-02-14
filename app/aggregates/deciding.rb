@@ -14,6 +14,7 @@ module Deciding
   class InterestsOfJusticeSet < Event; end
   class Linked < Event; end
   class LinkedToCifc < Event; end
+  class LinkedToNafi < Event; end
   class SentToProvider < Event; end
   class SynchedWithMaat < Event; end
   class Unlinked < Event; end
