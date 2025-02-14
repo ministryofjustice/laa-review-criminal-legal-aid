@@ -1,10 +1,12 @@
 module Deciding
   class AlreadyCreated < Error; end
   class AlreadyLinked < Error; end
+  class AlreadySent < Error; end
   class ApplicationNotAssignedToUser < Error; end
   class DecisionNotFound < Error; end
   class IncompleteDecision < Error; end
   class MaatRecordNotChanged < Error; end
+  class NotLinked < Error; end
   class ReferenceMismatch < Error; end
 
   class CommentSet < Event; end
@@ -14,6 +16,7 @@ module Deciding
   class InterestsOfJusticeSet < Event; end
   class Linked < Event; end
   class LinkedToCifc < Event; end
+  class LinkedToNafi < Event; end
   class SentToProvider < Event; end
   class SynchedWithMaat < Event; end
   class Unlinked < Event; end

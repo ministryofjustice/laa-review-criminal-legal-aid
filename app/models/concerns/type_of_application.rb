@@ -9,6 +9,10 @@ module TypeOfApplication
     application_type == Types::ApplicationType['change_in_financial_circumstances']
   end
 
+  def initial?
+    application_type == Types::ApplicationType['initial']
+  end
+
   def non_means?
     work_stream == Types::WorkStreamType['non_means_tested']
   end
