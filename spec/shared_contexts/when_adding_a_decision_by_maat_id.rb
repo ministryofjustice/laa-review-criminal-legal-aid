@@ -1,19 +1,23 @@
 RSpec.shared_context 'when adding a decision by MAAT ID' do
   let(:maat_decision) do
     Maat::Decision.new(
-      maat_ref: maat_decision_maat_id,
-      usn: maat_decision_reference,
-      ioj_result: 'PASS',
+      app_created_date: Date.new(2024, 2, 1),
+      date_means_created:  Date.new(2024, 2, 2),
+      case_id: 'NOL-123',
+      case_type: 'SUMMARY ONLY',
+      funding_decision: maat_decision_funding_decision,
       ioj_assessor_name: 'Jo Bloggs',
-      app_created_date: 1.day.ago.to_s,
-      means_result: 'PASS',
+      ioj_reason: maat_decision_ioj_reason,
+      ioj_result: 'PASS',
+      maat_ref: maat_decision_maat_id,
       means_assessor_name: 'Jo Bloggs',
-      date_means_created:  1.day.ago.to_s,
-      funding_decision: maat_decision_funding_decision
+      means_result: 'PASS',
+      usn: maat_decision_reference
     )
   end
 
   let(:maat_decision_funding_decision) { 'GRANTED' }
+  let(:maat_decision_ioj_reason) { 'Justification comment' }
   let(:maat_decision_reference) { 6_000_001 }
   let(:maat_decision_maat_id) { 999_333 }
   let(:mock_get_decision) { instance_double(Maat::GetDecision) }

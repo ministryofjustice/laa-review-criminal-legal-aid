@@ -31,18 +31,27 @@ module Deciding
     end
 
     # Can only be linked if the decision is not linked
-    def link(application_id:, user_id:)
-      raise AlreadyLinked if @application_id.present?
+    def link(application_id:, user_id:, reference:)
+      raise AlreadyLinked if linked?
+      raise ReferenceMismatch if @reference.present? && @reference != reference
 
       apply Linked.build(self, user_id:, application_id:)
     end
 
-    # A CIFC application can only be linked if decision is not
-    # linked or sent_to_provider
+    # A CIFC application can only be linked if the decision is either
+    # not linked or, if already linked, has been sent to the provider.
     def link_to_cifc(application_id:, user_id:)
-      raise AlreadyLinked if @application_id.present? && @state == :draft
+      raise AlreadyLinked if linked? && !sent_to_provider?
 
       apply LinkedToCifc.build(self, user_id:, application_id:)
+    end
+
+    # A NAFI application can only be linked if the decision is either
+    # not linked or, if already linked, has been sent to the provider.
+    def link_to_nafi(application_id:, user_id:)
+      raise AlreadyLinked if linked? && !sent_to_provider?
+
+      apply LinkedToNafi.build(self, user_id:, application_id:)
     end
 
     def sync_with_maat(maat_decision:, user_id:)
@@ -71,6 +80,7 @@ module Deciding
     def send_to_provider(user_id:, application_id:)
       raise NotLinked unless @application_id == application_id
       raise IncompleteDecision unless complete?
+      raise AlreadySent if @state == Types::DecisionState[:sent_to_provider]
 
       apply SentToProvider.build(self, user_id:)
     end
@@ -85,8 +95,10 @@ module Deciding
 
     # When the decision is created from a MAAT record
     on DraftCreatedFromMaat do |event|
-      update_from_maat(event.data.fetch(:maat_decision))
-
+      maat_attributes = event.data.fetch(:maat_decision)
+      @maat_id = maat_attributes.fetch(:maat_id)
+      @reference = maat_attributes.fetch(:reference)
+      update_from_maat(maat_attributes)
       @state = Types::DecisionState[:draft]
     end
 
@@ -110,17 +122,19 @@ module Deciding
 
     on Unlinked do |_event|
       @application_id = nil
-      @reference = nil
       @comment = nil
     end
 
     on Linked do |event|
       @application_id = event.data.fetch(:application_id)
-      @reference = event.data.fetch(:reference, nil)
     end
 
-    # Original reference is retained when linking to CIFC
     on LinkedToCifc do |event|
+      @application_id = event.data.fetch(:application_id)
+      @state = Types::DecisionState[:draft]
+    end
+
+    on LinkedToNafi do |event|
       @application_id = event.data.fetch(:application_id)
       @state = Types::DecisionState[:draft]
     end
@@ -137,9 +151,7 @@ module Deciding
       @assessment_rules = decision.assessment_rules
       @funding_decision = decision.funding_decision
       @interests_of_justice = decision.interests_of_justice
-      @maat_id = decision.maat_id
       @means = decision.means
-      @reference = decision.reference
     end
 
     def overall_result
@@ -150,6 +162,16 @@ module Deciding
 
     def complete?
       @funding_decision.present?
+    end
+
+    private
+
+    def sent_to_provider?
+      state == Types::DecisionState[:sent_to_provider]
+    end
+
+    def linked?
+      application_id.present?
     end
   end
 end

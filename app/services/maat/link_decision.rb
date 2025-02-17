@@ -8,10 +8,8 @@ module Maat
 
     def call
       return nil unless maat_decision
-      raise Deciding::ReferenceMismatch if reference_mismatch?
 
       create_or_update_draft_decision_from_maat
-
       link_draft_decision_to_application
 
       maat_decision
@@ -27,18 +25,14 @@ module Maat
 
     attr_reader :application, :user_id, :maat_id
 
-    delegate :application_type, to: :application
     delegate :decision_id, to: :maat_decision
-
-    def reference_mismatch?
-      return false if application.cifc?
-      return false if maat_decision.reference.blank?
-
-      maat_decision.reference != application.reference
-    end
 
     def application_id
       application.id
+    end
+
+    def reference
+      application.reference
     end
 
     def create_or_update_draft_decision_from_maat
@@ -52,7 +46,7 @@ module Maat
         Reviewing::AddDecision.call(application_id:, decision_id:, user_id:)
 
         Deciding::Link.call(
-          application_id:, application_type:, decision_id:, user_id:
+          application_id:, application_type:, decision_id:, user_id:, reference:
         )
       end
     end
@@ -61,12 +55,28 @@ module Maat
       @decision ||= if maat_id
                       Maat::GetDecision.new.by_maat_id!(maat_id)
                     else
-                      Maat::GetDecision.new.by_usn!(application.reference)
+                      Maat::GetDecision.new.by_usn!(reference)
                     end
 
       return unless @decision
 
       Maat::DecisionTranslator.translate(@decision)
     end
+
+    # [CRIMAPP-1647] An application may only be determined as NAFI
+    # during the process of being added to MAAT. Currently, NAFI
+    # only affects the linking logic. Due to downstream technical limitations,
+    # NAFI applications are linked to the earlier ineligible decision,
+    # regardless of the firm submitting the new application.
+    def application_type
+      return 'new_application_following_ineligibility' if nafi?
+
+      application.application_type
+    end
+
+    def new_application_following_ineligibility?
+      @decision&.nafi? && application.initial?
+    end
+    alias nafi? new_application_following_ineligibility?
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Adding a decision by MAAT ID' do
+RSpec.describe 'Adding a CIFC decision by MAAT ID' do
   include_context 'with stubbed application'
   include_context 'when adding a decision by MAAT ID'
 
@@ -13,7 +13,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       reference: 100_000_123,
       id: SecureRandom.uuid,
       application_type: 'initial',
-      cifc?: true
+      cifc?: false
     )
   end
 
@@ -25,7 +25,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
     fill_in('MAAT ID', with: maat_id)
   end
 
-  context 'when the original maat record is found' do
+  context 'when the original MAAT record is found' do
     let(:maat_id) { 987_654_321 }
 
     let(:maat_decision_maat_id) { maat_id }
@@ -42,7 +42,7 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       )
     end
 
-    context 'when the MAAT ID is linked on review' do
+    context 'when the MAAT ID is linked to a different application on review' do
       before do
         Maat::LinkDecision.call(
           application: original_application,
