@@ -110,21 +110,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # temp underscored routes
-  # get 'manage_users', to: 'manage_users/active_users#index'
-  # get 'manage_users/active_users', to: 'manage_users/active_users#index'
-  # get 'manage_users/revive_users/:id/edit', to: 'manage_users/revive_users#edit'
-  # get 'manage_users/change_roles/:id/edit', to: 'manage_users/change_roles#edit'
-  # patch 'manage_users/change_roles/:id', to: 'manage_users/change_roles#update'
-  # put 'manage_users/change_roles/:id', to: 'manage_users/change_roles#update'
-  # get 'manage_users/invitations/:id/confirm_destroy', to: 'manage_users/invitations#confirm_destroy'
-  # get 'manage_users/invitations/:id/confirm_renew', to: 'manage_users/invitations#confirm_renew'
-  # get 'manage_users/deactivated_users/:id/confirm_reactivate', to: 'manage_users/deactivated_users#confirm_reactivate'
-  # patch 'manage_users/deactivated_users/:id/reactivate', to: 'manage_users/deactivated_users#reactivate'
-  # get 'manage_users/deactivated_users', to: 'manage_users/deactivated_users#index'
-  # post 'manage_users/deactivated_users', to: 'manage_users/deactivated_users#create'
-  # get 'manage_users/deactivated_users/new', to: 'manage_users/deactivated_users#new'
-
   namespace :api do
     resources :events, only: [:create]
   end
@@ -134,13 +119,6 @@ Rails.application.routes.draw do
     resources :caseworker_competencies, path: 'caseworker-competencies', only: [:index, :edit, :update]
     resources :history, only: [:show], controller: :history
   end
-
-  # temp underscored routes
-  # get 'manage_competencies', to: 'manage_competencies/caseworker_competencies#index'
-  # get 'manage_competencies/caseworker_competencies', to: 'manage_competencies/caseworker_competencies#index'
-  # get 'manage_competencies/caseworker_competencies/:id/edit', to: 'manage_competencies/caseworker_competencies#edit'
-  # patch 'manage_competencies/caseworker_competencies/:id', to: 'manage_competencies/caseworker_competencies#update'
-  # put 'manage_competencies/caseworker_competencies/:id', to: 'manage_competencies/caseworker_competencies#update'
 
   root 'landing_page#index'
 end
