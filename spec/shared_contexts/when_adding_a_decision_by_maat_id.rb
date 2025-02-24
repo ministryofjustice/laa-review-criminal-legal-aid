@@ -26,10 +26,6 @@ RSpec.shared_context 'when adding a decision by MAAT ID' do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
       .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
     allow(mock_get_decision).to receive(:by_maat_id!).with(maat_decision_maat_id).and_return(maat_decision)
     allow(Maat::GetDecision).to receive(:new).and_return(mock_get_decision)
   end

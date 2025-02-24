@@ -5,23 +5,6 @@ module Reviewing
     AVAILABLE_ACTIONS = {
       means: {
         open: [:mark_as_ready, :send_back],
-        marked_as_ready: [:complete, :send_back],
-      },
-      cifc: {
-        open: [:complete, :send_back],
-        marked_as_ready: [:complete, :send_back]
-      },
-      non_means: {
-        open:  [:complete, :send_back],
-      },
-      pse: {
-        open: [:complete]
-      }
-    }.freeze
-
-    AVAILABLE_ACTIONS_WITH_DECISIONS = {
-      means: {
-        open: [:mark_as_ready, :send_back],
         marked_as_ready: [:send_back],
       },
       cifc: {
@@ -45,16 +28,10 @@ module Reviewing
     attr_reader :state, :application_type, :work_stream
 
     def actions
-      config.dig(review_type, state) || []
+      AVAILABLE_ACTIONS.dig(review_type, state) || []
     end
 
     private
-
-    def config
-      return AVAILABLE_ACTIONS_WITH_DECISIONS if FeatureFlags.adding_decisions.enabled?
-
-      AVAILABLE_ACTIONS
-    end
 
     def review_type
       return Types::ReviewType[:cifc] if cifc?

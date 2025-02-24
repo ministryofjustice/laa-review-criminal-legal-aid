@@ -13,10 +13,6 @@ RSpec.describe 'Adding a decision by MAAT reference' do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
       .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
     if maat_decision.present?
       allow(mock_get_decision).to receive(:by_usn!).with(reference).and_return(maat_decision)
     else

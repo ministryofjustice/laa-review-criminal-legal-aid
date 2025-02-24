@@ -27,10 +27,6 @@ RSpec.describe 'Adding a decision by MAAT reference' do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
       .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-    allow(FeatureFlags).to receive(:adding_decisions) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
-
     allow(mock_get_decision).to receive(:by_usn!).with(reference).and_return(maat_decision)
 
     allow(mock_get_decision).to receive(:by_maat_id!).with(maat_decision.maat_ref).and_return(v2)

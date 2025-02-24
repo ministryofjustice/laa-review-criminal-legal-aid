@@ -2,7 +2,6 @@ module SetDecisionAndAuthorise
   extend ActiveSupport::Concern
 
   included do
-    before_action :confirm_feature_enabled
     before_action :set_crime_application
     before_action :set_decision
     before_action :confirm_assigned
@@ -22,9 +21,5 @@ module SetDecisionAndAuthorise
 
   def confirm_assigned
     raise Deciding::DecisionNotFound unless @crime_application.reviewable_by?(current_user_id)
-  end
-
-  def confirm_feature_enabled
-    raise Deciding::DecisionNotFound unless FeatureFlags.adding_decisions.enabled?
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe Reviewing::AvailableReviewerActions do
         let(:application_type) { Types::ApplicationType['initial'] }
         let(:work_stream) { WorkStream.new('non_means_tested') }
 
-        it { is_expected.to eq %i[complete send_back] }
+        it { is_expected.to eq %i[send_back] }
       end
 
       context 'when PSE' do
@@ -34,7 +34,7 @@ RSpec.describe Reviewing::AvailableReviewerActions do
         let(:application_type) { Types::ApplicationType['change_in_financial_circumstances'] }
         let(:work_stream) { WorkStream.new('criminal_applications_team') }
 
-        it { is_expected.to eq %i[complete send_back] }
+        it { is_expected.to eq %i[send_back] }
       end
     end
 
@@ -65,30 +65,6 @@ RSpec.describe Reviewing::AvailableReviewerActions do
 
     context 'when state "marked_as_ready"' do
       let(:state) { Types::ReviewState[:marked_as_ready] }
-
-      context 'when a means tested initial application' do
-        let(:application_type) { Types::ApplicationType['initial'] }
-        let(:work_stream) { WorkStream.new('criminal_applications_team') }
-
-        it { is_expected.to eq %i[complete send_back] }
-      end
-
-      context 'when CIFC' do
-        let(:application_type) { Types::ApplicationType['change_in_financial_circumstances'] }
-        let(:work_stream) { WorkStream.new('criminal_applications_team') }
-
-        it { is_expected.to eq %i[complete send_back] }
-      end
-    end
-
-    context 'when state "marked_as_ready" and decisions enabled' do
-      let(:state) { Types::ReviewState[:marked_as_ready] }
-
-      before do
-        allow(FeatureFlags).to receive(:adding_decisions) {
-          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-        }
-      end
 
       context 'when a means tested initial application' do
         let(:application_type) { Types::ApplicationType['initial'] }
