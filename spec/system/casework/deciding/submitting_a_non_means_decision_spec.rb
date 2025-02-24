@@ -35,10 +35,6 @@ RSpec.describe 'Submitting a Non-means decision' do
     let(:send_decisions_form_prompt) { 'What do you want to do next?' }
 
     before do
-      allow(FeatureFlags).to receive(:adding_decisions) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-      }
-
       allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
         .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 

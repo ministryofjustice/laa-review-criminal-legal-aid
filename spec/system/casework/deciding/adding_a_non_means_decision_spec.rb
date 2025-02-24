@@ -14,10 +14,6 @@ RSpec.describe 'Adding a Non-means application' do
     end
 
     before do
-      allow(FeatureFlags).to receive(:adding_decisions) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-      }
-
       visit crime_application_path(application_id)
       click_button 'Assign to your list'
     end

@@ -19,26 +19,8 @@ RSpec.describe 'Viewing an application that is assigned to me' do
     expect(page).to have_content('Remove from your list')
   end
 
-  describe 'Conditional display of review buttons' do
-    it 'displays mark as ready for MAAT button as default' do
-      expect(page).to have_content('Mark as ready for MAAT')
-      expect(page).to have_no_content('Mark as completed')
-    end
-
-    context 'when the application is already marked as ready' do
-      before do
-        allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
-          .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
-
-        click_button 'Mark as ready for MAAT'
-        visit crime_application_path(application_id)
-      end
-
-      it 'displays mark as completed button if application is marked as ready' do
-        expect(page).to have_content('Mark as completed')
-        expect(page).to have_no_content('Mark as ready for MAAT')
-      end
-    end
+  it 'displays mark as ready for MAAT button as default' do
+    expect(page).to have_content('Mark as ready for MAAT')
   end
 
   describe 'Evidence download' do
