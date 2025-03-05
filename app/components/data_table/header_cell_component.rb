@@ -41,7 +41,8 @@ module DataTable
         id: colname,
         colspan: colspan,
         scope: scope,
-        aria: { sort: sort_state }
+        aria: { sort: sort_state, label: name },
+        tabindex: 0
       }
     end
 
