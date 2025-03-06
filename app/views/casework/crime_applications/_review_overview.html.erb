@@ -10,7 +10,7 @@
       </span>
       <% unless crime_application.superseded? %>
         <%= link_to t('calls_to_action.copy_reference_number'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
-        <p id="copy-reference-number-alert" class="govuk-visually-hidden" aria-live="polite"></p>
+        <p id="copy-reference-number-alert" class="govuk-visually-hidden" aria-live="assertive"></p>
       <% end %>
     </p>
 

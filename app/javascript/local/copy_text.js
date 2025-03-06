@@ -11,6 +11,10 @@ function copyText(textElementId, copyLinkElementId) {
         window.navigator.clipboard.writeText(text);
         referenceNumberAlert.textContent = "Reference number copied";
 
+        setTimeout(() => {
+            referenceNumberAlert.textContent = "";
+        }, 2000);
+
         copyLink.blur();
         return true;
       });
