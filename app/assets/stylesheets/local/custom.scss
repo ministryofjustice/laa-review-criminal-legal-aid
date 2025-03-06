@@ -128,3 +128,10 @@ html {
     display: inline;
   }
 }
+
+// Hide Copy reference number link if Javascript is disabled
+a#copy-reference-number { display: none }
+
+body.js-enabled {
+  a#copy-reference-number { display: inline }
+}
