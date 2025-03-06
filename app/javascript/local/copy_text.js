@@ -8,7 +8,6 @@ function copyText(textElementId, copyLinkElementId) {
         e.preventDefault();
 
         let text = textElement.textContent.trim();
-
         window.navigator.clipboard.writeText(text);
         referenceNumberAlert.textContent = "Reference number copied";
 
