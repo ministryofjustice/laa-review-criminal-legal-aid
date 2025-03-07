@@ -4,13 +4,6 @@
 // NOTE: using hand-picked components instead of importing
 // the whole library, as we only need a few ones.
 
-// Primary navigation
-@import "@ministryofjustice/frontend/moj/settings/measurements";
-@import "@ministryofjustice/frontend/moj/objects/width-container";
-@import "@ministryofjustice/frontend/moj/components/primary-navigation/primary-navigation";
-
-// Sub navigation
-@import "@ministryofjustice/frontend/moj/components/sub-navigation/sub-navigation";
-
-// Sortable tables
-@import "@ministryofjustice/frontend/moj/components/sortable-table/sortable-table";
+@use "@ministryofjustice/frontend/moj/settings/measurements";
+@use "@ministryofjustice/frontend/moj/objects/width-container";
+@use "@ministryofjustice/frontend/moj/components/sub-navigation/sub-navigation";
