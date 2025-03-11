@@ -30,7 +30,8 @@ module DataTable
 
     def default_classes
       class_names(
-        "#{brand}-table__header"
+        "#{brand}-table__header",
+        "#{brand}-table__header--numeric" => numeric
       )
     end
 
@@ -40,8 +41,7 @@ module DataTable
         id: colname,
         colspan: colspan,
         scope: scope,
-        aria: { sort: sort_state, label: name },
-        tabindex: 0
+        aria: { sort: sort_state }
       }
     end
 
