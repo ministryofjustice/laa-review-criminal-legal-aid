@@ -790,6 +790,7 @@ en:
       search:
         page_title: Search for an application
         heading: Search for an application
+        label: Application search results table,
         total:
           one: 1 search result
           other: "%{count} search results"
