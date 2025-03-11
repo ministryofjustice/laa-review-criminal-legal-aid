@@ -1,4 +1,5 @@
 // App-specific custom styles and overrides
+@use "govuk-frontend/dist/govuk" as *;
 
 @mixin app-button-reset {
   padding: 0;
@@ -35,7 +36,7 @@ form.search {
   }
 }
 
-p.help-text, .app_superseded_style  {
+.app_superseded_style  {
   color: govuk-colour("dark-grey");
 }
 
