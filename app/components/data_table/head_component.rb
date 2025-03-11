@@ -20,7 +20,6 @@ module DataTable
     def default_attributes
       {
         class: "#{brand}-table__head",
-        aria: { label: 'Application search results table' }
       }
     end
   end

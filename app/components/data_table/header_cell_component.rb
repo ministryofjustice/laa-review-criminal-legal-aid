@@ -31,7 +31,6 @@ module DataTable
     def default_classes
       class_names(
         "#{brand}-table__header",
-        "#{brand}-table__header--numeric" => numeric
       )
     end
 
