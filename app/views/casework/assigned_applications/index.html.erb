@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-1">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-1"><%= t '.heading' %></h1>
-    <p><%= t '.your_assignments', count: assignments_count %></p>
+    <p class="govuk-body"><%= t '.your_assignments', count: assignments_count %></p>
   </div>
 </div>
 
@@ -15,9 +15,12 @@
                      class: 'govuk-button govuk-!-margin-bottom-1',
                      data: { module: 'govuk-button' } %>
 
-        <%= link_to t('.open_applications'),
-                    open_crime_applications_path,
-                    class: 'govuk-link--no-visited-state govuk-!-font-size-19' %>
+        <%= govuk_link_to(
+              t('.open_applications'),
+              open_crime_applications_path,
+              no_visited_state: true,
+              class: 'govuk-!-font-size-19'
+            )%>
       </div>
     <% end %>
   </div>

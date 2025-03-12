@@ -4,4 +4,4 @@ $govuk-new-link-styles: true;
 $govuk-global-styles: true;
 $govuk-assets-path: 'govuk-frontend/dist/govuk/assets/';
 
-@import "govuk-frontend/dist/govuk/all";
+@use "govuk-frontend/dist/govuk";
