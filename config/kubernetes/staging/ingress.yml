@@ -24,7 +24,7 @@ metadata:
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-crime-apply"
       SecRuleUpdateTargetByTag attack-xss !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-sqli !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
-      
+
       SecRule REQUEST_URI "@beginsWith /api/events" "id:555001, phase:1, pass, t:none, nolog, chain" \
         SecRule REQUEST_METHOD "@streq POST" "chain" \
           SecRule REQUEST_HEADERS:Content-Type "@rx [\s]*text/plain[\s]*" "ctl:ruleRemoveById=920420"
@@ -35,33 +35,34 @@ metadata:
         ctl:ruleRemoveById=932110,\
         ctl:ruleRemoveById=932115,\
         ctl:ruleRemoveById=933160,\
-        ctl:ruleRemoveById=942230"
+        ctl:ruleRemoveById=942230,\
+        ctl:ruleRemoveById=942360"
 spec:
   ingressClassName: modsec
   tls:
-  - hosts:
-    - laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
-  - hosts:
-    - staging.review-criminal-legal-aid.service.justice.gov.uk
-    secretName: domain-tls-certificate-staging
+    - hosts:
+        - laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
+    - hosts:
+        - staging.review-criminal-legal-aid.service.justice.gov.uk
+      secretName: domain-tls-certificate-staging
   rules:
-  - host: laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: service-staging
-            port:
-              number: 80
-  - host: staging.review-criminal-legal-aid.service.justice.gov.uk
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: service-staging
-            port:
-              number: 80
+    - host: laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: service-staging
+                port:
+                  number: 80
+    - host: staging.review-criminal-legal-aid.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: service-staging
+                port:
+                  number: 80

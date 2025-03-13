@@ -35,33 +35,35 @@ metadata:
         ctl:ruleRemoveById=932110,\
         ctl:ruleRemoveById=932115,\
         ctl:ruleRemoveById=933160,\
-        ctl:ruleRemoveById=942230"
+        ctl:ruleRemoveById=942230,\
+        ctl:ruleRemoveById=942360"
+
 spec:
   ingressClassName: modsec
   tls:
-  - hosts:
-    - laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
-  - hosts:
-    - review-criminal-legal-aid.service.justice.gov.uk
-    secretName: domain-tls-certificate-production
+    - hosts:
+        - laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
+    - hosts:
+        - review-criminal-legal-aid.service.justice.gov.uk
+      secretName: domain-tls-certificate-production
   rules:
-  - host: laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: service-production
-            port:
-              number: 80
-  - host: review-criminal-legal-aid.service.justice.gov.uk
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: service-production
-            port:
-              number: 80
+    - host: laa-review-criminal-legal-aid-production.apps.live.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: service-production
+                port:
+                  number: 80
+    - host: review-criminal-legal-aid.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: service-production
+                port:
+                  number: 80
