@@ -1,2 +1,4 @@
 web: bin/rails server -p 3001
 css: bin/rails dartsass:watch
+js: yarn build --watch
+css: yarn build:css --watch

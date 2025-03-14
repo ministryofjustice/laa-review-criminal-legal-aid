@@ -159,9 +159,8 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    dartsass-rails (0.5.1)
+    cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
-      sass-embedded (~> 1.63)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -234,12 +233,6 @@ GEM
       net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.28.3)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.28.3-x86_64-linux)
-      bigdecimal
-      rake (>= 13)
     govuk-components (5.7.1)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (>= 6, < 10)
@@ -259,15 +252,13 @@ GEM
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    importmap-rails (2.0.1)
-      actionpack (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      railties (>= 6.0.0)
     io-console (0.8.0)
     irb (1.14.3)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jmespath (1.6.2)
+    jsbundling-rails (1.3.1)
+      railties (>= 6.0.0)
     json (2.9.0)
     json-jwt (1.16.6)
       activesupport (>= 4.2)
@@ -378,6 +369,11 @@ GEM
     pg (1.5.4)
     prometheus_exporter (2.0.8)
       webrick
+    propshaft (1.1.0)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -508,11 +504,6 @@ GEM
       rack
       ruby_event_store (= 2.15.0)
     rubyzip (2.3.2)
-    sass-embedded (1.81.0)
-      google-protobuf (~> 4.28)
-      rake (>= 13)
-    sass-embedded (1.81.0-x86_64-linux-gnu)
-      google-protobuf (~> 4.28)
     securerandom (0.4.1)
     selenium-webdriver (4.23.0)
       base64 (~> 0.2)
@@ -536,13 +527,6 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.4.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      sprockets (>= 3.0.0)
     stackprof (0.2.25)
     stringio (3.1.2)
     swd (2.0.3)
@@ -612,7 +596,7 @@ DEPENDENCIES
   brakeman
   business
   capybara
-  dartsass-rails (~> 0.5.1)
+  cssbundling-rails (~> 1.4)
   debug (~> 1.10)
   devise
   dotenv-rails (~> 2.8.1)
@@ -623,7 +607,7 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   govuk_notify_rails (>= 3.0.0)
-  importmap-rails (>= 2.0.0)
+  jsbundling-rails
   kaminari
   laa-criminal-applications-datastore-api-client!
   laa-criminal-legal-aid-schemas!
@@ -634,6 +618,7 @@ DEPENDENCIES
   omniauth_openid_connect (= 0.8.0)
   pg (~> 1.4)
   prometheus_exporter
+  propshaft
   pry
   puma
   rails
@@ -647,7 +632,6 @@ DEPENDENCIES
   sentry-rails (>= 5.15.1)
   sentry-ruby
   simplecov
-  sprockets-rails
   stackprof
   turbo-rails (>= 2.0.0)
   web-console

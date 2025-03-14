@@ -1,8 +1,17 @@
 {
   "name": "laa-review-criminal-legal-aid",
-  "private": "true",
+  "packageManager": "yarn@4.7.0",
   "dependencies": {
-    "govuk-frontend": "5.9.0",
-    "@ministryofjustice/frontend": "4.0"
+    "@hotwired/turbo-rails": "^8.0.13",
+    "@ministryofjustice/frontend": "^4.0.1",
+    "govuk-frontend": "^5.9.0",
+    "sass": "^1.85.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.1"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css  --no-source-map  --load-path=.  --load-path=node_modules  --quiet-deps"
   }
 }
