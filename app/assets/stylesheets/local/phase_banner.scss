@@ -1,3 +1,4 @@
+@use "govuk-frontend/dist/govuk" as *;
 // Overrides default colour for non prod envs
 $colours: ("staging": govuk-colour("orange"), "local": govuk-colour("green"));
 
