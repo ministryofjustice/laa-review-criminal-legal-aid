@@ -48,3 +48,5 @@ Brewfile.lock.json
 # Ignore IDE project-specific settings
 .idea/
 .vscode/
+
+/node_modules
