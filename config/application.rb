@@ -7,7 +7,7 @@ require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'action_mailer/railtie'
 require 'active_job/railtie'
-require "action_cable/engine"
+require 'action_cable/engine'
 # require "action_mailbox/engine"
 # require "action_text/engine"
 require 'rails/test_unit/railtie'
@@ -32,7 +32,7 @@ module LaaReviewCriminalLegalAid
     # means that all times must be converted to TZ London before formatting or
     # converting to dates.
     #
-    config.time_zone = "UTC"
+    config.time_zone = 'UTC'
 
     # config.eager_load_paths << Rails.root.join("extras")
     config.ssl_options = { redirect: { exclude: ->(request) { request.path =~ /health|ping/ } } }
@@ -72,7 +72,7 @@ module LaaReviewCriminalLegalAid
     # Onboarding email address for user contact
     config.x.admin.onboarding_email = 'LAAapplyonboarding@justice.gov.uk'
 
-    config.exceptions_app = ->(env) {
+    config.exceptions_app = lambda { |env|
       ErrorsController.action(:show).call(env)
     }
 
@@ -84,10 +84,10 @@ module LaaReviewCriminalLegalAid
       'ApplicationController::ForbiddenError' => :forbidden
     )
 
-    config.x.maat_api.oauth_url = ENV["MAAT_API_OAUTH_URL"]
-    config.x.maat_api.client_id = ENV["MAAT_API_CLIENT_ID"]
-    config.x.maat_api.client_secret = ENV["MAAT_API_CLIENT_SECRET"]
-    config.x.maat_api.api_url = ENV["MAAT_API_API_URL"]
-    config.x.maat_api.first_supported_maat_id = ENV["MAAT_API_FIRST_SUPPORTED_MAAT_ID"]
+    config.x.maat_api.oauth_url = ENV.fetch('MAAT_API_OAUTH_URL', nil)
+    config.x.maat_api.client_id = ENV.fetch('MAAT_API_CLIENT_ID', nil)
+    config.x.maat_api.client_secret = ENV.fetch('MAAT_API_CLIENT_SECRET', nil)
+    config.x.maat_api.api_url = ENV.fetch('MAAT_API_API_URL', nil)
+    config.x.maat_api.first_supported_maat_id = ENV.fetch('MAAT_API_FIRST_SUPPORTED_MAAT_ID', nil)
   end
 end
