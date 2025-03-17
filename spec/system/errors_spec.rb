@@ -174,9 +174,9 @@ RSpec.describe 'Error pages' do
     end
 
     describe 'requesting a missing asset' do
-      it 'returns the service page not found page' do
+      it 'returns 404 header only' do
         visit '/assets/application-087fa64db5215e96ca2275687c1c7ffa01124ae348224715f68c0d2c0d3da4a0.css'
-        expect(page).to have_content 'Page not found'
+        expect(page.text).to eq 'Not found'
         expect(page).to have_http_status(:not_found)
       end
     end
