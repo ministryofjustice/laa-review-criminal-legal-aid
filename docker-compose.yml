@@ -1,9 +1,7 @@
 # Simplify running the application inside a container locally.
-# Usage: `docker-compose up`
+# Usage: `docker compose up`
 #
-# Do not use docker-compose in production environments.
-#
-version: '3'
+# Do not use docker compose in production environments.
 
 services:
   db:

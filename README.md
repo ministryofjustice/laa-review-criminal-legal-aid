@@ -12,32 +12,32 @@ The instructions assume you have [Homebrew](https://brew.sh) installed in your m
 
 **1. Pre-requirements**
 
-* `brew bundle`
-* `gem install bundler`
-* `bundle install`
+- `brew bundle`
+- `gem install bundler`
+- `bundle install`
 
 **2. Configuration**
 
-* Copy `.env.development` to `.env.development.local` and modify with suitable values for your local machine
-* Copy `.env.test` to `.env.test.local` and modify with suitable values for your local machine
+- Copy `.env.development` to `.env.development.local` and modify with suitable values for your local machine
+- Copy `.env.test` to `.env.test.local` and modify with suitable values for your local machine
 
 After you've defined your DB configuration in the above files, run the following:
 
-* `bin/rails db:prepare` (for the development database)
-* `RAILS_ENV=test bin/rails db:prepare` (for the test database)
+- `bin/rails db:prepare` (for the development database)
+- `RAILS_ENV=test bin/rails db:prepare` (for the test database)
 
 **3. GOV.UK Frontend (styles, javascript and other assets)**
 
-* `yarn`
+- `yarn`
 
 **4. Run the app locally**
 
 Once all the above is done, you should be able to run the application as follows:
 
-a) `bin/dev` - will run foreman, spawning a rails server and `dartsass:watch` to process SCSS files and watch for any changes.  
+a) `bin/dev` - will run foreman, spawning a rails server, `yarn build` and `yarn build:css` to process JS and SCSS files and watch for any changes.  
 b) `rails server` - will only run the rails server, usually fine if you are not making changes to the CSS.
 
-You can also compile assets manually with `rails dartsass:build` at any time, and just run the rails server, without foreman.
+You can also compile assets manually with `rails assets:precompile` at any time, and just run the rails server, without foreman.
 
 If you ever feel something is not right with the CSS or JS, run `rails assets:clobber` to purge the local cache.
 
@@ -45,13 +45,13 @@ If you ever feel something is not right with the CSS or JS, run `rails assets:cl
 
 After clicking "Sign in," you will be shown a list of all users in the local database. Select one to sign in as that user.
 
-To add users, select a user that can manage others and use the user management interface. A seed admin user is created by default (run ```bundle exec rails db:seed``` if none are listed). To ensure that the user's name is set correctly on first authorisation, use the format "Firstname.Lastname@example.com."
+To add users, select a user that can manage others and use the user management interface. A seed admin user is created by default (run `bundle exec rails db:seed` if none are listed). To ensure that the user's name is set correctly on first authorisation, use the format "<Firstname.Lastname@example.com>."
 
-The last user in the list is "Not.Authorised@example.com." Select this user to simulate a non-authorised authenticated user.
+The last user in the list is "<Not.Authorised@example.com>." Select this user to simulate a non-authorised authenticated user.
 
-This authentication strategy can be disabled locally by setting ```DEV_AUTH_ENABLED=false```
+This authentication strategy can be disabled locally by setting `DEV_AUTH_ENABLED=false`
 
-**NOTE:** The dev_auth authentication strategy has been enabled for local development and docker-compose by setting ```DEV_AUTH_ENABLED=true``` and ```IS_LOCAL_DOCKER_ENV=true```.
+**NOTE:** The dev_auth authentication strategy has been enabled for local development and docker compose by setting `DEV_AUTH_ENABLED=true` and `IS_LOCAL_DOCKER_ENV=true`.
 This must never be enabled in the live (staging/production) service in it's current form as it will expose sensitive information.
 
 ## Local development with the temporary API gem
@@ -86,29 +86,28 @@ http://laa-apply-for-criminal-legal-aid.test/api/applications/<application-id>
 
 You can run all the code linters and tests with:
 
-* `rake`
+- `rake`
 
 The tasks run by default when using `rake`, are defined in the `Rakefile`.
 
 Or you can run them individually:
 
-* `rake spec`
-* `rake erblint`
-* `rake rubocop`
-* `rake brakeman`
+- `rake spec`
+- `rake erblint`
+- `rake rubocop`
+- `rake brakeman`
 
 ## Docker
 
-The application can be run inside a docker container. This will take care of the ruby environment, postgres database 
+The application can be run inside a docker container. This will take care of the ruby environment, postgres database
 and any other dependency for you, without having to configure anything in your machine.
 
-* `docker-compose up`
+- `docker compose up`
 
 The application will be run in "production" mode, so will be as accurate as possible to the real production environment.
 
-**NOTE:** never use `docker-compose` for a real production environment. This is only provided to test a local container. The 
+**NOTE:** never use `docker compose` for a real production environment. This is only provided to test a local container. The
 actual docker images used in the cluster are built as part of the deploy pipeline.
-
 
 ## Feature Flags
 
@@ -132,7 +131,6 @@ FeatureFlags.your_new_feature.enabled?
 FeatureFlags.your_new_feature.disabled?
 ```
 
-
 ## Kubernetes deployment
 
 ### To provision infrastructure
@@ -141,8 +139,9 @@ AWS infrastructure is created by Cloud Platforms via PR to [their repository](ht
 Read [how to connect the cluster](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html).
 
 **Namespaces for this service:**
-* [staging namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-staging)
-* [production namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-production)
+
+- [staging namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-staging)
+- [production namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/laa-review-criminal-legal-aid-production)
 
 ### Applying the configuration
 
@@ -154,14 +153,13 @@ kubectl apply -f config/kubernetes/staging/ingress.yml
 
 ### Continuous integration and delivery
 
-The application is setup to trigger tests on every pull request and, in addition, to build and release to staging 
+The application is setup to trigger tests on every pull request and, in addition, to build and release to staging
 automatically on merge to `main` branch. Release to production will need to be approved manually.
 
 All this is done through **github actions**.
 
-The secrets needed for these actions are created automatically as part of the **terraforming**. You can read more about 
+The secrets needed for these actions are created automatically as part of the **terraforming**. You can read more about
 it in [this document](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/github-actions-continuous-deployment.html#automating-the-deployment-process).
-
 
 ## Architectural decision records
 

@@ -50,3 +50,4 @@ Brewfile.lock.json
 .vscode/
 
 /node_modules
+.yarn/install-state.gz
