@@ -1,5 +1,7 @@
-module Reporting::TemporalReportsHelper
-  def format_percentage(value)
-    "#{value}%" if value
+module Reporting
+  module TemporalReportsHelper
+    def format_percentage(value)
+      "#{value}%" if value
+    end
   end
 end
