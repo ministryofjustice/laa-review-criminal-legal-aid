@@ -48,7 +48,7 @@ jobs:
           corepack prepare yarn@4.7 --activate
 
       - name: Install Yarn dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Precompile assets
         run: bin/rails assets:precompile
