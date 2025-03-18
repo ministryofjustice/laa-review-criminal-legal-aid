@@ -45,10 +45,10 @@ jobs:
           cache: "yarn"
           cache-dependency-path: "yarn.lock"
 
-      # - name: Install Yarn 4.7
-      #   run: |
-      #     corepack enable
-      #     corepack prepare yarn@4.7 --activate
+      - name: Install Yarn 4.7
+        run: |
+          corepack enable
+          corepack prepare yarn@4.7 --activate
 
       - name: Install Yarn dependencies
         run: yarn install --immutable
