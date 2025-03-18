@@ -42,15 +42,17 @@ jobs:
       - name: Set up Node.js with Corepack (Yarn 4.7)
         uses: actions/setup-node@v4
         with:
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
+          node-version: 23
+          cache: yarn
+          cache-dependency-path: yarn.lock
 
-      - name: Install Yarn 4.7
+      - name: Enable Corepack & Set Correct Yarn Version
         run: |
           corepack enable
-          corepack prepare yarn@4.7 --activate
+          corepack prepare yarn@4.7.0 --activate
+          yarn --version  # Debugging step
 
-      - name: Install Yarn dependencies
+      - name: Install dependencies with Yarn
         run: yarn install --immutable
 
       - name: Precompile assets
