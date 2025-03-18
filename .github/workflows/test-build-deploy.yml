@@ -39,21 +39,16 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set up Node.js with Corepack (Yarn 4.7)
-        uses: actions/setup-node@v4
-        with:
-          node-version: 23
-          cache: yarn
-          cache-dependency-path: yarn.lock
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
 
-      - name: Enable Corepack & Set Correct Yarn Version
+      - name: Install Yarn 4.7
         run: |
           corepack enable
-          corepack prepare yarn@4.7.0 --activate
-          yarn --version  # Debugging step
+          corepack prepare yarn@4.7 --activate
 
-      - name: Install dependencies with Yarn
-        run: yarn install --immutable
+      - name: Install Yarn dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Precompile assets
         run: bin/rails assets:precompile
