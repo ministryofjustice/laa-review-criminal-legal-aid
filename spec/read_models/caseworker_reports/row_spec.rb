@@ -82,7 +82,7 @@ describe CaseworkerReports::Row do
     subject(:percentage_closed_by_user) { row.percentage_closed_by_user }
 
     it 'is initially nil' do
-      expect(percentage_closed_by_user).to 0
+      expect(percentage_closed_by_user).to be 0
     end
 
     it 'returns the correct percentage' do
@@ -95,7 +95,7 @@ describe CaseworkerReports::Row do
     subject(:percentage_unassigned_from_user) { row.percentage_unassigned_from_user }
 
     it 'is initially nil' do
-      expect(percentage_unassigned_from_user).to 0
+      expect(percentage_unassigned_from_user).to be 0
     end
 
     it 'returns the correct percentage' do
