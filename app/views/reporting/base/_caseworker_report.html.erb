@@ -93,17 +93,17 @@
               classes: 'colgroup-total'
             )
             row.with_cell(
-              text: "#{data_row.percentage_unassigned_from_user}%",
+              text: format_percentage(data_row.percentage_unassigned_from_user),
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: "#{data_row.percentage_closed_by_user}%",
+              text: format_percentage(data_row.percentage_closed_by_user),
               numeric: true,
               classes: 'colgroup-detail'
             )
             row.with_cell(
-              text: "#{data_row.percentage_closed_sent_back}%",
+              text: format_percentage(data_row.percentage_closed_sent_back),
               numeric: true,
               classes: 'colgroup-detail'
             )
