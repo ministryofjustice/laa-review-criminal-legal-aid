@@ -7,8 +7,4 @@ class CaseworkerPresenter < BasePresenter
       I18n.t('manage_competencies.caseworker_competencies.table_cells.no_competencies')
     end
   end
-
-  def format_percentage(value)
-    value.nil? ? nil : "#{value}%"
-  end
 end
