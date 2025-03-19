@@ -35,7 +35,7 @@
             end
           end
 
-          if property.property_type == PropertiesPresenter::LAND || property.property_type == PropertiesPresenter::COMMERCIAL
+          if [PropertiesPresenter::LAND, PropertiesPresenter::COMMERCIAL].include?(property.property_type)
             list.with_row do |row|
               row.with_key { label_text(:usage, scope: 'properties', asset: asset) }
               row.with_value { simple_format(property.usage) }

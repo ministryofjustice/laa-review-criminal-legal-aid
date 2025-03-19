@@ -27,17 +27,13 @@ gem 'laa-criminal-legal-aid-schemas',
     github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
     tag: 'v1.7.0'
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem 'sprockets-rails'
+gem 'jsbundling-rails'
+gem 'propshaft'
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails', '>= 2.0.0'
 gem 'turbo-rails', '>= 2.0.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-
-gem 'dartsass-rails', '~> 0.5.1'
 
 # Exceptions notifications
 gem 'sentry-rails', '>= 5.15.1'
@@ -85,3 +81,9 @@ group :test do
   gem 'simplecov', require: false
   gem 'webmock'
 end
+
+gem 'cssbundling-rails', '~> 1.4'
+
+gem 'csv', '~> 3.3'
+
+gem 'ostruct', '~> 0.6.1'
