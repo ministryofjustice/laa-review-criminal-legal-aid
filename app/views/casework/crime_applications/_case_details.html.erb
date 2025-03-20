@@ -9,11 +9,11 @@
         <%= label_text(:urn) %>
       </dt>
       <dd class="govuk-summary-list__value">
-      <span id="urn">
+      <span id="case-details-urn">
         <%= case_details.urn.presence || t(:none, scope: 'values') %>
       </span>
         <% if case_details.urn.presence && !crime_application.superseded? %>
-          <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-urn-reference-number', class: 'govuk-link--no-visited-state' %>
+          <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-case-details-urn', class: 'govuk-link--no-visited-state' %>
         <% end %>
       </dd>
     </div>

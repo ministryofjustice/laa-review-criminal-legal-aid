@@ -11,6 +11,7 @@ import copyText from './local/copy_text'
 import { initAll } from 'govuk-frontend'
 initAll()
 
-// used on application show page
+// used on application details page
 copyText('#reference-number','#copy-reference-number')
-copyText('#urn','#copy-urn-reference-number')
+copyText('#overview-urn','#copy-overview-urn')
+copyText('#case-details-urn','#copy-case-details-urn')
