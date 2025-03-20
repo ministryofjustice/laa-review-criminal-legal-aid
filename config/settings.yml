@@ -5,7 +5,7 @@ feature_flags:
     production: false # must never be enabled in the live service
   allow_user_managers_service_access:
     local: false
-    staging: false
+    staging: true
     production: false # user managers should not access the service in production
 
 # For settings that vary by HostEnv name
