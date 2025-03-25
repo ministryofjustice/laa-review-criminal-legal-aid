@@ -72,7 +72,7 @@ RSpec.describe 'Closed Applications' do
 
     expected_headings = [
       "Applicant's name",
-      'Reference number',
+      'LAA reference',
       'Application type',
       'Date received',
       'Date closed',

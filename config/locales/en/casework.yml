@@ -428,9 +428,9 @@ en:
     pre_cifc_usn: USN of original application
     pre_cifc_reason: Changes in client's financial circumstances
 
-  table_headings: &TABLE_HEADINGS
+  table_headings:
     applicant_name: Applicant's name
-    reference: Reference number
+    reference: LAA reference
     time_passed: Business days since received
     received_at: Date received
     submitted_at: Date received

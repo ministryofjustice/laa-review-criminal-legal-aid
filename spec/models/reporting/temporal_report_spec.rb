@@ -10,7 +10,7 @@ describe Reporting::TemporalReport do
     end
 
     it 'returns the correct report from the param' do
-      expect(report_from_param.title).to eq('Return reasons monthly: August, 2023')
+      expect(report_from_param.title).to eq('Return reasons monthly: August 2023')
     end
   end
 
@@ -20,7 +20,7 @@ describe Reporting::TemporalReport do
     end
 
     it 'returns the correct report from the param' do
-      expected = described_class._current_date.strftime('Caseworker monthly: %B, %Y')
+      expected = described_class._current_date.strftime('Caseworker monthly: %B %Y')
       expect(curent_report.title).to eq expected
     end
   end

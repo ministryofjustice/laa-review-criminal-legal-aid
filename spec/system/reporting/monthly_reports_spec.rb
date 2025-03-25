@@ -20,9 +20,9 @@ RSpec.describe 'Monthly Reports' do
 
     it 'includes a link to the next month\'s report' do
       expect { click_link 'Next' }.to change { page.first('h2').text }.from(
-        'December, 2022'
+        'December 2022'
       ).to(
-        'January, 2023'
+        'January 2023'
       )
     end
   end
@@ -35,9 +35,9 @@ RSpec.describe 'Monthly Reports' do
 
   it 'includes a link to the previous month\'s report' do
     expect { click_link 'Previous' }.to change { page.first('h2').text }.from(
-      'January, 2023'
+      'January 2023'
     ).to(
-      'December, 2022'
+      'December 2022'
     )
   end
 
