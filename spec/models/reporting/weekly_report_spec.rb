@@ -11,7 +11,7 @@ describe Reporting::WeeklyReport do
   it_behaves_like 'a temporal report' do
     let(:date) { Date.new(2023, 8, 1) }
     let(:expected_stream_name) { 'WeeklyCaseworker$2023-31' }
-    let(:expected_period_text) { 'Monday 31 July 2023 — Sunday 6 August 2023' }
+    let(:expected_period_text) { 'Monday 31 July to Sunday 6 August 2023' }
     let(:expected_title) { 'Caseworker weekly: Week 31, 2023' }
     let(:expected_id) { 'caseworker_report_weekly_2023-31' }
     let(:expected_to_param) { { interval: 'weekly', period: '2023-31', report_type: report_type } }

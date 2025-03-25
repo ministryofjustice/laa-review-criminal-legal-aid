@@ -19,7 +19,7 @@ RSpec.describe 'Open Applications' do
   it 'includes the correct headings' do
     column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
-    expect(column_headings).to eq(["Applicant's name", 'Reference number', 'Application type', 'Date received',
+    expect(column_headings).to eq(["Applicant's name", 'LAA reference', 'Application type', 'Date received',
                                    'Business days since received', 'Caseworker'])
   end
 

@@ -45,7 +45,7 @@ RSpec.describe 'Return Reasons Report' do
 
   it 'shows the report\'s period range' do
     heading_text = page.first('h2 + h3').text
-    expect(heading_text).to eq('Monday 2 January 2023 — Sunday 8 January 2023')
+    expect(heading_text).to eq('Monday 2 January to Sunday 8 January 2023')
   end
 
   it 'shows the correct column headers' do # rubocop:disable RSpec/ExampleLength
@@ -54,7 +54,7 @@ RSpec.describe 'Return Reasons Report' do
       'Closed by',
       'Date returned',
       'Return reason',
-      'Reference number',
+      'LAA reference',
       'Office code',
       'Legal representative'
     ]
@@ -129,7 +129,7 @@ RSpec.describe 'Return Reasons Report' do
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date returned'] }
     let(:active_sort_direction) { 'ascending' }
-    let(:inactive_sort_headers) { ['Return reason', 'Reference number', 'Office code'] }
+    let(:inactive_sort_headers) { ['Return reason', 'LAA reference', 'Office code'] }
   end
 
   it 'can navigate to the monthly view' do

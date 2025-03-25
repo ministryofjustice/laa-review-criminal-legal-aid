@@ -22,7 +22,7 @@ RSpec.describe 'Search Page' do
     column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
     expect(column_headings).to eq(
-      ["Applicant's name", 'Reference number', 'Application type', 'Case type', 'Date received', 'Date closed',
+      ["Applicant's name", 'LAA reference', 'Application type', 'Case type', 'Date received', 'Date closed',
        'Caseworker', 'Status']
     )
   end

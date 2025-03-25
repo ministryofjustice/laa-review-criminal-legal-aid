@@ -1,8 +1,6 @@
 <% if report.rows.size > 0 && !report.current? %>
   <p>
-    <%= pluralize(report.total_count, 'applications') %>
-    were sent back to providers this
-    <%= label_text [:period, report.time_period.interval].join('.') %>
+    <%= pluralize(report.total_count, 'applications') %> were sent back to providers
   </p>
 <% end %>
 
