@@ -12,7 +12,15 @@ RSpec.describe 'Weekly Reports' do
   end
 
   it 'shows the reports date range' do
-    expect(page.first('h3')).to have_text('Monday 26 December to Sunday 1 January 2023')
+    expect(page.first('h3')).to have_text('Monday 26 December 2022 to Sunday 1 January 2023')
+  end
+
+  context 'when viewing report date range within the same year' do
+    let(:period) { '2022-51' }
+
+    it 'displays the year for both dates' do
+      expect(page.first('h3')).to have_text('Monday 19 December to Sunday 25 December 2022')
+    end
   end
 
   it 'shows the caseworker report table for the given week' do
