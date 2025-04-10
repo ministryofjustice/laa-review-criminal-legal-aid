@@ -38,7 +38,7 @@ metadata:
         ctl:ruleRemoveById=942230,\
         ctl:ruleRemoveById=942360"
 spec:
-  ingressClassName: modsec
+  ingressClassName: modsec-non-prod
   tls:
     - hosts:
         - laa-review-criminal-legal-aid-staging.apps.live.cloud-platform.service.justice.gov.uk
