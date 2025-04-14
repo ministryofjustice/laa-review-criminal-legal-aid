@@ -20,14 +20,10 @@ class OffenceClassComponent < ViewComponent::Base
   end
 
   def not_determined_tag
-    tag.span(class: 'offence_class') do
-      govuk_tag(text: I18n.t('values.class_not_determined'), colour: 'red', classes: 'govuk-!-margin-top-0')
-    end
+    govuk_tag(text: I18n.t('values.class_not_determined'), colour: 'red')
   end
 
   def offence_class
-    tag.span(class: 'govuk-caption-m') do
-      tag.span [t('values.class'), offence.offence_class].join(' ')
-    end
+    safe_join([t('values.class'), offence.offence_class], ' ')
   end
 end
