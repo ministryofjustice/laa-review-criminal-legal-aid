@@ -281,8 +281,9 @@ en:
     no_files_uploaded: No files were uploaded
     number_of_dependants: Number of dependants aged %{age_range} on next birthday
     offence: Offence
-    offence_date: Offence date
-    offence_type_and_class: Offence type and class
+    offence_type: Type
+    offence_class: Class
+    offence_date: Date
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
