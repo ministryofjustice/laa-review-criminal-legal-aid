@@ -84,6 +84,9 @@ module LaaReviewCriminalLegalAid
       'ApplicationController::ForbiddenError' => :forbidden
     )
 
+    # Prohibit all HTML tags
+    config.action_view.sanitized_allowed_tags = []
+
     config.x.maat_api.oauth_url = ENV.fetch('MAAT_API_OAUTH_URL', nil)
     config.x.maat_api.client_id = ENV.fetch('MAAT_API_CLIENT_ID', nil)
     config.x.maat_api.client_secret = ENV.fetch('MAAT_API_CLIENT_SECRET', nil)
