@@ -24,7 +24,7 @@ RSpec.describe 'Viewing the income payments of an application' do
       )
       expect(page).to have_content('Money from friends or family Does not get')
       expect(page).to have_content('Other sources of income £25.00 every year')
-      expect(page).to have_content('Other sources of income details Book royalty')
+      expect(page).to have_content("Other sources of income details\nBook royalty")
     end
     # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
   end

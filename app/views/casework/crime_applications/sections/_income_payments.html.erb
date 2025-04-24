@@ -24,7 +24,7 @@
                 <%= label_text(:other_payment_details) %>
               </dt>
               <dd class="govuk-summary-list__value">
-                <%= value.metadata.details %>
+                <%= simple_format(value.metadata.details) %>
               </dd>
             </div>
           <% end %>
