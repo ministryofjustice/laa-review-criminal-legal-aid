@@ -244,7 +244,7 @@ RSpec.describe 'Authorisation' do
     end
   end
 
-  def outside_the_scope_of_this_test
+  def outside_the_scope_of_this_test # rubocop:disable Metrics/MethodLength
     %w[
       _system_test_entrypoint
       api_events
@@ -256,6 +256,7 @@ RSpec.describe 'Authorisation' do
       user_azure_ad_omniauth_authorize
       user_azure_ad_omniauth_callback
       sign_out
+      sidekiq_web
     ]
   end
 
