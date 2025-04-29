@@ -9,6 +9,9 @@ services:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
 
+  redis:
+    image: redis:7.0.7-alpine
+
   web:
     build: .
     environment:
@@ -28,8 +31,10 @@ services:
       DISABLE_HTTPS: "1"
       DEV_AUTH_ENABLED: "true"
       IS_LOCAL_DOCKER_ENV: "true"
+      REDIS_URL: redis://redis:6379
     ports:
       - "3001:3001" # puma server (rails app)
       - "9395:9395" # prometheus exporter `/metrics` endpoint
     depends_on:
       - db
+      - redis

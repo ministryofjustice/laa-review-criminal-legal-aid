@@ -91,7 +91,7 @@ RSpec.describe 'Send an application back to the provider' do
           expect(NotifyMailer).to have_received(:application_returned_email).with(
             crime_application_id, 'duplicate_application'
           )
-          expect(mailer_double).to have_received(:deliver_now)
+          expect(mailer_double).to have_received(:deliver_later)
         end
       end
     end

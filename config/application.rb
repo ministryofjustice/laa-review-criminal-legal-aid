@@ -13,6 +13,7 @@ require 'action_cable/engine'
 require 'rails/test_unit/railtie'
 
 require_relative '../app/lib/notify_mailer_interceptor'
+require_relative '../app/lib/host_env'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -44,6 +45,10 @@ module LaaReviewCriminalLegalAid
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
+    end
+
+    unless HostEnv.production?
+      config.active_job.queue_adapter = :sidekiq
     end
 
     # Authentication, authorization, and session configuration

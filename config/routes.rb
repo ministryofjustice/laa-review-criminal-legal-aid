@@ -2,6 +2,13 @@ Rails.application.routes.draw do
   Rails.application.routes.draw { mount RailsEventStore::Browser => "/res" if Rails.env.development? }
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
+  # TODO: should this be accessible in prod? By which users?
+  unless Rails.env.production?
+    require "sidekiq/web"
+    require 'sidekiq-scheduler/web'
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
   get :health, to: 'healthcheck#show'
   get :ping,   to: 'healthcheck#ping'
 
