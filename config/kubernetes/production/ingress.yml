@@ -22,9 +22,6 @@ metadata:
       SecRequestBodyLimit 1048576
       SecRequestBodyNoFilesLimit 1048576
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-crime-apply"
-      SecRuleUpdateTargetByTag attack-xss !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
-      SecRuleUpdateTargetByTag attack-sqli !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
-
       SecRule REQUEST_URI "@beginsWith /api/events" "id:555001, phase:1, pass, t:none, nolog, chain" \
         SecRule REQUEST_METHOD "@streq POST" "chain" \
           SecRule REQUEST_HEADERS:Content-Type "@rx [\s]*text/plain[\s]*" "ctl:ruleRemoveById=920420"
@@ -38,6 +35,12 @@ metadata:
         ctl:ruleRemoveById=933160,\
         ctl:ruleRemoveById=942230,\
         ctl:ruleRemoveById=942360"
+      SecRule REQUEST_COOKIES:_laa_review_criminal_legal_aid_session "@rx .+" \
+        "id:1003,phase:2,pass,nolog,\
+        ctl:ruleRemoveByTag=attack-rce,\
+        ctl:ruleRemoveByTag=attack-injection-php,\
+        ctl:ruleRemoveByTag=attack-xss,\
+        ctl:ruleRemoveByTag=attack-sqli"
 
 spec:
   ingressClassName: modsec
