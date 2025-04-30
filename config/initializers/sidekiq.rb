@@ -1,6 +1,6 @@
 require 'host_env'
 
-return unless HostEnv.production?
+return if HostEnv.production?
 
 # For k8s readiness probe - taken from https://github.com/sidekiq/sidekiq/wiki/Kubernetes#sidekiq
 SIDEKIQ_WILL_PROCESSES_JOBS_FILE = Rails.root.join('tmp/sidekiq_process_has_started_and_will_begin_processing_jobs').freeze

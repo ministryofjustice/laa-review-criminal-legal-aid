@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
   # TODO: should this be accessible in prod? By which users?
-  unless Rails.env.production?
-    require "sidekiq/web"
+  unless HostEnv.production?
+    require 'sidekiq/web'
     require 'sidekiq-scheduler/web'
     mount Sidekiq::Web => "/sidekiq"
   end
