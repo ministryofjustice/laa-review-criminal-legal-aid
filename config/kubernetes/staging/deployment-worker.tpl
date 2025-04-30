@@ -36,7 +36,7 @@ spec:
           exec:
             command:
               - cat
-              - /tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
+              - tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
           periodSeconds: 10
           failureThreshold: 3
         livenessProbe:
