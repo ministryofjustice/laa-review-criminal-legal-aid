@@ -19,11 +19,14 @@ spec:
       labels:
         app: review-criminal-legal-aid-worker-staging
         tier: worker
+        metrics-target: laa-review-criminal-legal-aid-staging-metrics-target
     spec:
       containers:
       - name: worker
         image: ${ECR_URL}:${IMAGE_TAG}
         imagePullPolicy: Always
+        ports:
+          - containerPort: 9394
         command: ["bundle", "exec", "sidekiq"]
         resources:
           requests:
