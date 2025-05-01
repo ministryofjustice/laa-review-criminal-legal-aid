@@ -25,6 +25,8 @@ spec:
       - name: worker
         image: ${ECR_URL}:${IMAGE_TAG}
         imagePullPolicy: Always
+        ports:
+          - containerPort: 9394
         command: ["bundle", "exec", "sidekiq"]
         resources:
           requests:
