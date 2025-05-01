@@ -11,11 +11,7 @@ module PrometheusMetrics
     # :nocov:
     def self.should_configure?
       return false if ENV.key?('SKIP_PROMETHEUS_EXPORTER')
-
-      # For now we only initialise prometheus exporter on servers
-      # In the future this may change to also support workers
-      return false unless defined?(Rails) &&
-                          (Rails.const_defined?('Rails::Server') || File.basename($PROGRAM_NAME) == 'puma')
+      return false unless rails_server? || sidekiq?
 
       ENV.fetch('ENABLE_PROMETHEUS_EXPORTER', 'false').inquiry.true?
     end
@@ -24,8 +20,9 @@ module PrometheusMetrics
     # If we move to multi process mode, we will have to run the
     # exporter process separately (`bundle exec prometheus_exporter`)
     def self.start_server
+      port = ENV.fetch('PROMETHEUS_EXPORTER_PORT', 9394).to_i
       server = PrometheusExporter::Server::WebServer.new(
-        bind: '0.0.0.0', port: ENV.fetch('PROMETHEUS_EXPORTER_PORT', 9394).to_i,
+        bind: '0.0.0.0', port: port,
         verbose: ENV.fetch('PROMETHEUS_EXPORTER_VERBOSE', 'false').inquiry.true?
       )
 
@@ -36,8 +33,18 @@ module PrometheusMetrics
 
       true
     rescue Errno::EADDRINUSE
-      warn "[PrometheusExporter] Server port `#{SERVER_BINDING_PORT}` already in use."
+      warn "[PrometheusExporter] Server port `#{port}` already in use."
       false
+    end
+
+    def self.rails_server?
+      defined?(Rails) && (Rails.const_defined?('Rails::Server') || File.basename($PROGRAM_NAME) == 'puma')
+    end
+
+    def self.sidekiq?
+      return false if HostEnv.production?
+
+      Sidekiq.server?
     end
 
     def self.configure
@@ -52,6 +59,11 @@ module PrometheusMetrics
       # Metrics will be prefixed, for example `ruby_http_requests_total`
       PrometheusExporter::Metric::Base.default_prefix = DEFAULT_PREFIX
 
+      config_rails_instrumentation if rails_server?
+      config_sidekiq_instrumentation if sidekiq?
+    end
+
+    def self.config_rails_instrumentation
       # This reports stats per request like HTTP status and timings
       Rails.application.middleware.unshift PrometheusExporter::Middleware
 
@@ -66,6 +78,27 @@ module PrometheusMetrics
       # NOTE: if running Puma in cluster mode, the following
       # instrumentation will need to be changed
       PrometheusExporter::Instrumentation::ActiveRecord.start
+    end
+
+    def self.config_sidekiq_instrumentation # rubocop:disable Metrics/MethodLength
+      Sidekiq.configure_server do |config|
+        require 'prometheus_exporter/client'
+
+        config.server_middleware do |chain|
+          chain.add PrometheusExporter::Instrumentation::Sidekiq
+        end
+        config.death_handlers << PrometheusExporter::Instrumentation::Sidekiq.death_handler
+        config.on :startup do
+          PrometheusExporter::Instrumentation::Process.start type: 'sidekiq'
+          PrometheusExporter::Instrumentation::SidekiqProcess.start
+          PrometheusExporter::Instrumentation::SidekiqQueue.start(all_queues: true)
+          PrometheusExporter::Instrumentation::SidekiqStats.start
+        end
+
+        at_exit do
+          PrometheusExporter::Client.default.stop(wait_timeout_seconds: 10)
+        end
+      end
     end
     # :nocov:
   end

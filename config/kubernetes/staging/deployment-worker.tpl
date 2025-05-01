@@ -19,6 +19,7 @@ spec:
       labels:
         app: review-criminal-legal-aid-worker-staging
         tier: worker
+        metrics-target: laa-review-criminal-legal-aid-staging-metrics-target
     spec:
       containers:
       - name: worker
