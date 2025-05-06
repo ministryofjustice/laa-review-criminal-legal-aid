@@ -2,7 +2,7 @@ require_relative 'boot'
 
 require 'rails'
 require 'active_record/railtie'
-# require "active_storage/engine"
+require "active_storage/engine"
 require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'action_mailer/railtie'
@@ -50,6 +50,7 @@ module LaaReviewCriminalLegalAid
     unless HostEnv.production?
       config.active_job.queue_adapter = :sidekiq
     end
+    config.action_mailer.deliver_later_queue_name = 'mailers'
 
     # Authentication, authorization, and session configuration
 
@@ -91,6 +92,10 @@ module LaaReviewCriminalLegalAid
 
     # Prohibit all HTML tags
     config.action_view.sanitized_allowed_tags = []
+
+    # Disable the default Active Storage routes
+    # https://edgeguides.rubyonrails.org/active_storage_overview.html#authenticated-controllers
+    config.active_storage.draw_routes = false
 
     config.x.maat_api.oauth_url = ENV.fetch('MAAT_API_OAUTH_URL', nil)
     config.x.maat_api.client_id = ENV.fetch('MAAT_API_CLIENT_ID', nil)

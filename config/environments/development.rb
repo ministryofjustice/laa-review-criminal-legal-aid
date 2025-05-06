@@ -70,4 +70,6 @@ Rails.application.configure do
 
   # Allow connections from inside a docker container to this host machine
   config.hosts += %w[host.docker.internal]
+
+  config.active_storage.service = :local
 end
