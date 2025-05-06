@@ -84,3 +84,8 @@ spec:
               secretKeyRef:
                 name: ec-cluster-output
                 key: auth_token
+          - name: AWS_S3_BUCKET
+            valueFrom:
+              secretKeyRef:
+                name: s3-bucket
+                key: bucket_name
