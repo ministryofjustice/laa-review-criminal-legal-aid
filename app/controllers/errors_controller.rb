@@ -27,7 +27,7 @@ class ErrorsController < ApplicationController
   def error_page
     return :internal_server_error if status >= 500
     return :forbidden if status == 403
-    return :unprocessable_entity if [422, 400].include? status
+    return :unprocessable_entity if [422, 400, 409].include? status
 
     :not_found
   end

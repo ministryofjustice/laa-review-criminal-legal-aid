@@ -2,7 +2,7 @@ require_relative 'boot'
 
 require 'rails'
 require 'active_record/railtie'
-require "active_storage/engine"
+require 'active_storage/engine'
 require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'action_mailer/railtie'
@@ -84,7 +84,8 @@ module LaaReviewCriminalLegalAid
       'Allocating::WorkStreamNotFound' => :not_found,
       'Deciding::DecisionNotFound' => :not_found,
       'Deciding::ApplicationNotAssignedToUser' => :forbidden,
-      'ApplicationController::ForbiddenError' => :forbidden
+      'ApplicationController::ForbiddenError' => :forbidden,
+      'DatastoreApi::Errors::NotFoundError' => :not_found
     )
 
     # Prohibit all HTML tags
