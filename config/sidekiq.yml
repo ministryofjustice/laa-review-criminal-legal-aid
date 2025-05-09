@@ -3,3 +3,11 @@
 :queues:
   - default
   - mailers
+  - reports
+:scheduler:
+  :schedule:
+    # for testing purposes only
+    caseworker_report_test:
+      cron: '15 * * * *' # every 15 min
+      class: GenerateDownloadableTemporalReportJob
+      args: ['caseworker_report', 'monthly']

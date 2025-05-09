@@ -5,6 +5,7 @@ require 'laa_crime_schemas'
 require 'spec_helper'
 require 'rspec/rails'
 require 'axe-rspec'
+require 'sidekiq/testing'
 
 ['init/*.rb', 'shared_contexts/*.rb', 'shared_examples/*.rb', 'support/**/*.rb'].each do |path|
   Dir[File.expand_path(path, __dir__)].each { |f| require f }
