@@ -86,6 +86,8 @@ Rails.application.routes.draw do
 
   namespace :reporting do
     root to: 'user_reports#index'
+    get 'generated-reports/:id/download', to: 'generated_reports#download', as: :download_generated_report
+
     get ':report_type', to: 'user_reports#show', as: 'user_report'
 
     get ':report_type/:interval/latest-complete', to: 'temporal_reports#latest_complete', as: :latest_complete_temporal_report

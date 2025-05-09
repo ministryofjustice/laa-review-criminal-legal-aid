@@ -19,6 +19,16 @@ module Reporting
       sorted_rows.reverse
     end
 
+    def csv(*)
+      CSV.generate(headers: true) do |csv|
+        csv << ['caseworker', *CaseworkerReports::Row::COUNTERS]
+
+        rows.each do |row|
+          csv << [row.user_name, *CaseworkerReports::Row::COUNTERS.map { |c| row.send(c) }]
+        end
+      end
+    end
+
     private
 
     attr_reader :dataset
