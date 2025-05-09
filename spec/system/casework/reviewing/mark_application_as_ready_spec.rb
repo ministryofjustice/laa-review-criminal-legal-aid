@@ -71,6 +71,18 @@ RSpec.describe 'Marking an application as ready for assessment' do
           expect(page).to have_notification_banner text: message
         end
       end
+
+      describe 'DatastoreApi Error' do
+        let(:error_class) { DatastoreApi::Errors::ApiError }
+        let(:message) do
+          "Sorry, there is a problem with your request\nYou can go back, refresh the page, and try again."
+        end
+
+        it 'notifies that the application has already been completed' do
+          expect(page).to have_text message
+          expect(page.status_code).to be 422
+        end
+      end
     end
   end
 
