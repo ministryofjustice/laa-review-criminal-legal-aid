@@ -8,6 +8,7 @@ module Reporting
     def index
       @latest_temporal_reports = latest_temporal_reports
       @snapshot_report_types = snapshot_report_types
+      @downloadable_reports = GeneratedReport.all
     end
 
     def show
