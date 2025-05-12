@@ -9,7 +9,7 @@ RSpec.describe 'Generated reports' do
       period_end_date: Date.parse('2025-04-30'),
       report: {
         io: StringIO.new('caseworker report'),
-        filename: 'caserworker_report_monthly_2025-April.csv',
+        filename: 'caseworker_report_monthly_2025-April.csv',
         content_type: 'text/csv',
       }
     )
@@ -46,14 +46,14 @@ RSpec.describe 'Generated reports' do
 
       it 'has the correct file name' do
         expect(page.driver.response.headers['Content-Disposition']).to match(
-          'caserworker_report_monthly_2025-April.csv'
+          'caseworker_report_monthly_2025-April.csv'
         )
       end
 
       it 'can visit the download link to get the report' do
         visit reporting_download_generated_report_path(generated_report)
         expect(page.driver.response.headers['Content-Disposition']).to match(
-          'caserworker_report_monthly_2025-April.csv'
+          'caseworker_report_monthly_2025-April.csv'
         )
       end
     end
