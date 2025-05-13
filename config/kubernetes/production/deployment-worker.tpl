@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-production
+  name: deployment-worker-production
   namespace: laa-review-criminal-legal-aid-production
 spec:
   replicas: 4
@@ -13,69 +13,58 @@ spec:
       maxSurge: 100%
   selector:
     matchLabels:
-      app: review-criminal-legal-aid-web-production
+      app: review-criminal-legal-aid-worker-production
   template:
     metadata:
       labels:
-        app: review-criminal-legal-aid-web-production
-        tier: frontend
+        app: review-criminal-legal-aid-worker-production
+        tier: worker
         metrics-target: laa-review-criminal-legal-aid-production-metrics-target
     spec:
       serviceAccountName: laa-review-criminal-legal-aid-production-service
       containers:
-      - name: webapp
+      - name: worker
         image: ${ECR_URL}:${IMAGE_TAG}
         imagePullPolicy: Always
         ports:
-          - containerPort: 3000
           - containerPort: 9394
+        command: ["bundle", "exec", "sidekiq"]
         resources:
           requests:
-            cpu: 25m
-            memory: 1Gi
+            cpu: 10m
+            memory: 512Mi
           limits:
             cpu: 500m
-            memory: 3Gi
+            memory: 1Gi
         readinessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-            httpHeaders:
-              - name: X-Forwarded-Proto
-                value: https
-              - name: X-Forwarded-Ssl
-                value: "on"
-          initialDelaySeconds: 11
+          exec:
+            command:
+              - cat
+              - tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
           periodSeconds: 10
+          failureThreshold: 3
         livenessProbe:
-          httpGet:
-            path: /ping
-            port: 3000
-            httpHeaders:
-              - name: X-Forwarded-Proto
-                value: https
-              - name: X-Forwarded-Ssl
-                value: "on"
-          failureThreshold: 1
-          periodSeconds: 10
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - pgrep -f sidekiq
+          failureThreshold: 30
+          periodSeconds: 3
         startupProbe:
-          httpGet:
-            path: /ping
-            port: 3000
-            httpHeaders:
-              - name: X-Forwarded-Proto
-                value: https
-              - name: X-Forwarded-Ssl
-                value: "on"
-          failureThreshold: 20
-          periodSeconds: 10
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - pgrep -f sidekiq
+          failureThreshold: 60
+          periodSeconds: 5
         envFrom:
           - configMapRef:
               name: configmap-production
           - secretRef:
               name: laa-review-criminal-legal-aid-secrets
         env:
-          # secrets created by terraform
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:

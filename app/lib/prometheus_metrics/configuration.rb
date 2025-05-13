@@ -42,8 +42,6 @@ module PrometheusMetrics
     end
 
     def self.sidekiq?
-      return false if HostEnv.production?
-
       Sidekiq.server?
     end
 
