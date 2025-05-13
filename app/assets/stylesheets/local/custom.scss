@@ -135,4 +135,8 @@ a#copy-reference-number { display: none }
 
 body.js-enabled {
   a#copy-reference-number { display: inline }
+
+  @media print {
+    a#copy-reference-number { display: none }
+  }
 }

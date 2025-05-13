@@ -1,6 +1,6 @@
 // Print specific overrides.
-// Currently this is only used in the representation order page.
-//
+// Currently this is only used in the application details page.
+
 @media print {
   header,
   footer,
@@ -9,7 +9,6 @@
   .govuk-service-navigation,
   .moj-sub-navigation,
   .govuk-link--no-visited-state,
-  #copy-reference-number,
   .app-no-print {
     display: none;
   }
