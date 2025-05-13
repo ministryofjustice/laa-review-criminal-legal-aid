@@ -9,7 +9,7 @@
         <%= crime_application.reference %>
       </span>
       <% unless crime_application.superseded? %>
-        <%= link_to t('calls_to_action.copy_reference_number'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state' %>
+        <%= link_to t('calls_to_action.copy_reference_number'), '', id: 'copy-reference-number', class: 'govuk-link--no-visited-state app-no-print' %>
         <p id="copy-reference-number-alert" class="govuk-visually-hidden" aria-live="assertive"></p>
       <% end %>
     </p>
@@ -30,6 +30,10 @@
           ) %>
     <% end %>
 
-    <%= render partial: 'assignment', object: crime_application %>
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
+      <div class="govuk-grid-column-one-half">
+          <%= render partial: 'assignment', object: crime_application %>
+      </div>
+    </div>
   </div>
 </div>

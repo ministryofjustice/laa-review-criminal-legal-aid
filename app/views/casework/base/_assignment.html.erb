@@ -1,45 +1,50 @@
-<div class="govuk-grid-row govuk-!-margin-bottom-6">
-  <div class="govuk-grid-column-one-half">
-    <div class="govuk-body-l">
-      <% if assignment.reviewed? %>
-        <strong><%= label_text(:closed_by) %></strong>
-        <%= assignment.reviewer_name %>
-      <% else %>
-        <strong><%= label_text(:assigned_to) %></strong>
-        <%= assignment.assignee_name || t(:no_one, scope: 'values') %>
-      <% end %>
-    </div>
+<div class="govuk-body-l">
+  <% if assignment.reviewed? %>
+    <strong><%= label_text(:closed_by) %></strong>
+    <%= assignment.reviewer_name %>
+  <% else %>
+    <strong><%= label_text(:assigned_to) %></strong>
+    <%= assignment.assignee_name || t(:no_one, scope: 'values') %>
+  <% end %>
+</div>
 
-    <% if assignment.reviewed? %>
-      <div class="govuk-body-l govuk-!-margin-bottom-0">
-        <strong><%= t(assignment.review_status, scope: 'labels.date') %></strong>
-        <%= l assignment.reviewed_at, format: :compact %>
-      </div>
-    <% end %>
-
-    <% unless assignment.reviewed? %>
-      <% if assignment.unassigned? %>
-        <%= button_to t('calls_to_action.assign_to_self'),
-                      assigned_applications_path(
-                        crime_application_id: assignment.id
-                      ),
-                      method: :post,
-                      class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1' %>
-      <% else %>
-        <% if assignment.assigned_to?(current_user_id) %>
-          <%= button_to t('calls_to_action.unassign_from_self'),
-                        assigned_application_path(assignment),
-                        method: :delete,
-                        class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1' %>
-        <% else %>
-          <%= button_to t('calls_to_action.reassign_to_self'),
-                        new_crime_application_reassign_path(
-                          assignment.id
-                        ),
-                        method: :get,
-                        class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1' %>
-        <% end %>
-      <% end %>
-    <% end %>
+<% if assignment.reviewed? %>
+  <div class="govuk-body-l">
+    <strong><%= t(assignment.review_status, scope: 'labels.date') %></strong>
+    <%= l assignment.reviewed_at, format: :compact %>
   </div>
+<% end %>
+
+<div class="govuk-button-group">
+  <% unless assignment.reviewed? %>
+    <% if assignment.unassigned? %>
+      <%= button_to t('calls_to_action.assign_to_self'),
+                    assigned_applications_path(
+                      crime_application_id: assignment.id
+                    ),
+                    method: :post,
+                    class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1 app-no-print' %>
+    <% else %>
+      <% if assignment.assigned_to?(current_user_id) %>
+        <%= button_to t('calls_to_action.unassign_from_self'),
+                      assigned_application_path(assignment),
+                      method: :delete,
+                      class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1 app-no-print' %>
+      <% else %>
+        <%= button_to t('calls_to_action.reassign_to_self'),
+                      new_crime_application_reassign_path(
+                        assignment.id
+                      ),
+                      method: :get,
+                      class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1 app-no-print' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% unless current_page?(history_crime_application_path) %>
+    <%= button_to 'Print application',
+                  '',
+                  data: { module: 'print' },
+                  class: 'govuk-button govuk-button--secondary govuk-!-margin-top-2 govuk-!-margin-bottom-1 app-no-print' %>
+  <% end %>
 </div>
