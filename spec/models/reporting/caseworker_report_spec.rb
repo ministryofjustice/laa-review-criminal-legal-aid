@@ -83,4 +83,30 @@ describe Reporting::CaseworkerReport do
       end
     end
   end
+
+  describe '#csv' do
+    subject(:csv) { report.csv }
+
+    let(:dataset) do
+      {
+        a: instance_double(CaseworkerReports::Row, user_name: 'Al Hart', assigned_to_user: 4, reassigned_to_user: 0,
+reassigned_from_user: 0, unassigned_from_user: 0, completed_by_user: 5, sent_back_by_user: 1),
+        b: instance_double(CaseworkerReports::Row, user_name: 'Bo Brown', assigned_to_user: 7, reassigned_to_user: 1,
+reassigned_from_user: 0, unassigned_from_user: 0, completed_by_user: 7, sent_back_by_user: 3),
+        c: instance_double(CaseworkerReports::Row, user_name: 'An Brown', assigned_to_user: 2, reassigned_to_user: 1,
+reassigned_from_user: 1, unassigned_from_user: 0, completed_by_user: 1, sent_back_by_user: 1)
+      }
+    end
+
+    # rubocop:disable Layout/LineLength
+    it 'has the correct data' do
+      expect(csv).to eq(
+        "caseworker,assigned_to_user,reassigned_to_user,reassigned_from_user,unassigned_from_user,completed_by_user,sent_back_by_user\n" \
+        "Al Hart,4,0,0,0,5,1\n" \
+        "An Brown,2,1,1,0,1,1\n" \
+        "Bo Brown,7,1,0,0,7,3\n"
+      )
+    end
+    # rubocop:enable Layout/LineLength
+  end
 end
