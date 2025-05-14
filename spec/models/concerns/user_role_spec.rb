@@ -271,7 +271,7 @@ RSpec.describe UserRole do
   end
 
   describe '#admin?' do
-    context 'with can_manager_others attribute set to true' do
+    context 'with can_manage_others attribute set to true' do
       it 'returns true' do
         user.can_manage_others = true
         expect(user.admin?).to be true
