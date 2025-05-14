@@ -42,7 +42,7 @@ RSpec.describe 'Change user role' do
       click_on 'Save new role'
 
       expect(NotifyMailer).to have_received(:role_changed_email).with(admin_emails, active_user)
-      expect(mailer_double).to have_received(:deliver_now)
+      expect(mailer_double).to have_received(:deliver_later)
     end
   end
 

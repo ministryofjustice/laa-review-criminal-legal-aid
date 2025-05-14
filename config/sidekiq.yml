@@ -6,8 +6,7 @@
   - reports
 :scheduler:
   :schedule:
-    # for testing purposes only
-    caseworker_report_test:
-      cron: '15 * * * *' # every 15 min
+    monthly_caseworker_report:
+      cron: '0 0 1 * *' # midnight, 1st of each month
       class: GenerateDownloadableTemporalReportJob
       args: ['caseworker_report', 'monthly']

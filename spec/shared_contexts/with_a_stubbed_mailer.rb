@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.shared_context 'with a stubbed mailer' do
-  let(:mailer_double) { instance_double(ActionMailer::MessageDelivery, deliver_now: true, deliver_later: true) }
+  let(:mailer_double) { instance_double(ActionMailer::MessageDelivery, deliver_later: true) }
 
   let(:notify_mailer_method) { :application_returned_email }
 

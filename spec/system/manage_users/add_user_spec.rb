@@ -41,7 +41,7 @@ RSpec.describe 'Invites from manage users dashboard' do
     click_button 'Invite'
 
     expect(NotifyMailer).to have_received(:access_granted_email).with(email)
-    expect(mailer_double).to have_received(:deliver_now)
+    expect(mailer_double).to have_received(:deliver_later)
   end
 
   it 'allows a user without management access to be added' do
