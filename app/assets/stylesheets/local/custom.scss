@@ -130,9 +130,13 @@ html {
   }
 }
 
-// Hide Copy reference number link if Javascript is disabled
-a#copy-reference-number { display: none }
+// Hide copy text links if Javascript is disabled
+.copy-text-link { display: none }
 
 body.js-enabled {
-  a#copy-reference-number { display: inline }
+  .copy-text-link { display: inline }
+
+  @media print {
+    .copy-text-link { display: none }
+  }
 }

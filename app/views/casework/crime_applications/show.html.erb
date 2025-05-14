@@ -1,5 +1,9 @@
 <% title t('.page_title') %>
 
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag 'print', media: 'print' %>
+<% end %>
+
 <% if @crime_application.decisions_pending? && @crime_application.reviewable_by?(current_user_id) %>
   <% message = t(:finish_adding_decisions, scope: 'flash.important', continue_adding_decision_link: govuk_link_to(t(:continue_adding_decision, scope: 'flash.important'), crime_application_send_decisions_path(@crime_application))) %>
   <%= render FlashNotice.new(:important, message) %>
@@ -32,7 +36,7 @@
   </div>
 </div>
 
-<div class="govuk-grid-row">
+<div class="govuk-grid-row app-no-print">
   <div class="govuk-grid-column-full">
     <% if @crime_application.reviewable_by?(current_user_id) %>
       <div class="govuk-button-group govuk-!-margin-bottom-6">

@@ -15,3 +15,10 @@ initAll()
 copyText('#reference-number','#copy-reference-number')
 copyText('#overview-urn','#copy-overview-urn')
 copyText('#case-details-urn','#copy-case-details-urn')
+
+// Allow window.print(), otherwise blocked by CSP
+import PrintAction from "./local/print-action"
+const $elements = document.querySelectorAll('[data-module="print"]')
+for (let i = 0; i < $elements.length; i++) {
+    new PrintAction($elements[i]).init()
+}

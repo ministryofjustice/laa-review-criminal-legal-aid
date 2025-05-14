@@ -13,7 +13,7 @@
         <%= case_details.urn.presence || t(:none, scope: 'values') %>
       </span>
         <% if case_details.urn.presence && !crime_application.superseded? %>
-          <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-case-details-urn', class: 'govuk-link--no-visited-state' %>
+          <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-case-details-urn', class: 'govuk-link--no-visited-state copy-text-link' %>
         <% end %>
       </dd>
     </div>

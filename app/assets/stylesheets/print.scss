@@ -1,0 +1,25 @@
+// Print specific overrides.
+// Currently this is only used in the application details page.
+
+@media print {
+  header,
+  footer,
+  .govuk-phase-banner,
+  .govuk-back-link,
+  .govuk-service-navigation,
+  .moj-sub-navigation,
+  .govuk-notification-banner,
+  .govuk-link,
+  .app-no-print {
+    display: none;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 3em !important;
+
+    .govuk-grid-column-two-thirds {
+      width: 100% !important;
+    }
+  }
+}
