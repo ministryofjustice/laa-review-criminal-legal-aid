@@ -57,6 +57,10 @@ module UserRole
     can_manage_others?
   end
 
+  def admin?
+    can_manage_others?
+  end
+
   def available_roles
     Types::USER_ROLES - [role]
   end

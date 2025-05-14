@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
   unless HostEnv.production?
-    require 'sidekiq/web'
-    require 'sidekiq-scheduler/web'
-    mount Sidekiq::Web => "/sidekiq"
+    authenticate :user, lambda { |u| u.admin? } do
+      require 'sidekiq/web'
+      require 'sidekiq-scheduler/web'
+      mount Sidekiq::Web => "/sidekiq"
+    end
   end
 
   get :health, to: 'healthcheck#show'
