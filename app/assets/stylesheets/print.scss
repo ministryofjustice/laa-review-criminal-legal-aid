@@ -14,12 +14,20 @@
     display: none;
   }
 
-  main {
-    padding: 0 !important;
-    margin: 3em !important;
+  // Prevents bleeding edges
+  @page {
+    size: auto;
+    margin: 20mm 10mm 10mm 10mm;
+  }
 
-    .govuk-grid-column-two-thirds {
-      width: 100% !important;
+  main {
+    // Keeps document in colour for legibility
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+
+    // Prevents cards being broken up on multiple pages
+    .govuk-summary-card {
+      break-inside: avoid;
     }
   }
 }
