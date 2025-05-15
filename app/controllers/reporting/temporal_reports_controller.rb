@@ -8,6 +8,7 @@ module Reporting
 
     def show
       @sorting = @report.sorting
+      @generated_report = GeneratedReport.by_temporal_report(@report).first
     end
 
     def download

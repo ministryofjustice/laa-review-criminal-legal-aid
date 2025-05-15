@@ -36,7 +36,7 @@ en:
       monthly: month 
       weekly: week 
       daily: day 
-    download_generated_report: Download %{interval} report for %{period} (CSV)
+    download_csv: Download source data (CSV)
   table_headings:
     application_type: Application type
     applications_closed: Number of closed applications

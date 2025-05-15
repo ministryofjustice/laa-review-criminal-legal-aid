@@ -3,8 +3,12 @@ class GeneratedReport < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
-  def period
-    format = Reporting::TemporalReport.klass_for_interval(interval)::PERIOD_NAME_FORMAT
-    period_start_date.strftime(format)
-  end
+  scope :by_temporal_report, lambda { |report|
+    where(
+      report_type: report.report_type,
+      interval: report.time_period.interval,
+      period_start_date: report.time_period.starts_on,
+      period_end_date: report.time_period.ends_on
+    ).order(created_at: :desc)
+  }
 end
