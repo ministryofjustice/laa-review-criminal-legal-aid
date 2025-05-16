@@ -6,11 +6,11 @@ en:
     attributes:
       add_another_decision:
         inclusion: Select yes to add another case
-      assessed_by: 
+      assessed_by:
         blank: Enter the caseworker name
-      assessed_on: 
+      assessed_on:
         blank: Enter the date of the test
-      base: 
+      base:
         incomplete_decisions: Complete decision details first
       details:
         blank: Enter a reason for the result
@@ -23,7 +23,7 @@ en:
         inclusion: Select the funding decision
       reason:
         inclusion: Choose a reason
-      result: 
+      result:
         blank: Select a result for the Interest of justice test
         inclusion: Select a result for the Interest of justice test
       maat_id:
@@ -32,7 +32,7 @@ en:
         not_a_number: *invalid_maat_id
         greater_than: *invalid_maat_id
         record_not_found: *invalid_maat_id
-        reference_mismatch: This MAAT ID is linked to another LAA reference number 
+        reference_mismatch: This MAAT ID is linked to another LAA reference number
         already_linked: This MAAT ID is linked to another application
         decision_already_linked: This MAAT ID is already linked
       next_step:
@@ -58,14 +58,12 @@ en:
       body_3: If the web address is correct or you selected a link or button, contact %{url} for help.
     internal_server_error:
       page_title: Unexpected error
-      heading: Sorry, something went wrong with our service
+      heading: Sorry, there is a problem with the service
+      body_1: Try again later.
+      body_2: If this problem continues, contact %{url} for help.
     forbidden:
       page_title: Not authorised
       heading: Access to this service is restricted
-    datastore_error:
-      page_title: Unexpected error
-      heading: Sorry, something went wrong with our service
-      body_1: We cannot connect to our database. This means you cannot view, search, or review applications.
     unprocessable_entity:
       page_title: Request error
       heading: Sorry, there is a problem with your request

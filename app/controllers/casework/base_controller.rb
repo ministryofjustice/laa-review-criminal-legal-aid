@@ -9,9 +9,15 @@ module Casework
     helper_method :assignments_count, :set_crime_application
 
     rescue_from DatastoreApi::Errors::ApiError do |e|
-      Rails.error.report(e, handled: true, severity: :error)
+      Rails.error.report(e, handled: false, severity: :error)
 
-      render status: :internal_server_error, template: 'errors/datastore_error'
+      render status: :internal_server_error, template: 'errors/internal_server_error'
+    end
+
+    rescue_from DatastoreApi::Errors::ConflictError do |e|
+      Rails.error.report(e, handled: false, severity: :error)
+
+      render status: :unprocessable_entity, template: 'errors/unprocessable_entity'
     end
 
     rescue_from DatastoreApi::Errors::NotFoundError do

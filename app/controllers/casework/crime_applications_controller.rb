@@ -40,9 +40,11 @@ module Casework
       ).call
 
       set_flash :marked_as_ready
+
+      redirect_to crime_application_path(@crime_application)
     rescue Reviewing::Error => e
       set_flash(e.message_key, success: false)
-    ensure
+
       redirect_to crime_application_path(@crime_application)
     end
 

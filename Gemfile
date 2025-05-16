@@ -20,7 +20,7 @@ gem 'logstash-event'
 
 gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client',
-    tag: 'v1.2.1',
+    tag: 'v1.2.4',
     require: 'datastore_api'
 
 gem 'laa-criminal-legal-aid-schemas',
