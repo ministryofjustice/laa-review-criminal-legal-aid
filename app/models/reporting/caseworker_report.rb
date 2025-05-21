@@ -8,23 +8,18 @@ module Reporting
     attr_reader :sorting
 
     def rows
-      sorted_rows = dataset.values.sort_by do |r|
-        v = r.public_send(sorting.sort_by)
-        v = v.upcase if v.respond_to?(:upcase)
-        v.nil? ? -1 : v
-      end
-
-      return sorted_rows unless sorting.sort_direction == 'descending'
-
-      sorted_rows.reverse
+      sort_data(dataset.basic_projection.values)
     end
 
-    def csv(*)
-      CSV.generate(headers: true) do |csv|
-        csv << ['caseworker', *CaseworkerReports::Row::COUNTERS]
-
-        rows.each do |row|
-          csv << [row.user_name, *CaseworkerReports::Row::COUNTERS.map { |c| row.send(c) }]
+    def csv(*) # rubocop:disable Metrics/AbcSize
+      data = sort_data(dataset.work_queue_projection.values.map(&:values).flatten)
+      CSV.generate do |csv|
+        csv << ['user', 'work_queue', *CaseworkerReports::Row::COUNTERS, 'total_assigned_to_user',
+                'total_unassigned_from_user', 'total_closed_by_user']
+        data.each do |row|
+          csv << [row.user_name, row.work_queue, *CaseworkerReports::Row::COUNTERS.map do |counter|
+            row.send(counter)
+          end, row.total_assigned_to_user, row.total_unassigned_from_user, row.total_closed_by_user]
         end
       end
     end
@@ -40,9 +35,21 @@ module Reporting
           interval: time_period.interval
         )
 
-        projection = CaseworkerReports::Projection.new(stream_name:)
-        new(dataset: projection.dataset, sorting: sorting)
+        dataset = CaseworkerReports::EventDataset.new(stream_name:)
+        new(dataset:, sorting:)
       end
+    end
+
+    def sort_data(data)
+      sorted = data.sort_by do |r|
+        v = r.public_send(sorting.sort_by)
+        v = v.upcase if v.respond_to?(:upcase)
+        v.nil? ? -1 : v
+      end
+
+      return sorted unless sorting.sort_direction == 'descending'
+
+      sorted.reverse
     end
   end
 end

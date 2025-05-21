@@ -18,6 +18,10 @@ class Review < ApplicationRecord
     true
   end
 
+  def pse?
+    application_type == 'post_submission_evidence'
+  end
+
   class << self
     # returns an array of crime application ids reviewed by the user id.
     def reviewed_by_ids(user_id:)
