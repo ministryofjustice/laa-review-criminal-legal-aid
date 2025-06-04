@@ -94,7 +94,7 @@ spec:
 
         - alert: CrimeReview-BlockedRequest
           expr: >-
-            sum(rate(nginx_ingress_controller_requests{exported_namespace=~"^laa-review-criminal-legal-aid.*", status=~"423"}[5m]) * 60 > 5)
+            sum(rate(nginx_ingress_controller_requests{exported_namespace=~"^laa-review-criminal-legal-aid.*", status=~"423"}[5m]) > 0)
             by (exported_namespace)
           for: 1m
           labels:
