@@ -19,11 +19,15 @@ spec:
       labels:
         app: review-criminal-legal-aid-worker-staging
         tier: worker
+        metrics-target: laa-review-criminal-legal-aid-staging-metrics-target
     spec:
+      serviceAccountName: laa-review-criminal-legal-aid-staging-service
       containers:
       - name: worker
         image: ${ECR_URL}:${IMAGE_TAG}
         imagePullPolicy: Always
+        ports:
+          - containerPort: 9394
         command: ["bundle", "exec", "sidekiq"]
         resources:
           requests:
@@ -36,7 +40,7 @@ spec:
           exec:
             command:
               - cat
-              - /tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
+              - tmp/sidekiq_process_has_started_and_will_begin_processing_jobs
           periodSeconds: 10
           failureThreshold: 3
         livenessProbe:
@@ -81,3 +85,8 @@ spec:
               secretKeyRef:
                 name: ec-cluster-output
                 key: auth_token
+          - name: AWS_S3_BUCKET
+            valueFrom:
+              secretKeyRef:
+                name: s3-bucket
+                key: bucket_name

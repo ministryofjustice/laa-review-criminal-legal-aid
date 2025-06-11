@@ -22,6 +22,7 @@ en:
       index:
         page_title: Reporting 
         heading: Reports
+        downloads: Downloads
   labels:
     return_reasons_report: Return reasons report
     workload_report: Workload report
@@ -35,6 +36,7 @@ en:
       monthly: month 
       weekly: week 
       daily: day 
+    download_csv: Download source data (CSV)
   table_headings:
     application_type: Application type
     applications_closed: Number of closed applications

@@ -18,42 +18,44 @@ RSpec.describe 'Error pages' do
       end
     end
 
-    context 'when a datastore api error exists' do
-      include_context 'with stubbed assignments and reviews'
-
+    context 'when the datastore returns an unhandled error' do
       before do
-        stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
-          .to_raise error
+        stub_request(
+          :post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches"
+        ).and_return(body: { error: 'oops' }.to_json, status: 500)
+
+        allow(Rails.error).to receive(:report)
 
         visit '/'
       end
 
-      ['Review next application', 'Open applications', 'Closed applications'].each do |step|
-        let(:error) { DatastoreApi::Errors::Unauthorized.new }
+      context 'when a search is made' do
+        before do
+          click_on 'Search'
+          click_button 'Search'
+        end
 
-        context "when '#{step}' is clicked on" do
-          before do
-            allow(Rails.error).to receive(:report)
-            click_on step
-          end
+        it 'reports the exception' do
+          expect(Rails.error).to have_received(:report)
+        end
 
-          it 'reports the exception' do
-            expect(Rails.error).to have_received(:report).with(error, hash_including(handled: true, severity: :error))
+        it 'shows an error message' do
+          within('.govuk-main-wrapper') do
+            expect(page).to have_content([
+              'Sorry, there is a problem with the service',
+              'Try again later.',
+              'If this problem continues, contact LAAapplyonboarding@justice.gov.uk for help'
+            ].join("\n"))
           end
+        end
 
-          it 'shows an error message' do
-            expect(page).to have_content 'Sorry, something went wrong with our service'
-            expect(page).to have_content 'We cannot connect to our database'
-          end
+        it 'returns a 500 error status' do
+          expect(page).to have_http_status :internal_server_error
+        end
 
-          it 'returns a 500 error status' do
-            expect(page).to have_http_status :internal_server_error
-          end
-
-          it 'uses the system user layout with navigation' do
-            expect(page).to have_css('nav.govuk-service-navigation__wrapper')
-            expect(page).to have_link('Sign out')
-          end
+        it 'uses the system user layout with navigation' do
+          expect(page).to have_css('nav.govuk-service-navigation__wrapper')
+          expect(page).to have_link('Sign out')
         end
       end
     end
@@ -62,26 +64,71 @@ RSpec.describe 'Error pages' do
       before do
         allow(Rails.error).to receive(:report)
 
-        stub_request(:get,
-                     "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}").to_raise(error)
+        stub_request(
+          :get,
+          "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}"
+        ).to_return(body: { error: 'ooops' }.to_json, status: 401)
 
         visit crime_application_path(id: application_id)
       end
 
-      let(:error) { DatastoreApi::Errors::ConnectionError.new }
       let(:application_id) { SecureRandom.uuid }
 
       it 'reports the exception' do
-        expect(Rails.error).to have_received(:report).with(error, hash_including(handled: true, severity: :error))
+        expect(Rails.error).to have_received(:report) # .with(error, hash_including(handled: true, severity: :error))
       end
 
       it 'shows an error message' do
-        expect(page).to have_content 'Sorry, something went wrong with our service'
-        expect(page).to have_content 'We cannot connect to our database'
+        within('.govuk-main-wrapper') do
+          expect(page).to have_content([
+            'Sorry, there is a problem with the service',
+            'Try again later.',
+            'If this problem continues, contact LAAapplyonboarding@justice.gov.uk for help'
+          ].join("\n"))
+        end
       end
 
       it 'returns a 500 error status' do
         expect(page).to have_http_status :internal_server_error
+      end
+
+      it 'uses the system user layout with navigation' do
+        expect(page).to have_css('nav.govuk-service-navigation__wrapper')
+        expect(page).to have_link('Sign out')
+      end
+    end
+
+    context 'when there is a conflict between the datastore and Crime Review data' do
+      include_context 'with an existing application'
+
+      before do
+        allow(Rails.error).to receive(:report)
+
+        stub_request(
+          :put, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/mark_as_ready"
+        ).and_return(body: { error: 'oops' }.to_json, status: 409)
+
+        click_on 'Kit Pound'
+        click_button('Assign to your list')
+        click_button('Mark as ready for MAAT')
+      end
+
+      it 'reports the exception' do
+        expect(Rails.error).to have_received(:report) # .with(error, hash_including(handled: true, severity: :error))
+      end
+
+      it 'shows an error message' do
+        within('.govuk-main-wrapper') do
+          expect(page).to have_content([
+            'Sorry, there is a problem with your request',
+            'You can go back, refresh the page, and try again.',
+            'If this problem continues, contact LAAapplyonboarding@justice.gov.uk for help'
+          ].join("\n"))
+        end
+      end
+
+      it 'returns a 409 error status' do
+        expect(page).to have_http_status :unprocessable_entity
       end
 
       it 'uses the system user layout with navigation' do

@@ -2,11 +2,12 @@ Rails.application.routes.draw do
   Rails.application.routes.draw { mount RailsEventStore::Browser => "/res" if Rails.env.development? }
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
-  # TODO: should this be accessible in prod? By which users?
-  unless Rails.env.production?
-    require "sidekiq/web"
-    require 'sidekiq-scheduler/web'
-    mount Sidekiq::Web => "/sidekiq"
+  unless HostEnv.production?
+    authenticate :user, lambda { |u| u.admin? } do
+      require 'sidekiq/web'
+      require 'sidekiq-scheduler/web'
+      mount Sidekiq::Web => "/sidekiq"
+    end
   end
 
   get :health, to: 'healthcheck#show'
@@ -86,6 +87,8 @@ Rails.application.routes.draw do
 
   namespace :reporting do
     root to: 'user_reports#index'
+    get 'generated-reports/:id/download', to: 'generated_reports#download', as: :download_generated_report
+
     get ':report_type', to: 'user_reports#show', as: 'user_report'
 
     get ':report_type/:interval/latest-complete', to: 'temporal_reports#latest_complete', as: :latest_complete_temporal_report

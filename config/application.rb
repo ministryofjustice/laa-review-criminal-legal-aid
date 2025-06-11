@@ -2,7 +2,7 @@ require_relative 'boot'
 
 require 'rails'
 require 'active_record/railtie'
-# require "active_storage/engine"
+require 'active_storage/engine'
 require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'action_mailer/railtie'
@@ -13,7 +13,6 @@ require 'action_cable/engine'
 require 'rails/test_unit/railtie'
 
 require_relative '../app/lib/notify_mailer_interceptor'
-require_relative '../app/lib/host_env'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -47,9 +46,8 @@ module LaaReviewCriminalLegalAid
       g.orm :active_record, primary_key_type: :uuid
     end
 
-    unless HostEnv.production?
-      config.active_job.queue_adapter = :sidekiq
-    end
+    config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.deliver_later_queue_name = 'mailers'
 
     # Authentication, authorization, and session configuration
 
@@ -86,11 +84,16 @@ module LaaReviewCriminalLegalAid
       'Allocating::WorkStreamNotFound' => :not_found,
       'Deciding::DecisionNotFound' => :not_found,
       'Deciding::ApplicationNotAssignedToUser' => :forbidden,
-      'ApplicationController::ForbiddenError' => :forbidden
+      'ApplicationController::ForbiddenError' => :forbidden,
+      'DatastoreApi::Errors::NotFoundError' => :not_found
     )
 
     # Prohibit all HTML tags
     config.action_view.sanitized_allowed_tags = []
+
+    # Disable the default Active Storage routes
+    # https://edgeguides.rubyonrails.org/active_storage_overview.html#authenticated-controllers
+    config.active_storage.draw_routes = false
 
     config.x.maat_api.oauth_url = ENV.fetch('MAAT_API_OAUTH_URL', nil)
     config.x.maat_api.client_id = ENV.fetch('MAAT_API_CLIENT_ID', nil)

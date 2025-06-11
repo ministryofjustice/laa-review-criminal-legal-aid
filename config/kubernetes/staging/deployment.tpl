@@ -19,7 +19,9 @@ spec:
       labels:
         app: review-criminal-legal-aid-web-staging
         tier: frontend
+        metrics-target: laa-review-criminal-legal-aid-staging-metrics-target
     spec:
+      serviceAccountName: laa-review-criminal-legal-aid-staging-service
       containers:
       - name: webapp
         image: ${ECR_URL}:${IMAGE_TAG}
@@ -94,3 +96,8 @@ spec:
               secretKeyRef:
                 name: ec-cluster-output
                 key: auth_token
+          - name: AWS_S3_BUCKET
+            valueFrom:
+              secretKeyRef:
+                name: s3-bucket
+                key: bucket_name

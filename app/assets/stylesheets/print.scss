@@ -1,0 +1,33 @@
+// Print specific overrides.
+// Currently this is only used in the application details page.
+
+@media print {
+  header,
+  footer,
+  .govuk-phase-banner,
+  .govuk-back-link,
+  .govuk-service-navigation,
+  .moj-sub-navigation,
+  .govuk-notification-banner,
+  .govuk-link,
+  .app-no-print {
+    display: none;
+  }
+
+  // Prevents bleeding edges
+  @page {
+    size: auto;
+    margin: 20mm 10mm 10mm 10mm;
+  }
+
+  main {
+    // Keeps document in colour for legibility
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+
+    // Prevents cards being broken up on multiple pages
+    .govuk-summary-card {
+      break-inside: avoid;
+    }
+  }
+}

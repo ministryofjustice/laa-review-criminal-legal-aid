@@ -26,4 +26,4 @@ spec:
     name: metrics
     targetPort: 9394
   selector:
-    app: review-criminal-legal-aid-web-staging
+    metrics-target: laa-review-criminal-legal-aid-staging-metrics-target
