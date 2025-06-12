@@ -17,7 +17,7 @@ metadata:
         SecRule REQUEST_METHOD "@streq POST" "chain" \
           SecRule REQUEST_HEADERS:Content-Type "@rx [\s]*text/plain[\s]*" "ctl:ruleRemoveById=920420"
 spec:
-  ingressClassName: modsec-non-prod
+  ingressClassName: modsec
   rules:
     - host: review-criminal-legal-aid.service.justice.gov.uk
       http:
