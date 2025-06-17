@@ -21,6 +21,7 @@ spec:
         tier: worker
         metrics-target: laa-review-criminal-legal-aid-staging-metrics-target
     spec:
+      serviceAccountName: laa-review-criminal-legal-aid-staging-service
       containers:
       - name: worker
         image: ${ECR_URL}:${IMAGE_TAG}

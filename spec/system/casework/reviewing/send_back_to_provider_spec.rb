@@ -10,22 +10,10 @@ RSpec.describe 'Send an application back to the provider' do
 
   let(:send_back_cta) { 'Send back to provider' }
 
-  before do
-    visit '/'
-  end
-
   context 'when assigned to the application' do
-    let(:assignee_id) { current_user_id }
-
     before do
-      Assigning::AssignToUser.new(
-        assignment_id: crime_application_id,
-        user_id: assignee_id,
-        to_whom_id: assignee_id
-      ).call
-
-      click_on 'Your list'
       click_on 'Kit Pound'
+      click_button('Assign to your list')
     end
 
     it 'the "Send back to provider" button is visable and accessible' do
@@ -37,9 +25,6 @@ RSpec.describe 'Send an application back to the provider' do
 
     describe 'adding the return reason' do
       before do
-        allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
-          .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
-
         click_link(send_back_cta)
       end
 
@@ -68,6 +53,9 @@ RSpec.describe 'Send an application back to the provider' do
 
       describe 'when successful' do
         before do
+          allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+            .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
           choose 'Duplicate application'
           fill_in 'return-details-details-field', with: 'This application was duplicated'
         end
@@ -92,6 +80,43 @@ RSpec.describe 'Send an application back to the provider' do
             crime_application_id, 'duplicate_application'
           )
           expect(mailer_double).to have_received(:deliver_later)
+        end
+      end
+
+      context 'when there is a conflict with the datstore' do
+        before do
+          allow(Rails.error).to receive(:report)
+
+          stub_request(
+            :put, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/return"
+          ).and_return(body: { error: 'oops' }.to_json, status: 409)
+
+          choose 'Duplicate application'
+          fill_in 'return-details-details-field', with: 'This application was duplicated'
+          click_button(send_back_cta)
+        end
+
+        it 'reports the exception' do
+          expect(Rails.error).to have_received(:report)
+        end
+
+        it 'shows an error message' do
+          within('.govuk-main-wrapper') do
+            expect(page).to have_content([
+              'Sorry, there is a problem with your request',
+              'You can go back, refresh the page, and try again.',
+              'If this problem continues, contact LAAapplyonboarding@justice.gov.uk for help'
+            ].join("\n"))
+          end
+        end
+
+        it 'returns a 409 error status' do
+          expect(page).to have_http_status :unprocessable_entity
+        end
+
+        it 'uses the system user layout with navigation' do
+          expect(page).to have_css('nav.govuk-service-navigation__wrapper')
+          expect(page).to have_link('Sign out')
         end
       end
     end

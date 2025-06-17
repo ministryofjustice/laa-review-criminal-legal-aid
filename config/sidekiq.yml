@@ -3,3 +3,10 @@
 :queues:
   - default
   - mailers
+  - reports
+:scheduler:
+  :schedule:
+    monthly_caseworker_report:
+      cron: '0 0 1 * *' # midnight, 1st of each month
+      class: GenerateDownloadableTemporalReportJob
+      args: ['caseworker_report', 'monthly']

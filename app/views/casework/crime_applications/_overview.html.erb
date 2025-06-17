@@ -90,7 +90,7 @@
             <%= overview.case_details.urn.presence || t(:none, scope: 'values') %>
           </span>
             <% if overview.case_details.urn.presence && !overview.superseded? %>
-              <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-overview-urn', class: 'govuk-link--no-visited-state' %>
+              <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-overview-urn', class: 'govuk-link--no-visited-state copy-text-link' %>
             <% end %>
           </dd>
         </div>

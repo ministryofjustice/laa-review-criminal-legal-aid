@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CaseworkerReports::Projection do
+describe CaseworkerReports::BasicProjection do
   let(:stream_name) do
     CaseworkerReports.stream_name(
       date: Time.zone.now.in_time_zone('London').to_date,

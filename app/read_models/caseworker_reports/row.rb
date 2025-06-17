@@ -9,15 +9,16 @@ module CaseworkerReports
       sent_back_by_user
     ].freeze
 
-    def initialize(user_id)
+    def initialize(user_id, work_queue = nil)
       @user_id = user_id
+      @work_queue = work_queue
 
       COUNTERS.each do |counter|
         instance_variable_set(:"@#{counter}", 0)
       end
     end
 
-    attr_reader :user_id, *COUNTERS
+    attr_reader :user_id, :work_queue, *COUNTERS
 
     def user_name
       User.name_for(@user_id)

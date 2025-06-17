@@ -59,6 +59,7 @@ RSpec.describe 'Authorisation' do
       application_searches_search
       assigned_applications_next_application
       reporting
+      reporting_download_generated_report
     ]
   end
 
@@ -113,7 +114,7 @@ RSpec.describe 'Authorisation' do
   end
 
   let(:data_analyst_routes) do
-    %w[reporting_download_temporal_report]
+    %w[reporting_download_temporal_report reporting_download_generated_report]
   end
 
   let(:current_user_can_manage_others) { false }

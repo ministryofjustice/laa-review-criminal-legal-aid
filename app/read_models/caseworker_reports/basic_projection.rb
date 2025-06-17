@@ -1,5 +1,5 @@
 module CaseworkerReports
-  class Projection
+  class BasicProjection
     def initialize(stream_name:)
       @scope = RailsEventStore::Projection.from_stream(stream_name)
     end

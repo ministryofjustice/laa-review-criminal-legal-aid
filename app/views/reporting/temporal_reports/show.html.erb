@@ -33,6 +33,11 @@
           <%= turbo_frame_tag @report.id, data: { turbo: 'true' } do %>
             <%= render partial: @report_type, locals: { report: @report, sorting: @sorting } %>
           <% end %>
+          <% if current_user.can_download_reports? && @generated_report.present? %>
+            <p class="govuk-body">
+              <%= govuk_link_to(label_text('download_csv'), reporting_download_generated_report_path(@generated_report), no_visited_state: true) %>
+            </p>
+          <% end %>
         </div>
       </div>
     </div>

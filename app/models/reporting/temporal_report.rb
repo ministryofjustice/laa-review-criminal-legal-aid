@@ -15,7 +15,7 @@ module Reporting
       {
         report_type: report_type,
         interval: time_period.interval,
-        period: time_period.starts_on.strftime(self.class::PARAM_FORMAT)
+        period: period_as_param
       }
     end
 
@@ -67,6 +67,10 @@ module Reporting
       raise 'Implement in subclass.'
     end
     # :nocov:
+
+    def period_as_param
+      time_period.starts_on.strftime(self.class::PARAM_FORMAT)
+    end
 
     private
 

@@ -5,25 +5,13 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
   let(:ready_for_assessment_cta) { 'Mark as ready for MAAT' }
 
-  before do
-    visit '/'
-  end
-
   context 'when assigned to the application' do
-    let(:assignee_id) { current_user_id }
-
     before do
       allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
         .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
 
-      Assigning::AssignToUser.new(
-        assignment_id: crime_application_id,
-        user_id: assignee_id,
-        to_whom_id: assignee_id
-      ).call
-
-      click_on 'Your list'
       click_on 'Kit Pound'
+      click_button('Assign to your list')
     end
 
     it 'has a visable "Mark as ready for MAAT" CTA' do
@@ -41,12 +29,8 @@ RSpec.describe 'Marking an application as ready for assessment' do
 
     context 'with errors Reviewing::' do
       before do
-        click_on 'Open applications'
-        click_on('Kit Pound')
         command_double = instance_double(Reviewing::MarkAsReady)
-
         allow(command_double).to receive(:call) { raise error_class }
-
         allow(Reviewing::MarkAsReady).to receive(:new) { command_double }
 
         click_button(ready_for_assessment_cta)
@@ -71,6 +55,44 @@ RSpec.describe 'Marking an application as ready for assessment' do
           expect(page).to have_notification_banner text: message
         end
       end
+    end
+  end
+
+  context 'when marked as ready in the datstore but not on Review' do
+    before do
+      click_on 'Kit Pound'
+      click_button('Assign to your list')
+
+      allow(Rails.error).to receive(:report)
+
+      stub_request(
+        :put, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}/mark_as_ready"
+      ).and_return(body: { error: 'oops' }.to_json, status: 409)
+
+      click_button(ready_for_assessment_cta)
+    end
+
+    it 'reports the exception' do
+      expect(Rails.error).to have_received(:report)
+    end
+
+    it 'shows an error message' do
+      within('.govuk-main-wrapper') do
+        expect(page).to have_content([
+          'Sorry, there is a problem with your request',
+          'You can go back, refresh the page, and try again.',
+          'If this problem continues, contact LAAapplyonboarding@justice.gov.uk for help'
+        ].join("\n"))
+      end
+    end
+
+    it 'returns a 409 error status' do
+      expect(page).to have_http_status :unprocessable_entity
+    end
+
+    it 'uses the system user layout with navigation' do
+      expect(page).to have_css('nav.govuk-service-navigation__wrapper')
+      expect(page).to have_link('Sign out')
     end
   end
 
