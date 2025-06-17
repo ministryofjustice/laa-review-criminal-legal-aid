@@ -252,7 +252,7 @@ en:
     involvement_in_case: Partner involved in the case?
     is_client_remanded: Remanded in court custody?
     is_overdrawn: Is the account overdrawn?
-    is_passported: Passporting Benefit?
+    is_passported: Selected passporting benefit?
     is_preorder_work_claimed: Do you intend to claim pre-order work?
     justification: Justification
     last_name: Last name

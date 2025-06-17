@@ -41,7 +41,7 @@ RSpec.describe 'When viewing the overview details of an application' do
       expect(summary_card('Overview')).to have_rows(
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
-        'Passporting Benefit?', 'Yes',
+        'Selected passporting benefit?', 'Yes',
         'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
@@ -67,7 +67,7 @@ RSpec.describe 'When viewing the overview details of an application' do
       expect(summary_card('Overview')).to have_rows(
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
-        'Passporting Benefit?', 'No',
+        'Selected passporting benefit?', 'No',
         'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
@@ -96,7 +96,7 @@ RSpec.describe 'When viewing the overview details of an application' do
       expect(summary_card('Overview')).to have_rows(
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
-        'Passporting Benefit?', 'Yes - partner',
+        'Selected passporting benefit?', 'Yes - partner',
         'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
@@ -114,7 +114,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         "Changes in client's financial circumstances", 'My client has a new job',
         'MAAT ID of original application', '987654321',
         'Subject to means test?', 'Yes',
-        'Passporting Benefit?', 'Yes',
+        'Selected passporting benefit?', 'Yes',
         'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am'
@@ -129,7 +129,7 @@ RSpec.describe 'When viewing the overview details of an application' do
       expect(summary_card('Overview')).to have_rows(
         'Application type', 'Initial application',
         'Subject to means test?', 'Yes',
-        'Passporting Benefit?', 'Yes',
+        'Selected passporting benefit?', 'Yes',
         'Unique reference number (URN)', 'None',
         'Date stamp', '24/10/2022 10:50am',
         'Date submitted', '24/10/2022 10:50am',
