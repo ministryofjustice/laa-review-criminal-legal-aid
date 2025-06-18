@@ -27,7 +27,7 @@ RSpec.describe "When viewing the partner's passporting benefit check details" do
     context 'when the benefit check was performed on the partner' do
       it 'shows whether partner has a passporting benefit' do
         within(partner_card) do
-          expect(page).to have_content('Passporting Benefit Universal Credit')
+          expect(page).to have_content('Passporting benefit Universal Credit')
         end
       end
 

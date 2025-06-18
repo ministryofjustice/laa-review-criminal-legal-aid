@@ -112,7 +112,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   describe 'showing the passporting benefit' do
     context 'when the application has a passporting benefit' do
       it 'shows the benefit type' do
-        expect(page).to have_content('Passporting Benefit Universal Credit')
+        expect(page).to have_content('Passporting benefit Universal Credit')
       end
 
       context 'when the benefit type is jsa' do
@@ -123,7 +123,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         # rubocop:enable Layout/LineLength
 
         it 'shows the last jsa appointment date' do
-          expect(page).to have_content("Passporting Benefit Income-based Jobseeker's Allowance (JSA)")
+          expect(page).to have_content("Passporting benefit Income-based Jobseeker's Allowance (JSA)")
           expect(page).to have_content('Date of latest JSA appointment 12/01/2024')
         end
       end
@@ -134,7 +134,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
         end
 
         it 'shows `Not asked`' do
-          expect(page).to have_content('Passporting Benefit Not asked when this application was submitted')
+          expect(page).to have_content('Passporting benefit Not asked when this application was submitted')
         end
       end
     end
@@ -143,7 +143,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       let(:application_data) { super().merge('means_passport' => ['on_age_under18']) }
 
       it 'does not show the passporting benefit row' do
-        expect(page).to have_no_content('Passporting Benefit')
+        expect(page).to have_no_content('Passporting benefit')
       end
 
       describe 'client details card' do
