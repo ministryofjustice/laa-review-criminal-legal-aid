@@ -1,3 +1,6 @@
+require 'sidekiq'
+require 'sidekiq/api'
+
 module PrometheusMetrics
   module Configuration
     require 'prometheus_exporter/server'
