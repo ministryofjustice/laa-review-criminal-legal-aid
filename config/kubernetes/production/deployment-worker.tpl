@@ -4,7 +4,7 @@ metadata:
   name: deployment-worker-production
   namespace: laa-review-criminal-legal-aid-production
 spec:
-  replicas: 4
+  replicas: 2
   revisionHistoryLimit: 5
   strategy:
     type: RollingUpdate
