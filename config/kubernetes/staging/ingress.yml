@@ -19,6 +19,10 @@ metadata:
       if ($request_method !~ ^GET$) {
         return 405;
       }
+    nginx.ingress.kubernetes.io/server-snippet: |
+      if ($scheme = http) {
+        return 444;
+      }
 spec:
   ingressClassName: modsec-non-prod
   rules:
