@@ -19,6 +19,10 @@ metadata:
       if ($request_method !~ ^GET$) {
         return 405;
       }
+    nginx.ingress.kubernetes.io/server-snippet: |
+      if ($scheme = http) {
+        return 444;
+      }
 spec:
   ingressClassName: modsec
   rules:
@@ -56,6 +60,9 @@ metadata:
       location = /.well-known/security.txt {
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
+      }
+      if ($scheme = http) {
+        return 444;
       }
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
