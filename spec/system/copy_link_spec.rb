@@ -54,9 +54,23 @@ RSpec.describe 'Copy text link' do
       expect(clipboard_text).to eq date_of_birth
     end
 
+    it 'copies partner date of birth to clipboard' do
+      date_of_birth = find_by_id('partner-date-of-birth').text
+      click_link(id: 'copy-partner-date-of-birth')
+
+      expect(clipboard_text).to eq date_of_birth
+    end
+
     it 'copies nino to clipboard' do
       nino = find_by_id('nino').text
       click_link(id: 'copy-nino')
+
+      expect(clipboard_text).to eq nino
+    end
+
+    it 'copies partner nino to clipboard' do
+      nino = find_by_id('partner-nino').text
+      click_link(id: 'copy-partner-nino')
 
       expect(clipboard_text).to eq nino
     end

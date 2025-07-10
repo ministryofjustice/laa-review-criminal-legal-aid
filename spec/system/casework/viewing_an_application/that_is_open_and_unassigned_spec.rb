@@ -206,7 +206,9 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'displays the arc number' do
-        expect(summary_card('Client details')).to have_content('Application registration card (ARC) number ABC12/345678/A')
+        expect(summary_card('Client details')).to have_content(
+          'Application registration card (ARC) number ABC12/345678/A'
+        )
       end
     end
   end
