@@ -2,18 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'Copy text link' do
   include_context 'with an existing user'
-  include_context 'with stubbed search'
   include_context 'with stubbed application'
 
   before do
     driven_by(:headless_chrome)
-    visit '/'
+    visit crime_application_path(application_id)
     click_button 'Start now'
     select 'Joe.EXAMPLE@justice.gov.uk'
     click_button 'Sign in'
-    # click_on 'Search'
-    # click_button 'Search'
-    # click_on 'Kit Pound'
 
     # Grant clipboard permissions in the browser context to allow JavaScript-based clipboard
     # interactions (e.g., copying or pasting text) during system tests.
@@ -32,9 +28,6 @@ RSpec.describe 'Copy text link' do
     end
 
     it 'copies laa reference to clipboard' do
-      # debugging
-      expect(page).to have_content('djhfakhaks')
-
       laa_reference = find_by_id('reference-number').text
       click_on 'Copy LAA reference'
 
