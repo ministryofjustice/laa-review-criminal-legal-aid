@@ -10,9 +10,10 @@ RSpec.describe 'Copy text link' do
     visit '/'
     click_button 'Start now'
     click_button 'Sign in'
-    click_on 'Search'
-    click_button 'Search'
-    click_on 'Kit Pound'
+
+    # click_on 'Search'
+    # click_button 'Search'
+    # click_on 'Kit Pound'
 
     # Grant clipboard permissions in the browser context to allow JavaScript-based clipboard
     # interactions (e.g., copying or pasting text) during system tests.
@@ -31,6 +32,9 @@ RSpec.describe 'Copy text link' do
     end
 
     it 'copies laa reference to clipboard' do
+      # debugging
+      expect(page).to have_content('djhfakhaks')
+
       laa_reference = find_by_id('reference-number').text
       click_on 'Copy LAA reference'
 
