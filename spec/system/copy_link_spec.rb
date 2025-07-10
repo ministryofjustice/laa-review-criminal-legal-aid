@@ -6,9 +6,10 @@ RSpec.describe 'Copy text link' do
 
   before do
     driven_by(:headless_chrome)
-    visit crime_application_path(application_id)
+    visit '/'
     click_button 'Start now'
     click_button 'Sign in'
+    visit crime_application_path(application_id)
 
     # Grant clipboard permissions in the browser context to allow JavaScript-based clipboard
     # interactions (e.g., copying or pasting text) during system tests.
