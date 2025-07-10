@@ -34,7 +34,7 @@ RSpec.describe 'Viewing an appeal with no changes application' do
         expect(card).to have_summary_row 'First name', 'Kit'
         expect(card).to have_summary_row 'Last name', 'Pound'
         expect(card).to have_summary_row 'Other names', 'None'
-        expect(card).to have_summary_row 'Date of birth', '09/06/2001'
+        expect(card).to have_content 'Date of birth 09/06/2001 Copy'
       end
     end
 

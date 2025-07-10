@@ -1,7 +1,7 @@
-function copyText(textElementId, copyLinkElementId) {
+function copyText(textElementId, copyLinkElementId, screenReaderAlertText, originalCopyLinkText = 'Copy') {
     let textElement = document.querySelector(textElementId);
     let copyLink = document.querySelector(copyLinkElementId);
-    let referenceNumberAlert = document.getElementById("copy-reference-number-alert");
+    let screenReaderAlert = document.getElementById("copy-alert");
 
     if (textElement && copyLink) {
       copyLink.addEventListener('click', (e) => {
@@ -9,11 +9,17 @@ function copyText(textElementId, copyLinkElementId) {
 
         let text = textElement.textContent.trim();
         window.navigator.clipboard.writeText(text);
-        referenceNumberAlert.textContent = "Reference number copied";
+        screenReaderAlert.textContent = screenReaderAlertText;
+        copyLink.classList.add('disable-click');
+        copyLink.textContent = "Copied";
+        copyLink.classList.remove('govuk-link--no-visited-state')
 
         setTimeout(() => {
-            referenceNumberAlert.textContent = "";
-        }, 2000);
+            screenReaderAlert.textContent = "";
+            copyLink.classList.remove('disable-click');
+            copyLink.textContent = originalCopyLinkText;
+            copyLink.classList.add('govuk-link--no-visited-state');
+        }, 4000);
 
         copyLink.blur();
         return true;
