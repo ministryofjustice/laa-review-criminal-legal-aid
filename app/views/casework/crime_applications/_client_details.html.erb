@@ -29,7 +29,12 @@
       <%= label_text(:date_of_birth) %>
     </dt>
     <dd class="govuk-summary-list__value">
-      <%= l applicant.date_of_birth, format: :compact %>
+      <span id="date-of-birth">
+        <%= l applicant.date_of_birth, format: :compact %>
+      </span>
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-date-of-birth', aria_label: 'Copy date of birth' } %>
     </dd>
   </div>
   <% unless crime_application.pse? || crime_application.appeal_no_changes? %>
@@ -39,8 +44,15 @@
           <%= label_text(:national_insurance_number) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= nino.presence || t(:not_provided, scope: 'values') %>
+          <span id="nino">
+            <%= nino.presence || t(:not_provided, scope: 'values') %>
+          </span>
         </dd>
+        <% if nino.presence %>
+          <dd class="govuk-summary-list__actions">
+            <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-nino', aria_label: 'Copy National Insurance number' } %>
+          </dd>
+        <% end %>
       </div>
       <% if applicant.arc.present? %>
         <div class="govuk-summary-list__row">

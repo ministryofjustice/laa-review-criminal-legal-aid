@@ -38,7 +38,12 @@
           <%= label_text(:date_of_birth) %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= l partner.date_of_birth, format: :compact %>
+          <span id="partner-date-of-birth">
+            <%= l partner.date_of_birth, format: :compact %>
+          </span>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-partner-date-of-birth', aria_label: 'Copy date of birth' } %>
         </dd>
       </div>
       <% if crime_application.partner.formatted_nino.present? %>
@@ -47,7 +52,12 @@
             <%= label_text(:national_insurance_number) %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= crime_application.partner.formatted_nino %>
+            <span id="partner-nino">
+              <%= crime_application.partner.formatted_nino %>
+            </span>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-partner-nino', aria_label: 'Copy National Insurance number' } %>
           </dd>
         </div>
       <% end %>

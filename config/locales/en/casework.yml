@@ -678,8 +678,8 @@ en:
     clear_search: Clear
     complete: Mark as completed
     confirm_reassign_to_self: Yes, reassign
-    copy_reference_number: Copy reference number
-    copy_urn: Copy URN
+    copy: Copy
+    copy_laa_reference: Copy LAA reference
     edit: Edit
     go_to_latest: Go to the latest version
     mark_as_ready: Mark as ready for MAAT

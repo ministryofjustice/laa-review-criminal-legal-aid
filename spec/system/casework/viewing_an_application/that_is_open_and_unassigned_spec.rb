@@ -18,7 +18,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   end
 
   it 'includes the copy reference link' do
-    expect(page).to have_content('Copy reference number')
+    expect(page).to have_content('Copy LAA reference')
   end
 
   context 'with URN provided' do
@@ -27,7 +27,7 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
 
     it 'includes the copy urn link' do
-      expect(page).to have_content('12345 Copy URN')
+      expect(page).to have_content('12345 Copy')
     end
   end
 
@@ -147,16 +147,14 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       describe 'client details card' do
-        let(:card) do
-          page.find('h2.govuk-summary-card__title', text: 'Client details').ancestor('div.govuk-summary-card')
-        end
+        let(:card) { summary_card('Client details') }
 
         it 'shows relevant details' do # rubocop:disable RSpec/MultipleExpectations
           within(card) do |card|
             expect(card).to have_summary_row 'First name', 'Kit'
             expect(card).to have_summary_row 'Last name', 'Pound'
             expect(card).to have_summary_row 'Other names', 'None'
-            expect(card).to have_summary_row 'Date of birth', '09/06/2001'
+            expect(card).to have_content 'Date of birth 09/06/2001 Copy'
           end
         end
 
@@ -181,7 +179,13 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   describe 'displaying applicant details' do
     context 'when national insurance information is provided' do
       it 'displays the national insurance row' do
-        expect(page).to have_content('National Insurance number AJ123456C')
+        expect(summary_card('Client details')).to have_content('National Insurance number AJ123456C Copy')
+      end
+    end
+
+    context 'when arc is not provided' do
+      it 'does not display the arc row' do
+        expect(summary_card('Client details')).not_to have_content('Application registration card (ARC) number')
       end
     end
 
@@ -191,19 +195,20 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       it 'displays the national insurance row' do
-        expect(page).to have_content('National Insurance number Not provided')
-        expect(page).not_to have_content('Application registration card (ARC) number')
+        expect(summary_card('Client details')).to have_content('National Insurance number Not provided')
+        expect(summary_card('Client details')).not_to have_content('National Insurance number Not provided Copy')
       end
     end
 
     context 'when arc information is provided' do
       let(:application_data) do
-        super().deep_merge('client_details' => { 'applicant' => { 'nino' => nil, 'arc' => 'ABC12/345678/A' } })
+        super().deep_merge('client_details' => { 'applicant' => { 'arc' => 'ABC12/345678/A' } })
       end
 
-      it 'displays the national insurance row' do
-        expect(page).to have_content('National Insurance number Not provided')
-        expect(page).to have_content('Application registration card (ARC) number ABC12/345678/A')
+      it 'displays the arc number' do
+        expect(summary_card('Client details')).to have_content(
+          'Application registration card (ARC) number ABC12/345678/A'
+        )
       end
     end
   end
@@ -236,7 +241,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
     end
 
     it 'shows that the URN was not provided' do
-      expect(page).to have_content('Unique reference number (URN) None')
+      expect(summary_card('Case details')).to have_content('Unique reference number (URN) None')
+      expect(summary_card('Case details')).not_to have_content('Unique reference number (URN) None Copy')
     end
 
     it 'shows that other names were not provided' do

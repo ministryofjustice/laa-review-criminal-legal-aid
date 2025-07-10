@@ -86,13 +86,15 @@
             <%= label_text(:urn) %>
           </dt>
           <dd class="govuk-summary-list__value">
-          <span id="overview-urn">
-            <%= overview.case_details.urn.presence || t(:none, scope: 'values') %>
-          </span>
-            <% if overview.case_details.urn.presence && !overview.superseded? %>
-              <%= link_to t('calls_to_action.copy_urn'), '', id: 'copy-overview-urn', class: 'govuk-link--no-visited-state copy-text-link' %>
-            <% end %>
+            <span id="overview-urn">
+              <%= overview.case_details.urn.presence || t(:none, scope: 'values') %>
+            </span>
           </dd>
+          <% if overview.case_details.urn.presence && !overview.superseded? %>
+            <dd class="govuk-summary-list__actions">
+              <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-overview-urn', aria_label: 'Copy unique reference number' } %>
+            </dd>
+          <% end %>
         </div>
       <% end %>
 

@@ -12,9 +12,13 @@ import { initAll } from 'govuk-frontend'
 initAll()
 
 // used on application details page
-copyText('#reference-number','#copy-reference-number')
-copyText('#overview-urn','#copy-overview-urn')
-copyText('#case-details-urn','#copy-case-details-urn')
+copyText('#reference-number','#copy-reference-number', 'LAA reference copied', 'Copy LAA reference')
+copyText('#overview-urn','#copy-overview-urn', 'Unique reference number copied')
+copyText('#case-details-urn','#copy-case-details-urn', 'Unique reference number copied')
+copyText('#date-of-birth','#copy-date-of-birth', 'Date of birth copied')
+copyText('#nino','#copy-nino', 'National insurance number copied')
+copyText('#partner-date-of-birth','#copy-partner-date-of-birth', 'Date of birth copied')
+copyText('#partner-nino','#copy-partner-nino', 'National insurance number copied')
 
 // Allow window.print(), otherwise blocked by CSP
 import PrintAction from "./local/print-action"

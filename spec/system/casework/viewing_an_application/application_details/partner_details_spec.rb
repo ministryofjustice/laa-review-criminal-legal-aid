@@ -31,10 +31,16 @@ RSpec.describe 'When viewing partner details' do
         expect(summary_card('Partner details')).to have_rows(
           'First name', 'Jennifer',
           'Last name', 'Holland',
-          'Other names', 'Diane',
-          'Date of birth', '23/12/2001',
-          'National Insurance number', 'AB123456C'
+          'Other names', 'Diane'
         )
+      end
+
+      it "displays the partner's date of birth" do
+        expect(summary_card('Partner details')).to have_content('Date of birth 23/12/2001 Copy')
+      end
+
+      it "displays the partner's national insurance number" do
+        expect(summary_card('Partner details')).to have_content('National Insurance number AB123456C Copy')
       end
 
       context 'when the partner has an arc number' do

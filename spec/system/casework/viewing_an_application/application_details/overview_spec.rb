@@ -47,6 +47,7 @@ RSpec.describe 'When viewing the overview details of an application' do
         'Date submitted', '24/10/2022 10:50am',
         'Overall offence class', 'Undetermined'
       )
+      expect(summary_card('Overview')).not_to have_content('Unique reference number (URN) None Copy')
     end
   end
 

@@ -140,3 +140,7 @@ body.js-enabled {
     .copy-text-link { display: none }
   }
 }
+
+.disable-click {
+  pointer-events: none;
+}
