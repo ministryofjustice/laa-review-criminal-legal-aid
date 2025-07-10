@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Copy text link' do
   include_context 'with an existing user'
+  include_context 'with stubbed search'
   include_context 'with stubbed application'
 
   before do
@@ -9,7 +10,9 @@ RSpec.describe 'Copy text link' do
     visit '/'
     click_button 'Start now'
     click_button 'Sign in'
-    visit crime_application_path(application_id)
+    click_on 'Search'
+    click_button 'Search'
+    click_on 'Kit Pound'
 
     # Grant clipboard permissions in the browser context to allow JavaScript-based clipboard
     # interactions (e.g., copying or pasting text) during system tests.
