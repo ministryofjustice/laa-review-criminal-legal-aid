@@ -9,8 +9,8 @@ RSpec.describe 'Copy text link' do
     driven_by(:headless_chrome)
     visit '/'
     click_button 'Start now'
+    select 'Joe.EXAMPLE@justice.gov.uk'
     click_button 'Sign in'
-
     # click_on 'Search'
     # click_button 'Search'
     # click_on 'Kit Pound'
