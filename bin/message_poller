@@ -1,0 +1,6 @@
+#!/usr/bin/env rails runner
+
+# Rails.logger = Logger.new($stdout)
+# Rails.logger.level = Logger::INFO
+
+Aws::MessagePoller.new(queue_url: ENV.fetch('SQS_QUEUE_URL')).start!
