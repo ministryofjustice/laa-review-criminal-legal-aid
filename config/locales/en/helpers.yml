@@ -8,7 +8,7 @@ en:
       decisions_interests_of_justice_form:
         assessed_on: For example, DD/MM/YYY
       decisions_maat_id_form:
-        maat_id: If you have created more that one MAAT ID, link one at a time.
+        maat_id: If you have created more than one MAAT ID, link one at a time.
 
     legend:
       decisions_interests_of_justice_form:
