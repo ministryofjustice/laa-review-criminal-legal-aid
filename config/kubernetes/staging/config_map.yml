@@ -18,3 +18,4 @@ data:
   MAAT_API_OAUTH_URL: https://caa-api-uat.auth.eu-west-2.amazoncognito.com
   MAAT_API_FIRST_SUPPORTED_MAAT_ID: '6039330'
   AWS_S3_REGION: eu-west-2
+  SQS_POLLING: "true"

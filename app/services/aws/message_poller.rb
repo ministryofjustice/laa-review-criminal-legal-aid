@@ -2,13 +2,15 @@ require 'aws-sdk-sqs'
 
 module Aws
   class MessagePoller
-    def initialize(queue_url:)
-      @queue_url = queue_url
+    def initialize(queue: nil)
       @sqs_client = Aws::SQS::Client.new
+      @queue_url = get_queue_url(queue)
       @finish = false
     end
 
     def start! # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+      return Rails.logger.info('SQS polling is disabled. Shutting down...') unless FeatureFlags.sqs_polling.enabled?
+
       Rails.logger.info('Message poller started...')
       trap_signals
       loop do
@@ -35,6 +37,12 @@ module Aws
     end
 
     private
+
+    def get_queue_url(queue)
+      return ENV.fetch('SQS_QUEUE_URL') if Rails.env.development?
+
+      @sqs_client.get_queue_url(queue_name: queue).queue_url
+    end
 
     # Allow the main loop to finish before shutting down
     def trap_signals
