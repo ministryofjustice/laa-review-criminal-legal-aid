@@ -1,6 +1,3 @@
-#!/usr/bin/env rails runner
+#!/usr/bin/env sh
 
-Rails.logger = Logger.new($stdout)
-Rails.logger.level = Logger::INFO
-
-Aws::MessagePoller.new(queue: ENV.fetch('SQS_QUEUE', nil)).start!
+exec bundle exec rails runner "Aws::MessagePoller.new(queue: ENV.fetch('SQS_QUEUE', nil)).start!"
