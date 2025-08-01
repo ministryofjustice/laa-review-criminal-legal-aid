@@ -30,7 +30,7 @@ module Aws
     end
 
     def submitted_at
-      data['submitted_at'] || Time.zone.now
+      data['submitted_at']
     end
 
     def application_type
