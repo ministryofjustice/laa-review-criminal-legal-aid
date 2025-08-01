@@ -1,5 +1,7 @@
 require 'aws-sdk-sqs'
 
+READY_FILE = Rails.root.join('tmp/poller_ready').freeze
+
 module Aws
   class MessagePoller
     def initialize(queue: nil)
@@ -13,6 +15,7 @@ module Aws
 
       Rails.logger.info('Message poller started...')
       trap_signals
+      ready
       loop do
         break if @finish
 
@@ -42,6 +45,10 @@ module Aws
       return ENV.fetch('SQS_QUEUE_URL') if Rails.env.development?
 
       @sqs_client.get_queue_url(queue_name: queue).queue_url
+    end
+
+    def ready
+      FileUtils.touch(READY_FILE)
     end
 
     # Allow the main loop to finish before shutting down

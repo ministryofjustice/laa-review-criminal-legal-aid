@@ -34,6 +34,13 @@ spec:
           limits:
             cpu: 500m
             memory: 1Gi
+        readinessProbe:
+          exec:
+            command:
+              - cat
+              - tmp/poller_ready
+          periodSeconds: 10
+          failureThreshold: 4
         livenessProbe:
           exec:
             command:
