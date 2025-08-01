@@ -24,6 +24,8 @@ module Api
     end
 
     def verify!
+      return head :unprocessable_entity if FeatureFlags.sqs_polling.enabled?
+
       if sns_event.raw?
         head :unavailable_for_legal_reasons
       elsif sns_event.invalid?

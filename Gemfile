@@ -51,6 +51,7 @@ gem 'oauth2'
 
 gem 'aws-sdk-s3', require: false
 gem 'aws-sdk-sns', '~> 1.60', require: false
+gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
 gem 'rails_event_store', '>= 2.15.0'

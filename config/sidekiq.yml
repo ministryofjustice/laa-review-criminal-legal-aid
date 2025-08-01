@@ -4,6 +4,7 @@
   - default
   - mailers
   - reports
+  - aws_messages
 :scheduler:
   :schedule:
     monthly_caseworker_report:
