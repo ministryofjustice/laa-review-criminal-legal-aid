@@ -8,6 +8,7 @@ module Aws
       @sqs_client = Aws::SQS::Client.new
       @queue_url = get_queue_url(queue)
       @finish = false
+      configure_logger!
     end
 
     def start! # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
@@ -57,5 +58,18 @@ module Aws
         Signal.trap(signal) { @finish = true }
       end
     end
+
+    # :nocov:
+    def configure_logger!
+      return if ENV['RAILS_LOG_TO_STDOUT'].blank?
+
+      $stdout.sync = true
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = Logger::Formatter.new
+      logger.level = Logger::INFO
+
+      Rails.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
+    # :nocov:
   end
 end

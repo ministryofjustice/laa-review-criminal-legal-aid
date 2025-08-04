@@ -46,7 +46,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - pgrep -f message_poller
+              - pgrep -f "rails runner"
           failureThreshold: 30
           periodSeconds: 3
         startupProbe:
@@ -54,7 +54,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - pgrep -f message_poller
+              - pgrep -f "rails runner"
           failureThreshold: 60
           periodSeconds: 5
         envFrom:
