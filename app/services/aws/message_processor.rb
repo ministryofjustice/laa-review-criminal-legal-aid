@@ -12,7 +12,7 @@ module Aws
     end
 
     def process!
-      Rails.logger.info "Processing '#{message.event_name}' event #{message.id}: #{message.data}"
+      Rails.logger.debug { "Processing '#{message.event_name}' event #{message.id}: #{message.data}" }
       @event.new(id: message.id, data: message.data).create!
     end
 
