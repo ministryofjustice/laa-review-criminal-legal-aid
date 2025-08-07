@@ -11,6 +11,8 @@ class NotifyMailer < GovukNotifyRails::Mailer
   end
   # :nocov:
 
+  self.delivery_job = NotifyMailDeliveryJob
+
   def application_returned_email(application_id, return_reason)
     application = CrimeApplication.find(application_id)
     provider_email = application.provider_details.provider_email
