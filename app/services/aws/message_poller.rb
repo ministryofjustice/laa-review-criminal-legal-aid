@@ -12,8 +12,6 @@ module Aws
     end
 
     def start! # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-      return Rails.logger.info('SQS polling is disabled. Shutting down...') unless FeatureFlags.sqs_polling.enabled?
-
       Rails.logger.info('Message poller started...')
       trap_signals
       ready

@@ -120,10 +120,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api do
-    resources :events, only: [:create]
-  end
-
   namespace :manage_competencies, path: 'manage-competencies' do
     root 'caseworker_competencies#index'
     resources :caseworker_competencies, path: 'caseworker-competencies', only: [:index, :edit, :update]
