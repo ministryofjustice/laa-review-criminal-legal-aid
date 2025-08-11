@@ -46,9 +46,6 @@ RSpec.describe Aws::MessagePoller do
     allow(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
     allow(sqs_client).to receive(:get_queue_url).and_return(queue_url_result)
     allow(queue_url_result).to receive(:queue_url).and_return('queue_url')
-    allow(FeatureFlags).to receive(:sqs_polling) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-    }
   end
 
   describe '#start!' do
