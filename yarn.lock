@@ -754,10 +754,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^5.9.0":
-  version: 5.9.0
-  resolution: "govuk-frontend@npm:5.9.0"
-  checksum: 10c0/dc6275eae0e9f2858ae7c1ea062df6d2119c9857847f89ef5bbce55f65c64b7ea03c484c8132e40b7972a2f371135d6718f58fa907c94860a819e0fde7842883
+"govuk-frontend@npm:^5.11.2":
+  version: 5.11.2
+  resolution: "govuk-frontend@npm:5.11.2"
+  checksum: 10c0/54993df0537ddde1e14a5219bc88ce0ba71f79157ba685b58234843cda8f95b8432f8de4047273670e402479cc3a3654056438d260879f5a433d8d1747922a03
   languageName: node
   linkType: hard
 
@@ -899,7 +899,7 @@ __metadata:
     "@hotwired/turbo-rails": "npm:^8.0.13"
     "@ministryofjustice/frontend": "npm:5.1.0"
     esbuild: "npm:^0.25.9"
-    govuk-frontend: "npm:^5.9.0"
+    govuk-frontend: "npm:^5.11.2"
     sass: "npm:^1.85.1"
   languageName: unknown
   linkType: soft
