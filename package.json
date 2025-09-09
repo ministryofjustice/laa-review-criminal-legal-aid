@@ -4,11 +4,11 @@
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.13",
     "@ministryofjustice/frontend": "5.1.0",
-    "govuk-frontend": "^5.9.0",
+    "govuk-frontend": "^5.11.2",
     "sass": "^1.85.1"
   },
   "devDependencies": {
-    "esbuild": "^0.25.1"
+    "esbuild": "^0.25.9"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
