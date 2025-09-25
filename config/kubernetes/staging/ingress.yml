@@ -103,6 +103,7 @@ metadata:
       SecRuleUpdateTargetByTag attack-sqli !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-xss !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-injection-php !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
+      SecRuleUpdateTargetById 942100 !ARGS:authenticity_token
 spec:
   ingressClassName: modsec-non-prod
   tls:
