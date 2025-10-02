@@ -78,22 +78,13 @@ metadata:
       SecRule REMOTE_ADDR "!@ipMatch 51.149.249.0/29,194.33.249.0/29,51.149.249.32/29,194.33.248.0/29,20.49.214.199/32,20.49.214.228/32,20.26.11.71/32,20.26.11.108/32,128.77.75.64/26,18.169.147.172/32,35.176.93.186/32,18.130.148.126/32,35.176.148.126/32" \
         "id:1001,deny,status:403,tag:github_team=laa-crime-apply"
       SecDefaultAction "phase:2,pass,log,tag:github_team=laa-crime-apply,status:423"
-      SecRule REQUEST_URI "@endsWith /return" \
+      SecRule REQUEST_URI "@rx /(return|comment)$" \
         "id:1002,phase:2,pass,nolog,\
         ctl:ruleRemoveById=921110,\
         ctl:ruleRemoveById=932100,\
         ctl:ruleRemoveById=932110,\
         ctl:ruleRemoveById=932115,\
-        ctl:ruleRemoveById=932380,\
-        ctl:ruleRemoveById=933160,\
-        ctl:ruleRemoveById=942230,\
-        ctl:ruleRemoveById=942360"
-      SecRule REQUEST_URI "@endsWith /comment" \
-        "id:1003,phase:2,pass,nolog,\
-        ctl:ruleRemoveById=921110,\
-        ctl:ruleRemoveById=932100,\
-        ctl:ruleRemoveById=932110,\
-        ctl:ruleRemoveById=932115,\
+        ctl:ruleRemoveById=932235,\
         ctl:ruleRemoveById=932380,\
         ctl:ruleRemoveById=933160,\
         ctl:ruleRemoveById=942230,\
