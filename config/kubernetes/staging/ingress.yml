@@ -88,7 +88,8 @@ metadata:
         ctl:ruleRemoveById=932380,\
         ctl:ruleRemoveById=933160,\
         ctl:ruleRemoveById=942230,\
-        ctl:ruleRemoveById=942360"
+        ctl:ruleRemoveById=942360,\
+        ctl:ruleRemoveById=932370"
       SecRuleUpdateTargetByTag attack-lfi !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-rce !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-sqli !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
