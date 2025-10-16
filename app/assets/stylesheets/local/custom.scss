@@ -143,4 +143,13 @@ body.js-enabled {
 
 .disable-click {
   pointer-events: none;
+  // CRIMAPP-1975 temporary for user research testing
+  background-color: transparent;
+  box-shadow: none;
+}
+
+// CRIMAPP-1975 temporary for user research testing
+.app-wrap-button {
+  display: flex;
+  align-items: center;
 }

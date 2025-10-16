@@ -12,7 +12,7 @@ function copyText(textElementId, copyLinkElementId, screenReaderAlertText, origi
         screenReaderAlert.textContent = screenReaderAlertText;
         copyLink.classList.add('disable-click');
         copyLink.textContent = "Copied";
-        copyLink.classList.remove('govuk-link--no-visited-state')
+        copyLink.classList.remove('govuk-link--no-visited-state');
 
         setTimeout(() => {
             screenReaderAlert.textContent = "";
