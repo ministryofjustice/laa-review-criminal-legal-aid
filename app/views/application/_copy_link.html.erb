@@ -1,5 +1,5 @@
 <% if FeatureFlags.copy_button.enabled? %>
-  <%= button_to link_text, '', id: link_id, class: 'govuk-button govuk-button--secondary copy-text-link', 'aria-label': aria_label %>
+  <%= button_to link_text, '', id: link_id, class: 'govuk-button govuk-button--secondary copy-text-link govuk-!-margin-bottom-0', 'aria-label': aria_label %>
 <% else %>
   <%= link_to link_text, '', id: link_id, class: 'govuk-link--no-visited-state copy-text-link', 'aria-label': aria_label %>
 <% end %>
