@@ -1,52 +1,54 @@
-<%= render partial: 'client_details',
-           locals: {
-             crime_application: crime_application,
-             applicant: crime_application.client_details.applicant,
-             nino: crime_application.applicant.formatted_nino,
-             applicant_tel: crime_application.applicant.phone_number
-           } %>
-<%= render partial: 'casework/crime_applications/sections/client_contact_details',
-           locals: {
-             applicant: crime_application.client_details.applicant,
-             applicant_tel: crime_application.applicant.phone_number
-           } %>
+<% unless crime_application.erased? %>
+  <%= render partial: 'client_details',
+            locals: {
+              crime_application: crime_application,
+              applicant: crime_application.client_details.applicant,
+              nino: crime_application.applicant.formatted_nino,
+              applicant_tel: crime_application.applicant.phone_number
+            } %>
+  <%= render partial: 'casework/crime_applications/sections/client_contact_details',
+            locals: {
+              applicant: crime_application.client_details.applicant,
+              applicant_tel: crime_application.applicant.phone_number
+            } %>
 
-<%= render partial: crime_application.date_stamp_context if crime_application.date_stamp_context.show? %>
+  <%= render partial: crime_application.date_stamp_context if crime_application.date_stamp_context.show? %>
 
-<%= render partial: 'partner_details',
-           locals: {
-             crime_application: crime_application,
-             applicant: crime_application.client_details.applicant,
-             partner: crime_application.client_details.partner
-           } %>
+  <%= render partial: 'partner_details',
+            locals: {
+              crime_application: crime_application,
+              applicant: crime_application.client_details.applicant,
+              partner: crime_application.client_details.partner
+            } %>
 
-<%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_client',
-           locals: { crime_application: crime_application, applicant: crime_application.applicant } %>
-<%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_partner',
-           locals: { crime_application: crime_application, partner: crime_application.partner } %>
-<%= render partial: 'case_details',
-           locals: { crime_application: crime_application, case_details: crime_application.case_details } %>
-<%= render partial: 'offences', object: crime_application.case_details.offences %>
-<%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
-<% if crime_application.case_details.client_other_charge_in_progress.present? %>
-  <% title_key = crime_application.case_details.partner_other_charge_in_progress.present? ? :client_other_charges_explicit : :client_other_charges %>
-  <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.client_other_charge_in_progress, other_charge: crime_application.case_details.client_other_charge, title_key: title_key } %>
+  <%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_client',
+            locals: { crime_application: crime_application, applicant: crime_application.applicant } %>
+  <%= render partial: 'casework/crime_applications/sections/passporting_benefit_check_partner',
+            locals: { crime_application: crime_application, partner: crime_application.partner } %>
+  <%= render partial: 'case_details',
+            locals: { crime_application: crime_application, case_details: crime_application.case_details } %>
+  <%= render partial: 'offences', object: crime_application.case_details.offences %>
+  <%= render partial: 'codefendants', object: crime_application.case_details.codefendants %>
+  <% if crime_application.case_details.client_other_charge_in_progress.present? %>
+    <% title_key = crime_application.case_details.partner_other_charge_in_progress.present? ? :client_other_charges_explicit : :client_other_charges %>
+    <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.client_other_charge_in_progress, other_charge: crime_application.case_details.client_other_charge, title_key: title_key } %>
+  <% end %>
+  <% if crime_application.case_details.partner_other_charge_in_progress.present? %>
+    <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.partner_other_charge_in_progress, other_charge: crime_application.case_details.partner_other_charge, title_key: :partner_other_charges } %>
+  <% end %>
+  <%= render partial: 'casework/crime_applications/sections/next_court_hearing', locals: { case_details: crime_application.case_details } %>
+  <%= render partial: 'casework/crime_applications/sections/first_court_hearing', locals: { case_details: crime_application.case_details } %>
+  <%= render partial: 'interests_of_justice', locals: { crime_application: } unless crime_application.cifc?%>
+
+  <%= render partial: 'income_details', locals: { crime_application: } %>
+  <%= render partial: 'outgoings_details', locals: { crime_application: } %>
+
+  <% if crime_application.means_details.capital_details %>
+    <%= render partial: 'capital_details', locals: { crime_application: } %>
+  <% end %>
+
+  <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
+  <%= render partial: 'further_information', locals: { crime_application: } %>
+  <%= render partial: 'declarations', locals: { provider_details: crime_application.provider_details } %>
 <% end %>
-<% if crime_application.case_details.partner_other_charge_in_progress.present? %>
-  <%= render partial: 'other_charge', locals: { other_charge_in_progress: crime_application.case_details.partner_other_charge_in_progress, other_charge: crime_application.case_details.partner_other_charge, title_key: :partner_other_charges } %>
-<% end %>
-<%= render partial: 'casework/crime_applications/sections/next_court_hearing', locals: { case_details: crime_application.case_details } %>
-<%= render partial: 'casework/crime_applications/sections/first_court_hearing', locals: { case_details: crime_application.case_details } %>
-<%= render partial: 'interests_of_justice', locals: { crime_application: } unless crime_application.cifc?%>
-
-<%= render partial: 'income_details', locals: { crime_application: } %>
-<%= render partial: 'outgoings_details', locals: { crime_application: } %>
-
-<% if crime_application.means_details.capital_details %>
-  <%= render partial: 'capital_details', locals: { crime_application: } %>
-<% end %>
-
-<%= render partial: 'supporting_evidence', locals: { crime_application: } %>
-<%= render partial: 'further_information', locals: { crime_application: } %>
-<%= render partial: 'declarations', locals: { provider_details: crime_application.provider_details } %>
 <%= render partial: 'provider_details', object: crime_application.provider_details %>

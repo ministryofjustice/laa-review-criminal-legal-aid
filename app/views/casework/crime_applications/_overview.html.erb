@@ -9,6 +9,7 @@
       </dd>
     </div>
 
+    <% unless overview.erased? %>
     <% if overview.cifc? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -129,6 +130,7 @@
             <% end %>
           </dd>
         </div>
+      <% end %>
       <% end %>
     <% end %>
   </dl>

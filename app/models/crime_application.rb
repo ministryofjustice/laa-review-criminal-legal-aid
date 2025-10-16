@@ -19,6 +19,12 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     ].join ' '
   end
 
+  def applicant_name
+    return I18n.t('values.deleted_applicant_name') if erased?
+
+    applicant&.full_name
+  end
+
   def means_passported?
     !means_passport.empty?
   end
@@ -129,6 +135,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     return if pse?
 
     @case_details ||= CaseDetailsPresenter.present(self[:case_details])
+  end
+
+  def erased?
+    true
   end
 
   def client_details

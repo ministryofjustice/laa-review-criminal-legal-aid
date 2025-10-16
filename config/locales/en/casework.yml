@@ -474,6 +474,7 @@ en:
       crown: Crown Court
     date_stamp_context_changed: Changed after date stamp
     committal: Committal for sentence
+    deleted_applicant_name: "[deleted]"
     deleted_user_name: "[deleted]"
     decision_ioj_test_result:
       passed: Passed

@@ -14,7 +14,7 @@
     </p>
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4 <%= 'app_superseded_style' if crime_application.superseded? %>">
-      <%= crime_application.applicant.full_name %>
+      <%= crime_application.applicant_name %>
     </h1>
 
     <% if crime_application.superseded? %>
