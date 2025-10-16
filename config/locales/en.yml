@@ -1,14 +1,14 @@
 en:
   dictionary:
     DATE_FORMATS: &DATE_FORMATS
-      default: '%-d %b %Y'  # 3 Jan 2019
-      compact: '%d/%m/%Y'   # 03/01/2019
+      default: "%-d %b %Y" # 3 Jan 2019
+      compact: "%d/%m/%Y" # 03/01/2019
 
   service:
     name: Review criminal legal aid applications
 
   urls:
-    eforms_url: 'https://portal.legalservices.gov.uk/oamfed/idp/initiatesso?providerid=eForms'
+    eforms_url: "https://portal.legalservices.gov.uk/oamfed/idp/initiatesso?providerid=eForms"
 
   layouts:
     header:
@@ -19,16 +19,17 @@ en:
   date:
     formats:
       <<: *DATE_FORMATS
-      reporting_long: '%A %-d %B %Y'
+      reporting_long: "%A %-d %B %Y"
   time:
     formats:
       <<: *DATE_FORMATS
-      datetime: '%-d %b %Y %-l:%M%P'  # 3 Jan 2019 2:45pm
-      timestamp: '%A %-d %b %-l:%M%P'  # Thursday 3 Jan 2:45pm
-      snapshot: '%A %-d %B %-l:%M%P'
-      now: '%A %-d %B'
-      datestamp: '%d/%m/%Y %-l:%M%P' # 03/01/2019 3:29pm
-      dob: '%-d %B %Y' # 1 January 1990
+      datetime: "%-d %b %Y %-l:%M%P" # 3 Jan 2019 2:45pm
+      timestamp: "%A %-d %b %-l:%M%P" # Thursday 3 Jan 2:45pm
+      snapshot: "%A %-d %B %-l:%M%P"
+      now: "%A %-d %B"
+      datestamp: "%d/%m/%Y %-l:%M%P" # 03/01/2019 3:29pm
+      date: "%d/%m/%Y" # 03/01/2019 3:29pm
+      dob: "%-d %B %Y" # 1 January 1990
 
   flash:
     success:
@@ -43,8 +44,7 @@ en:
       title: Error in application
 
   landing:
-    page_title:
-      Sign in
+    page_title: Sign in
 
   pagination:
     previous: Previous
@@ -60,4 +60,4 @@ en:
   number:
     currency:
       format:
-        unit: '£'
+        unit: "£"

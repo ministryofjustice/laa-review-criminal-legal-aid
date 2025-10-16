@@ -48,6 +48,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     id
   end
 
+  def applicant_name
+    applicant&.full_name
+  end
+
   def reviewable_by?(user_id)
     !reviewed? && assigned_to?(user_id)
   end
@@ -77,6 +81,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     return draft_decisions unless status?(::Types::ReviewState[:completed])
 
     super
+  end
+
+  def deleted?
+    soft_deleted_at.present?
   end
 
   class << self
@@ -126,7 +134,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def case_details
-    return if pse?
+    return if pse? || deleted?
 
     @case_details ||= CaseDetailsPresenter.present(self[:case_details])
   end
