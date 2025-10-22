@@ -70,20 +70,22 @@ RSpec.describe 'Viewing Client contact details' do
   end
 
   describe 'Correspondence preference language' do
-    context 'when preferred language is default' do
-      it 'does not display correspondence preference language row' do
-        expect(summary_card('Client contact details')).not_to have_content('Correspondence requested in Welsh? Yes')
+    subject(:correspondence_preference) do
+      within summary_card('Client contact details') do
+        page.first('dt', text: 'Correspondence requested in Welsh?').find('+dd')
       end
     end
 
-    context 'when preferred language is welsh' do
+    context 'when correspondence preference is not requested in welsh' do
+      it { is_expected.to have_content 'No' }
+    end
+
+    context 'when correspondence requested in welsh' do
       let(:application_data) do
         super().deep_merge('client_details' => { 'applicant' => { 'preferred_correspondence_language' => 'cy' } })
       end
 
-      it 'does display correspondence preference language row' do
-        expect(summary_card('Client contact details')).to have_content('Correspondence requested in Welsh? Yes')
-      end
+      it { is_expected.to have_content 'Yes' }
     end
   end
 end

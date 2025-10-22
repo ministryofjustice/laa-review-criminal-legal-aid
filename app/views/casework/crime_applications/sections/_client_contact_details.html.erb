@@ -54,15 +54,13 @@
         <%= applicant_tel.presence || t(:none, scope: 'values') %>
       </dd>
     </div>
-    <% if applicant.preferred_correspondence_language.present? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:correspondence_preference, language: t(applicant.preferred_correspondence_language, scope: 'values.language')) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t('values.yes') %>
-        </dd>
-      </div>
-    <% end %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:correspondence_preference, language: t('cy', scope: 'values.language')) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= applicant.correspondence_preference?('cy') ? t('values.yes') : t('values.no') %>
+      </dd>
+    </div>
   </dl>
 <% end %>
