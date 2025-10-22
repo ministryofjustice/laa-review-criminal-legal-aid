@@ -1,8 +1,10 @@
 <tr class="govuk-table__row">
   <th scope="row" class="govuk-table__header">
-    <%= link_to result.applicant_name,
-                application_start_path(result),
-                class: 'govuk-link--no-visited-state govuk-!-font-weight-regular' %>
+    <%= link_to(
+          result.applicant_name,
+          application_start_path(result),
+          class: 'govuk-link--no-visited-state govuk-!-font-weight-regular'
+        ) %>
   </th>
   <td class="govuk-table__cell">
     <%= result.reference %>

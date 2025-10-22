@@ -19,20 +19,24 @@
       <%= label_text(:application_details) %>
     </h2>
 
-    <%= render partial: 'additional_information', object: @crime_application.additional_information %>
-    <%= render partial: 'overview', object: @crime_application %>
-
-    <% if @crime_application.pse? %>
-      <%= render partial: 'pse', locals: { crime_application: @crime_application } %>
-    <% elsif @crime_application.appeal_no_changes? %>
-      <%= render partial: 'appeal_no_changes', locals: { crime_application: @crime_application } %>
-    <% elsif @crime_application.cifc? %>
-      <%= render partial: 'change_in_financial_circumstances', locals: { crime_application: @crime_application } %>
+    <% if @crime_application.deleted? %>
+      <%= render partial: 'deleted', locals: { crime_application: @crime_application } %>
     <% else %>
-      <%= render partial: 'initial', locals: { crime_application: @crime_application } %>
-    <% end %>
+      <%= render partial: 'additional_information', object: @crime_application.additional_information %>
+      <%= render partial: 'overview', object: @crime_application %>
 
-    <%= render partial: 'funding_decision', locals: { crime_application: @crime_application } %>
+      <% if @crime_application.pse? %>
+        <%= render partial: 'pse', locals: { crime_application: @crime_application } %>
+      <% elsif @crime_application.appeal_no_changes? %>
+        <%= render partial: 'appeal_no_changes', locals: { crime_application: @crime_application } %>
+      <% elsif @crime_application.cifc? %>
+        <%= render partial: 'change_in_financial_circumstances', locals: { crime_application: @crime_application } %>
+      <% else %>
+        <%= render partial: 'initial', locals: { crime_application: @crime_application } %>
+      <% end %>
+
+      <%= render partial: 'funding_decision', locals: { crime_application: @crime_application } %>
+    <% end %>
   </div>
 </div>
 

@@ -146,6 +146,20 @@ RSpec.describe CrimeApplication do
     end
   end
 
+  describe '#deleted?' do
+    subject(:deleted?) { application.deleted? }
+
+    context 'when application is soft deleted' do
+      let(:attributes) { super().merge(soft_deleted_at: '2025-01-01') }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when application is not deleted' do
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#reviewable_by?' do
     subject(:reviewable_by?) { application.reviewable_by?(user_id) }
 
