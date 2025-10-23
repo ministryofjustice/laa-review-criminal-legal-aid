@@ -261,7 +261,7 @@ RSpec.describe 'Authorisation' do
     ]
   end
 
-  # processs a request according to the routes path and https method
+  # processes a request according to the routes path and https method
   def visit_configured_route(route)
     url_helper = [route.name, 'path'].join('_')
     path = send(url_helper.to_sym, dummy_params(route))

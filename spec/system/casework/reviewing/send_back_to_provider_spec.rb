@@ -16,7 +16,7 @@ RSpec.describe 'Send an application back to the provider' do
       click_button('Assign to your list')
     end
 
-    it 'the "Send back to provider" button is visable and accessible' do
+    it 'the "Send back to provider" button is visible and accessible' do
       expect { click_link(send_back_cta) }.to change { page.current_path }
         .from(crime_application_path(crime_application_id)).to(
           new_return_path
@@ -83,7 +83,7 @@ RSpec.describe 'Send an application back to the provider' do
         end
       end
 
-      context 'when there is a conflict with the datstore' do
+      context 'when there is a conflict with the datastore' do
         before do
           allow(Rails.error).to receive(:report)
 
@@ -165,7 +165,7 @@ RSpec.describe 'Send an application back to the provider' do
       click_on('Kit Pound')
     end
 
-    it 'the "Send back to provider" button is not visable' do
+    it 'the "Send back to provider" button is not visible' do
       expect(page).to have_no_button(send_back_cta)
     end
   end

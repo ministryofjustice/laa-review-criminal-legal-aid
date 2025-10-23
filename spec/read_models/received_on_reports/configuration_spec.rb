@@ -27,7 +27,7 @@ RSpec.describe ReceivedOnReports::Configuration do
       Reviewing::Complete.call(application_id:, user_id:)
     end
 
-    it 'links events to the business day the application was first recived on' do
+    it 'links events to the business day the application was first received on' do
       reviewed_on_events = event_store.read.stream('ReceivedOn$2023-212').to_a
       review_events = event_store.read.stream("Reviewing$#{application_id}").to_a
 

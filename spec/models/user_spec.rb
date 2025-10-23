@@ -136,7 +136,7 @@ RSpec.describe User do
     end
 
     context 'with an activated user' do
-      it 'raises an error if user is acticated' do
+      it 'raises an error if user is activated' do
         expect { activated_user.destroy }.to raise_error(User::CannotDestroyIfActive)
       end
 
@@ -162,7 +162,7 @@ RSpec.describe User do
     end
 
     context 'with an activated user' do
-      it 'raises an error if user is acticated' do
+      it 'raises an error if user is activated' do
         expect { activated_user.renew_invitation! }.to(
           raise_error User::CannotRenewIfActive
         )

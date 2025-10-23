@@ -1,6 +1,6 @@
 module WardenHooks
   # Each time a user is set, check to see if the time allowed between
-  # authentications has been exceded. If it has, the user is signed out.
+  # authentications has been exceeded. If it has, the user is signed out.
   #
   # User#last_auth_at is set by UserAuthenticate#authenticate!
   #

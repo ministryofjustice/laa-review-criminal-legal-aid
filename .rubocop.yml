@@ -46,7 +46,7 @@ Layout/HashAlignment:
 RSpec/AnyInstance:
   Enabled: false
 
-# TODO: Determine any repurcussions to using .select instead
+# TODO: Determine any repercussions to using .select instead
 Rails/PluckInWhere:
   Enabled: false
 

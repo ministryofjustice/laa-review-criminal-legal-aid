@@ -1,6 +1,6 @@
 # For Devise flash notices.
 # Where the value is an array, the first item is used as the notification
-# banner header, and subsequenty items as paragraphs.
+# banner header, and subsequently items as paragraphs.
 en:
   devise:
     failure:

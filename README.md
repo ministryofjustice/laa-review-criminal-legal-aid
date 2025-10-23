@@ -58,7 +58,7 @@ This must never be enabled in the live (staging/production) service in it's curr
 
 The app utilises [puma-dev](https://github.com/puma/puma-dev) for local development.
 
-Follow the setup proceedure for puma-dev [outlined here](https://github.com/puma/puma-dev#install)
+Follow the setup procedure for puma-dev [outlined here](https://github.com/puma/puma-dev#install)
 
 Clone [apply](https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid), and the [laa-crime-apply-dev-api](https://github.com/ministryofjustice/laa-crime-apply-dev-api) locally.
 
