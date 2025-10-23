@@ -14,7 +14,7 @@ RSpec.describe 'Missing Report' do
   describe 'missing temporal report interval' do
     it 'shows a not found error' do
       visit '/'
-      interval = 'daily'
+      interval = 'dayly'
       report_type = 'caseworker_report'
       period = '2023-08-01'
 
