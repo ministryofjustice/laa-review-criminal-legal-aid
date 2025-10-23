@@ -8,7 +8,7 @@ RSpec.describe UserCompetence do
 
     it { is_expected.to be_empty }
 
-    context 'when a user has competencies assgined' do
+    context 'when a user has competencies assigned' do
       before do
         allow(Allocating).to receive(:user_competencies).with(user.id).and_return(
           %w[extradition post_submission_evidence]

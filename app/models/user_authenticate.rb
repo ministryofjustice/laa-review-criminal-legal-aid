@@ -9,7 +9,7 @@ class UserAuthenticate
   # the details in the auth hash.
   #
   # Deactivated users are not returned. Users with expired invitations or
-  # dormant accounts are returend but are blocked from signing in by Devise
+  # dormant accounts are returned but are blocked from signing in by Devise
   # see (User#active_for_authentication?)
   #
   def authenticate

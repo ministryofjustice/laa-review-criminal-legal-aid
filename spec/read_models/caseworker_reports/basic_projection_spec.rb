@@ -44,12 +44,12 @@ describe CaseworkerReports::BasicProjection do
       expect(bob.user_name).to eq('Bob Smith')
     end
 
-    it 'records the total number assinged to the user' do
+    it 'records the total number assigned to the user' do
       expect(zoe.total_assigned_to_user).to eq(3)
       expect(bob.total_assigned_to_user).to eq(1)
     end
 
-    it 'records the total number unassinged from the user' do
+    it 'records the total number unassigned from the user' do
       expect(zoe.total_unassigned_from_user).to eq(1)
       expect(bob.total_unassigned_from_user).to eq(1)
     end

@@ -6,11 +6,11 @@ describe Assigning::Assignment do
   let(:user_id) { SecureRandom.uuid }
   let(:to_whom_id) { SecureRandom.uuid }
 
-  it 'is initialy "unassigned"' do
+  it 'is initially "unassigned"' do
     expect(assignment).to be_unassigned
   end
 
-  it 'is initialy has no assignee_id' do
+  it 'is initially has no assignee_id' do
     expect(assignment.assignee_id).to be_nil
   end
 

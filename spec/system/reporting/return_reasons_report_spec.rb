@@ -22,7 +22,7 @@ RSpec.describe 'Return Reasons Report' do
       {
         resource_id: resource_id,
         reviewed_at: Time.new(2023, 1, 5, 9, 0).utc,
-        appplicant_name: 'Jo Bloggs',
+        applicant_name: 'Jo Bloggs',
         reference: 12_345_678,
         return_reason: 'clarification_required',
         return_details: 'More information please.',
@@ -167,7 +167,7 @@ RSpec.describe 'Return Reasons Report' do
 
       it 'has the correct csv headers' do
         expect(page.driver.response.body).to match(
-          'resource_id,reviewed_at,appplicant_name,reference,return_reason,return_details,office_code,provider_name'
+          'resource_id,reviewed_at,applicant_name,reference,return_reason,return_details,office_code,provider_name'
         )
       end
 

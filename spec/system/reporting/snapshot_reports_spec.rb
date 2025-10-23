@@ -9,7 +9,7 @@ RSpec.describe 'Snapshot report' do
   let(:next_day) { 'Next day' }
   let(:yesterday) { Time.current.in_time_zone('London').to_date.yesterday }
 
-  context 'when viwing the current snaphshot for the worklaod report' do
+  context 'when viewing the current snapshot for the workload report' do
     before do
       visit reporting_current_snapshot_path(report_type)
     end

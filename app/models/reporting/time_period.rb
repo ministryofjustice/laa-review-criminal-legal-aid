@@ -7,7 +7,7 @@ module Reporting
       @interval = Types::TemporalInterval[interval]
     end
 
-    # The date of an interval need not be the same for it to be considdered
+    # The date of an interval need not be the same for it to be considered
     # equivalent to another. Only the range and the interval string.
     def ==(other)
       interval == other.interval && range == other.range

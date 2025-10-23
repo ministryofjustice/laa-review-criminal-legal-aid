@@ -30,7 +30,7 @@ describe NotifyMailerInterceptor do
   end
 
   context 'when an intercept email is not set' do
-    it 'does not inercept' do
+    it 'does not intercept' do
       expect(message.to).to eq(['recipient@example.com'])
     end
 

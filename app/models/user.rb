@@ -108,7 +108,7 @@ class User < ApplicationRecord
   end
 
   # Overwrite the Devise model's #active_for_authentication? to return false
-  # if the account is dormant or the invitation has exipired.
+  # if the account is dormant or the invitation has expired.
   def active_for_authentication?
     super && !(invitation_expired? || dormant?)
   end

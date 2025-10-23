@@ -39,7 +39,7 @@ RSpec.describe CrimeApplication do
   describe '#all_histories' do
     subject(:history) { application.all_histories }
 
-    context 'when initital submission' do
+    context 'when initial submission' do
       it { is_expected.to eq [application.history] }
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe CrimeApplication do
   describe '#parent' do
     subject(:parent) { application.parent }
 
-    context 'when an initital submission' do
+    context 'when an initial submission' do
       it { is_expected.to be_nil }
     end
 

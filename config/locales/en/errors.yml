@@ -28,7 +28,6 @@ en:
         inclusion: Select a result for the Interest of justice test
       maat_id:
         blank: &invalid_maat_id "Enter a valid MAAT ID"
-        greated_than: *invalid_maat_id
         not_a_number: *invalid_maat_id
         greater_than: *invalid_maat_id
         record_not_found: *invalid_maat_id

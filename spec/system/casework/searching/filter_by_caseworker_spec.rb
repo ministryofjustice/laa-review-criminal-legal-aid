@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Search applications casewoker filter' do
+RSpec.describe 'Search applications caseworker filter' do
   include_context 'when search results are returned'
   include_context 'with stubbed assignments and reviews'
 
