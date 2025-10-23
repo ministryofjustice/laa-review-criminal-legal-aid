@@ -11,6 +11,11 @@ feature_flags:
     local: false
     staging: true
     production: false
+  correspondence_preference:
+    local: true
+    staging: true
+    preprod: true
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:
