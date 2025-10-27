@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Copy text link' do
+RSpec.describe 'Copy text button' do
   include_context 'with an existing user'
   include_context 'with stubbed application'
 
@@ -20,7 +20,7 @@ RSpec.describe 'Copy text link' do
     )
   end
 
-  describe 'clicking a copy link' do
+  describe 'clicking a copy button' do
     subject(:clipboard_text) { page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])') }
 
     let(:application_data) do
@@ -36,42 +36,42 @@ RSpec.describe 'Copy text link' do
 
     it 'copies unique reference number from overview section to clipboard' do
       urn = find_by_id('overview-urn').text
-      click_link(id: 'copy-overview-urn')
+      click_button(id: 'copy-overview-urn')
 
       expect(clipboard_text).to eq urn
     end
 
     it 'copies unique reference number from case details section to clipboard' do
       urn = find_by_id('case-details-urn').text
-      click_link(id: 'copy-case-details-urn')
+      click_button(id: 'copy-case-details-urn')
 
       expect(clipboard_text).to eq urn
     end
 
     it 'copies date of birth to clipboard' do
       date_of_birth = find_by_id('date-of-birth').text
-      click_link(id: 'copy-date-of-birth')
+      click_button(id: 'copy-date-of-birth')
 
       expect(clipboard_text).to eq date_of_birth
     end
 
     it 'copies partner date of birth to clipboard' do
       date_of_birth = find_by_id('partner-date-of-birth').text
-      click_link(id: 'copy-partner-date-of-birth')
+      click_button(id: 'copy-partner-date-of-birth')
 
       expect(clipboard_text).to eq date_of_birth
     end
 
     it 'copies nino to clipboard' do
       nino = find_by_id('nino').text
-      click_link(id: 'copy-nino')
+      click_button(id: 'copy-nino')
 
       expect(clipboard_text).to eq nino
     end
 
     it 'copies partner nino to clipboard' do
       nino = find_by_id('partner-nino').text
-      click_link(id: 'copy-partner-nino')
+      click_button(id: 'copy-partner-nino')
 
       expect(clipboard_text).to eq nino
     end

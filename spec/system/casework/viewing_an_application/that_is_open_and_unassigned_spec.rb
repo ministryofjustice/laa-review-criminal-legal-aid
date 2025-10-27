@@ -26,8 +26,13 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       super().deep_merge('case_details' => { 'urn' => '12345' })
     end
 
-    it 'includes the copy urn link' do
-      expect(page).to have_content('12345 Copy')
+    it 'displays urn' do
+      expect(page).to have_content('12345')
+    end
+
+    it 'displays the copy urn link' do
+      expect(summary_card('Overview')).to have_button('Copy', id: 'copy-overview-urn')
+      expect(summary_card('Case details')).to have_button('Copy', id: 'copy-case-details-urn')
     end
   end
 
@@ -154,7 +159,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
             expect(card).to have_summary_row 'First name', 'Kit'
             expect(card).to have_summary_row 'Last name', 'Pound'
             expect(card).to have_summary_row 'Other names', 'None'
-            expect(card).to have_content 'Date of birth 09/06/2001 Copy'
+            expect(card).to have_content 'Date of birth 09/06/2001'
+            expect(card).to have_button('Copy', id: 'copy-date-of-birth')
           end
         end
 
@@ -179,7 +185,8 @@ RSpec.describe 'Viewing an application unassigned, open application' do
   describe 'displaying applicant details' do
     context 'when national insurance information is provided' do
       it 'displays the national insurance row' do
-        expect(summary_card('Client details')).to have_content('National Insurance number AJ123456C Copy')
+        expect(summary_card('Client details')).to have_content('National Insurance number AJ123456C')
+        expect(summary_card('Client details')).to have_button('Copy', id: 'copy-nino')
       end
     end
 
