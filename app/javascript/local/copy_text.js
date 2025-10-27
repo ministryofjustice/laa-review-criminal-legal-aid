@@ -1,27 +1,25 @@
-function copyText(textElementId, copyLinkElementId, screenReaderAlertText, originalCopyLinkText = 'Copy') {
+function copyText(textElementId, copyElementId, screenReaderAlertText, originalCopyText = 'Copy') {
     let textElement = document.querySelector(textElementId);
-    let copyLink = document.querySelector(copyLinkElementId);
+    let copyElement = document.querySelector(copyElementId);
     let screenReaderAlert = document.getElementById("copy-alert");
 
-    if (textElement && copyLink) {
-      copyLink.addEventListener('click', (e) => {
+    if (textElement && copyElement) {
+      copyElement.addEventListener('click', (e) => {
         e.preventDefault();
 
         let text = textElement.textContent.trim();
         window.navigator.clipboard.writeText(text);
         screenReaderAlert.textContent = screenReaderAlertText;
-        copyLink.classList.add('disable-click');
-        copyLink.textContent = "Copied";
-        copyLink.classList.remove('govuk-link--no-visited-state');
+        copyElement.classList.add('disable-click');
+        copyElement.textContent = "Copied";
 
         setTimeout(() => {
             screenReaderAlert.textContent = "";
-            copyLink.classList.remove('disable-click');
-            copyLink.textContent = originalCopyLinkText;
-            copyLink.classList.add('govuk-link--no-visited-state');
+            copyElement.classList.remove('disable-click');
+            copyElement.textContent = originalCopyText;
         }, 4000);
 
-        copyLink.blur();
+        copyElement.blur();
         return true;
       });
     }
