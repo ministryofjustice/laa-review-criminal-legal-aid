@@ -34,7 +34,7 @@
       </span>
     </dd>
     <dd class="govuk-summary-list__actions">
-      <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-date-of-birth', aria_label: 'Copy date of birth' } %>
+      <%= render partial: 'copy_button', locals: { text: t('calls_to_action.copy'), id: 'copy-date-of-birth', aria_label: 'Copy date of birth' } %>
     </dd>
   </div>
   <% unless crime_application.pse? || crime_application.appeal_no_changes? %>
@@ -50,7 +50,7 @@
         </dd>
         <% if nino.presence %>
           <dd class="govuk-summary-list__actions">
-            <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-nino', aria_label: 'Copy National Insurance number' } %>
+            <%= render partial: 'copy_button', locals: { text: t('calls_to_action.copy'), id: 'copy-nino', aria_label: 'Copy National Insurance number' } %>
           </dd>
         <% end %>
       </div>

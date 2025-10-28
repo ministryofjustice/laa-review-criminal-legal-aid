@@ -15,7 +15,7 @@
       </dd>
       <% if case_details.urn.presence && !crime_application.superseded? %>
         <dd class="govuk-summary-list__actions">
-          <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy'), link_id: 'copy-case-details-urn', aria_label: 'Copy unique reference number' } %>
+          <%= render partial: 'copy_button', locals: { text: t('calls_to_action.copy'), id: 'copy-case-details-urn', aria_label: 'Copy unique reference number' } %>
         </dd>
       <% end %>
     </div>
