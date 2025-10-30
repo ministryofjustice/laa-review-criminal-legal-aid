@@ -68,4 +68,49 @@ RSpec.describe 'Viewing Client contact details' do
       end
     end
   end
+
+  describe 'Correspondence preference language' do
+    subject(:correspondence_preference) do
+      within summary_card('Client contact details') do
+        page.first('dt', text: 'Correspondence requested in Welsh?').find('+dd')
+      end
+    end
+
+    context 'when correspondence preference is not requested in welsh' do
+      it { is_expected.to have_content 'No' }
+    end
+
+    context 'when correspondence is requested in welsh' do
+      let(:application_data) do
+        super().deep_merge('client_details' => { 'applicant' => { 'preferred_correspondence_language' => 'cy' } })
+      end
+
+      it { is_expected.to have_content 'Yes' }
+    end
+
+    context 'when feature flag is not enabled' do
+      before do
+        allow(FeatureFlags).to receive(:correspondence_preference) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+        }
+
+        visit '/'
+        visit crime_application_path(application_id)
+      end
+
+      it 'does not show the correspondence preference row' do
+        expect(summary_card('Client contact details')).not_to have_content('Correspondence requested in Welsh? No')
+      end
+
+      context 'when correspondence is requested in welsh' do
+        let(:application_data) do
+          super().deep_merge('client_details' => { 'applicant' => { 'preferred_correspondence_language' => 'cy' } })
+        end
+
+        it 'does not show the correspondence preference row' do
+          expect(summary_card('Client contact details')).not_to have_content('Correspondence requested in Welsh? Yes')
+        end
+      end
+    end
+  end
 end

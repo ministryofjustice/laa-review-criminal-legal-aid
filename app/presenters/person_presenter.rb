@@ -11,6 +11,10 @@ class PersonPresenter < BasePresenter
     nino
   end
 
+  def correspondence_preference?(lang)
+    preferred_correspondence_language == lang
+  end
+
   private
 
   # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
