@@ -16,7 +16,7 @@
 <% end %>
 
 <div class="govuk-button-group">
-  <% unless assignment.reviewed? %>
+  <% unless assignment.reviewed? || assignment.deleted? %>
     <% if assignment.unassigned? %>
       <%= button_to t('calls_to_action.assign_to_self'),
                     assigned_applications_path(

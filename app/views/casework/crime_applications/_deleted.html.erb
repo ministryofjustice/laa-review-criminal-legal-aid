@@ -1,0 +1,20 @@
+<%= govuk_summary_card(title: label_text(:overview)) do
+      govuk_summary_list(actions: false) do |list|
+        list.with_row do |row|
+          row.with_key { label_text(:application_type) }
+          row.with_value { t(crime_application.application_type, scope: 'values') }
+        end
+        list.with_row do |row|
+          row.with_key { label_text(:application_start_date) }
+          row.with_value { l(crime_application.date_stamp, format: :date) }
+        end
+        list.with_row do |row|
+          row.with_key { label_text(:application_submitted) }
+          row.with_value { l(crime_application.submitted_at, format: :date) }
+        end
+        list.with_row do |row|
+          row.with_key { label_text(:office_account_number) }
+          row.with_value { crime_application.provider_details.office_code }
+        end
+      end
+    end %>

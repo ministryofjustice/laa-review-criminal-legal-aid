@@ -4,19 +4,19 @@
       <%= govuk_tag(text: t(crime_application.review_status, scope: 'values.review_status'), colour: t(crime_application.review_status, scope: 'values.color')) %>
     </div>
 
-    <div class="govuk-!-margin-bottom-4 <%= 'app-wrap-button' if FeatureFlags.copy_button.enabled? %>">
+    <div class="govuk-!-margin-bottom-4 app-wrap-button">
       <p class="govuk-body-l govuk-!-margin-bottom-0 <%= 'app_superseded_style' if crime_application.superseded? %>">
         <span class="govuk-!-margin-right-2" id="reference-number">
           <%= crime_application.reference %>
         </span>
         <% unless crime_application.superseded? %>
-          <%= render partial: 'copy_link', locals: { link_text: t('calls_to_action.copy_laa_reference'), link_id: 'copy-reference-number', aria_label: 'Copy LAA reference' } %>
+          <%= render partial: 'copy_button', locals: { text: t('calls_to_action.copy_laa_reference'), id: 'copy-reference-number', aria_label: 'Copy LAA reference' } %>
         <% end %>
       </p>
     </div>
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4 <%= 'app_superseded_style' if crime_application.superseded? %>">
-      <%= crime_application.applicant.full_name %>
+      <%= crime_application.applicant_name %>
     </h1>
 
     <% if crime_application.superseded? %>

@@ -36,11 +36,13 @@ RSpec.describe 'When viewing partner details' do
       end
 
       it "displays the partner's date of birth" do
-        expect(summary_card('Partner details')).to have_content('Date of birth 23/12/2001 Copy')
+        expect(summary_card('Partner details')).to have_content('Date of birth 23/12/2001')
+        expect(summary_card('Partner details')).to have_button('Copy', id: 'copy-partner-date-of-birth')
       end
 
       it "displays the partner's national insurance number" do
-        expect(summary_card('Partner details')).to have_content('National Insurance number AB123456C Copy')
+        expect(summary_card('Partner details')).to have_content('National Insurance number AB123456C')
+        expect(summary_card('Partner details')).to have_button('Copy', id: 'copy-partner-nino')
       end
 
       context 'when the partner has an arc number' do
