@@ -7,10 +7,6 @@ feature_flags:
     local: false
     staging: true
     production: false # user managers should not access the service in production
-  copy_button:
-    local: false
-    staging: true
-    production: false
   correspondence_preference:
     local: true
     staging: true
