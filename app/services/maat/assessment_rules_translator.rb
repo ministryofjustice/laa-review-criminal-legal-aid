@@ -24,7 +24,7 @@ module Maat
       case maat_decision.case_type
       when 'APPEAL CC'
         'appeal_to_crown_court'
-      when 'COMMITTAL'
+      when 'COMMITAL'
         'committal_for_sentence'
       when 'EITHER WAY'
         infer_either_way_assessment_rules
