@@ -142,6 +142,7 @@ en:
     confirmed_details: Confirmed details correct?
     conflict_of_interest: Conflict of interest?
     correspondence_address: Correspondence
+    correspondence_preference: Correspondence requested in %{language}?
     criminal_applications_team: CAT 1
     criminal_applications_team_2: CAT 2
     date:
@@ -502,6 +503,8 @@ en:
     indictable: Indictable
     initial: Initial application
     jsa: Income-based Jobseeker's Allowance (JSA)
+    language:
+      cy: Welsh
     no_home_address: Does not have a home address
     no_one: no one
     none: None
