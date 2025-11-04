@@ -562,6 +562,7 @@ en:
       closed: Closed
       marked_as_ready: Ready for assessment
       all: All applications
+      deleted: Personal data deleted
     assigned_status:
       assigned: All assigned
       unassigned: Unassigned
@@ -582,6 +583,7 @@ en:
       granted: green
       granted_on_ioj: green
       fail_on_ioj: red
+      deleted: grey
     download_file: "Download file (%{file_extension}, %{file_size})"
     no_hearing_yet: There has not been a hearing yet
     manage_without_income:
@@ -728,6 +730,8 @@ en:
           resubmission: Application reassigned from %{from_whom_name} to %{to_whom_name}
           post_submission_evidence: Post submission evidence reassigned from %{from_whom_name} to %{to_whom_name}
           change_in_financial_circumstances: Change in financial circumstances reassigned from %{from_whom_name} to %{to_whom_name}
+      deleting:
+        soft_deleted: Personal data deleted in accordance with data retention policy
       reviewing:
         sent_back: Application sent back to provider
         application_received:
