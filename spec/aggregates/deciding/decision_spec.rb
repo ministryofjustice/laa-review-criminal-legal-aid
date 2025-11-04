@@ -64,7 +64,7 @@ describe Deciding::Decision do
       decision.create_draft_from_maat(maat_decision:, user_id:)
     end
 
-    context 'when reference missmatch' do
+    context 'when reference mismatch' do
       let(:reference) { 123_123 }
 
       it { expect { link }.to raise_error Deciding::ReferenceMismatch }
@@ -96,7 +96,7 @@ describe Deciding::Decision do
       decision.create_draft_from_maat(maat_decision:, user_id:)
     end
 
-    context 'when reference missmatch' do
+    context 'when reference mismatch' do
       let(:reference) { 123_123 }
 
       it { expect { link }.not_to raise_error }
@@ -133,7 +133,7 @@ describe Deciding::Decision do
       decision.create_draft_from_maat(maat_decision:, user_id:)
     end
 
-    context 'when reference missmatch' do
+    context 'when reference mismatch' do
       let(:reference) { 123_123 }
 
       it { expect { link }.not_to raise_error }

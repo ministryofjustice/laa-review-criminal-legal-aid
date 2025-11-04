@@ -178,7 +178,7 @@ application_type: 'post_submission_evidence' },
         )
       end
 
-      it 'records the total number assinged to the user' do
+      it 'records the total number assigned to the user' do
         expect(zoe_cat1.total_assigned_to_user).to eq(1)
         expect(zoe_cat2.total_assigned_to_user).to eq(3)
         expect(zoe_extradition.total_assigned_to_user).to eq(1)
@@ -190,7 +190,7 @@ application_type: 'post_submission_evidence' },
         expect(bob_pse.total_assigned_to_user).to eq(1)
       end
 
-      it 'records the total number unassinged from the user' do
+      it 'records the total number unassigned from the user' do
         expect(zoe_cat1.total_unassigned_from_user).to eq(2)
         expect(zoe_cat2.total_unassigned_from_user).to eq(0)
         expect(zoe_extradition.total_unassigned_from_user).to eq(0)

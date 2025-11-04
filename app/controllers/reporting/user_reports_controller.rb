@@ -37,7 +37,7 @@ module Reporting
 
     # Returns a list of the latest complete temporal reports for a given user
     # NOTE: this code is temporary and used here to provide a list of temporal
-    # reports for protyping purposes only.
+    # reports for prototyping purposes only.
     def latest_temporal_reports
       interval = if current_user.data_analyst?
                    Types::TemporalInterval['monthly']

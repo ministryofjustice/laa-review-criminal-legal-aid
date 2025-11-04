@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Viewing the decarations on an application' do
+RSpec.describe 'Viewing the declarations on an application' do
   include_context 'with stubbed application'
 
   before do

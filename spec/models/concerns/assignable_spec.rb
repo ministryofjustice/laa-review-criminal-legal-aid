@@ -64,7 +64,7 @@ RSpec.describe Assignable do
       expect(assignment).to have_received(:assigned_to?)
     end
 
-    it 'delgates #unassigned?' do
+    it 'delegates #unassigned?' do
       assignable.unassigned?
       expect(assignment).to have_received(:unassigned?)
     end

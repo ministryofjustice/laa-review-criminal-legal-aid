@@ -67,7 +67,7 @@ RSpec.describe 'Reviewing a PSE application' do
       visit crime_application_path(application_id)
     end
 
-    it 'the "Mark as completed" button is not visable' do
+    it 'the "Mark as completed" button is not visible' do
       expect(page).to have_no_button(complete_cta)
     end
   end
