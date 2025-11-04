@@ -67,6 +67,17 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     )
   end
 
+  def deleted_history_item
+    return nil unless deleted?
+
+    ApplicationHistoryItem.new(
+      user_name: 'System',
+      event_type: 'Deleting::SoftDeleted',
+      timestamp: soft_deleted_at,
+      event_data: { superseded_by: }
+    )
+  end
+
   def submission_type
     return 'resubmission' if parent_id && application_type == 'initial'
 

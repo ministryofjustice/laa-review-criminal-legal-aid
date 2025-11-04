@@ -7,6 +7,16 @@ RSpec.describe 'Viewing an application that has been deleted' do
     visit crime_application_path(application_id)
   end
 
+  it 'replaces the review status with "Personal data deleted"' do
+    within('.govuk-tag--grey') do
+      expect(page).to have_text('Personal data deleted')
+    end
+  end
+
+  it 'includes the page title' do
+    expect(page).to have_content I18n.t('casework.crime_applications.show.page_title')
+  end
+
   describe 'applications details' do
     it 'shows relevant details' do # rubocop:disable RSpec/MultipleExpectations
       within(summary_card('Overview')) do |card|
@@ -18,7 +28,15 @@ RSpec.describe 'Viewing an application that has been deleted' do
     end
   end
 
-  it 'includes the page title' do
-    expect(page).to have_content I18n.t('casework.crime_applications.show.page_title')
+  describe 'applications history' do
+    before do
+      click_link 'Application history'
+    end
+
+    it 'shows the deletion event at the top of the application history' do
+      expect(page.first('.app-dashboard-table tbody tr').text).to match(
+        'System Personal data deleted in accordance with data retention policy'
+      )
+    end
   end
 end
