@@ -1,0 +1,11 @@
+<p>
+  <% if report.current? %>
+    <%= govuk_inset_text(text: "This report isn't available yet. You’ll be able to download it after the end of the month.") %>
+  <% else %>
+    <%= govuk_link_to(
+          'Download report (CSV)',
+          reporting_download_temporal_report_path(**report.to_param),
+          data: { turbo: false }
+        ) %>
+  <% end %>
+</p>

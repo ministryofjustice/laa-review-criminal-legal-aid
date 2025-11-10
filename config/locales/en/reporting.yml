@@ -5,6 +5,8 @@ en:
         title: "Caseworker monthly: %{period_name}"
       return_reasons_report:
         title: "Return reasons monthly: %{period_name}"
+      volumes_by_office_report:
+        title: "Submissions by office monthly: %{period_name}"
     weekly_report:
       caseworker_report:
         title: "Caseworker weekly: %{period_name}"
@@ -16,11 +18,11 @@ en:
       return_reasons_report:
         title: "Return reasons daily: %{period_name}"
     snapshot:
-      workload_report: 
+      workload_report:
         title: "Workload report: %{observed_at}"
     user_reports:
       index:
-        page_title: Reporting 
+        page_title: Reporting
         heading: Reports
         downloads: Downloads
   labels:
@@ -29,13 +31,14 @@ en:
     current_workload_report: Workload report
     processed_report: Processed report
     caseworker_report: Caseworker report
-    monthly: Monthly 
-    weekly: Weekly 
-    daily: Daily 
+    volumes_by_office_report: Submissions by office report
+    monthly: Monthly
+    weekly: Weekly
+    daily: Daily
     period:
-      monthly: month 
-      weekly: week 
-      daily: day 
+      monthly: month
+      weekly: week
+      daily: day
     download_csv: Download source data (CSV)
   table_headings:
     application_type: Application type
@@ -49,13 +52,13 @@ en:
     colspan_unassigned_from_user: Unassigned
     completed_by_user: completed
     days_passed: Business days since applications were received
-    office_code: Office code 
+    office_code: Office code
     open_applications_by_age: "Applications still\xA0open"
     percentage_closed_by_user: "assigned closed"
     percentage_unassigned_from_user: "assigned un-assigned"
     percentage_closed_sent_back: "closed sent back"
     processed_on: When applications were closed
-    provider_name: Legal representative 
+    provider_name: Legal representative
     reassigned_from_user: "by<br>another"
     reassigned_to_user: "from<br>another"
     received: Received
@@ -72,6 +75,6 @@ en:
     today: Today
     yesterday: Yesterday
   caseworker_report:
-    caption:  Number of times applications were assigned to, unassigned from, and closed by a given caseworker
+    caption: Number of times applications were assigned to, unassigned from, and closed by a given caseworker
   warnings:
     experimental_data: This report is experimental and under active development. It may contain inaccurate information.

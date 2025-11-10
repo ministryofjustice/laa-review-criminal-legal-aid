@@ -59,8 +59,15 @@ module Reporting
     end
 
     def set_interval
-      @intervals = Types::TemporalInterval
-      @interval = permitted_params.require(:interval).presence_in(*@intervals)
+      @interval = permitted_params.require(:interval).presence_in(intervals)
+    end
+
+    def intervals
+      @intervals = if @report_type == Types::TemporalReportType['volumes_by_office_report']
+                     [Types::TemporalInterval['monthly']]
+                   else
+                     Types::TemporalInterval.values
+                   end
     end
   end
 end
