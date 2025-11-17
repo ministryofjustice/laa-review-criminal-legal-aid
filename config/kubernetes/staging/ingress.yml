@@ -84,12 +84,16 @@ metadata:
         ctl:ruleRemoveById=932100,\
         ctl:ruleRemoveById=932110,\
         ctl:ruleRemoveById=932115,\
+        ctl:ruleRemoveById=932125,\
         ctl:ruleRemoveById=932235,\
         ctl:ruleRemoveById=932380,\
         ctl:ruleRemoveById=933160,\
         ctl:ruleRemoveById=942230,\
         ctl:ruleRemoveById=942360,\
         ctl:ruleRemoveById=932370"
+      SecRule REQUEST_URI "@beginsWith /users/auth/azure_ad/callback" \
+        "id:1003,phase:1,pass,nolog,\
+        ctl:ruleRemoveTargetByTag=attack-injection-php;ARGS:code"
       SecRuleUpdateTargetByTag attack-lfi !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-rce !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
       SecRuleUpdateTargetByTag attack-sqli !REQUEST_COOKIES:_laa_review_criminal_legal_aid_session
