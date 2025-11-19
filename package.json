@@ -2,7 +2,7 @@
   "name": "laa-review-criminal-legal-aid",
   "packageManager": "yarn@4.11.0",
   "dependencies": {
-    "@hotwired/turbo-rails": "^8.0.13",
+    "@hotwired/turbo-rails": "^8.0.20",
     "@ministryofjustice/frontend": "5.1.0",
     "govuk-frontend": "^5.13.0",
     "sass": "^1.94.1"
