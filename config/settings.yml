@@ -12,6 +12,12 @@ feature_flags:
     staging: true
     preprod: true
     production: false
+  view_evidence:
+    local: true
+    test: false
+    staging: false
+    preprod: false
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:

@@ -5,6 +5,10 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
 
   before do
+    allow(FeatureFlags).to receive(:view_evidence) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+
     stub_request(
       :get,
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}"
