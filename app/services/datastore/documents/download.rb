@@ -35,19 +35,6 @@ module Datastore
         content_disposition = FeatureFlags.view_evidence.enabled? ? 'inline' : 'attachment'
         %(#{content_disposition}; filename=#{filename_safe}; filename*= UTF-8''#{filename_escaped};)
       end
-
-      def response_content_type
-        case document.content_type
-        when 'application/rtf'
-          'text/rtf'
-        when 'application/octet-stream'
-          'text/plain'
-        when 'image/tiff'
-          'image/jpg'
-        else
-          throw document.content_type
-        end
-      end
     end
   end
 end
