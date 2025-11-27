@@ -32,20 +32,27 @@
       title: label_text(:evidence_other)
     } %>
 
+<% target = FeatureFlags.view_evidence.enabled? ? '_blank' : '' %>
+
 <%= govuk_summary_card(title: label_text(:file_name)) do
       govuk_summary_list(actions: false) do |list|
         if crime_application.supporting_evidence.present?
           crime_application.supporting_evidence.each do |evidence|
+            link_text = if FeatureFlags.view_evidence.enabled?
+                          'View'
+                        else
+                          sanitize(t(:download_file, scope: 'values',
+                                     file_extension: evidence.file_extension,
+                                     file_size: number_to_human_size(evidence.file_size)))
+                        end
+
             list.with_row do |row|
               row.with_key { evidence.filename }
               row.with_value do
-                govuk_link_to(
-                  sanitize(t(:download_file, scope: 'values',
-                             file_extension: evidence.file_extension,
-                             file_size: number_to_human_size(evidence.file_size))),
-                  download_documents_path(crime_application_id: crime_application.id, id: evidence.s3_object_key),
-                  class: 'app-no-print'
-                )
+                govuk_link_to(link_text,
+                              download_documents_path(crime_application_id: crime_application.id, id: evidence.s3_object_key),
+                              class: 'app-no-print',
+                              target: target)
               end
             end
           end

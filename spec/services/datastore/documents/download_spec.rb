@@ -9,6 +9,12 @@ RSpec.describe Datastore::Documents::Download do
   let(:log_context) { { caseworker_id: 1, caseworker_ip: '123.0001' } }
 
   describe '#call' do
+    before do
+      allow(FeatureFlags).to receive(:view_evidence) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+    end
+
     context 'when a document download link is retrieved successfully' do
       before do
         stub_request(:put, 'https://datastore-api-stub.test/api/v1/documents/presign_download')

@@ -5,6 +5,10 @@ RSpec.describe 'Viewing supporting evidence' do
   include_context 'when downloading a document'
 
   before do
+    allow(FeatureFlags).to receive(:view_evidence) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+
     visit crime_application_path(application_id)
   end
 
