@@ -11,7 +11,7 @@ feature_flags:
     local: true
     staging: true
     preprod: true
-    production: false
+    production: true
   view_evidence:
     local: true
     test: false
