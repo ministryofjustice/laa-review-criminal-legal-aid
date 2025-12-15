@@ -24,7 +24,7 @@ en:
     formats:
       <<: *DATE_FORMATS
       datetime: "%-d %b %Y %-l:%M%P" # 3 Jan 2019 2:45pm
-      timestamp: "%A %-d %b %-l:%M%P" # Thursday 3 Jan 2:45pm
+      timestamp: "%A %-d %b %Y %-l:%M%P" # Thursday 3 Jan 2019 2:45pm
       snapshot: "%A %-d %B %-l:%M%P"
       now: "%A %-d %B"
       datestamp: "%d/%m/%Y %-l:%M%P" # 03/01/2019 3:29pm
