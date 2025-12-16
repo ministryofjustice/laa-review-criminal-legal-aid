@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Adding a CIFC decision by MAAT ID' do
+  include AsssignmentHelpers
+
   include_context 'with stubbed application'
   include_context 'when adding a decision by MAAT ID'
 
@@ -42,12 +44,16 @@ RSpec.describe 'Adding a CIFC decision by MAAT ID' do
       )
     end
 
-    context 'when the MAAT ID is linked to a different application on review' do
+    context 'when the MAAT ID is linked to a different application on review' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:user_id) { SecureRandom.uuid }
+
       before do
-        Maat::LinkDecision.call(
-          application: original_application,
-          maat_id: maat_id, user_id: SecureRandom.uuid
-        )
+        with_assignment(user_id: user_id, assignment_id: original_application.id) do
+          Maat::LinkDecision.call(
+            application: original_application,
+            maat_id: maat_id, user_id: user_id
+          )
+        end
       end
 
       it 'shows an error when the original application is not sent' do
@@ -57,10 +63,12 @@ RSpec.describe 'Adding a CIFC decision by MAAT ID' do
         )
       end
 
-      it 'links the CIFC to the draft decision' do
-        Reviewing::Complete.call(
-          application_id: original_application.id, user_id: SecureRandom.uuid
-        )
+      it 'links the CIFC to the draft decision' do # rubocop:disable RSpec/ExampleLength
+        with_assignment(user_id: user_id, assignment_id: original_application.id) do
+          Reviewing::Complete.call(
+            application_id: original_application.id, user_id: user_id
+          )
+        end
 
         save_and_continue
 
@@ -71,10 +79,12 @@ RSpec.describe 'Adding a CIFC decision by MAAT ID' do
         )
       end
 
-      it 'the CIFC decision can be removed' do
-        Reviewing::Complete.call(
-          application_id: original_application.id, user_id: SecureRandom.uuid
-        )
+      it 'the CIFC decision can be removed' do # rubocop:disable RSpec/ExampleLength
+        with_assignment(user_id: user_id, assignment_id: original_application.id) do
+          Reviewing::Complete.call(
+            application_id: original_application.id, user_id: user_id
+          )
+        end
 
         save_and_continue
         click_button('Remove')

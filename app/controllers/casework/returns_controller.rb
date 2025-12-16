@@ -5,7 +5,7 @@ module Casework
 
     def new; end
 
-    def create
+    def create # rubocop:disable Metrics/MethodLength
       @return_details.validate!
 
       @crime_application.decision_ids.each do |decision_id|
@@ -20,6 +20,8 @@ module Casework
       render :new
     rescue Reviewing::AlreadyReviewed
       flash_and_redirect :important, :already_reviewed
+    rescue Reviewing::UnexpectedAssignee
+      flash_and_redirect :important, :reassigned
     end
 
     private

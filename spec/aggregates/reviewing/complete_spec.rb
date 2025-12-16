@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Reviewing::Complete do
+  # include AsssignmentHelpers
+
   subject(:command) do
     described_class.new(application_id:, user_id:)
   end
 
   include_context 'with review'
+  include_context 'with assignee'
 
   before do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
@@ -60,9 +63,9 @@ RSpec.describe Reviewing::Complete do
 
     before do
       args = {
-        application_id: application_id,
-        user_id: SecureRandom.uuid,
-        reference: reference, decision_id: decision_id
+        application_id:,
+        user_id:,
+        reference:, decision_id:
       }
 
       Reviewing::AddDecision.call(**args)
@@ -80,7 +83,7 @@ RSpec.describe Reviewing::Complete do
     before do
       args = {
         application_id: application_id,
-        user_id: SecureRandom.uuid,
+        user_id: user_id,
         reference: rand(100_000..1_000_000),
         decision_id: SecureRandom.uuid
       }

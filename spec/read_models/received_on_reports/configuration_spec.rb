@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe ReceivedOnReports::Configuration do
+  include_context 'with assignee'
+
   let(:application_id) { SecureRandom.uuid }
   let(:event_store) { Rails.configuration.event_store }
   let(:submitted_at) { Time.zone.local(2023, 7, 30) }
+  let(:user_id) { SecureRandom.uuid }
 
   describe '#configuration' do
     before do
-      user_id = SecureRandom.uuid
       # subscribe the handler to the event store
       described_class.new.call(event_store)
 
