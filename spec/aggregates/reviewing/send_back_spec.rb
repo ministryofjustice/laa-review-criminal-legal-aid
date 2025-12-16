@@ -5,6 +5,8 @@ RSpec.describe Reviewing::SendBack do
     described_class.new(application_id:, user_id:, return_details:)
   end
 
+  include_context 'with assignee'
+
   before do
     Reviewing::ReceiveApplication.call(
       application_id: application_id, submitted_at: 1.day.ago.to_s, work_stream: 'extradition',

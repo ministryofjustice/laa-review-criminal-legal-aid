@@ -63,6 +63,9 @@ en:
         - You need to finish adding the funding decision details
         - "%{continue_adding_decision_link}"
       continue_adding_decision: Continue adding funding decision
+      reassigned:
+        - Action could not be completed
+        - This application is assigned to another user.
 
   primary_navigation:
     your_list: "Your list (%{count})"
