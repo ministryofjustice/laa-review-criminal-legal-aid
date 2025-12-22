@@ -20,6 +20,10 @@ module SetDecisionAndAuthorise
   end
 
   def confirm_assigned
-    raise Deciding::DecisionNotFound unless @crime_application.reviewable_by?(current_user_id)
+    return if @crime_application.reviewable_by?(current_user_id)
+
+    set_flash(:unexpected_assignee, success: false)
+
+    redirect_to crime_application_path(@crime_application)
   end
 end

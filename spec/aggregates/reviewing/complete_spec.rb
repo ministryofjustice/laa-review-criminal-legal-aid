@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Reviewing::Complete do
-  # include AsssignmentHelpers
-
   subject(:command) do
     described_class.new(application_id:, user_id:)
   end
 
   include_context 'with review'
-  include_context 'with assignee'
+  include_context 'with stubbed assignment'
 
   before do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(

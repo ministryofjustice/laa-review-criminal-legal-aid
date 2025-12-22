@@ -5,7 +5,7 @@ module Reviewing
 
     def call
       ActiveRecord::Base.transaction do
-        with_review do |review|
+        with_review(user_id:) do |review|
           review.mark_as_ready(user_id:)
         end
 

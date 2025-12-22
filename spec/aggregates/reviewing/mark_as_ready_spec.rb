@@ -6,6 +6,7 @@ RSpec.describe Reviewing::MarkAsReady do
   end
 
   include_context 'with review'
+  include_context 'with stubbed assignment'
 
   before do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(

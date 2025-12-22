@@ -21,7 +21,7 @@ module Casework
     rescue Reviewing::AlreadyReviewed
       flash_and_redirect :important, :already_reviewed
     rescue Reviewing::UnexpectedAssignee
-      flash_and_redirect :important, :reassigned
+      flash_and_redirect :important, :unexpected_assignee
     end
 
     private

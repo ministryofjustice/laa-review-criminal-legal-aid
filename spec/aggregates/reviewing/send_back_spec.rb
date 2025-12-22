@@ -5,7 +5,7 @@ RSpec.describe Reviewing::SendBack do
     described_class.new(application_id:, user_id:, return_details:)
   end
 
-  include_context 'with assignee'
+  include_context 'with stubbed assignment'
 
   before do
     Reviewing::ReceiveApplication.call(
