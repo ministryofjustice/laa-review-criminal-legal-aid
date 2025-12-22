@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ReceivedOnReports::Configuration do
-  include_context 'with assignee'
+  include_context 'with stubbed assignment'
 
   let(:application_id) { SecureRandom.uuid }
   let(:event_store) { Rails.configuration.event_store }

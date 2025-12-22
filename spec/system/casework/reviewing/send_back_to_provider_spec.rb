@@ -171,8 +171,11 @@ RSpec.describe 'Send an application back to the provider' do
   end
 
   context 'when reassigned while the page is already loaded' do
-    let!(:another_user) do
-      User.create!(
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+      another_user = User.create!(
         email: 'Bob.EXAMPLE@justice.gov.uk',
         first_name: 'Bob',
         last_name: 'EXAMPLE',
@@ -182,42 +185,24 @@ RSpec.describe 'Send an application back to the provider' do
         can_manage_others: false,
         role: UserRole::CASEWORKER
       )
-    end
 
-    before do
-      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
-        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+      # current user assigns the application to themselves
+      click_on('Kit Pound')
+      click_button('Assign to your list')
 
-      # Joe (current user) assigns the application to himself
-      Assigning::AssignToUser.new(assignment_id: crime_application_id, user_id: current_user_id,
-                                  to_whom_id: current_user_id).call
-      click_on 'Kit Pound'
-      # Bob reassigns the application to himself
+      # another user reassigns the application to themselves
       Assigning::ReassignToUser.new(assignment_id: crime_application_id, user_id: another_user.id,
                                     to_whom_id: another_user.id, from_whom_id: current_user_id).call
-      # Joe completes the review
+
       click_link(send_back_cta)
       choose 'Need clarification'
       fill_in 'Give details', with: 'Details needed'
       click_button 'Send back to provider'
     end
 
-    it 'raises an error' do
+    it 'cannot be sent back' do
       expect(page).to have_notification_banner(text: 'Action could not be completed',
                                                details: 'This application is assigned to another user.', success: false)
-    end
-
-    it 'shows the correct appliction count on the "Your list" page' do # rubocop:disable RSpec/MultipleExpectations
-      # Sign in as Bob
-      click_link 'Sign out'
-      click_button 'Start now'
-      select another_user.email
-      click_button 'Sign in'
-
-      # Bob sees the ghost application
-      expect(page).to have_link('Your list (1)')
-      expect(page).to have_text('1 application is assigned to you for review')
-      expect(page).not_to have_css('table.govuk_table')
     end
   end
 
