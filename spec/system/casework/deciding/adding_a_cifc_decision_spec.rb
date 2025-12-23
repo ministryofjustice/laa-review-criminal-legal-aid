@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Adding a CIFC decision by MAAT ID' do
-  include AsssignmentHelpers
+  include AssignmentHelpers
 
   include_context 'with stubbed application'
   include_context 'when adding a decision by MAAT ID'
