@@ -12,6 +12,7 @@ module Reviewing
   class DecisionAlreadyLinked < Error; end
   class DecisionNotLinked < Error; end
   class IncompleteDecisions < Error; end
+  class UnexpectedAssignee < Error; end
 
   class DecisionAdded < Event; end
   class DecisionRemoved < Event; end
