@@ -4,8 +4,6 @@ task remove_ghost_applications: [:environment] do
     review = Review.closed.find_by(application_id: assignment_id)
     next if review.nil?
 
-    # redundant check? reviewing an application destroys the CurrentAssignment record, so the very fact
-    # we got past line 5 means that this record should not exist -- sanity check!
     unless review.reviewer_id == user_id
       CurrentAssignment.where(user_id:, assignment_id:).delete_all
     end
