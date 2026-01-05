@@ -54,15 +54,13 @@
         <%= applicant_tel.presence || t(:none, scope: 'values') %>
       </dd>
     </div>
-    <% if FeatureFlags.correspondence_preference.enabled? %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= label_text(:correspondence_preference, language: t('cy', scope: 'values.language')) %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= applicant.correspondence_preference?('cy') ? t('values.yes') : t('values.no') %>
-        </dd>
-      </div>
-    <% end %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:correspondence_preference, language: t('cy', scope: 'values.language')) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= applicant.correspondence_preference?('cy') ? t('values.yes') : t('values.no') %>
+      </dd>
+    </div>
   </dl>
 <% end %>
