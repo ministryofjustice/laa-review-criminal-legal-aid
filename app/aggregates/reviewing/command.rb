@@ -23,7 +23,7 @@ module Reviewing
     end
 
     def unexpected_assignee?(user_id)
-      CurrentAssignment.assigned_to_ids(user_id:).exclude?(application_id)
+      !Assigning::LoadAssignment.call(assignment_id: application_id).assigned_to?(user_id)
     end
 
     class << self
