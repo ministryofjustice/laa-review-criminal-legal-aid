@@ -1,5 +1,5 @@
-desc 'Remove completed application assignments attributed to the wrong assignees'
-task remove_ghost_applications: [:environment] do
+desc 'Clear completed application assignments attributed to the wrong assignees'
+task clear_ghost_applications: [:environment] do
   CurrentAssignment.pluck(:user_id, :assignment_id).each do |user_id, assignment_id|
     review = Review.closed.find_by(application_id: assignment_id)
     next if review.nil?

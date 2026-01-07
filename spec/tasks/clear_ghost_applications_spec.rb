@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'rake'
 
-RSpec.describe 'remove_ghost_applications', type: :task do # rubocop:disable RSpec/MultipleMemoizedHelpers
+RSpec.describe 'clear_ghost_applications', type: :task do # rubocop:disable RSpec/MultipleMemoizedHelpers
   # rubocop:disable RSpec/IndexedLet
   let(:open_application1) { SecureRandom.uuid }
   let(:open_application2) { SecureRandom.uuid }
@@ -32,7 +32,7 @@ RSpec.describe 'remove_ghost_applications', type: :task do # rubocop:disable RSp
   # rubocop:disable Rails/SkipsModelValidations
   before do
     Rake::Task.define_task(:environment)
-    Rake.application.rake_require 'tasks/remove_ghost_applications'
+    Rake.application.rake_require 'tasks/clear_ghost_applications'
 
     # User A applications
     Review.insert({ application_id: open_application1 })
@@ -54,8 +54,8 @@ RSpec.describe 'remove_ghost_applications', type: :task do # rubocop:disable RSp
   end
   # rubocop:enable Rails/SkipsModelValidations
 
-  it 'removes ghost current_assignment records' do # rubocop:disable RSpec/MultipleExpectations
-    expect { Rake::Task['remove_ghost_applications'].invoke }.to change { CurrentAssignment.count }.from(4).to(2)
+  it 'clears ghost current_assignment records' do # rubocop:disable RSpec/MultipleExpectations
+    expect { Rake::Task['clear_ghost_applications'].invoke }.to change { CurrentAssignment.count }.from(4).to(2)
     expect(CurrentAssignment.where(user_id: user_b.id, assignment_id: ghost_application1)).to be_empty
     expect(CurrentAssignment.where(user_id: user_a.id, assignment_id: ghost_application2)).to be_empty
   end
