@@ -64,8 +64,9 @@ en:
         - "%{continue_adding_decision_link}"
       continue_adding_decision: Continue adding funding decision
       unexpected_assignee:
-        - Action could not be completed
-        - This application is assigned to another user.
+        - You cannot review this application
+        - It has been reassigned to another team member.
+        - Contact your supervisor if you need to work on this application.
 
   primary_navigation:
     your_list: "Your list (%{count})"

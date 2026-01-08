@@ -201,8 +201,11 @@ RSpec.describe 'Send an application back to the provider' do
     end
 
     it 'cannot be sent back' do
-      expect(page).to have_notification_banner(text: 'Action could not be completed',
-                                               details: 'This application is assigned to another user.', success: false)
+      expect(page).to have_notification_banner(text: 'You cannot review this application',
+                                               details: ['It has been reassigned to another team member.',
+                                                         'Contact your supervisor if you need to work on ' \
+                                                         'this application.'],
+                                               success: false)
     end
   end
 
