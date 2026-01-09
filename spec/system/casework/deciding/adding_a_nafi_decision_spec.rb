@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Adding a NAFI decision' do
+  include AssignmentHelpers
+
   include_context 'with stubbed application'
   include_context 'when adding a decision by MAAT ID'
 
@@ -54,11 +56,16 @@ RSpec.describe 'Adding a NAFI decision' do
   end
 
   context 'when the MAAT ID is linked to a different draft application on review' do
+    let(:user_id) { SecureRandom.uuid }
+    let(:application_id) { original_application.id }
+
     before do
-      Maat::LinkDecision.call(
-        application: original_application,
-        maat_id: maat_id, user_id: SecureRandom.uuid
-      )
+      with_assignment(user_id: user_id, assignment_id: application_id) do
+        Maat::LinkDecision.call(
+          application: original_application,
+          maat_id: maat_id, user_id: user_id
+        )
+      end
 
       save_and_continue
     end
@@ -71,14 +78,19 @@ RSpec.describe 'Adding a NAFI decision' do
   end
 
   context 'when the MAAT ID is linked to a different sent application on review' do
+    let(:user_id) { SecureRandom.uuid }
+    let(:application_id) { original_application.id }
+
     before do
-      Maat::LinkDecision.call(
-        application: original_application,
-        maat_id: maat_id, user_id: SecureRandom.uuid
-      )
-      Reviewing::Complete.call(
-        application_id: original_application.id, user_id: SecureRandom.uuid
-      )
+      with_assignment(user_id: user_id, assignment_id: application_id) do
+        Maat::LinkDecision.call(
+          application: original_application,
+          maat_id: maat_id, user_id: user_id
+        )
+        Reviewing::Complete.call(
+          application_id:, user_id:
+        )
+      end
 
       save_and_continue
     end

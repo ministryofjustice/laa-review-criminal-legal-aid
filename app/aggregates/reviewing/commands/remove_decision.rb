@@ -5,7 +5,7 @@ module Reviewing
     attribute :decision_id, Types::DecisionId
 
     def call
-      with_review do |review|
+      with_review(user_id:) do |review|
         review.remove_decision(user_id:, decision_id:)
       end
     end

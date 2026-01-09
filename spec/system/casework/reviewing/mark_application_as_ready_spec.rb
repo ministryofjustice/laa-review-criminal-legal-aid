@@ -106,4 +106,40 @@ RSpec.describe 'Marking an application as ready for assessment' do
       expect(page).to have_no_button(ready_for_assessment_cta)
     end
   end
+
+  context 'when reassigned while the page is already loaded' do
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+      another_user = User.create!(
+        email: 'Bob.EXAMPLE@justice.gov.uk',
+        first_name: 'Bob',
+        last_name: 'EXAMPLE',
+        auth_subject_id: SecureRandom.uuid,
+        first_auth_at: 1.month.ago,
+        last_auth_at: 1.hour.ago,
+        can_manage_others: false,
+        role: UserRole::CASEWORKER
+      )
+
+      # current user assigns the application to themselves
+      click_on('Kit Pound')
+      click_button('Assign to your list')
+
+      # another user reassigns the application to themselves
+      Assigning::ReassignToUser.new(assignment_id: crime_application_id, user_id: another_user.id,
+                                    to_whom_id: another_user.id, from_whom_id: current_user_id).call
+
+      click_button(ready_for_assessment_cta)
+    end
+
+    it 'cannot be marked as ready' do
+      expect(page).to have_notification_banner(text: 'You cannot review this application',
+                                               details: ['It has been reassigned to another team member.',
+                                                         'Contact your supervisor if you need to work on ' \
+                                                         'this application.'],
+                                               success: false)
+    end
+  end
 end

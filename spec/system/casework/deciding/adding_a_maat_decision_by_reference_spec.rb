@@ -72,4 +72,33 @@ RSpec.describe 'Adding a decision by MAAT reference' do
       )
     end
   end
+
+  context 'when the application is reassigned while the page is already loaded' do
+    before do
+      another_user = User.create!(
+        email: 'Bob.EXAMPLE@justice.gov.uk',
+        first_name: 'Bob',
+        last_name: 'EXAMPLE',
+        auth_subject_id: SecureRandom.uuid,
+        first_auth_at: 1.month.ago,
+        last_auth_at: 1.hour.ago,
+        can_manage_others: false,
+        role: UserRole::CASEWORKER
+      )
+
+      # another user reassigns the application to themselves
+      Assigning::ReassignToUser.new(assignment_id: application_id, user_id: another_user.id,
+                                    to_whom_id: another_user.id, from_whom_id: current_user_id).call
+
+      click_button 'Add funding decision from MAAT'
+    end
+
+    it 'does not allow to add a decision' do
+      expect(page).to have_notification_banner(text: 'You cannot review this application',
+                                               details: ['It has been reassigned to another team member.',
+                                                         'Contact your supervisor if you need to work on ' \
+                                                         'this application.'],
+                                               success: false)
+    end
+  end
 end

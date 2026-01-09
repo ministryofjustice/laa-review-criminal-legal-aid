@@ -5,7 +5,7 @@ module Reviewing
 
     def call
       ActiveRecord::Base.transaction do
-        with_review do |review|
+        with_review(user_id:) do |review|
           review.complete(user_id:)
 
           review.decision_ids.each do |decision_id|

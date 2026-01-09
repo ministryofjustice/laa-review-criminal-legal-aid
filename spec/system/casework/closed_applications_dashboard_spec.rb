@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Closed Applications' do
   include_context 'with stubbed search'
+  include_context 'with stubbed assignment'
 
   let(:application_id) { '47a93336-7da6-48ac-b139-808ddd555a41' }
 
