@@ -3,7 +3,9 @@ module Casework
     before_action :set_crime_application
     before_action :set_return_details
 
-    def new; end
+    def new
+      flash_and_redirect :important, :unexpected_assignee unless @crime_application.reviewable_by?(current_user_id)
+    end
 
     def create # rubocop:disable Metrics/MethodLength
       @return_details.validate!
