@@ -11,6 +11,9 @@ module Casework
       redirect_to assigned_applications_path
     rescue ActiveModel::ValidationError, Reviewing::IncompleteDecisions
       render :new
+    rescue Reviewing::UnexpectedAssignee
+      set_flash(:unexpected_assignee, success: false)
+      redirect_to crime_application_path(@crime_application)
     end
 
     private
