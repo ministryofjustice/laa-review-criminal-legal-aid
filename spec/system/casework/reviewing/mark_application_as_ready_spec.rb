@@ -135,10 +135,8 @@ RSpec.describe 'Marking an application as ready for assessment' do
     end
 
     it 'cannot be marked as ready' do
-      expect(page).to have_notification_banner(text: 'You cannot review this application',
-                                               details: ['It has been reassigned to another team member.',
-                                                         'Contact your supervisor if you need to work on ' \
-                                                         'this application.'],
+      expect(page).to have_notification_banner(text: 'This application is assigned to someone else',
+                                               details: 'Ask your supervisor if you need to work on it.',
                                                success: false)
     end
   end
