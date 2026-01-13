@@ -36,9 +36,8 @@ RSpec.describe 'Sending application decisions' do
         end
 
         it 'sets the correct flash message and redirects' do
-          expect(flash[:important]).to eq(['You cannot review this application',
-                                           'It has been reassigned to another team member.',
-                                           'Contact your supervisor if you need to work on this application.'])
+          expect(flash[:important]).to eq(['This application is assigned to someone else',
+                                           'Ask your supervisor if you need to work on it.'])
           expect(response).to redirect_to("/applications/#{application_id}")
         end
       end
