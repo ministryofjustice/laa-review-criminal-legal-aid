@@ -9,13 +9,13 @@ module UserCompetence
 
   # Types of applications a user can process
   def application_types_competencies
-    return [] if data_analyst?
+    return [] if data_analyst? || auditor?
 
     @application_types_competencies ||= competencies & Types::ApplicationType.values
   end
 
   def competencies
-    return [] if data_analyst?
+    return [] if data_analyst? || auditor?
 
     @competencies ||= Allocating.user_competencies(id)
   end

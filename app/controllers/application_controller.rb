@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   class ForbiddenError < StandardError; end
 
   def landing_page_for(user)
-    if user.data_analyst?
+    if user.data_analyst? || user.auditor?
       new_application_searches_path
     elsif user.service_user?
       assigned_applications_path
-    elsif user.user_manager?
+    elsif user.can_manage_others?
       manage_users_root_path
     end
   end

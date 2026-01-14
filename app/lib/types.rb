@@ -49,10 +49,12 @@ module Types
   CASEWORKER_ROLE = 'caseworker'.freeze
   SUPERVISOR_ROLE = 'supervisor'.freeze
   DATA_ANALYST_ROLE = 'data_analyst'.freeze
+  AUDITOR_ROLE = 'auditor'.freeze
   USER_ROLES = [
     CASEWORKER_ROLE,
     SUPERVISOR_ROLE,
-    DATA_ANALYST_ROLE
+    DATA_ANALYST_ROLE,
+    AUDITOR_ROLE
   ].freeze
   UserRole = String.default(CASEWORKER_ROLE).enum(*USER_ROLES)
 
