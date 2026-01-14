@@ -73,6 +73,12 @@ RSpec.describe UserCompetence do
         it { is_expected.to eq %w[post_submission_evidence initial] }
       end
 
+      context 'when user is a data analyst' do
+        let(:user) { User.new(role: 'data_analyst') }
+
+        it { is_expected.to be_empty }
+      end
+
       context 'when user is a auditor' do
         let(:user) { User.new(role: 'auditor') }
 
