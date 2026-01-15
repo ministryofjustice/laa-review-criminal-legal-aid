@@ -153,6 +153,15 @@ RSpec.describe UserRole do
     end
   end
 
+  describe '#user_manager?' do
+    context 'with can_manager_others attribute set to true' do
+      it 'returns true' do
+        user.can_manage_others = true
+        expect(user.user_manager?).to be true
+      end
+    end
+  end
+
   describe '#can_change_role?' do
     context 'when user is active' do
       it 'returns true' do

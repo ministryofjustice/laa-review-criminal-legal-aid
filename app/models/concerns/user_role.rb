@@ -54,9 +54,13 @@ module UserRole
     Types::USER_ROLES - [role]
   end
 
+  def user_manager?
+    can_manage_others?
+  end
+
   def reports
     return Types::Report.values if user_manager_with_service_access?
-    return [] if can_manage_others? || readonly_user?
+    return [] if user_manager? || readonly_user?
 
     Types::USER_ROLE_REPORTS.fetch(role)
   end
@@ -64,7 +68,7 @@ module UserRole
   private
 
   def user_manager_with_service_access?
-    can_manage_others? && FeatureFlags.allow_user_managers_service_access.enabled?
+    user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
   end
 
   def non_manager?

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
       new_application_searches_path
     elsif user.service_user?
       assigned_applications_path
-    elsif user.can_manage_others?
+    elsif user.user_manager?
       manage_users_root_path
     end
   end
