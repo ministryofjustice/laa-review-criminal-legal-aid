@@ -59,8 +59,11 @@ RSpec.describe UserRole do
     context 'when user is a user manager' do
       before { user.can_manage_others = true }
 
-      it 'returns false when user managers are not allowed service access' do
-        expect(user.can_access_reporting_dashboard?).to be false
+      it 'returns false for all roles when user managers are not allowed service access' do
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+          user.role = role
+          expect(user.can_access_reporting_dashboard?).to be false
+        end
       end
 
       context 'when user managers are allowed service access' do
