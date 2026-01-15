@@ -56,7 +56,7 @@ module UserRole
 
   def reports
     return Types::Report.values if user_manager_with_service_access?
-    return [] if user_manager? || readonly_user?
+    return [] if user_manager?
 
     Types::USER_ROLE_REPORTS.fetch(role)
   end

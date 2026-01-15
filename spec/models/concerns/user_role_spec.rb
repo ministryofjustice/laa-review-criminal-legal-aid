@@ -221,7 +221,7 @@ RSpec.describe UserRole do
     context 'when user is auditor' do
       before { user.role = Types::AUDITOR_ROLE }
 
-      it { is_expected.to be_empty }
+      it { is_expected.to eq %w[current_workload_report processed_report] }
     end
 
     context 'when user is user manager' do
