@@ -15,10 +15,6 @@ module UserRole
     enum :role, Types::UserRole.mapping
   end
 
-  def can_write_application?
-    role == SUPERVISOR
-  end
-
   # Determines whether a user has permission to access the reporting dashboard (Reports#index).
   # By default, caseworkers can access their reports, but they are not presented with the full
   # reporting dashboard and navigation.

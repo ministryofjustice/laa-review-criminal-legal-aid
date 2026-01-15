@@ -27,20 +27,6 @@ RSpec.describe UserRole do
     end
   end
 
-  describe '#can_write_application?' do
-    it 'returns true when user is supervisor' do
-      user.role = UserRole::SUPERVISOR
-      expect(user.can_write_application?).to be true
-    end
-
-    it 'returns false when user is caseworker, data analyst, or auditor' do
-      [UserRole::CASEWORKER, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
-        user.role = role
-        expect(user.can_write_application?).to be false
-      end
-    end
-  end
-
   describe '#can_access_reporting_dashboard?' do
     it 'returns true when user is supervisor or data analyst' do
       [UserRole::SUPERVISOR, UserRole::DATA_ANALYST].each do |role|
