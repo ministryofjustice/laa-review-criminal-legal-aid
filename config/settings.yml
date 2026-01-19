@@ -5,7 +5,7 @@ feature_flags:
     production: false # must never be enabled in the live service
   allow_user_managers_service_access:
     local: false
-    staging: true
+    staging: false
     production: false # user managers should not access the service in production
   view_evidence:
     local: true
