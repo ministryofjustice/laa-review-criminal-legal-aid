@@ -42,10 +42,6 @@ module UserRole
     can_manage_others?
   end
 
-  def readonly_user?
-    role == AUDITOR && non_manager?
-  end
-
   def available_roles
     Types::USER_ROLES - [role]
   end
