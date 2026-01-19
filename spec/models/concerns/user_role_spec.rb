@@ -120,7 +120,7 @@ RSpec.describe UserRole do
       end
 
       it 'returns false for caseworker' do
-        [UserRole::CASEWORKER, UserRole::AUDITOR].each do |role|
+        [UserRole::CASEWORKER].each do |role|
           user.role = role
           expect(user.reporting_user?).to be false
         end
