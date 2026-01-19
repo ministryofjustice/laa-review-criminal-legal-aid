@@ -28,15 +28,15 @@ RSpec.describe UserRole do
   end
 
   describe '#can_access_reporting_dashboard?' do
-    it 'returns true when user is supervisor or data analyst' do
-      [UserRole::SUPERVISOR, UserRole::DATA_ANALYST].each do |role|
+    it 'returns true when user is supervisor, data analyst and auditor' do
+      [UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
         user.role = role
         expect(user.can_access_reporting_dashboard?).to be true
       end
     end
 
-    it 'returns false when user is caseworker or auditor' do
-      [UserRole::CASEWORKER, UserRole::AUDITOR].each do |role|
+    it 'returns false when user is caseworker' do
+      [UserRole::CASEWORKER].each do |role|
         user.role = role
         expect(user.can_access_reporting_dashboard?).to be false
       end
@@ -112,14 +112,14 @@ RSpec.describe UserRole do
     context 'when user is not a user manager' do
       before { user.can_manage_others = false }
 
-      it 'returns true for data analyst and supervisor' do
-        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR].each do |role|
+      it 'returns true for data analyst, supervisor and auditor' do
+        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR, UserRole::AUDITOR].each do |role|
           user.role = role
           expect(user.reporting_user?).to be true
         end
       end
 
-      it 'returns false for caseworker and auditor' do
+      it 'returns false for caseworker' do
         [UserRole::CASEWORKER, UserRole::AUDITOR].each do |role|
           user.role = role
           expect(user.reporting_user?).to be false
