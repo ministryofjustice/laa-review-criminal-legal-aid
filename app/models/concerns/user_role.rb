@@ -6,55 +6,36 @@ module UserRole
   CASEWORKER = Types::CASEWORKER_ROLE
   SUPERVISOR = Types::SUPERVISOR_ROLE
   DATA_ANALYST = Types::DATA_ANALYST_ROLE
+  AUDITOR = Types::AUDITOR_ROLE
+  REPORTING_ROLES = [SUPERVISOR, DATA_ANALYST, AUDITOR].freeze
+  SERVICE_USERS = [CASEWORKER, SUPERVISOR, DATA_ANALYST, AUDITOR].freeze
 
   included do
     # NOTE: mapping to PostgreSQL enum type via dry-types definition
     enum :role, Types::UserRole.mapping
   end
 
-  def can_read_application?
-    [CASEWORKER, SUPERVISOR].include?(role)
-  end
-
-  def can_write_application?
-    [SUPERVISOR].include?(role)
-  end
-
   # Determines whether a user has permission to access the reporting dashboard (Reports#index).
   # By default, caseworkers can access their reports, but they are not presented with the full
   # reporting dashboard and navigation.
   def can_access_reporting_dashboard?
-    return true if reporting_user?
-    return true if user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
-
-    false
+    reporting_user? || user_manager_with_service_access?
   end
 
   def can_download_reports?
     role == DATA_ANALYST
   end
 
-  # TODO: Any reason to not allow supervisor to be 'downgraded' to caseworker?
   def can_change_role?
-    return false unless activated?
-    return false if deactivated?
-    return false if dormant?
-
-    true
+    activated? && !deactivated? && !dormant?
   end
 
   def service_user?
-    return true if can_manage_others? && FeatureFlags.allow_user_managers_service_access.enabled?
-
-    [CASEWORKER, SUPERVISOR, DATA_ANALYST].include?(role) && !can_manage_others?
+    user_manager_with_service_access? || (role_in?(SERVICE_USERS) && non_manager?)
   end
 
   def reporting_user?
-    [SUPERVISOR, DATA_ANALYST].include?(role) && !can_manage_others?
-  end
-
-  def user_manager?
-    can_manage_others?
+    role_in?(REPORTING_ROLES) && non_manager?
   end
 
   def admin?
@@ -65,10 +46,28 @@ module UserRole
     Types::USER_ROLES - [role]
   end
 
+  def user_manager?
+    can_manage_others?
+  end
+
   def reports
-    return Types::Report.values if user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
+    return Types::Report.values if user_manager_with_service_access?
     return [] if user_manager?
 
     Types::USER_ROLE_REPORTS.fetch(role)
+  end
+
+  private
+
+  def user_manager_with_service_access?
+    user_manager? && FeatureFlags.allow_user_managers_service_access.enabled?
+  end
+
+  def non_manager?
+    !can_manage_others?
+  end
+
+  def role_in?(roles)
+    roles.include?(role)
   end
 end
