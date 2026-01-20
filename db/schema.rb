@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_06_144826) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_13_090502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_06_144826) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "user_role", ["caseworker", "supervisor", "data_analyst"]
+  create_enum "user_role", ["caseworker", "supervisor", "data_analyst", "auditor"]
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false

@@ -13,7 +13,7 @@
         )
       end
 
-      if current_user.can_write_application?
+      if current_user.supervisor?
         header.with_navigation_item(
           text: t('.manage_competencies'),
           href: manage_competencies_root_path
