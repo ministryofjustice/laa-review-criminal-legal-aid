@@ -291,7 +291,9 @@ en:
     offence: Offence
     offence_type: Type
     offence_class: Class
-    offence_date: Date
+    offence_date:
+      one: Date
+      other: Dates
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital

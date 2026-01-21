@@ -9,7 +9,7 @@
           row.with_value { offence_class(card.item) }
         end
         list.with_row do |row|
-          row.with_key { label_text(:offence_date) }
+          row.with_key { label_text(:offence_date, count: card.item.dates.size) }
           row.with_value { offence_dates(card.item) }
         end
       end

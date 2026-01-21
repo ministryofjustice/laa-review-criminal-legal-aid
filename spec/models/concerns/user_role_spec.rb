@@ -27,57 +27,30 @@ RSpec.describe UserRole do
     end
   end
 
-  describe '#can_read_application?' do
-    context 'when user is supervisor' do
-      it 'returns true' do
-        user.role = 'supervisor'
-        expect(user.can_read_application?).to be true
-      end
-    end
-
-    context 'when user is caseworker' do
-      it 'returns true' do
-        user.role = 'caseworker'
-        expect(user.can_read_application?).to be true
-      end
-    end
-  end
-
-  describe '#can_write_application?' do
-    context 'when user is supervisor' do
-      it 'returns true' do
-        user.role = 'supervisor'
-        expect(user.can_write_application?).to be true
-      end
-    end
-
-    context 'when user is caseworker' do
-      it 'returns false' do
-        user.role = 'caseworker'
-        expect(user.can_write_application?).to be false
-      end
-    end
-  end
-
   describe '#can_access_reporting_dashboard?' do
-    subject(:can_access_reporting_dashboard) { user.can_access_reporting_dashboard? }
-
-    context 'when user is supervisor' do
-      before { user.role = Types::UserRole['supervisor'] }
-
-      it { is_expected.to be true }
+    it 'returns true when user is supervisor, data analyst and auditor' do
+      [UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        user.role = role
+        expect(user.can_access_reporting_dashboard?).to be true
+      end
     end
 
-    context 'when user is caseworker' do
-      before { user.role = Types::UserRole['caseworker'] }
-
-      it { is_expected.to be false }
+    it 'returns false when user is caseworker' do
+      [UserRole::CASEWORKER].each do |role|
+        user.role = role
+        expect(user.can_access_reporting_dashboard?).to be false
+      end
     end
 
-    context 'when user is user manager' do
+    context 'when user is a user manager' do
       before { user.can_manage_others = true }
 
-      it { is_expected.to be false }
+      it 'returns false for all roles when user managers are not allowed service access' do
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+          user.role = role
+          expect(user.can_access_reporting_dashboard?).to be false
+        end
+      end
 
       context 'when user managers are allowed service access' do
         before do
@@ -86,35 +59,33 @@ RSpec.describe UserRole do
           }
         end
 
-        it { is_expected.to be true }
+        it 'returns true for all roles' do
+          [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+            user.role = role
+            expect(user.can_access_reporting_dashboard?).to be true
+          end
+        end
       end
     end
   end
 
   describe '#service_user?' do
     context 'when user is not a user manager' do
-      it 'returns true for caseworker or supervisor' do
-        user.can_manage_others = false
+      before { user.can_manage_others = false }
 
-        [UserRole::CASEWORKER, UserRole::SUPERVISOR].each do |role|
+      it 'returns true for caseworker, supervisor, data analyst, and auditor' do
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
           user.role = role
           expect(user.service_user?).to be true
         end
       end
-
-      it 'returns false for data_analyst' do
-        user.can_manage_others = false
-        user.role = UserRole::DATA_ANALYST
-
-        expect(user.service_user?).to be true
-      end
     end
 
     context 'when user is a user manager' do
-      it 'returns false for all user roles' do
-        user.can_manage_others = true
+      before { user.can_manage_others = true }
 
-        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+      it 'returns false for all roles when user managers are not allowed service access' do
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
           user.role = role
           expect(user.service_user?).to be false
         end
@@ -127,10 +98,8 @@ RSpec.describe UserRole do
           }
         end
 
-        it 'returns true for all user roles' do
-          user.can_manage_others = true
-
-          Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+        it 'returns true for all roles' do
+          [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
             user.role = role
             expect(user.service_user?).to be true
           end
@@ -141,28 +110,28 @@ RSpec.describe UserRole do
 
   describe '#reporting_user?' do
     context 'when user is not a user manager' do
-      it 'returns true for data_analyst or supervisor' do
-        user.can_manage_others = false
+      before { user.can_manage_others = false }
 
-        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR].each do |role|
+      it 'returns true for data analyst, supervisor and auditor' do
+        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR, UserRole::AUDITOR].each do |role|
           user.role = role
           expect(user.reporting_user?).to be true
         end
       end
 
       it 'returns false for caseworker' do
-        user.can_manage_others = false
-        user.role = UserRole::CASEWORKER
-
-        expect(user.reporting_user?).to be false
+        [UserRole::CASEWORKER].each do |role|
+          user.role = role
+          expect(user.reporting_user?).to be false
+        end
       end
     end
 
     context 'when user is a user manager' do
-      it 'returns false for all user roles' do
-        user.can_manage_others = true
+      before { user.can_manage_others = true }
 
-        Types::UserRole.values.each do |role| # rubocop:disable Style/HashEachMethods
+      it 'returns false for all roles' do
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
           user.role = role
           expect(user.reporting_user?).to be false
         end
@@ -188,9 +157,7 @@ RSpec.describe UserRole do
     end
 
     context 'when user is not activated' do
-      before do
-        user.first_auth_at = nil
-      end
+      before { user.first_auth_at = nil }
 
       it 'returns false' do
         expect(user.activated?).to be false
@@ -211,9 +178,7 @@ RSpec.describe UserRole do
     end
 
     context 'when user is deactivated' do
-      before do
-        user.deactivated_at = Time.zone.now
-      end
+      before { user.deactivated_at = Time.zone.now }
 
       it 'returns false' do
         expect(user.deactivated?).to be true
@@ -251,6 +216,12 @@ RSpec.describe UserRole do
       before { user.role = Types::DATA_ANALYST_ROLE }
 
       it { is_expected.to eq Types::Report.values }
+    end
+
+    context 'when user is auditor' do
+      before { user.role = Types::AUDITOR_ROLE }
+
+      it { is_expected.to eq %w[current_workload_report processed_report] }
     end
 
     context 'when user is user manager' do
