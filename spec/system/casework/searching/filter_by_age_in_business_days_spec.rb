@@ -13,7 +13,7 @@ RSpec.describe 'Search applications by age in business days' do
     let(:age) { '0 days' }
 
     before do
-      select age, from: 'Business days since received'
+      select age, from: 'Business days since application received'
       click_button 'Search'
     end
 
@@ -38,7 +38,7 @@ RSpec.describe 'Search applications by age in business days' do
       end
 
       it '"1 day" remains selected on the results page' do
-        expect(page).to have_select('Business days since received', selected: '1 day')
+        expect(page).to have_select('Business days since application received', selected: '1 day')
       end
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe 'Search applications by age in business days' do
   describe 'options for selecting assigned status' do
     it 'can choose from "", "0 days", "1 day", "2 days", "3 days"' do
       choices = ['', '0 days', '1 day', '2 days', '3 days']
-      expect(page).to have_select('Business days since received', options: choices)
+      expect(page).to have_select('Business days since application received', options: choices)
     end
   end
 end

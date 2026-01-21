@@ -13,7 +13,8 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         parent_id: nil,
         case_type: 'summary_only',
         application_type: 'initial',
-        means_passport: ['on_benefit_check']
+        means_passport: ['on_benefit_check'],
+        office_code: '1A2BC3D'
       ),
       ApplicationSearchResult.new(
         applicant_name: 'Don JONES',
@@ -25,7 +26,8 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         parent_id: nil,
         case_type: 'summary_only',
         application_type: 'initial',
-        means_passport: ['on_benefit_check']
+        means_passport: ['on_benefit_check'],
+        office_code: '1A2BC3D'
       ),
       ApplicationSearchResult.new(
         applicant_name: 'Jessica Rhode',
@@ -37,7 +39,8 @@ RSpec.shared_context 'with stubbed search', shared_context: :metadata do
         parent_id: 'ff32c3e6-a88e-4d3d-a595-5a11b0aea9ef',
         case_type: 'summary_only',
         application_type: application_type,
-        means_passport: ['on_benefit_check']
+        means_passport: ['on_benefit_check'],
+        office_code: 'D3CB2A1'
       )
     ]
   end

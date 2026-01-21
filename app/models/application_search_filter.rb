@@ -11,6 +11,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
     submitted_before
     work_stream
     application_type
+    office_code
   ].freeze
 
   attribute? :age_in_business_days, Types::Params::Nil | Types::Params::Integer
@@ -24,6 +25,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
   attribute? :reviewed_before, Types::Params::Nil | Types::Params::Date
   attribute? :work_stream, Types::Array.of(Types::WorkStreamType)
   attribute? :application_type, Types::Array.of(Types::ApplicationType)
+  attribute? :office_code, Types::Params::Nil | Types::Params::String
 
   # Options for the assigned status filter
   # Includes "Unassigned", "All assigned" prepended to a list of all user names.
@@ -132,6 +134,10 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
 
   def search_text_datastore_param
     { search_text: }
+  end
+
+  def office_code_datastore_param
+    { office_code: }
   end
 
   # Returns the intersection of all active review filters' application_ids.

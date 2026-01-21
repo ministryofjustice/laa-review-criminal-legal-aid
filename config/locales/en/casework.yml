@@ -78,16 +78,15 @@ en:
 
   labels: &LABELS
     about_the_provider: About the provider
-    age_in_business_days: Business days since received
+    age_in_business_days: Business days since application received
     appeal_financial_circumstances_changed: Changes to financial circumstances since original application?
     appeal_maat_id: MAAT ID
     appeal_maat_id_or_usn: "Original application %{ref_type}"
     appeal_original_app_submitted: Legal aid application for original case?
     appeal_usn: USN
     appeal_with_changes_details: Changes details
-    applicant_date_of_birth: Applicant's date of birth
+    applicant_date_of_birth: Applicant date of birth
     application_details: Application details
-    application_information: Application information
     application_start_date: Date stamp
     application_status: Status
     application_submitted: Date submitted
@@ -295,6 +294,7 @@ en:
       one: Date
       other: Dates
     office_account_number: Office account number
+    office_code: Office code
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
     other_charges_charge: What is the charge?
@@ -369,8 +369,8 @@ en:
       other: Cash investment
     savings: Savings
     savings_and_investments: "Capital: Savings and investments"
-    search_criteria: Search criteria
-    search_text: Reference number or applicant's first or last name
+    other_criteria: Other criteria
+    search_text: Enter a reference number, applicant name or both
     select_return_reason: Why are you returning this application?
     separation_date: Date client separated from partner
     start_on: Date from

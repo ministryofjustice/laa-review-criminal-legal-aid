@@ -5,6 +5,7 @@ class ApplicationSearchResult < ApplicationStruct
   attribute :resource_id, Types::Uuid
   attribute :status, Types::String
   attribute :work_stream, Types::WorkStreamType
+  attribute :office_code, Types::String
   attribute? :application_type, Types::ApplicationType
   attribute? :case_type, Types::CaseType.optional
   attribute? :parent_id, Types::Uuid.optional
