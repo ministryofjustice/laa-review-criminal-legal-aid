@@ -25,7 +25,8 @@ module Reviewing
     end
 
     def supersedes?
-      parent_id && application_type == Types::ApplicationType['initial']
+      parent_id && [Types::ApplicationType['initial'],
+                    Types::ApplicationType['change_in_financial_circumstances']].include?(application_type)
     end
   end
 end

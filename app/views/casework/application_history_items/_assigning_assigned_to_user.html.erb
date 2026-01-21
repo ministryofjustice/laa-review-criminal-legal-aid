@@ -1,3 +1,5 @@
 <strong>
-  <%= t(application.submission_type, scope: 'event.description.assigning.assigned_to_user', to_whom_name: User.name_for(item.event_data.fetch(:to_whom_id))) %>
+  <%= t('event.description.assigning.assigned_to_user',
+        application_type: t(application.application_type, scope: 'labels.application_type'),
+        to_whom_name: User.name_for(item.event_data.fetch(:to_whom_id))) %>
 </strong>

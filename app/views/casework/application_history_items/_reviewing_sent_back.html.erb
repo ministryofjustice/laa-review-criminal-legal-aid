@@ -1,5 +1,5 @@
 <strong>
-  <%= t('reviewing.sent_back', scope: 'event.description') %>
+  <%= t('event.description.reviewing.sent_back', application_type: t(application.application_type, scope: 'labels.application_type')) %>
 </strong>
 <p><%= t(item.event_data.fetch(:reason), scope: 'values.return_reason') %></p>
 <%= simple_format application.return_details&.details %>
