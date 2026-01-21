@@ -1,5 +1,6 @@
 <strong>
-  <%= t('reviewing.application_resubmitted', scope: 'event.description') %> <br>
+  <%= t('event.description.reviewing.application_resubmitted',
+        application_type: t(item.event_data.fetch(:application_type), scope: 'labels.application_type')) %> <br>
 </strong>
 
 <%= link_to t('reviewing.selected_application', scope: 'event.description'),
