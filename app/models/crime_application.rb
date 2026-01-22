@@ -63,7 +63,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       user_name: legal_rep_name,
       event_type: 'Reviewing::Superseded',
       timestamp: superseded_at,
-      event_data: { superseded_by: }
+      event_data: { superseded_by:, application_type: }
     )
   end
 
@@ -76,12 +76,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       timestamp: soft_deleted_at,
       event_data: { superseded_by: }
     )
-  end
-
-  def submission_type
-    return 'resubmission' if parent_id && application_type == 'initial'
-
-    application_type
   end
 
   def work_stream

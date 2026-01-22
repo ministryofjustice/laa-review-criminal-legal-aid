@@ -1,5 +1,11 @@
 <strong>
-  <%= t(application.submission_type, scope: 'event.description.reviewing.application_received') %> <br>
+  <% if application.superseded_at.nil? %>
+    <%= t('event.description.reviewing.application_received.original_submission',
+          application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
+  <% else %>
+    <%= t('event.description.reviewing.application_received.resubmission',
+          application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
+  <% end %>
 </strong>
 
 <% unless event_is_for_current_version %>

@@ -91,7 +91,11 @@ en:
     application_start_date: Date stamp
     application_status: Status
     application_submitted: Date submitted
-    application_type: Application type
+    application_type_heading: Application type
+    application_type:
+      initial: Application
+      change_in_financial_circumstances: Change in financial circumstances
+      post_submission_evidence: Post submission evidence
     arc: Application registration card (ARC) number
     are_partners_wages_paid_into_account: Partner’s wages or benefits paid into this account?
     are_wages_paid_into_account: Client’s wages or benefits paid into this account?
@@ -287,7 +291,9 @@ en:
     offence: Offence
     offence_type: Type
     offence_class: Class
-    offence_date: Date
+    offence_date:
+      one: Date
+      other: Dates
     office_account_number: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
@@ -718,38 +724,20 @@ en:
     title:
     description:
       assigning:
-        assigned_to_user:
-          initial: Application assigned to %{to_whom_name}
-          resubmission: Application assigned to %{to_whom_name}
-          post_submission_evidence: Post submission evidence assigned to %{to_whom_name}
-          change_in_financial_circumstances: Change in financial circumstances assigned to %{to_whom_name}
-        unassigned_from_user:
-          initial: Application removed from %{from_whom_name}
-          resubmission: Application removed from %{from_whom_name}
-          post_submission_evidence: Post submission evidence removed from %{from_whom_name}
-          change_in_financial_circumstances: Change in financial circumstances removed from %{from_whom_name}
-        reassigned_to_user:
-          initial: Application reassigned from %{from_whom_name} to %{to_whom_name}
-          resubmission: Application reassigned from %{from_whom_name} to %{to_whom_name}
-          post_submission_evidence: Post submission evidence reassigned from %{from_whom_name} to %{to_whom_name}
-          change_in_financial_circumstances: Change in financial circumstances reassigned from %{from_whom_name} to %{to_whom_name}
+        assigned_to_user: "%{application_type} assigned to %{to_whom_name}"
+        unassigned_from_user: "%{application_type} removed from %{from_whom_name}"
+        reassigned_to_user: "%{application_type} reassigned from %{from_whom_name} to %{to_whom_name}"
       deleting:
         soft_deleted: Personal data deleted in accordance with data retention policy
       reviewing:
-        sent_back: Application sent back to provider
+        sent_back: "%{application_type} sent back to provider"
         application_received:
-          initial: Application submitted
-          resubmission: Application resubmitted
-          post_submission_evidence: Post submission evidence submitted
-          change_in_financial_circumstances: Change in financial circumstances submitted
-        application_resubmitted: Application resubmitted
+          original_submission: "%{application_type} submitted"
+          resubmission: "%{application_type} resubmitted"
+        application_resubmitted: "%{application_type} resubmitted"
         selected_application: Go to this version
-        completed:
-          initial: Application completed
-          resubmission: Application completed
-          post_submission_evidence: Post submission evidence completed
-          change_in_financial_circumstances: Change in financial circumstances completed
-        marked_as_ready: Application marked as ready for assessment
+        completed: "%{application_type} completed"
+        marked_as_ready: "%{application_type} marked as ready for assessment"
       authorising:
         invited: User invited
         invite_renewed: Invitation renewed
