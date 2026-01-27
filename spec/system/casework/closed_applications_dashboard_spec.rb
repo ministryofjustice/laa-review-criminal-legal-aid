@@ -18,7 +18,8 @@ RSpec.describe 'Closed Applications' do
         reviewed_at: '2022-12-15T16:58:15.000+00:00',
         parent_id: parent_id,
         case_type: 'summary_only',
-        application_type: 'initial'
+        application_type: 'initial',
+        office_code: '1A2BC3D'
       )
     ]
   end

@@ -15,7 +15,7 @@ RSpec.describe 'Search Page' do
   it 'shows the application search input fields' do
     search_input_names = page.first('.search .govuk-fieldset .input-group').text
 
-    expect(search_input_names).to eq("Reference number or applicant's first or last name\nApplicant's date of birth")
+    expect(search_input_names).to eq("Enter a reference number, applicant name or both\nApplicant date of birth")
   end
 
   it 'includes the correct results table headings' do
@@ -47,7 +47,8 @@ RSpec.describe 'Search Page' do
           work_stream: 'criminal_applications_team',
           submitted_at: '2022-10-24T09:50:04.019Z',
           parent_id: '696dd4fd-b619-4637-ab42-a5f4565bcf4a',
-          application_type: 'post_submission_evidence'
+          application_type: 'post_submission_evidence',
+          office_code: '1A2BC3D'
         )
       ]
     end

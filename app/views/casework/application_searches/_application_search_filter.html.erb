@@ -3,7 +3,7 @@
   <p class="govuk-hint"><%= t('.hint_text') %></p>
 
   <%= f.govuk_fieldset legend: { text: nil } do %>
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1"><%= t('labels.application_information')%></h2>
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-1"><%= t('labels.application_details')%></h2>
     <div class="input-group">
       <%= f.govuk_text_field(
             :search_text,
@@ -17,7 +17,16 @@
           ) %>
     </div>
 
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1"><%= t('labels.search_criteria')%></h2>
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-1"><%= t('labels.other_criteria')%></h2>
+
+    <div class="input-group">
+      <%= f.govuk_text_field(
+            :office_code,
+            label: { text: t('labels.office_code') },
+            autocomplete: 'off',
+            width: 'two-thirds'
+          ) %>
+    </div>
 
     <div class="input-group">
       <%= f.govuk_select(
