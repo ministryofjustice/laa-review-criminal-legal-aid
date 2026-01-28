@@ -68,7 +68,7 @@ RSpec.configure do |config|
   # Subscribe handlers generally required for the system specs.
   # Other handlers can be subscribed in a similar manner in the before
   # block if a spec requires it.
-  config.before(:each, type: :system) do |_example|
+  config.before(:each, type: ->(t) { t.in?([:system, :task]) }) do |_example|
     event_store = Rails.configuration.event_store
 
     CurrentAssignments::Configuration.new.call(event_store)
