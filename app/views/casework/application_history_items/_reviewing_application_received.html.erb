@@ -1,9 +1,9 @@
 <strong>
-  <% if application.superseded_at.nil? %>
-    <%= t('event.description.reviewing.application_received.original_submission',
+  <% if application.resubmission? %>
+    <%= t('event.description.reviewing.application_received.resubmission',
           application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
   <% else %>
-    <%= t('event.description.reviewing.application_received.resubmission',
+    <%= t('event.description.reviewing.application_received.original_submission',
           application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
   <% end %>
 </strong>

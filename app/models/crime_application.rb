@@ -231,4 +231,9 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   def decisions_pending?
     decisions.present? && !status?(::Types::ReviewState[:completed])
   end
+
+  def resubmission?
+    parent_id && [Types::ApplicationType['initial'],
+                  Types::ApplicationType['change_in_financial_circumstances']].include?(application_type)
+  end
 end
