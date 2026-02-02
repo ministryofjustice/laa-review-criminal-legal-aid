@@ -130,7 +130,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
       # another user reassigns the application to themselves
       Assigning::ReassignToUser.new(assignment_id: crime_application_id, user_id: another_user.id,
                                     to_whom_id: another_user.id, from_whom_id: current_user_id,
-                                    reference: 100_123).call
+                                    reference: 120_398_120).call
 
       click_button(ready_for_assessment_cta)
     end

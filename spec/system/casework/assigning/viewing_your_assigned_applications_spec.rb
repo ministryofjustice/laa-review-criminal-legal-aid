@@ -108,14 +108,14 @@ RSpec.describe 'Viewing your assigned application' do
     # and the number of records shown in the table. However, we do not want to delete
     # the Assignment from review (which would correct the mismatch) when it is not found.
     # We cannot be sure that the record not being found in the datastore is intentional
-    # or a temporary issue as the a result of a bug.
+    # or a temporary issue as the result of a bug.
 
     before do
       Assigning::AssignToUser.new(
         assignment_id: SecureRandom.uuid,
         user_id: current_user_id,
         to_whom_id: current_user_id,
-        reference: 100_123
+        reference: 120_398_120
       ).call
 
       click_on 'Your list'
