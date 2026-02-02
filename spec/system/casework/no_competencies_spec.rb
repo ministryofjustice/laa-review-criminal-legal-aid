@@ -42,7 +42,8 @@ RSpec.describe 'No competencies' do
         Assigning::AssignToUser.new(
           user_id: current_user.id,
           to_whom_id: current_user.id,
-          assignment_id: crime_application_id
+          assignment_id: crime_application_id,
+          reference: 120_398_120
         ).call
 
         visit '/'

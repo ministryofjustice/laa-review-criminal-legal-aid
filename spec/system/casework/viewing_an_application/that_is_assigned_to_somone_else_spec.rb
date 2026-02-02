@@ -16,7 +16,8 @@ RSpec.describe 'Viewing an application that is assigned to someone else' do
     Assigning::AssignToUser.new(
       user_id: user.id,
       to_whom_id: user.id,
-      assignment_id: application_id
+      assignment_id: application_id,
+      reference: 1_234_567
     ).call
 
     visit crime_application_path(application_id)
