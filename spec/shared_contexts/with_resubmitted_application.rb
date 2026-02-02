@@ -35,7 +35,8 @@ RSpec.shared_context 'with resubmitted application' do
     Assigning::AssignToUser.new(
       user_id: user.id,
       to_whom_id: user.id,
-      assignment_id: parent_id
+      assignment_id: parent_id,
+      reference: 123
     ).call
 
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new) {

@@ -16,11 +16,14 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     )
   end
 
+  let(:reference) { 120_398_120 }
+
   before do
     Assigning::AssignToUser.new(
       user_id: assignee.id,
       to_whom_id: assignee.id,
-      assignment_id: crime_application_id
+      assignment_id: crime_application_id,
+      reference: reference
     ).call
 
     visit '/'
@@ -57,7 +60,8 @@ RSpec.describe 'Reassigning an application confirmation errors' do
         assignment_id: crime_application_id,
         user_id: another.id,
         to_whom_id: another.id,
-        from_whom_id: assignee.id
+        from_whom_id: assignee.id,
+        reference: reference
       ).call
     end
 
@@ -94,7 +98,8 @@ RSpec.describe 'Reassigning an application confirmation errors' do
       Assigning::UnassignFromUser.new(
         assignment_id: crime_application_id,
         user_id: assignee.id,
-        from_whom_id: assignee.id
+        from_whom_id: assignee.id,
+        reference: reference
       ).call
     end
 

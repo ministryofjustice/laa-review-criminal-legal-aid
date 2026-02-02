@@ -23,14 +23,14 @@ RSpec.describe 'Sending application decisions' do
           another_user_id = SecureRandom.uuid
 
           Assigning::AssignToUser.new(assignment_id: application_id, user_id: user.id,
-                                      to_whom_id: user.id).call
+                                      to_whom_id: user.id, reference: 1_234_567).call
           Reviewing::AddDecision.new(application_id: application_id, user_id: user.id,
                                      decision_id: decision_id).call
           Deciding::CreateDraft.new(application_id: application_id, user_id: user.id, reference: 1_234_567,
                                     decision_id: decision_id).call
           Deciding::SetFundingDecision.new(decision_id: decision_id, user_id: user.id, funding_decision: 'refused').call
           Assigning::ReassignToUser.new(assignment_id: application_id, user_id: another_user_id,
-                                        to_whom_id: another_user_id, from_whom_id: user.id).call
+                                        to_whom_id: another_user_id, from_whom_id: user.id, reference: 1_234_567).call
 
           create
         end

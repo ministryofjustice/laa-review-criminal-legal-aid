@@ -5,6 +5,7 @@ describe Assigning::Assignment do
 
   let(:user_id) { SecureRandom.uuid }
   let(:to_whom_id) { SecureRandom.uuid }
+  let(:reference) { 100_123 }
 
   it 'is initially "unassigned"' do
     expect(assignment).to be_unassigned
@@ -16,7 +17,7 @@ describe Assigning::Assignment do
 
   describe 'assigning to a user' do
     before do
-      assignment.assign_to_user(user_id:, to_whom_id:)
+      assignment.assign_to_user(user_id:, to_whom_id:, reference:)
     end
 
     it 'is becomes "assigned"' do
@@ -37,8 +38,8 @@ describe Assigning::Assignment do
 
   describe 'unassigning a user' do
     before do
-      assignment.assign_to_user(user_id:, to_whom_id:)
-      assignment.unassign_from_user(user_id: user_id, from_whom_id: to_whom_id)
+      assignment.assign_to_user(user_id:, to_whom_id:, reference:)
+      assignment.unassign_from_user(user_id: user_id, from_whom_id: to_whom_id, reference: reference)
     end
 
     it 'is becomes "assigned"' do
@@ -61,8 +62,8 @@ describe Assigning::Assignment do
     let(:from_whom_id) { SecureRandom.uuid }
 
     before do
-      assignment.assign_to_user(user_id: user_id, to_whom_id: from_whom_id)
-      assignment.reassign_to_user(user_id:, from_whom_id:, to_whom_id:)
+      assignment.assign_to_user(user_id: user_id, to_whom_id: from_whom_id, reference: reference)
+      assignment.reassign_to_user(user_id:, from_whom_id:, to_whom_id:, reference:)
     end
 
     it 'is remains "assigned"' do

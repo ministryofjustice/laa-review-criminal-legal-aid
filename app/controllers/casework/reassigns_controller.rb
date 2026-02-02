@@ -28,7 +28,8 @@ module Casework
         assignment_id: params[:crime_application_id],
         user_id: current_user_id,
         from_whom_id: params[:from_whom_id],
-        to_whom_id: current_user_id
+        to_whom_id: current_user_id,
+        reference: current_crime_application.reference
       ).call
     end
 
