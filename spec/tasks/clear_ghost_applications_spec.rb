@@ -32,7 +32,7 @@ RSpec.describe 'clear_ghost_applications', type: :task do # rubocop:disable RSpe
   # rubocop:disable Rails/SkipsModelValidations
   before do
     Rake::Task.define_task(:environment)
-    Rake.application.rake_require 'tasks/clear_ghost_applications'
+    Rake.application.rake_require 'tasks/ghost_applications'
 
     # User A applications
     Review.insert({ application_id: open_application1 })
