@@ -61,7 +61,8 @@ RSpec.describe 'fix_ghost_application_state', type: :task do # rubocop:disable R
     Assigning::AssignToUser.call(
       assignment_id: application_id,
       user_id: user.id,
-      to_whom_id: user.id
+      to_whom_id: user.id,
+      reference: reference
     )
     Reviewing::MarkAsReady.call(
       application_id: application_id,
