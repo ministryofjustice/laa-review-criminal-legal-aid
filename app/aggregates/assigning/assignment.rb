@@ -39,19 +39,19 @@ module Assigning
     on AssignedToUser do |event|
       @assignee_id = event.data.fetch(:to_whom_id)
       @state = :assigned
-      @reference = event.data.fetch(:reference)
+      @reference = event.data.fetch(:reference, nil)
     end
 
     on ReassignedToUser do |event|
       @assignee_id = event.data.fetch(:to_whom_id)
       @state = :assigned
-      @reference = event.data.fetch(:reference)
+      @reference = event.data.fetch(:reference, nil)
     end
 
     on UnassignedFromUser do |event|
       @assignee_id = nil
       @state = :unassigned
-      @reference = event.data.fetch(:reference)
+      @reference = event.data.fetch(:reference, nil)
     end
 
     def assigned?
