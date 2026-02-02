@@ -114,7 +114,8 @@ RSpec.describe 'Viewing your assigned application' do
       Assigning::AssignToUser.new(
         assignment_id: SecureRandom.uuid,
         user_id: current_user_id,
-        to_whom_id: current_user_id
+        to_whom_id: current_user_id,
+        reference: 100_123
       ).call
 
       click_on 'Your list'
