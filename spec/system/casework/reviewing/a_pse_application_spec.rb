@@ -95,7 +95,7 @@ RSpec.describe 'Reviewing a PSE application' do
       # another user reassigns the application to themselves
       Assigning::ReassignToUser.new(assignment_id: application_id, user_id: another_user.id,
                                     to_whom_id: another_user.id, from_whom_id: current_user_id,
-                                    reference: 100_123).call
+                                    reference: 120_398_120).call
 
       click_button(complete_cta)
     end
