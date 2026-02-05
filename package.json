@@ -4,7 +4,7 @@
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.23",
     "@ministryofjustice/frontend": "5.1.0",
-    "govuk-frontend": "^5.13.0",
+    "govuk-frontend": "^5.14.0",
     "sass": "^1.94.1"
   },
   "devDependencies": {
