@@ -52,7 +52,7 @@
               <%= l event.timestamp, format: :datetime %>
             </td>
             <td class="govuk-table__cell">
-              <%= event.description %>
+              <%= event.description.humanize %>
             </td>
             <td class="govuk-table__cell">
               <%= event.user_manager_name %>
