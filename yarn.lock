@@ -227,13 +227,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ministryofjustice/frontend@npm:5.1.0":
-  version: 5.1.0
-  resolution: "@ministryofjustice/frontend@npm:5.1.0"
+"@ministryofjustice/frontend@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@ministryofjustice/frontend@npm:8.0.0"
   peerDependencies:
-    govuk-frontend: 5.9.0
+    govuk-frontend: ^5.11.2
     moment: 2.30.1
-  checksum: 10c0/5a6ad509c92d8bff0c6f00cff71a89725f6074fb5de522c6b5dc1425a79bcf790cecaab43d57eb542115ef45dbf361754aebd5454b167b126e25fc990cc88459
+  checksum: 10c0/3b5bde977e14b39a919d4fbf1b4e2a97317823c07a33c8e99aa6b5f493acfb36e8f3de72ba769818be7f247ef513c6efd62e49ac64f2043b73b07c85ccabb452
   languageName: node
   linkType: hard
 
@@ -897,7 +897,7 @@ __metadata:
   resolution: "laa-review-criminal-legal-aid@workspace:."
   dependencies:
     "@hotwired/turbo-rails": "npm:^8.0.23"
-    "@ministryofjustice/frontend": "npm:5.1.0"
+    "@ministryofjustice/frontend": "npm:^8.0.0"
     esbuild: "npm:^0.27.0"
     govuk-frontend: "npm:^5.14.0"
     sass: "npm:^1.94.1"
