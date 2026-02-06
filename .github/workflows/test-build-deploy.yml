@@ -46,8 +46,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [8]
-        ci_node_index: [0, 1, 2, 3, 4, 5, 6, 7]
+        ci_node_total: [4]
+        ci_node_index: [0, 1, 2, 3]
 
     env:
       RACK_ENV: test
@@ -237,6 +237,7 @@ jobs:
                     if result['coverage']
                       total = 0
                       covered = 0
+                      file_count = result['coverage'].keys.length
                       result['coverage'].each do |file, file_data|
                         lines = file_data['lines'] || file_data
                         next unless lines.is_a?(Array)
@@ -247,7 +248,7 @@ jobs:
                         end
                       end
                       pct = total > 0 ? (covered.to_f / total * 100).round(2) : 0
-                      puts \"  #{cmd}: #{covered}/#{total} lines (#{pct}%)\"
+                      puts \"  #{cmd}: #{file_count} files, #{covered}/#{total} lines (#{pct}%)\"
                     end
                   end
                 "
