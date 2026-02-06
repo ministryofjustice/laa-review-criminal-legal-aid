@@ -88,7 +88,8 @@ RSpec.describe 'Adding a decision by MAAT reference' do
 
       # another user reassigns the application to themselves
       Assigning::ReassignToUser.new(assignment_id: application_id, user_id: another_user.id,
-                                    to_whom_id: another_user.id, from_whom_id: current_user_id).call
+                                    to_whom_id: another_user.id, from_whom_id: current_user_id,
+                                    reference: reference).call
 
       click_button 'Add funding decision from MAAT'
     end

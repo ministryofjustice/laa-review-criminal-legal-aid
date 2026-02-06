@@ -15,7 +15,8 @@ RSpec.shared_context 'with a completed application' do
     Assigning::AssignToUser.new(
       user_id: user.id,
       to_whom_id: user.id,
-      assignment_id: crime_application_id
+      assignment_id: crime_application_id,
+      reference: 120_398_120
     ).call
 
     Reviewing::Complete.new(
