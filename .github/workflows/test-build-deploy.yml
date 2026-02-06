@@ -217,10 +217,10 @@ jobs:
           require 'simplecov'
           require 'json'
           
-          SimpleCov.start 'rails' do
+          # First merge without validation
+          result = SimpleCov.collate Dir['coverage/.resultset-*.json'], 'rails' do
             enable_coverage :branch
-            coverage_criterion :line  # Check line coverage, not branch
-            minimum_coverage line: 100
+            coverage_criterion :line
             add_filter 'app/views'
             add_filter 'app/mailers/application_mailer.rb'
             add_filter 'app/jobs/application_job.rb'
@@ -228,17 +228,27 @@ jobs:
             add_filter 'lib/rubocop/'
             add_filter 'spec/'
             enable_coverage_for_eval
-          end
-          
-          # Use SimpleCov.collate to merge all coverage results  
-          result = SimpleCov.collate Dir['coverage/.resultset-*.json'] do
             coverage_dir 'coverage/merged'
           end
           
-          # Show files with <100% coverage for debugging
-          puts "\n=== Files with incomplete coverage ==="
-          result.files.reject { |f| f.covered_percent == 100 }.sort_by(&:covered_percent).each do |file|
-            puts "#{file.covered_percent.round(2)}% - #{file.filename.sub(Dir.pwd + '/', '')}"
+          # Show coverage stats
+          puts "\n=== Coverage Summary ==="
+          puts "Total files: #{result.files.size}"
+          puts "Line coverage: #{result.covered_percent.round(2)}%"
+          puts "Lines covered: #{result.covered_lines.size} / #{result.total_lines.size}"
+          
+          # Show files with <100% coverage
+          incomplete = result.files.reject { |f| f.covered_percent == 100 }.sort_by(&:covered_percent)
+          puts "\n=== Files with incomplete coverage (#{incomplete.size} files) ==="
+          incomplete.first(20).each do |file|
+            puts "  #{file.covered_percent.round(2)}% - #{file.filename.sub(Dir.pwd + '/', '')}"
+          end
+          puts "  ... and #{incomplete.size - 20} more" if incomplete.size > 20
+          
+          # Now validate
+          if result.covered_percent < 100
+            puts "\nERROR: Coverage #{result.covered_percent.round(2)}% is below 100%"
+            exit 1
           end
           RUBY
           
