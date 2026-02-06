@@ -1,0 +1,61 @@
+name: Snyk Open Source
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 21 * * 1' # Mondays at 21:00
+
+permissions:
+  contents: read
+
+jobs:
+  node-deps:
+    name: Scan Node.js dependencies
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+      - name: Snyk test (Node)
+        continue-on-error: true
+        uses: snyk/actions/node@v1
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=package.json --sarif-file-output=snyk-node.sarif --severity-threshold=high
+      - name: Upload SARIF (Node)
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: snyk-node.sarif
+          category: snyk-node
+
+  ruby-deps:
+    name: Scan Ruby dependencies
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: false
+      - name: Snyk test (Ruby)
+        continue-on-error: true
+        uses: snyk/actions/ruby@v1
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk-ruby.sarif --severity-threshold=high
+      - name: Upload SARIF (Ruby)
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: snyk-ruby.sarif
+          category: snyk-ruby
