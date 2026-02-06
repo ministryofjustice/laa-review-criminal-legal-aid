@@ -9,7 +9,10 @@ unless ENV['COVERAGE'] == 'false'
     enable_coverage :branch
     coverage_criterion :branch
     # primary_coverage :branch
-    minimum_coverage 100
+
+    # Only enforce minimum coverage when merging all parallel results
+    minimum_coverage 100 unless ENV['CI_NODE_INDEX']
+
     # TODO:  unfilter app/views once fix by simplecov team implemented
     add_filter 'app/views'
     add_filter 'app/mailers/application_mailer.rb'
