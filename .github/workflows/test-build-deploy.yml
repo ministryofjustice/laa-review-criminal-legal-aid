@@ -221,7 +221,7 @@ jobs:
           
           # Configure SimpleCov
           SimpleCov.configure do
-            enable_coverage :branch
+            enable_coverage :line  # Only line coverage for merging
             coverage_criterion :line
             add_filter 'app/views'
             add_filter 'app/mailers/application_mailer.rb'

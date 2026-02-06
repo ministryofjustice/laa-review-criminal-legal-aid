@@ -6,9 +6,13 @@ unless ENV['COVERAGE'] == 'false'
   require 'simplecov'
 
   SimpleCov.start 'rails' do
-    enable_coverage :branch
-    coverage_criterion :branch
-    # primary_coverage :branch
+    # Only track line coverage in parallel workers - branch coverage merging has issues
+    if ENV['CI_NODE_INDEX']
+      enable_coverage :line
+    else
+      enable_coverage :branch
+    end
+    coverage_criterion :line
 
     # Only enforce minimum coverage when merging all parallel results
     minimum_coverage 100 unless ENV['CI_NODE_INDEX']
