@@ -19,7 +19,7 @@ unless ENV['COVERAGE'] == 'false'
 
     # TODO:  unfilter app/views once fix by simplecov team implemented
     add_filter 'app/views'
-    add_filter 'app/components'  # ERB view components cause line count issues
+    add_filter 'app/components' # ERB view components cause line count issues
     add_filter 'app/mailers/application_mailer.rb'
     add_filter 'app/jobs/application_job.rb'
     add_filter 'config/initializers'
