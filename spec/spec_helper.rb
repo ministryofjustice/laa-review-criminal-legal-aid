@@ -9,6 +9,10 @@ unless ENV['COVERAGE'] == 'false'
     # Only track line coverage in parallel workers - branch coverage merging has issues
     if ENV['CI_NODE_INDEX']
       enable_coverage :line
+      # Eager load all app code so SimpleCov tracks consistently across parallel runners
+      at_start do
+        Rails.application.eager_load!
+      end
     else
       enable_coverage :branch
     end
