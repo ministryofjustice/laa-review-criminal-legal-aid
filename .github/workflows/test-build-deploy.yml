@@ -137,13 +137,22 @@ jobs:
             ls -la coverage/ || echo "Coverage directory doesn't exist"
           fi
 
+      - name: Verify coverage file before upload
+        if: always()
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Checking for coverage file again:"
+          ls -lh coverage/.resultset.json || echo "File not found!"
+          echo "Coverage directory:"
+          ls -la coverage/ || echo "Directory not found!"
+
       - name: Upload coverage results for merging
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: coverage-${{ matrix.ci_node_index }}
           path: coverage/.resultset.json
-          if-no-files-found: warn
+          if-no-files-found: error
 
   coverage:
     runs-on: ubuntu-latest
