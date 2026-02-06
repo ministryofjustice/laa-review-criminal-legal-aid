@@ -99,7 +99,12 @@ jobs:
             --format RspecJunitFormatter \
             --out tmp/rspec-${{ matrix.ci_node_index }}.xml \
             $(bundle exec rspec --dry-run --format json spec | \
-              ruby -rjson -e 'puts JSON.parse(STDIN.read)["examples"].map{|e| e["file_path"]}.uniq.each_slice((ENV["CI_NODE_TOTAL"].to_i)).to_a[ENV["CI_NODE_INDEX"].to_i].join(" ")')
+              ruby -rjson -e '
+                files = JSON.parse(STDIN.read)["examples"].map{|e| e["file_path"]}.uniq
+                slice_size = (files.size.to_f / ENV["CI_NODE_TOTAL"].to_i).ceil
+                group = files.each_slice(slice_size).to_a[ENV["CI_NODE_INDEX"].to_i]
+                puts group ? group.join(" ") : ""
+              ')
 
       - name: Upload test results
         if: always()
