@@ -98,9 +98,12 @@ jobs:
           bundle exec rspec --format documentation \
             --format RspecJunitFormatter \
             --out tmp/rspec-${{ matrix.ci_node_index }}.xml \
-            $(bundle exec rspec --dry-run --format json spec | \
+            $(COVERAGE=false bundle exec rspec --dry-run --format json spec 2>/dev/null | \
               ruby -rjson -e '
-                files = JSON.parse(STDIN.read)["examples"].map{|e| e["file_path"]}.uniq
+                json_output = STDIN.read
+                # Extract only the JSON portion (before any SimpleCov output)
+                json_output = json_output.split("\n").first
+                files = JSON.parse(json_output)["examples"].map{|e| e["file_path"]}.uniq
                 slice_size = (files.size.to_f / ENV["CI_NODE_TOTAL"].to_i).ceil
                 group = files.each_slice(slice_size).to_a[ENV["CI_NODE_INDEX"].to_i]
                 puts group ? group.join(" ") : ""
