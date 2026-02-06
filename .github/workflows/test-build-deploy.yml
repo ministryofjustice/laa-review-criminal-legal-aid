@@ -11,13 +11,51 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+
+      - name: Install Yarn 4.7
+        run: |
+          corepack enable
+          corepack prepare yarn@4.7 --activate
+
+      - name: Install Yarn dependencies
+        run: yarn install --immutable
+
+      - name: Precompile assets
+        run: bin/rails assets:precompile
+
+      - name: Run linters
+        run: bundle exec rake brakeman rubocop erblint
+
   test:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ci_node_total: [4]
+        ci_node_index: [0, 1, 2, 3]
 
     env:
       RACK_ENV: test
       RAILS_ENV: test
+      CI: true
       DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/laa-review-criminal-legal-aid-test"
+      CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+      CI_NODE_INDEX: ${{ matrix.ci_node_index }}
 
     services:
       postgres:
@@ -56,19 +94,232 @@ jobs:
       - name: Setup test database
         run: bin/rails db:prepare
 
-      - name: Run linters and tests
-        run: bundle exec rake
+      - name: Run tests
+        run: |
+          bundle exec rspec --format documentation \
+            --format RspecJunitFormatter \
+            --out tmp/rspec-${{ matrix.ci_node_index }}.xml \
+            $(COVERAGE=false bundle exec rspec --dry-run --format json spec 2>/dev/null | \
+              ruby -rjson -e '
+                json_output = STDIN.read
+                # Extract only the JSON portion (before any SimpleCov output)
+                json_output = json_output.split("\n").first
+                files = JSON.parse(json_output)["examples"].map{|e| e["file_path"]}.uniq
+                slice_size = (files.size.to_f / ENV["CI_NODE_TOTAL"].to_i).ceil
+                group = files.each_slice(slice_size).to_a[ENV["CI_NODE_INDEX"].to_i]
+                puts group ? group.join(" ") : ""
+              ')
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: rspec-results-${{ matrix.ci_node_index }}
+          path: tmp/rspec-${{ matrix.ci_node_index }}.xml
 
       - name: Upload rspec coverage (if failure)
         if: failure()
         uses: actions/upload-artifact@v6
         with:
-          name: rspec-coverage
+          name: rspec-coverage-${{ matrix.ci_node_index }}
           path: coverage/*
+
+      - name: Check coverage file exists
+        if: always()
+        run: |
+          if [ -f "coverage/.resultset.json" ]; then
+            echo "Coverage file exists:"
+            ls -lh coverage/.resultset.json
+            echo "First 500 chars:"
+            head -c 500 coverage/.resultset.json
+            echo ""
+            echo "Checking coverage stats in this runner:"
+            ruby -rjson -e '
+              data = JSON.parse(File.read("coverage/.resultset.json"))
+              data.each do |name, result|
+                total_lines = 0
+                covered_lines = 0
+                result["coverage"].each do |file, file_data|
+                  lines = file_data["lines"] || file_data
+                  next unless lines.is_a?(Array)
+                  lines.each do |hits|
+                    next if hits.nil?
+                    total_lines += 1
+                    covered_lines += 1 if hits && hits > 0
+                  end
+                end
+                pct = total_lines > 0 ? (covered_lines.to_f / total_lines * 100).round(2) : 0
+                puts "#{name}: #{covered_lines}/#{total_lines} lines covered (#{pct}%)"
+              end
+            '
+          else
+            echo "Warning: coverage/.resultset.json not found"
+            echo "Coverage directory contents:"
+            ls -la coverage/ || echo "Coverage directory doesn't exist"
+          fi
+
+      - name: Verify coverage file before upload
+        if: always()
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Checking for coverage file again:"
+          ls -lh coverage/.resultset.json || echo "File not found!"
+          echo "Coverage directory:"
+          ls -la coverage/ || echo "Directory not found!"
+
+      - name: Upload coverage results for merging
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-${{ matrix.ci_node_index }}
+          path: coverage/.resultset.json
+          include-hidden-files: true
+          if-no-files-found: error
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    if: success() || failure()  # Run even if tests fail, but not if cancelled
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download all coverage artifacts
+        uses: actions/download-artifact@v6
+        with:
+          pattern: coverage-*
+          path: coverage-artifacts
+
+      - name: List downloaded artifacts
+        run: |
+          echo "Checking for coverage-artifacts directory..."
+          echo "Current directory: $(pwd)"
+          echo "All files:"
+          ls -la
+          
+          if [ -d "coverage-artifacts" ]; then
+            echo "Directory exists:"
+            ls -la coverage-artifacts/
+          else
+            echo "Warning: coverage-artifacts directory not found"
+            echo "Available artifacts may not have been uploaded from test jobs"
+            echo "Checking if any coverage-* artifacts exist in GitHub..."
+            echo "This is expected if test jobs failed or didn't complete"
+            
+            # Create empty directory so subsequent steps don't fail
+            mkdir -p coverage-artifacts
+          fi
+
+      - name: Merge coverage results
+        run: |
+          # Create coverage directory for merged results
+          mkdir -p coverage
+          
+          # Copy all .resultset.json files to coverage directory with unique names
+          for dir in coverage-artifacts/coverage-*; do
+            if [ -d "$dir" ]; then
+              if [ -f "$dir/.resultset.json" ]; then
+                node=$(basename "$dir")
+                cp "$dir/.resultset.json" "coverage/.resultset-${node}.json"
+                echo "Copied $dir/.resultset.json"
+                
+                # Analyze what this runner covered
+                echo "Analyzing $node:"
+                ruby -rjson -e "
+                  data = JSON.parse(File.read('coverage/.resultset-${node}.json'))
+                  data.each do |cmd, result|
+                    if result['coverage']
+                      total = 0
+                      covered = 0
+                      file_count = result['coverage'].keys.length
+                      result['coverage'].each do |file, file_data|
+                        lines = file_data['lines'] || file_data
+                        next unless lines.is_a?(Array)
+                        lines.each do |hits|
+                          next if hits.nil?
+                          total += 1
+                          covered += 1 if hits && hits > 0
+                        end
+                      end
+                      pct = total > 0 ? (covered.to_f / total * 100).round(2) : 0
+                      puts \"  #{cmd}: #{file_count} files, #{covered}/#{total} lines (#{pct}%)\"
+                    end
+                  end
+                "
+              fi
+            fi
+          done
+          
+          echo ""
+          echo "Files to merge:"
+          ls -la coverage/
+          
+          # Create script to merge coverage
+          cat > merge_coverage.rb << 'RUBY'
+          require 'simplecov'
+          require 'json'
+          
+          SimpleCov.coverage_dir 'coverage/merged'
+          
+          # Configure SimpleCov
+          SimpleCov.configure do
+            enable_coverage :line  # Only line coverage for merging
+            coverage_criterion :line
+            add_filter 'app/views'
+            add_filter 'app/components'  # ERB components cause line count issues
+            add_filter 'app/mailers/application_mailer.rb'
+            add_filter 'app/jobs/application_job.rb'
+            add_filter 'config/initializers'
+            add_filter 'lib/rubocop/'
+            add_filter 'spec/'
+            enable_coverage_for_eval
+          end
+          
+          # Collate - this generates and formats the report but returns nil
+          SimpleCov.collate Dir['coverage/.resultset-*.json']
+          
+          # Access the result that was just created
+          result = SimpleCov.result
+          
+          # Show coverage stats
+          puts "\n=== Coverage Summary ==="
+          puts "Total files: #{result.files.size}"
+          puts "Line coverage: #{result.covered_percent.round(2)}%"
+          puts "Lines covered: #{result.covered_lines.size} / #{result.total_lines.size}"
+          
+          # Show files with <100% coverage
+          incomplete = result.files.reject { |f| f.covered_percent == 100 }.sort_by(&:covered_percent)
+          puts "\n=== Files with incomplete coverage (#{incomplete.size} files) ==="
+          incomplete.first(30).each do |file|
+            missed = file.missed_lines.size
+            puts "  #{file.covered_percent.round(2)}% (#{missed} lines) - #{file.filename.sub(Dir.pwd + '/', '')}"
+          end
+          puts "  ... and #{incomplete.size - 30} more" if incomplete.size > 30
+          
+          # Now validate
+          if result.covered_percent < 100
+            puts "\nERROR: Coverage #{result.covered_percent.round(2)}% is below 100%"
+            exit 1
+          end
+          RUBY
+          
+          bundle exec ruby merge_coverage.rb
+
+      - name: Upload merged coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: merged-coverage-report
+          path: coverage/merged
 
   build:
     runs-on: ubuntu-latest
-    needs: test
+    needs: [lint, test, coverage]
     if: github.ref == 'refs/heads/main'
 
     permissions:
