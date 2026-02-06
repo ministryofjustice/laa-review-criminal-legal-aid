@@ -152,6 +152,7 @@ jobs:
         with:
           name: coverage-${{ matrix.ci_node_index }}
           path: coverage/.resultset.json
+          include-hidden-files: true
           if-no-files-found: error
 
   coverage:
