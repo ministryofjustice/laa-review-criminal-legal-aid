@@ -52,6 +52,7 @@ jobs:
     env:
       RACK_ENV: test
       RAILS_ENV: test
+      CI: true
       DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/laa-review-criminal-legal-aid-test"
       CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
       CI_NODE_INDEX: ${{ matrix.ci_node_index }}
@@ -149,14 +150,21 @@ jobs:
         with:
           pattern: coverage-*
           path: coverage-artifacts
-          merge-multiple: false
+
+      - name: List downloaded artifacts
+        run: |
+          echo "Checking for coverage-artifacts directory..."
+          if [ -d "coverage-artifacts" ]; then
+            echo "Directory exists:"
+            ls -la coverage-artifacts/
+          else
+            echo "Directory does not exist - no artifacts were downloaded"
+            echo "This might mean the test jobs didn't upload coverage artifacts"
+            exit 1
+          fi
 
       - name: Merge coverage results
         run: |
-          # List what we downloaded
-          echo "Downloaded artifacts:"
-          ls -la coverage-artifacts/
-          
           # Create coverage directory for merged results
           mkdir -p coverage
           
