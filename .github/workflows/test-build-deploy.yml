@@ -232,8 +232,11 @@ jobs:
             enable_coverage_for_eval
           end
           
-          # Collate and get result
-          result = SimpleCov.collate Dir['coverage/.resultset-*.json']
+          # Collate - this generates and formats the report but returns nil
+          SimpleCov.collate Dir['coverage/.resultset-*.json']
+          
+          # Access the result that was just created
+          result = SimpleCov.result
           
           # Show coverage stats
           puts "\n=== Coverage Summary ==="
@@ -244,10 +247,11 @@ jobs:
           # Show files with <100% coverage
           incomplete = result.files.reject { |f| f.covered_percent == 100 }.sort_by(&:covered_percent)
           puts "\n=== Files with incomplete coverage (#{incomplete.size} files) ==="
-          incomplete.first(20).each do |file|
-            puts "  #{file.covered_percent.round(2)}% - #{file.filename.sub(Dir.pwd + '/', '')}"
+          incomplete.first(30).each do |file|
+            missed = file.missed_lines.size
+            puts "  #{file.covered_percent.round(2)}% (#{missed} lines) - #{file.filename.sub(Dir.pwd + '/', '')}"
           end
-          puts "  ... and #{incomplete.size - 20} more" if incomplete.size > 20
+          puts "  ... and #{incomplete.size - 30} more" if incomplete.size > 30
           
           # Now validate
           if result.covered_percent < 100
