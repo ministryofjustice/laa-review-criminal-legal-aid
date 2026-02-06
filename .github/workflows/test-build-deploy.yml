@@ -213,13 +213,38 @@ jobs:
           
           # Copy all .resultset.json files to coverage directory with unique names
           for dir in coverage-artifacts/coverage-*; do
-            if [ -f "$dir/.resultset.json" ]; then
-              node=$(basename "$dir")
-              cp "$dir/.resultset.json" "coverage/.resultset-${node}.json"
-              echo "Copied $dir/.resultset.json"
+            if [ -d "$dir" ]; then
+              if [ -f "$dir/.resultset.json" ]; then
+                node=$(basename "$dir")
+                cp "$dir/.resultset.json" "coverage/.resultset-${node}.json"
+                echo "Copied $dir/.resultset.json"
+                
+                # Analyze what this runner covered
+                echo "Analyzing $node:"
+                ruby -rjson -e "
+                  data = JSON.parse(File.read('coverage/.resultset-${node}.json'))
+                  data.each do |cmd, result|
+                    if result['coverage']
+                      total = 0
+                      covered = 0
+                      result['coverage'].each do |file, lines|
+                        next unless lines.is_a?(Array)
+                        lines.each do |hits|
+                          next if hits.nil?
+                          total += 1
+                          covered += 1 if hits && hits > 0
+                        end
+                      end
+                      pct = total > 0 ? (covered.to_f / total * 100).round(2) : 0
+                      puts \"  #{cmd}: #{covered}/#{total} lines (#{pct}%)\"
+                    end
+                  end
+                "
+              fi
             fi
           done
           
+          echo ""
           echo "Files to merge:"
           ls -la coverage/
           
