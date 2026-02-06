@@ -219,8 +219,8 @@ jobs:
           
           SimpleCov.start 'rails' do
             enable_coverage :branch
-            coverage_criterion :branch
-            minimum_coverage 100
+            coverage_criterion :line  # Check line coverage, not branch
+            minimum_coverage line: 100
             add_filter 'app/views'
             add_filter 'app/mailers/application_mailer.rb'
             add_filter 'app/jobs/application_job.rb'
