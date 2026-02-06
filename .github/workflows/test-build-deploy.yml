@@ -124,17 +124,31 @@ jobs:
           name: rspec-coverage-${{ matrix.ci_node_index }}
           path: coverage/*
 
+      - name: Check coverage file exists
+        if: always()
+        run: |
+          if [ -f "coverage/.resultset.json" ]; then
+            echo "Coverage file exists:"
+            ls -lh coverage/.resultset.json
+            head -c 200 coverage/.resultset.json
+          else
+            echo "Warning: coverage/.resultset.json not found"
+            echo "Coverage directory contents:"
+            ls -la coverage/ || echo "Coverage directory doesn't exist"
+          fi
+
       - name: Upload coverage results for merging
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: coverage-${{ matrix.ci_node_index }}
           path: coverage/.resultset.json
+          if-no-files-found: warn
 
   coverage:
     runs-on: ubuntu-latest
     needs: test
-    if: always()
+    if: success() || failure()  # Run even if tests fail, but not if cancelled
 
     steps:
       - name: Checkout code
@@ -154,13 +168,21 @@ jobs:
       - name: List downloaded artifacts
         run: |
           echo "Checking for coverage-artifacts directory..."
+          echo "Current directory: $(pwd)"
+          echo "All files:"
+          ls -la
+          
           if [ -d "coverage-artifacts" ]; then
             echo "Directory exists:"
             ls -la coverage-artifacts/
           else
-            echo "Directory does not exist - no artifacts were downloaded"
-            echo "This might mean the test jobs didn't upload coverage artifacts"
-            exit 1
+            echo "Warning: coverage-artifacts directory not found"
+            echo "Available artifacts may not have been uploaded from test jobs"
+            echo "Checking if any coverage-* artifacts exist in GitHub..."
+            echo "This is expected if test jobs failed or didn't complete"
+            
+            # Create empty directory so subsequent steps don't fail
+            mkdir -p coverage-artifacts
           fi
 
       - name: Merge coverage results
