@@ -5,12 +5,6 @@ require 'webmock/rspec'
 unless ENV['COVERAGE'] == 'false'
   require 'simplecov'
 
-  # Eager load all app code in parallel runners for consistent SimpleCov tracking
-  if ENV['CI_NODE_INDEX']
-    require_relative '../config/environment'
-    Rails.application.eager_load!
-  end
-
   SimpleCov.start 'rails' do
     # Only track line coverage in parallel workers - branch coverage merging has issues
     if ENV['CI_NODE_INDEX']
@@ -36,6 +30,12 @@ unless ENV['COVERAGE'] == 'false'
 
     # Support for parallel CI runs - each runner saves results with unique ID
     command_name "rspec-node-#{ENV['CI_NODE_INDEX'] || 0}" if ENV['CI']
+  end
+
+  # Eager load all app code AFTER SimpleCov starts for consistent tracking across parallel runners
+  if ENV['CI_NODE_INDEX']
+    require_relative '../config/environment'
+    Rails.application.eager_load!
   end
 end
 
