@@ -230,9 +230,15 @@ jobs:
             enable_coverage_for_eval
           end
           
-          # Use SimpleCov.collate to merge all coverage results
-          SimpleCov.collate Dir['coverage/.resultset-*.json'] do
+          # Use SimpleCov.collate to merge all coverage results  
+          result = SimpleCov.collate Dir['coverage/.resultset-*.json'] do
             coverage_dir 'coverage/merged'
+          end
+          
+          # Show files with <100% coverage for debugging
+          puts "\n=== Files with incomplete coverage ==="
+          result.files.reject { |f| f.covered_percent == 100 }.sort_by(&:covered_percent).each do |file|
+            puts "#{file.covered_percent.round(2)}% - #{file.filename.sub(Dir.pwd + '/', '')}"
           end
           RUBY
           
