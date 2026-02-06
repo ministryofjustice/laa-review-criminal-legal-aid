@@ -137,9 +137,19 @@ jobs:
             ruby -rjson -e '
               data = JSON.parse(File.read("coverage/.resultset.json"))
               data.each do |name, result|
-                total_lines = result["coverage"].values.flatten.compact.size
-                covered_lines = result["coverage"].values.flatten.compact.count { |hits| hits && hits > 0 }
-                puts "#{name}: #{covered_lines}/#{total_lines} lines covered"
+                total_lines = 0
+                covered_lines = 0
+                result["coverage"].each do |file, file_data|
+                  lines = file_data["lines"] || file_data
+                  next unless lines.is_a?(Array)
+                  lines.each do |hits|
+                    next if hits.nil?
+                    total_lines += 1
+                    covered_lines += 1 if hits && hits > 0
+                  end
+                end
+                pct = total_lines > 0 ? (covered_lines.to_f / total_lines * 100).round(2) : 0
+                puts "#{name}: #{covered_lines}/#{total_lines} lines covered (#{pct}%)"
               end
             '
           else
@@ -227,7 +237,8 @@ jobs:
                     if result['coverage']
                       total = 0
                       covered = 0
-                      result['coverage'].each do |file, lines|
+                      result['coverage'].each do |file, file_data|
+                        lines = file_data['lines'] || file_data
                         next unless lines.is_a?(Array)
                         lines.each do |hits|
                           next if hits.nil?
