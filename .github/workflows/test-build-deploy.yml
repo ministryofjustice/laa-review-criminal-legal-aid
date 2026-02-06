@@ -271,6 +271,7 @@ jobs:
             enable_coverage :line  # Only line coverage for merging
             coverage_criterion :line
             add_filter 'app/views'
+            add_filter 'app/components'  # ERB components cause line count issues
             add_filter 'app/mailers/application_mailer.rb'
             add_filter 'app/jobs/application_job.rb'
             add_filter 'config/initializers'
