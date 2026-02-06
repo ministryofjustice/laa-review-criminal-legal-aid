@@ -130,7 +130,18 @@ jobs:
           if [ -f "coverage/.resultset.json" ]; then
             echo "Coverage file exists:"
             ls -lh coverage/.resultset.json
-            head -c 200 coverage/.resultset.json
+            echo "First 500 chars:"
+            head -c 500 coverage/.resultset.json
+            echo ""
+            echo "Checking coverage stats in this runner:"
+            ruby -rjson -e '
+              data = JSON.parse(File.read("coverage/.resultset.json"))
+              data.each do |name, result|
+                total_lines = result["coverage"].values.flatten.compact.size
+                covered_lines = result["coverage"].values.flatten.compact.count { |hits| hits && hits > 0 }
+                puts "#{name}: #{covered_lines}/#{total_lines} lines covered"
+              end
+            '
           else
             echo "Warning: coverage/.resultset.json not found"
             echo "Coverage directory contents:"
