@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '0 21 * * 1' # Mondays at 21:00
+    - cron: "0 21 * * 1" # Mondays at 21:00
 
 permissions:
   contents: read
@@ -21,6 +21,8 @@ jobs:
         uses: actions/checkout@v6
       - name: Setup Node.js
         uses: actions/setup-node@v6
+      - name: Install dependencies
+        run: npm install
       - name: Snyk test (Node)
         continue-on-error: true
         uses: snyk/actions/node@v1
