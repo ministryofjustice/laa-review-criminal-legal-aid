@@ -120,9 +120,74 @@ jobs:
           name: rspec-coverage-${{ matrix.ci_node_index }}
           path: coverage/*
 
+      - name: Upload coverage results for merging
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-${{ matrix.ci_node_index }}
+          path: coverage/.resultset.json
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download all coverage artifacts
+        uses: actions/download-artifact@v6
+        with:
+          pattern: coverage-*
+          path: coverage
+          merge-multiple: false
+
+      - name: Merge coverage results
+        run: |
+          # Move all .resultset.json files to coverage directory
+          find coverage -name '.resultset.json' -exec cp {} coverage/resultset-{}.json \;
+          
+          # Create script to merge coverage
+          cat > merge_coverage.rb << 'RUBY'
+          require 'simplecov'
+          require 'json'
+          
+          SimpleCov.start 'rails' do
+            enable_coverage :branch
+            coverage_criterion :branch
+            minimum_coverage 100
+            add_filter 'app/views'
+            add_filter 'app/mailers/application_mailer.rb'
+            add_filter 'app/jobs/application_job.rb'
+            add_filter 'config/initializers'
+            add_filter 'lib/rubocop/'
+            add_filter 'spec/'
+            enable_coverage_for_eval
+          end
+          
+          # Use SimpleCov.collate to merge all coverage results
+          SimpleCov.collate Dir['coverage/**/.resultset.json'] do
+            coverage_dir 'coverage/merged'
+          end
+          RUBY
+          
+          bundle exec ruby merge_coverage.rb
+
+      - name: Upload merged coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: merged-coverage-report
+          path: coverage/merged
+
   build:
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs: [lint, test, coverage]
     if: github.ref == 'refs/heads/main'
 
     permissions:

@@ -17,6 +17,9 @@ SimpleCov.start 'rails' do
   add_filter 'spec/'
 
   enable_coverage_for_eval
+
+  # Support for parallel CI runs - each runner saves results with unique ID
+  command_name "rspec-node-#{ENV['CI_NODE_INDEX'] || 0}" if ENV['CI']
 end
 
 RSpec.configure do |config|
