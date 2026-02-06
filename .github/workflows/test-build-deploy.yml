@@ -148,13 +148,29 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           pattern: coverage-*
-          path: coverage
+          path: coverage-artifacts
           merge-multiple: false
 
       - name: Merge coverage results
         run: |
-          # Move all .resultset.json files to coverage directory
-          find coverage -name '.resultset.json' -exec cp {} coverage/resultset-{}.json \;
+          # List what we downloaded
+          echo "Downloaded artifacts:"
+          ls -la coverage-artifacts/
+          
+          # Create coverage directory for merged results
+          mkdir -p coverage
+          
+          # Copy all .resultset.json files to coverage directory with unique names
+          for dir in coverage-artifacts/coverage-*; do
+            if [ -f "$dir/.resultset.json" ]; then
+              node=$(basename "$dir")
+              cp "$dir/.resultset.json" "coverage/.resultset-${node}.json"
+              echo "Copied $dir/.resultset.json"
+            fi
+          done
+          
+          echo "Files to merge:"
+          ls -la coverage/
           
           # Create script to merge coverage
           cat > merge_coverage.rb << 'RUBY'
@@ -175,7 +191,7 @@ jobs:
           end
           
           # Use SimpleCov.collate to merge all coverage results
-          SimpleCov.collate Dir['coverage/**/.resultset.json'] do
+          SimpleCov.collate Dir['coverage/.resultset-*.json'] do
             coverage_dir 'coverage/merged'
           end
           RUBY
