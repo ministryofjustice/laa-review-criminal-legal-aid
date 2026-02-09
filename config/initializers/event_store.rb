@@ -12,4 +12,5 @@ Rails.configuration.to_prepare do
   ReceivedOnReports::Configuration.new.call(event_store)
   Reviews::Configuration.new.call(event_store)
   CaseworkerReports::Configuration.new.call(event_store)
+  ReferenceHistory::Configuration.new.call(event_store)
 end
