@@ -9,24 +9,9 @@ RSpec.describe Reviewing::Complete do
   include_context 'with stubbed assignment'
 
   before do
-    allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
-      application_id: application_id,
-      payload: { decisions: },
-      member: :complete
-    ).and_return(return_request)
-
     Reviewing::ReceiveApplication.call(
       application_id: application_id, submitted_at: 1.day.ago.to_s, work_stream: 'extradition',
       application_type: 'initial', reference: 123
-    )
-  end
-
-  let(:return_request) do
-    instance_double(
-      DatastoreApi::Requests::UpdateApplication,
-      call: JSON.parse(
-        LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read
-      )
     )
   end
 
@@ -94,6 +79,36 @@ RSpec.describe Reviewing::Complete do
       expect do
         command.call
       end.to raise_error(Reviewing::IncompleteDecisions)
+    end
+  end
+
+  describe 'Handlers' do
+    context 'when a Completed event is emitted' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:event_store) { Rails.configuration.event_store }
+      let(:event) { Reviewing::Completed.new(data: { application_id: }) }
+      let(:return_request) do
+        instance_double(
+          DatastoreApi::Requests::UpdateApplication,
+          call: JSON.parse(
+            LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read
+          )
+        )
+      end
+
+      before do
+        allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).with(
+          application_id: application_id,
+          payload: { decisions: },
+          member: :complete
+        ).and_return(return_request)
+
+        Reviewing::Configuration.new.call(event_store)
+      end
+
+      it 'calls the Datastore API to complete the review' do
+        event_store.publish(event)
+        expect(return_request).to have_received(:call)
+      end
     end
   end
 end
