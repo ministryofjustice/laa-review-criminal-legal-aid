@@ -1,23 +1,22 @@
 <%= govuk_summary_card(title: label_text(:file_name)) do
-  govuk_summary_list(actions: false) do |list|
-    if crime_application.supporting_evidence.present?
-      crime_application.supporting_evidence.each do |evidence|
-        list.with_row do |row|
-          row.with_key { evidence.filename }
-          row.with_value do
-            govuk_link_to(
-              link_text(evidence),
-              download_path(evidence),
-              class: 'app-no-print',
-              target: target
-            )
+      govuk_summary_list(actions: false) do |list|
+        if crime_application.supporting_evidence.present?
+          crime_application.supporting_evidence.each do |evidence|
+            list.with_row do |row|
+              row.with_key { evidence.filename }
+              row.with_value do
+                if FeatureFlags.view_evidence.enabled?
+                  view_link(evidence)
+                else
+                  download_link(evidence)
+                end
+              end
+            end
+          end
+        else
+          list.with_row do |row|
+            row.with_key { label_text(:no_files_uploaded) }
           end
         end
       end
-    else
-      list.with_row do |row|
-        row.with_key { label_text(:no_files_uploaded) }
-      end
-    end
-  end
-end %>
+    end %>

@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  Rails.application.routes.draw { mount RailsEventStore::Browser => "/res" if Rails.env.development? }
+  Rails.application.routes.draw { mount RailsEventStore::Browser => '/res' if Rails.env.development? }
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
   unless HostEnv.production?
-    authenticate :user, lambda { |u| u.admin? } do
+    authenticate :user, ->(u) { u.admin? } do
       require 'sidekiq/web'
       require 'sidekiq-scheduler/web'
-      mount Sidekiq::Web => "/sidekiq"
+      mount Sidekiq::Web => '/sidekiq'
     end
   end
 
@@ -20,15 +20,13 @@ Rails.application.routes.draw do
     }
   )
 
-  get "users/auth/failure", to: "errors#forbidden"
+  get 'users/auth/failure', to: 'errors#forbidden'
 
   devise_scope :user do
     unauthenticated :user do
       root 'users/sessions#new', as: :unauthenticated_root
 
-      if FeatureFlags.dev_auth.enabled?
-        get 'dev_auth', to: 'users/dev_auth#new'
-      end
+      get 'dev_auth', to: 'users/dev_auth#new' if FeatureFlags.dev_auth.enabled?
     end
 
     authenticated :user do
@@ -48,7 +46,7 @@ Rails.application.routes.draw do
       get 'what-do-you-want-to-do-next', to: 'send_decisions#new', as: :send_decisions
       post 'what-do-you-want-to-do-next', to: 'send_decisions#create'
 
-      resources :decisions, only: [:create] do 
+      resources :decisions, only: [:create] do
         scope module: :decisions do
           get 'interests-of-justice', to: 'interests_of_justices#edit'
           put 'interests-of-justice', to: 'interests_of_justices#update'
@@ -60,7 +58,7 @@ Rails.application.routes.draw do
           put 'comment', to: 'comments#update'
         end
       end
-      
+
       get 'link-maat-id', to: 'maat_decisions#new', as: :maat_decisions
       post 'link-maat-id', to: 'maat_decisions#create'
 
@@ -91,7 +89,8 @@ Rails.application.routes.draw do
 
     get ':report_type', to: 'user_reports#show', as: 'user_report'
 
-    get ':report_type/:interval/latest-complete', to: 'temporal_reports#latest_complete', as: :latest_complete_temporal_report
+    get ':report_type/:interval/latest-complete', to: 'temporal_reports#latest_complete',
+as: :latest_complete_temporal_report
     get ':report_type/:interval/:period', to: 'temporal_reports#show', as: :temporal_report
     get ':report_type/:interval/:period/download', to: 'temporal_reports#download', as: :download_temporal_report
     get ':report_type/:date/at/:time', to: 'snapshots#show', as: :snapshot

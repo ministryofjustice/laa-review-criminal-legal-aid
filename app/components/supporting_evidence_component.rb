@@ -11,27 +11,42 @@ class SupportingEvidenceComponent < ViewComponent::Base
 
   attr_reader :crime_application
 
-  def target
-    FeatureFlags.view_evidence.enabled? ? '_blank' : ''
+  def view_link(evidence)
+    govuk_link_to(
+      view_link_text(evidence),
+      documents_path(
+        crime_application_id: crime_application.id,
+        id: evidence.s3_object_key
+      ),
+      class: 'app-no-print',
+      target: '_blank'
+    )
   end
 
-  def link_text(evidence)
-    if FeatureFlags.view_evidence.enabled?
-      'View'
-    else
-      sanitize(
-        t(:download_file,
-          scope: 'values',
-          file_extension: evidence.file_extension,
-          file_size: number_to_human_size(evidence.file_size))
-      )
-    end
+  def view_link_text(evidence)
+    safe_join [
+      t(:view_file, scope: 'values'),
+      tag.span(sanitize(evidence.filename), class: 'govuk-visually-hidden')
+    ], ' '
   end
 
-  def download_path(evidence)
-    download_documents_path(
-      crime_application_id: crime_application.id,
-      id: evidence.s3_object_key
+  def download_link(evidence)
+    govuk_link_to(
+      download_text(evidence),
+      download_documents_path(
+        crime_application_id: crime_application.id,
+        id: evidence.s3_object_key
+      ),
+      class: 'app-no-print'
+    )
+  end
+
+  def download_text(evidence)
+    sanitize(
+      t(:download_file,
+        scope: 'values',
+        file_extension: evidence.file_extension,
+        file_size: number_to_human_size(evidence.file_size))
     )
   end
 end
