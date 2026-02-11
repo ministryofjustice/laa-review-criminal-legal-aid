@@ -104,8 +104,9 @@ jobs:
                 json_output = STDIN.read
                 json_output = json_output.split("\n").first
                 examples = JSON.parse(json_output)["examples"].sort_by { |e| e["id"] }
-                slice_size = (examples.size.to_f / ENV["CI_NODE_TOTAL"].to_i).ceil
-                group = examples.each_slice(slice_size).to_a[ENV["CI_NODE_INDEX"].to_i] || []
+                total = ENV["CI_NODE_TOTAL"].to_i
+                index = ENV["CI_NODE_INDEX"].to_i
+                group = examples.select.with_index { |_, i| i % total == index }
                 example_ids = group.map { |e| e["id"] }
                 puts example_ids.join(" ")
               ')
