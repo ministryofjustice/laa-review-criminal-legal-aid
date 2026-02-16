@@ -6,7 +6,9 @@ module ReferenceHistory
     Reviewing::ApplicationReceived,
     Reviewing::SentBack,
     Reviewing::Completed,
-    Reviewing::MarkedAsReady
+    Reviewing::MarkedAsReady,
+    Deleting::SoftDeleted,
+    Deleting::Archived,
   ].freeze
 
   class << self

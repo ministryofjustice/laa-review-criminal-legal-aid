@@ -33,7 +33,7 @@ module ReferenceHistory
     end
 
     def application_id_for(event)
-      # Reviewing events use :application_id
+      # Reviewing and Deleting events use :application_id
       return event.data[:application_id] if event.data.key?(:application_id)
 
       # Assigning events use :assignment_id
