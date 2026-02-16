@@ -5,11 +5,7 @@
             list.with_row do |row|
               row.with_key { evidence.filename }
               row.with_value do
-                if FeatureFlags.view_evidence.enabled?
-                  view_link(evidence)
-                else
-                  download_link(evidence)
-                end
+                view_download_links(evidence)
               end
             end
           end
