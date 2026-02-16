@@ -17,5 +17,8 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css  ./app/assets/stylesheets/print.scss:./app/assets/builds/print.css  --no-source-map  --load-path=.  --load-path=node_modules  --quiet-deps"
+  },
+  "resolutions": {
+    "glob": "^13.0.3"
   }
 }
