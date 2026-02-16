@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe 'Viewing supporting evidence' do
   include_context 'with stubbed application'
   include_context 'when downloading a document'
+  let(:viewing_enabled) { false }
 
   before do
     allow(FeatureFlags).to receive(:view_evidence) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      instance_double(FeatureFlags::EnabledFeature, enabled?: viewing_enabled)
     }
 
     visit crime_application_path(application_id)
@@ -26,6 +27,21 @@ RSpec.describe 'Viewing supporting evidence' do
           expect(card).to have_summary_row 'test.pdf', link_text
 
           click_link(link_text)
+        end
+      end
+
+      context 'when viewing evidence is enabled' do
+        let(:viewing_enabled) { true }
+        let(:content_dispostion) { 'inline' }
+
+        it 'shows a link to download the supporting evidence' do
+          link_text = 'View test.pdf'
+
+          within(files_card) do |card|
+            expect(card).to have_summary_row 'test.pdf', link_text
+
+            click_link(link_text)
+          end
         end
       end
     end

@@ -34,8 +34,8 @@ RSpec.describe Datastore::Documents::Download do
           .to_return(status: 500)
       end
 
-      it 'returns false' do
-        expect(download_service.call).to be(false)
+      it 'raises an DownloadError' do
+        expect { download_service.call }.to raise_error Datastore::Documents::DownloadError
       end
     end
 
