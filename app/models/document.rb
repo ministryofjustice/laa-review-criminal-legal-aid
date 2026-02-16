@@ -3,6 +3,7 @@ require 'laa_crime_schemas'
 class Document < LaaCrimeSchemas::Structs::Document
   VIEWABLE_CONTENT_TYPES = [
     'application/pdf',
+    'image/bmp',
     'image/jpeg',
     'image/png'
   ].freeze

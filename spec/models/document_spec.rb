@@ -20,6 +20,14 @@ RSpec.describe Document do
       end
     end
 
+    context 'with BMP image content type' do
+      let(:content_type) { 'image/bmp' }
+
+      it 'returns true as BMP images can be viewed inline in browsers' do
+        expect(document).to be_viewable_inline
+      end
+    end
+
     context 'with JPEG image content type' do
       let(:content_type) { 'image/jpeg' }
 
