@@ -10,8 +10,7 @@ feature_flags:
   view_evidence:
     local: true
     test: false
-    staging: false
-    preprod: false
+    staging: true
     production: false
 
 # For settings that vary by HostEnv name
