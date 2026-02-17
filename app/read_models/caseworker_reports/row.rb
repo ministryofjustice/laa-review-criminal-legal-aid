@@ -4,7 +4,6 @@ module CaseworkerReports
       assigned_to_user
       reassigned_to_user
       reassigned_from_user
-      unassigned_from_user
       completed_by_user
       sent_back_by_user
     ].freeze
@@ -12,17 +11,27 @@ module CaseworkerReports
     def initialize(user_id, work_queue = nil)
       @user_id = user_id
       @work_queue = work_queue
+      @unassigned_from_user_ids = []
 
       COUNTERS.each do |counter|
         instance_variable_set(:"@#{counter}", 0)
       end
     end
 
-    attr_reader :user_id, :work_queue, *COUNTERS
+    attr_reader :user_id, :work_queue, :unassigned_from_user_ids, *COUNTERS
 
     def user_name
       User.name_for(@user_id)
     end
+
+    # plan so far:
+    # add ids for assigned and unassigned etc to the data
+    # store in the generated reports
+    # link to the period for the caseworker
+    # caseworker controller will use user id to key the caseworker report and get the attribute required
+    #
+    # alternative is to create a new linked stream for each caseworker
+    # this can then be used to build an individual report.
 
     def total_assigned_to_user
       assigned_to_user + reassigned_to_user
@@ -66,8 +75,16 @@ module CaseworkerReports
       @reassigned_from_user += 1
     end
 
-    def unassign
-      @unassigned_from_user += 1
+    def unassign(assignment_id)
+      @unassigned_from_user_ids << assignment_id
+    end
+
+    def unassigned_from_user
+      @unassigned_from_user_ids.size
+    end
+
+    def unassigned_ids
+      @unassigned_ids += 1
     end
 
     def send_back

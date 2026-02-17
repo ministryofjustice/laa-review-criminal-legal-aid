@@ -35,7 +35,7 @@ module CaseworkerReports
               lambda { |rows, event|
                 user_id = event.data.fetch(:from_whom_id)
                 rows[user_id] ||= Row.new(user_id)
-                rows[user_id].unassign
+                rows[user_id].unassign(event.data.fetch(:assignment_id))
               }
             )
             .when(
