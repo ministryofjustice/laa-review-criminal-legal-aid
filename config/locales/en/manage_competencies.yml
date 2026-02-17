@@ -33,7 +33,7 @@ en:
       save: Save
 
     hint: Select all that apply
-    
+
     labels:
       application_type_competencies: Types of application
       work_stream_competencies: Work queues

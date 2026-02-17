@@ -26,6 +26,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
   attribute? :work_stream, Types::Array.of(Types::WorkStreamType)
   attribute? :application_type, Types::Array.of(Types::ApplicationType)
   attribute? :office_code, Types::Params::Nil | Types::Params::String
+  attribute? :application_id_in, Types::Array.of(Types::Params::String)
 
   # Options for the assigned status filter
   # Includes "Unassigned", "All assigned" prepended to a list of all user names.
@@ -93,7 +94,7 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
   def active_datastore_filters
     filters = active_filters & DATASTORE_FILTERS
     filters << :application_id_in if application_id_in
-    filters
+    filters.uniq
   end
 
   def applicant_date_of_birth_datastore_param
@@ -140,9 +141,17 @@ class ApplicationSearchFilter < ApplicationStruct # rubocop:disable Metrics/Clas
     { office_code: }
   end
 
-  # Returns the intersection of all active review filters' application_ids.
+  # Returns the intersection of all active review filters' application_ids
+  # merged with any explicitly provided application_id_in attribute.
   def application_id_in
-    active_review_filters_application_ids.reduce(:&)
+    ids_from_filters = active_review_filters_application_ids.reduce(:&)
+    ids_from_attribute = attributes[:application_id_in]
+
+    if ids_from_filters && ids_from_attribute
+      ids_from_filters & ids_from_attribute
+    else
+      ids_from_filters || ids_from_attribute
+    end
   end
 
   # Returns an array application_ids for each active review filter
