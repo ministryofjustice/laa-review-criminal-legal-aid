@@ -34,8 +34,13 @@ After you've defined your DB configuration in the above files, run the following
 
 Once all the above is done, you should be able to run the application as follows:
 
-a) `bin/dev` - will run foreman, spawning a rails server, `yarn build` and `yarn build:css` to process JS and SCSS files and watch for any changes.  
-b) `rails server` - will only run the rails server, usually fine if you are not making changes to the CSS.
+a) `bin/dev` - will run foreman, spawning:
+ 1. a rails server
+ 2. `yarn build` and `yarn build:css` to process JS and SCSS files and watch for any changes
+ 3. `sidekiq` to execute background jobs. This requires Redis.
+ 4. `message_poller` to facilitate SNS/SQS message polling between Datastore and Review. Note that this requires Localstack - refer to the [Datastore SNS notifications and S3 buckets section](https://github.com/ministryofjustice/laa-criminal-applications-datastore#getting-started).
+
+b) `rails server` - will only run the rails server, usually fine if you are not making changes to the CSS and do not require background jobs or messaging between Datastore and Review.
 
 You can also compile assets manually with `rails assets:precompile` at any time, and just run the rails server, without foreman.
 
