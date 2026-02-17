@@ -87,8 +87,8 @@ RSpec.describe Aws::MessagePoller do
       end
     end
 
-    context 'when event_name is apply.archived' do
-      let(:event_name) { 'apply.archived' }
+    context 'when event_name is Applying::Archived' do
+      let(:event_name) { 'Applying::Archived' }
       let(:data) do
         {
           id: application_id,
@@ -105,8 +105,8 @@ RSpec.describe Aws::MessagePoller do
       end
     end
 
-    context 'when event_name is datastore.soft_deletion' do
-      let(:event_name) { 'datastore.soft_deletion' }
+    context 'when event_name is Deleting::SoftDeleted' do
+      let(:event_name) { 'Deleting::SoftDeleted' }
       let(:data) do
         {
           id: application_id,
