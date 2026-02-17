@@ -87,6 +87,15 @@ http://laa-apply-for-criminal-legal-aid.test/api/applications
 http://laa-apply-for-criminal-legal-aid.test/api/applications/<application-id>
 ```
 
+### Pre-commit hooks
+
+We use the Ministry of Justice [DevSecOps Hooks](https://github.com/ministryofjustice/devsecops-hooks) to scan our repository and stop us from committing hardcoded secrets and credentials. Refer to their repository for documentation on how to set up the pre-commit hooks locally.
+
+With pre-commit hooks enabled, the following tools are run on each commit:
+- GitLeaks (via [devsecops-hooks](https://github.com/ministryofjustice/devsecops-hooks))
+- Rubocop
+- ERB Lint
+
 ## Running the tests
 
 You can run all the code linters and tests with:
