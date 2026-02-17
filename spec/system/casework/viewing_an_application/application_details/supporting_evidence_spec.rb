@@ -31,6 +31,18 @@ RSpec.describe 'Viewing supporting evidence' do
         end
       end
 
+      it 'logs evidence download event' do
+        link_text = 'Download file (pdf, 12 Bytes)'
+
+        allow(EvidenceAccessLogger).to receive(:log_download)
+
+        within(files_card) do
+          click_link(link_text)
+        end
+
+        expect(EvidenceAccessLogger).to have_received(:log_download)
+      end
+
       context 'when viewing evidence is enabled' do
         let(:viewing_enabled) { true }
 
@@ -42,6 +54,18 @@ RSpec.describe 'Viewing supporting evidence' do
               click_link(link_text)
               expect(current_path).to eq('/crime-apply-documents-dev/42/WtpJTOwsQ2')
             end
+          end
+
+          it 'logs evidence view event' do
+            link_text = 'View'
+
+            allow(EvidenceAccessLogger).to receive(:log_view)
+
+            within(files_card) do
+              click_link(link_text)
+            end
+
+            expect(EvidenceAccessLogger).to have_received(:log_view)
           end
         end
 
