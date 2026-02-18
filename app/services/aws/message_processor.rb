@@ -21,7 +21,7 @@ module Aws
     def resolve_event
       case message.event_name
       when 'apply.submission' then ReceiveApplicationEvent
-      when 'Applying::Archived' then ArchivedEvent
+      when 'Deleting::Archived' then ArchivedEvent
       when 'Deleting::SoftDeleted' then SoftDeletionEvent
       end
     end
