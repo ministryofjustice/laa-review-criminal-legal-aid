@@ -1,22 +1,20 @@
-FROM ruby:3.4.3-alpine3.21
+FROM ruby:3.4.8-alpine3.23
 LABEL maintainer="LAA Crime Apply Team"
 
 RUN apk --no-cache add --virtual build-deps \
   build-base \
-  postgresql15-dev \
+  postgresql17-dev \
   git \
   bash \
   curl \
   && apk --no-cache add \
-  postgresql15-client \
+  postgresql17-client \
   shared-mime-info \
   linux-headers \
   nodejs \
-  npm \
   xz-libs \
   tzdata \
   yaml-dev \
-  yarn \
   gcompat
 
 # add non-root user and group with alpine first available uid, 1000
@@ -41,8 +39,12 @@ RUN gem install bundler && \
 COPY . .
 
 # Install JavaScript dependencies
-RUN npm install -g corepack && \
-  corepack enable && corepack prepare yarn@4.7.0 --activate && \
+# Install npm temporarily only to set up corepack, then remove it
+RUN apk add --no-cache --virtual .npm-deps npm && \
+  npm install -g corepack && \
+  apk del .npm-deps && \
+  corepack enable && \
+  corepack prepare yarn@4.11.0 --activate && \
   yarn install --frozen-lockfile
 
 RUN RAILS_ENV=production \
