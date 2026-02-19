@@ -7,6 +7,9 @@ Rails.configuration.to_prepare do
   # Deciding
   Deciding::Configuration.new.call(event_store)
 
+  # Reviewing
+  Reviewing::Configuration.new.call(event_store)
+
   # Read Models
   CurrentAssignments::Configuration.new.call(event_store)
   ReceivedOnReports::Configuration.new.call(event_store)

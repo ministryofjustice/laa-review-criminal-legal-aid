@@ -34,8 +34,13 @@ After you've defined your DB configuration in the above files, run the following
 
 Once all the above is done, you should be able to run the application as follows:
 
-a) `bin/dev` - will run foreman, spawning a rails server, `yarn build` and `yarn build:css` to process JS and SCSS files and watch for any changes.  
-b) `rails server` - will only run the rails server, usually fine if you are not making changes to the CSS.
+a) `bin/dev` - will run foreman, spawning:
+ 1. a rails server
+ 2. `yarn build` and `yarn build:css` to process JS and SCSS files and watch for any changes
+ 3. `sidekiq` to execute background jobs. This requires Redis.
+ 4. `message_poller` to facilitate SNS/SQS message polling between Datastore and Review. Note that this requires Localstack - refer to the [Datastore SNS notifications and S3 buckets section](https://github.com/ministryofjustice/laa-criminal-applications-datastore#getting-started).
+
+b) `rails server` - will only run the rails server, usually fine if you are not making changes to the CSS and do not require background jobs or messaging between Datastore and Review.
 
 You can also compile assets manually with `rails assets:precompile` at any time, and just run the rails server, without foreman.
 
@@ -80,6 +85,20 @@ http://laa-apply-for-criminal-legal-aid.test/
 ## Access dev api (as defined in the gem)
 http://laa-apply-for-criminal-legal-aid.test/api/applications
 http://laa-apply-for-criminal-legal-aid.test/api/applications/<application-id>
+```
+
+### Pre-commit hooks
+
+We use the Ministry of Justice [DevSecOps Hooks](https://github.com/ministryofjustice/devsecops-hooks) to scan our repository and stop us from committing hardcoded secrets and credentials. Refer to their repository for documentation on how to set up the pre-commit hooks locally.
+
+With pre-commit hooks enabled, the following tools are run on each commit:
+- GitLeaks (via [devsecops-hooks](https://github.com/ministryofjustice/devsecops-hooks))
+- Rubocop
+- ERB Lint
+
+To bypass the hooks, use the `-n` or `--no-verify` option, e.g.
+```shell
+git commit -nam 'My commit'
 ```
 
 ## Running the tests

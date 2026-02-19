@@ -1,3 +1,5 @@
 web: bin/rails server -p 3001
 js: yarn build --watch
 css: yarn build:css --watch
+sidekiq: bin/bundle exec sidekiq
+message_poller: bin/message_poller

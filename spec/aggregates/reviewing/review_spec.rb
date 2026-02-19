@@ -147,4 +147,50 @@ describe Reviewing::Review do
       expect(review.state).to eq :sent_back
     end
   end
+
+  describe 'adding a decision' do
+    let(:user_id) { SecureRandom.uuid }
+
+    before do
+      review.receive_application(submitted_at:, application_type:, reference:)
+    end
+
+    context 'when already reviewed' do
+      before do
+        review.complete(user_id:)
+      end
+
+      it 'raises AlreadyReviewed' do
+        expect { review.add_decision(decision_id: SecureRandom.uuid) }.to raise_error(Reviewing::AlreadyReviewed)
+      end
+    end
+  end
+
+  describe 'removing a decision' do
+    let(:user_id) { SecureRandom.uuid }
+
+    before do
+      review.receive_application(submitted_at:, application_type:, reference:)
+    end
+
+    context 'when already reviewed' do
+      before do
+        review.complete(user_id:)
+      end
+
+      it 'raises AlreadyReviewed' do
+        expect do
+          review.remove_decision(decision_id: SecureRandom.uuid, user_id: user_id)
+        end.to raise_error(Reviewing::AlreadyReviewed)
+      end
+    end
+
+    context 'when the decision is not linked' do
+      it 'raises DecisionNotLinked' do
+        expect do
+          review.remove_decision(decision_id: SecureRandom.uuid, user_id: user_id)
+        end.to raise_error(Reviewing::DecisionNotLinked)
+      end
+    end
+  end
 end

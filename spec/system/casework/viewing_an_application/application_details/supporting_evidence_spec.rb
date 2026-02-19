@@ -4,9 +4,11 @@ RSpec.describe 'Viewing supporting evidence' do
   include_context 'with stubbed application'
   include_context 'when downloading a document'
 
+  let(:viewing_enabled) { false }
+
   before do
     allow(FeatureFlags).to receive(:view_evidence) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      instance_double(FeatureFlags::EnabledFeature, enabled?: viewing_enabled)
     }
 
     visit crime_application_path(application_id)
@@ -26,6 +28,54 @@ RSpec.describe 'Viewing supporting evidence' do
           expect(card).to have_summary_row 'test.pdf', link_text
 
           click_link(link_text)
+        end
+      end
+
+      it 'logs evidence download event' do
+        link_text = 'Download file (pdf, 12 Bytes)'
+
+        allow(EvidenceAccessLogger).to receive(:log_download)
+
+        within(files_card) do
+          click_link(link_text)
+        end
+
+        expect(EvidenceAccessLogger).to have_received(:log_download)
+      end
+
+      context 'when viewing evidence is enabled' do
+        let(:viewing_enabled) { true }
+
+        include_context 'when viewing a document' do
+          it 'navigates to the document viewer when clicking the view link' do
+            link_text = 'View'
+
+            within(files_card) do
+              click_link(link_text)
+              expect(current_path).to eq('/crime-apply-documents-dev/42/WtpJTOwsQ2')
+            end
+          end
+
+          it 'logs evidence view event' do
+            link_text = 'View'
+
+            allow(EvidenceAccessLogger).to receive(:log_view)
+
+            within(files_card) do
+              click_link(link_text)
+            end
+
+            expect(EvidenceAccessLogger).to have_received(:log_view)
+          end
+        end
+
+        it 'navigates to the document download when clicking the download link' do
+          link_text = 'Download file (pdf, 12 Bytes)'
+
+          within(files_card) do
+            click_link(link_text)
+            expect(current_path).to eq('/crime-apply-documents-dev/42/WtpJTOwsQ2')
+          end
         end
       end
     end

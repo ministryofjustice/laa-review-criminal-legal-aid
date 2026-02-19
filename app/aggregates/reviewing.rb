@@ -26,4 +26,10 @@ module Reviewing
       Rails.configuration.event_store.read.stream(stream_name(application_id)).first
     end
   end
+
+  class Configuration
+    def call(event_store)
+      event_store.subscribe(Reviewing::Handlers::CompleteReview, to: [Reviewing::Completed])
+    end
+  end
 end

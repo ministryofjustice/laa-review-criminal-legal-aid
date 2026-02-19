@@ -1,17 +1,20 @@
 module Datastore
   module Documents
+    class DownloadError < StandardError; end
+
     class Download
       PRESIGNED_URL_EXPIRES_IN = 15 # seconds
 
-      attr_accessor :document, :log_context
+      attr_accessor :document, :log_context, :inline
 
-      def initialize(document:, log_context:)
+      def initialize(document:, log_context:, inline: false)
         @document = document
         @log_context = log_context
+        @inline = inline
       end
 
       def call
-        Rails.error.handle(fallback: -> { false }, context: @log_context, severity: :error) do
+        Rails.error.handle(fallback: -> { raise DownloadError }, context: @log_context, severity: :error) do
           DatastoreApi::Requests::Documents::PresignDownload.new(
             object_key:, expires_in:, response_content_disposition:
           ).call
@@ -32,7 +35,7 @@ module Datastore
         # To force download of file rather than opening in another window
         filename_safe = @document.filename.gsub(/[^a-zA-Z0-9._-]/, '_')
         filename_escaped = ERB::Util.url_encode(@document.filename)
-        content_disposition = FeatureFlags.view_evidence.enabled? ? 'inline' : 'attachment'
+        content_disposition = @inline ? 'inline' : 'attachment'
         %(#{content_disposition}; filename=#{filename_safe}; filename*= UTF-8''#{filename_escaped};)
       end
     end

@@ -75,6 +75,7 @@ group :test do
   gem 'brakeman'
   gem 'capybara'
   gem 'erb_lint', '>= 0.7.0', require: false
+  gem 'rspec_junit_formatter'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
