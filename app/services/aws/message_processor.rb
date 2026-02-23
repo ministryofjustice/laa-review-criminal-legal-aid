@@ -8,19 +8,18 @@ module Aws
 
     def initialize(message:)
       @message = message
-      @event = resolve_event
     end
 
-    def process!
+    def process! # rubocop:disable Metrics/AbcSize
       Rails.logger.debug { "Processing '#{message.event_name}' event #{message.id}: #{message.data}" }
-      @event.new(id: message.id, data: message.data).create!
-    end
 
-    private
-
-    def resolve_event
       case message.event_name
-      when 'apply.submission' then ReceiveApplicationEvent
+      when 'apply.submission'
+        Reviewing::ReceiveApplicationEvent.call(id: message.id, data: message.data)
+      when 'Deleting::Archived'
+        Deleting::ArchiveApplicationEvent.call(id: message.id, data: message.data)
+      when 'Deleting::SoftDeleted'
+        Deleting::SoftDeleteApplicationEvent.call(id: message.id, data: message.data)
       end
     end
   end
