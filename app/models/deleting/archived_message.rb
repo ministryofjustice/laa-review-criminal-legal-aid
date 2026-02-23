@@ -1,5 +1,5 @@
-module Aws
-  class ArchivedEvent
+module Deleting
+  class ArchivedMessage
     attr_reader :id, :data
 
     alias causation_id id
@@ -8,16 +8,6 @@ module Aws
       @id = id
       @data = data
     end
-
-    def create!
-      event = Deleting::Archived.new(
-        data: { application_id:, application_type:, reference:, archived_at: }
-      )
-
-      Rails.configuration.event_store.publish(event)
-    end
-
-    private
 
     def application_id
       data['id']
