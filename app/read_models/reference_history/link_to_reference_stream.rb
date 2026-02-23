@@ -28,8 +28,7 @@ module ReferenceHistory
       application_id = application_id_for(event)
       return if application_id.blank?
 
-      review = Review.find_by(application_id:)
-      review&.reference
+      Review.where(application_id:).limit(1).pick(:reference)
     end
 
     def application_id_for(event)

@@ -18,7 +18,7 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
       end
 
       before do
-        allow(Review).to receive(:find_by)
+        allow(Review).to receive(:where)
         call
       end
 
@@ -30,7 +30,7 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
       end
 
       it 'does not need to look up a review' do
-        expect(Review).not_to have_received(:find_by)
+        expect(Review).not_to have_received(:where)
       end
     end
 
@@ -41,15 +41,17 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
         )
       end
 
-      let(:review) { instance_double(Review, reference:) }
+      let(:relation) { instance_double(ActiveRecord::Relation) }
 
       before do
-        allow(Review).to receive(:find_by).with(application_id:).and_return(review)
+        allow(Review).to receive(:where).with(application_id:).and_return(relation)
+        allow(relation).to receive(:limit).with(1).and_return(relation)
+        allow(relation).to receive(:pick).with(:reference).and_return(reference)
         call
       end
 
       it 'looks up the review based on the application id derived from the event data' do
-        expect(Review).to have_received(:find_by).with(application_id:)
+        expect(Review).to have_received(:where).with(application_id:)
       end
 
       it 'links the event to the reference stream' do
@@ -67,8 +69,12 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
         )
       end
 
+      let(:relation) { instance_double(ActiveRecord::Relation) }
+
       before do
-        allow(Review).to receive(:find_by).with(application_id:).and_return(nil)
+        allow(Review).to receive(:where).with(application_id:).and_return(relation)
+        allow(relation).to receive(:limit).with(1).and_return(relation)
+        allow(relation).to receive(:pick).with(:reference).and_return(nil)
         call
       end
 
