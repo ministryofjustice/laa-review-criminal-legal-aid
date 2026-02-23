@@ -1,5 +1,7 @@
 # laa-review-criminal-legal-aid
 
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/laa-review-criminal-legal-aid/badge)](https://github-community.service.justice.gov.uk/repository-standards/laa-review-criminal-legal-aid)
+
 [![CI and CD](https://github.com/ministryofjustice/laa-review-criminal-legal-aid/actions/workflows/test-build-deploy.yml/badge.svg)](https://github.com/ministryofjustice/laa-review-criminal-legal-aid/actions/workflows/test-build-deploy.yml)
 
 A service to review criminal legal aid applications.  
