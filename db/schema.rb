@@ -104,7 +104,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_28_175439) do
     t.string "work_stream", default: "criminal_applications_team"
     t.date "reviewed_on"
     t.string "application_type", default: "initial"
-    t.integer "reference"
+    t.string "reference"
     t.index ["application_id"], name: "index_reviews_on_application_id", unique: true
     t.index ["application_type"], name: "index_reviews_on_application_type"
     t.index ["business_day"], name: "index_reviews_on_business_day"
