@@ -44,7 +44,7 @@ RUN apk add --no-cache --virtual .npm-deps npm && \
   npm install -g corepack && \
   apk del .npm-deps && \
   corepack enable && \
-  corepack prepare yarn@4.11.0 --activate && \
+  corepack prepare yarn@4.12.0 --activate && \
   yarn install --frozen-lockfile
 
 RUN RAILS_ENV=production \
