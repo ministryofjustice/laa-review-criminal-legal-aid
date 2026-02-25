@@ -3,8 +3,6 @@ name: Snyk Open Source
 on:
   pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: "0 21 * * 1" # Mondays at 21:00
 
 permissions:
   contents: read
