@@ -1,4 +1,6 @@
 class Review < ApplicationRecord
+  self.primary_key = :application_id
+
   scope :closed, -> { where.not(reviewer_id: nil) }
   scope :open, -> { where(reviewer_id: nil) }
 

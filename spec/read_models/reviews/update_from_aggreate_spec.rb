@@ -12,6 +12,7 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
     let(:application_type) { 'initial' }
     let(:reviewer_id) { SecureRandom.uuid }
     let(:reviewed_on) { Date.new(2023, 4, 23) }
+    let(:reference) { 1_234_567 }
 
     before do
       id = application_id
@@ -19,7 +20,7 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
       aggregate = instance_double(
         Reviewing::Review,
         id:, state:, submitted_at:, reviewer_id:, parent_id:,
-        business_day:, work_stream:, reviewed_on:, application_type:
+        business_day:, work_stream:, reviewed_on:, application_type:, reference:
       )
 
       allow(Reviewing::LoadReview).to receive(:call).with(application_id:) {
