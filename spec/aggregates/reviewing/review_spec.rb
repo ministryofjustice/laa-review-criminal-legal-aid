@@ -148,6 +148,48 @@ describe Reviewing::Review do
     end
   end
 
+  describe 'adding a reference to a received application' do
+    let(:new_reference) { 789_012 }
+
+    before do
+      review.receive_application(submitted_at: submitted_at, application_type: application_type, reference: nil)
+    end
+
+    context 'when a ReferenceAdded event is applied' do
+      before do
+        review.apply(
+          Reviewing::ReferenceAdded.new(data: { application_id: review.application_id, reference: new_reference })
+        )
+      end
+
+      it 'sets the reference' do
+        expect(review.reference).to eq new_reference
+      end
+
+      it 'creates an event' do
+        expect(review.unpublished_events.map(&:event_type)).to include(
+          'Reviewing::ReferenceAdded'
+        )
+      end
+    end
+
+    context 'when reference was already set via ApplicationReceived' do
+      subject(:review_with_ref) { described_class.new(SecureRandom.uuid) }
+
+      before do
+        review_with_ref.receive_application(submitted_at:, application_type:, reference:)
+        review_with_ref.apply(
+          Reviewing::ReferenceAdded.new(data: { application_id: review_with_ref.application_id,
+                                                reference: new_reference })
+        )
+      end
+
+      it 'overwrites the reference' do
+        expect(review_with_ref.reference).to eq new_reference
+      end
+    end
+  end
+
   describe 'adding a decision' do
     let(:user_id) { SecureRandom.uuid }
 
