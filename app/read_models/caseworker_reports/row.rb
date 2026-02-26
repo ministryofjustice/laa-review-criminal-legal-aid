@@ -24,15 +24,6 @@ module CaseworkerReports
       User.name_for(@user_id)
     end
 
-    # plan so far:
-    # add ids for assigned and unassigned etc to the data
-    # store in the generated reports
-    # link to the period for the caseworker
-    # caseworker controller will use user id to key the caseworker report and get the attribute required
-    #
-    # alternative is to create a new linked stream for each caseworker
-    # this can then be used to build an individual report.
-
     def total_assigned_to_user
       assigned_to_user + reassigned_to_user
     end
@@ -75,16 +66,12 @@ module CaseworkerReports
       @reassigned_from_user += 1
     end
 
-    def unassign(assignment_id)
+    def unassign(assignment_id = nil)
       @unassigned_from_user_ids << assignment_id
     end
 
     def unassigned_from_user
       @unassigned_from_user_ids.size
-    end
-
-    def unassigned_ids
-      @unassigned_ids += 1
     end
 
     def send_back

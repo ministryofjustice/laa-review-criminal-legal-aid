@@ -33,9 +33,10 @@ module CaseworkerReports
                 Assigning::UnassignedFromUser,
                 lambda { |rows, event|
                   user_id = event.data.fetch(:from_whom_id)
-                  review = Review.find_by(application_id: event.data.fetch(:assignment_id))
-                  count_event(rows: rows, counter: :unassign, user_id: user_id, work_queue: review.work_stream,
-                              is_pse: review.pse?)
+                  assignment_id = event.data.fetch(:assignment_id)
+                  review = Review.find_by(application_id: assignment_id)
+                  unassign_event(rows: rows, assignment_id: assignment_id, user_id: user_id,
+                                 work_queue: review.work_stream, is_pse: review.pse?)
                 }
               )
               .when(
@@ -68,6 +69,15 @@ module CaseworkerReports
 
       rows[user_id]['post_submission_evidence'] ||= Row.new(user_id, 'post_submission_evidence')
       rows[user_id]['post_submission_evidence'].send(counter)
+    end
+
+    def unassign_event(rows:, assignment_id:, user_id:, work_queue:, is_pse:)
+      rows[user_id][work_queue] ||= Row.new(user_id, work_queue)
+      rows[user_id][work_queue].unassign(assignment_id)
+      return unless is_pse
+
+      rows[user_id]['post_submission_evidence'] ||= Row.new(user_id, 'post_submission_evidence')
+      rows[user_id]['post_submission_evidence'].unassign(assignment_id)
     end
   end
 end

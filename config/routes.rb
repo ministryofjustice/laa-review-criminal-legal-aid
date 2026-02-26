@@ -92,6 +92,8 @@ Rails.application.routes.draw do
     get ':report_type/:interval/latest-complete', to: 'temporal_reports#latest_complete',
 as: :latest_complete_temporal_report
     get ':report_type/:interval/:period', to: 'temporal_reports#show', as: :temporal_report
+    get 'unassigned_from_self_report/:interval/:period/caseworker/:user_id',
+        to: 'caseworker_reports#show', as: :unassigned_from_self_report
     get ':report_type/:interval/:period/download', to: 'temporal_reports#download', as: :download_temporal_report
     get ':report_type/:date/at/:time', to: 'snapshots#show', as: :snapshot
     get ':report_type/now', to: 'snapshots#now', as: :current_snapshot
