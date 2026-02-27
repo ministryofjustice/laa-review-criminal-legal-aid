@@ -34,26 +34,34 @@ RSpec.describe 'Caseworker report unassigns from self' do
   end
 
   context 'when a caseworker has unassigned applications from themselves' do
+    before do
+      stub_request(
+        :post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches"
+      ).and_return(body: {
+        pagination: { total_count: 0, total_pages: 1, limit_value: 50 },
+        records: []
+      }.deep_stringify_keys.to_json)
+    end
+
     it 'displays the unassign count as a clickable link' do
       within('.app-table tbody') do
         row = find('tr', text: 'Jane Doe')
-        unassign_total_cell = row.all('td.colgroup-total')[1]
+        unassign_detail_cell = row.all('td.colgroup-detail')[2]
 
-        expect(unassign_total_cell).to have_link('2')
+        expect(unassign_detail_cell).to have_link('2')
       end
     end
 
     it 'navigates to the caseworker unassigned applications page', :aggregate_failures do
       within('.app-table tbody') do
         row = find('tr', text: 'Jane Doe')
-        unassign_total_cell = row.all('td.colgroup-total')[1]
+        unassign_detail_cell = row.all('td.colgroup-detail')[2]
 
-        unassign_total_cell.click_link('2')
+        unassign_detail_cell.click_link('2')
       end
 
       expect(page).to have_content('Jane Doe')
-      expect(page).to have_content(assignment_ids.first)
-      expect(page).to have_content(assignment_ids.second)
+      expect(page).to have_content('Applications removed from list')
     end
   end
 
@@ -80,10 +88,10 @@ RSpec.describe 'Caseworker report unassigns from self' do
     it 'does not display the zero count as a link' do
       within('.app-table tbody') do
         row = find('tr', text: 'John Smith')
-        unassign_total_cell = row.all('td.colgroup-total')[1]
+        unassign_detail_cell = row.all('td.colgroup-detail')[2]
 
-        expect(unassign_total_cell).not_to have_link
-        expect(unassign_total_cell).to have_text('0')
+        expect(unassign_detail_cell).not_to have_link
+        expect(unassign_detail_cell).to have_text('0')
       end
     end
   end

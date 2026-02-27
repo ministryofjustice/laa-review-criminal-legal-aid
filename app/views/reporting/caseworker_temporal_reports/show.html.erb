@@ -1,0 +1,86 @@
+<% title "#{@user.name} - Applications removed from list" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Applications removed from list</h1>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <h2 class="govuk-heading-m">Caseworker and competencies</h2>
+        <%= govuk_summary_list(actions: false) do |list|
+          list.with_row do |row|
+            row.with_key { 'Caseworker' }
+            row.with_value { @user.name }
+          end
+
+          list.with_row do |row|
+            row.with_key { 'Work queues' }
+            row.with_value { @user.work_streams.map(&:label).join(', ').presence || 'None' }
+          end
+
+          list.with_row do |row|
+            row.with_key { 'Types of application' }
+            row.with_value do
+              @user.application_types_competencies.map { |c| t(c, scope: :labels) }.join(', ').presence || 'None'
+            end
+          end
+        end %>
+      </div>
+    </div>
+
+    <div class="govuk-tabs">
+      <ul class="govuk-tabs__list" role="tablist">
+        <% @intervals.each do |interval| %>
+          <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
+          <%= content_tag(:li, class: @interval == interval ? css_class : css_class.first) do %>
+            <%= link_to(
+                  label_tag(interval),
+                  reporting_latest_complete_caseworker_temporal_report_path(
+                    interval: interval,
+                    report_type: @report_type,
+                    user_id: @caseworker_id
+                  ),
+                  class: 'govuk-tabs__tab'
+                ) %>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <div class='govuk-tabs__panel'>
+        <%= render partial: 'block_pagination', locals: { report: @report } %>
+
+        <h2 class="govuk-heading-m"><%= @report.period_name %></h2>
+
+        <% if @search.results.empty? %>
+          <p class="govuk-body">No unassigned applications found.</p>
+        <% else %>
+          <div class="app-table-container">
+            <table class="govuk-table app-table">
+              <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th class="govuk-table__header" scope="col">Applicant name</th>
+                  <th class="govuk-table__header" scope="col">Reference</th>
+                  <th class="govuk-table__header" scope="col">Application type</th>
+                  <th class="govuk-table__header" scope="col">Case type</th>
+                  <th class="govuk-table__header" scope="col">Date submitted</th>
+                  <th class="govuk-table__header" scope="col">Date reviewed</th>
+                  <th class="govuk-table__header" scope="col">Caseworker</th>
+                  <th class="govuk-table__header" scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+                <%= render partial: 'reporting/caseworker_temporal_reports/search_result_row',
+                           collection: @search.results,
+                           as: :result %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for(:back_link) do %>
+  <%= govuk_back_link href: :back %>
+<% end %>
