@@ -226,38 +226,9 @@ First, verify evidence logs are being captured:
 }
 ```
 
-### Count Downloads by File Type
+### View vs Download Ratio by File Type
 
-```json
-{
-  "size": 0,
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "kubernetes.namespace_name.keyword": "laa-review-criminal-legal-aid-production"
-          }
-        },
-        { "match": { "log": "evidence_downloaded" } },
-        { "range": { "@timestamp": { "gte": "now-7d" } } }
-      ]
-    }
-  },
-  "aggs": {
-    "by_file_type": {
-      "terms": {
-        "script": {
-          "source": "if (doc['log.keyword'].size() == 0) { return 'unknown'; } def m = /\"file_type\":\"([^\"]+)\"/.matcher(doc['log.keyword'].value); m.find() ? m.group(1) : 'unknown'"
-        },
-        "size": 10
-      }
-    }
-  }
-}
-```
-
-### Activity by Caseworker
+Compare viewing and downloading behavior across different file types to understand how users interact with different content formats.
 
 ```json
 {
@@ -280,13 +251,59 @@ First, verify evidence logs are being captured:
     }
   },
   "aggs": {
-    "by_caseworker": {
+    "by_file_type": {
       "terms": {
         "script": {
-          "source": "if (doc['log.keyword'].size() == 0) { return 'unknown'; } def m = /\"caseworker_id\":\"([^\"]+)\"/.matcher(doc['log.keyword'].value); m.find() ? m.group(1) : 'unknown'"
+          "source": "def log = params._source.log; if (log == null) return 'unknown'; def matcher = /\"file_type\":\"([^\"]+)\"/.matcher(log); return matcher.find() ? matcher.group(1) : 'unknown';",
+          "lang": "painless"
         },
-        "size": 20
+        "size": 10
+      },
+      "aggs": {
+        "by_action": {
+          "filters": {
+            "filters": {
+              "evidence_viewed": { "match": { "log": "evidence_viewed" } },
+              "evidence_downloaded": {
+                "match": { "log": "evidence_downloaded" }
+              }
+            }
+          }
+        }
       }
+    }
+  }
+}
+```
+
+**Returns:** For each file type, shows the count of views vs downloads. Calculate ratio as `views / downloads`. Example response structure:
+
+```json
+{
+  "aggregations": {
+    "by_file_type": {
+      "buckets": [
+        {
+          "key": "application/pdf",
+          "doc_count": 142,
+          "by_action": {
+            "buckets": {
+              "evidence_viewed": { "doc_count": 89 },
+              "evidence_downloaded": { "doc_count": 53 }
+            }
+          }
+        },
+        {
+          "key": "image/jpeg",
+          "doc_count": 78,
+          "by_action": {
+            "buckets": {
+              "evidence_viewed": { "doc_count": 62 },
+              "evidence_downloaded": { "doc_count": 16 }
+            }
+          }
+        }
+      ]
     }
   }
 }
@@ -316,6 +333,77 @@ First, verify evidence logs are being captured:
         "field": "@timestamp",
         "calendar_interval": "day"
       }
+    }
+  }
+}
+```
+
+### Daily Trends: Views vs Downloads Over Time
+
+Track daily counts for both evidence viewing and downloading events to visualize trends and compare behavior patterns over time.
+
+```json
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "kubernetes.namespace_name.keyword": "laa-review-criminal-legal-aid-production"
+          }
+        },
+        { "range": { "@timestamp": { "gte": "now-7d" } } }
+      ],
+      "should": [
+        { "match": { "log": "evidence_viewed" } },
+        { "match": { "log": "evidence_downloaded" } }
+      ],
+      "minimum_should_match": 1
+    }
+  },
+  "aggs": {
+    "daily_trends": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "calendar_interval": "day"
+      },
+      "aggs": {
+        "by_action": {
+          "filters": {
+            "filters": {
+              "evidence_viewed": { "match": { "log": "evidence_viewed" } },
+              "evidence_downloaded": {
+                "match": { "log": "evidence_downloaded" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Returns:** Daily buckets with separate counts for views and downloads. Example response structure:
+
+```json
+{
+  "aggregations": {
+    "daily_trends": {
+      "buckets": [
+        {
+          "key_as_string": "2024-01-15T00:00:00.000Z",
+          "key": 1705276800000,
+          "doc_count": 45,
+          "by_action": {
+            "buckets": {
+              "evidence_viewed": { "doc_count": 28 },
+              "evidence_downloaded": { "doc_count": 17 }
+            }
+          }
+        }
+      ]
     }
   }
 }
