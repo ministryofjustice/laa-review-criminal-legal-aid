@@ -51,7 +51,7 @@ module Reporting
     end
 
     def temporal_report_types
-      current_user.reports & Types::TemporalReportType.values
+      (current_user.reports & Types::TemporalReportType.values) - Types::CaseworkerTemporalReportType.values
     end
 
     def snapshot_report_types

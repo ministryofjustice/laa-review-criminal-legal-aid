@@ -76,12 +76,15 @@ module Types
                          return_reasons_report
                          current_workload_report
                          volumes_by_office_report
+                         unassigned_from_self_report
                        ])
 
   SnapshotReportType = String.enum(Report['workload_report'])
   TemporalReportType = String.enum(Report['caseworker_report'],
                                    Report['return_reasons_report'],
-                                   Report['volumes_by_office_report'])
+                                   Report['volumes_by_office_report'],
+                                   Report['unassigned_from_self_report'])
+  CaseworkerTemporalReportType = String.enum(Report['unassigned_from_self_report'])
 
   TemporalInterval = String.enum('daily', 'weekly', 'monthly')
 
