@@ -37,7 +37,7 @@
       <%= render partial: 'copy_button', locals: { text: t('calls_to_action.copy'), id: 'copy-date-of-birth', aria_label: 'Copy date of birth' } %>
     </dd>
   </div>
-  <% unless crime_application.pse? || crime_application.appeal_no_changes? %>
+  <% unless crime_application.pse? %>
     <% unless crime_application.means_passported_on_age? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

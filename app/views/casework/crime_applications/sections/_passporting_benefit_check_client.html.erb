@@ -1,4 +1,4 @@
-<% unless crime_application.means_passported_on_age? || crime_application.not_means_tested? || crime_application.appeal_no_changes? %>
+<% unless crime_application.means_passported_on_age? || crime_application.not_means_tested? %>
   <%= govuk_summary_card(title: label_text_with_subject(:passporting_benefit_check, 'client')) do %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
