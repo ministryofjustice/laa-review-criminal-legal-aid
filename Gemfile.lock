@@ -153,7 +153,7 @@ GEM
     bigdecimal (4.0.1)
     bindata (2.5.0)
     bindex (0.8.1)
-    bootsnap (1.17.0)
+    bootsnap (1.23.0)
       msgpack (~> 1.2)
     brakeman (8.0.4)
       racc
@@ -182,7 +182,7 @@ GEM
       railties (>= 6.0.0)
     csv (3.3.2)
     date (3.5.1)
-    debug (1.10.0)
+    debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
     descendants_tracker (0.0.4)
@@ -392,7 +392,7 @@ GEM
       validate_url
       webfinger (~> 2.0)
     orm_adapter (0.5.0)
-    ostruct (0.6.1)
+    ostruct (0.6.3)
     pagy (9.3.3)
     parallel (1.27.0)
     parser (3.3.10.2)
@@ -410,9 +410,10 @@ GEM
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
-    pry (0.14.2)
+    pry (0.16.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
+      reline (>= 0.6.0)
     psych (5.3.1)
       date
       stringio
@@ -627,11 +628,10 @@ GEM
       descendants_tracker (~> 0.0, >= 0.0.3)
     warden (1.2.9)
       rack (>= 2.0.9)
-    web-console (4.2.1)
-      actionview (>= 6.0.0)
-      activemodel (>= 6.0.0)
+    web-console (4.3.0)
+      actionview (>= 8.0.0)
       bindex (>= 0.4.0)
-      railties (>= 6.0.0)
+      railties (>= 8.0.0)
     webfinger (2.1.3)
       activesupport
       faraday (~> 2.0)

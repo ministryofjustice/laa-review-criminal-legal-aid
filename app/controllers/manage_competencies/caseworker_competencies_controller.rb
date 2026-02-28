@@ -25,7 +25,7 @@ module ManageCompetencies
     private
 
     def permitted_params
-      params.require(:user).permit(competencies: [])
+      params.expect(user: [{ competencies: [] }])
     end
   end
 end

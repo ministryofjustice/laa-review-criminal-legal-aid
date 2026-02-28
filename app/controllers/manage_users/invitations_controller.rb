@@ -53,7 +53,7 @@ module ManageUsers
     private
 
     def user_params
-      params.require(:user).permit(:email, :can_manage_others)
+      params.expect(user: [:email, :can_manage_others])
     end
 
     def set_user
