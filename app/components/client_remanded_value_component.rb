@@ -1,8 +1,10 @@
 class ClientRemandedValueComponent < ViewComponent::Base
+  include GovukComponentsHelper
+
   def initialize(raw_value:)
     @raw_value = raw_value
 
-    super
+    super()
   end
 
   def call

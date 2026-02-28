@@ -1,8 +1,10 @@
 class OffenceClassComponent < ViewComponent::Base
+  include GovukComponentsHelper
+
   def initialize(offence:)
     @offence = offence
 
-    super
+    super()
   end
 
   def call
