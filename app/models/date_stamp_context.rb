@@ -6,7 +6,7 @@ class DateStampContext
 
   def applicant
     @applicant ||=
-      (@crime_application.client_details.applicant if @crime_application&.client_details)
+      @crime_application&.client_details&.applicant
   end
 
   def method_missing(name, *args)

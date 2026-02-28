@@ -35,7 +35,9 @@ module OmniAuth
       end
 
       def user
-        @user ||= User.find_by(email:)
+        return @user if defined?(@user)
+
+        @user = User.find_by(email:)
       end
 
       def auth_subject_id
