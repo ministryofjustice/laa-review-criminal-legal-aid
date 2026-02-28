@@ -1,4 +1,5 @@
 class DecisionOverallResultComponent < ViewComponent::Base
+  include GovukComponentsHelper
   include AppTextHelper
 
   with_collection_parameter :decision
@@ -6,7 +7,7 @@ class DecisionOverallResultComponent < ViewComponent::Base
   def initialize(decision:)
     @decision = decision
 
-    super
+    super()
   end
 
   def call
