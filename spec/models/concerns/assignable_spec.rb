@@ -18,6 +18,7 @@ RSpec.describe Assignable do
   let(:assignable) do
     Class.new do
       include Assignable
+
       def id
         1
       end

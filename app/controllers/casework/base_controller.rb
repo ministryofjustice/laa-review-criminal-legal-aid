@@ -17,7 +17,7 @@ module Casework
     rescue_from DatastoreApi::Errors::ConflictError do |e|
       Rails.error.report(e, handled: false, severity: :error)
 
-      render status: :unprocessable_entity, template: 'errors/unprocessable_entity'
+      render status: :unprocessable_content, template: 'errors/unprocessable_entity'
     end
 
     rescue_from DatastoreApi::Errors::NotFoundError do
