@@ -70,6 +70,10 @@ module Reviewing
       @reference = event.data.fetch(:reference, nil)
     end
 
+    on ReferenceAdded do |event|
+      @reference = event.data.fetch(:reference)
+    end
+
     on DecisionAdded do |event|
       @decision_ids << event.data.fetch(:decision_id)
     end
