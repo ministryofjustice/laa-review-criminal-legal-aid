@@ -50,18 +50,5 @@ RSpec.describe "When viewing the client's passporting benefit check details" do
         expect(page).to have_no_content('Passporting benefit Check')
       end
     end
-
-    context 'when application is appeal no changes' do
-      let(:application_data) do
-        super().deep_merge('case_details' => {
-                             'case_type' => 'appeal_to_crown_court',
-                             'appeal_reference_number' => '123456'
-                           })
-      end
-
-      it 'does not show the passporting benefit check section' do
-        expect(page).to have_no_content('Passporting benefit Check')
-      end
-    end
   end
 end

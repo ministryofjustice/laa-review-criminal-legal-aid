@@ -16,9 +16,4 @@ module TypeOfApplication
   def non_means?
     work_stream == Types::WorkStreamType['non_means_tested']
   end
-
-  def appeal_no_changes?
-    case_details&.case_type == Types::CaseType['appeal_to_crown_court'] &&
-      case_details&.appeal_reference_number.present?
-  end
 end
