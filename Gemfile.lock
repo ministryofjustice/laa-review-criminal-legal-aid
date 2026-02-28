@@ -151,7 +151,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
-    brakeman (7.0.0)
+    brakeman (8.0.4)
       racc
     builder (3.3.0)
     business (2.3.0)
