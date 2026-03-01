@@ -3,24 +3,24 @@
   "packageManager": "yarn@4.12.0",
   "engines": {
     "node": ">=18",
-    "yarn": ">=4"
+    "yarn": ">=4.12.0"
   },
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.23",
-    "@ministryofjustice/frontend": "^8.0.0",
+    "@ministryofjustice/frontend": "^8.0.1",
     "govuk-frontend": "^5.14.0",
-    "sass": "^1.94.1"
+    "sass": "^1.97.3"
   },
   "devDependencies": {
-    "esbuild": "^0.27.0"
+    "esbuild": "^0.27.3"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css  ./app/assets/stylesheets/print.scss:./app/assets/builds/print.css  --no-source-map  --load-path=.  --load-path=node_modules  --quiet-deps"
   },
   "resolutions": {
-    "glob": "^13.0.3",
-    "minimatch": "^10.2.3",
+    "glob": "^13.0.6",
+    "minimatch": "^10.2.4",
     "tar": "7.5.9"
   }
 }
