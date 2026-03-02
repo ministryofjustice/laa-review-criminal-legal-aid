@@ -7,6 +7,7 @@ module Reviews
   class Configuration
     READ_MODEL_CHANGING_EVENTS = [
       Reviewing::ApplicationReceived,
+      Reviewing::ReferenceAdded,
       Reviewing::SentBack,
       Reviewing::Completed
     ].freeze
