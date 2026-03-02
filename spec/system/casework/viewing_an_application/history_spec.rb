@@ -53,14 +53,15 @@ RSpec.describe 'Viewing application history' do
       user = User.create(
         first_name: 'Fred',
         last_name: 'Smitheg',
-        auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa',
+        auth_oid: SecureRandom.uuid,
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 
       Assigning::AssignToUser.new(
         user_id: user.id,
         to_whom_id: user.id,
-        assignment_id: crime_application_id
+        assignment_id: crime_application_id,
+        reference: 120_398_120
       ).call
 
       click_on 'Open applications'
@@ -93,14 +94,15 @@ RSpec.describe 'Viewing application history' do
       user = User.create(
         first_name: 'Fred',
         last_name: 'Smitheg',
-        auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa',
+        auth_oid: SecureRandom.uuid,
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 
       Assigning::AssignToUser.new(
         user_id: user.id,
         to_whom_id: user.id,
-        assignment_id: crime_application_id
+        assignment_id: crime_application_id,
+        reference: 120_398_120
       ).call
 
       Reviewing::SendBack.new(

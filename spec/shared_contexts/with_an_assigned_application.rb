@@ -18,7 +18,8 @@ RSpec.shared_context 'with an assigned application', shared_context: :metadata d
     Assigning::AssignToUser.new(
       user_id: assignee.id,
       to_whom_id: assignee.id,
-      assignment_id: crime_application_id
+      assignment_id: crime_application_id,
+      reference: 120_398_120
     ).call
 
     visit '/'

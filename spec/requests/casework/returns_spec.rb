@@ -17,7 +17,7 @@ RSpec.describe 'Returning applications' do
       before do
         another_user_id = SecureRandom.uuid
         Assigning::AssignToUser.new(assignment_id: application_id, user_id: another_user_id,
-                                    to_whom_id: another_user_id).call
+                                    to_whom_id: another_user_id, reference: 100_123).call
 
         new
       end
@@ -44,7 +44,7 @@ RSpec.describe 'Returning applications' do
       describe 'AlreadyReviewed' do
         before do
           Assigning::AssignToUser.new(assignment_id: application_id, user_id: user.id,
-                                      to_whom_id: user.id).call
+                                      to_whom_id: user.id, reference: 100_123).call
           Reviewing::SendBack.new(application_id: application_id, user_id: user.id,
                                   return_details: return_details).call
 
@@ -61,9 +61,9 @@ RSpec.describe 'Returning applications' do
         before do
           another_user_id = SecureRandom.uuid
           Assigning::AssignToUser.new(assignment_id: application_id, user_id: user.id,
-                                      to_whom_id: user.id).call
+                                      to_whom_id: user.id, reference: 100_123).call
           Assigning::ReassignToUser.new(assignment_id: application_id, user_id: another_user_id,
-                                        to_whom_id: another_user_id, from_whom_id: user.id).call
+                                        to_whom_id: another_user_id, from_whom_id: user.id, reference: 100_123).call
 
           create
         end
