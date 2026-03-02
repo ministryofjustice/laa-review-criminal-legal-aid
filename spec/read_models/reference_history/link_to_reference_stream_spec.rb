@@ -75,11 +75,20 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
         allow(Review).to receive(:where).with(application_id:).and_return(relation)
         allow(relation).to receive(:limit).with(1).and_return(relation)
         allow(relation).to receive(:pick).with(:reference).and_return(nil)
+        allow(Rails.error).to receive(:report)
         call
       end
 
-      it 'does not link the event' do
+      it 'does not link the event to any stream' do
         expect(event_store).not_to have_received(:link)
+      end
+
+      it 'reports the error silently' do
+        expect(Rails.error).to have_received(:report).with(
+          an_instance_of(ReferenceHistory::LinkToReferenceStream::ReferenceNotFound),
+          handled: false,
+          severity: :error
+        )
       end
     end
 
@@ -90,10 +99,21 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
         )
       end
 
-      before { call }
+      before do
+        allow(Rails.error).to receive(:report)
+        call
+      end
 
-      it 'does not link the event' do
+      it 'does not link the event to any stream' do
         expect(event_store).not_to have_received(:link)
+      end
+
+      it 'reports the error silently' do
+        expect(Rails.error).to have_received(:report).with(
+          an_instance_of(ReferenceHistory::LinkToReferenceStream::ReferenceNotFound),
+          handled: false,
+          severity: :error
+        )
       end
     end
 
@@ -104,10 +124,21 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
         )
       end
 
-      before { call }
+      before do
+        allow(Rails.error).to receive(:report)
+        call
+      end
 
-      it 'does not link the event' do
+      it 'does not link the event to any stream' do
         expect(event_store).not_to have_received(:link)
+      end
+
+      it 'reports the error silently' do
+        expect(Rails.error).to have_received(:report).with(
+          an_instance_of(ReferenceHistory::LinkToReferenceStream::ReferenceNotFound),
+          handled: false,
+          severity: :error
+        )
       end
     end
   end

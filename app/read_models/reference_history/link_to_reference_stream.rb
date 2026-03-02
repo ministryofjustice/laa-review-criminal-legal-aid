@@ -1,19 +1,18 @@
 module ReferenceHistory
   class LinkToReferenceStream
+    class ReferenceNotFound < StandardError; end
+
     def initialize(event_store: Rails.configuration.event_store)
       @event_store = event_store
     end
 
     def call(event)
       reference = reference_for(event)
-      if reference.blank?
-        Rails.logger.warn(
-          "ReferenceHistory::LinkToReferenceStream could not determine reference for event_id=#{event.event_id}"
-        )
-        return
-      end
+      raise ReferenceNotFound, "Could not determine reference for event_id=#{event.event_id}" if reference.blank?
 
       @event_store.link(event.event_id, stream_name: ReferenceHistory.stream_name(reference))
+    rescue ReferenceNotFound => e
+      Rails.error.report(e, handled: false, severity: :error)
     end
 
     private
