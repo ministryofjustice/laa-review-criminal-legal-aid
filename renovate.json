@@ -1,14 +1,28 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>ministryofjustice/devsecops-actions:renovate"],
+  "extends": ["config:best-practices"],
+  "timezone": "Europe/London",
   "schedule": ["* 12-13 * * *"],
-  "lockFileMaintenance": {
-    "schedule": ["* 12-13 * * *"]
-  },
+  "prHourlyLimit": 7,
   "packageRules": [
     {
       "matchManagers": ["bundler"],
       "groupName": "renovate: bundler"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "pinDigests": true,
+      "groupName": "renovate: docker"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "groupName": "renovate: npm",
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "pinDigests": true,
+      "groupName": "renovate: github-actions"
     }
   ]
 }

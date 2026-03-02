@@ -19,7 +19,7 @@ describe OmniAuth::Strategies::DevAuth do
     it 'uses the tenant url for issuer discovery' do
       expect(strategy.discovery).to be(true)
       expect(strategy.issuer).to match(
-        'https://login.microsoftonline.com/TestAzureTenantID/v2.0'
+        'https://login\.microsoftonline\.com/TestAzureTenantID/v2\.0'
       )
     end
 
