@@ -53,7 +53,7 @@ RSpec.describe 'Viewing application history' do
       user = User.create(
         first_name: 'Fred',
         last_name: 'Smitheg',
-        auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa',
+        auth_oid: SecureRandom.uuid,
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 
@@ -94,7 +94,7 @@ RSpec.describe 'Viewing application history' do
       user = User.create(
         first_name: 'Fred',
         last_name: 'Smitheg',
-        auth_oid: '976658f9-f3d5-49ec-b0a9-485ff8b308fa',
+        auth_oid: SecureRandom.uuid,
         email: 'Fred.Smitheg@justice.gov.uk'
       )
 
