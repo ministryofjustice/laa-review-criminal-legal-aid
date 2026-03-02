@@ -4,7 +4,7 @@ module Casework
     include WorkStreamable
     include CaseworkHelper
 
-    before_action :set_crime_application, only: [:create]
+    before_action :set_crime_application, only: [:create, :destroy]
 
     before_action :require_a_user_work_stream, only: [:next_application]
     before_action :require_app_work_stream, only: [:create]
@@ -22,7 +22,8 @@ module Casework
       Assigning::AssignToUser.new(
         assignment_id: params[:crime_application_id],
         user_id: current_user_id,
-        to_whom_id: current_user_id
+        to_whom_id: current_user_id,
+        reference: current_crime_application.reference
       ).call
 
       set_flash(:assigned_to_self)
@@ -50,7 +51,8 @@ module Casework
       Assigning::UnassignFromUser.new(
         assignment_id: current_assignment.assignment_id,
         user_id: current_user_id,
-        from_whom_id: current_user_id
+        from_whom_id: current_user_id,
+        reference: current_crime_application.reference
       ).call
 
       set_flash(:unassigned_from_self)
@@ -68,12 +70,14 @@ module Casework
     end
 
     def assign_application(next_app_id)
+      application = CrimeApplication.find(next_app_id)
       Assigning::AssignToUser.new(
-        assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id
+        assignment_id: next_app_id, user_id: current_user_id, to_whom_id: current_user_id,
+        reference: application.reference
       ).call
 
       set_flash(:assigned_to_self)
-      CrimeApplication.find(next_app_id)
+      application
     end
   end
 end
