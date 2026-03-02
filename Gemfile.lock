@@ -381,7 +381,7 @@ GEM
     omniauth_openid_connect (0.8.0)
       omniauth (>= 1.9, < 3)
       openid_connect (~> 2.2)
-    openid_connect (2.3.0)
+    openid_connect (2.3.1)
       activemodel
       attr_required (>= 1.0.0)
       email_validator
