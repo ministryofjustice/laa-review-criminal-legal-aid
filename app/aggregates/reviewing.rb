@@ -16,6 +16,7 @@ module Reviewing
 
   class DecisionAdded < Event; end
   class DecisionRemoved < Event; end
+  class ReferenceAdded < Event; end
 
   class << self
     def stream_name(application_id)
