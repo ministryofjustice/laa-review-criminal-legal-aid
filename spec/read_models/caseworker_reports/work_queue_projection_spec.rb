@@ -109,73 +109,73 @@ application_type: 'post_submission_evidence' },
           'completed_by_user' => 1,
           'reassigned_from_user' => 1,
           'reassigned_to_user' => 0,
-          'sent_back_by_user' => 0,
-          'unassigned_from_user' => 1
+          'sent_back_by_user' => 0
         )
+        expect(zoe_cat1.unassigned_from_user).to eq(1)
         expect(zoe_cat2.as_json).to include(
           'assigned_to_user' => 2,
           'completed_by_user' => 0,
           'reassigned_from_user' => 0,
           'reassigned_to_user' => 1,
-          'sent_back_by_user' => 1,
-          'unassigned_from_user' => 0
+          'sent_back_by_user' => 1
         )
+        expect(zoe_cat2.unassigned_from_user).to eq(0)
         expect(zoe_extradition.as_json).to include(
           'assigned_to_user' => 0,
           'completed_by_user' => 1,
           'reassigned_from_user' => 0,
           'reassigned_to_user' => 1,
-          'sent_back_by_user' => 0,
-          'unassigned_from_user' => 0
+          'sent_back_by_user' => 0
         )
+        expect(zoe_extradition.unassigned_from_user).to eq(0)
         expect(zoe_pse.as_json).to include(
           'assigned_to_user' => 2,
           'completed_by_user' => 0,
           'reassigned_from_user' => 0,
           'reassigned_to_user' => 1,
-          'sent_back_by_user' => 0,
-          'unassigned_from_user' => 0
+          'sent_back_by_user' => 0
         )
+        expect(zoe_pse.unassigned_from_user).to eq(0)
         expect(bob_cat1.as_json).to include(
           'assigned_to_user' => 0,
           'completed_by_user' => 0,
           'reassigned_from_user' => 0,
           'reassigned_to_user' => 1,
-          'sent_back_by_user' => 0,
-          'unassigned_from_user' => 0
+          'sent_back_by_user' => 0
         )
+        expect(bob_cat1.unassigned_from_user).to eq(0)
         expect(bob_cat2.as_json).to include(
           'assigned_to_user' => 1,
           'completed_by_user' => 0,
           'reassigned_from_user' => 1,
           'reassigned_to_user' => 0,
-          'sent_back_by_user' => 1,
-          'unassigned_from_user' => 1
+          'sent_back_by_user' => 1
         )
+        expect(bob_cat2.unassigned_from_user).to eq(1)
         expect(bob_extradition.as_json).to include(
           'assigned_to_user' => 1,
           'completed_by_user' => 0,
           'reassigned_from_user' => 1,
           'reassigned_to_user' => 0,
-          'sent_back_by_user' => 0,
-          'unassigned_from_user' => 0
+          'sent_back_by_user' => 0
         )
+        expect(bob_extradition.unassigned_from_user).to eq(0)
         expect(bob_non_means.as_json).to include(
           'assigned_to_user' => 1,
           'completed_by_user' => 1,
           'reassigned_from_user' => 0,
           'reassigned_to_user' => 0,
-          'sent_back_by_user' => 0,
-          'unassigned_from_user' => 0
+          'sent_back_by_user' => 0
         )
+        expect(bob_non_means.unassigned_from_user).to eq(0)
         expect(bob_pse.as_json).to include(
           'assigned_to_user' => 1,
           'completed_by_user' => 0,
           'reassigned_from_user' => 1,
           'reassigned_to_user' => 0,
-          'sent_back_by_user' => 1,
-          'unassigned_from_user' => 1
+          'sent_back_by_user' => 1
         )
+        expect(bob_pse.unassigned_from_user).to eq(1)
       end
 
       it 'records the total number assigned to the user' do
