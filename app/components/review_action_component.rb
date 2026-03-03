@@ -1,9 +1,13 @@
 class ReviewActionComponent < ViewComponent::Base
+  include GovukComponentsHelper
+  include GovukLinkHelper
+  include GovukVisuallyHiddenHelper
+
   def initialize(review_action:, application:)
     @application = application
     @action = review_action
 
-    super
+    super()
   end
 
   attr_reader :application, :action

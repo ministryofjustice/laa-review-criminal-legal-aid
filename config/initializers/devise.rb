@@ -1,10 +1,16 @@
 require 'host_env'
 require 'feature_flags'
 require 'omni_auth/strategies/dev_auth'
+require 'custom_failure_app'
 
 Devise.setup do |config|
   require 'devise/orm/active_record'
   require 'devise/mailer'
+
+  # Use custom failure app to handle array-based i18n messages
+  config.warden do |manager|
+    manager.failure_app = CustomFailureApp
+  end
 
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
@@ -37,8 +43,8 @@ Devise.setup do |config|
   #
   # Uses the DevAuth strategy if local/docker env and ENV["DEV_AUTH_ENABLED"] is true
 
-  unless HostEnv.local? || ENV.key?('IS_LOCAL_DOCKER_ENV')
-    raise "The DevAuth strategy must not be used in this environment" if FeatureFlags.dev_auth.enabled?
+  if !(HostEnv.local? || ENV.key?('IS_LOCAL_DOCKER_ENV')) && FeatureFlags.dev_auth.enabled?
+    raise 'The DevAuth strategy must not be used in this environment'
   end
 
   strategy_class = FeatureFlags.dev_auth.enabled? ? OmniAuth::Strategies::DevAuth : OmniAuth::Strategies::OpenIDConnect
@@ -60,6 +66,6 @@ Devise.setup do |config|
       strategy_class: strategy_class
     }
   )
-  
+
   OmniAuth.config.logger = Rails.logger
 end

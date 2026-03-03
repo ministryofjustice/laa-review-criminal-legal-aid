@@ -46,6 +46,9 @@ Layout/HashAlignment:
 RSpec/AnyInstance:
   Enabled: false
 
+RSpec/LeakyLocalVariable:
+  Enabled: false
+
 # TODO: Determine any repercussions to using .select instead
 Rails/PluckInWhere:
   Enabled: false

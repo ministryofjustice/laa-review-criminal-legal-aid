@@ -1,10 +1,12 @@
 class DecisionResultComponent < ViewComponent::Base
+  include GovukComponentsHelper
+
   with_collection_parameter :result
 
   def initialize(result: nil)
     @result = result
 
-    super
+    super()
   end
 
   def call

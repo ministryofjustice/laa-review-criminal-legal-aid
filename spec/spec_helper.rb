@@ -62,8 +62,7 @@ def print_page
   require 'nokogiri'
   html = page.html
   doc = Nokogiri::HTML.parse(html)
-  formatted_html = doc.to_xhtml(indent: 2)
-  puts formatted_html
+  doc.to_xhtml(indent: 2)
 end
 
 def expect_forbidden
