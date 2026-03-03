@@ -15,5 +15,12 @@ module Datastore
                                       pagination: { per_page: application_ids.size, page: 1 })
       )
     end
+
+    def reference_for_application_id(application_id)
+      paginated_response(
+        http_client.post('/searches', search: { application_id_in: [application_id] },
+                                      pagination: { per_page: 1, page: 1 })
+      ).first&.fetch('reference', nil)
+    end
   end
 end

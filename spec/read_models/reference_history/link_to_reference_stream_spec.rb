@@ -45,7 +45,6 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
 
       before do
         allow(Review).to receive(:where).with(application_id:).and_return(relation)
-        allow(relation).to receive(:limit).with(1).and_return(relation)
         allow(relation).to receive(:pick).with(:reference).and_return(reference)
         call
       end
@@ -62,7 +61,7 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
       end
     end
 
-    context 'when the event does not include a reference and the review cannot be found' do
+    context 'when the review lookup returns nil but the datastore has the reference' do
       let(:event) do
         Assigning::AssignedToUser.new(
           data: { assignment_id: application_id, to_whom_id: SecureRandom.uuid }
@@ -70,11 +69,40 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
       end
 
       let(:relation) { instance_double(ActiveRecord::Relation) }
+      let(:datastore_search) { instance_double(Datastore::ApplicationSearch) }
 
       before do
         allow(Review).to receive(:where).with(application_id:).and_return(relation)
-        allow(relation).to receive(:limit).with(1).and_return(relation)
         allow(relation).to receive(:pick).with(:reference).and_return(nil)
+        allow(Datastore::ApplicationSearch).to receive(:new).and_return(datastore_search)
+        allow(datastore_search).to receive(:reference_for_application_id).with(application_id)
+                                                                         .and_return(reference)
+        call
+      end
+
+      it 'links the event to the reference stream using the datastore reference' do
+        expect(event_store).to have_received(:link).with(
+          event.event_id,
+          stream_name: ReferenceHistory.stream_name(reference)
+        )
+      end
+    end
+
+    context 'when the event does not include a reference and neither the review nor the datastore can provide one' do
+      let(:event) do
+        Assigning::AssignedToUser.new(
+          data: { assignment_id: application_id, to_whom_id: SecureRandom.uuid }
+        )
+      end
+
+      let(:relation) { instance_double(ActiveRecord::Relation) }
+      let(:datastore_search) { instance_double(Datastore::ApplicationSearch) }
+
+      before do
+        allow(Review).to receive(:where).with(application_id:).and_return(relation)
+        allow(relation).to receive(:pick).with(:reference).and_return(nil)
+        allow(Datastore::ApplicationSearch).to receive(:new).and_return(datastore_search)
+        allow(datastore_search).to receive(:reference_for_application_id).with(application_id).and_return(nil)
         allow(Rails.error).to receive(:report)
         call
       end
@@ -124,7 +152,14 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
         )
       end
 
+      let(:relation) { instance_double(ActiveRecord::Relation) }
+      let(:datastore_search) { instance_double(Datastore::ApplicationSearch) }
+
       before do
+        allow(Review).to receive(:where).and_return(relation)
+        allow(relation).to receive(:pick).with(:reference).and_return(nil)
+        allow(Datastore::ApplicationSearch).to receive(:new).and_return(datastore_search)
+        allow(datastore_search).to receive(:reference_for_application_id).and_return(nil)
         allow(Rails.error).to receive(:report)
         call
       end

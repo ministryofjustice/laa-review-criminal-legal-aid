@@ -27,7 +27,11 @@ module ReferenceHistory
       application_id = application_id_for(event)
       return if application_id.blank?
 
-      Review.where(application_id:).pick(:reference)
+      reference = Review.where(application_id:).pick(:reference)
+      return reference if reference.present?
+
+      # Fallback: look up reference directly from the datastore
+      Datastore::ApplicationSearch.new.reference_for_application_id(application_id)
     end
 
     def application_id_for(event)
