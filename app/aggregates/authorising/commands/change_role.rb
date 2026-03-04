@@ -31,7 +31,7 @@ module Authorising
     end
 
     def unassign_reviews_from_user
-      user.current_assignments.find_each do |assignment|
+      user.current_assignments.each do |assignment|
         Assigning::UnassignFromUser.new(
           assignment_id: assignment.assignment_id,
           user_id: user_manager_id,
