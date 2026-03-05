@@ -23,7 +23,7 @@ module ReferenceHistory
       ref = event.data[:reference]
       return ref if ref.present?
 
-      # Assigning events do not have reference data so we derive application_id then look up the Review
+      # Most Deciding events do not have reference data so we derive application_id then look up the Review
       application_id = application_id_for(event)
       return if application_id.blank?
 
@@ -35,7 +35,7 @@ module ReferenceHistory
     end
 
     def application_id_for(event)
-      # Reviewing events use :application_id
+      # Reviewing and Deciding events use :application_id
       return event.data[:application_id] if event.data.key?(:application_id)
 
       # Assigning events use :assignment_id
