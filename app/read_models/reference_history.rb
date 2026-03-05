@@ -8,7 +8,18 @@ module ReferenceHistory
     Reviewing::Completed,
     Reviewing::MarkedAsReady,
     Reviewing::DecisionAdded,
-    Reviewing::DecisionRemoved
+    Reviewing::DecisionRemoved,
+    Deciding::DraftCreated,
+    Deciding::DraftCreatedFromMaat,
+    Deciding::SynchedWithMaat,
+    Deciding::InterestsOfJusticeSet,
+    Deciding::FundingDecisionSet,
+    Deciding::CommentSet,
+    Deciding::Unlinked,
+    Deciding::Linked,
+    Deciding::LinkedToCifc,
+    Deciding::LinkedToNafi,
+    Deciding::SentToProvider
   ].freeze
 
   class << self

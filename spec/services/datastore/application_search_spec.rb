@@ -55,4 +55,43 @@ RSpec.describe Datastore::ApplicationSearch do
         .with(body: hash_including(pagination: { per_page: 2, page: 1 }))
     end
   end
+
+  describe '#reference_for_application_id' do
+    let(:application_id) { SecureRandom.uuid }
+
+    context 'when the datastore returns a matching record' do
+      let(:search_response) do
+        {
+          pagination: { total_count: 1, total_pages: 1, limit_value: 1 },
+          records: [{ resource_id: application_id, reference: 1_000_001 }]
+        }.deep_stringify_keys
+      end
+
+      before do
+        stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
+          .with(body: { search: { application_id_in: [application_id] }, pagination: { per_page: 1, page: 1 } })
+          .to_return(status: 200, body: search_response.to_json)
+      end
+
+      it 'returns the reference' do
+        expect(search.reference_for_application_id(application_id)).to eq(1_000_001)
+      end
+    end
+
+    context 'when the datastore returns no records' do
+      let(:search_response) do
+        { pagination: { total_count: 0, total_pages: 0, limit_value: 1 }, records: [] }.deep_stringify_keys
+      end
+
+      before do
+        stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
+          .with(body: { search: { application_id_in: [application_id] }, pagination: { per_page: 1, page: 1 } })
+          .to_return(status: 200, body: search_response.to_json)
+      end
+
+      it 'returns nil' do
+        expect(search.reference_for_application_id(application_id)).to be_nil
+      end
+    end
+  end
 end
