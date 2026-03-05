@@ -43,6 +43,8 @@ class EvidenceAccessLogger
       caseworker_id: @current_user.id,
       caseworker_role: @current_user.role,
       assigned: @crime_application.assigned_to?(@current_user.id) ? 'assigned' : 'not_assigned',
+      work_stream: @crime_application.work_stream.to_s,
+      application_type: @crime_application.application_type,
       file_type: @document.content_type,
       timestamp: Time.current.iso8601
     }
