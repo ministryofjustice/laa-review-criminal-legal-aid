@@ -16,20 +16,22 @@ Two event types are logged:
 Each event is logged with a searchable event name followed by a JSON object:
 
 ```json
-evidence_viewed {"application_id":"12345","caseworker_id":"user_456","caseworker_role":"caseworker","assigned":"assigned","file_type":"application/pdf","timestamp":"2024-01-15T10:30:00Z"}
+evidence_viewed {"application_id":"12345","caseworker_id":"user_456","caseworker_role":"caseworker","assigned":"assigned","work_stream":"criminal_applications_team","application_type":"initial","file_type":"application/pdf","timestamp":"2024-01-15T10:30:00Z"}
 
 ```
 
 ## Logged Fields
 
-| Field             | Description                                   | Example Values                                                |
-| ----------------- | --------------------------------------------- | ------------------------------------------------------------- |
-| `application_id`  | Crime application ID                          | `"12345"`                                                     |
-| `caseworker_id`   | User ID of the caseworker                     | `"user_456"`                                                  |
-| `caseworker_role` | Role of the caseworker                        | `"caseworker"`, `"supervisor"`, `"data_analyst"`, `"auditor"` |
-| `assigned`        | Whether caseworker is assigned to application | `"assigned"`, `"not_assigned"`                                |
-| `file_type`       | MIME type of the file                         | `"application/pdf"`, `"image/jpeg"`                           |
-| `timestamp`       | ISO 8601 timestamp                            | `"2024-01-15T10:30:00Z"`                                      |
+| Field             | Description                                   | Example Values                                                                                                             |
+| ----------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `application_id`  | Crime application ID                          | `"12345"`                                                                                                                  |
+| `caseworker_id`   | User ID of the caseworker                     | `"user_456"`                                                                                                               |
+| `caseworker_role` | Role of the caseworker                        | `"caseworker"`, `"supervisor"`, `"data_analyst"`, `"auditor"`                                                             |
+| `assigned`        | Whether caseworker is assigned to application | `"assigned"`, `"not_assigned"`                                                                                             |
+| `work_stream`     | Work stream of the application                | `"criminal_applications_team"`, `"criminal_applications_team_2"`, `"extradition"`, `"non_means_tested"`                   |
+| `application_type`| Type of application                           | `"initial"`, `"change_in_financial_circumstances"`, `"post_submission_evidence"`                                           |
+| `file_type`       | MIME type of the file                         | `"application/pdf"`, `"image/jpeg"`                                                                                        |
+| `timestamp`       | ISO 8601 timestamp                            | `"2024-01-15T10:30:00Z"`                                                                                                   |
 
 ## OpenSearch Query Examples
 
@@ -300,6 +302,89 @@ Compare viewing and downloading behavior across different file types to understa
             "buckets": {
               "evidence_viewed": { "doc_count": 62 },
               "evidence_downloaded": { "doc_count": 16 }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+### View vs Download Counts by Work Stream
+
+Compare viewing and downloading behaviour across work streams.
+
+```json
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "kubernetes.namespace_name.keyword": "laa-review-criminal-legal-aid-production"
+          }
+        },
+        { "range": { "@timestamp": { "gte": "now-7d" } } }
+      ],
+      "should": [
+        { "match": { "log": "evidence_viewed" } },
+        { "match": { "log": "evidence_downloaded" } }
+      ],
+      "minimum_should_match": 1
+    }
+  },
+  "aggs": {
+    "by_work_stream": {
+      "terms": {
+        "script": {
+          "source": "def log = params._source.log; if (log == null) return 'unknown'; def matcher = /\"work_stream\":\"([^\"]+)\"/.matcher(log); return matcher.find() ? matcher.group(1) : 'unknown';",
+          "lang": "painless"
+        },
+        "size": 10
+      },
+      "aggs": {
+        "by_action": {
+          "filters": {
+            "filters": {
+              "evidence_viewed": { "match": { "log": "evidence_viewed" } },
+              "evidence_downloaded": {
+                "match": { "log": "evidence_downloaded" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Returns:** For each work stream, shows the count of views vs downloads. Example response structure:
+
+```json
+{
+  "aggregations": {
+    "by_work_stream": {
+      "buckets": [
+        {
+          "key": "criminal_applications_team",
+          "doc_count": 183,
+          "by_action": {
+            "buckets": {
+              "evidence_viewed": { "doc_count": 121 },
+              "evidence_downloaded": { "doc_count": 62 }
+            }
+          }
+        },
+        {
+          "key": "extradition",
+          "doc_count": 37,
+          "by_action": {
+            "buckets": {
+              "evidence_viewed": { "doc_count": 30 },
+              "evidence_downloaded": { "doc_count": 7 }
             }
           }
         }

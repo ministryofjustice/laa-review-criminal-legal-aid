@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe EvidenceAccessLogger do
-  let(:crime_application) { instance_double(CrimeApplication, id: '12345', assigned_to?: assigned) }
+  let(:crime_application) do
+    instance_double(
+      CrimeApplication,
+      id: '12345',
+      assigned_to?: assigned,
+      work_stream: instance_double(WorkStream, to_s: 'cat_1'),
+      application_type: 'initial'
+    )
+  end
   let(:document) do
     instance_double(
       Document,
@@ -26,6 +34,7 @@ RSpec.describe EvidenceAccessLogger do
 
       expected_log = %r{evidence_viewed.*{"application_id":"12345","caseworker_id":"user_456",
                       "caseworker_role":"caseworker","assigned":"assigned",
+                      "work_stream":"cat_1","application_type":"initial",
                       "file_type":"application/pdf","timestamp":"2024-01-15T10:30:00Z"}}x
 
       expect(logger_spy).to have_received(:info).with(expected_log)
@@ -38,6 +47,7 @@ RSpec.describe EvidenceAccessLogger do
 
       expected_log = %r{evidence_downloaded.*{"application_id":"12345","caseworker_id":"user_456",
                       "caseworker_role":"caseworker","assigned":"assigned",
+                      "work_stream":"cat_1","application_type":"initial",
                       "file_type":"application/pdf","timestamp":"2024-01-15T10:30:00Z"}}x
 
       expect(logger_spy).to have_received(:info).with(expected_log)
