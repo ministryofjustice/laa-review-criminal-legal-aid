@@ -34,6 +34,34 @@ RSpec.describe ReferenceHistory::LinkToReferenceStream do
       end
     end
 
+    context 'when the event includes a reference nested in maat_decision (deciding events)' do
+      let(:event) do
+        Deciding::DraftCreatedFromMaat.new(
+          data: {
+            application_id: application_id,
+            decision_id: SecureRandom.uuid,
+            maat_decision: { reference: }
+          }
+        )
+      end
+
+      before do
+        allow(Review).to receive(:where)
+        call
+      end
+
+      it 'links the event to the reference stream' do
+        expect(event_store).to have_received(:link).with(
+          event.event_id,
+          stream_name: ReferenceHistory.stream_name(reference)
+        )
+      end
+
+      it 'does not need to look up a review' do
+        expect(Review).not_to have_received(:where)
+      end
+    end
+
     context 'when the event does not include a reference (assigning events)' do
       let(:event) do
         Assigning::AssignedToUser.new(
