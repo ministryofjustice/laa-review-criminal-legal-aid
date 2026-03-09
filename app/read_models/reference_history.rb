@@ -9,16 +9,6 @@ module ReferenceHistory
     Reviewing::MarkedAsReady,
     Reviewing::DecisionAdded,
     Reviewing::DecisionRemoved,
-    Deciding::DraftCreated,
-    Deciding::DraftCreatedFromMaat,
-    Deciding::SynchedWithMaat,
-    Deciding::InterestsOfJusticeSet,
-    Deciding::FundingDecisionSet,
-    Deciding::CommentSet,
-    Deciding::Unlinked,
-    Deciding::Linked,
-    Deciding::LinkedToCifc,
-    Deciding::LinkedToNafi,
     Deciding::SentToProvider
   ].freeze
 
