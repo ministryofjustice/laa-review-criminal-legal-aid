@@ -23,6 +23,12 @@ module ReferenceHistory
       ref = event.data[:reference]
       return ref if ref.present?
 
+      # Some Deciding events store the reference nested in maat_decision
+      if event.data.key?(:maat_decision)
+        ref = event.data.dig(:maat_decision, :reference)
+        return ref if ref.present?
+      end
+
       # Most Deciding events do not have reference data so we derive application_id then look up the Review
       application_id = application_id_for(event)
       return if application_id.blank?
