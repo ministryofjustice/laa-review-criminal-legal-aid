@@ -1,17 +1,30 @@
 module Casework
   class DocumentsController < Casework::BaseController
-    require 'net/http'
     before_action :set_crime_application
-    before_action :set_document, except: [:all]
+    before_action :set_document, except: [:index]
 
     rescue_from 'Datastore::Documents::DownloadError' do
       set_flash(:cannot_download_try_again, file_name: @document.filename, success: false)
 
-      redirect_to crime_application_path(params[:crime_application_id])
+      redirect_to crime_application_path(@crime_application)
     end
 
+    def index; end
+
     def show
-      redirect_to(view_url, allow_other_host: true)
+      if @document.content_type == 'application/pdf'
+        response = fetch_from_s3(view_url)
+        send_data response.body, type: 'application/pdf', disposition: 'inline', filename: @document.filename
+        log_evidence_access(:view)
+      else
+        render layout: false
+      end
+    end
+
+    def raw
+      response = fetch_from_s3(view_url)
+      send_data response.body, type: response.headers['content-type'], disposition: 'inline',
+filename: @document.filename
 
       log_evidence_access(:view)
     end
@@ -20,15 +33,6 @@ module Casework
       redirect_to(download_url, allow_other_host: true)
 
       log_evidence_access(:download)
-    end
-
-    def all; end
-
-    def embed
-      response = fetch_from_s3(view_url)
-      send_data response.body, type: response['content-type'], disposition: 'inline'
-
-      log_evidence_access(:view)
     end
 
     private
@@ -57,14 +61,11 @@ module Casework
       return @document if @document.present?
 
       set_flash(:cannot_download_doc_uploaded_to_another_app, success: false)
-      redirect_to crime_application_path(params[:crime_application_id])
+      redirect_to crime_application_path(@crime_application)
     end
 
     def fetch_from_s3(url)
-      uri = URI(url)
-      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
-        http.get(uri.request_uri)
-      end
+      Faraday.get(url)
     end
 
     # Creates a searchable log entry for evaluating view/download behaviour

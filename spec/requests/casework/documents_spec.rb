@@ -13,9 +13,9 @@ RSpec.describe 'Viewing all evidence' do
     }
   end
 
-  describe 'GET /documents/all' do
+  describe 'GET /applications/:crime_application_id/documents' do
     subject(:get_all) do
-      get "/documents/all?crime_application_id=#{application_id}"
+      get "/applications/#{application_id}/documents"
     end
 
     it 'returns a successful response' do
@@ -33,10 +33,10 @@ RSpec.describe 'Viewing all evidence' do
       expect(response.body).to include('test.pdf')
     end
 
-    it 'embeds the viewable document using the embed documents path' do
+    it 'embeds the viewable document using the raw documents path' do
       get_all
       expect(response.body).to include(
-        CGI.escapeHTML(embed_documents_path(crime_application_id: application_id, id: '123/abcdef1234'))
+        CGI.escapeHTML(raw_crime_application_document_path(application_id, '123/abcdef1234'))
       )
     end
   end

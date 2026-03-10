@@ -25,8 +25,10 @@ RSpec.describe 'Authorisation' do
       crime_application_return
       crime_application_complete
       crime_applications
-      download_documents
-      documents
+      crime_application_documents
+      download_crime_application_document
+      raw_crime_application_document
+      crime_application_document
       history_crime_application
       new_application_searches
       new_crime_application_reassign

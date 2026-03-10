@@ -30,7 +30,7 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   describe 'Evidence download' do
     context 'when a user attempts to download supporting evidence' do
       it 'raises error if document is not part of current application' do
-        visit download_documents_path(crime_application_id: application_id, id: '321/hijklm5678')
+        visit download_crime_application_document_path(application_id, '321/hijklm5678')
         expect(page).to have_content('File must be uploaded to current application to download')
       end
 
