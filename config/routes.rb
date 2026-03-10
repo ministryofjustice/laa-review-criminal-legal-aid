@@ -80,6 +80,8 @@ Rails.application.routes.draw do
 
     resource :documents, only: [:show] do
       get :download, on: :member
+      get :all, on: :member
+      get :embed, on: :member
     end
   end
 

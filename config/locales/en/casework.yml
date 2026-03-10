@@ -595,6 +595,7 @@ en:
       deleted: grey
     download_file: "Download file (%{file_extension}, %{file_size})"
     view_file: "View"
+    view_all_evidence: "View all evidence"
     no_hearing_yet: There has not been a hearing yet
     manage_without_income:
       friends_sofa: They sleep on a friend's sofa for free
@@ -864,3 +865,8 @@ en:
           zero: Add a funding decision
           one: You have added %{count} case
           other: You have added %{count} cases
+    documents:
+      all:
+        page_title: All evidence
+        heading: All evidence
+        not_embeddable: This file cannot be displayed in the browser.

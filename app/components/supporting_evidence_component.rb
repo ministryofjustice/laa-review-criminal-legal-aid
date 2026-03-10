@@ -15,6 +15,16 @@ class SupportingEvidenceComponent < ViewComponent::Base
     safe_join([view_link(evidence), download_link(evidence)].compact)
   end
 
+  def view_all_link
+    return unless FeatureFlags.view_all_evidence.enabled?
+    return if crime_application.supporting_evidence.empty?
+
+    govuk_link_to(
+      t(:view_all_evidence, scope: 'values'),
+      all_documents_path(crime_application_id: crime_application.id)
+    )
+  end
+
   def view_link(evidence)
     return unless FeatureFlags.view_evidence.enabled?
     return unless evidence.viewable_inline?

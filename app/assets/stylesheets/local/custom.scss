@@ -152,6 +152,17 @@ body.js-enabled {
   align-items: center;
 }
 
-.govuk-button-group form {
-  display: flex;
+.app-evidence-embed {
+  display: block;
+  width: 100%;
+  border: 1px solid $govuk-border-colour;
+
+  &--pdf {
+    height: 85vh;
+  }
+
+  &--image {
+    max-width: 100%;
+    height: auto;
+  }
 }

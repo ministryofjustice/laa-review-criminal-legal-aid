@@ -124,5 +124,31 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
         expect(non_viewable_row).to have_text('document2.csvDownload file (csv, 2 KB)')
       end
     end
+
+    context 'when view_all_evidence feature flag is enabled' do
+      before do
+        allow(FeatureFlags).to receive(:view_all_evidence) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        }
+        render_inline(described_class.new(crime_application:))
+      end
+
+      it 'displays "View all evidence" link above the file list' do
+        expect(page).to have_link('View all evidence', href: '/documents/all?crime_application_id=12345')
+      end
+    end
+
+    context 'when view_all_evidence feature flag is disabled' do
+      before do
+        allow(FeatureFlags).to receive(:view_all_evidence) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+        }
+        render_inline(described_class.new(crime_application:))
+      end
+
+      it 'does not display "View all evidence" link' do
+        expect(page).not_to have_link('View all evidence')
+      end
+    end
   end
 end

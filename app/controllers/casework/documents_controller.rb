@@ -1,6 +1,8 @@
 module Casework
   class DocumentsController < Casework::BaseController
-    before_action :set_crime_application, :set_document
+    require 'net/http'
+    before_action :set_crime_application
+    before_action :set_document, except: [:all]
 
     rescue_from 'Datastore::Documents::DownloadError' do
       set_flash(:cannot_download_try_again, file_name: @document.filename, success: false)
@@ -18,6 +20,15 @@ module Casework
       redirect_to(download_url, allow_other_host: true)
 
       log_evidence_access(:download)
+    end
+
+    def all; end
+
+    def embed
+      response = fetch_from_s3(view_url)
+      send_data response.body, type: response['content-type'], disposition: 'inline'
+
+      log_evidence_access(:view)
     end
 
     private
@@ -47,6 +58,13 @@ module Casework
 
       set_flash(:cannot_download_doc_uploaded_to_another_app, success: false)
       redirect_to crime_application_path(params[:crime_application_id])
+    end
+
+    def fetch_from_s3(url)
+      uri = URI(url)
+      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+        http.get(uri.request_uri)
+      end
     end
 
     # Creates a searchable log entry for evaluating view/download behaviour
