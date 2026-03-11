@@ -65,52 +65,71 @@ end
 
 desc 'Link Deciding::SentToProvider events into the ReferenceHistory stream by reference'
 task deciding_reference_history_backfill: :environment do
+  limit = ENV['LIMIT']&.to_i
+  start_after = ENV['START_AFTER']
+
   linked = 0
   already_linked = 0
   skipped = 0
   errored = 0
   processed = 0
+  last_event_id = nil
 
-  Rails.logger.info 'Start of deciding_reference_history_backfill task'
+  Rails.logger.info "Start of deciding_reference_history_backfill task with limit: #{limit || 'all events'}, START_AFTER: #{start_after || 'none'}"
 
   event_store = Rails.configuration.event_store
 
-  event_store.read.of_type([Deciding::SentToProvider]).each do |event|
-    application_id = event.data[:application_id]
+  reader = event_store.read.of_type([Deciding::SentToProvider])
+  reader = reader.from(start_after) if start_after
+  reader = reader.limit(limit) if limit
 
-    unless application_id
-      skipped += 1
-      Rails.logger.warn "deciding_reference_history_backfill: no application_id on event #{event.event_id}, skipping"
-      next
+  reader.in_batches(1000).each_batch do |events|
+    application_ids = events.filter_map { |e| e.data[:application_id] }
+
+    references_by_application_id = Review.where(application_id: application_ids)
+                                         .pluck(:application_id, :reference)
+                                         .to_h
+
+    events.each do |event|
+      application_id = event.data[:application_id]
+
+      unless application_id
+        skipped += 1
+        Rails.logger.warn "deciding_reference_history_backfill: no application_id on event #{event.event_id}, skipping"
+        next
+      end
+
+      reference = references_by_application_id[application_id]
+
+      unless reference
+        skipped += 1
+        Rails.logger.warn "deciding_reference_history_backfill: no reference found for application_id #{application_id} (event #{event.event_id}), skipping"
+        next
+      end
+
+      target_stream = ReferenceHistory.stream_name(reference)
+
+      begin
+        event_store.link(event.event_id, stream_name: target_stream)
+        linked += 1
+      rescue RubyEventStore::EventDuplicatedInStream
+        already_linked += 1
+      rescue StandardError => e
+        errored += 1
+        Rails.logger.warn(
+          "deciding_reference_history_backfill: could not link #{event.event_id} " \
+            "for application_id #{application_id} => #{target_stream}: " \
+            "#{e.class}: #{e.message}"
+        )
+      end
+
+      last_event_id = event.event_id
+      processed += 1
     end
 
-    reference = Review.where(application_id:).pick(:reference)
-
-    unless reference
-      skipped += 1
-      Rails.logger.warn "deciding_reference_history_backfill: no reference found for application_id #{application_id} (event #{event.event_id}), skipping"
-      next
-    end
-
-    target_stream = ReferenceHistory.stream_name(reference)
-
-    begin
-      event_store.link(event.event_id, stream_name: target_stream)
-      linked += 1
-    rescue RubyEventStore::EventDuplicatedInStream
-      already_linked += 1
-    rescue StandardError => e
-      errored += 1
-      Rails.logger.warn(
-        "deciding_reference_history_backfill: could not link #{event.event_id} " \
-          "for application_id #{application_id} => #{target_stream}: " \
-          "#{e.class}: #{e.message}"
-      )
-    end
-
-    processed += 1
+    Rails.logger.info "deciding_reference_history_backfill progress — Processed: #{processed}, Linked: #{linked}, Already linked: #{already_linked}, Skipped: #{skipped}, Errors: #{errored}"
   end
 
-  Rails.logger.info "deciding_reference_history_backfill complete — Processed: #{processed}, Linked: #{linked}, Already linked: #{already_linked}, Skipped: #{skipped}, Errors: #{errored}"
+  Rails.logger.info "deciding_reference_history_backfill complete — Last event_id: #{last_event_id}, Processed: #{processed}, Linked: #{linked}, Already linked: #{already_linked}, Skipped: #{skipped}, Errors: #{errored}"
 end
 
