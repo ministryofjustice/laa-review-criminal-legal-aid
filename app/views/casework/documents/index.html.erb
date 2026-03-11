@@ -1,9 +1,5 @@
 <% title t('.page_title') %>
 
-<% content_for(:back_link, flush: true) do %>
-  <%= govuk_back_link href: crime_application_path(@crime_application) %>
-<% end %>
-
 <h1 class="govuk-heading-l"><%= t('.heading') %></h1>
 
 <% if @crime_application.supporting_evidence.present? %>
