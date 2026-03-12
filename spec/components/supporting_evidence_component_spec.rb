@@ -5,7 +5,10 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
   let(:supporting_evidence) { [] }
 
   before do
-    allow(crime_application).to receive_messages(id: '12345', supporting_evidence: supporting_evidence)
+    allow(crime_application).to receive_messages(
+      id: '12345', to_param: '12345', supporting_evidence: supporting_evidence
+    )
+
     render_inline(described_class.new(crime_application:))
   end
 
@@ -68,7 +71,7 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
         subject(:view_link) { viewable_row.find(:link, 'View') }
 
         it 'links to the document viewer endpoint and opens in a new tab' do
-          expect(view_link[:href]).to eq '/documents?crime_application_id=12345&id=key1'
+          expect(view_link[:href]).to eq '/applications/12345/documents/key1'
           expect(view_link[:target]).to eq '_blank'
         end
 
@@ -89,7 +92,7 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
         subject(:download_link) { viewable_row.find(:link, 'Download file (pdf, 1 KB)') }
 
         it 'links to the download endpoint and opens in the current tab' do
-          expect(download_link[:href]).to eq '/documents/download?crime_application_id=12345&id=key1'
+          expect(download_link[:href]).to eq '/applications/12345/documents/key1/download'
           expect(download_link[:target]).to be_nil
         end
 
@@ -134,7 +137,7 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
       end
 
       it 'displays "View all evidence" link above the file list' do
-        expect(page).to have_link('View all evidence', href: '/documents/all?crime_application_id=12345')
+        expect(page).to have_link('View all evidence', href: '/applications/12345/documents')
       end
     end
 

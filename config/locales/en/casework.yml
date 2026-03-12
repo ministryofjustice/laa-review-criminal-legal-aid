@@ -751,6 +751,12 @@ en:
         role_changed: Role changed from %{from} to %{to}
 
   casework:
+    base:
+      subnavigation:
+        application_details: Application details
+        application_history: Application history
+        supporting_evidence: Supporting evidence
+
     assigned_applications:
       index:
         page_title: Your list
@@ -815,9 +821,6 @@ en:
           zero: There are no open applications that need to be reviewed.
           one: There is 1 open application that needs to be reviewed.
           other: "There are %{count} open applications that need to be reviewed."
-      subnavigation:
-        application_details: Application details
-        application_history: Application history
       show:
         page_title: Application
         heading: Application

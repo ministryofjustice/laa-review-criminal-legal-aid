@@ -2,6 +2,10 @@
 
 <h1 class="govuk-heading-l"><%= t('.heading') %></h1>
 
+<%= render partial: 'review_overview', locals: { crime_application: @crime_application } %>
+
+<%= render partial: 'subnavigation', locals: { crime_application: @crime_application } %>
+
 <% if @crime_application.supporting_evidence.present? %>
   <%= govuk_accordion do |accordion|
         @crime_application.supporting_evidence.each do |evidence|
@@ -22,12 +26,12 @@
               end
             else
               safe_join([
-                tag.p(t('.not_embeddable'), class: 'govuk-body'),
-                govuk_link_to(
-                  sanitize(t(:download_file, scope: 'values', file_extension: evidence.file_extension, file_size: number_to_human_size(evidence.file_size))),
-                  download_crime_application_document_path(@crime_application, evidence.s3_object_key)
-                )
-              ])
+                          tag.p(t('.not_embeddable'), class: 'govuk-body'),
+                          govuk_link_to(
+                            sanitize(t(:download_file, scope: 'values', file_extension: evidence.file_extension, file_size: number_to_human_size(evidence.file_size))),
+                            download_crime_application_document_path(@crime_application, evidence.s3_object_key)
+                          )
+                        ])
             end
           end
         end
