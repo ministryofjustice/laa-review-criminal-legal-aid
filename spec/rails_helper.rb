@@ -55,6 +55,11 @@ RSpec.configure do |config|
   config.include GdsHelper
   config.include CapybaraHelpers
 
+  # Stub requests to the bank holiday API sent by BusinessHoursMiddleware
+  config.before do
+    stub_request(:get, 'https://bank-holidays/').to_return(status: 200, body: '{}')
+  end
+
   # Use a separate in-memory event store for each spec, instead of the
   # event store configured by the initializer. Having a separate store
   # for each spec reduces the surface area when working with events.

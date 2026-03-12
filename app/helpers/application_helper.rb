@@ -86,4 +86,18 @@ module ApplicationHelper
   end
 
   alias partner_subject? partner_included_in_means?
+
+  def business_hours_start
+    format_business_hour(Rails.configuration.x.business_hours.start)
+  end
+
+  def business_hours_end
+    format_business_hour(Rails.configuration.x.business_hours.end)
+  end
+
+  private
+
+  def format_business_hour(time_str)
+    Time.find_zone('London').parse(time_str).strftime('%-l:%M%P').sub(':00', '')
+  end
 end
