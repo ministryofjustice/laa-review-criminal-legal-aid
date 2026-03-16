@@ -16,7 +16,9 @@ module Deleting
       @message = ArchivedMessage.new(id:, data:)
     end
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize
+      raise Deleting::AlreadyArchived if Deleting.already_archived?(message.reference)
+
       event = Deleting::Archived.new(
         data: {
           application_id: message.application_id,
@@ -27,6 +29,8 @@ module Deleting
       )
 
       Rails.configuration.event_store.publish(event)
+    rescue Deleting::AlreadyArchived
+      Rails.logger.warn('Application already archived')
     end
   end
 end

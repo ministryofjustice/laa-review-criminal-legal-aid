@@ -16,7 +16,9 @@ module Deleting
       @message = SoftDeletionMessage.new(id:, data:)
     end
 
-    def call
+    def call # rubocop:disable Metrics/AbcSize
+      raise Deleting::AlreadySoftDeleted if Deleting.already_soft_deleted?(message.reference)
+
       event = Deleting::SoftDeleted.new(
         data: {
           reference: message.reference,
@@ -27,6 +29,8 @@ module Deleting
       )
 
       Rails.configuration.event_store.publish(event)
+    rescue Deleting::AlreadySoftDeleted
+      Rails.logger.warn('Application already soft deleted')
     end
   end
 end
