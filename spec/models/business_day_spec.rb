@@ -15,6 +15,10 @@ require 'rails_helper'
 RSpec.describe BusinessDay do
   let(:day_zero) { Date.parse('2023-01-04') }
 
+  before do
+    allow(Govuk::BankHolidays).to receive(:call).and_return([Date.new(2023, 1, 2)])
+  end
+
   describe '.new' do
     subject(:business_day) do
       described_class.new(day_zero:)

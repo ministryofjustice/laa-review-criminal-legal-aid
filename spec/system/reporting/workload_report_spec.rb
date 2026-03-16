@@ -6,7 +6,7 @@ RSpec.describe 'Workload Report' do
   before do
     visit '/'
 
-    travel_to Time.zone.local(2023, 11, 28, 23, 59)
+    travel_to Time.zone.local(2023, 11, 28, 21, 59)
     visit reporting_current_snapshot_path(:workload_report)
   end
 
@@ -34,8 +34,8 @@ RSpec.describe 'Workload Report' do
   end
 
   it 'shows the expected colgroup headers' do
-    expected_headers = ['', 'From midnight until 11:59pm',
-                        'Applications still open by age in business days at 11:59pm']
+    expected_headers = ['', 'From midnight until 9:59pm',
+                        'Applications still open by age in business days at 9:59pm']
 
     within('#cat-1') do
       page.all('table thead tr.colgroup-headers th').each_with_index do |el, i|

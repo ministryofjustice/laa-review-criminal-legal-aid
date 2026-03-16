@@ -3,15 +3,7 @@ class Calendar < Business::Calendar
     super(
       name: 'LAA calendar',
       working_days: %w[mon tue wed thu fri],
-      holidays: bank_holidays
+      holidays: Govuk::BankHolidays.call.to_a
     )
-  end
-
-  private
-
-  def bank_holidays
-    @bank_holidays ||= JSON.parse(
-      Rails.root.join('config/data/bank-holidays.json').read
-    ).dig('england-and-wales', 'events').pluck('date')
   end
 end
