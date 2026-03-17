@@ -5,10 +5,6 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
 
   before do
-    allow(FeatureFlags).to receive(:view_evidence) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-    }
-
     stub_request(
       :get,
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}"
@@ -78,13 +74,14 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     it 'displays post submission evidence section title' do
-      expect(page).to have_content('Post submission evidence')
-      expect(page).to have_no_content('Supporting evidence')
+      expect(page).to have_selector('h2', text: 'Post submission evidence')
+      expect(page).to have_no_selector('h2', text: 'Supporting evidence')
     end
 
     it 'shows a link to download the supporting evidence' do
-      within(files_card) do |card|
-        expect(card).to have_summary_row 'test.pdf', 'Download file (pdf, 12 Bytes)'
+      within(files_card) do
+        expect(page).to have_link('View')
+        expect(page).to have_link('Download file (pdf, 12 Bytes)')
       end
     end
   end

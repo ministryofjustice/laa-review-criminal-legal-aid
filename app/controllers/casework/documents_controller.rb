@@ -12,20 +12,17 @@ module Casework
     def index; end
 
     def show
-      if @document.content_type == 'application/pdf'
-        response = fetch_from_s3(view_url)
-        send_data response.body, type: 'application/pdf', disposition: 'inline', filename: @document.filename
-        log_evidence_access(:view)
+      if @document.pdf?
+        stream_inline
       else
-        render layout: false
+        render(layout: false)
       end
+
+      log_evidence_access(:view)
     end
 
     def raw
-      response = fetch_from_s3(view_url)
-      send_data response.body, type: response.headers['content-type'], disposition: 'inline',
-filename: @document.filename
-
+      stream_inline
       log_evidence_access(:view)
     end
 
@@ -64,8 +61,10 @@ filename: @document.filename
       redirect_to crime_application_path(@crime_application)
     end
 
-    def fetch_from_s3(url)
-      Faraday.get(url)
+    def stream_inline
+      s3_response = Faraday.get(view_url)
+
+      send_data s3_response.body, type: @document.content_type, disposition: 'inline', filename: @document.filename
     end
 
     # Creates a searchable log entry for evaluating view/download behaviour

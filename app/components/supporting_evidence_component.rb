@@ -26,7 +26,6 @@ class SupportingEvidenceComponent < ViewComponent::Base
   end
 
   def view_link(evidence)
-    return unless FeatureFlags.view_evidence.enabled?
     return unless evidence.viewable_inline?
 
     govuk_link_to(

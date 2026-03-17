@@ -15,4 +15,8 @@ class Document < LaaCrimeSchemas::Structs::Document
   def viewable_inline?
     VIEWABLE_CONTENT_TYPES.include?(content_type)
   end
+
+  def pdf?
+    content_type == 'application/pdf'
+  end
 end
