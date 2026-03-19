@@ -152,6 +152,10 @@ body.js-enabled {
   align-items: center;
 }
 
+.govuk-button-group form {
+  display: flex;
+}
+
 .app-evidence-embed {
   display: block;
   width: 100%;
