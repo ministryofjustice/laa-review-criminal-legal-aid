@@ -41,7 +41,7 @@
     <% end %>
   <% end %>
 
-  <% unless current_page?(history_crime_application_path) %>
+  <% if current_page?(crime_application_path(assignment)) %>
     <%= button_to 'Print application',
                   '',
                   method: :get,

@@ -1,0 +1,18 @@
+<% if evidence.viewable_inline? %>
+  <% if evidence.pdf? %>
+    <%= tag.iframe(
+          src: raw_path,
+          class: 'app-evidence-embed app-evidence-embed--pdf',
+          title: evidence.filename
+        ) %>
+  <% else %>
+    <%= tag.img(
+          src: raw_path,
+          class: 'app-evidence-embed app-evidence-embed--image',
+          alt: evidence.filename
+        ) %>
+  <% end %>
+<% else %>
+  <p class="govuk-body"><%= t('.not_embeddable') %></p>
+  <%= govuk_link_to(download_text, download_path) %>
+<% end %>

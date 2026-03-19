@@ -65,6 +65,13 @@ Rails.application.routes.draw do
       resources :maat_decisions, only: [:update, :destroy] do
         post :create_by_reference, on: :collection
       end
+
+      resources :documents, only: [:index, :show] do
+        member do
+          get :download
+          get :raw
+        end
+      end
     end
 
     get 'applications/open/:work_stream', to: 'crime_applications#open', as: :open_work_stream
@@ -78,9 +85,7 @@ Rails.application.routes.draw do
       post :next_application, on: :collection
     end
 
-    resource :documents, only: [:show] do
-      get :download, on: :member
-    end
+
   end
 
   namespace :reporting do
