@@ -29,6 +29,12 @@ module Reporting
 
     private
 
+    def require_report_access!
+      return if current_user.reports.include?(Types::TemporalReportType['caseworker_report'])
+
+      raise ForbiddenError, 'Cannot access this report type'
+    end
+
     def set_caseworker_id
       @caseworker_id = params[:user_id]
     end

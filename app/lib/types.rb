@@ -92,7 +92,8 @@ module Types
     UserRole[CASEWORKER_ROLE] => [Report['current_workload_report'], Report['processed_report']],
     UserRole[DATA_ANALYST_ROLE] => Report.values,
     UserRole[AUDITOR_ROLE] => [Report['current_workload_report'], Report['processed_report']],
-    UserRole[SUPERVISOR_ROLE] => Report.values - [Report['volumes_by_office_report']]
+    UserRole[SUPERVISOR_ROLE] => Report.values - [Report['volumes_by_office_report'],
+                                                  Report['unassigned_from_self_report']]
   }.freeze
 
   SortDirection = String.enum('descending', 'ascending')

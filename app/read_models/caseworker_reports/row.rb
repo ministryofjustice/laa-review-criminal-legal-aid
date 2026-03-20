@@ -8,6 +8,10 @@ module CaseworkerReports
       sent_back_by_user
     ].freeze
 
+    CSV_COLUMNS = (COUNTERS[..COUNTERS.index('reassigned_from_user')] +
+                   %w[unassigned_from_user] +
+                   COUNTERS[COUNTERS.index('completed_by_user')..]).freeze
+
     def initialize(user_id, work_queue = nil)
       @user_id = user_id
       @work_queue = work_queue
