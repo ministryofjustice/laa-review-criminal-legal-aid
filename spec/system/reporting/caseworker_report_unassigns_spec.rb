@@ -19,7 +19,7 @@ RSpec.describe 'Caseworker report unassigns from self' do
   let(:assignment_ids) { Array.new(2) { SecureRandom.uuid } }
 
   before do
-    travel_to(Time.zone.local(2023, 1, 1))
+    travel_to(Time.zone.local(2023, 1, 1, 12))
 
     event_store = Rails.configuration.event_store
 

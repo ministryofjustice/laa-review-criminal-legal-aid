@@ -21,7 +21,7 @@ RSpec.describe 'Unassigned from self report' do
   let(:assignment_ids) { Array.new(2) { SecureRandom.uuid } }
 
   before do
-    travel_to(Time.zone.local(2023, 1, 1))
+    travel_to(Time.zone.local(2023, 1, 1, 12))
 
     event_store = Rails.configuration.event_store
 
@@ -83,7 +83,7 @@ RSpec.describe 'Unassigned from self report' do
 
     it 'shows no results message' do
       expect(page).to have_content('John Smith')
-      expect(page).to have_content('No unassigned applications found')
+      expect(page).to have_content('No applications removed from list this period.')
     end
   end
 end
