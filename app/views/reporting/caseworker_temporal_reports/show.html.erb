@@ -8,23 +8,23 @@
       <div class="govuk-grid-column-three-quarters">
         <h2 class="govuk-heading-m"><%= label_text :caseworker_overview %></h2>
         <%= govuk_summary_list(actions: false) do |list|
-          list.with_row do |row|
-            row.with_key { label_text :caseworker }
-            row.with_value { @user.name }
-          end
+              list.with_row do |row|
+                row.with_key { label_text :caseworker }
+                row.with_value { @user.name }
+              end
 
-          list.with_row do |row|
-            row.with_key { label_text(:work_stream_competencies) }
-            row.with_value { @user.work_streams.map(&:label).join(', ').presence || 'None' }
-          end
+              list.with_row do |row|
+                row.with_key { label_text(:work_stream_competencies) }
+                row.with_value { @user.work_streams.map(&:label).join(', ').presence || 'None' }
+              end
 
-          list.with_row do |row|
-            row.with_key { label_text(:application_type_competencies) }
-            row.with_value do
-              @user.application_types_competencies.map { |c| t(c, scope: :labels) }.join(', ').presence || 'None'
-            end
-          end
-        end %>
+              list.with_row do |row|
+                row.with_key { label_text(:application_type_competencies) }
+                row.with_value do
+                  @user.application_types_competencies.map { |c| t(c, scope: :labels) }.join(', ').presence || 'None'
+                end
+              end
+            end %>
       </div>
     </div>
 
@@ -55,18 +55,18 @@
         <% unless @search.results.empty? %>
           <div class="app-table-container">
             <table class="govuk-table app-table">
-              <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                  <th class="govuk-table__header" scope="col">Applicant name</th>
-                  <th class="govuk-table__header" scope="col">Reference</th>
-                  <th class="govuk-table__header" scope="col">Application type</th>
-                  <th class="govuk-table__header" scope="col">Case type</th>
-                  <th class="govuk-table__header" scope="col">Date submitted</th>
-                  <th class="govuk-table__header" scope="col">Date reviewed</th>
-                  <th class="govuk-table__header" scope="col">Caseworker</th>
-                  <th class="govuk-table__header" scope="col">Status</th>
-                </tr>
-              </thead>
+              <%= render DataTable::HeadComponent.new(sorting: @search.sorting) do |head|
+                    head.with_row do |row|
+                      row.with_cell(colname: :applicant_name)
+                      row.with_cell(colname: :reference)
+                      row.with_cell(colname: :application_type)
+                      row.with_cell(colname: :case_type)
+                      row.with_cell(colname: :submitted_at)
+                      row.with_cell(colname: :reviewed_at)
+                      row.with_cell(colname: :caseworker)
+                      row.with_cell(colname: :status)
+                    end
+                  end %>
               <tbody class="govuk-table__body">
                 <%= render partial: 'reporting/caseworker_temporal_reports/search_result_row',
                            collection: @search.results,

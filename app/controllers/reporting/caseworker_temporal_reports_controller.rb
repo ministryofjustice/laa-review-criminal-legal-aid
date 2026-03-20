@@ -30,7 +30,7 @@ module Reporting
     private
 
     def require_report_access!
-      return if current_user.reports.include?(Types::TemporalReportType['caseworker_report'])
+      return if current_user.reports.include?(Types::CaseworkerTemporalReportType['unassigned_from_self_report'])
 
       raise ForbiddenError, 'Cannot access this report type'
     end

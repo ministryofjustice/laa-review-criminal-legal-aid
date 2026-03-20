@@ -198,6 +198,7 @@ RSpec.describe UserRole do
           workload_report
           return_reasons_report
           current_workload_report
+          unassigned_from_self_report
         ]
       end
 
@@ -221,7 +222,7 @@ RSpec.describe UserRole do
     context 'when user is auditor' do
       before { user.role = Types::AUDITOR_ROLE }
 
-      it { is_expected.to eq %w[current_workload_report processed_report] }
+      it { is_expected.to eq Types::Report.values }
     end
 
     context 'when user is user manager' do
