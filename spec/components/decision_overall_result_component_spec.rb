@@ -24,7 +24,7 @@ RSpec.describe DecisionOverallResultComponent, type: :component do
       let(:funding_decision) { 'refused' }
       let(:overall_result) { 'refused_failed_ioj_and_means' }
 
-      it { is_expected.to have_text('Refused - failed IoJ and means', exact: true) }
+      it { is_expected.to have_text('Refused - failed IOJ and means', exact: true) }
       it { is_expected.to have_css('.govuk-tag--red') }
     end
 
@@ -42,8 +42,8 @@ RSpec.describe DecisionOverallResultComponent, type: :component do
         'granted_with_contribution', 'Granted - with contribution',
         'granted_failed_means', 'Granted - failed means',
         'refused', 'Refused',
-        'refused_failed_ioj', 'Refused - failed IoJ',
-        'refused_failed_ioj_and_means', 'Refused - failed IoJ and means',
+        'refused_failed_ioj', 'Refused - failed IOJ',
+        'refused_failed_ioj_and_means', 'Refused - failed IOJ and means',
         'refused_failed_means', 'Refused - failed means'
       ].each_slice(2).each do |type, text|
         it "translates #{type} to #{text}" do

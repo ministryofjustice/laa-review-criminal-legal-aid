@@ -212,10 +212,10 @@ en:
     how_much_council_tax: Council Tax amount yearly
     how_much_rent: Amount paid for rent, after taking away Housing Benefit
     how_much_mortgage: Amount paid towards mortgage
-    ioj_result: Interests of justice (IoJ) test result
-    ioj_details: IoJ comments
-    ioj_assessed_by: IoJ caseworker
-    ioj_assessed_on: IoJ test date
+    ioj_result: Interests of Justice (IOJ) test result
+    ioj_details: IOJ comments
+    ioj_assessed_by: IOJ caseworker
+    ioj_assessed_on: IOJ test date
     income: Income
     income_more_than: "%{prefix} more than £12,475 a year before tax?"
     income_details: Income and employment
@@ -242,7 +242,7 @@ en:
 
     overall_result: Overall result
     partner_income_tax_rate_above_threshold: Partner paid 40% Income Tax in last 2 years?
-    interests_of_justice: Justification for legal aid
+    interests_of_justice: Interests of Justice (IOJ)
     interests_of_justice_type: Criteria
     investment_type:
       bond: Investment bond
@@ -500,8 +500,8 @@ en:
       granted_with_contribution: Granted - with contribution
       granted_failed_means: Granted - failed means
       refused: Refused
-      refused_failed_ioj: Refused - failed IoJ
-      refused_failed_ioj_and_means: Refused - failed IoJ and means
+      refused_failed_ioj: Refused - failed IOJ
+      refused_failed_ioj_and_means: Refused - failed IOJ and means
       refused_failed_means: Refused - failed means
       refused_ineligible: Refused - ineligible
     either_way: Either way
