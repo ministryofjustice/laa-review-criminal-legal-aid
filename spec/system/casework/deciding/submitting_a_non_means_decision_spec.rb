@@ -51,8 +51,8 @@ RSpec.describe 'Submitting a Non-means decision' do
       add_a_failed_non_means_decision
       expect(page).to have_content('Your list (1)')
       expect(summary_card('Case')).to have_rows(
-        'Interests of justice (IoJ) test result', 'Failed',
-        'Overall result', 'Refused - failed IoJ'
+        'Interests of Justice (IOJ) test result', 'Failed',
+        'Overall result', 'Refused - failed IOJ'
       )
       click_button('Send decision to provider')
 
@@ -66,11 +66,11 @@ RSpec.describe 'Submitting a Non-means decision' do
       # NB: the decision displayed should be that from the datastore
       # not the event sourced decision.
       expect(summary_card('Case')).to have_rows(
-        'Interests of justice (IoJ) test result', 'Failed',
-        'IoJ comments', 'reason',
-        'IoJ caseworker', 'Test User',
-        'IoJ test date', '01/10/2024',
-        'Overall result', 'Refused - failed IoJ',
+        'Interests of Justice (IOJ) test result', 'Failed',
+        'IOJ comments', 'reason',
+        'IOJ caseworker', 'Test User',
+        'IOJ test date', '01/10/2024',
+        'Overall result', 'Refused - failed IOJ',
         'Comments', 'Test comment'
       )
     end
