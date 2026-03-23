@@ -6,10 +6,7 @@ module Reporting
 
     def show
       @user = User.find(@user_id)
-      row = @report.rows.find { |r| r[:user_id] == @user.id }
-      @assignment_ids = row ? row[:assignment_ids] : []
-
-      filter_ids = @assignment_ids.presence || [SecureRandom.uuid]
+      filter_ids = @report.rows.presence || [SecureRandom.uuid]
       set_search(default_filter: { application_id_in: filter_ids })
     end
 
@@ -32,7 +29,7 @@ module Reporting
     end
 
     def extra_report_params
-      { user_id: @user_id }
+      { user_id: params[:user_id] }
     end
 
     def set_user_id

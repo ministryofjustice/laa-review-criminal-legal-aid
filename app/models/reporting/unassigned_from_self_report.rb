@@ -1,22 +1,27 @@
 module Reporting
   class UnassignedFromSelfReport
-    def initialize(dataset:)
+    def initialize(dataset:, user_id: nil)
       @dataset = dataset
+      @user_id = user_id
     end
 
     def rows
-      dataset.values
+      if @user_id
+        dataset.fetch(@user_id, { assignment_ids: [] })[:assignment_ids]
+      else
+        dataset.values
+      end
     end
 
     class << self
-      def for_time_period(time_period:, _user_id: nil, **)
+      def for_time_period(time_period:, user_id: nil, **)
         stream_name = CaseworkerReports.stream_name(
           date: time_period.starts_on,
           interval: time_period.interval
         )
 
         dataset = CaseworkerReports::UnassignedFromSelfProjection.new(stream_name:).dataset
-        new(dataset:)
+        new(dataset:, user_id:)
       end
     end
 
