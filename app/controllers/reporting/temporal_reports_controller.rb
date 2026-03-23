@@ -25,7 +25,8 @@ module Reporting
       report = Reporting::TemporalReport.current(
         interval: @interval,
         report_type: @report_type,
-        sorting: permitted_params[:sorting]
+        sorting: permitted_params[:sorting],
+        **extra_report_params
       ).previous_report
 
       redirect_to reporting_temporal_report_path(report.to_param)
@@ -54,7 +55,8 @@ module Reporting
         period: permitted_params[:period],
         interval: @interval,
         sorting: permitted_params[:sorting],
-        page: permitted_params[:page]
+        page: permitted_params[:page],
+        **extra_report_params
       )
     end
 
@@ -68,6 +70,10 @@ module Reporting
                    else
                      Types::TemporalInterval.values
                    end
+    end
+
+    def extra_report_params
+      {}
     end
   end
 end

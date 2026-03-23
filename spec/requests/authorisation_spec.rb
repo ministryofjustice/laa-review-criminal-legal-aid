@@ -62,8 +62,8 @@ RSpec.describe 'Authorisation' do
       assigned_applications_next_application
       reporting
       reporting_download_generated_report
-      reporting_caseworker_temporal_report
-      reporting_latest_complete_caseworker_temporal_report
+      reporting_user_temporal_report
+      reporting_latest_complete_user_temporal_report
     ]
   end
 

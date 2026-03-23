@@ -9,7 +9,7 @@ module Reporting
     end
 
     class << self
-      def for_time_period(time_period:, **)
+      def for_time_period(time_period:, _user_id: nil, **)
         stream_name = CaseworkerReports.stream_name(
           date: time_period.starts_on,
           interval: time_period.interval

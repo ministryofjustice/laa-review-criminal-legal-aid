@@ -35,10 +35,10 @@
           <%= content_tag(:li, class: @interval == interval ? css_class : css_class.first) do %>
             <%= link_to(
                   label_tag(interval),
-                  reporting_latest_complete_caseworker_temporal_report_path(
+                  reporting_latest_complete_user_temporal_report_path(
                     interval: interval,
                     report_type: @report_type,
-                    user_id: @caseworker_id
+                    user_id: @user_id
                   ),
                   class: 'govuk-tabs__tab'
                 ) %>
@@ -68,7 +68,7 @@
                     end
                   end %>
               <tbody class="govuk-table__body">
-                <%= render partial: 'reporting/caseworker_temporal_reports/search_result_row',
+                <%= render partial: 'reporting/user_temporal_reports/search_result_row',
                            collection: @search.results,
                            as: :result %>
               </tbody>

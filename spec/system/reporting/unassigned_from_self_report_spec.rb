@@ -33,7 +33,7 @@ RSpec.describe 'Unassigned from self report' do
 
   context 'when visiting the unassigned from self report page' do
     before do
-      visit reporting_caseworker_temporal_report_path(
+      visit reporting_user_temporal_report_path(
         report_type: 'unassigned_from_self_report',
         interval: interval,
         period: period,
@@ -73,7 +73,7 @@ RSpec.describe 'Unassigned from self report' do
     let(:stubbed_search_results) { [] }
 
     before do
-      visit reporting_caseworker_temporal_report_path(
+      visit reporting_user_temporal_report_path(
         report_type: 'unassigned_from_self_report',
         interval: interval,
         period: period,

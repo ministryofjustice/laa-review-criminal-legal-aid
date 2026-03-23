@@ -2,13 +2,14 @@ module Reporting
   class TemporalReport
     include ActiveModel::Model
 
-    attr_reader :time_period, :report_type, :page, :sorting
+    attr_reader :time_period, :report_type, :page, :sorting, :report_params
 
-    def initialize(time_period:, report_type:, sorting: {}, page: 1)
+    def initialize(time_period:, report_type:, sorting: {}, page: 1, **report_params)
       @time_period = time_period
       @report_type = Types::TemporalReportType[report_type]
       @sorting = Reporting.const_get("#{report_type}_sorting".camelize).new_or_default(sorting)
       @page = page
+      @report_params = report_params
     end
 
     def to_param
@@ -16,7 +17,7 @@ module Reporting
         report_type: report_type,
         interval: time_period.interval,
         period: period_as_param
-      }
+      }.merge(report_params)
     end
 
     def id
@@ -32,15 +33,15 @@ module Reporting
     end
 
     def next_report
-      self.class.new(time_period: time_period.next, report_type: report_type)
+      self.class.new(time_period: time_period.next, report_type: report_type, **report_params)
     end
 
     def previous_report
-      self.class.new(time_period: time_period.previous, report_type: report_type)
+      self.class.new(time_period: time_period.previous, report_type: report_type, **report_params)
     end
 
     def report
-      @report ||= read_model_klass.for_time_period(time_period:, sorting:, page:)
+      @report ||= read_model_klass.for_time_period(time_period:, sorting:, page:, **report_params)
     end
 
     def rows
@@ -87,24 +88,24 @@ module Reporting
     end
 
     class << self
-      def from_param(report_type:, period:, interval:, sorting: {}, page: 1)
+      def from_param(report_type:, period:, interval:, sorting: {}, page: 1, **report_params) # rubocop:disable Metrics/ParameterLists
         klass = klass_for_interval(interval)
         date = Date.strptime(period, klass::PARAM_FORMAT)
         time_period = TimePeriod.new(interval:, date:)
 
         klass_for_interval(interval).new(
-          time_period:, report_type:, sorting:, page:
+          time_period:, report_type:, sorting:, page:, **report_params
         )
       rescue Date::Error
         raise Reporting::ReportNotFound
       end
 
-      def current(report_type:, interval:, sorting: {}, page: 1)
+      def current(report_type:, interval:, sorting: {}, page: 1, **report_params)
         date = _current_date
         time_period = TimePeriod.new(interval:, date:)
 
         klass_for_interval(interval).new(
-          time_period:, report_type:, sorting:, page:
+          time_period:, report_type:, sorting:, page:, **report_params
         )
       end
 

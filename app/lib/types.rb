@@ -84,7 +84,7 @@ module Types
                                    Report['return_reasons_report'],
                                    Report['volumes_by_office_report'],
                                    Report['unassigned_from_self_report'])
-  CaseworkerTemporalReportType = String.enum(Report['unassigned_from_self_report'])
+  UserTemporalReportType = String.enum(Report['unassigned_from_self_report'])
 
   TemporalInterval = String.enum('daily', 'weekly', 'monthly')
 

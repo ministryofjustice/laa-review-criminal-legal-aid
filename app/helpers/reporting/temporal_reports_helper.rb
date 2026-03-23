@@ -21,7 +21,7 @@ module Reporting
     private
 
     def unassigned_from_self_report_path(data_row, report)
-      reporting_caseworker_temporal_report_path(
+      reporting_user_temporal_report_path(
         report.to_param.merge(report_type: 'unassigned_from_self_report', user_id: data_row.user_id)
       )
     end
