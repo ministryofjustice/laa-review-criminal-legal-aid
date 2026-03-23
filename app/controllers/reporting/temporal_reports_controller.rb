@@ -29,7 +29,7 @@ module Reporting
         **extra_report_params
       ).previous_report
 
-      redirect_to reporting_temporal_report_path(report.to_param)
+      redirect_to url_for(report.to_param.merge(action: :show))
     end
 
     private

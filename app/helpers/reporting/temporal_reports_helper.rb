@@ -7,6 +7,7 @@ module Reporting
     def link_to_unassigned_from_user(data_row, report)
       count = data_row.total_unassigned_from_user
 
+      return count unless FeatureFlags.unassigned_from_self_report.enabled?
       return count if count.zero?
 
       govuk_link_to(
@@ -18,7 +19,21 @@ module Reporting
       )
     end
 
+    def link_to_search_by_caseworker(user_name, user_id)
+      govuk_link_to(
+        user_name,
+        search_by_caseworker_path(user_id),
+        data: { turbo: false },
+        no_visited_state: true
+      )
+    end
+
     private
+
+    def search_by_caseworker_path(user_id)
+      filter = { assigned_status: user_id, application_status: 'open' }
+      search_application_searches_path(filter:)
+    end
 
     def unassigned_from_self_report_path(data_row, report)
       reporting_user_temporal_report_path(

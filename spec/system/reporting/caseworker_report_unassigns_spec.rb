@@ -95,4 +95,25 @@ RSpec.describe 'Caseworker report unassigns from self' do
       end
     end
   end
+
+  context 'when the unassigned_from_self_report feature flag is disabled' do
+    before do
+      allow(FeatureFlags).to receive(:unassigned_from_self_report)
+        .and_return(instance_double(FeatureFlags::EnabledFeature, enabled?: false))
+
+      visit reporting_temporal_report_path(
+        interval:, report_type:, period:
+      )
+    end
+
+    it 'displays the unassign count as plain text, not a link' do
+      within('.app-table tbody') do
+        row = find('tr', text: 'Jane Doe')
+        unassign_detail_cell = row.all('td.colgroup-detail')[2]
+
+        expect(unassign_detail_cell).not_to have_link
+        expect(unassign_detail_cell).to have_text('2')
+      end
+    end
+  end
 end

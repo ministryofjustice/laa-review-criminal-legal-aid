@@ -41,7 +41,11 @@ describe Reporting::UnassignedFromSelfReport do
 
     before do
       allow(CaseworkerReports::UnassignedFromSelfProjection)
-        .to receive(:new).and_return(double(dataset:))
+        .to receive(:new).and_return(
+          instance_double(
+            CaseworkerReports::UnassignedFromSelfProjection, dataset:
+          )
+        )
     end
 
     it 'accepts a user_id keyword argument without raising' do
