@@ -1,13 +1,13 @@
 <%= govuk_pagination(block_mode: true) do |p| %>
   <%= p.with_previous_page(
         label_text: report.previous_report.period_name,
-        href: reporting_temporal_report_path(report.previous_report.to_param)
+        href: url_for(report.previous_report.to_param)
       ) %>
 
   <% unless report.current? %>
     <%= p.with_next_page(
           label_text: report.next_report.period_name,
-          href: reporting_temporal_report_path(report.next_report.to_param)
+          href: url_for(report.next_report.to_param)
         ) %>
   <% end %>
 <% end %>
