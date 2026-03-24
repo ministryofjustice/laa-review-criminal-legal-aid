@@ -4,21 +4,25 @@ module CaseworkerReports
       assigned_to_user
       reassigned_to_user
       reassigned_from_user
-      unassigned_from_user
       completed_by_user
       sent_back_by_user
     ].freeze
 
+    CSV_COLUMNS = (COUNTERS[..COUNTERS.index('reassigned_from_user')] +
+                   %w[unassigned_from_user] +
+                   COUNTERS[COUNTERS.index('completed_by_user')..]).freeze
+
     def initialize(user_id, work_queue = nil)
       @user_id = user_id
       @work_queue = work_queue
+      @unassigned_from_user_ids = []
 
       COUNTERS.each do |counter|
         instance_variable_set(:"@#{counter}", 0)
       end
     end
 
-    attr_reader :user_id, :work_queue, *COUNTERS
+    attr_reader :user_id, :work_queue, :unassigned_from_user_ids, *COUNTERS
 
     def user_name
       User.name_for(@user_id)
@@ -66,8 +70,12 @@ module CaseworkerReports
       @reassigned_from_user += 1
     end
 
-    def unassign
-      @unassigned_from_user += 1
+    def unassign(assignment_id = nil)
+      @unassigned_from_user_ids << assignment_id
+    end
+
+    def unassigned_from_user
+      @unassigned_from_user_ids.size
     end
 
     def send_back
