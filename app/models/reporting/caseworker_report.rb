@@ -14,11 +14,11 @@ module Reporting
     def csv(*) # rubocop:disable Metrics/AbcSize
       data = sort_data(dataset.work_queue_projection.values.map(&:values).flatten)
       CSV.generate do |csv|
-        csv << ['user', 'work_queue', *CaseworkerReports::Row::CSV_COLUMNS, 'total_assigned_to_user',
+        csv << ['user', 'work_queue', *CaseworkerReports::Row::COUNTERS, 'total_assigned_to_user',
                 'total_unassigned_from_user', 'total_closed_by_user']
         data.each do |row|
-          csv << [row.user_name, row.work_queue, *CaseworkerReports::Row::CSV_COLUMNS.map do |col|
-            row.send(col)
+          csv << [row.user_name, row.work_queue, *CaseworkerReports::Row::COUNTERS.map do |counter|
+            row.send(counter)
           end, row.total_assigned_to_user, row.total_unassigned_from_user, row.total_closed_by_user]
         end
       end
