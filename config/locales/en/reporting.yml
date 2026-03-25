@@ -8,21 +8,21 @@ en:
       volumes_by_office_report:
         title: "Submissions by office monthly: %{period_name}"
       unassigned_from_self_report:
-        title: "Applications removed from list"
+        title: "Applications removed from list by caseworker"
     weekly_report:
       caseworker_report:
         title: "Caseworker weekly: %{period_name}"
       return_reasons_report:
         title: "Return reasons weekly: %{period_name}"
       unassigned_from_self_report:
-        title: "Applications removed from list"
+        title: "Applications removed from list by caseworker"
     daily_report:
       caseworker_report:
         title: "Caseworker daily: %{period_name}"
       return_reasons_report:
         title: "Return reasons daily: %{period_name}"
       unassigned_from_self_report:
-        title: "Applications removed from list"
+        title: "Applications removed from list by caseworker"
     snapshot:
       workload_report:
         title: "Workload report: %{observed_at}"
@@ -33,7 +33,8 @@ en:
         downloads: Downloads
   labels:
     application_type_competencies: Types of application
-    caseworker_overview: Caseworker and competencies
+    caseworker_overview: Caseworker details
+    caseworker_name: Caseworker name
     return_reasons_report: Return reasons report
     workload_report: Workload report
     current_workload_report: Workload report
@@ -51,9 +52,9 @@ en:
     download_csv: Download source data (CSV)
   values:
     unassigned_from_self_results:
-      zero: No applications removed from list this period.
-      one: 1 application removed from list this period.
-      other: "%{count} applications removed from list this period."
+      zero: No applications removed from list
+      one: 1 application removed from list
+      other: "%{count} applications removed from list"
   table_headings:
     application_type: Application type
     applications_closed: Number of closed applications

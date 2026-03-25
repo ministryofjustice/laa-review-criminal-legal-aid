@@ -9,7 +9,7 @@
         <h2 class="govuk-heading-m"><%= label_text :caseworker_overview %></h2>
         <%= govuk_summary_list(actions: false) do |list|
               list.with_row do |row|
-                row.with_key { label_text :caseworker }
+                row.with_key { label_text :caseworker_name }
                 row.with_value { User.name_for(@user_id) }
               end
 
@@ -81,7 +81,3 @@
     </div>
   </div>
 </div>
-
-<% content_for(:back_link) do %>
-  <%= govuk_back_link href: :back %>
-<% end %>

@@ -83,7 +83,7 @@ RSpec.describe 'Unassigned from self report' do
 
     it 'shows no results message' do
       expect(page).to have_content('John Smith')
-      expect(page).to have_content('No applications removed from list this period.')
+      expect(page).to have_content('No applications removed from list')
     end
   end
 end
