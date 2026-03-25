@@ -5,7 +5,7 @@ module Reporting
     end
 
     def link_to_unassigned_from_user(data_row, report)
-      count = data_row.total_unassigned_from_user
+      count = data_row.unassigned_from_user
 
       return count unless FeatureFlags.unassigned_from_self_report.enabled?
       return count if count.zero?

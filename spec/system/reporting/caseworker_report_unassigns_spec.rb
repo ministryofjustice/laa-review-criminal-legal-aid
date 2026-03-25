@@ -16,16 +16,39 @@ RSpec.describe 'Caseworker report unassigns from self' do
     )
   end
 
-  let(:assignment_ids) { Array.new(2) { SecureRandom.uuid } }
+  let(:assignment_ids) { Array.new(3) { SecureRandom.uuid } }
 
   before do
     travel_to(Time.zone.local(2023, 1, 1, 12))
 
     event_store = Rails.configuration.event_store
 
+    user_id = User.create!(
+      first_name: 'Joe',
+      last_name: 'Dobbs',
+      auth_oid: SecureRandom.uuid,
+      email: 'Joe.Dobbs@justice.gov.uk'
+    ).id
+
     assignment_ids.each do |id|
       event_store.publish(Assigning::AssignedToUser.new(data: { to_whom_id: caseworker.id, assignment_id: id }))
+    end
+
+    assignment_ids.take(2).each do |id|
       event_store.publish(Assigning::UnassignedFromUser.new(data: { from_whom_id: caseworker.id, assignment_id: id }))
+    end
+
+    assignment_ids.drop(2).each do |id|
+      event_store.publish(
+        Assigning::ReassignedToUser.new(
+          data: {
+            from_whom_id: caseworker.id,
+            assignment_id: id,
+            to_whom_id: user_id,
+            user_id: user_id
+          }
+        )
+      )
     end
 
     visit reporting_temporal_report_path(
