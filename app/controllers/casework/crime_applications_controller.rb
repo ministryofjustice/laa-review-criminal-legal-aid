@@ -6,6 +6,7 @@ module Casework
     before_action :require_a_user_work_stream, only: %i[open closed]
     before_action :set_current_work_stream, only: %i[open closed]
     before_action :set_crime_application, only: %i[show history ready]
+    before_action :require_reviewing_caseworker!, only: [:ready]
 
     def open
       set_search(

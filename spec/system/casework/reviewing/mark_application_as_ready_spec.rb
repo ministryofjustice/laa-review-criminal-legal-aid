@@ -3,7 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Marking an application as ready for assessment' do
   include_context 'with an existing application'
 
+  let(:current_user_role) { UserRole::CASEWORKER }
   let(:ready_for_assessment_cta) { 'Mark as ready for MAAT' }
+
+  shared_examples 'hides "Mark as ready for MAAT" button' do
+    it 'the "Mark as ready for MAAT" button is not visible' do
+      expect(page).to have_no_button(ready_for_assessment_cta)
+    end
+  end
 
   context 'when assigned to the application' do
     before do
@@ -58,6 +65,36 @@ RSpec.describe 'Marking an application as ready for assessment' do
     end
   end
 
+  context 'when viewing the application as a supervisor' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      visit crime_application_path(crime_application_id)
+    end
+
+    include_examples 'hides "Mark as ready for MAAT" button'
+  end
+
+  context 'when viewing the application as a data analyst' do
+    let(:current_user_role) { UserRole::DATA_ANALYST }
+
+    before do
+      visit crime_application_path(crime_application_id)
+    end
+
+    include_examples 'hides "Mark as ready for MAAT" button'
+  end
+
+  context 'when viewing the application as an auditor' do
+    let(:current_user_role) { UserRole::AUDITOR }
+
+    before do
+      visit crime_application_path(crime_application_id)
+    end
+
+    include_examples 'hides "Mark as ready for MAAT" button'
+  end
+
   context 'when marked as ready in the datastore but not on Review' do
     before do
       click_on 'Kit Pound'
@@ -102,9 +139,7 @@ RSpec.describe 'Marking an application as ready for assessment' do
       click_on('Kit Pound')
     end
 
-    it 'the "Ready for assessment" button is not visible' do
-      expect(page).to have_no_button(ready_for_assessment_cta)
-    end
+    include_examples 'hides "Mark as ready for MAAT" button'
   end
 
   context 'when reassigned while the page is already loaded' do

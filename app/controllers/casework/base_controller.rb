@@ -6,7 +6,7 @@ module Casework
     before_action :require_service_user!
     before_action :set_security_headers
 
-    helper_method :assignments_count, :set_crime_application
+    helper_method :assignments_count, :can_review_application?, :set_crime_application
 
     rescue_from DatastoreApi::Errors::ApiError do |e|
       Rails.error.report(e, handled: false, severity: :error)
@@ -22,6 +22,12 @@ module Casework
 
     rescue_from DatastoreApi::Errors::NotFoundError do
       render status: :not_found, template: 'errors/application_not_found'
+    end
+
+    rescue_from Reviewing::NotAuthorisedToReview do
+      set_flash(:not_authorised_to_review, success: false)
+
+      redirect_to reviewing_authorisation_redirect_path
     end
 
     private
@@ -43,9 +49,27 @@ module Casework
       ).count
     end
 
+    def can_review_application?(crime_application)
+      current_user.caseworker? && crime_application.reviewable_by?(current_user_id)
+    end
+
+    def require_reviewing_caseworker!
+      return if current_user.caseworker?
+
+      set_flash(:not_authorised_to_review, success: false)
+
+      redirect_to reviewing_authorisation_redirect_path
+    end
+
     def set_crime_application
       app_id_param = params.key?(:crime_application_id) ? params[:crime_application_id] : params[:id]
       @crime_application = CrimeApplication.find(app_id_param)
+    end
+
+    def reviewing_authorisation_redirect_path
+      return crime_application_path(current_crime_application) if current_crime_application
+
+      assigned_applications_path
     end
 
     def current_crime_application
