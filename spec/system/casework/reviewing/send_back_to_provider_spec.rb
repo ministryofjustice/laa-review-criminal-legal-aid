@@ -10,6 +10,12 @@ RSpec.describe 'Send an application back to the provider' do
 
   let(:send_back_cta) { 'Send back to provider' }
 
+  shared_examples 'hides "Send back to provider" button' do
+    it 'the "Send back to provider" button is not visible' do
+      expect(page).to have_no_button(send_back_cta)
+    end
+  end
+
   context 'when assigned to the application' do
     before do
       click_on 'Kit Pound'
@@ -155,6 +161,36 @@ RSpec.describe 'Send an application back to the provider' do
     end
   end
 
+  context 'when viewing the application as a supervisor' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      visit crime_application_path(crime_application_id)
+    end
+
+    include_examples 'hides "Send back to provider" button'
+  end
+
+  context 'when viewing the application as a data analyst' do
+    let(:current_user_role) { UserRole::DATA_ANALYST }
+
+    before do
+      visit crime_application_path(crime_application_id)
+    end
+
+    include_examples 'hides "Send back to provider" button'
+  end
+
+  context 'when viewing the application as an auditor' do
+    let(:current_user_role) { UserRole::AUDITOR }
+
+    before do
+      visit crime_application_path(crime_application_id)
+    end
+
+    include_examples 'hides "Send back to provider" button'
+  end
+
   context 'when not assigned to the application' do
     let(:assignee_id) do
       User.create(first_name: 'A', last_name: 'Caseworder').id
@@ -165,8 +201,6 @@ RSpec.describe 'Send an application back to the provider' do
       click_on('Kit Pound')
     end
 
-    it 'the "Send back to provider" button is not visible' do
-      expect(page).to have_no_button(send_back_cta)
-    end
+    include_examples 'hides "Send back to provider" button'
   end
 end
