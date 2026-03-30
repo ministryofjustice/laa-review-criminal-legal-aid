@@ -8,10 +8,6 @@
   <%= render partial: 'primary_navigation' %>
 <% end %>
 
-<% content_for(:back_link) do %>
-  <%= govuk_back_link href: :back %>
-<% end %>
-
 <% content_for(:content) do %>
   <%= render partial: 'flash_banner' %>
   <%= yield %>
