@@ -5,6 +5,7 @@ RSpec.describe Reviewing::SendBack do
     described_class.new(application_id:, user_id:, return_details:)
   end
 
+  include_context 'with an existing caseworker'
   include_context 'with stubbed assignment'
 
   before do
@@ -31,7 +32,7 @@ RSpec.describe Reviewing::SendBack do
     )
   end
 
-  let(:user_id) { SecureRandom.uuid }
+  let(:user_id) { caseworker_user.id }
 
   let(:return_details) do
     { reason: 'evidence_issue', details: 'Detailed reason for return' }

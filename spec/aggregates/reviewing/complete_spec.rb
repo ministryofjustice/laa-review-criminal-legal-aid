@@ -5,6 +5,7 @@ RSpec.describe Reviewing::Complete do
     described_class.new(application_id:, user_id:)
   end
 
+  include_context 'with an existing caseworker'
   include_context 'with review'
   include_context 'with stubbed assignment'
 
@@ -15,7 +16,7 @@ RSpec.describe Reviewing::Complete do
     )
   end
 
-  let(:user_id) { SecureRandom.uuid }
+  let(:user_id) { caseworker_user.id }
   let(:reference) { rand(100_000..1_000_000) }
   let(:decision_id) { SecureRandom.uuid }
   let(:decisions) { [] }

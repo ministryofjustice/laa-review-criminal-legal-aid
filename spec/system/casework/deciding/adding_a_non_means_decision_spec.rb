@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Adding a Non-means application' do
   include DecisionFormHelpers
+
   let(:current_user_role) { UserRole::CASEWORKER }
 
   # rubocop:disable RSpec/ExampleLength
@@ -68,7 +69,6 @@ RSpec.describe 'Adding a Non-means application' do
         'Comments', 'Caseworker comment'
       )
     end
-
   end
 
   context 'when viewing the application as a non-caseworker' do
@@ -76,19 +76,19 @@ RSpec.describe 'Adding a Non-means application' do
       visit crime_application_path(application_id)
     end
 
-    context 'as a supervisor' do
+    context 'when a supervisor' do
       let(:current_user_role) { UserRole::SUPERVISOR }
 
       include_examples 'hides "Start" button'
     end
 
-    context 'as a data analyst' do
+    context 'when a data analyst' do
       let(:current_user_role) { UserRole::DATA_ANALYST }
 
       include_examples 'hides "Start" button'
     end
 
-    context 'as an auditor' do
+    context 'when an auditor' do
       let(:current_user_role) { UserRole::AUDITOR }
 
       include_examples 'hides "Start" button'

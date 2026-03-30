@@ -12,9 +12,10 @@ RSpec.describe 'Sending application decisions' do
       email: 'Zoe.Blogs@example.com',
       auth_subject_id: SecureRandom.uuid,
       can_manage_others: false,
-      role: UserRole::CASEWORKER
+      role: current_user_role
     )
   end
+  let(:current_user_role) { UserRole::CASEWORKER }
 
   before do
     sign_in user

@@ -166,19 +166,19 @@ RSpec.describe 'Send an application back to the provider' do
       visit crime_application_path(crime_application_id)
     end
 
-    context 'as a supervisor' do
+    context 'when a supervisor' do
       let(:current_user_role) { UserRole::SUPERVISOR }
 
       include_examples 'hides "Send back to provider" button'
     end
 
-    context 'as a data analyst' do
+    context 'when a data analyst' do
       let(:current_user_role) { UserRole::DATA_ANALYST }
 
       include_examples 'hides "Send back to provider" button'
     end
 
-    context 'as an auditor' do
+    context 'when an auditor' do
       let(:current_user_role) { UserRole::AUDITOR }
 
       include_examples 'hides "Send back to provider" button'
