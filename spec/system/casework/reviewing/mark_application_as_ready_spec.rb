@@ -65,34 +65,28 @@ RSpec.describe 'Marking an application as ready for assessment' do
     end
   end
 
-  context 'when viewing the application as a supervisor' do
-    let(:current_user_role) { UserRole::SUPERVISOR }
-
+  context 'when viewing the application as a non-caseworker' do
     before do
       visit crime_application_path(crime_application_id)
     end
 
-    include_examples 'hides "Mark as ready for MAAT" button'
-  end
+    context 'as a supervisor' do
+      let(:current_user_role) { UserRole::SUPERVISOR }
 
-  context 'when viewing the application as a data analyst' do
-    let(:current_user_role) { UserRole::DATA_ANALYST }
-
-    before do
-      visit crime_application_path(crime_application_id)
+      include_examples 'hides "Mark as ready for MAAT" button'
     end
 
-    include_examples 'hides "Mark as ready for MAAT" button'
-  end
+    context 'as a data analyst' do
+      let(:current_user_role) { UserRole::DATA_ANALYST }
 
-  context 'when viewing the application as an auditor' do
-    let(:current_user_role) { UserRole::AUDITOR }
-
-    before do
-      visit crime_application_path(crime_application_id)
+      include_examples 'hides "Mark as ready for MAAT" button'
     end
 
-    include_examples 'hides "Mark as ready for MAAT" button'
+    context 'as an auditor' do
+      let(:current_user_role) { UserRole::AUDITOR }
+
+      include_examples 'hides "Mark as ready for MAAT" button'
+    end
   end
 
   context 'when marked as ready in the datastore but not on Review' do

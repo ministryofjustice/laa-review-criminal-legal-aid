@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Adding a NAFI decision' do
   include AssignmentHelpers
 
+  include_context 'with an existing caseworker'
   include_context 'with stubbed application'
   include_context 'when adding a decision by MAAT ID'
 
@@ -56,7 +57,7 @@ RSpec.describe 'Adding a NAFI decision' do
   end
 
   context 'when the MAAT ID is linked to a different draft application on review' do
-    let(:user_id) { SecureRandom.uuid }
+    let(:user_id) { caseworker_user.id }
     let(:application_id) { original_application.id }
 
     before do
@@ -78,7 +79,7 @@ RSpec.describe 'Adding a NAFI decision' do
   end
 
   context 'when the MAAT ID is linked to a different sent application on review' do
-    let(:user_id) { SecureRandom.uuid }
+    let(:user_id) { caseworker_user.id }
     let(:application_id) { original_application.id }
 
     before do
