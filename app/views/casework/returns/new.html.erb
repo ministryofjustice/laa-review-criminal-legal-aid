@@ -1,5 +1,4 @@
 <% title t('.header', applicant_name: @crime_application.applicant.full_name) %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body-l govuk-!-margin-bottom-2">
@@ -28,3 +27,7 @@
     <% end %>
   </div>
 </div>
+
+<% content_for(:back_link) do %>
+  <%= govuk_back_link href: :back %>
+<% end %>
