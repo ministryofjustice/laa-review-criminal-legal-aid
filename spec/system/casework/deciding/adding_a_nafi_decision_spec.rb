@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Adding a NAFI decision' do
   include AssignmentHelpers
 
-  include_context 'with an existing caseworker'
+  include_context 'with an existing caseworker user'
   include_context 'with stubbed application'
   include_context 'when adding a decision by MAAT ID'
 

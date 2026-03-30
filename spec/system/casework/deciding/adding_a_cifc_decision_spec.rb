@@ -45,7 +45,7 @@ RSpec.describe 'Adding a CIFC decision by MAAT ID' do
     end
 
     context 'when the MAAT ID is linked to a different application on review' do # rubocop:disable RSpec/MultipleMemoizedHelpers
-      include_context 'with an existing caseworker'
+      include_context 'with an existing caseworker user'
       let(:user_id) { caseworker_user.id }
 
       before do

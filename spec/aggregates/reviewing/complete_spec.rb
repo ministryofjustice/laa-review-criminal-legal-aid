@@ -5,7 +5,8 @@ RSpec.describe Reviewing::Complete do
     described_class.new(application_id:, user_id:)
   end
 
-  include_context 'with an existing caseworker'
+  include_context 'with an existing caseworker user'
+  include_context 'with an existing supervisor user'
   include_context 'with review'
   include_context 'with stubbed assignment'
 
@@ -80,6 +81,14 @@ RSpec.describe Reviewing::Complete do
       expect do
         command.call
       end.to raise_error(Reviewing::IncompleteDecisions)
+    end
+  end
+
+  context 'when assigned but not authorised to review' do
+    let(:user_id) { supervisor_user.id }
+
+    it 'raises a not authorised to review error' do
+      expect { command.call }.to raise_error(Reviewing::NotAuthorisedToReview)
     end
   end
 

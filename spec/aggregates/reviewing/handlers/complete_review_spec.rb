@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Reviewing::Handlers::CompleteReview do
   subject(:handler) { described_class.new }
 
-  include_context 'with an existing caseworker'
+  include_context 'with an existing caseworker user'
   include_context 'with review'
   include_context 'with stubbed assignment'
 

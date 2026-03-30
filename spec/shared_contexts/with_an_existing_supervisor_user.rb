@@ -1,4 +1,4 @@
-RSpec.shared_context 'with a supervisor user', shared_context: :metadata do
+RSpec.shared_context 'with an existing supervisor user', shared_context: :metadata do
   include Devise::Test::IntegrationHelpers
 
   let(:supervisor_user) do

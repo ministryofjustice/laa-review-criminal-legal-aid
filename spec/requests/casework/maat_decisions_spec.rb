@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'MAAT decisions' do
   include_context 'with stubbed application'
-  include_context 'with a supervisor user'
+  include_context 'with an existing supervisor user'
 
   before do
     sign_in supervisor_user

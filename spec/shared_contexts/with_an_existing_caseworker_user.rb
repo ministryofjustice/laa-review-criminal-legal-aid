@@ -1,4 +1,4 @@
-RSpec.shared_context 'with an existing caseworker', shared_context: :metadata do
+RSpec.shared_context 'with an existing caseworker user', shared_context: :metadata do
   let(:caseworker_user) do
     User.create!(
       first_name: 'Case',

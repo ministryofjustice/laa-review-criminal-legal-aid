@@ -5,7 +5,7 @@ RSpec.describe Reviewing::MarkAsReady do
     described_class.new(application_id:, user_id:)
   end
 
-  include_context 'with an existing caseworker'
+  include_context 'with an existing caseworker user'
   include_context 'with review'
   include_context 'with stubbed assignment'
 

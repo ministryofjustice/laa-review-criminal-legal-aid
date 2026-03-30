@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ReceivedOnReports::Configuration do
-  include_context 'with an existing caseworker'
+  include_context 'with an existing caseworker user'
   include_context 'with stubbed assignment'
 
   let(:application_id) { SecureRandom.uuid }
