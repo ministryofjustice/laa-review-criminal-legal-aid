@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative '../lib/middleware/business_hours_middleware'
 
 require 'rails'
 require 'active_record/railtie'
@@ -100,5 +101,12 @@ module LaaReviewCriminalLegalAid
     config.x.maat_api.client_secret = ENV.fetch('MAAT_API_CLIENT_SECRET', nil)
     config.x.maat_api.api_url = ENV.fetch('MAAT_API_API_URL', nil)
     config.x.maat_api.first_supported_maat_id = ENV.fetch('MAAT_API_FIRST_SUPPORTED_MAAT_ID', nil)
+
+    config.x.bank_holidays_api.url = ENV.fetch('BANK_HOLIDAYS_API_URL', nil)
+
+    config.x.business_hours.start = ENV.fetch('BUSINESS_HOURS_START', "7:00")
+    config.x.business_hours.end = ENV.fetch('BUSINESS_HOURS_END', "22:00")
+
+    config.middleware.use BusinessHoursMiddleware
   end
 end

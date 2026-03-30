@@ -1,16 +1,28 @@
 module Casework
   class DocumentsController < Casework::BaseController
-    before_action :set_crime_application, :set_document
+    before_action :set_crime_application
+    before_action :set_document, except: [:index]
 
     rescue_from 'Datastore::Documents::DownloadError' do
       set_flash(:cannot_download_try_again, file_name: @document.filename, success: false)
 
-      redirect_to crime_application_path(params[:crime_application_id])
+      redirect_to crime_application_path(@crime_application)
     end
 
-    def show
-      redirect_to(view_url, allow_other_host: true)
+    def index; end
 
+    def show
+      if @document.pdf?
+        stream_inline
+      else
+        render(layout: false)
+      end
+
+      log_evidence_access(:view)
+    end
+
+    def raw
+      stream_inline
       log_evidence_access(:view)
     end
 
@@ -46,7 +58,13 @@ module Casework
       return @document if @document.present?
 
       set_flash(:cannot_download_doc_uploaded_to_another_app, success: false)
-      redirect_to crime_application_path(params[:crime_application_id])
+      redirect_to crime_application_path(@crime_application)
+    end
+
+    def stream_inline
+      s3_response = Faraday.get(view_url)
+
+      send_data s3_response.body, type: @document.content_type, disposition: 'inline', filename: @document.filename
     end
 
     # Creates a searchable log entry for evaluating view/download behaviour

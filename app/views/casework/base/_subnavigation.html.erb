@@ -1,0 +1,17 @@
+<nav class="moj-sub-navigation" aria-label="Sub navigation">
+  <ul class="moj-sub-navigation__list">
+    <li class="moj-sub-navigation__item">
+      <%= link_to t('.application_details'), crime_application_path(crime_application, anchor: 'subnav'), class: 'moj-sub-navigation__link', aria: { current: current_page?(crime_application_path(crime_application)) ? 'page' : nil } %>
+    </li>
+
+    <li class="moj-sub-navigation__item">
+      <%= link_to t('.application_history'), history_crime_application_path(crime_application, anchor: 'subnav'), class: 'moj-sub-navigation__link', aria: { current: current_page?(history_crime_application_path(crime_application, action: 'history')) ? 'page' : nil } %>
+    </li>
+
+    <% unless crime_application.supporting_evidence.empty? || FeatureFlags.view_all_evidence.disabled? %>
+      <li class="moj-sub-navigation__item">
+        <%= link_to t('.supporting_evidence'), crime_application_documents_path(crime_application, anchor: 'subnav'), class: 'moj-sub-navigation__link', aria: { current: current_page?(crime_application_documents_path(crime_application)) ? 'page' : nil } %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

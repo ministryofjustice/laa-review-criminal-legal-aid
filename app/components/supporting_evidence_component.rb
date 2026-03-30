@@ -15,15 +15,24 @@ class SupportingEvidenceComponent < ViewComponent::Base
     safe_join([view_link(evidence), download_link(evidence)].compact)
   end
 
+  def view_all_link
+    return unless FeatureFlags.view_all_evidence.enabled?
+    return if crime_application.supporting_evidence.empty?
+
+    govuk_link_to(
+      t(:view_all_evidence, scope: 'values'),
+      crime_application_documents_path(crime_application)
+    )
+  end
+
   def view_link(evidence)
-    return unless FeatureFlags.view_evidence.enabled?
     return unless evidence.viewable_inline?
 
     govuk_link_to(
       t(:view_file, scope: 'values'),
-      documents_path(
-        crime_application_id: crime_application.id,
-        id: evidence.s3_object_key
+      crime_application_document_path(
+        crime_application,
+        evidence.s3_object_key
       ),
       visually_hidden_text: evidence.filename,
       class: link_classes << 'govuk-!-font-weight-bold',
@@ -34,9 +43,9 @@ class SupportingEvidenceComponent < ViewComponent::Base
   def download_link(evidence)
     govuk_link_to(
       download_text(evidence),
-      download_documents_path(
-        crime_application_id: crime_application.id,
-        id: evidence.s3_object_key
+      download_crime_application_document_path(
+        crime_application,
+        evidence.s3_object_key
       ),
       class: link_classes
     )

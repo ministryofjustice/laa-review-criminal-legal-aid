@@ -50,10 +50,10 @@ RSpec.describe 'Adding a Non-means application' do
       add_a_non_means_decision
 
       expect(summary_card('Case')).to have_rows(
-        'Interests of justice (IoJ) test result', 'Passed',
-        'IoJ comments', 'Test result reason details',
-        'IoJ caseworker', 'Zoe Blogs',
-        'IoJ test date', '01/02/2024',
+        'Interests of Justice (IOJ) test result', 'Passed',
+        'IOJ comments', 'Test result reason details',
+        'IOJ caseworker', 'Zoe Blogs',
+        'IOJ test date', '01/02/2024',
         'Overall result', 'Granted',
         'Comments', 'Caseworker comment'
       )

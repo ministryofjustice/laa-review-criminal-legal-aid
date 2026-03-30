@@ -4,13 +4,7 @@ RSpec.describe 'Viewing supporting evidence' do
   include_context 'with stubbed application'
   include_context 'when downloading a document'
 
-  let(:viewing_enabled) { false }
-
   before do
-    allow(FeatureFlags).to receive(:view_evidence) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: viewing_enabled)
-    }
-
     visit crime_application_path(application_id)
   end
 
@@ -21,11 +15,14 @@ RSpec.describe 'Viewing supporting evidence' do
     end
 
     context 'with supporting evidence' do
+      include_context 'when viewing a document'
+
       it 'shows a link to download the supporting evidence' do
         link_text = 'Download file (pdf, 12 Bytes)'
 
-        within(files_card) do |card|
-          expect(card).to have_summary_row 'test.pdf', link_text
+        within(files_card) do
+          expect(page).to have_link('View')
+          expect(page).to have_link(link_text)
 
           click_link(link_text)
         end
@@ -40,42 +37,26 @@ RSpec.describe 'Viewing supporting evidence' do
           click_link(link_text)
         end
 
+        expect(current_path).to eq('/crime-apply-documents-dev/42/WtpJTOwsQ2')
         expect(EvidenceAccessLogger).to have_received(:log_download)
       end
 
-      context 'when viewing evidence is enabled' do
-        let(:viewing_enabled) { true }
+      context 'when clicking the view link' do
+        before do
+          allow(EvidenceAccessLogger).to receive(:log_view)
 
-        include_context 'when viewing a document' do
-          it 'navigates to the document viewer when clicking the view link' do
-            link_text = 'View'
-
-            within(files_card) do
-              click_link(link_text)
-              expect(current_path).to eq('/crime-apply-documents-dev/42/WtpJTOwsQ2')
-            end
-          end
-
-          it 'logs evidence view event' do
-            link_text = 'View'
-
-            allow(EvidenceAccessLogger).to receive(:log_view)
-
-            within(files_card) do
-              click_link(link_text)
-            end
-
-            expect(EvidenceAccessLogger).to have_received(:log_view)
+          within(files_card) do
+            click_link('View')
           end
         end
 
-        it 'navigates to the document download when clicking the download link' do
-          link_text = 'Download file (pdf, 12 Bytes)'
+        it 'navigates to the document viewer when clicking the view link' do
+          expect(current_path).to eq(crime_application_document_path(application_id, s3_object_key))
+          expect(EvidenceAccessLogger).to have_received(:log_view)
+        end
 
-          within(files_card) do
-            click_link(link_text)
-            expect(current_path).to eq('/crime-apply-documents-dev/42/WtpJTOwsQ2')
-          end
+        it 'logs evidence view event' do
+          expect(EvidenceAccessLogger).to have_received(:log_view)
         end
       end
     end
@@ -124,6 +105,48 @@ RSpec.describe 'Viewing supporting evidence' do
       ]
 
       expect(nodes.all?).to be true
+    end
+  end
+
+  describe 'document show action for non-PDF files' do
+    let(:image_s3_key) { '123/image1234' }
+    let(:application_data) do
+      super().deep_merge('supporting_evidence' => [
+                           {
+                             's3_object_key' => image_s3_key,
+                             'filename' => 'photo.jpg',
+                             'content_type' => 'image/jpeg',
+                             'file_size' => 2048,
+                             'scan_at' => '2023-10-01 12:34:56'
+                           }
+                         ])
+    end
+
+    before do
+      allow(EvidenceAccessLogger).to receive(:log_view)
+      visit crime_application_document_path(application_id, image_s3_key)
+    end
+
+    it 'renders the image document viewer without the application layout' do
+      expect(current_path).to eq(crime_application_document_path(application_id, image_s3_key))
+      expect(page).to have_css("img[src='#{raw_crime_application_document_path(application_id, image_s3_key)}']")
+    end
+
+    it 'logs the view event' do
+      expect(EvidenceAccessLogger).to have_received(:log_view)
+    end
+  end
+
+  describe 'document raw action' do
+    include_context 'when viewing a document' do
+      it 'serves the document content directly from S3 and logs a view event' do
+        allow(EvidenceAccessLogger).to receive(:log_view)
+
+        visit raw_crime_application_document_path(application_id, s3_object_key)
+
+        expect(current_path).to eq(raw_crime_application_document_path(application_id, s3_object_key))
+        expect(EvidenceAccessLogger).to have_received(:log_view)
+      end
     end
   end
 end

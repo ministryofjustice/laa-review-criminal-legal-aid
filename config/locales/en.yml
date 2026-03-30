@@ -4,6 +4,9 @@ en:
       default: "%-d %b %Y" # 3 Jan 2019
       compact: "%d/%m/%Y" # 03/01/2019
 
+  evidence_embed_component:
+    not_embeddable: This file cannot be displayed in the browser.
+
   service:
     name: Review criminal legal aid applications
 

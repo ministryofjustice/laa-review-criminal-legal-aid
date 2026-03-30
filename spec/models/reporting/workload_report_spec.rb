@@ -5,6 +5,12 @@ RSpec.describe Reporting::WorkloadReport do
 
   let(:observed_at) { Date.parse('2023-01-02').in_time_zone('London').end_of_day }
 
+  before do
+    allow(Govuk::BankHolidays).to receive(:call).and_return(
+      [Date.new(2022, 12, 26), Date.new(2022, 12, 27), Date.new(2023, 1, 2)]
+    )
+  end
+
   describe '#rows' do
     describe 'CAT 1 rows' do
       let(:rows) { report.rows.first }

@@ -25,8 +25,10 @@ RSpec.describe 'Authorisation' do
       crime_application_return
       crime_application_complete
       crime_applications
-      download_documents
-      documents
+      crime_application_documents
+      download_crime_application_document
+      raw_crime_application_document
+      crime_application_document
       history_crime_application
       new_application_searches
       new_crime_application_reassign
@@ -60,6 +62,8 @@ RSpec.describe 'Authorisation' do
       assigned_applications_next_application
       reporting
       reporting_download_generated_report
+      reporting_user_temporal_report
+      reporting_latest_complete_user_temporal_report
     ]
   end
 
@@ -278,8 +282,9 @@ RSpec.describe 'Authorisation' do
     date = '2023-05-01'
     time = '23:59'
     work_stream = 'criminal_applications_team'
+    user_id = '1'
     { id:, crime_application_id:, path:, report_type:, interval:, period:, date:,
-      time:, work_stream:, decision_id: }.slice(*route.required_keys.dup)
+      time:, work_stream:, decision_id:, user_id: }.slice(*route.required_keys.dup)
   end
 end
 
