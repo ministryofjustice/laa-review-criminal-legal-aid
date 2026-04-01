@@ -19,7 +19,7 @@ RSpec.describe 'MAAT decisions' do
     end
 
     it 'sets the correct flash message and redirects' do
-      expect(flash[:important]).to eq(['You must be a caseworker to review'])
+      expect(flash[:important]).to eq(['You must be a caseworker to review an application'])
       expect(response).to redirect_to("/applications/#{application_id}")
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe 'MAAT decisions' do
     end
 
     it 'sets the correct flash message and redirects' do
-      expect(flash[:important]).to eq(['You must be a caseworker to review'])
+      expect(flash[:important]).to eq(['You must be a caseworker to review an application'])
       expect(response).to redirect_to("/applications/#{application_id}")
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe 'MAAT decisions' do
     end
 
     it 'sets the correct flash message and redirects' do
-      expect(flash[:important]).to eq(['You must be a caseworker to review'])
+      expect(flash[:important]).to eq(['You must be a caseworker to review an application'])
       expect(response).to redirect_to("/applications/#{application_id}")
     end
   end
