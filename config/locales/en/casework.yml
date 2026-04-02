@@ -725,20 +725,31 @@ en:
     title:
     description:
       assigning:
-        assigned_to_user: "%{application_type} assigned to %{to_whom_name}"
-        unassigned_from_user: "%{application_type} removed from %{from_whom_name}"
-        reassigned_to_user: "%{application_type} reassigned from %{from_whom_name} to %{to_whom_name}"
+        assigned_to_user: "%{application_type} %{ordinal_position} assigned to %{to_whom_name}"
+        assigned_to_user_without_ordinal: "%{application_type} assigned to %{to_whom_name}"
+        unassigned_from_user: "%{application_type} %{ordinal_position} removed from %{from_whom_name}"
+        unassigned_from_user_without_ordinal: "%{application_type} removed from %{from_whom_name}"
+        reassigned_to_user: "%{application_type} %{ordinal_position} reassigned from %{from_whom_name} to %{to_whom_name}"
+        reassigned_to_user_without_ordinal: "%{application_type} reassigned from %{from_whom_name} to %{to_whom_name}"
       deleting:
         soft_deleted: Personal data deleted in accordance with data retention policy
+        archived: Application deleted by provider
       reviewing:
-        sent_back: "%{application_type} sent back to provider"
+        sent_back: "%{application_type} %{ordinal_position} sent back to provider"
+        sent_back_without_ordinal: "%{application_type} sent back to provider"
         application_received:
-          original_submission: "%{application_type} submitted"
-          resubmission: "%{application_type} resubmitted"
-        application_resubmitted: "%{application_type} resubmitted"
+          original_submission: "%{application_type} %{ordinal_position} submitted by provider"
+          original_submission_without_ordinal: "%{application_type} submitted by provider"
+          resubmission: "%{application_type} %{ordinal_position} resubmitted by provider"
+          resubmission_without_ordinal: "%{application_type} resubmitted by provider"
+        application_resubmitted: "%{application_type} %{ordinal_position} resubmitted by provider"
+        application_resubmitted_without_ordinal: "%{application_type} resubmitted by provider"
         selected_application: Go to this version
-        completed: "%{application_type} completed"
-        marked_as_ready: "%{application_type} marked as ready for assessment"
+        view_application: "View %{application_type} %{ordinal_position}"
+        completed: "%{application_type} %{ordinal_position} completed"
+        completed_without_ordinal: "%{application_type} completed"
+        marked_as_ready: "%{application_type} %{ordinal_position} marked as ready for assessment"
+        marked_as_ready_without_ordinal: "%{application_type} marked as ready for assessment"
       authorising:
         invited: User invited
         invite_renewed: Invitation renewed

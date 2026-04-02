@@ -12,6 +12,11 @@ feature_flags:
     test: false
     staging: true
     production: true
+  reference_history:
+    local: true
+    test: false
+    staging: false
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:
