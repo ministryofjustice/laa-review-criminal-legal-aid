@@ -21,6 +21,11 @@ RSpec.describe 'Caseworker report unassigns from self' do
   before do
     travel_to(Time.zone.local(2023, 1, 1, 12))
 
+    assignment_ids.each_with_index do |id, index|
+      allow(Review).to receive(:where).with(application_id: id)
+                                      .and_return(instance_double(ActiveRecord::Relation, pick: 6_000_000 + index))
+    end
+
     event_store = Rails.configuration.event_store
 
     user_id = User.create!(
@@ -97,10 +102,15 @@ RSpec.describe 'Caseworker report unassigns from self' do
         email: 'John.Smith@justice.gov.uk'
       )
 
+      other_assignment_id = SecureRandom.uuid
+
+      allow(Review).to receive(:where).with(application_id: other_assignment_id)
+                                      .and_return(instance_double(ActiveRecord::Relation, pick: 6_000_099))
+
       event_store = Rails.configuration.event_store
 
       event_store.publish(
-        Assigning::AssignedToUser.new(data: { to_whom_id: other_caseworker.id, assignment_id: SecureRandom.uuid })
+        Assigning::AssignedToUser.new(data: { to_whom_id: other_caseworker.id, assignment_id: other_assignment_id })
       )
 
       visit reporting_temporal_report_path(
