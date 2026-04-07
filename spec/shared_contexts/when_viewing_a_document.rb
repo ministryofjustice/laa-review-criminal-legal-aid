@@ -18,5 +18,8 @@ RSpec.shared_context 'when viewing a document' do
         }
       )
       .to_return_json(status: 201, body: { url: presign_download_url })
+
+    stub_request(:get, /localhost\.localstack\.cloud.*crime-apply-documents/)
+      .to_return(status: 200, body: 'PDF content', headers: { 'Content-Type' => 'application/pdf' })
   end
 end

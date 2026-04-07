@@ -212,10 +212,10 @@ en:
     how_much_council_tax: Council Tax amount yearly
     how_much_rent: Amount paid for rent, after taking away Housing Benefit
     how_much_mortgage: Amount paid towards mortgage
-    ioj_result: Interests of justice (IoJ) test result
-    ioj_details: IoJ comments
-    ioj_assessed_by: IoJ caseworker
-    ioj_assessed_on: IoJ test date
+    ioj_result: Interests of Justice (IOJ) test result
+    ioj_details: IOJ comments
+    ioj_assessed_by: IOJ caseworker
+    ioj_assessed_on: IOJ test date
     income: Income
     income_more_than: "%{prefix} more than £12,475 a year before tax?"
     income_details: Income and employment
@@ -242,7 +242,7 @@ en:
 
     overall_result: Overall result
     partner_income_tax_rate_above_threshold: Partner paid 40% Income Tax in last 2 years?
-    interests_of_justice: Justification for legal aid
+    interests_of_justice: Interests of Justice (IOJ)
     interests_of_justice_type: Criteria
     investment_type:
       bond: Investment bond
@@ -500,8 +500,8 @@ en:
       granted_with_contribution: Granted - with contribution
       granted_failed_means: Granted - failed means
       refused: Refused
-      refused_failed_ioj: Refused - failed IoJ
-      refused_failed_ioj_and_means: Refused - failed IoJ and means
+      refused_failed_ioj: Refused - failed IOJ
+      refused_failed_ioj_and_means: Refused - failed IOJ and means
       refused_failed_means: Refused - failed means
       refused_ineligible: Refused - ineligible
     either_way: Either way
@@ -595,6 +595,7 @@ en:
       deleted: grey
     download_file: "Download file (%{file_extension}, %{file_size})"
     view_file: "View"
+    view_all_evidence: "View all evidence"
     no_hearing_yet: There has not been a hearing yet
     manage_without_income:
       friends_sofa: They sleep on a friend's sofa for free
@@ -761,6 +762,12 @@ en:
         role_changed: Role changed from %{from} to %{to}
 
   casework:
+    base:
+      subnavigation:
+        application_details: Application details
+        application_history: Application history
+        supporting_evidence: Supporting evidence
+
     assigned_applications:
       index:
         page_title: Your list
@@ -825,9 +832,6 @@ en:
           zero: There are no open applications that need to be reviewed.
           one: There is 1 open application that needs to be reviewed.
           other: "There are %{count} open applications that need to be reviewed."
-      subnavigation:
-        application_details: Application details
-        application_history: Application history
       show:
         page_title: Application
         heading: Application
@@ -875,3 +879,8 @@ en:
           zero: Add a funding decision
           one: You have added %{count} case
           other: You have added %{count} cases
+    documents:
+      index:
+        page_title: All evidence
+        heading: All evidence
+      show:

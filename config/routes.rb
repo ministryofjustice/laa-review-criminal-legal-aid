@@ -65,6 +65,13 @@ Rails.application.routes.draw do
       resources :maat_decisions, only: [:update, :destroy] do
         post :create_by_reference, on: :collection
       end
+
+      resources :documents, only: [:index, :show] do
+        member do
+          get :download
+          get :raw
+        end
+      end
     end
 
     get 'applications/open/:work_stream', to: 'crime_applications#open', as: :open_work_stream
@@ -78,9 +85,7 @@ Rails.application.routes.draw do
       post :next_application, on: :collection
     end
 
-    resource :documents, only: [:show] do
-      get :download, on: :member
-    end
+
   end
 
   namespace :reporting do
@@ -92,6 +97,10 @@ Rails.application.routes.draw do
     get ':report_type/:interval/latest-complete', to: 'temporal_reports#latest_complete',
 as: :latest_complete_temporal_report
     get ':report_type/:interval/:period', to: 'temporal_reports#show', as: :temporal_report
+    get ':report_type/:interval/latest-complete/user/:user_id',
+        to: 'user_temporal_reports#latest_complete', as: :latest_complete_user_temporal_report
+    get ':report_type/:interval/:period/user/:user_id',
+        to: 'user_temporal_reports#show', as: :user_temporal_report
     get ':report_type/:interval/:period/download', to: 'temporal_reports#download', as: :download_temporal_report
     get ':report_type/:date/at/:time', to: 'snapshots#show', as: :snapshot
     get ':report_type/now', to: 'snapshots#now', as: :current_snapshot

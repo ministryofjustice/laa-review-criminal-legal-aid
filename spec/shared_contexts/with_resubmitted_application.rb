@@ -11,7 +11,7 @@ RSpec.shared_context 'with resubmitted application' do
   end
 
   before do
-    travel_to(Time.zone.local(2023, 1, 1))
+    travel_to(Time.zone.local(2023, 1, 1, 12))
 
     stub_request(
       :get,
@@ -61,7 +61,7 @@ RSpec.shared_context 'with resubmitted application' do
       return_details: return_details.attributes
     ).call
 
-    travel_to(Time.zone.local(2023, 1, 2))
+    travel_to(Time.zone.local(2023, 1, 2, 12))
 
     Reviewing::ReceiveApplication.call(
       application_id: application_id,

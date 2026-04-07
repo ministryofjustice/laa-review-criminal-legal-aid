@@ -6,10 +6,6 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do
-    allow(FeatureFlags).to receive(:view_evidence) {
-      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-    }
-
     visit '/'
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
@@ -30,7 +26,7 @@ RSpec.describe 'Viewing an application that is assigned to me' do
   describe 'Evidence download' do
     context 'when a user attempts to download supporting evidence' do
       it 'raises error if document is not part of current application' do
-        visit download_documents_path(crime_application_id: application_id, id: '321/hijklm5678')
+        visit download_crime_application_document_path(application_id, '321/hijklm5678')
         expect(page).to have_content('File must be uploaded to current application to download')
       end
 

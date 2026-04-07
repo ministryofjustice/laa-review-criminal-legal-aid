@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @document.filename %></title>
+  <style>
+    html, body { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+  </style>
+</head>
+<body>
+  <%= render EvidenceEmbedComponent.new(evidence: @document, crime_application: @crime_application) %>
+</body>
+</html>

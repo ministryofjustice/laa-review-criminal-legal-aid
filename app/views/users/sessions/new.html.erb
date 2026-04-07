@@ -4,9 +4,15 @@
       <%= service_name %>
     </h1>
 
-    <p class="govuk-body">
-      The service is available from 7am until 10pm. It is not available on bank holidays.
-    </p>
+    <% if FeatureFlags.offline_on_bank_holidays.enabled? %>
+      <p class="govuk-body">
+        The service is available from <%= business_hours_start %> until <%= business_hours_end %>. It is not available on bank holidays.
+      </p>
+    <% else %>
+      <p class="govuk-body">
+        The service is available from <%= business_hours_start %> until <%= business_hours_end %>.
+      </p>
+    <% end %>
     <p class="govuk-body">
       Use this service to review criminal legal aid applications.
     </p>

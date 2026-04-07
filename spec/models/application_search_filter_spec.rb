@@ -149,5 +149,13 @@ RSpec.describe ApplicationSearchFilter do
         end
       end
     end
+
+    context 'when both a review filter and an explicit application_id_in are set' do
+      let(:params) { { assigned_status: john.id, application_id_in: [johns_applications.first, 'other-id'] } }
+
+      it 'sets "application_id_in" to the intersection of both' do
+        expect(application_id_in).to eq([johns_applications.first])
+      end
+    end
   end
 end

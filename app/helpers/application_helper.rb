@@ -47,20 +47,6 @@ module ApplicationHelper
     (presenter_class || [model.class, :Presenter].join.demodulize.constantize).new(model)
   end
 
-  def search_by_caseworker_path(user_id)
-    filter = { assigned_status: user_id, application_status: 'open' }
-    search_application_searches_path(filter:)
-  end
-
-  def link_to_search_by_caseworker(user_name, user_id)
-    govuk_link_to(
-      user_name,
-      search_by_caseworker_path(user_id),
-      data: { turbo: false },
-      no_visited_state: true
-    )
-  end
-
   def no_data(colname)
     column_name = t(colname, scope: 'table_headings')
 
@@ -101,5 +87,19 @@ module ApplicationHelper
     return item.ordinal_position if item.application_type == 'post_submission_evidence' || item.ordinal_total.to_i > 1
 
     nil
+  end 
+  
+  def business_hours_start
+    format_business_hour(Rails.configuration.x.business_hours.start)
+  end
+
+  def business_hours_end
+    format_business_hour(Rails.configuration.x.business_hours.end)
+  end
+
+  private
+
+  def format_business_hour(time_str)
+    Time.find_zone('London').parse(time_str).strftime('%-l:%M%P').sub(':00', '')
   end
 end
