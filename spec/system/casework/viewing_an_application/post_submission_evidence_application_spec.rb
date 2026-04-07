@@ -91,6 +91,11 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
   context 'when viewing application history of a completed pse' do
     before do
+      # Disable reference_history flag for legacy behavior tests
+      allow(FeatureFlags).to receive(:reference_history) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+
       click_on('Application history')
     end
 
@@ -130,6 +135,68 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
     it 'does show the mark as complete button' do
       expect(page).to have_no_content('Mark as complete')
+    end
+  end
+
+  context 'when reference_history feature flag is enabled' do
+    let(:pse_id) { 'cccccccc-cccc-4ccc-8ccc-cccccccccccc' }
+    let(:pse_reference) { 111_222_333 }
+    let(:fred_user) do
+      User.create(
+        first_name: 'Fred',
+        last_name: 'Smitheg',
+        auth_oid: SecureRandom.uuid,
+        email: 'Fred.Smitheg@justice.gov.uk'
+      )
+    end
+
+    before do
+      # Enable the reference_history feature flag
+      allow(FeatureFlags).to receive(:reference_history) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+      }
+
+      # Stub datastore response for PSE application
+      pse_data = JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read).deep_merge(
+        'id' => pse_id,
+        'parent_id' => nil,
+        'reference' => pse_reference,
+        'application_type' => 'post_submission_evidence',
+        'submitted_at' => '2022-10-24T10:50:00.000Z'
+      )
+
+      stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{pse_id}")
+        .to_return(body: pse_data.to_json, status: 200)
+
+      # Create PSE application
+      Reviewing::ReceiveApplication.new(
+        application_id: pse_id,
+        parent_id: nil,
+        work_stream: 'criminal_applications_team',
+        application_type: 'post_submission_evidence',
+        submitted_at: Time.zone.parse('2022-10-24T10:50:00.000Z'),
+        reference: pse_reference
+      ).call
+    end
+
+    it 'shows ordinal position for post submission evidence applications in assignment event' do
+      Assigning::AssignToUser.new(
+        user_id: fred_user.id,
+        to_whom_id: fred_user.id,
+        assignment_id: pse_id,
+        reference: pse_reference
+      ).call
+
+      visit history_crime_application_path(pse_id)
+
+      expect(page).to have_content('Post submission evidence 1 assigned to Fred Smitheg')
+    end
+
+    it 'shows ordinal position in submission event' do
+      visit history_crime_application_path(pse_id)
+
+      first_row = page.first('.app-dashboard-table tbody tr').text
+      expect(first_row).to match('John Doe Post submission evidence 1 submitted')
     end
   end
 end

@@ -33,7 +33,25 @@ RSpec.describe CrimeApplication do
   describe '#history' do
     subject(:history) { application.history }
 
-    it { is_expected.to be_a ApplicationHistory }
+    context 'when reference_history feature flag is disabled' do
+      before do
+        allow(FeatureFlags).to receive(:reference_history) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+        }
+      end
+
+      it { is_expected.to be_a ApplicationHistory }
+    end
+
+    context 'when reference_history feature flag is enabled' do
+      before do
+        allow(FeatureFlags).to receive(:reference_history) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        }
+      end
+
+      it { is_expected.to be_a ApplicationReferenceHistory }
+    end
   end
 
   describe '#all_histories' do

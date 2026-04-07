@@ -60,6 +60,15 @@ RSpec.describe 'Adding a NAFI decision' do
     let(:application_id) { original_application.id }
 
     before do
+      # Publish ApplicationReceived event to create the Review record
+      Reviewing::ReceiveApplication.call(
+        application_id: application_id,
+        application_type: 'initial',
+        reference: maat_decision_reference,
+        submitted_at: 2.days.ago,
+        work_stream: 'criminal_applications_team'
+      )
+
       with_assignment(user_id: user_id, assignment_id: application_id) do
         Maat::LinkDecision.call(
           application: original_application,
@@ -82,6 +91,15 @@ RSpec.describe 'Adding a NAFI decision' do
     let(:application_id) { original_application.id }
 
     before do
+      # Publish ApplicationReceived event to create the Review record
+      Reviewing::ReceiveApplication.call(
+        application_id: application_id,
+        application_type: 'initial',
+        reference: maat_decision_reference,
+        submitted_at: 2.days.ago,
+        work_stream: 'criminal_applications_team'
+      )
+
       with_assignment(user_id: user_id, assignment_id: application_id) do
         Maat::LinkDecision.call(
           application: original_application,

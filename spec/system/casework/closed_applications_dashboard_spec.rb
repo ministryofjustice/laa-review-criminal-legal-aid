@@ -11,7 +11,7 @@ RSpec.describe 'Closed Applications' do
       ApplicationSearchResult.new(
         applicant_name: 'John Potter',
         resource_id: '47a93336-7da6-48ac-b139-808ddd555a41',
-        reference: 6_000_002,
+        reference: reference,
         status: 'returned',
         work_stream: 'criminal_applications_team',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
@@ -27,10 +27,25 @@ RSpec.describe 'Closed Applications' do
   let(:user_id) { current_user_id }
   let(:parent_id) { nil }
   let(:application_type) { 'initial' }
+  let(:reference) { rand(100_000_000..999_999_999) } # Use random reference to avoid conflicts with previous test runs
 
   before do
     visit '/'
     click_on 'open applications'
+
+    # Ensure the application is received first, so it has a reference for the reference_history feature
+    begin
+      Reviewing::ReceiveApplication.new(
+        application_id: application_id,
+        submitted_at: '2022-09-27T14:10:00.000+00:00',
+        application_type: application_type,
+        reference: reference,
+        parent_id: parent_id,
+        work_stream: 'criminal_applications_team'
+      ).call
+    rescue Reviewing::AlreadyReceived
+      # Application already received in a previous test/setup, continue
+    end
 
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,
@@ -57,7 +72,7 @@ RSpec.describe 'Closed Applications' do
   it 'shows the correct information' do
     first_row_text = page.first('.app-table tbody tr').text
     reviewed_at = I18n.l(Time.current.in_time_zone('London'))
-    expected_text = "John Potter 6000002 Initial 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider"
+    expected_text = "John Potter #{reference} Initial 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider"
     expect(first_row_text).to eq(expected_text)
   end
 
@@ -129,6 +144,11 @@ RSpec.describe 'Closed Applications' do
     let(:parent_id) { SecureRandom.uuid }
 
     before do
+      # Disable reference_history feature for these tests to avoid needing to stub parent applications
+      allow(FeatureFlags).to receive(:reference_history) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+      }
+
       click_on 'Closed applications'
       click_on('John Potter')
     end

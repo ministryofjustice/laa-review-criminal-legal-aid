@@ -15,8 +15,8 @@
     <%= link_to t('reviewing.view_application', scope: 'event.description',
                   application_type: t(item.application_type, scope: 'labels.application_type').downcase,
                   ordinal_position: display_ordinal_position_for_link(item)),
-                  crime_application_path(event_application_id),
-                  class: 'govuk-link--no-visited-state' %>
+                crime_application_path(event_application_id),
+                class: 'govuk-link--no-visited-state' %>
 <% else %>
   <strong>
     <% if application.resubmission? %>

@@ -1,7 +1,14 @@
 RSpec.shared_context 'with resubmitted application' do
   let(:parent_id) { '47a93336-7da6-48ec-b139-808ddd555a41' }
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }
+  let(:application_reference) { 123 }
+  let(:application_data) do
+    JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge('reference' => application_reference)
+  end
+  let(:parent_data) do
+    JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'application_returned').read)
+        .deep_merge('reference' => application_reference)
+  end
 
   before do
     travel_to(Time.zone.local(2023, 1, 1))
@@ -14,7 +21,7 @@ RSpec.shared_context 'with resubmitted application' do
     stub_request(
       :get,
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{parent_id}"
-    ).to_return(body: LaaCrimeSchemas.fixture(1.0, name: 'application_returned'), status: 200)
+    ).to_return(body: parent_data.to_json, status: 200)
 
     user = User.create(
       first_name: 'Fred',
@@ -28,7 +35,7 @@ RSpec.shared_context 'with resubmitted application' do
       parent_id: nil,
       work_stream: 'extradition',
       submitted_at: Time.zone.now.to_s,
-      reference: 123,
+      reference: application_reference,
       application_type: Types::ApplicationType['initial']
     )
 
@@ -36,7 +43,7 @@ RSpec.shared_context 'with resubmitted application' do
       user_id: user.id,
       to_whom_id: user.id,
       assignment_id: parent_id,
-      reference: 123
+      reference: application_reference
     ).call
 
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new) {
@@ -61,7 +68,7 @@ RSpec.shared_context 'with resubmitted application' do
       parent_id: parent_id,
       work_stream: 'extradition',
       submitted_at: Time.zone.now.to_s,
-      reference: 123,
+      reference: application_reference,
       application_type: Types::ApplicationType['initial']
     )
   end

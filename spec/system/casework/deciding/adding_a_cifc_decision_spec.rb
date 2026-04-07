@@ -7,7 +7,7 @@ RSpec.describe 'Adding a CIFC decision by MAAT ID' do
   include_context 'when adding a decision by MAAT ID'
 
   let(:application_id) { '98ab235c-f125-4dcb-9604-19e81782e53b' }
-  let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'change_in_financial_circumstances').read) }
+  let(:fixture_name) { 'change_in_financial_circumstances' }
 
   let(:original_application) do
     instance_double(
@@ -20,6 +20,25 @@ RSpec.describe 'Adding a CIFC decision by MAAT ID' do
   end
 
   before do
+    # Stub the datastore search request for the original application
+    stub_request(:post, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/searches")
+      .with(
+        body: hash_including(
+          search: { application_id_in: [original_application.id] }
+        )
+      )
+      .to_return(
+        status: 200,
+        body: {
+          results: [{
+            id: original_application.id,
+            reference: original_application.reference,
+            application_type: 'initial'
+          }]
+        }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+
     visit crime_application_path(application_id)
     click_button 'Assign to your list'
     find('p', text: 'To add the funding decision, update the original application in MAAT first.')
