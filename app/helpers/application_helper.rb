@@ -87,8 +87,8 @@ module ApplicationHelper
     return item.ordinal_position if item.application_type == 'post_submission_evidence' || item.ordinal_total.to_i > 1
 
     nil
-  end 
-  
+  end
+
   def business_hours_start
     format_business_hour(Rails.configuration.x.business_hours.start)
   end
