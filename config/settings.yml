@@ -17,6 +17,11 @@ feature_flags:
     test: true
     staging: true
     production: true
+  offline_on_bank_holidays:
+    local: false
+    test: false
+    staging: false
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:

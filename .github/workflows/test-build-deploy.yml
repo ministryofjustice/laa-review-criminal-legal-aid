@@ -21,15 +21,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92 # v1.300.0
         with:
           bundler-cache: true
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
 
       - name: Install Yarn 4.7
         run: |
@@ -77,15 +77,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92 # v1.300.0
         with:
           bundler-cache: true
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
 
       - name: Install Yarn 4.7
         run: |
@@ -120,14 +120,14 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: rspec-results-${{ matrix.ci_node_index }}
           path: tmp/rspec-${{ matrix.ci_node_index }}.xml
 
       - name: Upload rspec coverage (if failure)
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: rspec-coverage-${{ matrix.ci_node_index }}
           path: coverage/*
@@ -177,7 +177,7 @@ jobs:
 
       - name: Upload coverage results for merging
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: coverage-${{ matrix.ci_node_index }}
           path: coverage/.resultset.json
@@ -207,15 +207,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92 # v1.300.0
         with:
           bundler-cache: true
 
       - name: Download all coverage artifacts
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           pattern: coverage-*
           path: coverage-artifacts
@@ -264,7 +264,7 @@ jobs:
           bundle exec rake coverage:merge_reports
 
       - name: Upload merged coverage
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: merged-coverage-report
           path: coverage/merged
@@ -283,16 +283,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # Assume role in Cloud Platform
-      - uses: aws-actions/configure-aws-credentials@v6
+      - uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
         with:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: ${{ vars.ECR_REGION }}
 
       # Login to container repository
-      - uses: aws-actions/amazon-ecr-login@v2
+      - uses: aws-actions/amazon-ecr-login@f2e9fc6c2b355c1890b65e6f6f0e2ac3e6e22f78 # v2.1.2
         id: login-ecr
 
       - name: Store ECR endpoint as output
@@ -333,7 +333,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy staging
         uses: ./.github/actions/deploy
@@ -355,7 +355,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy production
         uses: ./.github/actions/deploy
