@@ -88,7 +88,6 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
   context 'when viewing application history of a completed pse' do
     before do
-      # Disable reference_history flag for legacy behavior tests
       allow(FeatureFlags).to receive(:reference_history) {
         instance_double(FeatureFlags::EnabledFeature, enabled?: false)
       }
@@ -148,12 +147,10 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     before do
-      # Enable the reference_history feature flag
       allow(FeatureFlags).to receive(:reference_history) {
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
       }
 
-      # Stub datastore response for PSE application
       pse_data = JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read).deep_merge(
         'id' => pse_id,
         'parent_id' => nil,
@@ -165,7 +162,6 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
       stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{pse_id}")
         .to_return(body: pse_data.to_json, status: 200)
 
-      # Create PSE application
       Reviewing::ReceiveApplication.new(
         application_id: pse_id,
         parent_id: nil,

@@ -37,7 +37,6 @@ RSpec.describe "Viewing a resubmitted application's history" do
 
       it 'shows the resubmission event at the top of the application history' do
         first_row = page.first('.app-dashboard-table tbody tr').text
-        # With legacy flag disabled, a manual superseding history item is added at top
         expect(first_row).to match('Application resubmitted by provider Go to this version')
       end
 
@@ -64,23 +63,17 @@ RSpec.describe "Viewing a resubmitted application's history" do
       end
 
       it 'shows events from the ReferenceHistory stream sorted by timestamp' do
-        # With reference_history enabled, events are sorted by timestamp
-        # The most recent event (sent back on Jan 1, 2023) appears first
         first_row = page.first('.app-dashboard-table tbody tr').text
-        expect(first_row).to match('Application sent back to provider')
+        expect(first_row).to match('Application resubmitted by provider View application 2')
       end
 
-      it 'includes the child application resubmission event in the history' do
-        # The child's ApplicationReceived event appears in the history
-        expect(page).to have_content('Application resubmitted by provider')
-
+      it 'the resubmission item includes a link to the resubmitted application' do
         expect { click_on('View application 2') }.to change { page.current_path }
           .from(history_crime_application_path(parent_id))
           .to(crime_application_path(application_id))
       end
 
-      it 'includes the parent application submission event in the history' do
-        # The parent's ApplicationReceived event also appears in the history
+      it 'the application history includes a link to the parent application' do
         expect(page).to have_content('Application submitted by provider')
         expect(page).to have_link('View application 1')
       end

@@ -27,13 +27,13 @@ RSpec.describe 'Closed Applications' do
   let(:user_id) { current_user_id }
   let(:parent_id) { nil }
   let(:application_type) { 'initial' }
-  let(:reference) { rand(100_000_000..999_999_999) } # Use random reference to avoid conflicts with previous test runs
+  let(:reference) { rand(100_000_000..999_999_999) }
 
   before do
     visit '/'
     click_on 'open applications'
 
-    # Ensure the application is received first, so it has a reference for the reference_history feature
+    # Ensure the application is received first, so it has a reference for the reference history stream
     begin
       Reviewing::ReceiveApplication.new(
         application_id: application_id,
@@ -144,10 +144,25 @@ RSpec.describe 'Closed Applications' do
     let(:parent_id) { SecureRandom.uuid }
 
     before do
-      # Disable reference_history feature for these tests to avoid needing to stub parent applications
-      allow(FeatureFlags).to receive(:reference_history) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-      }
+      allow(Review).to receive(:where).with(application_id:)
+                                      .and_return(instance_double(ActiveRecord::Relation, pick: reference))
+      allow(Review).to receive(:where).with(application_id: parent_id)
+                                      .and_return(instance_double(ActiveRecord::Relation, pick: reference))
+
+      application_data = JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+        'id' => application_id,
+        'reference' => reference,
+        'application_type' => application_type,
+        'parent_id' => parent_id,
+        'submitted_at' => '2022-09-27T14:10:00.000+00:00'
+      )
+
+      stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}")
+        .to_return(
+          status: 200,
+          body: application_data.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
 
       click_on 'Closed applications'
       click_on('John Potter')

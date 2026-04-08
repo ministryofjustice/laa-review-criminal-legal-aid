@@ -46,7 +46,6 @@ RSpec.describe 'Viewing an application that has been deleted' do
       end
 
       it 'shows the deletion event at the top of the application history' do
-        # With legacy flag disabled, deleted_history_item is manually added to the view
         expect(page.first('.app-dashboard-table tbody tr').text).to match(
           'System Personal data deleted in accordance with data retention policy'
         )
@@ -67,7 +66,6 @@ RSpec.describe 'Viewing an application that has been deleted' do
         instance_double(FeatureFlags::EnabledFeature, enabled?: true)
       }
 
-      # Create the Deleting::SoftDeleted event for the ReferenceHistory stream
       Deleting::SoftDeleteApplicationEvent.call(
         id: SecureRandom.uuid,
         data: {

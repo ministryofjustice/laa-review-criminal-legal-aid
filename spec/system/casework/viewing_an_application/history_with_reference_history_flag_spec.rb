@@ -4,7 +4,7 @@ RSpec.describe 'Viewing application history with reference_history flag enabled'
   include_context 'with stubbed search'
 
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
-  let(:application_reference) { 555_666_777 } # Use a unique reference to avoid conflicts
+  let(:application_reference) { 555_666_777 }
   let(:assign_cta) { 'Assign to your list' }
 
   before do
@@ -196,7 +196,6 @@ RSpec.describe 'Viewing application history with reference_history flag enabled'
       stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{child_id}")
         .to_return(body: child_data.to_json, status: 200)
 
-      # Create parent application (first submission)
       Reviewing::ReceiveApplication.new(
         application_id: parent_id,
         parent_id: nil,
@@ -206,7 +205,6 @@ RSpec.describe 'Viewing application history with reference_history flag enabled'
         reference: unique_reference
       ).call
 
-      # Create child application (resubmission)
       Reviewing::ReceiveApplication.new(
         application_id: child_id,
         parent_id: parent_id,
@@ -231,7 +229,6 @@ RSpec.describe 'Viewing application history with reference_history flag enabled'
     let(:archived_at) { Time.zone.parse('2023-01-15T14:30:00.000Z') }
 
     before do
-      # Publish the Archived event
       Deleting::ArchiveApplicationEvent.call(
         id: SecureRandom.uuid,
         data: {

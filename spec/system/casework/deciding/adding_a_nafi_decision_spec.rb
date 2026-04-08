@@ -91,7 +91,6 @@ RSpec.describe 'Adding a NAFI decision' do
     let(:application_id) { original_application.id }
 
     before do
-      # Publish ApplicationReceived event to create the Review record
       Reviewing::ReceiveApplication.call(
         application_id: application_id,
         application_type: 'initial',
