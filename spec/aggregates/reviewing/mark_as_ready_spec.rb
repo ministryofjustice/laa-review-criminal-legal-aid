@@ -5,6 +5,7 @@ RSpec.describe Reviewing::MarkAsReady do
     described_class.new(application_id:, user_id:)
   end
 
+  include_context 'with an existing caseworker user'
   include_context 'with review'
   include_context 'with stubbed assignment'
 
@@ -32,7 +33,7 @@ RSpec.describe Reviewing::MarkAsReady do
     )
   end
 
-  let(:user_id) { SecureRandom.uuid }
+  let(:user_id) { caseworker_user.id }
 
   it 'changes the state from :received to :marked_as_ready' do
     expect { command.call }.to change { review.state }

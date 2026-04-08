@@ -3,7 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Adding a Non-means application' do
   include DecisionFormHelpers
 
+  let(:current_user_role) { UserRole::CASEWORKER }
+
   # rubocop:disable RSpec/ExampleLength
+  shared_examples 'hides "Start" button' do
+    it 'does not show the "Start" button' do
+      expect(page).to have_no_button('Start')
+    end
+  end
 
   include_context 'with stubbed application' do
     let(:application_data) do
@@ -21,6 +28,10 @@ RSpec.describe 'Adding a Non-means application' do
     it 'informs that a manual decision is required' do
       expect(page).to have_selector 'h2', text: 'Funding decision'
       expect(page).to have_selector 'p', text: 'You need to manually enter a decision for this application.'
+    end
+
+    it 'shows the "Start" button' do
+      expect(page).to have_button('Start')
     end
 
     it 'validates the interests of justice form' do
@@ -57,6 +68,30 @@ RSpec.describe 'Adding a Non-means application' do
         'Overall result', 'Granted',
         'Comments', 'Caseworker comment'
       )
+    end
+  end
+
+  context 'when viewing the application as a non-caseworker' do
+    before do
+      visit crime_application_path(application_id)
+    end
+
+    context 'when a supervisor' do
+      let(:current_user_role) { UserRole::SUPERVISOR }
+
+      include_examples 'hides "Start" button'
+    end
+
+    context 'when a data analyst' do
+      let(:current_user_role) { UserRole::DATA_ANALYST }
+
+      include_examples 'hides "Start" button'
+    end
+
+    context 'when an auditor' do
+      let(:current_user_role) { UserRole::AUDITOR }
+
+      include_examples 'hides "Start" button'
     end
   end
 
