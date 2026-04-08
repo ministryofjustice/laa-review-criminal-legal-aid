@@ -33,19 +33,8 @@ RSpec.describe 'Closed Applications' do
     visit '/'
     click_on 'open applications'
 
-    # Ensure the application is received first, so it has a reference for the reference history stream
-    begin
-      Reviewing::ReceiveApplication.new(
-        application_id: application_id,
-        submitted_at: '2022-09-27T14:10:00.000+00:00',
-        application_type: application_type,
-        reference: reference,
-        parent_id: parent_id,
-        work_stream: 'criminal_applications_team'
-      ).call
-    rescue Reviewing::AlreadyReceived
-      # Application already received in a previous test/setup, continue
-    end
+    allow(Review).to receive(:where).with(application_id:)
+                                    .and_return(instance_double(ActiveRecord::Relation, pick: reference))
 
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,
@@ -161,6 +150,22 @@ RSpec.describe 'Closed Applications' do
         .to_return(
           status: 200,
           body: application_data.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      # Stub parent application for when reference_history flag is disabled
+      parent_application_data = JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+        'id' => parent_id,
+        'reference' => reference,
+        'application_type' => 'initial',
+        'parent_id' => nil,
+        'submitted_at' => '2022-09-20T14:10:00.000+00:00'
+      )
+
+      stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{parent_id}")
+        .to_return(
+          status: 200,
+          body: parent_application_data.to_json,
           headers: { 'Content-Type' => 'application/json' }
         )
 

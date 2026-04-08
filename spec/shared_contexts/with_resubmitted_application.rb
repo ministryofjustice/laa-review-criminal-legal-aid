@@ -67,7 +67,7 @@ RSpec.shared_context 'with resubmitted application' do # rubocop:disable RSpec/M
       details: 'September bank statement required'
     )
 
-    # Parent application sent back on Jan 1, 2023 12:00pm (same time as assignment is fine)
+    # Parent application sent back on Jan 1, 2023 12:00pm
     Reviewing::SendBack.new(
       user_id: user.id,
       application_id: parent_id,
