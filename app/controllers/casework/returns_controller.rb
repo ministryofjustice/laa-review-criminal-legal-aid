@@ -1,7 +1,6 @@
 module Casework
   class ReturnsController < Casework::BaseController
     before_action :set_crime_application
-    before_action :require_reviewing_caseworker!
     before_action :set_return_details
 
     def new

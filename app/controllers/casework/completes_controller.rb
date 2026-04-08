@@ -1,7 +1,6 @@
 module Casework
   class CompletesController < Casework::BaseController
     before_action :set_crime_application
-    before_action :require_reviewing_caseworker!
 
     def create
       Reviewing::Complete.new(

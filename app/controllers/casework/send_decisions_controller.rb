@@ -1,6 +1,6 @@
 module Casework
   class SendDecisionsController < Casework::BaseController
-    before_action :set_crime_application, :require_reviewing_caseworker!, :set_decisions, :set_form
+    before_action :set_crime_application, :set_decisions, :set_form
     before_action :redirect_if_add_another, only: [:create]
 
     def new; end
