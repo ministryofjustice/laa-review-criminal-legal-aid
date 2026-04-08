@@ -66,8 +66,6 @@ en:
       unexpected_assignee:
         - This application is assigned to someone else
         - Ask your supervisor if you need to work on it.
-      not_authorised_to_review:
-        - You must be a caseworker to review an application
 
   primary_navigation:
     your_list: "Your list (%{count})"

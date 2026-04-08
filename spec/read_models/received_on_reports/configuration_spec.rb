@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe ReceivedOnReports::Configuration do
-  include_context 'with an existing caseworker user'
   include_context 'with stubbed assignment'
 
   let(:application_id) { SecureRandom.uuid }
   let(:event_store) { Rails.configuration.event_store }
   let(:submitted_at) { Time.zone.local(2023, 7, 30) }
-  let(:user_id) { caseworker_user.id }
+  let(:user_id) { SecureRandom.uuid }
 
   describe '#configuration' do
     before do

@@ -7,15 +7,7 @@ RSpec.describe 'Reviewing a PSE application' do
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
   let(:complete_cta) { 'Mark as completed' }
 
-  shared_examples 'hides "Mark as completed" button' do
-    it 'the "Mark as completed" button is not visible' do
-      expect(page).to have_no_button(complete_cta)
-    end
-  end
-
   context 'when assigned to the application' do
-    let(:current_user_role) { UserRole::CASEWORKER }
-
     before do
       allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).and_return(
         instance_double(DatastoreApi::Requests::UpdateApplication, call: {})
@@ -29,10 +21,6 @@ RSpec.describe 'Reviewing a PSE application' do
       expect(page).not_to have_button('Send back to provider')
       click_button 'Mark as completed'
       expect(page).to have_content('You marked the application as complete')
-    end
-
-    it 'shows the "Mark as completed" button' do
-      expect(page).to have_button(complete_cta)
     end
 
     it 'removes the application from "Your list"' do
@@ -74,36 +62,14 @@ RSpec.describe 'Reviewing a PSE application' do
     end
   end
 
-  context 'when viewing the application as a non-caseworker' do
-    before do
-      visit crime_application_path(application_id)
-    end
-
-    context 'when a supervisor' do
-      let(:current_user_role) { UserRole::SUPERVISOR }
-
-      include_examples 'hides "Mark as completed" button'
-    end
-
-    context 'when a data analyst' do
-      let(:current_user_role) { UserRole::DATA_ANALYST }
-
-      include_examples 'hides "Mark as completed" button'
-    end
-
-    context 'when an auditor' do
-      let(:current_user_role) { UserRole::AUDITOR }
-
-      include_examples 'hides "Mark as completed" button'
-    end
-  end
-
   context 'when not assigned to the application' do
     before do
       visit crime_application_path(application_id)
     end
 
-    include_examples 'hides "Mark as completed" button'
+    it 'the "Mark as completed" button is not visible' do
+      expect(page).to have_no_button(complete_cta)
+    end
   end
 
   context 'when reassigned while the page is already loaded' do

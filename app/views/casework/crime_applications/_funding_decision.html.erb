@@ -1,15 +1,15 @@
 <% if crime_application.decisions.present? %>
   <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
 
-  <% if crime_application.decisions_pending? && can_review_application?(crime_application) %>
+  <% if crime_application.decisions_pending? && crime_application.reviewable_by?(current_user_id) %>
     <%= govuk_warning_text(text: t('.finish_adding_decisions')) %>
   <% end %>
 
   <%= render(DecisionComponent.with_collection(
                crime_application.decisions,
-               show_actions: can_review_application?(crime_application)
+               show_actions: crime_application.reviewable_by?(current_user_id)
              )) %>
-<% elsif can_review_application?(crime_application) %>
+<% elsif crime_application.reviewable_by?(current_user_id) %>
   <% if crime_application.cifc? %>
     <h2 class="govuk-heading-l"><%= label_text(:funding_decision) %></h2>
 
