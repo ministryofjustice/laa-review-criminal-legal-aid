@@ -93,8 +93,8 @@ GEM
       minitest (>= 5.1, < 6)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
-    addressable (2.8.7)
-      public_suffix (>= 2.0.2, < 7.0)
+    addressable (2.9.0)
+      public_suffix (>= 2.0.2, < 8.0)
     aes_key_wrap (1.1.0)
     aggregate_root (2.15.0)
       ruby_event_store (= 2.15.0)
@@ -407,7 +407,7 @@ GEM
     psych (5.2.3)
       date
       stringio
-    public_suffix (6.0.1)
+    public_suffix (7.0.5)
     puma (6.6.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
