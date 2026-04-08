@@ -370,7 +370,8 @@ en:
     savings: Savings
     savings_and_investments: "Capital: Savings and investments"
     other_criteria: Other criteria
-    search_text: Reference number, MAAT ID or applicant's first or last name
+    search_text: Enter a reference number, applicant name or both
+    stored_search_text: Reference number, MAAT ID or applicant's first or last name
     select_return_reason: Why are you returning this application?
     separation_date: Date client separated from partner
     start_on: Date from
