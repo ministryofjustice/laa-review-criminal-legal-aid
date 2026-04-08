@@ -71,6 +71,17 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     )
   end
 
+  def archived_history_item
+    return nil unless archived?
+
+    ApplicationHistoryItem.new(
+      user_name: 'Provider',
+      event_type: 'Deleting::Archived',
+      timestamp: archived_at,
+      event_data: {}
+    )
+  end
+
   def deleted_history_item
     return nil unless deleted?
 
@@ -80,6 +91,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       timestamp: soft_deleted_at,
       event_data: {}
     )
+  end
+
+  def archived?
+    archived_at.present?
   end
 
   def work_stream

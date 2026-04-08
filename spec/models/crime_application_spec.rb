@@ -389,6 +389,46 @@ RSpec.describe CrimeApplication do
     end
   end
 
+  describe '#archived_history_item' do
+    subject(:archived_history_item) { application.archived_history_item }
+
+    context 'when application is not archived' do
+      it { is_expected.to be_nil }
+    end
+
+    context 'when application is archived' do
+      let(:archived_at) { '2026-02-16T11:52:20.285Z' }
+      let(:attributes) { super().merge('archived_at' => archived_at) }
+
+      it 'returns an ApplicationHistoryItem' do
+        expect(archived_history_item).to be_an(ApplicationHistoryItem)
+      end
+
+      it 'has the expected archived attributes' do
+        expect(archived_history_item.user_name).to eq('Provider')
+        expect(archived_history_item.event_type).to eq('Deleting::Archived')
+      end
+
+      it 'the timestamp is set to the archived_at date' do
+        expect(archived_history_item.timestamp).to eq(Time.zone.parse(archived_at))
+      end
+    end
+  end
+
+  describe '#archived?' do
+    subject(:archived?) { application.archived? }
+
+    context 'when archived_at is nil' do
+      it { is_expected.to be false }
+    end
+
+    context 'when archived_at is present' do
+      let(:attributes) { super().merge('archived_at' => '2026-02-16T11:52:20.285Z') }
+
+      it { is_expected.to be true }
+    end
+  end
+
   describe '#not_means_tested?' do
     subject(:not_means_tested?) { application.not_means_tested? }
 

@@ -30,6 +30,9 @@
       <% if @crime_application.deleted? %>
         <%= render partial: @crime_application.deleted_history_item, as: :item, layout: 'history_item' %>
       <% end %>
+      <% if @crime_application.archived? %>
+        <%= render partial: @crime_application.archived_history_item, as: :item, layout: 'history_item' %>
+      <% end %>
       <% if @crime_application.superseded? %>
         <%= render partial: @crime_application.superseding_history_item, as: :item, layout: 'history_item' %>
       <% end %>

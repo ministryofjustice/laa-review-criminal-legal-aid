@@ -25,7 +25,7 @@ gem 'laa-criminal-applications-datastore-api-client',
 
 gem 'laa-criminal-legal-aid-schemas',
     github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
-    tag: 'v1.7.7'
+    branch: 'CRIMAPP-1979-add-archived-at-attribute'
 
 gem 'jsbundling-rails'
 gem 'propshaft'
