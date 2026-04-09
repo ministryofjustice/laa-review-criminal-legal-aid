@@ -15,7 +15,9 @@ RSpec.describe 'Search Page' do
   it 'shows the application search input fields' do
     search_input_names = page.first('.search .govuk-fieldset .input-group').text
 
-    expect(search_input_names).to eq("Enter a reference number, applicant name or both\nApplicant date of birth")
+    expect(search_input_names).to(
+      eq("Reference number, MAAT ID or applicant's first or last name\nApplicant date of birth")
+    )
   end
 
   it 'includes the correct results table headings' do

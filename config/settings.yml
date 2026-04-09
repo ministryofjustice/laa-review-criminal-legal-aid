@@ -27,6 +27,11 @@ feature_flags:
     test: false
     staging: false
     production: false
+  use_stored_searchable_text:
+    local: true
+    test: true
+    staging: true
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:
