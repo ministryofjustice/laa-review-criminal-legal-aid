@@ -1,7 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-!-margin-top-5 govuk-!-margin-bottom-4">
-      <% status = crime_application.deleted? ? 'deleted' : crime_application.review_status %>
+      <% status = if crime_application.deleted?
+                    'deleted'
+                  else
+                    crime_application.archived? ? 'archived' : crime_application.review_status
+                  end %>
       <%= govuk_tag(text: t(status, scope: 'values.review_status'), colour: t(status, scope: 'values.color')) %>
     </div>
 
@@ -21,11 +25,12 @@
     </h1>
 
     <% if crime_application.superseded? %>
+      <% locale_key = FeatureFlags.reference_history.enabled? ? 'calls_to_action.go_to_latest_app' : 'calls_to_action.go_to_latest' %>
       <%= govuk_warning_text(
             text: safe_join(
               [
                 t('warning_text.resubmitted'),
-                govuk_link_to(t('calls_to_action.go_to_latest'), crime_application_path(crime_application.latest_application_id), class: 'app-no-print')
+                govuk_link_to(t(locale_key), crime_application_path(crime_application.latest_application_id), class: 'app-no-print')
               ],
               ' '
             )

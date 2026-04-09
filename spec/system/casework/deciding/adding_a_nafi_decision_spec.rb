@@ -60,6 +60,11 @@ RSpec.describe 'Adding a NAFI decision' do
     let(:application_id) { original_application.id }
 
     before do
+      # To link event to the reference history stream
+      allow(Review).to receive(:where).with(application_id:)
+                                      .and_return(instance_double(ActiveRecord::Relation,
+                                                                  pick: maat_decision_reference))
+
       with_assignment(user_id: user_id, assignment_id: application_id) do
         Maat::LinkDecision.call(
           application: original_application,
@@ -82,6 +87,10 @@ RSpec.describe 'Adding a NAFI decision' do
     let(:application_id) { original_application.id }
 
     before do
+      allow(Review).to receive(:where).with(application_id:)
+                                      .and_return(instance_double(ActiveRecord::Relation,
+                                                                  pick: maat_decision_reference))
+
       with_assignment(user_id: user_id, assignment_id: application_id) do
         Maat::LinkDecision.call(
           application: original_application,

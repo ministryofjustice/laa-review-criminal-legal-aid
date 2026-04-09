@@ -82,4 +82,32 @@ RSpec.describe 'Search Page' do
       expect(current_url).to match('applications/012a553f-e9b7-4e9a-a265-67682b572fd0/history')
     end
   end
+
+  context 'when result is archived' do
+    let(:stubbed_search_results) do
+      [
+        ApplicationSearchResult.new(
+          applicant_name: 'Kit Pound',
+          resource_id: '21c37e3e-520f-46f1-bd1f-5c25ffc57d70',
+          reference: 120_398_120,
+          status: 'returned',
+          work_stream: 'criminal_applications_team',
+          submitted_at: '2022-10-24T09:50:04.019Z',
+          parent_id: nil,
+          application_type: 'initial',
+          office_code: '1A2BC3D',
+          archived_at: '2022-10-27T09:50:04.019Z'
+        )
+      ]
+    end
+
+    it 'shows the correct results' do
+      first_row_text = page.first('.app-table tbody tr').text
+
+      expect(first_row_text).to eq(
+        'Kit Pound 120398120 Initial No data exists for Case type ' \
+        '24 Oct 2022 No data exists for Date closed No data exists for Caseworker Provider deleted'
+      )
+    end
+  end
 end

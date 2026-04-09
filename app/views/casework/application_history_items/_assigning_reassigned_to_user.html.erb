@@ -1,6 +1,16 @@
-<strong>
-  <%= t('event.description.assigning.reassigned_to_user',
-        application_type: t(application.application_type, scope: 'labels.application_type'),
-        to_whom_name: User.name_for(item.event_data.fetch(:to_whom_id)),
-        from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
-</strong>
+<% if FeatureFlags.reference_history.enabled? %>
+  <strong>
+    <%= t('event.description.assigning.reassigned_to_user',
+          application_type: t(item.application_type, scope: 'labels.application_type'),
+          ordinal_position: display_ordinal_position_for_event(item),
+          to_whom_name: User.name_for(item.event_data.fetch(:to_whom_id)),
+          from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
+  </strong>
+<% else %>
+  <strong>
+    <%= t('event.description.assigning.reassigned_to_user_without_ordinal',
+          application_type: t(application.application_type, scope: 'labels.application_type'),
+          to_whom_name: User.name_for(item.event_data.fetch(:to_whom_id)),
+          from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
+  </strong>
+<% end %>
