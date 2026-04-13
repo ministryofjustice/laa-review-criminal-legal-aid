@@ -38,6 +38,23 @@ RSpec.describe 'fix_ghost_application_state', type: :task do # rubocop:disable R
     )
   end
 
+  let(:get_application_request) do
+    instance_double(
+      DatastoreApi::Requests::GetApplication,
+      call: {
+        'id' => application_id,
+        'reference' => reference,
+        'parent_id' => nil,
+        'application_type' => 'initial',
+        'schema_version' => 1.0,
+        'client_details' => { 'applicant' => {} },
+        'provider_details' => { 'office_code' => '' },
+        'created_at' => '2025-11-18T12:00:00.000Z',
+        'submitted_at' => '2025-11-18T12:00:00.000Z'
+      }
+    )
+  end
+
   before do
     Rake::Task.define_task(:environment)
     Rake.application.rake_require 'tasks/ghost_applications'
@@ -49,6 +66,10 @@ RSpec.describe 'fix_ghost_application_state', type: :task do # rubocop:disable R
         member: :mark_as_ready
       }
     ).and_return(return_request)
+
+    allow(DatastoreApi::Requests::GetApplication).to receive(:new).with(
+      application_id:
+    ).and_return(get_application_request)
 
     travel_to Time.zone.local(2025, 11, 18, 12)
     Reviewing::ReceiveApplication.call(

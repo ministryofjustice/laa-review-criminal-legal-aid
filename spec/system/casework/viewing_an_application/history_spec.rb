@@ -1,10 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe 'Viewing application history' do
+RSpec.describe 'Viewing application history (using assigning/reviewing streams)' do
   include_context 'with an existing application'
   let(:assign_cta) { 'Assign to your list' }
 
   before do
+    # Ensure the reference_history feature flag is disabled for these specs
+    # This tests the legacy behavior using Assigning and Reviewing streams
+    allow(FeatureFlags).to receive(:reference_history) {
+      instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+    }
+
     visit '/'
     click_on 'Open applications'
     click_on('Kit Pound')

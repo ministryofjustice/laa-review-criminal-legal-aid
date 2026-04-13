@@ -73,6 +73,22 @@ module ApplicationHelper
 
   alias partner_subject? partner_included_in_means?
 
+  # For event text: PSE always shows ordinal, initial/CFC never show ordinal
+  def display_ordinal_position_for_event(item)
+    return nil unless FeatureFlags.reference_history.enabled?
+    return nil unless item.application_type == 'post_submission_evidence'
+
+    item.ordinal_position
+  end
+
+  # For link text: PSE always shows ordinal, initial/CFC only show ordinal if more than one of that type
+  def display_ordinal_position_for_link(item)
+    return nil unless FeatureFlags.reference_history.enabled?
+    return item.ordinal_position if item.application_type == 'post_submission_evidence' || item.ordinal_total.to_i > 1
+
+    nil
+  end
+
   def business_hours_start
     format_business_hour(Rails.configuration.x.business_hours.start)
   end

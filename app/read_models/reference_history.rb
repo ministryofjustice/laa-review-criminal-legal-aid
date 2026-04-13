@@ -9,7 +9,9 @@ module ReferenceHistory
     Reviewing::MarkedAsReady,
     Reviewing::DecisionAdded,
     Reviewing::DecisionRemoved,
-    Deciding::SentToProvider
+    Deciding::SentToProvider,
+    Deleting::SoftDeleted,
+    Deleting::Archived
   ].freeze
 
   class << self

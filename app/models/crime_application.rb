@@ -41,7 +41,11 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def history
-    @history ||= ApplicationHistory.new(application: self)
+    @history ||= if FeatureFlags.reference_history.enabled?
+                   ApplicationReferenceHistory.new(application: self)
+                 else
+                   ApplicationHistory.new(application: self)
+                 end
   end
 
   def to_param
@@ -67,6 +71,17 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     )
   end
 
+  def archived_history_item
+    return nil unless archived?
+
+    ApplicationHistoryItem.new(
+      user_name: 'Provider',
+      event_type: 'Deleting::Archived',
+      timestamp: archived_at,
+      event_data: {}
+    )
+  end
+
   def deleted_history_item
     return nil unless deleted?
 
@@ -74,8 +89,12 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
       user_name: 'System',
       event_type: 'Deleting::SoftDeleted',
       timestamp: soft_deleted_at,
-      event_data: { superseded_by: }
+      event_data: {}
     )
+  end
+
+  def archived?
+    archived_at.present?
   end
 
   def work_stream
@@ -132,10 +151,13 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   def all_histories
     return @all_histories if @all_histories
 
-    histories = [history]
-    histories += parent.all_histories if parent
-
-    @all_histories = histories
+    if FeatureFlags.reference_history.enabled?
+      @all_histories = [history]
+    else
+      histories = [history]
+      histories += parent.all_histories if parent
+      @all_histories = histories
+    end
   end
 
   def case_details

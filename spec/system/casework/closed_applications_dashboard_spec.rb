@@ -11,7 +11,7 @@ RSpec.describe 'Closed Applications' do
       ApplicationSearchResult.new(
         applicant_name: 'John Potter',
         resource_id: '47a93336-7da6-48ac-b139-808ddd555a41',
-        reference: 6_000_002,
+        reference: reference,
         status: 'returned',
         work_stream: 'criminal_applications_team',
         submitted_at: '2022-09-27T14:10:00.000+00:00',
@@ -27,10 +27,14 @@ RSpec.describe 'Closed Applications' do
   let(:user_id) { current_user_id }
   let(:parent_id) { nil }
   let(:application_type) { 'initial' }
+  let(:reference) { rand(100_000_000..999_999_999) }
 
   before do
     visit '/'
     click_on 'open applications'
+
+    allow(Review).to receive(:where).with(application_id:)
+                                    .and_return(instance_double(ActiveRecord::Relation, pick: reference))
 
     return_details = ReturnDetails.new(
       reason: ReturnDetails::RETURN_REASONS.first,
@@ -57,7 +61,7 @@ RSpec.describe 'Closed Applications' do
   it 'shows the correct information' do
     first_row_text = page.first('.app-table tbody tr').text
     reviewed_at = I18n.l(Time.current.in_time_zone('London'))
-    expected_text = "John Potter 6000002 Initial 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider"
+    expected_text = "John Potter #{reference} Initial 27 Sep 2022 #{reviewed_at} Joe EXAMPLE Sent back to provider"
     expect(first_row_text).to eq(expected_text)
   end
 
@@ -129,6 +133,42 @@ RSpec.describe 'Closed Applications' do
     let(:parent_id) { SecureRandom.uuid }
 
     before do
+      allow(Review).to receive(:where).with(application_id:)
+                                      .and_return(instance_double(ActiveRecord::Relation, pick: reference))
+      allow(Review).to receive(:where).with(application_id: parent_id)
+                                      .and_return(instance_double(ActiveRecord::Relation, pick: reference))
+
+      application_data = JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+        'id' => application_id,
+        'reference' => reference,
+        'application_type' => application_type,
+        'parent_id' => parent_id,
+        'submitted_at' => '2022-09-27T14:10:00.000+00:00'
+      )
+
+      stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{application_id}")
+        .to_return(
+          status: 200,
+          body: application_data.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      # Stub parent application for when reference_history flag is disabled
+      parent_application_data = JSON.parse(LaaCrimeSchemas.fixture(1.0).read).deep_merge(
+        'id' => parent_id,
+        'reference' => reference,
+        'application_type' => 'initial',
+        'parent_id' => nil,
+        'submitted_at' => '2022-09-20T14:10:00.000+00:00'
+      )
+
+      stub_request(:get, "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{parent_id}")
+        .to_return(
+          status: 200,
+          body: parent_application_data.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
       click_on 'Closed applications'
       click_on('John Potter')
     end

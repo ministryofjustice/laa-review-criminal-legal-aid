@@ -1,7 +1,15 @@
-<strong>
-  <%= t('event.description.reviewing.application_resubmitted',
-        application_type: t(item.event_data.fetch(:application_type), scope: 'labels.application_type')) %> <br>
-</strong>
+<% if FeatureFlags.reference_history.enabled? %>
+  <strong>
+    <%= t('event.description.reviewing.application_resubmitted',
+          application_type: t(item.event_data.fetch(:application_type), scope: 'labels.application_type'),
+          ordinal_position: display_ordinal_position_for_event(item)) %> <br>
+  </strong>
+<% else %>
+  <strong>
+    <%= t('event.description.reviewing.application_resubmitted_without_ordinal',
+          application_type: t(item.event_data.fetch(:application_type), scope: 'labels.application_type')) %> <br>
+  </strong>
+<% end %>
 
 <%= link_to t('reviewing.selected_application', scope: 'event.description'),
             crime_application_path(item.event_data.fetch(:superseded_by)),
