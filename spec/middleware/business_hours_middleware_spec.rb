@@ -17,6 +17,9 @@ RSpec.describe BusinessHoursMiddleware do
   describe '#call' do
     context 'when today is a bank holiday' do
       before do
+        allow(FeatureFlags).to receive(:offline_on_bank_holidays).and_return(
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        )
         allow(Govuk::BankHolidays).to receive(:call).and_return([Date.current])
       end
 
@@ -38,6 +41,26 @@ RSpec.describe BusinessHoursMiddleware do
       it 'does not call the downstream app' do
         middleware.call(env)
         expect(app).not_to have_received(:call)
+      end
+    end
+
+    context 'when today is a bank holiday but offline_on_bank_holidays is disabled' do
+      before do
+        allow(FeatureFlags).to receive(:offline_on_bank_holidays).and_return(
+          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+        )
+        allow(Govuk::BankHolidays).to receive(:call)
+        travel_to Time.find_zone('London').parse('12:00')
+      end
+
+      it 'passes the request to the downstream app' do
+        status, = middleware.call(env)
+        expect(status).to eq(200)
+      end
+
+      it 'does not call the bank holidays API' do
+        middleware.call(env)
+        expect(Govuk::BankHolidays).not_to have_received(:call)
       end
     end
 
@@ -116,6 +139,9 @@ RSpec.describe BusinessHoursMiddleware do
 
     context 'when the path is a bypass path' do
       before do
+        allow(FeatureFlags).to receive(:offline_on_bank_holidays).and_return(
+          instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+        )
         allow(Govuk::BankHolidays).to receive(:call).and_return([Date.current])
       end
 

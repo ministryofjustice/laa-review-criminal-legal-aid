@@ -7,7 +7,7 @@
     <div class="input-group">
       <%= f.govuk_text_field(
             :search_text,
-            label: { text: t('labels.search_text') },
+            label: { text: FeatureFlags.use_stored_searchable_text.enabled? ? t('labels.stored_search_text') : t('labels.search_text') },
             autocomplete: 'off'
           ) %>
       <%= f.search_date_field(

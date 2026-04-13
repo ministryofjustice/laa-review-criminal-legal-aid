@@ -1,5 +1,14 @@
-<strong>
-  <%= t('event.description.assigning.unassigned_from_user',
-        application_type: t(application.application_type, scope: 'labels.application_type'),
-        from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
-</strong>
+<% if FeatureFlags.reference_history.enabled? %>
+  <strong>
+    <%= t('event.description.assigning.unassigned_from_user',
+          application_type: t(item.application_type, scope: 'labels.application_type'),
+          ordinal_position: display_ordinal_position_for_event(item),
+          from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
+  </strong>
+<% else %>
+  <strong>
+    <%= t('event.description.assigning.unassigned_from_user_without_ordinal',
+          application_type: t(application.application_type, scope: 'labels.application_type'),
+          from_whom_name: User.name_for(item.event_data.fetch(:from_whom_id))) %>
+  </strong>
+<% end %>

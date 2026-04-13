@@ -9,6 +9,7 @@ class ApplicationSearchResult < ApplicationStruct
   attribute? :application_type, Types::ApplicationType
   attribute? :case_type, Types::CaseType.optional
   attribute? :parent_id, Types::Uuid.optional
+  attribute? :archived_at, Types::DateTime.optional
 
   include Assignable
   include Reviewable

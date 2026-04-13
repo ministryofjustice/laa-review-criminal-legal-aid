@@ -25,12 +25,18 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
+    <%#TODO: remove when CRIMAPP-347 complete %>
+    <% unless FeatureFlags.reference_history.enabled? %>
       <% if @crime_application.deleted? %>
         <%= render partial: @crime_application.deleted_history_item, as: :item, layout: 'history_item' %>
+      <% end %>
+      <% if @crime_application.archived? %>
+        <%= render partial: @crime_application.archived_history_item, as: :item, layout: 'history_item' %>
       <% end %>
       <% if @crime_application.superseded? %>
         <%= render partial: @crime_application.superseding_history_item, as: :item, layout: 'history_item' %>
       <% end %>
+    <% end %>
 
       <% @crime_application.all_histories.each do |history| %>
         <% history.items.each do |item| %>
@@ -38,6 +44,7 @@
                      layout: 'history_item',
                      as: :item,
                      locals: {
+                       # TODO: remove when CRIMAPP-347 complete
                        event_is_for_current_version: (
                          @crime_application.id == history.application.id
                        ),

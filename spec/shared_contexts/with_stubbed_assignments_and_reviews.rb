@@ -27,6 +27,11 @@ RSpec.shared_context 'with stubbed assignments and reviews', shared_context: :me
   let(:unassigned_application_ids) { [SecureRandom.uuid] }
 
   before do
+    # Clean up any Review records that might exist from other specs
+    # to ensure test isolation
+    Review.delete_all
+    CurrentAssignment.delete_all
+
     # rubocop:disable Rails/SkipsModelValidations
     CurrentAssignment.insert({ user_id: john.id, assignment_id: johns_applications.first })
     CurrentAssignment.insert({ user_id: david.id, assignment_id: davids_applications.first })

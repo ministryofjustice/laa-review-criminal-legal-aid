@@ -25,6 +25,7 @@
     <%= result.caseworker_name || no_data(:caseworker) %>
   </td>
   <td class="govuk-table__cell">
-    <%= t(result.review_status, scope: 'values.review_status') %>
+    <% review_status = result.archived_at.present? ? 'archived' : result.review_status %>
+    <%= t(review_status, scope: 'values.review_status') %>
   </td>
 </tr>

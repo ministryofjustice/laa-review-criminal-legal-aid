@@ -1,15 +1,36 @@
-<strong>
-  <% if application.resubmission? %>
-    <%= t('event.description.reviewing.application_received.resubmission',
-          application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
-  <% else %>
-    <%= t('event.description.reviewing.application_received.original_submission',
-          application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
-  <% end %>
-</strong>
+<% if FeatureFlags.reference_history.enabled? %>
+  <% event_application_id = item.event_data.fetch(:application_id) %>
 
-<% unless event_is_for_current_version %>
-  <%= link_to t('reviewing.selected_application', scope: 'event.description'),
-              crime_application_path(application.id),
-              class: 'govuk-link--no-visited-state' %>
+  <strong>
+    <% if item.event_data.fetch(:parent_id).present? && item.application_type != 'post_submission_evidence' %>
+      <%= t('event.description.reviewing.application_received.resubmission',
+            application_type: t(item.application_type, scope: 'labels.application_type'),
+            ordinal_position: display_ordinal_position_for_event(item)) %> <br>
+    <% else %>
+      <%= t('event.description.reviewing.application_received.original_submission',
+            application_type: t(item.application_type, scope: 'labels.application_type'),
+            ordinal_position: display_ordinal_position_for_event(item)) %> <br>
+    <% end %>
+  </strong>
+    <%= link_to t('reviewing.view_application', scope: 'event.description',
+                  application_type: t(item.application_type, scope: 'labels.application_type').downcase,
+                  ordinal_position: display_ordinal_position_for_link(item)),
+                crime_application_path(event_application_id),
+                class: 'govuk-link--no-visited-state' %>
+<% else %>
+  <strong>
+    <% if application.resubmission? %>
+      <%= t('event.description.reviewing.application_received.resubmission_without_ordinal',
+            application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
+    <% else %>
+      <%= t('event.description.reviewing.application_received.original_submission_without_ordinal',
+            application_type: t(application.application_type, scope: 'labels.application_type')) %> <br>
+    <% end %>
+  </strong>
+
+  <% unless event_is_for_current_version %>
+    <%= link_to t('reviewing.selected_application', scope: 'event.description'),
+                crime_application_path(application.id),
+                class: 'govuk-link--no-visited-state' %>
+  <% end %>
 <% end %>

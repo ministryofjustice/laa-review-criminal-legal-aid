@@ -1,5 +1,16 @@
-<strong>
-  <%= t('event.description.reviewing.sent_back', application_type: t(application.application_type, scope: 'labels.application_type')) %>
-</strong>
-<p><%= t(item.event_data.fetch(:reason), scope: 'values.return_reason') %></p>
-<%= simple_format application.return_details&.details %>
+<% if FeatureFlags.reference_history.enabled? %>
+  <strong>
+    <%= t('event.description.reviewing.sent_back',
+          application_type: t(item.application_type, scope: 'labels.application_type'),
+          ordinal_position: display_ordinal_position_for_event(item)) %>
+  </strong>
+  <p><%= t(item.event_data.fetch(:reason), scope: 'values.return_reason') %></p>
+  <%= simple_format item.return_details %>
+<% else %>
+  <strong>
+    <%= t('event.description.reviewing.sent_back_without_ordinal',
+          application_type: t(application.application_type, scope: 'labels.application_type')) %>
+  </strong>
+  <p><%= t(item.event_data.fetch(:reason), scope: 'values.return_reason') %></p>
+  <%= simple_format application.return_details&.details %>
+<% end %>
