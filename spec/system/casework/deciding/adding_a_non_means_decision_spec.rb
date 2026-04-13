@@ -71,15 +71,9 @@ RSpec.describe 'Adding a Non-means application' do
     end
   end
 
-  context 'when viewing the application as a non-caseworker' do
+  context 'when viewing the application as a non-reviewer' do
     before do
       visit crime_application_path(application_id)
-    end
-
-    context 'when a supervisor' do
-      let(:current_user_role) { UserRole::SUPERVISOR }
-
-      include_examples 'hides "Start" button'
     end
 
     context 'when a data analyst' do
