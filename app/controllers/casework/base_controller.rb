@@ -50,11 +50,11 @@ module Casework
     end
 
     def can_review_application?(crime_application)
-      current_user.caseworker? && crime_application.reviewable_by?(current_user_id)
+      (current_user.caseworker? || current_user.supervisor?) && crime_application.reviewable_by?(current_user_id)
     end
 
     def require_reviewing_caseworker!
-      return if current_user.caseworker?
+      return if current_user.caseworker? || current_user.supervisor?
 
       set_flash(:not_authorised_to_review, success: false)
 

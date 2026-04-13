@@ -74,15 +74,9 @@ RSpec.describe 'Reviewing a PSE application' do
     end
   end
 
-  context 'when viewing the application as a non-caseworker' do
+  context 'when viewing the application as a non-reviewer' do
     before do
       visit crime_application_path(application_id)
-    end
-
-    context 'when a supervisor' do
-      let(:current_user_role) { UserRole::SUPERVISOR }
-
-      include_examples 'hides "Mark as completed" button'
     end
 
     context 'when a data analyst' do
@@ -95,6 +89,32 @@ RSpec.describe 'Reviewing a PSE application' do
       let(:current_user_role) { UserRole::AUDITOR }
 
       include_examples 'hides "Mark as completed" button'
+    end
+  end
+
+  context 'when a supervisor is assigned to the application' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new).and_return(
+        instance_double(DatastoreApi::Requests::UpdateApplication, call: {})
+      )
+
+      Assigning::AssignToUser.new(
+        assignment_id: application_id, user_id: current_user_id,
+        to_whom_id: current_user_id, reference: 100_123
+      ).call
+
+      visit crime_application_path(application_id)
+    end
+
+    it 'shows the "Mark as completed" button' do
+      expect(page).to have_button(complete_cta)
+    end
+
+    it 'can be completed by the supervisor' do
+      click_button 'Mark as completed'
+      expect(page).to have_content('You marked the application as complete')
     end
   end
 

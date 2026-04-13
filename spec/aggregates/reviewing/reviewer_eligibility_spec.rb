@@ -39,8 +39,8 @@ RSpec.describe Reviewing::ReviewerEligibility do
   context 'when the user is a supervisor' do
     let(:user) { supervisor_user }
 
-    it 'does not allow the user to review' do
-      expect(eligibility.allowed?).to be(false)
+    it 'allows the user to review' do
+      expect(eligibility.allowed?).to be(true)
     end
   end
 

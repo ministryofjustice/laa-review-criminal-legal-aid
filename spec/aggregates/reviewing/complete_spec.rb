@@ -6,7 +6,6 @@ RSpec.describe Reviewing::Complete do
   end
 
   include_context 'with an existing caseworker user'
-  include_context 'with an existing supervisor user'
   include_context 'with review'
   include_context 'with stubbed assignment'
 
@@ -85,7 +84,16 @@ RSpec.describe Reviewing::Complete do
   end
 
   context 'when assigned but not authorised to review' do
-    let(:user_id) { supervisor_user.id }
+    let(:user_id) do
+      User.create!(
+        first_name: 'Data',
+        last_name: 'Analyst',
+        email: "data-analyst-#{SecureRandom.hex(4)}@example.com",
+        auth_subject_id: SecureRandom.uuid,
+        can_manage_others: false,
+        role: UserRole::DATA_ANALYST
+      ).id
+    end
 
     it 'raises a not authorised to review error' do
       expect { command.call }.to raise_error(Reviewing::NotAuthorisedToReview)

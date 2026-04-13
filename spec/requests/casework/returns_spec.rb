@@ -42,7 +42,7 @@ RSpec.describe 'Returning applications' do
       end
 
       context 'when assigned but not authorised to review' do
-        let(:current_user_role) { UserRole::SUPERVISOR }
+        let(:current_user_role) { UserRole::DATA_ANALYST }
 
         before do
           Assigning::AssignToUser.new(
@@ -54,7 +54,7 @@ RSpec.describe 'Returning applications' do
         end
 
         it 'sets the correct flash message and redirects' do
-          expect(flash[:important]).to eq(['You must be a caseworker to review an application'])
+          expect(flash[:important]).to eq(['You must be a caseworker or supervisor to review an application'])
           expect(response).to redirect_to("/applications/#{application_id}")
         end
       end
@@ -107,7 +107,7 @@ RSpec.describe 'Returning applications' do
       end
 
       describe 'NotAuthorisedToReview' do
-        let(:current_user_role) { UserRole::SUPERVISOR }
+        let(:current_user_role) { UserRole::DATA_ANALYST }
 
         before do
           Assigning::AssignToUser.new(
@@ -119,7 +119,7 @@ RSpec.describe 'Returning applications' do
         end
 
         it 'sets the correct flash message and redirects' do
-          expect(flash[:important]).to eq(['You must be a caseworker to review an application'])
+          expect(flash[:important]).to eq(['You must be a caseworker or supervisor to review an application'])
           expect(response).to redirect_to("/applications/#{application_id}")
         end
       end

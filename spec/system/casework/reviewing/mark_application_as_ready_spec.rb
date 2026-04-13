@@ -65,15 +65,9 @@ RSpec.describe 'Marking an application as ready for assessment' do
     end
   end
 
-  context 'when viewing the application as a non-caseworker' do
+  context 'when viewing the application as a non-reviewer' do
     before do
       visit crime_application_path(crime_application_id)
-    end
-
-    context 'when a supervisor' do
-      let(:current_user_role) { UserRole::SUPERVISOR }
-
-      include_examples 'hides "Mark as ready for MAAT" button'
     end
 
     context 'when a data analyst' do
@@ -134,6 +128,31 @@ RSpec.describe 'Marking an application as ready for assessment' do
     end
 
     include_examples 'hides "Mark as ready for MAAT" button'
+  end
+
+  context 'when a supervisor is assigned to the application' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+      Assigning::AssignToUser.new(
+        assignment_id: crime_application_id, user_id: current_user_id,
+        to_whom_id: current_user_id, reference: 100_123
+      ).call
+
+      visit crime_application_path(crime_application_id)
+    end
+
+    it 'shows the "Mark as ready for MAAT" button' do
+      expect(page).to have_button(ready_for_assessment_cta)
+    end
+
+    it 'can mark the application as ready' do
+      click_button(ready_for_assessment_cta)
+      expect(page).to have_content('Application ready for assessment in MAAT.')
+    end
   end
 
   context 'when reassigned while the page is already loaded' do

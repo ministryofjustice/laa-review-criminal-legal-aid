@@ -161,15 +161,9 @@ RSpec.describe 'Send an application back to the provider' do
     end
   end
 
-  context 'when viewing the application as a non-caseworker' do
+  context 'when viewing the application as a non-reviewer' do
     before do
       visit crime_application_path(crime_application_id)
-    end
-
-    context 'when a supervisor' do
-      let(:current_user_role) { UserRole::SUPERVISOR }
-
-      include_examples 'hides "Send back to provider" button'
     end
 
     context 'when a data analyst' do
@@ -182,6 +176,26 @@ RSpec.describe 'Send an application back to the provider' do
       let(:current_user_role) { UserRole::AUDITOR }
 
       include_examples 'hides "Send back to provider" button'
+    end
+  end
+
+  context 'when a supervisor is assigned to the application' do
+    let(:current_user_role) { UserRole::SUPERVISOR }
+
+    before do
+      allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
+        .and_return(instance_double(DatastoreApi::Requests::UpdateApplication, call: {}))
+
+      Assigning::AssignToUser.new(
+        assignment_id: crime_application_id, user_id: current_user_id,
+        to_whom_id: current_user_id, reference: 100_123
+      ).call
+
+      visit crime_application_path(crime_application_id)
+    end
+
+    it 'the "Send back to provider" button is visible' do
+      expect(page).to have_link(send_back_cta)
     end
   end
 
