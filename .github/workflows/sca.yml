@@ -24,17 +24,6 @@ jobs:
       actions: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Install Yarn 4.7
-        run: |
-          corepack enable
-          corepack prepare yarn@4.7 --activate
-
-      - name: Install Yarn dependencies
-        run: yarn install --immutable
-
-      - uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
+      - uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
