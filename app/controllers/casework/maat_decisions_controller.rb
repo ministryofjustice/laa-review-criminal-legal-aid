@@ -2,7 +2,7 @@ module Casework
   class MaatDecisionsController < Casework::BaseController
     include SetDecisionAndAuthorise
 
-    before_action :require_reviewing_caseworker!, only: %i[new create create_by_reference]
+    before_action :require_reviewer!, only: %i[new create create_by_reference]
     before_action :set_decision, :require_maat_decision!, except: [:create, :new, :create_by_reference]
 
     def new
