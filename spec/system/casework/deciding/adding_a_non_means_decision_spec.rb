@@ -79,13 +79,13 @@ RSpec.describe 'Adding a Non-means application' do
     context 'when a data analyst' do
       let(:current_user_role) { UserRole::DATA_ANALYST }
 
-      include_examples 'hides "Start" button'
+      it_behaves_like 'hides "Start" button'
     end
 
     context 'when an auditor' do
       let(:current_user_role) { UserRole::AUDITOR }
 
-      include_examples 'hides "Start" button'
+      it_behaves_like 'hides "Start" button'
     end
   end
 

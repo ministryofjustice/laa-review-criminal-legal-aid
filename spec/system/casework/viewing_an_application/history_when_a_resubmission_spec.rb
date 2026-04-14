@@ -28,7 +28,7 @@ RSpec.describe "Viewing a resubmitted application's history" do
       }
     end
 
-    include_examples 'resubmitted application history', 'Go to this version'
+    it_behaves_like 'resubmitted application history', 'Go to this version'
 
     context 'when viewing the superseded application\'s history' do
       before do
@@ -55,7 +55,7 @@ RSpec.describe "Viewing a resubmitted application's history" do
       }
     end
 
-    include_examples 'resubmitted application history', 'View application 1'
+    it_behaves_like 'resubmitted application history', 'View application 1'
 
     context 'when viewing the superseded application\'s history' do
       before do

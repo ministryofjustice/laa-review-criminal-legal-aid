@@ -82,13 +82,13 @@ RSpec.describe 'Reviewing a PSE application' do
     context 'when a data analyst' do
       let(:current_user_role) { UserRole::DATA_ANALYST }
 
-      include_examples 'hides "Mark as completed" button'
+      it_behaves_like 'hides "Mark as completed" button'
     end
 
     context 'when an auditor' do
       let(:current_user_role) { UserRole::AUDITOR }
 
-      include_examples 'hides "Mark as completed" button'
+      it_behaves_like 'hides "Mark as completed" button'
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe 'Reviewing a PSE application' do
       visit crime_application_path(application_id)
     end
 
-    include_examples 'hides "Mark as completed" button'
+    it_behaves_like 'hides "Mark as completed" button'
   end
 
   context 'when reassigned while the page is already loaded' do

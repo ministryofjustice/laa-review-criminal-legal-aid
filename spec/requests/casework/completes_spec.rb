@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Completing applications' do
   include Devise::Test::IntegrationHelpers
+
   include_context 'with stubbed application'
 
   let(:data_analyst_user) do
