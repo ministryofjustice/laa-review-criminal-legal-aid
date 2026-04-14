@@ -1,5 +1,8 @@
 class DecisionComponent < ViewComponent::Base
   include ActionView::Helpers
+  include GovukComponentsHelper
+  include GovukLinkHelper
+  include GovukVisuallyHiddenHelper
   include AppTextHelper
   include ComponentsHelper
 
@@ -9,7 +12,7 @@ class DecisionComponent < ViewComponent::Base
     @show_actions = show_actions
     @action_context = action_context
 
-    super
+    super()
   end
 
   private

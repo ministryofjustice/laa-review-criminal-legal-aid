@@ -169,13 +169,13 @@ RSpec.describe 'Send an application back to the provider' do
     context 'when a data analyst' do
       let(:current_user_role) { UserRole::DATA_ANALYST }
 
-      include_examples 'hides "Send back to provider" button'
+      it_behaves_like 'hides "Send back to provider" button'
     end
 
     context 'when an auditor' do
       let(:current_user_role) { UserRole::AUDITOR }
 
-      include_examples 'hides "Send back to provider" button'
+      it_behaves_like 'hides "Send back to provider" button'
     end
   end
 
@@ -189,6 +189,6 @@ RSpec.describe 'Send an application back to the provider' do
       click_on('Kit Pound')
     end
 
-    include_examples 'hides "Send back to provider" button'
+    it_behaves_like 'hides "Send back to provider" button'
   end
 end

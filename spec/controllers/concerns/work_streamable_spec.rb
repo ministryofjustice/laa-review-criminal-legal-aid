@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe ApplicationController do
   controller do
     include WorkStreamable
+
     before_action :set_current_work_stream
 
     def index

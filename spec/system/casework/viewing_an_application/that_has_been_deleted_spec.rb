@@ -37,7 +37,7 @@ RSpec.describe 'Viewing an application that has been deleted' do
       }
     end
 
-    include_examples 'deleted application display'
+    it_behaves_like 'deleted application display'
 
     describe 'applications history' do
       before do
@@ -77,7 +77,7 @@ RSpec.describe 'Viewing an application that has been deleted' do
       )
     end
 
-    include_examples 'deleted application display'
+    it_behaves_like 'deleted application display'
 
     describe 'applications history' do
       before do
