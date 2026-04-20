@@ -2,7 +2,7 @@ class OffenceDatesComponent < ViewComponent::Base
   def initialize(offence:)
     @offence = offence
 
-    super
+    super()
   end
 
   def call

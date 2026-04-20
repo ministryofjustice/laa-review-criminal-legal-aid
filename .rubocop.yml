@@ -1,7 +1,9 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-performance
   - rubocop-rspec
+
+require:
   # Add custom cops for this project below
   - ./lib/rubocop/custom_cops/govuk_formbuilder/text_field_autocomplete.rb
 
@@ -44,6 +46,9 @@ Layout/HashAlignment:
   Enabled: false
 
 RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/LeakyLocalVariable:
   Enabled: false
 
 # TODO: Determine any repercussions to using .select instead

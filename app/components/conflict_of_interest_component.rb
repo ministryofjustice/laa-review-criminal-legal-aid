@@ -1,8 +1,10 @@
 class ConflictOfInterestComponent < ViewComponent::Base
+  include GovukComponentsHelper
+
   def initialize(codefendant:)
     @codefendant = codefendant
 
-    super
+    super()
   end
 
   def call

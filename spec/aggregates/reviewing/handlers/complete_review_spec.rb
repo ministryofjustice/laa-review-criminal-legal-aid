@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Reviewing::Handlers::CompleteReview do
   subject(:handler) { described_class.new }
 
+  include_context 'with an existing caseworker user'
   include_context 'with review'
   include_context 'with stubbed assignment'
 
@@ -47,7 +48,7 @@ RSpec.describe Reviewing::Handlers::CompleteReview do
 
     context 'when there is a draft decision' do # rubocop:disable RSpec/MultipleMemoizedHelpers
       let(:decision_id) { SecureRandom.uuid }
-      let(:user_id) { SecureRandom.uuid }
+      let(:user_id) { caseworker_user.id }
       let(:reference) { 123_456 }
       let(:decisions) do
         [

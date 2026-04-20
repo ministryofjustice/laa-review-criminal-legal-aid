@@ -1,4 +1,6 @@
 class CardComponent < ViewComponent::Base
+  include GovukComponentsHelper
+
   # Wraps the Govuk Summary Card component so that when used with
   # .with_collection the item number is added to the card title.
 
@@ -11,7 +13,7 @@ class CardComponent < ViewComponent::Base
     @item_title = title
     @item_iteration = item_iteration
 
-    super
+    super()
   end
 
   def call

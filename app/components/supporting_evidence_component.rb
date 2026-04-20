@@ -1,10 +1,13 @@
 class SupportingEvidenceComponent < ViewComponent::Base
   include ActionView::Helpers
+  include GovukComponentsHelper
+  include GovukLinkHelper
+  include GovukVisuallyHiddenHelper
   include AppTextHelper
 
   def initialize(crime_application:)
     @crime_application = crime_application
-    super
+    super()
   end
 
   private

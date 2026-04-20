@@ -3,8 +3,19 @@ require 'rails_helper'
 RSpec.describe 'Sending application decisions' do
   include Devise::Test::IntegrationHelpers
 
-  include_context 'with an existing user'
   include_context 'with stubbed application'
+
+  let(:user) do
+    User.create!(
+      first_name: 'Zoe',
+      last_name: 'Blogs',
+      email: 'Zoe.Blogs@example.com',
+      auth_subject_id: SecureRandom.uuid,
+      can_manage_others: false,
+      role: current_user_role
+    )
+  end
+  let(:current_user_role) { UserRole::CASEWORKER }
 
   before do
     sign_in user
@@ -38,6 +49,24 @@ RSpec.describe 'Sending application decisions' do
         it 'sets the correct flash message and redirects' do
           expect(flash[:important]).to eq(['This application is assigned to someone else',
                                            'Ask your supervisor if you need to work on it.'])
+          expect(response).to redirect_to("/applications/#{application_id}")
+        end
+      end
+
+      describe 'NotAuthorisedToReview' do
+        let(:current_user_role) { UserRole::DATA_ANALYST }
+
+        before do
+          Assigning::AssignToUser.new(
+            assignment_id: application_id, user_id: user.id,
+            to_whom_id: user.id, reference: 1_234_567
+          ).call
+
+          create
+        end
+
+        it 'sets the correct flash message and redirects' do
+          expect(flash[:important]).to eq(['You must be a caseworker or supervisor to review an application'])
           expect(response).to redirect_to("/applications/#{application_id}")
         end
       end
