@@ -20,6 +20,7 @@ RSpec.describe 'Volumes by office report' do
       click_link(report_title)
       click_link('Next')
       expect(page).not_to have_link(download_link)
+      expect(page).to have_text("This report isn't available yet. You’ll be able to download it after the end of the month.")
     end
 
     describe 'attempts to directly view the report' do
