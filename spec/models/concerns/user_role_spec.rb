@@ -139,6 +139,22 @@ RSpec.describe UserRole do
     end
   end
 
+  describe '#can_download_reports?' do
+    it 'returns true for data analyst and auditor' do
+      [UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        user.role = role
+        expect(user.can_download_reports?).to be true
+      end
+    end
+
+    it 'returns false for caseworker and supervisor' do
+      [UserRole::CASEWORKER, UserRole::SUPERVISOR].each do |role|
+        user.role = role
+        expect(user.can_download_reports?).to be false
+      end
+    end
+  end
+
   describe '#user_manager?' do
     context 'with can_manager_others attribute set to true' do
       it 'returns true' do
