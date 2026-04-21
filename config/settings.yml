@@ -21,7 +21,7 @@ feature_flags:
     local: true
     test: true
     staging: true
-    production: false
+    production: true
   offline_on_bank_holidays:
     local: false
     test: false
