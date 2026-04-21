@@ -23,7 +23,7 @@ module UserRole
   end
 
   def can_download_reports?
-    role == DATA_ANALYST
+    role_in?([DATA_ANALYST, AUDITOR])
   end
 
   def can_change_role?

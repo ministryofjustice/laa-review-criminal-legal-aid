@@ -39,7 +39,7 @@ module Reporting
     # NOTE: this code is temporary and used here to provide a list of temporal
     # reports for prototyping purposes only.
     def latest_temporal_reports
-      interval = if current_user.data_analyst?
+      interval = if current_user.data_analyst? || current_user.auditor?
                    Types::TemporalInterval['monthly']
                  else
                    Types::TemporalInterval['daily']
