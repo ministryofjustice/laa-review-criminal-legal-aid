@@ -67,7 +67,7 @@ en:
     colspan_unassigned_from_user: Unassigned
     completed_by_user: completed
     days_passed: Business days since applications were received
-    office_code: Office code
+    office_code: Office account number
     open_applications_by_age: "Applications still\xA0open"
     percentage_closed_by_user: "assigned closed"
     percentage_unassigned_from_user: "assigned un-assigned"

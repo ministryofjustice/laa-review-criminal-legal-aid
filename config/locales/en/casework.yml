@@ -296,7 +296,7 @@ en:
       one: Date
       other: Dates
     office_account_number: Office account number
-    office_code: Office code
+    office_code: Office account number
     other_benefits_details: Other benefits details
     other_capital_details: Other capital
     other_charges_charge: What is the charge?
