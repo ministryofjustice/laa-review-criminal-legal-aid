@@ -55,7 +55,7 @@ RSpec.describe 'Return Reasons Report' do
       'Date returned',
       'Return reason',
       'LAA reference',
-      'Office code',
+      'Office account number',
       'Legal representative'
     ]
 
@@ -129,7 +129,7 @@ RSpec.describe 'Return Reasons Report' do
   it_behaves_like 'a table with sortable headers' do
     let(:active_sort_headers) { ['Date returned'] }
     let(:active_sort_direction) { 'ascending' }
-    let(:inactive_sort_headers) { ['Return reason', 'LAA reference', 'Office code'] }
+    let(:inactive_sort_headers) { ['Return reason', 'LAA reference', 'Office account number'] }
   end
 
   it 'can navigate to the monthly view' do
