@@ -13,19 +13,22 @@ class NotifyMailer < GovukNotifyRails::Mailer
 
   self.delivery_job = NotifyMailDeliveryJob
 
-  def application_returned_email(application_id, return_reason)
+  def application_returned_email(application_id, return_reason) # rubocop:disable Metrics/MethodLength
     application = CrimeApplication.find(application_id)
     provider_email = application.provider_details.provider_email
+    # TODO[CRIMAPP-2171]: remove applicant_name once the template is updated in production
     applicant_name = application.client_details.applicant.full_name
     application_reference = application.reference.to_s
     return_reason = I18n.t("emails_text.application_returned.#{return_reason}")
+    office_account_number = application.provider_details.office_code
 
     set_template(:application_returned_email)
 
     set_personalisation(
       applicant_name:,
       application_reference:,
-      return_reason:
+      return_reason:,
+      office_account_number:
     )
 
     mail(to: provider_email)
