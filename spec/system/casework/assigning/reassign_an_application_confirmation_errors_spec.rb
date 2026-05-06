@@ -68,7 +68,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     it 'notifies that the assignment had already happened' do
       reassign_to_another
 
-      click_on('Yes, reassign')
+      click_on('Reassign application')
 
       expect(page).to have_notification_banner(
         text: 'This application could not be reassigned to your list',
@@ -79,7 +79,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     it 'redirects to the application details page' do
       reassign_to_another
 
-      expect { click_on('Yes, reassign') }.to change { page.current_path }
+      expect { click_on('Reassign application') }.to change { page.current_path }
         .from(confirm_path).to(
           crime_application_path(crime_application_id)
         )
@@ -88,7 +88,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     it 'does not reassign current user' do
       reassign_to_another
 
-      click_on('Yes, reassign')
+      click_on('Reassign application')
       expect(page).to have_content 'Assigned to: Fast Janeeg'
     end
   end
@@ -104,7 +104,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     end
 
     it 'redirects to the application details' do
-      expect { click_on('Yes, reassign') }.to change { page.current_path }
+      expect { click_on('Reassign application') }.to change { page.current_path }
         .from(confirm_path)
         .to(crime_application_path(crime_application_id))
     end
@@ -112,7 +112,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     it 'notifies that the application was unassigned before they attempted reassignment' do
       unassign
 
-      click_on('Yes, reassign')
+      click_on('Reassign application')
 
       expect(page).to have_notification_banner(
         text: 'This application could not be reassigned to your list',
@@ -123,7 +123,7 @@ RSpec.describe 'Reassigning an application confirmation errors' do
     it 'does not reassign' do
       unassign
 
-      click_on('Yes, reassign')
+      click_on('Reassign application')
 
       expect(page).to have_content 'Assigned to: no one'
     end

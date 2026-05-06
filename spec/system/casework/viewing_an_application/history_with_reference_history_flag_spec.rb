@@ -98,7 +98,7 @@ RSpec.describe 'Viewing application history with reference_history flag enabled'
       visit open_crime_applications_path
       click_on('Kit Pound')
       click_on('Reassign to your list')
-      click_on('Yes, reassign')
+      click_on('Reassign application')
       click_on('Application history')
     end
 
