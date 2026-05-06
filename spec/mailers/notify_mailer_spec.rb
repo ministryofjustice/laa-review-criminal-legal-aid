@@ -31,7 +31,8 @@ RSpec.describe NotifyMailer do
       {
         applicant_name: 'Kit Pound',
         application_reference: '6000001',
-        return_reason: 'clarification is required'
+        return_reason: 'clarification is required',
+        office_account_number: '1A123B'
       }
     end
 

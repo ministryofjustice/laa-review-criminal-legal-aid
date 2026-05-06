@@ -20,6 +20,22 @@ RSpec.describe 'Search Page' do
     )
   end
 
+  it 'shows the office account number input field' do
+    group_text = page.first('.search .govuk-fieldset .input-group[4]').text
+    expect(group_text).to include('Office account number')
+  end
+
+  it 'shows the status and caseworker input fields' do
+    group_text = page.first('.search .govuk-fieldset .input-group[5]').text
+    expect(group_text).to include('Status').and include('Caseworker')
+  end
+
+  it 'shows the date and business days input fields' do
+    group_text = page.first('.search .govuk-fieldset .input-group[6]').text
+    expect(group_text).to include('Date from').and include('Date to')
+    expect(group_text).to include('Business days since application received')
+  end
+
   it 'includes the correct results table headings' do
     column_headings = page.all('.app-table thead tr th.govuk-table__header').map(&:text)
 
