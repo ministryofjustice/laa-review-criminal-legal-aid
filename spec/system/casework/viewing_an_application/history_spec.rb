@@ -73,7 +73,7 @@ RSpec.describe 'Viewing application history (using assigning/reviewing streams)'
       click_on 'Open applications'
       click_on('Kit Pound')
       click_on('Reassign to your list')
-      click_on('Yes, reassign')
+      click_on('Reassign application')
       click_on('Application history')
     end
 
