@@ -43,15 +43,15 @@ RSpec.describe 'Reassigning an application to myself' do
       end
     end
 
-    describe 'clicking on "Yes, reassign"' do
+    describe 'clicking on "Reassign application"' do
       it 'redirects to the application details' do
-        expect { click_on('Yes, reassign') }.to change { page.current_path }
+        expect { click_on('Reassign application') }.to change { page.current_path }
           .from(confirm_path)
           .to(crime_application_path(crime_application_id))
       end
 
       it 'shows the success notice' do
-        click_on('Yes, reassign')
+        click_on('Reassign application')
 
         within('.govuk-notification-banner--success') do
           expect(page).to have_content('You assigned this application to your list')
@@ -59,21 +59,21 @@ RSpec.describe 'Reassigning an application to myself' do
       end
 
       it 'assigns to the current user' do
-        click_on('Yes, reassign')
+        click_on('Reassign application')
         expect(page).to have_content 'Assigned to: Joe EXAMPLE'
       end
     end
 
-    describe 'clicking on "No, do not reassign"' do
+    describe 'clicking on "Back to application"' do
       it 'redirects to application details' do
-        expect { click_on('No, do not reassign') }.to change { page.current_path }
+        expect { click_on('Back to application') }.to change { page.current_path }
           .from(confirm_path).to(
             crime_application_path(crime_application_id)
           )
       end
 
       it 'does not reassign' do
-        click_on('No, do not reassign')
+        click_on('Back to application')
         expect(page).to have_content 'Assigned to: Fred Smitheg'
       end
     end

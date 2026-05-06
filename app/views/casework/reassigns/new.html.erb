@@ -17,12 +17,9 @@
         <%= f.submit t('calls_to_action.confirm_reassign_to_self'), class: 'govuk-button'%>
       <% end %>
 
-      <%= button_to(
-            t('calls_to_action.abandon_reassign_to_self'),
-            crime_application_path(@current_assignment.assignment_id),
-            method: :get,
-            class: 'govuk-button govuk-button--warning'
-          ) %>
+      <%= govuk_link_to t('calls_to_action.abandon_reassign_to_self'),
+                        crime_application_path(@current_assignment.assignment_id),
+                        no_visited_state: true %>
     </div>
   </div>
 </div>

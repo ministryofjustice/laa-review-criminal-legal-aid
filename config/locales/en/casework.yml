@@ -690,7 +690,7 @@ en:
       no_hearing_yet: There has not been a hearing yet
 
   calls_to_action: &ACTIONS
-    abandon_reassign_to_self: No, do not reassign
+    abandon_reassign_to_self: Back to application
     add_another_decision: Add another case
     add_funding_decision: Add funding decision from MAAT
     assign_to_self: Assign to your list
@@ -698,7 +698,7 @@ en:
     change: Change
     clear_search: Clear
     complete: Mark as completed
-    confirm_reassign_to_self: Yes, reassign
+    confirm_reassign_to_self: Reassign application
     copy: Copy
     copy_laa_reference: Copy LAA reference
     edit: Edit
