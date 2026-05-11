@@ -1,4 +1,9 @@
 <% if evidence.viewable_inline? %>
+  <% if show_view_link? %>
+    <p class="govuk-body">
+      <%= govuk_link_to(t('.view_in_new_tab'), view_path, target: '_blank', rel: 'noopener noreferrer') %>
+    </p>
+  <% end %>
   <% if evidence.pdf? %>
     <%= tag.iframe(
           src: raw_path,
@@ -6,13 +11,13 @@
           title: evidence.filename
         ) %>
   <% else %>
+    <%= govuk_details(summary_text: t('.rotate_or_zoom_summary')) do %>
+      <p class="govuk-body"><%= t('.rotate_or_zoom_details') %></p>
+    <% end %>
     <%= tag.img(
           src: raw_path,
           class: 'app-evidence-embed app-evidence-embed--image',
           alt: evidence.filename
         ) %>
   <% end %>
-<% else %>
-  <p class="govuk-body"><%= t('.not_embeddable') %></p>
-  <%= govuk_link_to(download_text, download_path) %>
 <% end %>

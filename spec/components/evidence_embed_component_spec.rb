@@ -26,8 +26,28 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
       expect(rendered).to have_css("iframe[title='doc.pdf']")
     end
 
-    it 'does not render a download link' do
-      expect(rendered).to have_no_link
+    it 'does not render rotate or zoom details' do
+      expect(rendered).to have_no_text('Rotate or zoom')
+    end
+
+    context 'when on the supporting evidence tab page' do
+      before do
+        allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(true)
+      end
+
+      it 'renders a "View in a new tab" link' do
+        expect(rendered).to have_link('View in a new tab', href: /key%2Fpdf1/)
+      end
+    end
+
+    context 'when not on the supporting evidence tab page' do
+      before do
+        allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(false)
+      end
+
+      it 'does not render a "View in a new tab" link' do
+        expect(rendered).to have_no_link('View in a new tab')
+      end
     end
   end
 
@@ -52,36 +72,29 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
       expect(rendered).to have_css("img[alt='photo.png']")
     end
 
-    it 'does not render a download link' do
-      expect(rendered).to have_no_link
-    end
-  end
-
-  context 'with a non-embeddable document' do
-    let(:evidence) do
-      Document.new(
-        filename: 'data.csv',
-        content_type: 'application/octet-stream',
-        file_extension: 'csv',
-        file_size: 2048,
-        s3_object_key: 'key/csv1'
-      )
+    it 'renders rotate or zoom details' do
+      expect(rendered).to have_text('Rotate or zoom')
+      expect(rendered).to have_text('Hover over the image and press Ctrl twice')
     end
 
-    it 'displays the not embeddable message' do
-      expect(rendered).to have_text('This file cannot be displayed in the browser.')
+    context 'when on the documents index page' do
+      before do
+        allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(true)
+      end
+
+      it 'renders a "View in a new tab" link' do
+        expect(rendered).to have_link('View in a new tab', href: /key%2Fimg1/)
+      end
     end
 
-    it 'renders a download link' do
-      expect(rendered).to have_link(
-        'Download file (csv, 2 KB)',
-        href: /key%2Fcsv1/
-      )
-    end
+    context 'when not on the documents index page' do
+      before do
+        allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(false)
+      end
 
-    it 'does not render an iframe or img tag' do
-      expect(rendered).to have_no_css('iframe')
-      expect(rendered).to have_no_css('img')
+      it 'does not render a "View in a new tab" link' do
+        expect(rendered).to have_no_link('View in a new tab')
+      end
     end
   end
 end

@@ -56,10 +56,13 @@ RSpec.describe 'Viewing all evidence' do
       expect(page).to have_content('All evidence')
     end
 
-    it 'displays the filename for each document' do # rubocop:disable RSpec/MultipleExpectations
+    it 'displays the filename for each viewable document' do
       expect(page).to have_content('test.pdf')
       expect(page).to have_content('photo.jpg')
-      expect(page).to have_content('report.docx')
+    end
+
+    it 'does not display non-viewable files in the accordion' do
+      expect(page).to have_no_content('report.docx')
     end
 
     it 'embeds the PDF in an iframe' do
@@ -74,12 +77,19 @@ RSpec.describe 'Viewing all evidence' do
       )
     end
 
-    it 'shows a cannot-be-displayed message and download link for non-embeddable files' do
-      expect(page).to have_content('This file cannot be displayed in the browser.')
-      expect(page).to have_link(
-        'Download file (docx, 1 KB)',
-        href: download_crime_application_document_path(application_id, docx_s3_key)
-      )
+    it 'displays a "View in a new tab" link for PDF' do
+      expect(page).to have_link('View in a new tab',
+                                href: crime_application_document_path(application_id, pdf_s3_key))
+    end
+
+    it 'displays a "View in a new tab" link for images' do
+      expect(page).to have_link('View in a new tab',
+                                href: crime_application_document_path(application_id, image_s3_key))
+    end
+
+    it 'displays rotate or zoom instructions for images' do
+      expect(page).to have_content('Rotate or zoom')
+      expect(page).to have_content('Hover over the image and press Ctrl twice')
     end
 
     context 'when the page loads' do

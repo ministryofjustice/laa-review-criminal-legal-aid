@@ -6,10 +6,11 @@
 
 <h2 class="govuk-heading-l"><%= t('.heading') %></h2>
 
-<% if @crime_application.supporting_evidence.present? %>
+<% viewable_evidence = @crime_application.supporting_evidence.select(&:viewable_inline?) %>
+<% if viewable_evidence.present? %>
   <%= govuk_accordion do |accordion|
-        @crime_application.supporting_evidence.each do |evidence|
-          accordion.with_section(heading_text: evidence.filename) do
+        viewable_evidence.each do |evidence|
+          accordion.with_section(heading_text: evidence.filename, expanded: true) do
             render EvidenceEmbedComponent.new(
               evidence: evidence,
               crime_application: @crime_application
