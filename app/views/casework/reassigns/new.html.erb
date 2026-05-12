@@ -3,10 +3,51 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">
-      <%= t 'confirmations.reassign_to_self_html', from_whom_name: User.name_for(@current_assignment.user_id) %>
+      <%= t 'confirmations.reassign_to_self_html' %>
     </h1>
 
-    <%= govuk_warning_text text: t('warnings.reassign_to_self') %>
+    <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-6">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('.client_name') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @crime_application.applicant_name %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('labels.application_type_heading') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@crime_application.application_type, scope: 'values') %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('labels.application_submitted') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= l(@crime_application.submitted_at, format: :datestamp) %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('table_headings.reference') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @crime_application.reference %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('.currently_assigned_to') %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= User.name_for(@current_assignment.user_id) %>
+        </dd>
+      </div>
+    </dl>
 
     <div class="govuk-button-group">
       <%= form_with(
