@@ -11,10 +11,9 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
       :get,
       "#{ENV.fetch('DATASTORE_API_ROOT')}/api/v1/applications/#{crime_application_id}"
     ).to_return(body: application_data.to_json, status: 200)
- 
+
     visit crime_application_path(crime_application_id)
   end
-
 
   section_titles = [
     'About the provider',
