@@ -18,13 +18,13 @@ RSpec.describe 'Viewing the declarations on an application' do
     end
 
     it 'shows the Declarations card with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Declarations')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Declarations')
     end
 
     describe 'a Declarations card' do
       subject(:declarations_card) do
         page.find(
-          'h2.govuk-summary-card__title',
+          'h3.govuk-summary-card__title',
           text: 'Declarations'
         ).ancestor('div.govuk-summary-card')
       end
@@ -46,13 +46,13 @@ RSpec.describe 'Viewing the declarations on an application' do
     end
 
     it 'shows the National Savings Certificates with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Declarations')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Declarations')
     end
 
     describe 'a Declarations card' do
       subject(:declarations_card) do
         page.find(
-          'h2.govuk-summary-card__title',
+          'h3.govuk-summary-card__title',
           text: 'Declarations'
         ).ancestor('div.govuk-summary-card')
       end

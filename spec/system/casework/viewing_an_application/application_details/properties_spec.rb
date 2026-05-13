@@ -19,12 +19,12 @@ RSpec.describe 'Viewing the properties of an application' do
     end
 
     it 'shows the properties with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Residential property')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Residential property')
     end
 
     describe 'a properties card' do
       subject(:property_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Residential property').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Residential property').ancestor('div.govuk-summary-card')
       end
 
       it 'shows properties details' do # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
@@ -56,7 +56,7 @@ RSpec.describe 'Viewing the properties of an application' do
 
     describe 'an no assets card' do
       subject(:property_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Assets').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Assets').ancestor('div.govuk-summary-card')
       end
 
       it 'shows absent answer assets details' do

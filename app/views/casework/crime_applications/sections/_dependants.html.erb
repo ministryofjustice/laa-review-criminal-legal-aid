@@ -1,6 +1,6 @@
 <% return if income_details&.client_has_dependants.blank? %>
 
-<%= govuk_summary_card(title: label_text(:dependants)) do %>
+<%= govuk_summary_card(heading_level: 3, title: label_text(:dependants)) do %>
   <% if dependants.any? %>
     <dl class="govuk-summary-list">
       <% dependants.each do |age_range, count| %>

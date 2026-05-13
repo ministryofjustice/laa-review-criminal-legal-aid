@@ -1,5 +1,5 @@
 <% if capital_details.has_no_investments == 'yes'  %>
-  <%= govuk_summary_card(title: label_text(:investments)) do %>
+  <%= govuk_summary_card(heading_level: 3, title: label_text(:investments)) do %>
     <%= govuk_summary_list(actions: false) do |list|
           list.with_row do |row|
             row.with_key { label_text(:which_investments_does_client_have) }

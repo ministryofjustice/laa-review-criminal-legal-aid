@@ -15,12 +15,12 @@ RSpec.describe 'Viewing the investments of an application' do
     end
 
     it 'shows the investments with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Unit trust')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Unit trust')
     end
 
     describe 'an investments card' do
       subject(:investment_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Unit trust').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Unit trust').ancestor('div.govuk-summary-card')
       end
 
       it 'shows investments details' do # rubocop:disable RSpec/MultipleExpectations
@@ -42,7 +42,7 @@ RSpec.describe 'Viewing the investments of an application' do
 
     describe 'a no investments card' do
       subject(:investment_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Investments').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Investments').ancestor('div.govuk-summary-card')
       end
 
       it 'shows absent answer investments details' do

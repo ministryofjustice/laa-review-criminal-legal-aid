@@ -4,7 +4,7 @@ RSpec.describe 'When viewing case details' do
   include_context 'with stubbed application'
   let(:case_type) { 'indictable' }
   let(:card) do
-    page.find('h2.govuk-summary-card__title', text: 'Case details').ancestor('div.govuk-summary-card')
+    page.find('h3.govuk-summary-card__title', text: 'Case details').ancestor('div.govuk-summary-card')
   end
 
   before do
