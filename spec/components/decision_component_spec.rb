@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-# I'm wondering whether my test is supplying the lines - but they're setup wrong with h2 
-
 RSpec.describe DecisionComponent, type: :component do
   let(:decision) { double }
 
