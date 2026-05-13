@@ -65,7 +65,6 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
   ]
 
   it 'shows applicant name' do
-    # raise page.body
     expect(page).to have_selector 'h1', text: 'Kit Pound', exact_text: true
   end
 
