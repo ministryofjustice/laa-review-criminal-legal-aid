@@ -23,16 +23,8 @@ RSpec.describe 'Reassigning an application to myself' do
 
     it 'prompts to confirm the action' do
       expect(page).to have_content(
-        'Are you sure you want to reassign this application from Fred Smitheg to your list?'
+        'Confirm you want to reassign this application to your list'
       )
-    end
-
-    it 'warns about the impact of reassigning' do
-      within('div.govuk-warning-text') do
-        expect(page).to have_content(
-          "!WarningThis will remove the application from your colleague's list"
-        )
-      end
     end
 
     context 'when you are not allocated to the correct work stream' do

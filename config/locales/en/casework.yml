@@ -724,9 +724,7 @@ en:
 
   actions: *ACTIONS
   confirmations:
-    reassign_to_self_html: Are you sure you want to reassign this application from <strong>%{from_whom_name}</strong> to your list?
-  warnings:
-    reassign_to_self: This will remove the application from your colleague's list
+    reassign_to_self_html: Confirm you want to reassign this application to your list
 
   event:
     title:
@@ -788,6 +786,8 @@ en:
     reassigns:
       new:
         page_title: Confirm reassign
+        client_name: Client name
+        currently_assigned_to: Currently assigned to
         warning:
           page_title: Confirm reassign
 
