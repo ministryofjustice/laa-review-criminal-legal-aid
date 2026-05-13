@@ -53,7 +53,11 @@ RSpec.describe 'Viewing all evidence' do
     end
 
     it 'displays the page heading' do
-      expect(page).to have_content('All evidence')
+      expect(page).to have_content('Supporting evidence')
+    end
+
+    it 'displays a warning about non-viewable evidence' do
+      expect(page).to have_content('1 piece of evidence cannot be viewed in browser and may need to be downloaded.')
     end
 
     it 'displays the filename for each viewable document' do
@@ -62,7 +66,17 @@ RSpec.describe 'Viewing all evidence' do
     end
 
     it 'does not display non-viewable files in the accordion' do
-      expect(page).to have_no_content('report.docx')
+      within('.govuk-accordion') do
+        expect(page).to have_no_content('report.docx')
+      end
+    end
+
+    it 'displays non-viewable files in a table with download links' do
+      within('.govuk-summary-card') do
+        expect(page).to have_content('report.docx')
+        expect(page).to have_link('Download (docx 1 KB)',
+                                  href: download_crime_application_document_path(application_id, docx_s3_key))
+      end
     end
 
     it 'embeds the PDF in an iframe' do

@@ -888,5 +888,11 @@ en:
     documents:
       index:
         page_title: All evidence
-        heading: All evidence
+        heading: Supporting evidence
+        download: Download
+        download_heading: Download evidence
+        download_caption: You'll need to download some evidence to view it.
+        non_viewable_warning:
+          one: "%{count} piece of evidence cannot be viewed in browser and may need to be downloaded."
+          other: "%{count} pieces of evidence cannot be viewed in browser and may need to be downloaded."
       show:
