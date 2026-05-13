@@ -15,13 +15,13 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
     end
 
     it 'shows the National Savings Certificates with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'National Savings Certificate')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'National Savings Certificate')
     end
 
     describe 'a National Savings Certificates card' do
       subject(:certificate_card) do
         page.find(
-          'h2.govuk-summary-card__title',
+          'h3.govuk-summary-card__title',
           text: 'National Savings Certificate'
         ).ancestor('div.govuk-summary-card')
       end
@@ -46,7 +46,7 @@ RSpec.describe 'Viewing the National Savings Certificates of an application' do
 
     describe 'a no national savings certificates card' do
       subject(:certificates_card) do
-        page.find('h2.govuk-summary-card__title',
+        page.find('h3.govuk-summary-card__title',
                   text: 'National Savings Certificates').ancestor('div.govuk-summary-card')
       end
 

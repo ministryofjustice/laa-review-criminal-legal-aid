@@ -18,15 +18,22 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
   section_titles = [
     'About the provider',
     'Application details',
-    'Bank account',
-    'Benefits: partner',
-    'Benefits: client',
     'Capital: Assets',
     'Capital: Savings and investments',
     'Case details and offences',
+    'Declarations',
+    'Outgoings',
+    'Supporting evidence and information',
+    'We asked the provider to upload:',
+    'Income and employment' # new
+  ]
+
+  card_titles = [
+    'Bank account',
+    'Benefits: partner',
+    'Benefits: client',
     'Case details',
     'Client details',
-    'Declarations',
     'Declarations',
     'Details entered for date stamp',
     'Employment: client',
@@ -40,7 +47,6 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
     'Other sources of income',
     'Other work benefits: client',
     'Other work benefits: partner',
-    'Outgoings',
     'Overview',
     'Partner details',
     'Employment: partner',
@@ -53,11 +59,9 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
     'Residential property',
     'Self assessment: client',
     'Self assessment: partner',
-    'Supporting evidence and information',
     'Trust funds: client',
     'Trust funds: partner',
-    'Unit trust',
-    'We asked the provider to upload:',
+    'Unit trust'
   ]
 
   it 'shows applicant name' do
@@ -67,6 +71,12 @@ RSpec.describe 'Viewing an application unassigned, open, change in financial cir
   it 'shows expected sections', :aggregate_failures do
     section_titles.each do |title|
       expect(page).to have_selector 'h2', text: title, exact_text: true
+    end
+  end
+
+  it 'shows expected cards', :aggregate_failures do
+    card_titles.each do |title|
+      expect(page).to have_selector 'h3', text: title, exact_text: true
     end
   end
 

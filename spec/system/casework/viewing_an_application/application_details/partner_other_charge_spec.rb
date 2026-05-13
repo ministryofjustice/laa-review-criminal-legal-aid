@@ -23,13 +23,13 @@ RSpec.describe 'Viewing the other charges for partner in an application' do
     let(:partner_other_charge_in_progress) { nil }
 
     it 'does not show the card' do
-      expect(page).not_to have_css('h2.govuk-summary-card__title', text: 'Other charges: partner')
+      expect(page).not_to have_css('h3.govuk-summary-card__title', text: 'Other charges: partner')
     end
   end
 
   describe 'when partner other charge in progress' do
     subject(:partner_other_charge_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Other charges: partner')
+      page.find('h3.govuk-summary-card__title', text: 'Other charges: partner')
           .ancestor('div.govuk-summary-card')
     end
 

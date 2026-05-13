@@ -19,7 +19,7 @@ RSpec.describe DecisionComponent, type: :component do
     before { render_inline(described_class.new(decision:)) }
 
     describe 'card title' do
-      subject { page.first('h2.govuk-summary-card__title').text }
+      subject { page.first('h3.govuk-summary-card__title').text }
 
       it { is_expected.to eq('Case') }
     end
@@ -29,7 +29,7 @@ RSpec.describe DecisionComponent, type: :component do
     before { render_inline described_class.with_collection(decisions) }
 
     describe 'card titles' do
-      subject(:titles) { page.all('h2.govuk-summary-card__title').map(&:text) }
+      subject(:titles) { page.all('h3.govuk-summary-card__title').map(&:text) }
 
       context 'when there is only one card' do
         let(:decisions) { [decision] }

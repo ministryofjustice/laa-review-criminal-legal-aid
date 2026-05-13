@@ -1,6 +1,6 @@
 <% return if capital_details&.has_no_other_assets.nil? %>
 
-<%= govuk_summary_card(title: label_text(:other_capital_details)) do %>
+<%= govuk_summary_card(heading_level: 3, title: label_text(:other_capital_details)) do %>
   <dl class="govuk-summary-list">
     <% unless capital_details&.has_frozen_income_or_assets.nil? %>
     <div class="govuk-summary-list__row">

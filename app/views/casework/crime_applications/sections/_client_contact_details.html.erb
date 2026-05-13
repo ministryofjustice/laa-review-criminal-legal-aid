@@ -1,4 +1,4 @@
-<%= govuk_summary_card(title: label_text(:client_contact_details)) do %>
+<%= govuk_summary_card(heading_level: 3, title: label_text(:client_contact_details)) do %>
   <dl class="govuk-summary-list">
     <% if applicant.residence_type.present? %>
       <div class="govuk-summary-list__row">

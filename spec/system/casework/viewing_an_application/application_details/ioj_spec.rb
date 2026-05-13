@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing the Interest of Justice / Justification for legal aid' do
   subject(:card) do
-    page.find('h2.govuk-summary-card__title', text: 'Interests of Justice (IOJ)')
+    page.find('h3.govuk-summary-card__title', text: 'Interests of Justice (IOJ)')
         .ancestor('div.govuk-summary-card')
   end
 

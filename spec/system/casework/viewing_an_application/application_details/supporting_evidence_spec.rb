@@ -10,7 +10,7 @@ RSpec.describe 'Viewing supporting evidence' do
 
   describe 'showing uploaded evidence' do
     subject(:files_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Files')
+      page.find('h3.govuk-summary-card__title', text: 'Files')
           .ancestor('div.govuk-summary-card')
     end
 

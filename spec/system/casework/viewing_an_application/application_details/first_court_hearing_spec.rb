@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'When viewing first court hearing details' do
   include_context 'with stubbed application'
   let(:card) do
-    page.find('h2.govuk-summary-card__title', text: 'First court hearing').ancestor('div.govuk-summary-card')
+    page.find('h3.govuk-summary-card__title', text: 'First court hearing').ancestor('div.govuk-summary-card')
   end
 
   before do

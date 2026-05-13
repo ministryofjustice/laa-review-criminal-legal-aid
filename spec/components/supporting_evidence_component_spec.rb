@@ -13,7 +13,7 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
   end
 
   it 'displays "Files" as the summary card title' do
-    expect(page.first('h2.govuk-summary-card__title').text).to eq('Files')
+    expect(page.first('h3.govuk-summary-card__title').text).to eq('Files')
   end
 
   context 'when there are no files uploaded' do

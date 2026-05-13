@@ -58,12 +58,12 @@ RSpec.describe 'Viewing the businesses of an application' do
     end
 
     it 'shows the business with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Self-employed business')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Self-employed business')
     end
 
     describe 'a business card' do
       subject(:business_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Self-employed business').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Self-employed business').ancestor('div.govuk-summary-card')
       end
 
       it 'shows business details' do # rubocop:disable RSpec/ExampleLength
@@ -128,7 +128,7 @@ RSpec.describe 'Viewing the businesses of an application' do
     end
 
     it 'does not display any businesses' do
-      expect(page).to have_no_css('h2.govuk-summary-card__title', text: 'Self-employed business')
+      expect(page).to have_no_css('h3.govuk-summary-card__title', text: 'Self-employed business')
     end
   end
 end

@@ -1,4 +1,4 @@
-<%= govuk_summary_card(title: label_text(:interests_of_justice)) do
+<%= govuk_summary_card(heading_level: 3, title: label_text(:interests_of_justice)) do
       govuk_summary_list(actions: false) do |list|
         if crime_application.interests_of_justice.empty?
           list.with_row do |row|

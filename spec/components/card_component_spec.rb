@@ -7,7 +7,7 @@ RSpec.describe CardComponent, type: :component do
     end
 
     describe 'card title' do
-      subject { page.first('h2.govuk-summary-card__title').text }
+      subject { page.first('h3.govuk-summary-card__title').text }
 
       it { is_expected.to eq('My item') }
     end
@@ -19,7 +19,7 @@ RSpec.describe CardComponent, type: :component do
     end
 
     describe 'card titles' do
-      subject { page.all('h2.govuk-summary-card__title').map(&:text) }
+      subject { page.all('h3.govuk-summary-card__title').map(&:text) }
 
       context 'when there is only one item' do
         let(:items) { [double] }

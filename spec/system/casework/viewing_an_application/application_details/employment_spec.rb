@@ -9,7 +9,7 @@ RSpec.describe 'Viewing the employment details of an application' do
 
   context 'with employment details' do
     let(:card) do
-      page.find('h2.govuk-summary-card__title', text: 'Employment: client').ancestor('div.govuk-summary-card')
+      page.find('h3.govuk-summary-card__title', text: 'Employment: client').ancestor('div.govuk-summary-card')
     end
 
     it { expect(page).to have_content('Employment: client') }

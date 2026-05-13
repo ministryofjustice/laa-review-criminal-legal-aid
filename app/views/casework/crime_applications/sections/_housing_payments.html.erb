@@ -1,5 +1,5 @@
 <% return if outgoings_details.housing_payment_type.blank? %>
-<%= govuk_summary_card(title: label_text(:housing_payments)) do %>
+<%= govuk_summary_card(heading_level: 3, title: label_text(:housing_payments)) do %>
   <dl class="govuk-summary-list">
     <% unless outgoings_details.housing_payments.any? %>
       <div class="govuk-summary-list__row">

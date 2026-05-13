@@ -9,12 +9,12 @@ RSpec.describe 'Viewing the Premium Bond details' do
 
   context 'when client has premium bonds' do
     it 'shows the Premium Bonds card' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Premium Bonds')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Premium Bonds')
     end
 
     describe 'a premium bonds card' do
       subject(:premium_bonds_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
       end
 
       it 'shows the Premium bonds details' do # rubocop:disable RSpec/MultipleExpectations
@@ -31,12 +31,12 @@ RSpec.describe 'Viewing the Premium Bond details' do
     let(:capital_details) { { 'has_premium_bonds' => 'no' } }
 
     it 'shows the Premium Bonds card' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Premium Bonds')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Premium Bonds')
     end
 
     describe 'a premium bonds card' do
       subject(:premium_bonds_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
       end
 
       it 'only shows the first question' do

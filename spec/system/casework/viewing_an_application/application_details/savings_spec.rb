@@ -19,12 +19,12 @@ RSpec.describe 'Viewing the savings of an application' do
     end
 
     it 'shows the savings with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Bank account')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Bank account')
     end
 
     describe 'a savings card' do
       subject(:saving_card) do
-        page.find('h2.govuk-summary-card__title', text: 'Bank account').ancestor('div.govuk-summary-card')
+        page.find('h3.govuk-summary-card__title', text: 'Bank account').ancestor('div.govuk-summary-card')
       end
 
       let(:partner_wages_text) { 'Partner’s wages or benefits paid into this account?' }
@@ -66,7 +66,7 @@ RSpec.describe 'Viewing the savings of an application' do
 
     describe 'a no savings card' do
       subject(:saving_card) do
-        page.first('h2.govuk-summary-card__title', text: 'Savings').ancestor('div.govuk-summary-card')
+        page.first('h3.govuk-summary-card__title', text: 'Savings').ancestor('div.govuk-summary-card')
       end
 
       it 'shows absent answer savings details' do
