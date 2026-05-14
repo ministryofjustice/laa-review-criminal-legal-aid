@@ -1,4 +1,4 @@
-<%= govuk_summary_card(title: label_text(title_key)) do
+<%= govuk_summary_card(heading_level: 3, title: label_text(title_key)) do
       govuk_summary_list(actions: false) do |list|
         list.with_row do |row|
           row.with_key { label_text(:other_charges_question) }

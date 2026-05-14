@@ -9,7 +9,7 @@ RSpec.describe 'Viewing the co-defendants listed in an application' do
 
   describe 'displaying a co-defendant with conflict' do
     subject(:codefendant_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Co-defendant')
+      page.find('h3.govuk-summary-card__title', text: 'Co-defendant')
           .ancestor('div.govuk-summary-card')
     end
 
@@ -24,7 +24,7 @@ RSpec.describe 'Viewing the co-defendants listed in an application' do
 
   describe 'displaying a co-defendant without conflict' do
     subject(:codefendant_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Co-defendant')
+      page.find('h3.govuk-summary-card__title', text: 'Co-defendant')
           .ancestor('div.govuk-summary-card')
     end
 
@@ -45,7 +45,7 @@ RSpec.describe 'Viewing the co-defendants listed in an application' do
 
   describe 'when no co-defendants' do
     subject(:codefendant_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Co-defendants')
+      page.find('h3.govuk-summary-card__title', text: 'Co-defendants')
           .ancestor('div.govuk-summary-card')
     end
 

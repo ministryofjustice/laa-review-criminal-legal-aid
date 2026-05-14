@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "When viewing the partner's passporting benefit check details" do
   subject(:partner_card) do
-    page.find('h2.govuk-summary-card__title', text: title).ancestor('div.govuk-summary-card')
+    page.find('h3.govuk-summary-card__title', text: title).ancestor('div.govuk-summary-card')
   end
 
   include_context 'with stubbed application'

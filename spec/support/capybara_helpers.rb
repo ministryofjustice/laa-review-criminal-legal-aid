@@ -40,7 +40,7 @@ module CapybaraHelpers
   def summary_card(card_title)
     title = find(
       :xpath,
-      "//h2[@class='govuk-summary-card__title' and text()='#{card_title}']"
+      "//h3[@class='govuk-summary-card__title' and text()='#{card_title}']"
     )
 
     title.ancestor('div.govuk-summary-card')

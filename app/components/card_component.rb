@@ -2,7 +2,7 @@ class CardComponent < ViewComponent::Base
   include GovukComponentsHelper
 
   # Wraps the Govuk Summary Card component so that when used with
-  # .with_collection the item number is added to the card title.
+  # .with_collection the item number and a default heading level are added to the card title
 
   with_collection_parameter :item
 
@@ -17,7 +17,7 @@ class CardComponent < ViewComponent::Base
   end
 
   def call
-    govuk_summary_card(title:) { content }
+    govuk_summary_card(heading_level: 3, title: title) { content }
   end
 
   def title

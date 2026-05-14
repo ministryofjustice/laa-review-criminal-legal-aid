@@ -15,7 +15,7 @@ RSpec.describe 'Viewing the employments of an application' do
     end
 
     it 'shows the jobs with correct title' do
-      expect(page).to have_css('h2.govuk-summary-card__title', text: 'Job')
+      expect(page).to have_css('h3.govuk-summary-card__title', text: 'Job')
     end
 
     # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength, RSpec/NestedGroups
@@ -23,7 +23,7 @@ RSpec.describe 'Viewing the employments of an application' do
       context 'with deductions' do
         context 'with job_card 1' do
           subject(:applicant_job_card) do
-            page.all('h2.govuk-summary-card__title', text: 'Job 1')[0].ancestor('div.govuk-summary-card')
+            page.all('h3.govuk-summary-card__title', text: 'Job 1')[0].ancestor('div.govuk-summary-card')
           end
 
           it 'shows jobs details with deductions' do
@@ -42,7 +42,7 @@ RSpec.describe 'Viewing the employments of an application' do
 
         context 'with job_card 2' do
           subject(:partner_job_card) do
-            page.all('h2.govuk-summary-card__title', text: 'Job 1')[1].ancestor('div.govuk-summary-card')
+            page.all('h3.govuk-summary-card__title', text: 'Job 1')[1].ancestor('div.govuk-summary-card')
           end
 
           it 'shows jobs details with deductions' do
@@ -63,7 +63,7 @@ RSpec.describe 'Viewing the employments of an application' do
       context 'without deductions' do
         context 'with job_card 1' do
           subject(:applicant_job_card) do
-            page.all('h2.govuk-summary-card__title', text: 'Job 2')[0].ancestor('div.govuk-summary-card')
+            page.all('h3.govuk-summary-card__title', text: 'Job 2')[0].ancestor('div.govuk-summary-card')
           end
 
           it 'shows jobs details without deductions' do
@@ -80,7 +80,7 @@ RSpec.describe 'Viewing the employments of an application' do
 
         context 'with job_card 2' do
           subject(:partner_job_card) do
-            page.all('h2.govuk-summary-card__title', text: 'Job 2')[1].ancestor('div.govuk-summary-card')
+            page.all('h3.govuk-summary-card__title', text: 'Job 2')[1].ancestor('div.govuk-summary-card')
           end
 
           it 'shows jobs details without deductions' do

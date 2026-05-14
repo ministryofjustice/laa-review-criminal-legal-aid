@@ -11,7 +11,7 @@ RSpec.describe 'Viewing the Premium Bond details of the partner' do
 
   context 'when the partner has premium bonds but the client does not' do
     subject(:premium_bonds_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
+      page.find('h3.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
     end
 
     let(:capital_details) do
@@ -37,7 +37,7 @@ RSpec.describe 'Viewing the Premium Bond details of the partner' do
 
   context 'when both partner and client have premium bonds' do
     subject(:premium_bonds_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
+      page.find('h3.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
     end
 
     let(:capital_details) do
@@ -61,7 +61,7 @@ RSpec.describe 'Viewing the Premium Bond details of the partner' do
 
   context 'when neither the partner or the client have premium bonds' do
     subject(:premium_bonds_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
+      page.find('h3.govuk-summary-card__title', text: 'Premium Bonds').ancestor('div.govuk-summary-card')
     end
 
     let(:capital_details) do

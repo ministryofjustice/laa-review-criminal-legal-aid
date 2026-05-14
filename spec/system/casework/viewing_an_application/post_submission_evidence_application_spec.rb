@@ -69,7 +69,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
   context 'with post submission evidence' do
     subject(:files_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Files')
+      page.find('h3.govuk-summary-card__title', text: 'Files')
           .ancestor('div.govuk-summary-card')
     end
 

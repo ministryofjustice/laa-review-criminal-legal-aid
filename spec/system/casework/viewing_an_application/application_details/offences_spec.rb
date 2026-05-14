@@ -9,7 +9,7 @@ RSpec.describe 'Viewing the offences listed in an application' do
 
   describe 'displaying an offence with class' do
     subject(:offence_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Offence 1')
+      page.find('h3.govuk-summary-card__title', text: 'Offence 1')
           .ancestor('div.govuk-summary-card')
     end
 
@@ -24,7 +24,7 @@ RSpec.describe 'Viewing the offences listed in an application' do
 
   describe 'displaying an offence without a class' do
     subject(:offence_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Offence 2')
+      page.find('h3.govuk-summary-card__title', text: 'Offence 2')
           .ancestor('div.govuk-summary-card')
     end
 
@@ -39,7 +39,7 @@ RSpec.describe 'Viewing the offences listed in an application' do
 
   describe 'displaying an offence with multiple dates' do
     subject(:offence_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Offence 1')
+      page.find('h3.govuk-summary-card__title', text: 'Offence 1')
           .ancestor('div.govuk-summary-card')
     end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Viewing the offences listed in an application' do
 
   describe 'displaying an offence with a single date' do
     subject(:offence_card) do
-      page.find('h2.govuk-summary-card__title', text: 'Offence 2')
+      page.find('h3.govuk-summary-card__title', text: 'Offence 2')
           .ancestor('div.govuk-summary-card')
     end
 
