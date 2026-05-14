@@ -32,6 +32,11 @@ feature_flags:
     test: true
     staging: true
     production: true
+  evidence_viewing_iteration:
+    local: true
+    test: true
+    staging: true
+    production: false
 
 # For settings that vary by HostEnv name
 host_env_settings:

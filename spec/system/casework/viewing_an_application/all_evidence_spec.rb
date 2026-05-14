@@ -49,34 +49,10 @@ RSpec.describe 'Viewing all evidence' do
         .to_return(status: 200, body: 'file content', headers: { 'Content-Type' => 'application/octet-stream' })
 
       allow(EvidenceAccessLogger).to receive(:log_view)
+      allow(FeatureFlags).to receive(:evidence_viewing_iteration) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
+      }
       visit crime_application_documents_path(application_id)
-    end
-
-    it 'displays the page heading' do
-      expect(page).to have_content('Supporting evidence')
-    end
-
-    it 'displays a warning about non-viewable evidence' do
-      expect(page).to have_content('1 piece of evidence cannot be viewed in browser and may need to be downloaded.')
-    end
-
-    it 'displays the filename for each viewable document' do
-      expect(page).to have_content('test.pdf')
-      expect(page).to have_content('photo.jpg')
-    end
-
-    it 'does not display non-viewable files in the accordion' do
-      within('.govuk-accordion') do
-        expect(page).to have_no_content('report.docx')
-      end
-    end
-
-    it 'displays non-viewable files in a table with download links' do
-      within('.govuk-summary-card') do
-        expect(page).to have_content('report.docx')
-        expect(page).to have_link('Download (docx 1 KB)',
-                                  href: download_crime_application_document_path(application_id, docx_s3_key))
-      end
     end
 
     it 'embeds the PDF in an iframe' do
@@ -89,21 +65,6 @@ RSpec.describe 'Viewing all evidence' do
       expect(page).to have_css(
         "img[src='#{raw_crime_application_document_path(application_id, image_s3_key)}']"
       )
-    end
-
-    it 'displays a "View in a new tab" link for PDF' do
-      expect(page).to have_link('View in a new tab',
-                                href: crime_application_document_path(application_id, pdf_s3_key))
-    end
-
-    it 'displays a "View in a new tab" link for images' do
-      expect(page).to have_link('View in a new tab',
-                                href: crime_application_document_path(application_id, image_s3_key))
-    end
-
-    it 'displays rotate or zoom instructions for images' do
-      expect(page).to have_content('Rotate or zoom')
-      expect(page).to have_content('Hover over the image and press Ctrl twice')
     end
 
     context 'when the page loads' do
@@ -127,6 +88,77 @@ RSpec.describe 'Viewing all evidence' do
           "img[src='#{raw_crime_application_document_path(application_id, image_s3_key)}']"
         )
         expect(EvidenceAccessLogger).to have_received(:log_view).twice
+      end
+    end
+
+    context 'when evidence_viewing_iteration feature flag is enabled' do
+      it 'displays the page heading' do
+        expect(page).to have_content('Supporting evidence')
+      end
+
+      it 'displays a warning about non-viewable evidence' do
+        expect(page).to have_content('1 piece of evidence cannot be viewed in browser and may need to be downloaded.')
+      end
+
+      it 'displays the filename for each viewable document' do
+        expect(page).to have_content('test.pdf')
+        expect(page).to have_content('photo.jpg')
+      end
+
+      it 'does not display non-viewable files in the accordion' do
+        within('.govuk-accordion') do
+          expect(page).to have_no_content('report.docx')
+        end
+      end
+
+      it 'displays non-viewable files in a table with download links' do
+        within('.govuk-summary-card') do
+          expect(page).to have_content('report.docx')
+          expect(page).to have_link('Download (docx 1 KB)',
+                                    href: download_crime_application_document_path(application_id, docx_s3_key))
+        end
+      end
+
+      it 'displays a "View in a new tab" link for PDF' do
+        expect(page).to have_link('View in a new tab',
+                                  href: crime_application_document_path(application_id, pdf_s3_key))
+      end
+
+      it 'displays a "View in a new tab" link for images' do
+        expect(page).to have_link('View in a new tab',
+                                  href: crime_application_document_path(application_id, image_s3_key))
+      end
+
+      it 'displays rotate or zoom instructions for images' do
+        expect(page).to have_content('Rotate or zoom')
+        expect(page).to have_content('Hover over the image and press Ctrl twice')
+      end
+    end
+
+    context 'when evidence_viewing_iteration feature flag is disabled' do
+      before do
+        allow(FeatureFlags).to receive(:evidence_viewing_iteration) {
+          instance_double(FeatureFlags::EnabledFeature, enabled?: false)
+        }
+        visit crime_application_documents_path(application_id)
+      end
+
+      it 'displays the page heading' do
+        expect(page).to have_content('All evidence')
+      end
+
+      it 'displays the filename for each document' do # rubocop:disable RSpec/MultipleExpectations
+        expect(page).to have_content('test.pdf')
+        expect(page).to have_content('photo.jpg')
+        expect(page).to have_content('report.docx')
+      end
+
+      it 'shows a cannot-be-displayed message and download link for non-embeddable files' do
+        expect(page).to have_content('This file cannot be displayed in the browser.')
+        expect(page).to have_link(
+          'Download file (docx, 1 KB)',
+          href: download_crime_application_document_path(application_id, docx_s3_key)
+        )
       end
     end
   end

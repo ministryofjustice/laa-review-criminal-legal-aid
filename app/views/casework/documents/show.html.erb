@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title><%= @document.filename %></title>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <% if FeatureFlags.evidence_viewing_iteration.enabled? %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  <% end %>
   <style>
     html, body { margin: 0; padding: 0; }
     img { display: block; max-width: 100%; }
