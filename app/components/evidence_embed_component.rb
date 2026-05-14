@@ -15,8 +15,16 @@ class EvidenceEmbedComponent < ViewComponent::Base
 
   attr_reader :evidence, :crime_application
 
+  def show_view_link?
+    helpers.current_page?(helpers.crime_application_documents_path(crime_application))
+  end
+
   def raw_path
     raw_crime_application_document_path(crime_application, evidence.s3_object_key)
+  end
+
+  def view_path
+    crime_application_document_path(crime_application, evidence.s3_object_key)
   end
 
   def download_path
