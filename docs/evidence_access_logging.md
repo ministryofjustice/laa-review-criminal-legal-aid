@@ -423,6 +423,54 @@ Compare viewing and downloading behaviour across work streams.
 }
 ```
 
+### Supporting Evidence Page: Visits and Unique Users
+
+Count total visits to the Supporting evidence page and the number of distinct users who visited it. This query uses the structured request logs which contain `user_id` and `action` fields.
+
+```json
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "kubernetes.namespace_name.keyword": "laa-review-criminal-legal-aid-production"
+          }
+        },
+        { "match_phrase": { "log": "\"action\":\"index\"" } },
+        { "match_phrase": { "log": "DocumentsController" } },
+        { "range": { "@timestamp": { "gte": "now-7d" } } }
+      ]
+    }
+  },
+  "aggs": {
+    "unique_users": {
+      "cardinality": {
+        "script": {
+          "source": "def log = params._source?.log; if (log == null) return null; def matcher = /\"user_id\":\"([^\"]+)\"/.matcher(log); return matcher.find() ? matcher.group(1) : null;",
+          "lang": "painless"
+        }
+      }
+    },
+    "total_visits": {
+      "value_count": {
+        "script": {
+          "source": "1",
+          "lang": "painless"
+        }
+      }
+    }
+  }
+}
+```
+
+**Returns:** `unique_users` = number of distinct users who visited the Supporting evidence page, `total_visits` = total number of page loads.
+
+**Note:** This query uses the application's structured request logs rather than the custom `evidence_viewed`/`evidence_downloaded` log events. The `user_id` field in these logs corresponds to the caseworker's ID.
+
+---
+
 ### Daily Trends: Views vs Downloads Over Time
 
 Track daily counts for both evidence viewing and downloading events to visualize trends and compare behavior patterns over time.
