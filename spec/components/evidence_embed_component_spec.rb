@@ -92,9 +92,14 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
       expect(rendered).to have_css("img[alt='photo.png']")
     end
 
-    it 'renders rotate or zoom details' do
+    it 'renders rotate or zoom details' do # rubocop:disable RSpec/MultipleExpectations
       expect(rendered).to have_text('Rotate or zoom')
-      expect(rendered).to have_text('Hover over the image and press Ctrl twice')
+      expect(rendered).to have_text(
+        'Hover over the image and press Ctrl twice, the image will open in the page. Use the controls to rotate or zoom.' # rubocop:disable Layout/LineLength
+      )
+      expect(rendered).to have_text(
+        "Or, right click to open the menu, hover over 'More tools' and select Magnify to bring up rotate or zoom."
+      )
     end
 
     context 'when on the documents index page' do

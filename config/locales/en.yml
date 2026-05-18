@@ -8,7 +8,7 @@ en:
     not_embeddable: This file cannot be displayed in the browser.
     view_in_new_tab: View in a new tab
     rotate_or_zoom_summary: Rotate or zoom
-    rotate_or_zoom_details: Hover over the image and press Ctrl twice, this will open an overlay with the image in. You will then be able to rotate or zoom using the controls at the bottom of the overlay.
+    rotate_or_zoom_details: "Hover over the image and press Ctrl twice, the image will open in the page. Use the controls to rotate or zoom.\n\nOr, right click to open the menu, hover over 'More tools' and select Magnify to bring up rotate or zoom."
 
   service:
     name: Review criminal legal aid applications

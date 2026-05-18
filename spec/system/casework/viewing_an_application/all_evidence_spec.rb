@@ -129,9 +129,14 @@ RSpec.describe 'Viewing all evidence' do
                                   href: crime_application_document_path(application_id, image_s3_key))
       end
 
-      it 'displays rotate or zoom instructions for images' do
+      it 'displays rotate or zoom instructions for images' do # rubocop:disable RSpec/MultipleExpectations
         expect(page).to have_content('Rotate or zoom')
-        expect(page).to have_content('Hover over the image and press Ctrl twice')
+        expect(page).to have_content(
+          'Hover over the image and press Ctrl twice, the image will open in the page. Use the controls to rotate or zoom.' # rubocop:disable Layout/LineLength
+        )
+        expect(page).to have_content(
+          "Or, right click to open the menu, hover over 'More tools' and select Magnify to bring up rotate or zoom."
+        )
       end
     end
 

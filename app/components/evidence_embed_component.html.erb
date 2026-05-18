@@ -14,9 +14,9 @@
                 title: evidence.filename
               ) %>
         <% else %>
-          <%= govuk_details(summary_text: t('.rotate_or_zoom_summary')) do %>
-            <p class="govuk-body"><%= t('.rotate_or_zoom_details') %></p>
-          <% end %>
+        <%= govuk_details(summary_text: t('.rotate_or_zoom_summary')) do %>
+          <%= simple_format(t('.rotate_or_zoom_details'), class: 'govuk-body') %>
+        <% end %>
           <%= tag.img(
                 src: raw_path,
                 class: 'app-evidence-embed app-evidence-embed--image',
