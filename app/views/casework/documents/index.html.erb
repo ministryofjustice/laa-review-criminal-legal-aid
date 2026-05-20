@@ -34,6 +34,7 @@
   <% end %>
 
   <% if viewable_evidence.present? %>
+    <h3 class="govuk-heading-m"><%= t('.view_heading') %></h3>
     <%= govuk_accordion do |accordion|
           viewable_evidence.each do |evidence|
             accordion.with_section(heading_text: evidence.filename, expanded: true) do
