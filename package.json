@@ -19,6 +19,7 @@
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css  ./app/assets/stylesheets/print.scss:./app/assets/builds/print.css  --no-source-map  --load-path=.  --load-path=node_modules  --quiet-deps"
   },
   "resolutions": {
+    "brace-expansion": "5.0.6",
     "glob": "^13.0.3",
     "minimatch": "^10.2.3",
     "picomatch": "2.3.2",
