@@ -4,7 +4,7 @@ RSpec.describe 'Open Applications' do
   include_context 'with stubbed search'
   let(:report_turbo_link_work_stream_params) do
     report_link = URI(page.find('turbo-frame#current_workload_report', visible: false)['src'])
-    CGI.parse(report_link.query)['work_streams[]']
+    URI.decode_www_form(report_link.query.to_s).filter_map { |key, value| value if key == 'work_streams[]' }
   end
 
   before do
