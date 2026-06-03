@@ -30,10 +30,6 @@
   width: 100%;
 }
 
-[aria-sort] .app-table-sort-label {
-  min-width: 0;
-}
-
 [aria-sort] a.app-table-sort-link::before,
 [aria-sort] a.app-table-sort-link::after {
   content: none;

@@ -27,7 +27,7 @@ module DataTable
 
       link_to(
         safe_join([
-                    tag.span(name, class: 'app-table-sort-label'),
+                    name,
                     tag.span('', class: 'app-table-sort-indicator', aria: { hidden: true })
                   ]),
         "?#{sorted_params.to_query}",
