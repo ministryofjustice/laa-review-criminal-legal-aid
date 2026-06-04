@@ -65,7 +65,6 @@ module DataTable
 
     def sorted_params
       {
-        locale: I18n.locale,
         filter: filter.to_h,
         sorting: {
           sort_by: colname.to_s,

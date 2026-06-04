@@ -25,7 +25,7 @@ module DataTable
     def caption
       tag.caption do
         tag.span(
-          'Column headers with buttons are sortable.',
+          I18n.t('table_headings.sortable_caption'),
           class: 'govuk-visually-hidden'
         )
       end
