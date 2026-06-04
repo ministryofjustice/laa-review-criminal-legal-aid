@@ -25,7 +25,15 @@ module DataTable
     def cell_content
       return name unless sortable?
 
-      button_to(name, nil, params: sorted_params, method: :get)
+      link_to(
+        safe_join([
+                    name,
+                    tag.span('', class: 'app-table-sort-indicator', aria: { hidden: true })
+                  ]),
+        "?#{sorted_params.to_query}",
+        aria: { label: I18n.t('table_headings.sort_by', column: name) },
+        class: 'govuk-link app-table-sort-link'
+      )
     end
 
     def default_classes
