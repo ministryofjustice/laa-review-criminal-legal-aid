@@ -67,3 +67,7 @@ en:
     currency:
       format:
         unit: "£"
+
+  table_headings:
+    sortable_caption: Column headers with buttons are sortable.
+    sort_by: sort by %{column}

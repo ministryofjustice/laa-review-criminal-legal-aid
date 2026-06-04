@@ -14,7 +14,7 @@ RSpec.shared_examples 'a table with sortable headers' do
   describe 'when the active header is clicked' do
     it 'reverses the sort direction' do
       text = active_sort_headers.first
-      expect { click_button text }.to change {
+      expect { click_link text }.to change {
         page.find('thead tr th', text:)['aria-sort']
       }.from(active_sort_direction)
     end
@@ -23,7 +23,7 @@ RSpec.shared_examples 'a table with sortable headers' do
   describe 'when an inactive header is clicked' do
     it 'they become active' do
       inactive_sort_headers.each do |text|
-        expect { click_button text }.to change {
+        expect { click_link text }.to change {
           page.find('thead tr th', text:)['aria-sort']
         }.from('none')
       end
@@ -45,7 +45,7 @@ RSpec.shared_examples 'a table with sortable columns' do
   describe 'when the active header is clicked' do
     it 'reverses the sort direction' do
       colname = active.first
-      expect { page.find("th##{colname} button").click }.to change {
+      expect { page.find("th##{colname} a").click }.to change {
         page.find("th##{colname}")['aria-sort']
       }.from(active_direction)
     end
@@ -54,7 +54,7 @@ RSpec.shared_examples 'a table with sortable columns' do
   describe 'when an inactive header is clicked' do
     it 'they become active' do
       inactive.each do |colname|
-        expect { page.find("th##{colname} button").click }.to change {
+        expect { page.find("th##{colname} a").click }.to change {
           page.find("th##{colname}")['aria-sort']
         }.from('none')
       end
