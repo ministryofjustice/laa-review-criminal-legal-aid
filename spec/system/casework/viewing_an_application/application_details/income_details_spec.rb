@@ -49,7 +49,9 @@ RSpec.describe 'Viewing the income details of an application' do
       end
 
       it 'shows who the restraint or freezing order relates to' do
-        within('.govuk-summary-card', text: 'Income') do
+        income_heading = page.find('h3.govuk-summary-card__title', text: 'Income')
+
+        within(income_heading.find(:xpath, './ancestor::div[@class="govuk-summary-card"][1]')) do
           expect(page).to have_content(
             'Who does the restraint or freezing order relate to? Client'
           )
