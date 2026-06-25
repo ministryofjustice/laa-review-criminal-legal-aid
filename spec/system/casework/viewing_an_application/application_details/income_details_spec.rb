@@ -49,9 +49,11 @@ RSpec.describe 'Viewing the income details of an application' do
       end
 
       it 'shows who the restraint or freezing order relates to' do
-        expect(page).to have_content(
-          'Who does the restraint or freezing order relate to? Client'
-        )
+        within('.govuk-summary-card', text: 'Income') do
+          expect(page).to have_content(
+            'Who does the restraint or freezing order relate to? Client'
+          )
+        end
       end
     end
   end
