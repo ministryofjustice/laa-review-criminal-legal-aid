@@ -474,8 +474,6 @@ en:
     applicant: Client
     partner: Partner
     applicant_and_partner: Client and partner
-    client: Client
-    client_and_partner: Client and partner
     assessment_rules:
       appeal_to_crown_court: Appeal to Crown Court
       committal_for_sentence: Committal for sentence

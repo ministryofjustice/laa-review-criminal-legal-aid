@@ -42,7 +42,7 @@ RSpec.describe 'Viewing the income details of an application' do
           'means_details' => {
             'income_details' => {
               'has_frozen_income_or_assets' => 'yes',
-              'frozen_income_or_assets_subject' => 'client'
+              'frozen_income_or_assets_subject' => 'applicant'
             }
           }
         )
@@ -53,7 +53,7 @@ RSpec.describe 'Viewing the income details of an application' do
 
         within(income_heading.find(:xpath, './ancestor::div[@class="govuk-summary-card"][1]')) do
           expect(page).to have_content(
-            'Who does the restraint or freezing order relate to? Client'
+            'Who does the restraint or freezing order relate to? Applicant'
           )
         end
       end
