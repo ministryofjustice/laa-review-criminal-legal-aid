@@ -24,6 +24,18 @@
             <%= t(income_details.has_frozen_income_or_assets, scope: 'values') %>
           </dd>
         </div>
+
+        <% if income_details.has_frozen_income_or_assets == 'yes' &&
+            income_details.frozen_income_or_assets_subject.present? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <%= label_text(:frozen_income_or_assets_subject) %>
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <%= t(income_details.frozen_income_or_assets_subject, scope: 'values') %>
+            </dd>
+          </div>
+        <% end %>
       <% end %>
       <% unless income_details.client_owns_property.nil? %>
         <div class="govuk-summary-list__row">

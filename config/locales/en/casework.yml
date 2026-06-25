@@ -202,6 +202,7 @@ en:
     has_codefendants: Co-defendants?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Income, savings or assets under a restraint or freezing order
+    frozen_income_or_assets_subject: Who does the restraint or freezing order relate to?
     has_no_other_assets: Has no other assets or capital?
     has_premium_bonds: Premium Bonds
     has_premium_bonds_client: "Premium Bonds: client"
@@ -473,6 +474,8 @@ en:
     applicant: Client
     partner: Partner
     applicant_and_partner: Client and partner
+    client: Client
+    client_and_partner: Client and partner
     assessment_rules:
       appeal_to_crown_court: Appeal to Crown Court
       committal_for_sentence: Committal for sentence
