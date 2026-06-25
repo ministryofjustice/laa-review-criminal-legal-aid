@@ -20,12 +20,12 @@ gem 'logstash-event'
 
 gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client',
-    tag: 'v1.2.4',
+    tag: 'v1.2.6',
     require: 'datastore_api'
 
 gem 'laa-criminal-legal-aid-schemas',
     github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
-    tag: 'v1.7.9'
+    tag: 'v1.8.0'
 
 gem 'jsbundling-rails'
 gem 'propshaft'
@@ -50,7 +50,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'oauth2'
 
 gem 'aws-sdk-s3', require: false
-gem 'aws-sdk-sns', '~> 1.60', require: false
+gem 'aws-sdk-sns', '~> 1.117', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
@@ -61,7 +61,7 @@ gem 'prometheus_exporter'
 
 group :development, :test do
   gem 'debug', '~> 1.10'
-  gem 'dotenv-rails', '~> 2.8.1'
+  gem 'dotenv-rails', '~> 3.2.0'
   gem 'pry'
   gem 'rspec-rails', '>= 7.0.1'
 end
@@ -91,5 +91,5 @@ gem 'csv', '~> 3.3'
 
 gem 'ostruct', '~> 0.6.1'
 
-gem 'sidekiq', '~> 7.0'
-gem 'sidekiq-scheduler', '~> 5.0'
+gem 'sidekiq', '~> 8.1'
+gem 'sidekiq-scheduler', '~> 6.0'
