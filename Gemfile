@@ -92,4 +92,4 @@ gem 'csv', '~> 3.3'
 gem 'ostruct', '~> 0.6.1'
 
 gem 'sidekiq', '~> 7.0'
-gem 'sidekiq-scheduler', '~> 5.0'
+gem 'sidekiq-scheduler', '~> 6.0'
