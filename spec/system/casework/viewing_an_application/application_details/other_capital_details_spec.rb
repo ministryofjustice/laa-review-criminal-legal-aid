@@ -17,7 +17,7 @@ RSpec.describe 'Viewing the other capital details of an application' do
         'means_details' => {
           'capital_details' => {
             'has_frozen_income_or_assets' => 'yes',
-            'frozen_income_or_assets_subject' => 'client'
+            'frozen_income_or_assets_subject' => 'applicant'
           }
         }
       )
