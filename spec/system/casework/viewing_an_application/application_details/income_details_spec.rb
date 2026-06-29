@@ -35,6 +35,29 @@ RSpec.describe 'Viewing the income details of an application' do
     it 'shows savings or investments' do
       expect(page).to have_content('Savings or investments? Yes')
     end
+
+    context 'when income is under a restraint or freezing order' do
+      let(:application_data) do
+        super().deep_merge(
+          'means_details' => {
+            'income_details' => {
+              'has_frozen_income_or_assets' => 'yes',
+              'frozen_income_or_assets_subject' => 'applicant'
+            }
+          }
+        )
+      end
+
+      it 'shows who the restraint or freezing order relates to' do
+        income_heading = page.find('h3.govuk-summary-card__title', text: 'Income')
+
+        within(income_heading.find(:xpath, './ancestor::div[@class="govuk-summary-card"][1]')) do
+          expect(page).to have_content(
+            'Who does the restraint or freezing order relate to? Client'
+          )
+        end
+      end
+    end
   end
 
   context 'with no income details' do

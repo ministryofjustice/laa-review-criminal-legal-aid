@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/laa-criminal-legal-aid-schemas.git
-  revision: b2e8128fd1857b6bbcd205a316638aa746a631c8
-  tag: v1.7.9
+  revision: 4ad9e81f8b02cedec3fac84cafba340420bf6a5c
+  tag: v1.8.1
   specs:
-    laa-criminal-legal-aid-schemas (1.7.9)
+    laa-criminal-legal-aid-schemas (1.8.1)
       dry-schema (~> 1.13)
       dry-struct (~> 1.6.0)
       json-schema (~> 4.0.0)
@@ -247,13 +247,13 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
-    faraday (2.14.2)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
     faraday-follow_redirects (0.5.0)
       faraday (>= 1, < 3)
-    faraday-net_http (3.4.3)
+    faraday-net_http (3.4.4)
       net-http (~> 0.5)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -289,7 +289,7 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.19.5)
+    json (2.20.0)
     json-jwt (1.17.0)
       activesupport (>= 4.2)
       aes_key_wrap
