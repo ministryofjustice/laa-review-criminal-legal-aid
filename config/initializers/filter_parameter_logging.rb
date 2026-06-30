@@ -28,5 +28,6 @@ Rails.application.config.filter_parameters += [
   :phone,
   :postcode,
   :reason,
-  :urn
+  :urn,
+  :search_text
 ]
