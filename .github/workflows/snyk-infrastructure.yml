@@ -15,6 +15,7 @@ name: Snyk Infrastructure as Code
 on:
   schedule:
     - cron: '30 21 * * 1' # at 21:30 on Monday evening
+      timezone: "Europe/London"
 
 permissions:
   contents: read
@@ -26,7 +27,7 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Run Snyk to check configuration files for security issues
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the issues to GitHub Code Scanning

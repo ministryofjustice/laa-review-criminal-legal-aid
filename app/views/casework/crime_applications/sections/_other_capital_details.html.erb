@@ -3,15 +3,28 @@
 <%= govuk_summary_card(heading_level: 3, title: label_text(:other_capital_details)) do %>
   <dl class="govuk-summary-list">
     <% unless capital_details&.has_frozen_income_or_assets.nil? %>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        <%= label_text(:has_frozen_income_or_assets) %>
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%= t(capital_details.has_frozen_income_or_assets, scope: 'values') %>
-      </dd>
-    </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= label_text(:has_frozen_income_or_assets) %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(capital_details.has_frozen_income_or_assets, scope: 'values') %>
+        </dd>
+      </div>
+
+      <% if capital_details.has_frozen_income_or_assets == 'yes' &&
+            capital_details.frozen_income_or_assets_subject.present? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= label_text(:frozen_income_or_assets_subject) %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= t(capital_details.frozen_income_or_assets_subject, scope: 'values') %>
+          </dd>
+        </div>
+      <% end %>
     <% end %>
+
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         <%= label_text(:has_no_other_assets) %>
