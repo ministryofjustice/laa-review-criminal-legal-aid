@@ -1,29 +1,52 @@
-<%= govuk_header(container_classes: ["app-banner-#{HostEnv.env_name}"]) do |header|
-      if current_user.can_access_reporting_dashboard?
-        header.with_navigation_item(
-          text: t('.reports'),
-          href: reporting_root_path
-        )
+<%= govuk_header(container_classes: ["app-banner-#{HostEnv.env_name}"]) do |_header|
+      navigation_item_classes = 'govuk-header__navigation-item'
+      navigation_link_classes = 'govuk-header__link'
+
+      tag.div(class: 'govuk-header__content') do
+        safe_join([
+                    link_to(service_name, root_path, class: 'govuk-header__link govuk-header__service-name'),
+                    tag.nav(aria: { label: 'Menu' }, class: 'govuk-header__navigation') do
+                      safe_join([
+                                  tag.button(
+                                    'Menu',
+                                    type: 'button',
+                                    class: 'govuk-header__menu-button govuk-js-header-toggle',
+                                    aria: { controls: 'navigation', label: 'Show or hide menu' },
+                                    hidden: true
+                                  ),
+                                  tag.ul(id: 'navigation', class: 'govuk-header__navigation-list') do
+                                    navigation_items = []
+
+                                    if current_user.can_access_reporting_dashboard?
+                                      navigation_items << tag.li(class: navigation_item_classes) do
+                                        link_to(t('.reports'), reporting_root_path, class: navigation_link_classes)
+                                      end
+                                    end
+
+                                    if current_user.can_manage_others?
+                                      navigation_items << tag.li(class: navigation_item_classes) do
+                                        link_to(t('.manage_users'), manage_users_root_path, class: navigation_link_classes)
+                                      end
+                                    end
+
+                                    if current_user.supervisor?
+                                      navigation_items << tag.li(class: navigation_item_classes) do
+                                        link_to(t('.manage_competencies'), manage_competencies_root_path, class: navigation_link_classes)
+                                      end
+                                    end
+
+                                    navigation_items << tag.li(class: navigation_item_classes) do
+                                      tag.span(current_user.name, class: navigation_link_classes)
+                                    end
+
+                                    navigation_items << tag.li(class: navigation_item_classes) do
+                                      link_to(t('calls_to_action.sign_out'), destroy_user_session_path, class: navigation_link_classes)
+                                    end
+
+                                    safe_join(navigation_items)
+                                  end
+                                ])
+                    end
+                  ])
       end
-
-      if current_user.can_manage_others?
-        header.with_navigation_item(
-          text: t('.manage_users'),
-          href: manage_users_root_path
-        )
-      end
-
-      if current_user.supervisor?
-        header.with_navigation_item(
-          text: t('.manage_competencies'),
-          href: manage_competencies_root_path
-        )
-      end
-
-      header.with_navigation_item(text: current_user.name)
-
-      header.with_navigation_item(
-        text: t('calls_to_action.sign_out'),
-        href: destroy_user_session_path
-      )
     end %>

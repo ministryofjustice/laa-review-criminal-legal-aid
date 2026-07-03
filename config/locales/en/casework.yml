@@ -202,6 +202,7 @@ en:
     has_codefendants: Co-defendants?
     has_dependants: Has dependants?
     has_frozen_income_or_assets: Income, savings or assets under a restraint or freezing order
+    frozen_income_or_assets_subject: Who does the restraint or freezing order relate to?
     has_no_other_assets: Has no other assets or capital?
     has_premium_bonds: Premium Bonds
     has_premium_bonds_client: "Premium Bonds: client"
