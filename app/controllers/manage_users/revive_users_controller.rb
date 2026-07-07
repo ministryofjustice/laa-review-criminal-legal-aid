@@ -26,7 +26,7 @@ module ManageUsers
     end
 
     def set_active_user
-      @user = User.active.find(params[:id])
+      @user = User.active.find(params.expect(:id))
     end
   end
 end

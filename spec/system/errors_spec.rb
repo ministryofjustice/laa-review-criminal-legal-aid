@@ -128,7 +128,7 @@ RSpec.describe 'Error pages' do
       end
 
       it 'returns a 409 error status' do
-        expect(page).to have_http_status :unprocessable_entity
+        expect(page).to have_http_status :unprocessable_content
       end
 
       it 'uses the system user layout with navigation' do
