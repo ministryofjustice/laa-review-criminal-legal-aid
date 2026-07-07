@@ -44,7 +44,7 @@ module Casework
 
     def destroy
       current_assignment = CurrentAssignment.find_by!(
-        assignment_id: params[:id],
+        assignment_id: params.expect(:id),
         user_id: current_user_id
       )
 

@@ -17,7 +17,7 @@ module ManageUsers
     private
 
     def set_user
-      @user = User.active.find(params[:id])
+      @user = User.active.find(params.expect(:id))
     end
 
     def change_role # rubocop:disable Metrics/MethodLength

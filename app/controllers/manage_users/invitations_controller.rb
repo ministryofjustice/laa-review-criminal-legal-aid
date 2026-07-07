@@ -57,7 +57,7 @@ module ManageUsers
     end
 
     def set_user
-      @user = user_scope.find(params[:id])
+      @user = user_scope.find(params.expect(:id))
     end
 
     def user_scope

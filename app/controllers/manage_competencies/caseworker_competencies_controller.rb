@@ -5,11 +5,11 @@ module ManageCompetencies
     end
 
     def edit
-      @caseworker = user_scope.find(params[:id])
+      @caseworker = user_scope.find(params.expect(:id))
     end
 
     def update
-      user = user_scope.find(params[:id])
+      user = user_scope.find(params.expect(:id))
       competencies = permitted_params[:competencies].compact_blank
 
       Allocating::SetCompetencies.call(

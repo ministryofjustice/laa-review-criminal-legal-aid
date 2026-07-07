@@ -47,7 +47,7 @@ module Casework
     def return_params
       return {} unless params[:return_details]
 
-      params[:return_details].permit(:reason, :details)
+      params.expect(return_details: [:reason, :details])
     end
 
     def set_return_details

@@ -35,7 +35,7 @@ module Casework
 
     def current_assignment
       CurrentAssignment.find_by!(
-        assignment_id: params[:crime_application_id]
+        assignment_id: params.expect(:crime_application_id)
       )
     end
   end

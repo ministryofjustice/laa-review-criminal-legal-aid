@@ -38,11 +38,11 @@ module ManageUsers
     private
 
     def set_active_user
-      @user = User.active.find(params[:id])
+      @user = User.active.find(params.expect(:id))
     end
 
     def set_deactivated_user
-      @user = User.deactivated.find(params[:id])
+      @user = User.deactivated.find(params.expect(:id))
     end
   end
 end
