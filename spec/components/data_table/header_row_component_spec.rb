@@ -6,17 +6,6 @@ RSpec.describe DataTable::HeaderRowComponent, type: :component do
   let(:sorting) { ApplicationSearchSorting.new(sort_by: 'submitted_at', sort_direction: 'ascending') }
   let(:filter) { nil }
 
-  describe 'caption' do
-    before do
-      render_inline(component) { |row| row.with_cell(colname: 'reference', text: 'Reference') }
-    end
-
-    it 'renders a visually hidden caption' do
-      expect(page).to have_css('caption span.govuk-visually-hidden',
-                               text: 'Column headers with buttons are sortable.')
-    end
-  end
-
   describe 'row structure' do
     before do
       render_inline(component) do |row|

@@ -63,8 +63,16 @@ html {
   color: $govuk-link-colour;
 }
 
+// Reports no longer require horizontal scrolling after column heading changes.
+// If future tables require horizontal scrolling again, this may need revisiting.
 .app-table-container {
-  overflow-x: auto
+  overflow-x: visible
+}
+
+@media (max-width: 1024px) {
+  .app-table-container {
+    overflow-x: auto;
+  }
 }
 
 .app-service-navigation {

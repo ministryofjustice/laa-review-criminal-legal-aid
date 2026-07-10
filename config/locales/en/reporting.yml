@@ -59,7 +59,7 @@ en:
     application_type: Application type
     applications_closed: Number of closed applications
     applications_received: Applications received
-    assigned_to_user: "from<br>list"
+    assigned_to_user: "from list"
     closed: Closed
     colpsan_assigned_to_user: "Assigned"
     colspan_closed_by_user: Closed
@@ -74,17 +74,17 @@ en:
     percentage_closed_sent_back: "closed sent back"
     processed_on: When applications were closed
     provider_name: Legal representative
-    reassigned_from_user: "by<br>another"
-    reassigned_to_user: "from<br>another"
+    reassigned_from_user: "by another"
+    reassigned_to_user: "from another"
     received: Received
     received_applications_by_age: Applications received
     return_reason: Reason
-    sent_back_by_user: "sent<br>back"
+    sent_back_by_user: "sent back"
     total_assigned_to_user: total
     total_closed_by_user: total
     total_unassigned_from_user: total
-    unassigned_from_user: "from<br>self"
-    user_name: "&nbsp;"
+    unassigned_from_user: "from self"
+    user_name: Case worker
     what: What
     day_before_yesterday: Day before yesterday
     today: Today
