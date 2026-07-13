@@ -9,14 +9,14 @@ RSpec.describe 'Caseworker report' do
     colgroup_detail_headings = all('.app-table thead tr.colgroup-details th').map(&:text)
 
     expected = [
-      ' ',
-      'fromlist',
-      'fromanother',
+      'Case worker',
+      'from list',
+      'from another',
       'total',
-      'fromself',
-      'byanother',
+      'from self',
+      'by another',
       'total',
-      'sentback',
+      'sent back',
       'completed',
       'total',
       'assigned un-assigned',

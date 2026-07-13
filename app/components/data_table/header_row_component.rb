@@ -16,19 +16,7 @@ module DataTable
     end
 
     def call
-      safe_join([
-                  caption,
-                  tag.tr(**html_attributes) { safe_join(cells) }
-                ])
-    end
-
-    def caption
-      tag.caption do
-        tag.span(
-          I18n.t('table_headings.sortable_caption'),
-          class: 'govuk-visually-hidden'
-        )
-      end
+      tag.tr(**html_attributes) { safe_join(cells) }
     end
 
     private
