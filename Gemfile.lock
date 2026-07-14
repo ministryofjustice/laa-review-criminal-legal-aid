@@ -185,10 +185,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
     docile (1.4.1)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
+      railties (>= 6.1)
     drb (2.2.3)
     dry-configurable (1.4.0)
       dry-core (~> 1.0)
@@ -662,7 +662,7 @@ DEPENDENCIES
   csv (~> 3.3)
   debug (~> 1.10)
   devise
-  dotenv-rails (~> 2.8.1)
+  dotenv-rails (~> 3.2.0)
   dry-schema
   dry-struct
   erb_lint (>= 0.7.0)
