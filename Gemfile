@@ -61,7 +61,7 @@ gem 'prometheus_exporter'
 
 group :development, :test do
   gem 'debug', '~> 1.10'
-  gem 'dotenv-rails', '~> 2.8.1'
+  gem 'dotenv-rails', '~> 3.2.0'
   gem 'pry'
   gem 'rspec-rails', '>= 7.0.1'
 end
