@@ -1,13 +1,13 @@
 module Authorising
-  class Invited < RailsEventStore::Event; end
-  class InviteRenewed < RailsEventStore::Event; end
-  class InviteRevoked < RailsEventStore::Event; end
-  class Activated < RailsEventStore::Event; end
-  class Deactivated < RailsEventStore::Event; end
-  class Reactivated < RailsEventStore::Event; end
-  class RevivalAwaited < RailsEventStore::Event; end
-  class Revived < RailsEventStore::Event; end
-  class RoleChanged < RailsEventStore::Event; end
+  class Invited < RubyEventStore::Event; end
+  class InviteRenewed < RubyEventStore::Event; end
+  class InviteRevoked < RubyEventStore::Event; end
+  class Activated < RubyEventStore::Event; end
+  class Deactivated < RubyEventStore::Event; end
+  class Reactivated < RubyEventStore::Event; end
+  class RevivalAwaited < RubyEventStore::Event; end
+  class Revived < RubyEventStore::Event; end
+  class RoleChanged < RubyEventStore::Event; end
 
   class << self
     def user_events(user_id)

@@ -18,7 +18,7 @@ class ApplicationHistory < ApplicationStruct
   private
 
   def load_from_events
-    RailsEventStore::Projection
+    RubyEventStore::Projection
       .from_stream(streams)
       .init(-> { [] })
       .when(
