@@ -50,7 +50,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'oauth2'
 
 gem 'aws-sdk-s3', require: false
-gem 'aws-sdk-sns', '~> 1.60', require: false
+gem 'aws-sdk-sns', '~> 1.118', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
@@ -91,5 +91,5 @@ gem 'csv', '~> 3.3'
 
 gem 'ostruct', '~> 0.6.1'
 
-gem 'sidekiq', '~> 7.0'
-gem 'sidekiq-scheduler', '~> 5.0'
+gem 'sidekiq', '~> 8.1'
+gem 'sidekiq-scheduler', '~> 6.0'
