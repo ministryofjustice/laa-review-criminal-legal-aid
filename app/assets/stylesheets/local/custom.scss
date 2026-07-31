@@ -178,3 +178,11 @@ body.js-enabled {
     height: auto;
   }
 }
+
+.moj-header__link--organisation-name,
+.moj-header__link--organisation-name:link,
+.moj-header__link--organisation-name:visited,
+.moj-header__link--organisation-name:hover,
+.moj-header__link--organisation-name:active {
+  color: #ffffff;
+}
