@@ -57,8 +57,10 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       expect(current_path).to eq(
         "/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/decisions/#{maat_id}/comment"
       )
-      expect(page).to have_selector('h1', count: 1)
-      expect(page).to have_selector('h1.govuk-heading-xl', text: applicant_name)
+    end
+
+    it 'uses the applicant name as h1 and action title as h2' do
+      expect(page).to have_selector('h1.govuk-heading-xl', count: 1, text: applicant_name)
       expect(page).to have_selector('h2.govuk-heading-l', text: I18n.t('casework.decisions.comments.edit.title'))
     end
   end

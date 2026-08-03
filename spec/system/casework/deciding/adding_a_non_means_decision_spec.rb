@@ -80,8 +80,7 @@ RSpec.describe 'Adding a Non-means application' do
       click_button 'Start'
       complete_ioj_form
 
-      expect(page).to have_selector('h1', count: 1)
-      expect(page).to have_selector('h1.govuk-heading-xl', text: applicant_name)
+      expect(page).to have_selector('h1.govuk-heading-xl', count: 1, text: applicant_name)
       expect(page).to have_selector('h2.govuk-heading-l', text: I18n.t('casework.decisions.overall_results.edit.title'))
     end
   end

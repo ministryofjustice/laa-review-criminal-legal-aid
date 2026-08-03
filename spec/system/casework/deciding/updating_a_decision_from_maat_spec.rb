@@ -51,8 +51,7 @@ RSpec.describe 'Adding a decision by MAAT reference' do
 
   it 'uses the applicant name as the page heading on the MAAT decision page' do
     expect(page).to have_button('Update from MAAT')
-    expect(page).to have_selector('h1', count: 1)
-    expect(page).to have_selector('h1.govuk-heading-xl', text: applicant_name)
+    expect(page).to have_selector('h1.govuk-heading-xl', count: 1, text: applicant_name)
   end
 
   context 'when nothing has changed on MAAT details are missing' do
