@@ -22,6 +22,13 @@ RSpec.describe 'Adding a decision by MAAT reference' do
   end
 
   let(:reference) { 6_000_001 }
+  let(:v2) { Maat::Decision.new(**maat_decision.attributes) }
+  let(:applicant_name) do
+    [
+      application_data.dig('client_details', 'applicant', 'first_name'),
+      application_data.dig('client_details', 'applicant', 'last_name')
+    ].join(' ')
+  end
 
   before do
     allow(DatastoreApi::Requests::UpdateApplication).to receive(:new)
@@ -40,11 +47,18 @@ RSpec.describe 'Adding a decision by MAAT reference' do
     visit crime_application_path(application_id)
     click_on 'Edit'
     click_on 'Change'
-    click_button 'Update from MAAT'
+  end
+
+  it 'uses the applicant name as the page heading on the MAAT decision page' do
+    expect(page).to have_button('Update from MAAT')
+    expect(page).to have_selector('h1', count: 1)
+    expect(page).to have_selector('h1.govuk-heading-xl', text: applicant_name)
   end
 
   context 'when nothing has changed on MAAT details are missing' do
-    let(:v2) { Maat::Decision.new(**maat_decision.attributes) }
+    before do
+      click_button 'Update from MAAT'
+    end
 
     it 'instructs the caseworker to make changes on MAAT' do
       expect(page).to have_notification_banner(
@@ -62,6 +76,10 @@ RSpec.describe 'Adding a decision by MAAT reference' do
   context 'when changed on MAAT with missing details provided' do
     let(:v2) do
       Maat::Decision.new(**maat_decision.attributes, funding_decision: 'GRANTED')
+    end
+
+    before do
+      click_button 'Update from MAAT'
     end
 
     it 'instructs the caseworker to check the decision' do
