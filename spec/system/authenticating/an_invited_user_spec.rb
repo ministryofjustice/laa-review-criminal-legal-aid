@@ -29,7 +29,8 @@ RSpec.describe 'Authenticating an invited user' do
 
       before do
         click_on 'Sign in'
-        click_on 'Invited Test'
+        # with the new moj-header, the user name is in a link, so we need to click on the second one
+        all(:link, 'Invited Test', exact_text: true, minimum: 2)[1].click
       end
 
       it 'describes the event' do
