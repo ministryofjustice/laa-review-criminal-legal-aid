@@ -6,7 +6,7 @@ RSpec.describe 'Header navigation' do
   end
 
   it 'shows name of current user' do
-    current_user = page.first('.govuk-header__navigation-item').text
+    current_user = page.first('.moj-header__navigation-link').text
     expect(current_user).to eq('Joe EXAMPLE')
   end
 
@@ -25,8 +25,9 @@ RSpec.describe 'Header navigation' do
         visit '/'
       end
 
-      it 'has env specific styling applied' do
-        expect(page).to have_css('.app-banner-local')
+      it 'shows env specific indicator' do
+        env_indicator = page.first('.govuk-phase-banner__content__tag').text
+        expect(env_indicator).to eq('Dev')
       end
     end
 
@@ -39,8 +40,9 @@ RSpec.describe 'Header navigation' do
         visit '/'
       end
 
-      it 'has env specific styling applied' do
-        expect(page).to have_css('.app-banner-staging')
+      it 'shows env specific indicator' do
+        env_indicator = page.first('.govuk-phase-banner__content__tag').text
+        expect(env_indicator).to eq('Staging')
       end
     end
   end
@@ -51,7 +53,7 @@ RSpec.describe 'Header navigation' do
     end
 
     it 'does not have a link to manage users' do
-      header = page.first('.govuk-header__navigation-list').text
+      header = page.first('.moj-header__navigation-list').text
       expect(header).not_to include('Manage users')
     end
   end
@@ -89,7 +91,7 @@ RSpec.describe 'Header navigation' do
     end
 
     it 'does not have a link to reports' do
-      header = page.first('.govuk-header__navigation-list').text
+      header = page.first('.moj-header__navigation-list').text
       expect(header).not_to include('Reports')
     end
   end
@@ -100,7 +102,7 @@ RSpec.describe 'Header navigation' do
     end
 
     it 'does not have a link to reports' do
-      header = page.first('.govuk-header__navigation-list').text
+      header = page.first('.moj-header__navigation-list').text
       expect(header).not_to include('Reports')
     end
   end
@@ -133,7 +135,7 @@ RSpec.describe 'Header navigation' do
     end
 
     it 'does not have a link to manage users' do
-      header = page.first('.govuk-header__navigation-list').text
+      header = page.first('.moj-header__navigation-list').text
       expect(header).not_to include('Manage users')
     end
   end
