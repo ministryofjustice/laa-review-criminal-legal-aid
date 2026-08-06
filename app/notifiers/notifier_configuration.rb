@@ -8,7 +8,7 @@ class NotifierConfiguration
 
   def call(event_store)
     SUBSCRIBERS.each do |subscriber, events|
-      event_store.subscribe(subscriber, to: events)
+      event_store.subscribe(subscriber.new, to: events)
     end
   end
 end

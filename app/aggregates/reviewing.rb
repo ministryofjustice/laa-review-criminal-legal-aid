@@ -31,7 +31,7 @@ module Reviewing
 
   class Configuration
     def call(event_store)
-      event_store.subscribe(Reviewing::Handlers::CompleteReview, to: [Reviewing::Completed])
+      event_store.subscribe(Reviewing::Handlers::CompleteReview.new, to: [Reviewing::Completed])
     end
   end
 end

@@ -1,5 +1,5 @@
 module Deciding
-  class Event < RailsEventStore::Event
+  class Event < RubyEventStore::Event
     class << self
       def build(decision, data = {})
         args = {

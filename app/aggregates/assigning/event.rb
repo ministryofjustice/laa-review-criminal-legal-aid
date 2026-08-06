@@ -1,4 +1,4 @@
 module Assigning
-  class Event < RailsEventStore::Event
+  class Event < RubyEventStore::Event
   end
 end
