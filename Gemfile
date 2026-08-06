@@ -54,7 +54,7 @@ gem 'aws-sdk-sns', '~> 1.118', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store', '>= 2.15.0'
+gem 'rails_event_store', '~> 2.19.2'
 
 # Monitoring
 gem 'prometheus_exporter'
