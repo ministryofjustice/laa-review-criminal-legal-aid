@@ -1,5 +1,8 @@
 // App-specific custom styles and overrides
 @use "govuk-frontend/dist/govuk" as *;
+@use "govuk-frontend/dist/govuk/core/global-styles.mixin" as global-styles;
+
+@include global-styles.govuk-global-styles;
 
 @mixin app-button-reset {
   padding: 0;
