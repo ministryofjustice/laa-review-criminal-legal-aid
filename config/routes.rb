@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  Rails.application.routes.draw { mount RailsEventStore::Browser => '/res' if Rails.env.development? }
+  mount RailsEventStore::Browser, at: '/res' if Rails.env.development?
   mount DatastoreApi::HealthEngine::Engine => '/datastore'
 
   unless HostEnv.production?

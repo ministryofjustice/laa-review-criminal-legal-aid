@@ -3,7 +3,7 @@ module Deleting
   class AlreadyArchived < Error; end
   class AlreadySoftDeleted < Error; end
 
-  class Event < RailsEventStore::Event; end
+  class Event < RubyEventStore::Event; end
   class SoftDeleted < Event; end
   class Archived < Event; end
 

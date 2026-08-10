@@ -1,5 +1,5 @@
 module Allocating
-  class CompetenciesSet < RailsEventStore::Event; end
+  class CompetenciesSet < RubyEventStore::Event; end
   class WorkStreamNotFound < StandardError; end
 
   class << self

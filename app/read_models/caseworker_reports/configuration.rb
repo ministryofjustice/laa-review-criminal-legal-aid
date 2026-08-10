@@ -14,7 +14,7 @@ module CaseworkerReports
 
     def call(event_store)
       event_store.subscribe(
-        CaseworkerReports::LinkToTemporalStreams, to: READ_MODEL_CHANGING_EVENTS
+        CaseworkerReports::LinkToTemporalStreams.new, to: READ_MODEL_CHANGING_EVENTS
       )
     end
   end

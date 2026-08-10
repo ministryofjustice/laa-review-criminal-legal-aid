@@ -14,7 +14,7 @@ module Reviews
 
     def call(event_store)
       event_store.subscribe(
-        Reviews::UpdateFromAggregate, to: READ_MODEL_CHANGING_EVENTS
+        Reviews::UpdateFromAggregate.new, to: READ_MODEL_CHANGING_EVENTS
       )
     end
   end

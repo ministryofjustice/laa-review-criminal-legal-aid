@@ -1,5 +1,5 @@
 module Reviewing
-  class Event < RailsEventStore::Event
+  class Event < RubyEventStore::Event
     class << self
       def build(review, data = {})
         review_args = {
