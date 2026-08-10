@@ -57,7 +57,7 @@ gem 'aws-sdk-sns', '~> 1.60', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store', '~> 2.19.2'
+gem 'rails_event_store', '~> 3.0.0'
 
 # Monitoring
 gem 'prometheus_exporter'
@@ -94,5 +94,5 @@ gem 'csv', '~> 3.3'
 
 gem 'ostruct', '~> 0.6.1'
 
-gem 'sidekiq', '~> 7.0'
-gem 'sidekiq-scheduler', '~> 5.0'
+gem 'sidekiq', '~> 8.1'
+gem 'sidekiq-scheduler', '~> 6.0'
