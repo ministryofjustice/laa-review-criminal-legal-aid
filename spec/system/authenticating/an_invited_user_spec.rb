@@ -29,7 +29,7 @@ RSpec.describe 'Authenticating an invited user' do
 
       before do
         click_on 'Sign in'
-        click_on 'Invited Test'
+        all('table tbody tr').first.click_link('Invited Test')
       end
 
       it 'describes the event' do
