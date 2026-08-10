@@ -1,7 +1,7 @@
 <% content_for?(:page_title) ? yield(:page_title) : fallback_title %>
 
 <% content_for(:header) do %>
-  <% govuk_header(container_classes: ["app-banner-#{HostEnv.env_name}"]) %>
+  <%= moj_header(organisation_name: t('service.name'), url: root_path) %>
 <% end %>
 
 <% content_for(:content) do %>

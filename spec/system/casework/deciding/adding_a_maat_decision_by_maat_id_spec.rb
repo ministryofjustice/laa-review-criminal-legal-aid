@@ -7,6 +7,12 @@ RSpec.describe 'Adding a decision by MAAT ID' do
   include_context 'when adding a decision by MAAT ID'
 
   let(:maat_decision_maat_id) { maat_id }
+  let(:applicant_name) do
+    [
+      application_data.dig('client_details', 'applicant', 'first_name'),
+      application_data.dig('client_details', 'applicant', 'last_name')
+    ].join(' ')
+  end
 
   before do
     visit crime_application_path(application_id)
@@ -51,6 +57,11 @@ RSpec.describe 'Adding a decision by MAAT ID' do
       expect(current_path).to eq(
         "/applications/696dd4fd-b619-4637-ab42-a5f4565bcf4a/decisions/#{maat_id}/comment"
       )
+    end
+
+    it 'uses the applicant name as h1 and action title as h2' do
+      expect(page).to have_selector('h1.govuk-heading-xl', count: 1, text: applicant_name)
+      expect(page).to have_selector('h2.govuk-heading-l', text: I18n.t('casework.decisions.comments.edit.title'))
     end
   end
 

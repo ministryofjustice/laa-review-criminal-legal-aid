@@ -18,6 +18,9 @@ gem 'kaminari'
 gem 'lograge'
 gem 'logstash-event'
 
+gem 'moj_components', git: 'https://github.com/ministryofjustice/moj-components.git',
+tag: 'v0.2.1'
+
 gem 'laa-criminal-applications-datastore-api-client',
     github: 'ministryofjustice/laa-criminal-applications-datastore-api-client',
     tag: 'v1.3.0',
@@ -54,7 +57,7 @@ gem 'aws-sdk-sns', '~> 1.60', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store', '>= 2.15.0'
+gem 'rails_event_store', '~> 2.19.2'
 
 # Monitoring
 gem 'prometheus_exporter'

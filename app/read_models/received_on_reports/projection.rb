@@ -45,7 +45,7 @@ module ReceivedOnReports
     end
 
     def scope
-      RailsEventStore::Projection.from_stream(@stream_name)
+      RubyEventStore::Projection.from_stream(@stream_name)
     end
 
     def initial_row

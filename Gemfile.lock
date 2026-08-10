@@ -17,6 +17,15 @@ GIT
       dry-struct (~> 1.6.0)
       json-schema (~> 4.0.0)
 
+GIT
+  remote: https://github.com/ministryofjustice/moj-components.git
+  revision: acca6219ae56250fd269e4f0b8925206783f13a4
+  tag: v0.2.1
+  specs:
+    moj_components (0.2.1)
+      govuk-components
+      view_component (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -97,19 +106,19 @@ GEM
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     aes_key_wrap (1.1.0)
-    aggregate_root (2.18.0)
-      ruby_event_store (= 2.18.0)
-    anonymous_loader (0.1.2)
-      version_gem (~> 1.1, >= 1.1.13)
+    aggregate_root (2.19.2)
+      ruby_event_store (= 2.19.2)
+    anonymous_loader (0.1.3)
+      version_gem (~> 1.1, >= 1.1.14)
     arkency-command_bus (0.4.1)
       concurrent-ruby
     ast (2.4.3)
     attr_required (1.0.2)
-    auth-sanitizer (0.2.2)
-      version_gem (~> 1.1, >= 1.1.10)
+    auth-sanitizer (0.2.3)
+      version_gem (~> 1.1, >= 1.1.14)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1265.0)
-    aws-sdk-core (3.252.0)
+    aws-partitions (1.1277.0)
+    aws-sdk-core (3.254.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -117,18 +126,18 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.129.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-kms (1.130.0)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.226.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-s3 (1.228.2)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
-    aws-sdk-sns (1.117.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-sns (1.118.0)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-sqs (1.116.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-sqs (1.117.0)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
       aws-eventstream (~> 1, >= 1.0.2)
@@ -172,7 +181,7 @@ GEM
     crass (1.0.7)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
-    csv (3.3.5)
+    csv (3.3.6)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -227,7 +236,7 @@ GEM
     dumb_delegator (1.1.0)
     email_validator (2.2.4)
       activemodel
-    erb (6.0.4)
+    erb (6.0.7)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -251,7 +260,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    govuk-components (6.4.0)
+    govuk-components (6.4.1)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (>= 6, < 10)
       view_component (>= 4.9, < 4.13)
@@ -307,7 +316,7 @@ GEM
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
     logger (1.7.0)
-    lograge (0.14.0)
+    lograge (0.15.0)
       actionpack (>= 4)
       activesupport (>= 4)
       railties (>= 4)
@@ -355,16 +364,16 @@ GEM
       racc (~> 1.4)
     notifications-ruby-client (6.3.0)
       jwt (>= 1.5, < 4)
-    oauth2 (2.0.24)
-      anonymous_loader (~> 0.1, >= 0.1.1)
-      auth-sanitizer (~> 0.2, >= 0.2.2)
+    oauth2 (2.0.25)
+      anonymous_loader (~> 0.1, >= 0.1.3)
+      auth-sanitizer (~> 0.2, >= 0.2.3)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0, >= 2.0.6)
-      version_gem (~> 1.1, >= 1.1.12)
+      snaky_hash (~> 2.0, >= 2.0.7)
+      version_gem (~> 1.1, >= 1.1.14)
     omniauth (2.1.4)
       hashie (>= 3.4.6)
       logger
@@ -393,7 +402,7 @@ GEM
     ostruct (0.6.3)
     pagy (9.4.0)
     parallel (2.1.0)
-    parser (3.3.11.1)
+    parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
     pg (1.6.3)
@@ -457,17 +466,17 @@ GEM
     rails-html-sanitizer (1.7.1)
       loofah (~> 2.25, >= 2.25.2)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails_event_store (2.18.0)
+    rails_event_store (2.19.2)
       activejob (>= 6.0)
       activemodel (>= 6.0)
       activesupport (>= 6.0)
-      aggregate_root (= 2.18.0)
+      aggregate_root (= 2.19.2)
       arkency-command_bus (>= 0.4)
-      rails_event_store_active_record (= 2.18.0)
-      ruby_event_store (= 2.18.0)
-      ruby_event_store-browser (= 2.18.0)
-    rails_event_store_active_record (2.18.0)
-      ruby_event_store-active_record (= 2.18.0)
+      rails_event_store_active_record (= 2.19.2)
+      ruby_event_store (= 2.19.2)
+      ruby_event_store-browser (= 2.19.2)
+    rails_event_store_active_record (2.19.2)
+      ruby_event_store-active_record (= 2.19.2)
     railties (8.1.3.1)
       actionpack (= 8.1.3.1)
       activesupport (= 8.1.3.1)
@@ -479,7 +488,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    rbs (4.0.3)
+    rbs (4.1.2)
       logger
       prism (>= 1.6.0)
       tsort
@@ -518,7 +527,7 @@ GEM
     rspec-support (3.13.7)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.88.1)
+    rubocop (1.89.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -536,7 +545,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
-    rubocop-rails (2.35.5)
+    rubocop-rails (2.36.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -547,19 +556,19 @@ GEM
       regexp_parser (>= 2.0)
       rubocop (~> 1.86, >= 1.86.2)
     ruby-progressbar (1.13.0)
-    ruby_event_store (2.18.0)
+    ruby_event_store (2.19.2)
       concurrent-ruby (~> 1.0, >= 1.1.6)
-    ruby_event_store-active_record (2.18.0)
+    ruby_event_store-active_record (2.19.2)
       activerecord (>= 6.0)
-      ruby_event_store (= 2.18.0)
-    ruby_event_store-browser (2.18.0)
+      ruby_event_store (= 2.19.2)
+    ruby_event_store-browser (2.19.2)
       rack
-      ruby_event_store (= 2.18.0)
+      ruby_event_store (= 2.19.2)
     rubyzip (3.4.1)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
     securerandom (0.4.1)
-    selenium-webdriver (4.45.0)
+    selenium-webdriver (4.46.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -589,9 +598,9 @@ GEM
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
-    snaky_hash (2.0.6)
+    snaky_hash (2.0.7)
       hashie (>= 0.1.0, < 6)
-      version_gem (>= 1.1.8, < 3)
+      version_gem (~> 1.1, >= 1.1.14)
     stackprof (0.2.28)
     swd (2.0.3)
       activesupport (>= 3)
@@ -615,7 +624,7 @@ GEM
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
-    version_gem (1.1.13)
+    version_gem (1.1.15)
     view_component (4.12.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
@@ -642,7 +651,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.8.2)
+    zeitwerk (2.8.3)
 
 PLATFORMS
   ruby
@@ -676,6 +685,7 @@ DEPENDENCIES
   laa-criminal-legal-aid-schemas!
   lograge
   logstash-event
+  moj_components!
   oauth2
   omniauth-rails_csrf_protection
   omniauth_openid_connect (= 0.8.0)
@@ -686,7 +696,7 @@ DEPENDENCIES
   pry
   puma
   rails
-  rails_event_store (>= 2.15.0)
+  rails_event_store (~> 2.19.2)
   rspec-rails (>= 7.0.1)
   rspec_junit_formatter
   rubocop
@@ -705,7 +715,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 4.0.5p0
+   ruby 4.0.6p0
 
 BUNDLED WITH
    2.6.6

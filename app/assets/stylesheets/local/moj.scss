@@ -4,5 +4,14 @@
 // NOTE: using hand-picked components instead of importing
 // the whole library, as we only need a few ones.
 
+@use "@ministryofjustice/frontend/moj/settings/all" with (
+  $moj-assets-path: "/"
+);
+
+// Header
+// https://design-patterns.service.justice.gov.uk/components/moj-header/
+@use "@ministryofjustice/frontend/moj/components/header/header";
+
 // Sub navigation
 @use "@ministryofjustice/frontend/moj/components/sub-navigation/sub-navigation";
+
