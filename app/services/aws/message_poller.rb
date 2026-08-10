@@ -57,7 +57,7 @@ module Aws
       end
     end
 
-    # :nocov:
+    # simplecov:disable
     def configure_logger!
       return if ENV['RAILS_LOG_TO_STDOUT'].blank?
 
@@ -68,6 +68,6 @@ module Aws
 
       Rails.logger = ActiveSupport::TaggedLogging.new(logger)
     end
-    # :nocov:
+    # simplecov:enable
   end
 end

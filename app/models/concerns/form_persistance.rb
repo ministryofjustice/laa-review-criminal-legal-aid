@@ -61,9 +61,9 @@ module FormPersistance
     command_class.call(**attrs.symbolize_keys, **base_attrs)
   end
 
-  # :nocov:
+  # simplecov:disable
   def command_class
     raise 'Deciding command class must be defined'
   end
-  # :nocov:
+  # simplecov:enable
 end

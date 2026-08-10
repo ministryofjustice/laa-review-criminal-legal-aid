@@ -5,11 +5,11 @@ class NotifyMailer < GovukNotifyRails::Mailer
     @template_ids = Rails.configuration.govuk_notify_templates
   end
 
-  # :nocov:
+  # simplecov:disable
   rescue_from 'Notifications::Client::BadRequestError' do |message|
     Rails.logger.warn message.to_s
   end
-  # :nocov:
+  # simplecov:enable
 
   self.delivery_job = NotifyMailDeliveryJob
 

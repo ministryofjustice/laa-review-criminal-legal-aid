@@ -63,11 +63,11 @@ module Reporting
       time_period.range.cover? self.class._current_date
     end
 
-    # :nocov:
+    # simplecov:disable
     def period_text
       raise 'Implement in subclass.'
     end
-    # :nocov:
+    # simplecov:enable
 
     def period_as_param
       time_period.starts_on.strftime(self.class::PARAM_FORMAT)
