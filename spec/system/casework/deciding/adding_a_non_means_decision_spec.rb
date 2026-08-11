@@ -4,6 +4,12 @@ RSpec.describe 'Adding a Non-means application' do
   include DecisionFormHelpers
 
   let(:current_user_role) { UserRole::CASEWORKER }
+  let(:applicant_name) do
+    [
+      application_data.dig('client_details', 'applicant', 'first_name'),
+      application_data.dig('client_details', 'applicant', 'last_name')
+    ].join(' ')
+  end
 
   # rubocop:disable RSpec/ExampleLength
   shared_examples 'hides "Start" button' do
@@ -68,6 +74,14 @@ RSpec.describe 'Adding a Non-means application' do
         'Overall result', 'Granted',
         'Comments', 'Caseworker comment'
       )
+    end
+
+    it 'uses applicant name and section title headings on overall result' do
+      click_button 'Start'
+      complete_ioj_form
+
+      expect(page).to have_selector('h1.govuk-heading-xl', count: 1, text: applicant_name)
+      expect(page).to have_selector('h2.govuk-heading-l', text: I18n.t('casework.decisions.overall_results.edit.title'))
     end
   end
 

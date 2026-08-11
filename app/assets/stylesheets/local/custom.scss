@@ -1,5 +1,8 @@
 // App-specific custom styles and overrides
 @use "govuk-frontend/dist/govuk" as *;
+@use "govuk-frontend/dist/govuk/core/global-styles.mixin" as global-styles;
+
+@include global-styles.govuk-global-styles;
 
 @mixin app-button-reset {
   padding: 0;
@@ -19,7 +22,7 @@ span.offence_class {
 form.search {
   padding-top: 2em;
   padding-left: 2em;
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
   .input-group {
     display: flex;
     flex-wrap: wrap;
@@ -37,7 +40,7 @@ form.search {
 }
 
 .app_superseded_style  {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour("black", $variant: "tint-25");
 }
 
 td.file-name {
@@ -177,4 +180,12 @@ body.js-enabled {
     max-width: 100%;
     height: auto;
   }
+}
+
+.moj-header__link--organisation-name,
+.moj-header__link--organisation-name:link,
+.moj-header__link--organisation-name:visited,
+.moj-header__link--organisation-name:hover,
+.moj-header__link--organisation-name:active {
+  color: #ffffff;
 }
