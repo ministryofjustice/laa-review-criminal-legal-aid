@@ -1,9 +1,9 @@
 module Deciding
   class Error < StandardError
-    # :nocov:
+    # simplecov:disable
     def message_key
       self.class.name.demodulize.underscore.to_sym
     end
-    # :nocov:
+    # simplecov:enable
   end
 end

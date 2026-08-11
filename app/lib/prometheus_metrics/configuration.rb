@@ -11,7 +11,7 @@ module PrometheusMetrics
       # Add custom collector classes here
     ].freeze
 
-    # :nocov:
+    # simplecov:disable
     def self.should_configure?
       return false if ENV.key?('SKIP_PROMETHEUS_EXPORTER')
       return false unless rails_server? || sidekiq?
@@ -101,6 +101,6 @@ module PrometheusMetrics
         end
       end
     end
-    # :nocov:
+    # simplecov:enable
   end
 end

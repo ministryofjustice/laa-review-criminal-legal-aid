@@ -12,22 +12,18 @@ unless ENV['COVERAGE'] == 'false'
     else
       enable_coverage :branch
     end
-    coverage_criterion :line
 
     # Only enforce minimum coverage when merging all parallel results
     minimum_coverage 100 unless ENV['CI_NODE_INDEX']
 
-    # TODO:  unfilter app/views once fix by simplecov team implemented
-    add_filter 'app/views'
-    add_filter 'app/components' # ERB view components cause line count issues
-    add_filter 'app/mailers/application_mailer.rb'
-    add_filter 'app/jobs/application_job.rb'
-    add_filter 'config/initializers'
-    add_filter 'lib/rubocop/'
-    add_filter 'spec/'
+    skip 'app/mailers/application_mailer.rb'
+    skip 'app/jobs/application_job.rb'
+    skip 'config/initializers'
+    skip 'lib/rubocop/'
+    skip 'spec/'
 
     # Track all application files to ensure consistent coverage across parallel runs
-    track_files '{app,lib}/**/*.rb'
+    cover '{app,lib}/**/*.rb'
 
     # Support for parallel CI runs - each runner saves results with unique ID
     # Use CI_NODE_INDEX for matrix-based parallelization to ensure unique command names

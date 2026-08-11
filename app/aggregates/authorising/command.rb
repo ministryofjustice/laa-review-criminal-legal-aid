@@ -2,11 +2,11 @@ module Authorising
   class Command < Dry::Struct
     attribute :user, Types.Instance(User)
 
-    # :nocov:
+    # simplecov:disable
     def call
       raise 'implement in subclasses'
     end
-    # :nocov:
+    # simplecov:enable
 
     private
 
@@ -17,11 +17,11 @@ module Authorising
       )
     end
 
-    # :nocov:
+    # simplecov:disable
     def event
       raise 'define event in subclasses'
     end
-    # :nocov:
+    # simplecov:enable
 
     def user_id
       user.id

@@ -3,11 +3,11 @@ module Allocating
     attribute :user, Types.Instance(User)
     attribute :by_whom, Types.Instance(User)
 
-    # :nocov:
+    # simplecov:disable
     def call
       raise 'implement in subclasses'
     end
-    # :nocov:
+    # simplecov:enable
 
     private
 
@@ -18,11 +18,11 @@ module Allocating
       )
     end
 
-    # :nocov:
+    # simplecov:disable
     def event
       raise 'define event in subclasses'
     end
-    # :nocov:
+    # simplecov:enable
 
     def user_id
       user.id
