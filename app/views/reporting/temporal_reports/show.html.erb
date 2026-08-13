@@ -7,7 +7,7 @@
     </h1>
 
     <div class="govuk-tabs">
-      <ul class="govuk-tabs__list" role="tablist">
+      <ul class="govuk-tabs__list">
         <% @intervals.each_with_index do |interval, index| %>
           <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
           <%= content_tag(:li, class: @interval == interval ? css_class : css_class.first) do %>
