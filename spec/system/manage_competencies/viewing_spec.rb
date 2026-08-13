@@ -44,7 +44,7 @@ RSpec.describe 'Manage Competencies Dashboard' do
 
     it 'shows the correct table content' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq(['Iain Testing No competencies View history'].join(' '))
+      expect(first_data_row).to eq(['Iain Testing No competencies View history Iain Testing'].join(' '))
     end
 
     context 'when clicking links' do
