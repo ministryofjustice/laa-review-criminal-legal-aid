@@ -33,7 +33,7 @@ RSpec.describe 'Change caseworker competencies' do
 
     it 'displays selected competency' do
       first_data_row = page.first('.govuk-table tbody tr').text
-      expect(first_data_row).to eq('Iain Testing Extradition, Initial View history')
+      expect(first_data_row).to eq('Iain Testing Extradition, Initial View history Iain Testing')
     end
 
     it 'form is pre-populated with selected competency' do
