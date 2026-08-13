@@ -47,6 +47,10 @@ RSpec.describe 'Open Applications' do
     expect(page).to have_content('There are 3 open applications that need to be reviewed.')
   end
 
+  it 'includes an accessible table label' do
+    expect(page.find('table.app-table')['aria-label']).to eq('3 applications')
+  end
+
   it 'can be used to navigate to an application' do
     click_on('Kit Pound')
 

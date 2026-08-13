@@ -82,6 +82,10 @@ RSpec.describe 'Viewing your assigned application' do
       )
     end
 
+    it 'includes an accessible table label' do
+      expect(page.find('table.app-table')['aria-label']).to eq('Your assigned applications')
+    end
+
     it_behaves_like 'a table with sortable headers' do
       let(:active_sort_headers) { ['Date received', 'Business days since received'] }
       let(:active_sort_direction) { 'ascending' }

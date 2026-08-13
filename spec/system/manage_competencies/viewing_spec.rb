@@ -47,6 +47,10 @@ RSpec.describe 'Manage Competencies Dashboard' do
       expect(first_data_row).to eq(['Iain Testing No competencies View history Iain Testing'].join(' '))
     end
 
+    it 'includes an accessible table label' do
+      expect(page.find('table.govuk-table')['aria-label']).to eq('Caseworker competencies')
+    end
+
     context 'when clicking links' do
       it 'redirects to the edit competency form page' do
         expect { page.first('.govuk-table tbody tr').click_on('No competencies') }.to change { page.current_path }

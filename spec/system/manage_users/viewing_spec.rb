@@ -41,6 +41,20 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes', 'Caseworker'].join(' '))
     end
 
+    it 'includes an accessible table label for active users' do
+      expect(page.find('table.govuk-table')['aria-label']).to eq('Active users')
+    end
+
+    it 'includes an accessible table label for invited users' do
+      visit manage_users_invitations_path
+      expect(page.find('table.govuk-table')['aria-label']).to eq('Invited users')
+    end
+
+    it 'includes an accessible table label for deactivated users' do
+      visit manage_users_deactivated_users_path
+      expect(page.find('table.govuk-table')['aria-label']).to eq('Deactivated users')
+    end
+
     it_behaves_like 'a paginated page', path: '/manage-users?page=2'
     it_behaves_like 'an ordered user list' do
       let(:path) { manage_users_root_path }

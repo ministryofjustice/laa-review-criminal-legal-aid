@@ -777,6 +777,7 @@ en:
       index:
         page_title: Your list
         heading: Your list
+        table_label: Your assigned applications
         get_next: Review next application
         open_applications: Check open applications
         your_assignments:
