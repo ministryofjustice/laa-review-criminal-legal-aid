@@ -20,6 +20,7 @@
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css  ./app/assets/stylesheets/print.scss:./app/assets/builds/print.css  --no-source-map  --load-path=.  --load-path=node_modules  --quiet-deps"
   },
   "resolutions": {
+    "chokidar": "3.6.0",
     "brace-expansion": "5.0.9",
     "glob": "^13.0.3",
     "minimatch": "^10.2.3",
