@@ -39,8 +39,9 @@ gem 'turbo-rails', '>= 2.0.0'
 gem 'bootsnap', require: false
 
 # Exceptions notifications
-gem 'sentry-rails', '>= 5.15.1'
+gem 'sentry-rails', '~> 6.7'
 gem 'sentry-ruby'
+gem 'sentry-sidekiq', '~> 6.7'
 gem 'stackprof'
 
 gem 'dry-schema'
@@ -94,5 +95,7 @@ gem 'csv', '~> 3.3'
 
 gem 'ostruct', '~> 0.6.1'
 
-gem 'sidekiq', '~> 7.0'
-gem 'sidekiq-scheduler', '~> 5.0'
+gem 'sidekiq', '~> 8.1'
+gem 'sidekiq-scheduler', '~> 6.0'
+
+gem 'ratatui_ruby', '~> 1.5'
