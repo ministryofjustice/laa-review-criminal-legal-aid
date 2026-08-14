@@ -5,7 +5,7 @@
 </h1>
 
 <div class="govuk-tabs">
-  <ul class="govuk-tabs__list" role="tablist">
+  <ul class="govuk-tabs__list">
     <% current_user.work_streams.each do |work_stream| %>
       <% css_class = %w[govuk-tabs__list-item govuk-tabs__list-item--selected] %>
       <%= content_tag(:li, class: work_stream == current_work_stream ? css_class : css_class.first) do %>
