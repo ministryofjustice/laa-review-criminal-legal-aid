@@ -99,6 +99,10 @@ en:
       index:
         page_title: Manage users
         heading: Manage users
+        table_labels:
+          active_users: Active users
+          invited_users: Invited users
+          deactivated_users: Deactivated users
     active_users:
       edit:
         page_title: Edit a user

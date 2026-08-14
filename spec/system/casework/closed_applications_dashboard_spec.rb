@@ -65,6 +65,10 @@ RSpec.describe 'Closed Applications' do
     expect(first_row_text).to eq(expected_text)
   end
 
+  it 'includes an accessible table label' do
+    expect(page.find('table.app-table')['aria-label']).to eq('1 application')
+  end
+
   it 'can be used to navigate to an application' do
     click_on('John Potter')
 

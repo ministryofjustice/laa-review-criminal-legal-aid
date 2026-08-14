@@ -21,6 +21,10 @@ RSpec.describe 'Viewing application history (using assigning/reviewing streams)'
       click_on('Application history')
     end
 
+    it 'includes an accessible table label' do
+      expect(page.find('table.app-dashboard-table')['aria-label']).to eq('Application history')
+    end
+
     it 'includes the submission event' do
       first_row = page.first('.app-dashboard-table tbody tr').text
       expect(first_row).to match('Monday 24 Oct 2022 10:50am John Doe Application submitted')
