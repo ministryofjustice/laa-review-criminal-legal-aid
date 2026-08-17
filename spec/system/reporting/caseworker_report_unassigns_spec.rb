@@ -75,8 +75,14 @@ RSpec.describe 'Caseworker report unassigns from self' do
       within('.app-table tbody') do
         row = find('tr', text: 'Jane Doe')
         unassign_detail_cell = row.all('td.colgroup-detail')[2]
+        view_link = unassign_detail_cell.find('a', text: '2')
 
         expect(unassign_detail_cell).to have_link('2')
+        expect(view_link[:'visually-hidden-text']).to be_nil
+        expect(view_link).to have_css(
+          '.govuk-visually-hidden',
+          text: '- view Jane Doe unassigned from self report'
+        )
       end
     end
 
