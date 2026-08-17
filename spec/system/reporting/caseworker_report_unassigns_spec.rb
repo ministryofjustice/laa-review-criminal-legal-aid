@@ -72,27 +72,21 @@ RSpec.describe 'Caseworker report unassigns from self' do
     end
 
     it 'displays the unassign count as a clickable link' do
-      within('.app-table tbody') do
-        row = find('tr', text: 'Jane Doe')
-        unassign_detail_cell = row.all('td.colgroup-detail')[2]
-        view_link = unassign_detail_cell.find('a', text: '2')
+      expect(unassign_detail_cell_for('Jane Doe')).to have_link('2')
+    end
 
-        expect(unassign_detail_cell).to have_link('2')
-        expect(view_link[:'visually-hidden-text']).to be_nil
-        expect(view_link).to have_css(
-          '.govuk-visually-hidden',
-          text: '- view Jane Doe unassigned from self report'
-        )
-      end
+    it 'provides accessible context for the unassign link', :aggregate_failures do
+      view_link = unassign_detail_cell_for('Jane Doe').find('a', text: '2')
+
+      expect(view_link[:'visually-hidden-text']).to be_nil
+      expect(view_link).to have_css(
+        '.govuk-visually-hidden',
+        text: '- view Jane Doe unassigned from self report'
+      )
     end
 
     it 'navigates to the caseworker unassigned applications page', :aggregate_failures do
-      within('.app-table tbody') do
-        row = find('tr', text: 'Jane Doe')
-        unassign_detail_cell = row.all('td.colgroup-detail')[2]
-
-        unassign_detail_cell.click_link('2')
-      end
+      unassign_detail_cell_for('Jane Doe').click_link('2')
 
       expect(page).to have_content('Jane Doe')
       expect(page).to have_content('Applications removed from list')
@@ -154,5 +148,10 @@ RSpec.describe 'Caseworker report unassigns from self' do
         expect(unassign_detail_cell).to have_text('2')
       end
     end
+  end
+
+  def unassign_detail_cell_for(caseworker_name)
+    row = find('.app-table tbody tr', text: caseworker_name)
+    row.all('td.colgroup-detail')[2]
   end
 end
