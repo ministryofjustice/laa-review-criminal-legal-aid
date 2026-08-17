@@ -14,7 +14,7 @@ module Reporting
         count,
         unassigned_from_self_report_path(data_row, report),
         no_visited_state: true,
-        visually_hidden_text: "view #{data_row.user_name} unassigned from self",
+        visually_hidden_suffix: "- view #{data_row.user_name} unassigned from self report",
         data: { turbo: false }
       )
     end
