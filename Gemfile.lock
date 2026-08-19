@@ -19,10 +19,10 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/moj-components.git
-  revision: acca6219ae56250fd269e4f0b8925206783f13a4
-  tag: v0.2.1
+  revision: c4342bebf9b07c767d45a90bb58b32c84c38d450
+  tag: v0.2.3
   specs:
-    moj_components (0.2.1)
+    moj_components (0.2.3)
       govuk-components
       view_component (>= 4.0)
 
