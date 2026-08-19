@@ -21,62 +21,27 @@ RSpec.describe "Viewing a resubmitted application's history" do
     end
   end
 
-  context 'when the reference_history feature flag is disabled' do
+  it_behaves_like 'resubmitted application history', 'View application 1'
+
+  context 'when viewing the superseded application\'s history' do
     before do
-      allow(FeatureFlags).to receive(:reference_history) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-      }
+      visit history_crime_application_path(parent_id)
     end
 
-    it_behaves_like 'resubmitted application history', 'Go to this version'
-
-    context 'when viewing the superseded application\'s history' do
-      before do
-        visit history_crime_application_path(parent_id)
-      end
-
-      it 'shows the resubmission event at the top of the application history' do
-        first_row = page.first('.app-dashboard-table tbody tr').text
-        expect(first_row).to match('Application resubmitted by provider Go to this version')
-      end
-
-      it 'the resubmission item includes a link to the resubmitted application' do
-        expect { click_on('Go to this version') }.to change { page.current_path }
-          .from(history_crime_application_path(parent_id))
-          .to(crime_application_path(application_id))
-      end
-    end
-  end
-
-  context 'when the reference_history feature flag is enabled' do
-    before do
-      allow(FeatureFlags).to receive(:reference_history) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-      }
+    it 'shows events from the ReferenceHistory stream sorted by timestamp' do
+      first_row = page.first('.app-dashboard-table tbody tr').text
+      expect(first_row).to match('Application resubmitted by provider View application 2')
     end
 
-    it_behaves_like 'resubmitted application history', 'View application 1'
+    it 'the resubmission item includes a link to the resubmitted application' do
+      expect { click_on('View application 2') }.to change { page.current_path }
+        .from(history_crime_application_path(parent_id))
+        .to(crime_application_path(application_id))
+    end
 
-    context 'when viewing the superseded application\'s history' do
-      before do
-        visit history_crime_application_path(parent_id)
-      end
-
-      it 'shows events from the ReferenceHistory stream sorted by timestamp' do
-        first_row = page.first('.app-dashboard-table tbody tr').text
-        expect(first_row).to match('Application resubmitted by provider View application 2')
-      end
-
-      it 'the resubmission item includes a link to the resubmitted application' do
-        expect { click_on('View application 2') }.to change { page.current_path }
-          .from(history_crime_application_path(parent_id))
-          .to(crime_application_path(application_id))
-      end
-
-      it 'the application history includes a link to the parent application' do
-        expect(page).to have_content('Application submitted by provider')
-        expect(page).to have_link('View application 1')
-      end
+    it 'the application history includes a link to the parent application' do
+      expect(page).to have_content('Application submitted by provider')
+      expect(page).to have_link('View application 1')
     end
   end
 end

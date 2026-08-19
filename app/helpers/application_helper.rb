@@ -75,7 +75,6 @@ module ApplicationHelper
 
   # For event text: PSE always shows ordinal, initial/CFC never show ordinal
   def display_ordinal_position_for_event(item)
-    return nil unless FeatureFlags.reference_history.enabled?
     return nil unless item.application_type == 'post_submission_evidence'
 
     item.ordinal_position
@@ -83,7 +82,6 @@ module ApplicationHelper
 
   # For link text: PSE always shows ordinal, initial/CFC only show ordinal if more than one of that type
   def display_ordinal_position_for_link(item)
-    return nil unless FeatureFlags.reference_history.enabled?
     return item.ordinal_position if item.application_type == 'post_submission_evidence' || item.ordinal_total.to_i > 1
 
     nil
