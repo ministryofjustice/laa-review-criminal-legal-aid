@@ -11,9 +11,13 @@ en:
       change_role: Change role
       confirm_change: Save new role
       confirm_deactivate: Yes, deactivate
+      confirm_deactivate_a11y: Yes, deactivate %{user_name}
       confirm_destroy: Yes, delete the invitation
+      confirm_destroy_a11y: Yes, delete the invitation for %{email}
       confirm_renew: Yes, renew the invitation
+      confirm_renew_a11y: Yes, renew the invitation for %{email}
       confirm_reactivate: Yes, reactivate
+      confirm_reactivate_a11y: Yes, reactivate %{user_name}
       deactivate: Deactivate
       deactivated_users: Deactivated users
       delete: Delete

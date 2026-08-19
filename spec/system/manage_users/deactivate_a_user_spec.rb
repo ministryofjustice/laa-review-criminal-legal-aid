@@ -31,6 +31,11 @@ RSpec.describe 'Deactivate a user from the manage users dashboard' do
         )
       end
 
+      it 'has a contextual aria-label on the confirm button' do
+        expect(page).to have_button('Yes, deactivate')
+        expect(find_button('Yes, deactivate')['aria-label']).to eq('Yes, deactivate Zoe Blogs')
+      end
+
       it 'warns about the impact of deactivating' do
         within('.govuk-warning-text') do
           expect(page).to have_content(

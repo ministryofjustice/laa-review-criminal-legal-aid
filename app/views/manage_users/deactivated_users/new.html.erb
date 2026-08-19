@@ -10,7 +10,7 @@
 
     <%= form_with(url: manage_users_deactivated_users_path(id: @user)) do |f| %>
       <div class="govuk-button-group">
-        <%= f.govuk_submit action_text(:confirm_deactivate) %>
+        <%= f.govuk_submit action_text(:confirm_deactivate), 'aria-label': action_text(:confirm_deactivate_a11y, user_name: @user.name) %>
         <%= govuk_link_to action_text(:abandon_deactivate), manage_users_root_path, no_visited_state: true %>
       </div>
     <% end %>

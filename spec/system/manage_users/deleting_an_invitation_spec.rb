@@ -26,6 +26,13 @@ RSpec.describe 'Deleting an invitation' do
         expect(page).to have_text "!WarningThis will mean #{user.email} can no longer activate their account."
       end
 
+      it 'has a contextual aria-label on the confirm button' do
+        expect(page).to have_button('Yes, delete the invitation')
+        expect(find_button('Yes, delete the invitation')['aria-label']).to eq(
+          "Yes, delete the invitation for #{user.email}"
+        )
+      end
+
       it 'removes the invitation on confirm' do
         expect { click_button 'Yes, delete the invitation' }.to change { User.count }.by(-1)
 
