@@ -148,6 +148,46 @@ RSpec.describe 'Return Reasons Report' do
     expect(page).to have_http_status :ok
   end
 
+  describe 'applications sent back count' do
+    let(:period) { '2022-52' }
+
+    context 'with 0 results' do
+      let(:stubbed_search_results) { [] }
+
+      it 'does not show the sent back count' do
+        expect(page).to have_no_content('sent back to providers')
+      end
+    end
+
+    context 'with 1 result' do
+      it 'shows the singular form' do
+        expect(page).to have_content('1 application was sent back to providers')
+      end
+    end
+
+    context 'with 2 results' do
+      let(:stubbed_search_results) do
+        super() + [
+          {
+            resource_id: resource_id,
+            reviewed_at: Time.new(2022, 12, 28, 9, 0).utc,
+            applicant_name: 'Matt Murdock',
+            reference: 87_654_321,
+            return_reason: 'clarification_required',
+            return_details: 'More details.',
+            office_code: '1A2BC3D',
+            provider_name: 'Nelson and Murdock',
+            means_passport: ['on_benefit_check']
+          }
+        ]
+      end
+
+      it 'shows the plural form' do
+        expect(page).to have_content('2 applications were sent back to providers.')
+      end
+    end
+  end
+
   # rubocop:disable RSpec/MultipleMemoizedHelpers
   describe 'attempting to download a report' do
     before do
