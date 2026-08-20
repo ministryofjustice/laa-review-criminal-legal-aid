@@ -41,11 +41,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def history
-    @history ||= if FeatureFlags.reference_history.enabled?
-                   ApplicationReferenceHistory.new(application: self)
-                 else
-                   ApplicationHistory.new(application: self)
-                 end
+    @history ||= ApplicationReferenceHistory.new(application: self)
   end
 
   def to_param
@@ -58,39 +54,6 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
 
   def reviewable_by?(user_id)
     !reviewed? && assigned_to?(user_id)
-  end
-
-  def superseding_history_item
-    return nil unless superseded_by
-
-    ApplicationHistoryItem.new(
-      user_name: legal_rep_name,
-      event_type: 'Reviewing::Superseded',
-      timestamp: superseded_at,
-      event_data: { superseded_by:, application_type: }
-    )
-  end
-
-  def archived_history_item
-    return nil unless archived?
-
-    ApplicationHistoryItem.new(
-      user_name: 'Provider',
-      event_type: 'Deleting::Archived',
-      timestamp: archived_at,
-      event_data: {}
-    )
-  end
-
-  def deleted_history_item
-    return nil unless deleted?
-
-    ApplicationHistoryItem.new(
-      user_name: 'System',
-      event_type: 'Deleting::SoftDeleted',
-      timestamp: soft_deleted_at,
-      event_data: {}
-    )
   end
 
   def archived?
@@ -151,13 +114,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   def all_histories
     return @all_histories if @all_histories
 
-    if FeatureFlags.reference_history.enabled?
-      @all_histories = [history]
-    else
-      histories = [history]
-      histories += parent.all_histories if parent
-      @all_histories = histories
-    end
+    @all_histories = [history]
   end
 
   def case_details
@@ -252,10 +209,5 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
 
   def decisions_pending?
     decisions.present? && !status?(::Types::ReviewState[:completed])
-  end
-
-  def resubmission?
-    parent_id && [Types::ApplicationType['initial'],
-                  Types::ApplicationType['change_in_financial_circumstances']].include?(application_type)
   end
 end
