@@ -1,7 +1,7 @@
 module CaseworkerReports
   class BasicProjection
     def initialize(stream_name:)
-      @scope = RubyEventStore::Projection.from_stream(stream_name)
+      @stream_name = stream_name
     end
 
     def dataset
@@ -9,52 +9,44 @@ module CaseworkerReports
     end
 
     def load_from_events # rubocop:disable  Metrics
-      @scope.init(-> { {} })
-            .when(
-              Assigning::AssignedToUser,
-              lambda { |rows, event|
-                user_id = event.data.fetch(:to_whom_id)
-                rows[user_id] ||= Row.new(user_id)
-                rows[user_id].assign
-              }
-            )
-            .when(
-              Assigning::ReassignedToUser,
-              lambda { |rows, event|
-                user_id = event.data.fetch(:to_whom_id)
-                rows[user_id] ||= Row.new(user_id)
-                rows[user_id].reassign_to
+      event_store = Rails.application.config.event_store
+      RubyEventStore::Projection
+        .init(Hash.new)
+        .on(Assigning::AssignedToUser) { |rows, event|
+          user_id = event.data.fetch(:to_whom_id)
+          rows[user_id] ||= Row.new(user_id)
+          rows[user_id].assign
+          rows
+        }
+        .on(Assigning::ReassignedToUser) { |rows, event|
+          user_id = event.data.fetch(:to_whom_id)
+          rows[user_id] ||= Row.new(user_id)
+          rows[user_id].reassign_to
 
-                user_id = event.data.fetch(:from_whom_id)
-                rows[user_id] ||= Row.new(user_id)
-                rows[user_id].reassign_from
-              }
-            )
-            .when(
-              Assigning::UnassignedFromUser,
-              lambda { |rows, event|
-                user_id = event.data.fetch(:from_whom_id)
-                rows[user_id] ||= Row.new(user_id)
-                rows[user_id].unassign
-              }
-            )
-            .when(
-              Reviewing::SentBack,
-              lambda { |rows, event|
-                user_id = event.data.fetch(:user_id)
-                rows[user_id] ||= Row.new(user_id)
-                rows[user_id].send_back
-              }
-            )
-            .when(
-              Reviewing::Completed,
-              lambda { |rows, event|
-                user_id = event.data.fetch(:user_id)
-                rows[user_id] ||= Row.new(user_id)
-                rows[user_id].complete
-              }
-            )
-            .run(Rails.application.config.event_store)
+          user_id = event.data.fetch(:from_whom_id)
+          rows[user_id] ||= Row.new(user_id)
+          rows[user_id].reassign_from
+          rows
+        }
+        .on(Assigning::UnassignedFromUser) { |rows, event|
+          user_id = event.data.fetch(:from_whom_id)
+          rows[user_id] ||= Row.new(user_id)
+          rows[user_id].unassign
+          rows
+        }
+        .on(Reviewing::SentBack) { |rows, event|
+          user_id = event.data.fetch(:user_id)
+          rows[user_id] ||= Row.new(user_id)
+          rows[user_id].send_back
+          rows
+        }
+        .on(Reviewing::Completed) { |rows, event|
+          user_id = event.data.fetch(:user_id)
+          rows[user_id] ||= Row.new(user_id)
+          rows[user_id].complete
+          rows
+        }
+        .call(event_store.read.stream(@stream_name))
     end
   end
 end

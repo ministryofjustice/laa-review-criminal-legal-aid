@@ -42,8 +42,8 @@ task :fix_ghost_application_state, [:application_id, :decision_id, :user_id] => 
     }
   )
 
-  event_store.publish(sent_to_provider, stream_name: deciding_stream)
-  event_store.publish(completed, stream_name: reviewing_stream)
+  event_store.publish(sent_to_provider, stream_name: deciding_stream, expected_version: :auto)
+  event_store.publish(completed, stream_name: reviewing_stream, expected_version: :auto)
 end
 
 desc 'Clear completed application assignments attributed to the wrong assignees'
