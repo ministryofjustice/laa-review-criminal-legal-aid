@@ -88,16 +88,12 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
   context 'when viewing application history of a completed pse' do
     before do
-      allow(FeatureFlags).to receive(:reference_history) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: false)
-      }
-
       click_on('Application history')
     end
 
     it 'includes the submission event' do
       first_row = page.first('.app-dashboard-table tbody tr').text
-      expect(first_row).to match('Monday 24 Oct 2022 10:50am John Doe Post submission evidence submitted')
+      expect(first_row).to match('Monday 24 Oct 2022 10:50am John Doe Post submission evidence 1 submitted')
     end
 
     it 'includes the assigned event' do
@@ -105,7 +101,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
       click_on('Application history')
 
       first_row = page.first('.app-dashboard-table tbody tr').text
-      expect(first_row).to match('Joe EXAMPLE Post submission evidence assigned to Joe EXAMPLE')
+      expect(first_row).to match('Joe EXAMPLE Post submission evidence 1 assigned to Joe EXAMPLE')
     end
 
     context 'with a completed pse application' do
@@ -118,7 +114,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
 
       it 'includes the completed event' do
         first_row = page.first('.app-dashboard-table tbody tr').text
-        expect(first_row).to match('Fred Smitheg Post submission evidence completed')
+        expect(first_row).to match('Fred Smitheg Post submission evidence 1 completed')
       end
     end
   end
@@ -134,7 +130,7 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
   end
 
-  context 'when reference_history feature flag is enabled' do
+  context 'when ordinal position for multiple applications' do
     let(:pse_id) { 'cccccccc-cccc-4ccc-8ccc-cccccccccccc' }
     let(:pse_reference) { 111_222_333 }
     let(:fred_user) do
@@ -147,10 +143,6 @@ RSpec.describe 'Viewing an application unassigned, open, post submission evidenc
     end
 
     before do
-      allow(FeatureFlags).to receive(:reference_history) {
-        instance_double(FeatureFlags::EnabledFeature, enabled?: true)
-      }
-
       pse_data = JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read).deep_merge(
         'id' => pse_id,
         'parent_id' => nil,

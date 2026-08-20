@@ -33,8 +33,7 @@ RSpec.describe 'Viewing an application that is superseded' do
   end
 
   it 'shows link to the most recent version' do
-    link_text = FeatureFlags.reference_history.enabled? ? 'Go to the latest application' : 'Go to the latest version'
-    expect(page).to have_link(link_text, href: latest_application_url)
+    expect(page).to have_link('Go to the latest application', href: latest_application_url)
   end
 
   it 'shows who closed the application' do
