@@ -8,45 +8,51 @@ module CaseworkerReports
       @dataset ||= load_from_events
     end
 
-    def load_from_events # rubocop:disable  Metrics
+    def load_from_events
       event_store = Rails.application.config.event_store
-      RubyEventStore::Projection
-        .init(Hash.new)
-        .on(Assigning::AssignedToUser) { |rows, event|
-          user_id = event.data.fetch(:to_whom_id)
-          rows[user_id] ||= Row.new(user_id)
-          rows[user_id].assign
-          rows
-        }
-        .on(Assigning::ReassignedToUser) { |rows, event|
-          user_id = event.data.fetch(:to_whom_id)
-          rows[user_id] ||= Row.new(user_id)
-          rows[user_id].reassign_to
+      projection = build_projection
+      projection.call(event_store.read.stream(@stream_name))
+    end
 
-          user_id = event.data.fetch(:from_whom_id)
-          rows[user_id] ||= Row.new(user_id)
-          rows[user_id].reassign_from
-          rows
-        }
-        .on(Assigning::UnassignedFromUser) { |rows, event|
-          user_id = event.data.fetch(:from_whom_id)
-          rows[user_id] ||= Row.new(user_id)
-          rows[user_id].unassign
-          rows
-        }
-        .on(Reviewing::SentBack) { |rows, event|
-          user_id = event.data.fetch(:user_id)
-          rows[user_id] ||= Row.new(user_id)
-          rows[user_id].send_back
-          rows
-        }
-        .on(Reviewing::Completed) { |rows, event|
-          user_id = event.data.fetch(:user_id)
-          rows[user_id] ||= Row.new(user_id)
-          rows[user_id].complete
-          rows
-        }
-        .call(event_store.read.stream(@stream_name))
+    private
+
+    def build_projection # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      projection = RubyEventStore::Projection.init({})
+      projection.on(Assigning::AssignedToUser) do |rows, event|
+        user_id = event.data.fetch(:to_whom_id)
+        rows[user_id] ||= Row.new(user_id)
+        rows[user_id].assign
+        rows
+      end
+      projection.on(Assigning::ReassignedToUser) do |rows, event|
+        user_id = event.data.fetch(:to_whom_id)
+        rows[user_id] ||= Row.new(user_id)
+        rows[user_id].reassign_to
+
+        user_id = event.data.fetch(:from_whom_id)
+        rows[user_id] ||= Row.new(user_id)
+        rows[user_id].reassign_from
+        rows
+      end
+      projection.on(Assigning::UnassignedFromUser) do |rows, event|
+        user_id = event.data.fetch(:from_whom_id)
+        rows[user_id] ||= Row.new(user_id)
+        rows[user_id].unassign
+        rows
+      end
+      projection.on(Reviewing::SentBack) do |rows, event|
+        user_id = event.data.fetch(:user_id)
+        rows[user_id] ||= Row.new(user_id)
+        rows[user_id].send_back
+        rows
+      end
+      projection.on(Reviewing::Completed) do |rows, event|
+        user_id = event.data.fetch(:user_id)
+        rows[user_id] ||= Row.new(user_id)
+        rows[user_id].complete
+        rows
+      end
+      projection
     end
   end
 end

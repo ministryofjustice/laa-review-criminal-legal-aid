@@ -13,39 +13,43 @@ module ReceivedOnReports
 
     private
 
-    def load_from_events # rubocop:disable  Metrics
+    def load_from_events
       event_store = Rails.application.config.event_store
       rows = initial_row
 
       @stream_names.each do |stream|
-        rows = RubyEventStore::Projection
-          .init(rows)
-          .on(*OPENING_EVENTS) { |state, event|
-            next state if event.timestamp > observed_at
-
-            data = event.data.slice(:work_stream, :application_type)
-            applications[event.data.fetch(:application_id)] = data
-
-            state[data.fetch(:work_stream)][data[:application_type]].receive
-            state
-          }
-          .on(*CLOSING_EVENTS) { |state, event|
-            next state if event.timestamp > observed_at
-
-            data = applications[event.data.fetch(:application_id)]
-            row = state[data.fetch(:work_stream)][data[:application_type]]
-
-            if event.timestamp >= start_of_observed_business_day
-              row.close_on_observed_business_day
-            else
-              row.close_before_observed_business_day
-            end
-            state
-          }
-          .call(event_store.read.stream(stream))
+        projection = build_projection
+        rows = projection.call(event_store.read.stream(stream))
       end
 
       rows
+    end
+
+    def build_projection # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      projection = RubyEventStore::Projection.init(initial_row)
+      projection.on(*OPENING_EVENTS) do |state, event|
+        next state if event.timestamp > observed_at
+
+        data = event.data.slice(:work_stream, :application_type)
+        applications[event.data.fetch(:application_id)] = data
+
+        state[data.fetch(:work_stream)][data[:application_type]].receive
+        state
+      end
+      projection.on(*CLOSING_EVENTS) do |state, event|
+        next state if event.timestamp > observed_at
+
+        data = applications[event.data.fetch(:application_id)]
+        row = state[data.fetch(:work_stream)][data[:application_type]]
+
+        if event.timestamp >= start_of_observed_business_day
+          row.close_on_observed_business_day
+        else
+          row.close_before_observed_business_day
+        end
+        state
+      end
+      projection
     end
 
     def initial_row
