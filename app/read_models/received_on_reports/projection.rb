@@ -1,7 +1,7 @@
 module ReceivedOnReports
   class Projection
     def initialize(stream_name:, observed_at: Time.current)
-      @stream_name = stream_name
+      @stream_names = Array(stream_name)
       @observed_at = observed_at
     end
 
@@ -13,39 +13,43 @@ module ReceivedOnReports
 
     private
 
-    def load_from_events # rubocop:disable  Metrics
-      scope.init(-> { initial_row })
-           .when(
-             OPENING_EVENTS,
-             lambda { |rows, event|
-               next if event.timestamp > observed_at
+    def load_from_events
+      event_store = Rails.application.config.event_store
+      rows = initial_row
 
-               data = event.data.slice(:work_stream, :application_type)
-               applications[event.data.fetch(:application_id)] = data
+      @stream_names.each do |stream|
+        projection = build_projection
+        rows = projection.call(event_store.read.stream(stream))
+      end
 
-               rows[data.fetch(:work_stream)][data[:application_type]].receive
-             }
-           )
-           .when(
-             CLOSING_EVENTS,
-             lambda { |rows, event|
-               next if event.timestamp > observed_at
-
-               data = applications[event.data.fetch(:application_id)]
-               row = rows[data.fetch(:work_stream)][data[:application_type]]
-
-               if event.timestamp >= start_of_observed_business_day
-                 row.close_on_observed_business_day
-               else
-                 row.close_before_observed_business_day
-               end
-             }
-           )
-           .run(Rails.application.config.event_store)
+      rows
     end
 
-    def scope
-      RubyEventStore::Projection.from_stream(@stream_name)
+    def build_projection # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      projection = RubyEventStore::Projection.init(initial_row)
+      projection.on(*OPENING_EVENTS) do |state, event|
+        next state if event.timestamp > observed_at
+
+        data = event.data.slice(:work_stream, :application_type)
+        applications[event.data.fetch(:application_id)] = data
+
+        state[data.fetch(:work_stream)][data[:application_type]].receive
+        state
+      end
+      projection.on(*CLOSING_EVENTS) do |state, event|
+        next state if event.timestamp > observed_at
+
+        data = applications[event.data.fetch(:application_id)]
+        row = state[data.fetch(:work_stream)][data[:application_type]]
+
+        if event.timestamp >= start_of_observed_business_day
+          row.close_on_observed_business_day
+        else
+          row.close_before_observed_business_day
+        end
+        state
+      end
+      projection
     end
 
     def initial_row
