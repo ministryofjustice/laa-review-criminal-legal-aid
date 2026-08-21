@@ -9,7 +9,7 @@
 
 <%= form_with(url: manage_users_invitation_path(@user), method: :patch) do |f| %>
   <div class="govuk-button-group">
-    <%= f.govuk_submit action_text(:confirm_renew) %>
+    <%= f.govuk_submit action_text(:confirm_renew), 'aria-label': action_text(:confirm_renew_a11y, email: @user.email) %>
     <%= govuk_link_to action_text(:abandon_renew), manage_users_invitations_path, no_visited_state: true %>
   </div>
 <% end %>

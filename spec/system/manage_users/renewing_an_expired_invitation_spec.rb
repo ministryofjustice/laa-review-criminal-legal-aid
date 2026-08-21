@@ -35,6 +35,13 @@ RSpec.describe 'Renewing an invitation' do
         expect(page).to have_text "Are you sure you want to extend #{user.email}'s invitation for 48 hours?"
       end
 
+      it 'has a contextual aria-label on the confirm button' do
+        expect(page).to have_button('Yes, renew the invitation')
+        expect(find_button('Yes, renew the invitation')['aria-label']).to eq(
+          "Yes, renew the invitation for #{user.email}"
+        )
+      end
+
       it 'renews on confirm' do
         expect { click_button 'Yes, renew the invitation' }.to(
           change { user.reload.invitation_expired? }.from(true).to(false)

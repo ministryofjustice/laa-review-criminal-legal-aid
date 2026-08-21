@@ -24,6 +24,11 @@ RSpec.describe 'Reactivate a user from the manage users dashboard' do
       )
     end
 
+    it 'has a contextual aria-label on the confirm button' do
+      expect(page).to have_button('Yes, reactivate')
+      expect(find_button('Yes, reactivate')['aria-label']).to eq('Yes, reactivate Zoe Blogs')
+    end
+
     describe 'clicking on "Yes, reactivate"' do
       it 'redirects to the manage users list' do
         expect { click_on('Yes, reactivate') }.to(
