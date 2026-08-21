@@ -1,7 +1,7 @@
 module ReceivedOnReports
   class Projection
     def initialize(stream_name:, observed_at: Time.current)
-      @stream_name = stream_name
+      @stream_names = Array(stream_name)
       @observed_at = observed_at
     end
 
@@ -15,7 +15,14 @@ module ReceivedOnReports
 
     def load_from_events
       event_store = Rails.application.config.event_store
-      build_projection.call(event_store.read.stream(@stream_name))
+      rows = initial_row
+
+      @stream_names.each do |stream|
+        projection = build_projection
+        rows = projection.call(event_store.read.stream(stream))
+      end
+
+      rows
     end
 
     def build_projection # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
