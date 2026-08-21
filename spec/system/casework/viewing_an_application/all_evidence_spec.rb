@@ -119,6 +119,13 @@ RSpec.describe 'Viewing all evidence' do
         end
       end
 
+      it 'includes the filename in the download link for screen readers' do
+        within('.govuk-summary-card') do
+          expect(page).to have_link('Download (docx 1 KB) report.docx',
+                                    href: download_crime_application_document_path(application_id, docx_s3_key))
+        end
+      end
+
       it 'displays a "View in a new tab" link for PDF' do
         expect(page).to have_link('View in a new tab',
                                   href: crime_application_document_path(application_id, pdf_s3_key))
