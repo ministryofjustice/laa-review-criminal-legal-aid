@@ -95,6 +95,15 @@ module ApplicationHelper
     format_business_hour(Rails.configuration.x.business_hours.end)
   end
 
+  def new_tab_visually_hidden
+    # The join with a space prevents govuk_link_to from sanitizing the span element
+    # created by govuk_visually_hidden when passed as an argument to new_tab.
+    # This seems to be a bug in govuk-components.
+    #
+    # TODO: remove when no longer needed
+    safe_join([' ', govuk_visually_hidden(Govuk::Components.config.default_link_new_tab_text)])
+  end
+
   private
 
   def format_business_hour(time_str)

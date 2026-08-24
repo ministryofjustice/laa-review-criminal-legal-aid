@@ -46,7 +46,7 @@ RSpec.describe 'Viewing supporting evidence' do
           allow(EvidenceAccessLogger).to receive(:log_view)
 
           within(files_card) do
-            click_link('View')
+            click_link('View test.pdf (opens in new tab)')
           end
         end
 

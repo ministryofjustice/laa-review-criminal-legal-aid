@@ -126,13 +126,13 @@ RSpec.describe 'Viewing all evidence' do
         end
       end
 
-      it 'displays a "View in a new tab" link for PDF' do
-        expect(page).to have_link('View in a new tab',
+      it 'displays a "View [filename] (opens in new tab)" link for PDF' do
+        expect(page).to have_link('View test.pdf (opens in new tab)',
                                   href: crime_application_document_path(application_id, pdf_s3_key))
       end
 
-      it 'displays a "View in a new tab" link for images' do
-        expect(page).to have_link('View in a new tab',
+      it 'displays a "View [filename] (opens in new tab)" link for images' do
+        expect(page).to have_link('View photo.jpg (opens in new tab)',
                                   href: crime_application_document_path(application_id, image_s3_key))
       end
 
