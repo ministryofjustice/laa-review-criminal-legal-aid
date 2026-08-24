@@ -76,7 +76,11 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
       end
 
       it 'includes the filename as visually hidden text for screen readers' do
-        expect(view_link[:visually_hidden_text]).to match 'document1.pdf'
+        expect(view_link).to have_css('span.govuk-visually-hidden', text: 'document1.pdf')
+      end
+
+      it 'includes "(opens in new tab)" as visually hidden text for screen readers' do
+        expect(view_link).to have_css('span.govuk-visually-hidden', text: '(opens in new tab)')
       end
     end
 
@@ -95,7 +99,7 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
 
     it 'displays both view and download links for files that can be viewed inline' do
       expect(viewable_row).to have_text(
-        'document1.pdfViewDownload file (pdf, 1 KB)'
+        'document1.pdfView document1.pdf (opens in new tab)Download file (pdf, 1 KB)'
       )
     end
 

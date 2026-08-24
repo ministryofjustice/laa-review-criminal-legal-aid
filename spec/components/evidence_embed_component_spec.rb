@@ -39,16 +39,17 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
     context 'when on the supporting evidence tab page' do
       before { allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(true) }
 
-      it 'renders a "View in a new tab" link' do
-        expect(rendered).to have_link('View in a new tab', href: /key%2Fpdf1/)
+      it 'renders a "View" link with a visually hidden file name' do
+        expect(rendered).to have_link('View', href: /key%2Fpdf1/)
+        expect(rendered).to have_css('a[href*="key%2Fpdf1"] .govuk-visually-hidden', text: 'doc.pdf')
       end
     end
 
     context 'when not on the supporting evidence tab page' do
       before { allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(false) }
 
-      it 'does not render a "View in a new tab" link' do
-        expect(rendered).to have_no_link('View in a new tab')
+      it 'does not render a "View" link' do
+        expect(rendered).to have_no_link('View')
       end
     end
 
@@ -105,16 +106,17 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
     context 'when on the documents index page' do
       before { allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(true) }
 
-      it 'renders a "View in a new tab" link' do
-        expect(rendered).to have_link('View in a new tab', href: /key%2Fimg1/)
+      it 'renders a "View" link with a visually hidden file name' do
+        expect(rendered).to have_link('View', href: /key%2Fimg1/)
+        expect(rendered).to have_css('a[href*="key%2Fimg1"] .govuk-visually-hidden', text: 'photo.png')
       end
     end
 
     context 'when not on the documents index page' do
       before { allow_any_instance_of(described_class).to receive(:show_view_link?).and_return(false) }
 
-      it 'does not render a "View in a new tab" link' do
-        expect(rendered).to have_no_link('View in a new tab')
+      it 'does not render a "View" link' do
+        expect(rendered).to have_no_link('View')
       end
     end
 
@@ -139,8 +141,8 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
         expect(rendered).to have_no_text('Rotate or zoom')
       end
 
-      it 'does not render a "View in a new tab" link' do
-        expect(rendered).to have_no_link('View in a new tab')
+      it 'does not render a "View" link' do
+        expect(rendered).to have_no_link('View')
       end
     end
   end

@@ -4,6 +4,7 @@ class SupportingEvidenceComponent < ViewComponent::Base
   include GovukLinkHelper
   include GovukVisuallyHiddenHelper
   include AppTextHelper
+  include ApplicationHelper
 
   def initialize(crime_application:)
     @crime_application = crime_application
@@ -37,9 +38,9 @@ class SupportingEvidenceComponent < ViewComponent::Base
         crime_application,
         evidence.s3_object_key
       ),
-      visually_hidden_text: evidence.filename,
+      visually_hidden_suffix: evidence.filename,
       class: link_classes << 'govuk-!-font-weight-bold',
-      target: '_blank'
+      new_tab: new_tab_visually_hidden
     )
   end
 
