@@ -167,5 +167,11 @@ RSpec.describe EvidenceEmbedComponent, type: :component do
     it 'renders a not embeddable message' do
       expect(rendered).to have_text('This file cannot be displayed in the browser.')
     end
+
+    it 'includes the filename as visually hidden text in the download link for screen readers' do
+      rendered
+      expect(page.find(:link, 'Download file (docx, 1 KB)'))
+        .to have_css('.govuk-visually-hidden', text: 'report.docx')
+    end
   end
 end

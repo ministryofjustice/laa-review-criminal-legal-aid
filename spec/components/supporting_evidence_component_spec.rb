@@ -95,18 +95,21 @@ RSpec.describe SupportingEvidenceComponent, type: :component do
       it 'applies GOV.UK summary list action styling' do
         expect(download_link[:class]).to match 'govuk-summary-list__actions-list-item'
       end
+
+      it 'includes the filename as visually hidden text for screen readers' do
+        expect(download_link).to have_css('.govuk-visually-hidden', text: 'document1.pdf')
+      end
     end
 
     it 'displays both view and download links for files that can be viewed inline' do
       expect(viewable_row).to have_text(
-        'document1.pdfView document1.pdf (opens in new tab)Download file (pdf, 1 KB)'
+        'document1.pdfView document1.pdf (opens in new tab)Download file (pdf, 1 KB) document1.pdf'
       )
     end
 
     it 'displays only the download link for files that cannot be viewed inline' do
-      expect(non_viewable_row).to have_text(
-        'document2.csvDownload file (csv, 2 KB)'
-      )
+      expect(non_viewable_row).to have_link('Download file (csv, 2 KB)')
+      expect(non_viewable_row).to have_no_link('View')
     end
 
     context 'when view_all_evidence feature flag is enabled' do

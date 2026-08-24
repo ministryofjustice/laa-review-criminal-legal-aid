@@ -43,6 +43,6 @@
     <% end %>
   <% else %>
     <p class="govuk-body"><%= t('.not_embeddable') %></p>
-    <%= govuk_link_to(download_text, download_path) %>
+    <%= govuk_link_to(download_text, download_path, visually_hidden_suffix: evidence.filename) %>
   <% end %>
 <% end %>

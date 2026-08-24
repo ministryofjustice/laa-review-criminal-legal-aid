@@ -28,6 +28,13 @@ RSpec.describe 'Viewing supporting evidence' do
         end
       end
 
+      it 'includes the filename in the view and download links for screen readers' do
+        within(files_card) do
+          expect(page).to have_link('View test.pdf')
+          expect(page).to have_link('Download file (pdf, 12 Bytes) test.pdf')
+        end
+      end
+
       it 'logs evidence download event' do
         link_text = 'Download file (pdf, 12 Bytes)'
 
