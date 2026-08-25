@@ -106,6 +106,7 @@ en:
         table_labels:
           active_users: Active users
           invited_users: Invited users
+          existing_users: Existing users
           deactivated_users: Deactivated users
     active_users:
       edit:
