@@ -172,6 +172,13 @@ RSpec.describe 'Viewing all evidence' do
           href: download_crime_application_document_path(application_id, docx_s3_key)
         )
       end
+
+      it 'includes the filename in the download link for screen readers' do
+        expect(page).to have_link(
+          'Download file (docx, 1 KB) report.docx',
+          href: download_crime_application_document_path(application_id, docx_s3_key)
+        )
+      end
     end
   end
 end

@@ -51,6 +51,7 @@ class SupportingEvidenceComponent < ViewComponent::Base
         crime_application,
         evidence.s3_object_key
       ),
+      visually_hidden_suffix: evidence.filename,
       class: link_classes
     )
   end
