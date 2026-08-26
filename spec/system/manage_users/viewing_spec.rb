@@ -41,8 +41,8 @@ RSpec.describe 'Manage Users Dashboard' do
       expect(first_data_row).to eq([current_user.name, current_user.email, 'Yes', 'Caseworker'].join(' '))
     end
 
-    it 'includes an accessible table label for active users' do
-      expect(page.find('table.govuk-table')['aria-label']).to eq('Active users')
+    it 'includes an accessible table label for existing users' do
+      expect(page.find('table.govuk-table')['aria-label']).to eq('Existing users')
     end
 
     it 'includes an accessible table label for invited users' do
