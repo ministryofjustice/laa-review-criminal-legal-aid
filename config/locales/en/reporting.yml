@@ -51,6 +51,9 @@ en:
       daily: day
     download_csv: Download source data (CSV)
   values:
+    return_reasons_results:
+      one: "1 application was sent back to the provider."
+      other: "%{count} applications were sent back to the providers."
     unassigned_from_self_results:
       zero: No applications removed from list
       one: 1 application removed from list
