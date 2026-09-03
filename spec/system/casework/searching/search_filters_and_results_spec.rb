@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Search Page' do
   include_context 'when search results are returned'
+  include_context 'with stubbed provider data'
+
   before do
     visit '/'
     click_link 'Search'

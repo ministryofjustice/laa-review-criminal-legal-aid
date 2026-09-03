@@ -1,5 +1,6 @@
 RSpec.shared_context 'with an existing application', shared_context: :metadata do
   include_context 'with stubbed search'
+  include_context 'with stubbed provider data'
 
   before do
     visit open_crime_applications_path

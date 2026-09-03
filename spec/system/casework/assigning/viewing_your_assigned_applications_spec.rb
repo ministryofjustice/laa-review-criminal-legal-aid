@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing your assigned application' do
   include_context 'with stubbed search'
+  include_context 'with stubbed provider data'
+
   let(:assign_cta) { 'Assign to your list' }
   let(:application_id) { '1aa4c689-6fb5-47ff-9567-5eee7f8ac2cc' }
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read) }

@@ -8,6 +8,7 @@ gem 'rails'
 
 gem 'business'
 gem 'faraday'
+gem 'faraday-retry'
 gem 'govuk-components'
 gem 'govuk_design_system_formbuilder'
 

@@ -1,4 +1,6 @@
 RSpec.shared_context 'with resubmitted application' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+  include_context 'with stubbed provider data'
+
   let(:parent_id) { '47a93336-7da6-48ec-b139-808ddd555a41' }
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
   let(:application_reference) { 123 }

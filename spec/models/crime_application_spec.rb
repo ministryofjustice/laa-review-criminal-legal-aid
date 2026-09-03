@@ -376,4 +376,85 @@ RSpec.describe CrimeApplication do
       it { is_expected.to be false }
     end
   end
+
+  describe '#enriched_provider_details' do
+    subject(:enriched_provider_details) { application.enriched_provider_details }
+
+    let(:office_details) { instance_double(ProviderDataApi::OfficeDetails) }
+
+    before do
+      allow(FeatureFlags).to receive(:provider_firm_details) {
+        instance_double(FeatureFlags::EnabledFeature, enabled?: feature_flag_enabled)
+      }
+      allow(ProviderDataApi::GetOfficeDetails).to receive(:call)
+    end
+
+    context 'when the feature flag is disabled' do
+      let(:feature_flag_enabled) { false }
+
+      it { is_expected.to be_a ProviderDetailsPresenter }
+
+      it 'does not call the provider data API' do
+        enriched_provider_details
+        expect(ProviderDataApi::GetOfficeDetails).not_to have_received(:call)
+      end
+    end
+
+    context 'when the feature flag is enabled' do
+      let(:feature_flag_enabled) { true }
+
+      before do
+        allow(ProviderDataApi::GetOfficeDetails).to receive(:call).and_return(office_details)
+      end
+
+      it { is_expected.to be_a ProviderDetailsPresenter }
+
+      it 'calls the API with the office code from provider_details' do
+        enriched_provider_details
+        expect(ProviderDataApi::GetOfficeDetails).to have_received(:call)
+          .with(application.provider_details.office_code)
+      end
+
+      it 'memoizes the result, calling the API only once' do
+        2.times { application.enriched_provider_details }
+        expect(ProviderDataApi::GetOfficeDetails).to have_received(:call).once
+      end
+
+      context 'when the API raises ProviderDataApi::RecordNotFound' do
+        before do
+          allow(ProviderDataApi::GetOfficeDetails).to receive(:call)
+            .and_raise(ProviderDataApi::RecordNotFound)
+          allow(Rails.error).to receive(:report)
+        end
+
+        it 'falls back to the basic presenter' do
+          expect(enriched_provider_details).to be_a ProviderDetailsPresenter
+        end
+
+        it 'reports the error as handled' do
+          enriched_provider_details
+          expect(Rails.error).to have_received(:report)
+            .with(instance_of(ProviderDataApi::RecordNotFound), handled: true, severity: :error)
+        end
+      end
+
+      context 'when the API raises a Faraday::Error' do
+        before do
+          allow(ProviderDataApi::GetOfficeDetails).to receive(:call)
+            .and_raise(Faraday::ConnectionFailed.new('connection refused'))
+          allow(Rails.error).to receive(:report)
+        end
+
+        it 'falls back to the basic presenter' do
+          expect(enriched_provider_details).to be_a ProviderDetailsPresenter
+        end
+
+        it 'reports the error as handled' do
+          enriched_provider_details
+          expect(Rails.error).to have_received(:report)
+            .with(instance_of(Faraday::ConnectionFailed), handled: true, severity: :error)
+        end
+      end
+    end
+  end
 end

@@ -36,5 +36,21 @@
         <%= provider_details.provider_email %>
       </dd>
     </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:provider_firm_name) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= provider_details.firm_name %>
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= label_text(:provider_office_address) %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= provider_details.office_address %>
+      </dd>
+    </div>
   </dl>
 <% end %>

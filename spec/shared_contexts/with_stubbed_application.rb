@@ -1,4 +1,6 @@
 RSpec.shared_context 'with stubbed application' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+  include_context 'with stubbed provider data'
+
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
   let(:income_details) { {} }
   let(:outgoings_details) { {} }
