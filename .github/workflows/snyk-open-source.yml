@@ -33,7 +33,7 @@ jobs:
         with:
           args: --file=package.json --sarif-file-output=snyk-node.sarif --severity-threshold=high
       - name: Upload SARIF (Node)
-        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28 # v4.37.8
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
         with:
           sarif_file: snyk-node.sarif
           category: snyk-node
@@ -59,7 +59,7 @@ jobs:
         with:
           args: --sarif-file-output=snyk-ruby.sarif --severity-threshold=high
       - name: Upload SARIF (Ruby)
-        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28 # v4.37.8
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
         with:
           sarif_file: snyk-ruby.sarif
           category: snyk-ruby
