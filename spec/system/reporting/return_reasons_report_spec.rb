@@ -155,13 +155,13 @@ RSpec.describe 'Return Reasons Report' do
       let(:stubbed_search_results) { [] }
 
       it 'does not show the sent back count' do
-        expect(page).to have_no_content('sent back to providers')
+        expect(page).to have_no_content('sent back to the provider')
       end
     end
 
     context 'with 1 result' do
       it 'shows the singular form' do
-        expect(page).to have_content('1 application was sent back to providers')
+        expect(page).to have_content('1 application was sent back to the provider')
       end
     end
 
@@ -183,7 +183,7 @@ RSpec.describe 'Return Reasons Report' do
       end
 
       it 'shows the plural form' do
-        expect(page).to have_content('2 applications were sent back to providers.')
+        expect(page).to have_content('2 applications were sent back to the providers')
       end
     end
   end
