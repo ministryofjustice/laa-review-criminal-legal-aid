@@ -8,7 +8,7 @@ RSpec.describe 'Viewing the income benefits of the partner' do
   end
 
   context 'with partner income benefit details' do
-    # rubocop:disable Layout/LineLength
+    # rubocop:disable-next Layout/LineLength
     let(:application_data) do
       super().deep_merge('means_details' => { 'income_details' => { 'income_benefits' => [{
                            'payment_type' => 'child',
@@ -17,11 +17,10 @@ RSpec.describe 'Viewing the income benefits of the partner' do
                                                                                             'ownership_type' => 'partner',
                          }] } })
     end
-    # rubocop:enable Layout/LineLength
 
     it { expect(page).to have_content('Benefits: partner') }
 
-    # rubocop:disable RSpec/MultipleExpectations
+    # rubocop:disable-next RSpec/MultipleExpectations
     it 'shows income benefit details' do
       expect(page).to have_content('Child Benefit £39.90 every month')
       expect(page).to have_content('Working Tax Credit or Child Tax Credit Does not get')
@@ -30,7 +29,6 @@ RSpec.describe 'Viewing the income benefits of the partner' do
       expect(page).to have_content("Contribution-based Jobseeker's Allowance Does not get")
       expect(page).to have_content('Other benefits Does not get')
     end
-    # rubocop:enable RSpec/MultipleExpectations
   end
 
   context 'with no income benefits details' do

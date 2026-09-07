@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# rubocop:disable Layout/LineLength, RSpec/MultipleMemoizedHelpers
+# rubocop:disable-next Layout/LineLength, RSpec/MultipleMemoizedHelpers
 RSpec.describe Aws::MessagePoller do
   subject(:message_poller) { described_class.new(queue: 'queue') }
 
@@ -126,4 +126,3 @@ RSpec.describe Aws::MessagePoller do
     end
   end
 end
-# rubocop:enable Layout/LineLength, RSpec/MultipleMemoizedHelpers

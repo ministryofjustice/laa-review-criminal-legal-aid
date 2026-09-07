@@ -121,11 +121,10 @@ RSpec.describe 'Viewing an application unassigned, open application' do
       end
 
       context 'when the benefit type is jsa' do
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         let(:application_data) do
           super().deep_merge('client_details' => { 'applicant' => { 'benefit_type' => 'jsa', 'last_jsa_appointment_date' => 'Fri, 12 Jan 2024' } })
         end
-        # rubocop:enable Layout/LineLength
 
         it 'shows the last jsa appointment date' do
           expect(page).to have_content("Passporting benefit Income-based Jobseeker's Allowance (JSA)")

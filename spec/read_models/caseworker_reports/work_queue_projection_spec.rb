@@ -8,7 +8,7 @@ describe CaseworkerReports::WorkQueueProjection do
     )
   end
 
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  # rubocop:disable-next RSpec/MultipleMemoizedHelpers
   describe '#dataset' do
     subject(:dataset) { described_class.new(stream_name:).dataset }
 
@@ -75,7 +75,7 @@ application_type: 'post_submission_evidence' },
       expect(bob.values.first.user_name).to eq('Bob Smith')
     end
 
-    # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
+    # rubocop:disable-next RSpec/ExampleLength,RSpec/MultipleExpectations
     describe 'per work queue' do
       # rubocop:disable RSpec/IndexedLet
       let(:zoe_cat1) { zoe['criminal_applications_team'] }
@@ -214,7 +214,5 @@ application_type: 'post_submission_evidence' },
         expect(bob_pse.total_closed_by_user).to eq(1)
       end
     end
-    # rubocop:enable RSpec/ExampleLength,RSpec/MultipleExpectations
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end

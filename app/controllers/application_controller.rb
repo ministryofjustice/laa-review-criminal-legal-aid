@@ -46,9 +46,8 @@ class ApplicationController < ActionController::Base
       **options
     )
 
-    # rubocop:disable Rails/ActionControllerFlashBeforeRender
+    # rubocop:disable-next Rails/ActionControllerFlashBeforeRender
     flash[flash_key] = message
-    # rubocop:enable Rails/ActionControllerFlashBeforeRender
   end
 
   def set_security_headers

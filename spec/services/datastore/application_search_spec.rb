@@ -27,7 +27,7 @@ RSpec.describe Datastore::ApplicationSearch do
         .to_return(status: 200, body: search_response.to_json)
     end
 
-    # rubocop:disable RSpec/ExampleLength
+    # rubocop:disable-next RSpec/ExampleLength
     it 'posts to the searches endpoint with the application ids' do
       search.by_application_ids(application_ids)
 
@@ -40,7 +40,6 @@ RSpec.describe Datastore::ApplicationSearch do
           headers: { 'Content-Type' => 'application/json' }
         )
     end
-    # rubocop:enable RSpec/ExampleLength
 
     it 'returns the search results' do
       results = search.by_application_ids(application_ids)

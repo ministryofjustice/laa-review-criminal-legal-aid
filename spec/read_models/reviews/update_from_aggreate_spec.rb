@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Reviews::UpdateFromAggregate' do
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  # rubocop:disable-next RSpec/MultipleMemoizedHelpers
   describe '#call' do
     let(:application_id) { SecureRandom.uuid }
     let(:submitted_at) { '2023-04-22' }
@@ -43,5 +43,4 @@ RSpec.describe 'Reviews::UpdateFromAggregate' do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end

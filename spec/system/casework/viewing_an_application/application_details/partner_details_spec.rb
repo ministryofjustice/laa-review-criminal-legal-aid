@@ -66,7 +66,7 @@ RSpec.describe 'When viewing partner details' do
         )
       end
 
-      # rubocop:disable RSpec/NestedGroups
+      # rubocop:disable-next RSpec/NestedGroups
       context 'when partner is codefendant' do
         let(:application_data) do
           super().deep_merge('client_details' => {
@@ -96,7 +96,6 @@ RSpec.describe 'When viewing partner details' do
           end
         end
       end
-      # rubocop:enable RSpec/NestedGroups
 
       context 'when partner is a victim' do
         let(:application_data) do

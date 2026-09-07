@@ -10,7 +10,7 @@ RSpec.describe 'Viewing the income benefits of an application' do
   context 'with income benefit details' do
     it { expect(page).to have_content('Benefits') }
 
-    # rubocop:disable RSpec/MultipleExpectations
+    # rubocop:disable-next RSpec/MultipleExpectations
     it 'shows income benefit details' do
       expect(page).to have_content('Child Benefit £39.90 every month')
       expect(page).to have_content('Working Tax Credit or Child Tax Credit Does not get')
@@ -20,7 +20,6 @@ RSpec.describe 'Viewing the income benefits of an application' do
       expect(page).to have_content('Other benefits £18.84 every 2 weeks')
       expect(page).to have_content("Other benefits details\nTop up")
     end
-    # rubocop:enable RSpec/MultipleExpectations
   end
 
   context 'with no income benefits details' do

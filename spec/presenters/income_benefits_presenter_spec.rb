@@ -20,7 +20,7 @@ RSpec.describe IncomeBenefitsPresenter do
                                               'working_or_child_tax_credit' => nil })
     }
 
-    # rubocop:disable Layout/LineLength
+    # rubocop:disable-next Layout/LineLength
     context 'when presenting partner income benefits' do
       let(:ownership_type) { 'partner' }
 
@@ -33,7 +33,6 @@ RSpec.describe IncomeBenefitsPresenter do
                                                      'working_or_child_tax_credit' => be_a(LaaCrimeSchemas::Structs::IncomeDetails::IncomeBenefit) })
       }
     end
-    # rubocop:enable Layout/LineLength
 
     context 'with empty income benefits' do
       before do

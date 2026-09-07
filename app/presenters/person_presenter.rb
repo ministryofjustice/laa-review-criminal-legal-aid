@@ -17,7 +17,7 @@ class PersonPresenter < BasePresenter
 
   private
 
-  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+  # rubocop:disable-next Metrics/MethodLength, Metrics/CyclomaticComplexity
   def format_telephone_number(number)
     # Remove all spaces
     formatted_tel = number.gsub(/\s+/, '')
@@ -37,5 +37,4 @@ class PersonPresenter < BasePresenter
 
     formatted_tel
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 end
