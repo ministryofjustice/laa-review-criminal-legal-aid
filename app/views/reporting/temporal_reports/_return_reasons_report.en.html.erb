@@ -1,6 +1,6 @@
 <% if report.rows.size > 0 && !report.current? %>
   <p>
-      <%= pluralize(report.total_count, 'application was', 'applications were') %> sent back to providers.
+      <%= t('values.return_reasons_results', count: report.total_count) %>
   </p>
 <% end %>
 
