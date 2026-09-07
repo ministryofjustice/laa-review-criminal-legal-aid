@@ -9,13 +9,12 @@ RSpec.describe OutgoingPaymentsPresenter do
   describe '#formatted_outgoing_payments' do
     subject(:formatted_outgoing_payments) { payments_presenter.formatted_outgoing_payments }
 
-    # rubocop:disable Layout/LineLength
+    # rubocop:disable-next Layout/LineLength
     it {
       expect(formatted_outgoing_payments).to include({ 'childcare' => be_a(LaaCrimeSchemas::Structs::Outgoing),
                                                      'maintenance' => nil,
                                                      'legal_aid_contribution' => be_a(LaaCrimeSchemas::Structs::Outgoing) })
     }
-    # rubocop:enable Layout/LineLength
 
     context 'with empty outgoing payments' do
       before do

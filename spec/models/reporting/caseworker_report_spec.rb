@@ -157,7 +157,7 @@ describe Reporting::CaseworkerReport do
       )
     end
 
-    # rubocop:disable Layout/LineLength
+    # rubocop:disable-next Layout/LineLength
     it 'has the correct data' do
       expect(csv).to eq(
         "user,work_queue,assigned_to_user,reassigned_to_user,reassigned_from_user,unassigned_from_user,completed_by_user,sent_back_by_user,total_assigned_to_user,total_unassigned_from_user,total_closed_by_user\n" \
@@ -167,6 +167,5 @@ describe Reporting::CaseworkerReport do
         "Bo Brown,extradition,7,1,0,0,7,3,8,0,10\n"
       )
     end
-    # rubocop:enable Layout/LineLength
   end
 end

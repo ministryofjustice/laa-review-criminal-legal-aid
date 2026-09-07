@@ -29,7 +29,7 @@ RSpec.describe 'clear_ghost_applications', type: :task do # rubocop:disable RSpe
     )
   end
 
-  # rubocop:disable Rails/SkipsModelValidations
+  # rubocop:disable-next Rails/SkipsModelValidations
   before do
     Rake::Task.define_task(:environment)
     Rake.application.rake_require 'tasks/ghost_applications'
@@ -52,7 +52,6 @@ RSpec.describe 'clear_ghost_applications', type: :task do # rubocop:disable RSpe
     Review.insert({ reviewer_id: user_b.id, application_id: ghost_application2 })
     CurrentAssignment.insert({ user_id: user_a.id, assignment_id: ghost_application2 })
   end
-  # rubocop:enable Rails/SkipsModelValidations
 
   it 'clears ghost current_assignment records' do # rubocop:disable RSpec/MultipleExpectations
     expect { Rake::Task['clear_ghost_applications'].invoke }.to change { CurrentAssignment.count }.from(4).to(2)

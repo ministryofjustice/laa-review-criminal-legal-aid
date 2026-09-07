@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing the other outgoings details of an application' do
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  # rubocop:disable-next RSpec/MultipleMemoizedHelpers
   include_context 'with stubbed application' do
     before do
       visit crime_application_path(application_id)
@@ -98,5 +98,4 @@ RSpec.describe 'Viewing the other outgoings details of an application' do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end

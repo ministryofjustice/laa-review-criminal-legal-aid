@@ -20,14 +20,13 @@ RSpec.describe 'Viewing the outgoing payments of an application' do
       it { expect(page).to have_content('Payments the client and partner makes') }
     end
 
-    # rubocop:disable RSpec/MultipleExpectations
+    # rubocop:disable-next RSpec/MultipleExpectations
     it 'shows outgoing payments details' do
       expect(page).to have_content('Childcare payments £982.81 every week')
       expect(page).to have_content('Maintenance payments to a former partner Does not pay')
       expect(page).to have_content('Contributions towards criminal or civil legal aid £12.34 every week')
       expect(page).to have_content('Case reference of the criminal rep order or civil certificate CASE1234')
     end
-    # rubocop:enable RSpec/MultipleExpectations
   end
 
   context 'with no outgoing payments details' do

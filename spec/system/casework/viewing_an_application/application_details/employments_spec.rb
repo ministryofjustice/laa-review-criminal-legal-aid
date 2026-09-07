@@ -18,7 +18,7 @@ RSpec.describe 'Viewing the employments of an application' do
       expect(page).to have_css('h3.govuk-summary-card__title', text: 'Job')
     end
 
-    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength, RSpec/NestedGroups
+    # rubocop:disable-next RSpec/MultipleExpectations, RSpec/ExampleLength, RSpec/NestedGroups
     describe 'a jobs card' do
       context 'with deductions' do
         context 'with job_card 1' do
@@ -96,6 +96,5 @@ RSpec.describe 'Viewing the employments of an application' do
         end
       end
     end
-    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength, RSpec/NestedGroups
   end
 end

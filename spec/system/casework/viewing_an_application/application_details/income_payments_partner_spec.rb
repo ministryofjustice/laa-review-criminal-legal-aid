@@ -19,7 +19,7 @@ RSpec.describe 'Viewing the income payments of the partner' do
 
     it { expect(page).to have_content('Payments: partner') }
 
-    # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+    # rubocop:disable-next RSpec/ExampleLength, RSpec/MultipleExpectations
     it 'shows income payment details' do
       expect(page).to have_content('Private pensions £350.00 every month')
       expect(page).to have_content('State Pension Does not get')
@@ -34,7 +34,6 @@ RSpec.describe 'Viewing the income payments of the partner' do
       expect(page).to have_content('Money from friends or family Does not get')
       expect(page).to have_content('Other sources of income Does not get')
     end
-    # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
   end
 
   context 'with no income payments details' do

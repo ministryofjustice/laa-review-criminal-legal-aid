@@ -7,7 +7,7 @@ RSpec.describe 'Viewing the businesses of an application' do
     visit crime_application_path(application_id)
   end
 
-  # rubocop:disable RSpec/MultipleMemoizedHelpers, RSpec/MultipleExpectations
+  # rubocop:disable-next RSpec/MultipleMemoizedHelpers, RSpec/MultipleExpectations
   context 'when client has savings' do
     let(:has_additional_owners) { 'no' }
     let(:additional_owners) { nil }
@@ -120,7 +120,6 @@ RSpec.describe 'Viewing the businesses of an application' do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers, RSpec/MultipleExpectations
 
   context 'when client does not have any businesses' do
     let(:application_data) do

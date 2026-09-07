@@ -188,7 +188,7 @@ RSpec.describe 'Return Reasons Report' do
     end
   end
 
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  # rubocop:disable-next RSpec/MultipleMemoizedHelpers
   describe 'attempting to download a report' do
     before do
       click_link('Monthly')
@@ -238,5 +238,4 @@ RSpec.describe 'Return Reasons Report' do
       end
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end
