@@ -10,6 +10,8 @@ module ProviderDataApi
       OfficeDetails.new(response.body)
     rescue Faraday::ResourceNotFound
       raise RecordNotFound
+    rescue Dry::Struct::Error => e
+      raise InvalidResponse, cause: e
     end
 
     class << self

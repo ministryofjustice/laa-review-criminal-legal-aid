@@ -58,6 +58,16 @@ RSpec.describe ProviderDataApi::GetOfficeDetails do
         expect { result }.to raise_error(ProviderDataApi::RecordNotFound)
       end
     end
+
+    context 'when the API returns an invalid response' do
+      let(:body) { { 'office' => {} } }
+
+      it 'raises ProviderDataApi::InvalidResponse' do
+        expect { result }.to raise_error(ProviderDataApi::InvalidResponse) do |error|
+          expect(error.cause).to be_a Dry::Struct::Error
+        end
+      end
+    end
   end
 
   describe '.call' do

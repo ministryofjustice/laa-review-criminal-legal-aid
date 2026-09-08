@@ -1,5 +1,6 @@
 module ProviderDataApi
   class RecordNotFound < StandardError; end
+  class InvalidResponse < StandardError; end
 
   class Office < Dry::Struct
     transform_keys(&:to_sym)

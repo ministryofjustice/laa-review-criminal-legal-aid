@@ -427,8 +427,9 @@ RSpec.describe CrimeApplication do
           allow(Rails.error).to receive(:report)
         end
 
-        it 'falls back to the basic presenter' do
-          expect(enriched_provider_details).to be_a ProviderDetailsPresenter
+        it 'falls back to unavailable provider details' do
+          expect(enriched_provider_details.firm_name).to eq('Firm name unavailable')
+          expect(enriched_provider_details.office_address).to eq('Address unavailable')
         end
 
         it 'reports the error as handled' do
@@ -445,14 +446,35 @@ RSpec.describe CrimeApplication do
           allow(Rails.error).to receive(:report)
         end
 
-        it 'falls back to the basic presenter' do
-          expect(enriched_provider_details).to be_a ProviderDetailsPresenter
+        it 'falls back to unavailable provider details' do
+          expect(enriched_provider_details.firm_name).to eq('Firm name temporarily unavailable')
+          expect(enriched_provider_details.office_address).to eq('Address temporarily unavailable')
         end
 
         it 'reports the error as handled' do
           enriched_provider_details
           expect(Rails.error).to have_received(:report)
             .with(instance_of(Faraday::ConnectionFailed), handled: true, severity: :error)
+        end
+      end
+
+      context 'when the API returns an invalid response' do
+        let(:error) { ProviderDataApi::InvalidResponse.new }
+
+        before do
+          allow(ProviderDataApi::GetOfficeDetails).to receive(:call).and_raise(error)
+          allow(Rails.error).to receive(:report)
+        end
+
+        it 'falls back to unavailable provider details' do
+          expect(enriched_provider_details.firm_name).to eq('Firm name temporarily unavailable')
+          expect(enriched_provider_details.office_address).to eq('Address temporarily unavailable')
+        end
+
+        it 'reports the error as handled' do
+          enriched_provider_details
+          expect(Rails.error).to have_received(:report)
+            .with(error, handled: true, severity: :error)
         end
       end
     end

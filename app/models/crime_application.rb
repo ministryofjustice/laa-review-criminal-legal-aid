@@ -222,7 +222,7 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   rescue ProviderDataApi::RecordNotFound => e
     Rails.error.report(e, handled: true, severity: :error)
     ProviderDetailsPresenter.new(provider_details, office_details: :not_found)
-  rescue Faraday::Error => e
+  rescue Faraday::Error, ProviderDataApi::InvalidResponse => e
     Rails.error.report(e, handled: true, severity: :error)
     ProviderDetailsPresenter.new(provider_details, office_details: :unavailable)
   end
