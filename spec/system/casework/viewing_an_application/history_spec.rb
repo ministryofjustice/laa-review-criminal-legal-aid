@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing application history' do
   include_context 'with stubbed search'
+  include_context 'with stubbed provider data'
 
   let(:crime_application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
   let(:application_reference) { 555_666_777 }

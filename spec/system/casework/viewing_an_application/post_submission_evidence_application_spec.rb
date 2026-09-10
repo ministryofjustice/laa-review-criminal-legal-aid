@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application unassigned, open, post submission evidence application' do
+  include_context 'with stubbed provider data'
+
   let(:crime_application_id) { '21c37e3e-520f-46f1-bd1f-5c25ffc57d70' }
   let(:application_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
 

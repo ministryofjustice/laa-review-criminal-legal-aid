@@ -210,4 +210,20 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   def decisions_pending?
     decisions.present? && !status?(::Types::ReviewState[:completed])
   end
+
+  def enriched_provider_details # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    @enriched_provider_details ||=
+      if FeatureFlags.provider_firm_details.enabled?
+        office_details = ProviderDataApi::GetOfficeDetails.call(provider_details.office_code)
+        ProviderDetailsPresenter.new(provider_details, office_details:)
+      else
+        return ProviderDetailsPresenter.present(provider_details)
+      end
+  rescue ProviderDataApi::RecordNotFound => e
+    Rails.error.report(e, handled: true, severity: :error)
+    ProviderDetailsPresenter.new(provider_details, office_details: :not_found)
+  rescue Faraday::Error, ProviderDataApi::InvalidResponse => e
+    Rails.error.report(e, handled: true, severity: :error)
+    ProviderDetailsPresenter.new(provider_details, office_details: :unavailable)
+  end
 end

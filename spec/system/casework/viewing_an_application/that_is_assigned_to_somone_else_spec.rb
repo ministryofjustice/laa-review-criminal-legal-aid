@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Viewing an application that is assigned to someone else' do
+  include_context 'with stubbed provider data'
+
   let(:application_id) { '696dd4fd-b619-4637-ab42-a5f4565bcf4a' }
 
   before do

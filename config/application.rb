@@ -108,5 +108,9 @@ module LaaReviewCriminalLegalAid
     config.x.business_hours.end = ENV.fetch('BUSINESS_HOURS_END', "22:00")
 
     config.middleware.use BusinessHoursMiddleware
+
+    config.x.provider_data_api.url = ENV.fetch('PROVIDER_DATA_API_URL', nil)
+    config.x.provider_data_api.secret = ENV.fetch('PROVIDER_DATA_API_SECRET', nil)
+    config.x.provider_data_api.use_mock = ENV.fetch('PROVIDER_DATA_API_USE_MOCK', 'false')
   end
 end

@@ -352,6 +352,8 @@ en:
     provider_details: Provider details
     provider_email: Email
     provider_phone_number: Telephone
+    provider_firm_name: Firm name
+    provider_office_address: Office address
     relationship_status: Relationship status
     relationship_to_client: Relationship to client
     relationship_to_owner_of_usual_home_address: Relationship to client
@@ -526,7 +528,11 @@ en:
     not_provided: Not provided
     post_submission_evidence: Post submission evidence
     provider_address: Same as provider address
+    provider_firm_name_not_found: Firm name unavailable
+    provider_firm_name_unavailable: Firm name temporarily unavailable
     providers_office_address: Same as provider address
+    provider_office_address_not_found: Address unavailable
+    provider_office_address_unavailable: Address temporarily unavailable
     summary_only: Summary only
     to: to
     universal_credit: Universal Credit

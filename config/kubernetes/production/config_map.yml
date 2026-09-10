@@ -22,3 +22,4 @@ data:
   BANK_HOLIDAYS_API_URL: https://www.gov.uk/bank-holidays.json
   BUSINESS_HOURS_START: "7:00"
   BUSINESS_HOURS_END: "22:00"
+  PROVIDER_DATA_API_URL: https://laa-provider-details-api-prod.apps.live.cloud-platform.service.justice.gov.uk

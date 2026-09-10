@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Unassign an application from myself' do
   include_context 'with stubbed search'
+  include_context 'with stubbed provider data'
 
   before do
     visit '/'

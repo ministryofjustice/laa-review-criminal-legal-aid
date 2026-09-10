@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Viewing an application that is superseded' do
   include_context 'with resubmitted application'
+  include_context 'with stubbed provider data'
 
   let(:latest_application_url) { "/applications/#{application_id}" }
 

@@ -4,6 +4,7 @@ RSpec.describe 'Assigning an application to myself' do
   context 'when there is a next application' do
     include_context 'with stubbed assignments and reviews'
     include_context 'when search results are returned'
+    include_context 'with stubbed provider data'
 
     let(:current_user_competencies) { Types::CompetencyType.values }
 

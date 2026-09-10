@@ -6,4 +6,4 @@
              applicant_tel: crime_application.applicant.phone_number
            } %>
 <%= render partial: 'supporting_evidence', locals: { crime_application: } %>
-<%= render partial: 'provider_details', object: crime_application.provider_details %>
+<%= render partial: 'provider_details', object: crime_application.enriched_provider_details %>

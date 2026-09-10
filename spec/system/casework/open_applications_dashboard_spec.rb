@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Open Applications' do
   include_context 'with stubbed search'
+  include_context 'with stubbed provider data'
+
   let(:report_turbo_link_work_stream_params) do
     report_link = URI(page.find('turbo-frame#current_workload_report', visible: false)['src'])
     URI.decode_www_form(report_link.query.to_s).filter_map { |key, value| value if key == 'work_streams[]' }
