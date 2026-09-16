@@ -59,7 +59,7 @@ gem 'aws-sdk-sns', '~> 1.60', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store', '~> 3.0.0'
+gem 'rails_event_store', '~> 3.1.0'
 
 # Monitoring
 gem 'prometheus_exporter'
@@ -93,6 +93,7 @@ end
 gem 'cssbundling-rails', '~> 1.4'
 
 gem 'csv', '~> 3.3'
+gem 'json', '< 3.0'
 
 gem 'ostruct', '~> 0.6.1'
 
