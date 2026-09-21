@@ -14,13 +14,13 @@ module ManageCompetencies
     private
 
     def require_supervisor!
-      return if current_user.role == Types::SUPERVISOR_ROLE
+      return if [Types::SUPERVISOR_ROLE, Types::BUSINESS_SUPPORT_ROLE].include?(current_user.role)
 
       raise ForbiddenError, 'Must be a supervisor'
     end
 
     def user_scope
-      scope = User.active.where(role: [Types::CASEWORKER_ROLE, Types::SUPERVISOR_ROLE])
+      scope = User.active.where(role: [Types::CASEWORKER_ROLE, Types::SUPERVISOR_ROLE, Types::BUSINESS_SUPPORT_ROLE])
 
       return scope if FeatureFlags.allow_user_managers_service_access.enabled?
 

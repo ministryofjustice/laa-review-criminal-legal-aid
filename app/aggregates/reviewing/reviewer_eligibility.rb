@@ -8,7 +8,7 @@ module Reviewing
     end
 
     def allowed?
-      user.caseworker? || user.supervisor?
+      user.caseworker? || user.supervisor? || user.business_support?
     end
   end
 end
