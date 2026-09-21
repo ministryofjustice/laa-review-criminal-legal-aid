@@ -9,7 +9,7 @@
     <%= header.with_navigation_item(text: t('.manage_users'), href: manage_users_root_path) %>
   <% end %>
 
-  <% if current_user.supervisor? || current_user.business_support? %>
+  <% if current_user.can_manage_competencies? %>
     <%= header.with_navigation_item(text: t('.manage_competencies'), href: manage_competencies_root_path) %>
   <% end %>
 

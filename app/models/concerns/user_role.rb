@@ -10,6 +10,7 @@ module UserRole
   BUSINESS_SUPPORT = Types::BUSINESS_SUPPORT_ROLE
   REPORTING_ROLES = [SUPERVISOR, DATA_ANALYST, AUDITOR, BUSINESS_SUPPORT].freeze
   SERVICE_USERS = [CASEWORKER, SUPERVISOR, DATA_ANALYST, AUDITOR, BUSINESS_SUPPORT].freeze
+  COMPETENCY_MANAGER_ROLES = [SUPERVISOR, BUSINESS_SUPPORT].freeze
 
   included do
     # NOTE: mapping to PostgreSQL enum type via dry-types definition
@@ -25,6 +26,11 @@ module UserRole
 
   def can_download_reports?
     role_in?([DATA_ANALYST, AUDITOR])
+  end
+
+  # Determines whether a user can manage user competencies.
+  def can_manage_competencies?
+    role_in?(COMPETENCY_MANAGER_ROLES)
   end
 
   def can_change_role?

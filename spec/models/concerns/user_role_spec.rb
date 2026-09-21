@@ -145,6 +145,22 @@ RSpec.describe UserRole do
     end
   end
 
+  describe '#can_manage_competencies?' do
+    it 'returns true for supervisor and business support' do
+      [UserRole::SUPERVISOR, UserRole::BUSINESS_SUPPORT].each do |role|
+        user.role = role
+        expect(user.can_manage_competencies?).to be true
+      end
+    end
+
+    it 'returns false for caseworker, data analyst and auditor' do
+      [UserRole::CASEWORKER, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        user.role = role
+        expect(user.can_manage_competencies?).to be false
+      end
+    end
+  end
+
   describe '#can_download_reports?' do
     it 'returns true for data analyst and auditor' do
       [UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
