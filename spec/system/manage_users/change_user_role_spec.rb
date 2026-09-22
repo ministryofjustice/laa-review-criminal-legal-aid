@@ -27,6 +27,36 @@ RSpec.describe 'Change user role' do
       expect(page).to have_unchecked_field('Data analyst')
     end
 
+    it 'offers Business support as an available role' do
+      expect(page).to have_unchecked_field('Business support')
+    end
+
+    context 'when changing to Business support' do
+      before do
+        choose 'Business support'
+        click_on 'Save new role'
+      end
+
+      it 'persists the new role' do
+        expect(active_user.reload.role).to eq(Types::BUSINESS_SUPPORT_ROLE)
+      end
+
+      it 'confirms the role change' do
+        expect(page).to have_success_notification_banner(
+          text: "Zoe Blogs's role has been changed from Supervisor to Business support"
+        )
+      end
+
+      it 'allows the admin to change back to Supervisor' do
+        click_on 'Zoe Blogs'
+        click_on 'Change role'
+        choose 'Supervisor'
+        click_on 'Save new role'
+
+        expect(active_user.reload.role).to eq(Types::SUPERVISOR_ROLE)
+      end
+    end
+
     it 'shows notification' do
       choose 'Caseworker'
       click_on 'Save new role'
