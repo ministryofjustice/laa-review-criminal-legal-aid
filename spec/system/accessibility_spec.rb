@@ -96,6 +96,24 @@ RSpec.describe 'Accessibility', :accessibility do
       visit reporting_user_report_path(:processed_report)
       expect(page).to be_axe_clean.according_to accessibility_standards
     end
+
+    context 'when the user is a business support' do
+      let(:current_user_role) { UserRole::BUSINESS_SUPPORT }
+
+      before do
+        period = Time.zone.today.strftime('%Y-%B')
+        stub_request(
+          :get,
+          "https://datastore-api-stub.test/api/v1/reporting/slipstream_audit/monthly/#{period}"
+        ).to_return_json(body: { 'data' => [], 'offence_sampling' => [] })
+      end
+
+      it 'slipstream audit report page has no axe detectable accessibility issues' do
+        period = Time.zone.today.strftime('%Y-%B')
+        visit "reporting/slipstream_audit_report/monthly/#{period}"
+        expect(page).to be_axe_clean.according_to accessibility_standards
+      end
+    end
   end
 
   describe 'pages that can only be reached when not authenticated' do

@@ -17,7 +17,7 @@ module Reporting
         report_type: report_type,
         interval: time_period.interval,
         period: period_as_param
-      }.merge(report_params)
+      }.merge(report_params.compact)
     end
 
     def id
