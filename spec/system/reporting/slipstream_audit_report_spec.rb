@@ -148,6 +148,67 @@ RSpec.describe 'Slipstream Audit Report' do
           )
         end
       end
+
+      describe 'downloading a filtered and sorted report' do
+        before do
+          datastore_response['data'] << datastore_response['data'].last.merge(
+            'reference' => 6_000_003, 'office_code' => '3C4D5E'
+          )
+          stub_request(:get, %r{/reporting/slipstream_audit/monthly/2025-October})
+            .to_return_json(body: datastore_response)
+          select 'Burglary', from: 'filter-offence-field'
+          click_button 'Filter'
+          click_link 'Office account number'
+        end
+
+        it 'exports exactly the displayed rows in the displayed order' do
+          expect(all('tbody tr').map { |row| row.first('td').text }).to eq(%w[6000003 6000002])
+          click_link download_link
+          expect(CSV.parse(page.body, headers: true).pluck('reference')).to eq(%w[6000003 6000002])
+        end
+      end
+    end
+
+    context 'with JavaScript enabled' do
+      before do
+        driven_by :headless_chrome
+        visit '/'
+        click_button 'Start now'
+        select current_user.email
+        click_button 'Sign in'
+        find_link('Sign out')
+        visit "/#{complete_report_path}"
+      end
+
+      it 'supports changing, sorting and clearing offence filters', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+        select 'Burglary', from: 'filter-offence-field'
+        click_button 'Filter'
+        expect(page).to have_content('6000002')
+        expect(page).not_to have_content('6000001')
+
+        click_link 'Office account number'
+        expect(page).to have_css('th[aria-sort="descending"]', text: 'Office account number')
+        expect(page).not_to have_content('6000001')
+
+        select 'Theft', from: 'filter-offence-field'
+        click_button 'Filter'
+        expect(page).to have_content('6000001')
+        expect(page).not_to have_content('6000002')
+
+        select 'All offences', from: 'filter-offence-field'
+        click_button 'Filter'
+        expect(page).to have_content('6000002')
+        expect(page).to have_content('6000001')
+        expect(page).to have_css('th[aria-sort="descending"]', text: 'Office account number')
+
+        select 'Burglary', from: 'filter-offence-field'
+        click_button 'Filter'
+        expect(page).not_to have_content('6000001')
+        click_link 'Show all offences'
+        expect(page).to have_content('6000001')
+        expect(page).to have_content('6000002')
+        expect(page).to have_css('th[aria-sort="descending"]', text: 'Office account number')
+      end
     end
   end
 
