@@ -1,4 +1,4 @@
-<%= form_with url: reporting_temporal_report_path(**report.to_param.except(:offence)), method: :get, scope: :filter, html: { id: 'slipstream-audit-filter' } do |f| %>
+<%= form_with url: reporting_temporal_report_path(**report.to_param.except(:filter, :sorting)), method: :get, scope: :filter, html: { id: 'slipstream-audit-filter' } do |f| %>
   <%= hidden_field_tag 'sorting[sort_by]', sorting.sort_by %>
   <%= hidden_field_tag 'sorting[sort_direction]', sorting.sort_direction %>
 
@@ -12,10 +12,7 @@
   <% if report.report.offence.present? %>
     <%= govuk_link_to(
           t('calls_to_action.clear_filter'),
-          reporting_temporal_report_path(
-            **report.to_param.except(:offence),
-            sorting: { sort_by: sorting.sort_by, sort_direction: sorting.sort_direction }
-          ),
+          reporting_temporal_report_path(**report.to_param.except(:filter)),
           data: { turbo: false }
         ) %>
   <% end %>
