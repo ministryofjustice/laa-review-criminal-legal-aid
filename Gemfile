@@ -40,9 +40,9 @@ gem 'turbo-rails', '>= 2.0.0'
 gem 'bootsnap', require: false
 
 # Exceptions notifications
-gem 'sentry-rails', '~> 6.7'
+gem 'sentry-rails', '~> 7.0'
 gem 'sentry-ruby'
-gem 'sentry-sidekiq', '~> 6.7'
+gem 'sentry-sidekiq', '~> 7.0'
 gem 'stackprof'
 
 gem 'dry-schema'
