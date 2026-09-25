@@ -34,6 +34,16 @@ RSpec.describe 'Marking an application as ready for assessment' do
       expect(page).to have_content('Application ready for assessment in MAAT.')
     end
 
+    context 'when logged in as Business support' do
+      let(:current_user_role) { UserRole::BUSINESS_SUPPORT }
+
+      it 'can assign the application and mark it as ready for assessment' do
+        click_button(ready_for_assessment_cta)
+
+        expect(page).to have_content('Application ready for assessment in MAAT.')
+      end
+    end
+
     context 'with errors Reviewing::' do
       before do
         command_double = instance_double(Reviewing::MarkAsReady)

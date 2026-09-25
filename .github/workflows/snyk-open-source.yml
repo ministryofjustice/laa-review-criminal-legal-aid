@@ -33,7 +33,7 @@ jobs:
         with:
           args: --file=package.json --sarif-file-output=snyk-node.sarif --severity-threshold=high
       - name: Upload SARIF (Node)
-        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
         with:
           sarif_file: snyk-node.sarif
           category: snyk-node
@@ -48,7 +48,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Setup Ruby
-        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
         with:
           bundler-cache: false
       - name: Snyk test (Ruby)
@@ -59,7 +59,7 @@ jobs:
         with:
           args: --sarif-file-output=snyk-ruby.sarif --severity-threshold=high
       - name: Upload SARIF (Ruby)
-        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
         with:
           sarif_file: snyk-ruby.sarif
           category: snyk-ruby

@@ -27,6 +27,16 @@ RSpec.describe Reviewing::ReviewerEligibility do
       role: UserRole::AUDITOR
     )
   end
+  let(:business_support_user) do
+    User.create!(
+      first_name: 'Business',
+      last_name: 'Support',
+      email: "business-support-#{SecureRandom.hex(4)}@example.com",
+      auth_subject_id: SecureRandom.uuid,
+      can_manage_others: false,
+      role: UserRole::BUSINESS_SUPPORT
+    )
+  end
 
   context 'when the user is a caseworker' do
     let(:user) { caseworker_user }
@@ -57,6 +67,14 @@ RSpec.describe Reviewing::ReviewerEligibility do
 
     it 'does not allow the user to review' do
       expect(eligibility.allowed?).to be(false)
+    end
+  end
+
+  context 'when the user is business support' do
+    let(:user) { business_support_user }
+
+    it 'allows the user to review' do
+      expect(eligibility.allowed?).to be(true)
     end
   end
 end

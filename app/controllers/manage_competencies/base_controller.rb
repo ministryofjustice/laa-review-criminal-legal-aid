@@ -3,7 +3,7 @@ module ManageCompetencies
     layout 'manage_competencies'
 
     before_action :authenticate_user!
-    before_action :require_supervisor!
+    before_action :require_competency_manager!
     before_action :set_security_headers
 
     # Scope for I18n locale, used by _text helpers.
@@ -13,14 +13,14 @@ module ManageCompetencies
 
     private
 
-    def require_supervisor!
-      return if current_user.role == Types::SUPERVISOR_ROLE
+    def require_competency_manager!
+      return if current_user.can_manage_competencies?
 
-      raise ForbiddenError, 'Must be a supervisor'
+      raise ForbiddenError, 'Must be a supervisor or business support user'
     end
 
     def user_scope
-      scope = User.active.where(role: [Types::CASEWORKER_ROLE, Types::SUPERVISOR_ROLE])
+      scope = User.active.where(role: [Types::CASEWORKER_ROLE, Types::SUPERVISOR_ROLE, Types::BUSINESS_SUPPORT_ROLE])
 
       return scope if FeatureFlags.allow_user_managers_service_access.enabled?
 

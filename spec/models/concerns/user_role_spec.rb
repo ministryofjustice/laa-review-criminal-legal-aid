@@ -28,8 +28,8 @@ RSpec.describe UserRole do
   end
 
   describe '#can_access_reporting_dashboard?' do
-    it 'returns true when user is supervisor, data analyst and auditor' do
-      [UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+    it 'returns true when user is supervisor, data analyst, auditor and business support' do
+      [UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR, UserRole::BUSINESS_SUPPORT].each do |role|
         user.role = role
         expect(user.can_access_reporting_dashboard?).to be true
       end
@@ -46,7 +46,8 @@ RSpec.describe UserRole do
       before { user.can_manage_others = true }
 
       it 'returns false for all roles when user managers are not allowed service access' do
-        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR,
+         UserRole::BUSINESS_SUPPORT].each do |role|
           user.role = role
           expect(user.can_access_reporting_dashboard?).to be false
         end
@@ -60,7 +61,8 @@ RSpec.describe UserRole do
         end
 
         it 'returns true for all roles' do
-          [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+          [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR,
+           UserRole::BUSINESS_SUPPORT].each do |role|
             user.role = role
             expect(user.can_access_reporting_dashboard?).to be true
           end
@@ -74,7 +76,8 @@ RSpec.describe UserRole do
       before { user.can_manage_others = false }
 
       it 'returns true for caseworker, supervisor, data analyst, and auditor' do
-        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR,
+         UserRole::BUSINESS_SUPPORT].each do |role|
           user.role = role
           expect(user.service_user?).to be true
         end
@@ -85,7 +88,8 @@ RSpec.describe UserRole do
       before { user.can_manage_others = true }
 
       it 'returns false for all roles when user managers are not allowed service access' do
-        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR,
+         UserRole::BUSINESS_SUPPORT].each do |role|
           user.role = role
           expect(user.service_user?).to be false
         end
@@ -99,7 +103,8 @@ RSpec.describe UserRole do
         end
 
         it 'returns true for all roles' do
-          [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+          [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR,
+           UserRole::BUSINESS_SUPPORT].each do |role|
             user.role = role
             expect(user.service_user?).to be true
           end
@@ -112,8 +117,8 @@ RSpec.describe UserRole do
     context 'when user is not a user manager' do
       before { user.can_manage_others = false }
 
-      it 'returns true for data analyst, supervisor and auditor' do
-        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR, UserRole::AUDITOR].each do |role|
+      it 'returns true for data analyst, supervisor, auditor and business support' do
+        [UserRole::DATA_ANALYST, UserRole::SUPERVISOR, UserRole::AUDITOR, UserRole::BUSINESS_SUPPORT].each do |role|
           user.role = role
           expect(user.reporting_user?).to be true
         end
@@ -131,10 +136,27 @@ RSpec.describe UserRole do
       before { user.can_manage_others = true }
 
       it 'returns false for all roles' do
-        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::DATA_ANALYST, UserRole::AUDITOR,
+         UserRole::BUSINESS_SUPPORT].each do |role|
           user.role = role
           expect(user.reporting_user?).to be false
         end
+      end
+    end
+  end
+
+  describe '#can_manage_competencies?' do
+    it 'returns true for supervisor and business support' do
+      [UserRole::SUPERVISOR, UserRole::BUSINESS_SUPPORT].each do |role|
+        user.role = role
+        expect(user.can_manage_competencies?).to be true
+      end
+    end
+
+    it 'returns false for caseworker, data analyst and auditor' do
+      [UserRole::CASEWORKER, UserRole::DATA_ANALYST, UserRole::AUDITOR].each do |role|
+        user.role = role
+        expect(user.can_manage_competencies?).to be false
       end
     end
   end
@@ -147,8 +169,8 @@ RSpec.describe UserRole do
       end
     end
 
-    it 'returns false for caseworker and supervisor' do
-      [UserRole::CASEWORKER, UserRole::SUPERVISOR].each do |role|
+    it 'returns false for caseworker, supervisor and business support' do
+      [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::BUSINESS_SUPPORT].each do |role|
         user.role = role
         expect(user.can_download_reports?).to be false
       end
@@ -219,6 +241,23 @@ RSpec.describe UserRole do
       end
 
       before { user.role = Types::SUPERVISOR_ROLE }
+
+      it { is_expected.to eq expected_user_reports }
+    end
+
+    context 'when user is business support' do
+      let(:expected_user_reports) do
+        %w[
+          caseworker_report
+          processed_report
+          workload_report
+          return_reasons_report
+          current_workload_report
+          unassigned_from_self_report
+        ]
+      end
+
+      before { user.role = Types::BUSINESS_SUPPORT_ROLE }
 
       it { is_expected.to eq expected_user_reports }
     end
