@@ -1,0 +1,61 @@
+<%= form_with url: reporting_temporal_report_path(**report.to_param.except(:filter, :sorting)), method: :get, scope: :filter, html: { id: 'slipstream-audit-filter' } do |f| %>
+  <%= hidden_field_tag 'sorting[sort_by]', sorting.sort_by %>
+  <%= hidden_field_tag 'sorting[sort_direction]', sorting.sort_direction %>
+
+  <%= f.govuk_select(
+        :offence,
+        report.report.offence_options,
+        options: { include_blank: t('values.all_offences'), selected: report.report.offence },
+        label: { text: label_text('offence') }
+      ) %>
+  <%= f.govuk_submit t('calls_to_action.filter_report') %>
+  <% if report.report.offence.present? %>
+    <%= govuk_link_to(
+          t('calls_to_action.clear_filter'),
+          reporting_temporal_report_path(**report.to_param.except(:filter)),
+          data: { turbo: false }
+        ) %>
+  <% end %>
+<% end %>
+
+<p>
+  <%= t('values.slipstream_audit_results', count: report.total_count) %>
+</p>
+
+<%= render DataTableComponent.new(classes: ['app-table']) do |table| # rubocop:disable Metrics/BlockLength
+      table.with_sortable_head(sorting: sorting, filter: { offence: report.report.offence }) do |head|
+        head.with_row do |row|
+          row.with_cell(colname: :reference)
+          row.with_cell(colname: :office_code)
+          row.with_cell(colname: :application_type)
+          row.with_cell(colname: :offences)
+          row.with_cell(colname: :status)
+          row.with_cell(colname: :sample_rate)
+          row.with_cell(colname: :sampled_at)
+          row.with_cell(colname: :status_determined_at)
+          row.with_cell(colname: :submitted_at)
+          row.with_cell(colname: :maat_reference)
+          row.with_cell(colname: :ioj_outcome)
+        end
+      end
+
+      table.with_body do |body|
+        report.rows.each do |row|
+          body.with_row do |r|
+            r.with_cell(text: row.reference)
+            r.with_cell(text: row.office_code)
+            r.with_cell(text: row.application_type.humanize)
+            r.with_cell(text: row.offence_names.join(', '))
+            r.with_cell(text: row.status.humanize)
+            r.with_cell(text: "#{row.sample_rate}%")
+            r.with_cell(text: l(row.sampled_at))
+            r.with_cell(text: l(row.status_determined_at))
+            r.with_cell(text: l(row.submitted_at))
+            r.with_cell(text: row.maat_reference || t('values.not_yet_determined'))
+            r.with_cell(text: row.ioj_outcome&.humanize || t('values.not_yet_determined'))
+          end
+        end
+      end
+    end %>
+
+<%= render(partial: 'download_links', locals: { report: }) if current_user.can_download_reports? %>

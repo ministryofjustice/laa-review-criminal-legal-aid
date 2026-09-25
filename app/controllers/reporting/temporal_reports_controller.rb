@@ -41,7 +41,8 @@ module Reporting
         :period,
         :page,
         :file,
-        sorting: [:sort_by, :sort_direction]
+        sorting: [:sort_by, :sort_direction],
+        filter: [:offence]
       )
     end
 
@@ -65,7 +66,10 @@ module Reporting
     end
 
     def intervals
-      @intervals = if @report_type == Types::TemporalReportType['volumes_by_office_report']
+      # rubocop:disable-next Performance/InefficientHashSearch
+      monthly_only = Types::MonthlyOnlyReportType.values.include?(@report_type)
+
+      @intervals = if monthly_only
                      [Types::TemporalInterval['monthly']]
                    else
                      Types::TemporalInterval.values
@@ -73,7 +77,9 @@ module Reporting
     end
 
     def extra_report_params
-      {}
+      return {} unless @report_type == Types::TemporalReportType['slipstream_audit_report']
+
+      { offence: permitted_params.dig(:filter, :offence) }
     end
   end
 end

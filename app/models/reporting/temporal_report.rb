@@ -13,15 +13,25 @@ module Reporting
     end
 
     def to_param
-      {
+      params = {
         report_type: report_type,
         interval: time_period.interval,
         period: period_as_param
-      }.merge(report_params)
+      }.merge(report_params.compact)
+
+      return params unless report_type == 'slipstream_audit_report'
+
+      offence = params.delete(:offence).presence
+      params[:filter] = { offence: } if offence
+      params.merge(sorting: sorting.to_h)
     end
 
     def id
-      to_param.values.join('_')
+      [report_type, time_period.interval, period_as_param, *report_params.compact.values].join('_')
+    end
+
+    def frame_id
+      [report_type, time_period.interval, period_as_param, *report_params.except(:offence).compact.values].join('_')
     end
 
     def period_name

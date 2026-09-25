@@ -1,4 +1,7 @@
 en:
+  calls_to_action:
+    filter_report: Filter
+    clear_filter: Show all offences
   reporting:
     monthly_report:
       caseworker_report:
@@ -9,6 +12,8 @@ en:
         title: "Submissions by office monthly: %{period_name}"
       unassigned_from_self_report:
         title: "Applications removed from list by caseworker"
+      slipstream_audit_report:
+        title: "Slipstream audit monthly: %{period_name}"
     weekly_report:
       caseworker_report:
         title: "Caseworker weekly: %{period_name}"
@@ -41,10 +46,12 @@ en:
     processed_report: Processed report
     caseworker_report: Caseworker report
     volumes_by_office_report: Submissions by office report
+    slipstream_audit_report: Slipstream audit report
     work_stream_competencies: Work queues
     monthly: Monthly
     weekly: Weekly
     daily: Daily
+    offence: Offence
     period:
       monthly: month
       weekly: week
@@ -58,6 +65,12 @@ en:
       zero: No applications removed from list
       one: 1 application removed from list
       other: "%{count} applications removed from list"
+    slipstream_audit_results:
+      zero: No applications were selected for slipstream audit.
+      one: "1 application was selected for slipstream audit."
+      other: "%{count} applications were selected for slipstream audit."
+    all_offences: All offences
+    not_yet_determined: Not yet determined
   table_headings:
     application_type: Application type
     applications_closed: Number of closed applications
@@ -70,7 +83,10 @@ en:
     colspan_unassigned_from_user: Unassigned
     completed_by_user: completed
     days_passed: Business days since applications were received
+    ioj_outcome: IoJ outcome
+    maat_reference: MAAT reference
     office_code: Office account number
+    offences: Offences
     open_applications_by_age: "Applications still\xA0open"
     percentage_closed_by_user: "assigned closed"
     percentage_unassigned_from_user: "assigned un-assigned"
@@ -82,7 +98,10 @@ en:
     received: Received
     received_applications_by_age: Applications received
     return_reason: Reason
+    sample_rate: Sample rate (%)
+    sampled_at: Sampled at
     sent_back_by_user: "sent back"
+    status_determined_at: Status determined at
     total_assigned_to_user: total
     total_closed_by_user: total
     total_unassigned_from_user: total
