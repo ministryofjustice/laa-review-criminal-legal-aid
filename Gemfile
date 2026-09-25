@@ -93,7 +93,7 @@ end
 gem 'cssbundling-rails', '~> 1.4'
 
 gem 'csv', '~> 3.3'
-gem 'json', '< 3.0'
+gem 'json', '< 4.0'
 
 gem 'ostruct', '~> 0.6.1'
 
