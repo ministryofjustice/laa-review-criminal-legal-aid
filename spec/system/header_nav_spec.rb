@@ -102,4 +102,19 @@ RSpec.describe 'Header navigation' do
       expect(header).not_to include('Manage users')
     end
   end
+
+  context 'when user is Business support' do
+    let(:current_user_role) { UserRole::BUSINESS_SUPPORT }
+
+    it 'can follow the Manage competencies link' do
+      click_link 'Manage competencies'
+
+      expect(page).to have_current_path(manage_competencies_root_path)
+      expect(page).to have_css('h1', text: 'Manage competencies')
+    end
+
+    it 'does not have a link to manage users' do
+      expect(page).to have_no_link('Manage users')
+    end
+  end
 end
