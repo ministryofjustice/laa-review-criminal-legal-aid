@@ -55,7 +55,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'oauth2'
 
 gem 'aws-sdk-s3', require: false
-gem 'aws-sdk-sns', '~> 1.60', require: false
+gem 'aws-sdk-sns', '~> 1.120', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
