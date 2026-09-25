@@ -50,11 +50,13 @@ module Types
   SUPERVISOR_ROLE = 'supervisor'.freeze
   DATA_ANALYST_ROLE = 'data_analyst'.freeze
   AUDITOR_ROLE = 'auditor'.freeze
+  BUSINESS_SUPPORT_ROLE = 'business_support'.freeze
   USER_ROLES = [
     CASEWORKER_ROLE,
     SUPERVISOR_ROLE,
     DATA_ANALYST_ROLE,
-    AUDITOR_ROLE
+    AUDITOR_ROLE,
+    BUSINESS_SUPPORT_ROLE
   ].freeze
   UserRole = String.default(CASEWORKER_ROLE).enum(*USER_ROLES)
 
@@ -92,7 +94,8 @@ module Types
     UserRole[CASEWORKER_ROLE] => [Report['current_workload_report'], Report['processed_report']],
     UserRole[DATA_ANALYST_ROLE] => Report.values,
     UserRole[AUDITOR_ROLE] => Report.values,
-    UserRole[SUPERVISOR_ROLE] => Report.values - [Report['volumes_by_office_report']]
+    UserRole[SUPERVISOR_ROLE] => Report.values - [Report['volumes_by_office_report']],
+    UserRole[BUSINESS_SUPPORT_ROLE] => Report.values - [Report['volumes_by_office_report']]
   }.freeze
 
   SortDirection = String.enum('descending', 'ascending')

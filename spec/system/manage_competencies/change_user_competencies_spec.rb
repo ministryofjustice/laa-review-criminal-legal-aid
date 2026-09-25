@@ -4,6 +4,8 @@ RSpec.describe 'Change caseworker competencies' do
   let(:current_user_role) { UserRole::SUPERVISOR }
 
   before do
+    allow(Allocating).to receive(:user_competencies).and_call_original
+
     User.create!(
       email: 'test@example.com',
       first_name: 'Iain',
@@ -56,6 +58,20 @@ RSpec.describe 'Change caseworker competencies' do
 
     it 'redirects to manage competencies dashboard' do
       expect(page).to have_current_path(manage_competencies_root_path)
+    end
+  end
+
+  context 'when logged in as Business support' do
+    let(:current_user_role) { UserRole::BUSINESS_SUPPORT }
+
+    it 'can save and reload a caseworker\'s competencies' do
+      check 'Extradition'
+      check 'Initial'
+      click_on 'Save'
+
+      find('tr', text: /Iain/).click_on('Extradition')
+      expect(page).to have_checked_field('Extradition')
+      expect(page).to have_checked_field('Initial')
     end
   end
 end
