@@ -72,29 +72,28 @@ module Types
   )
 
   Report = String.enum(*%w[
-                         caseworker_report
-                         processed_report
-                         workload_report
-                         return_reasons_report
-                         current_workload_report
-                         volumes_by_office_report
-                         unassigned_from_self_report
+                         caseworker_report processed_report workload_report return_reasons_report
+                         current_workload_report volumes_by_office_report unassigned_from_self_report
+                         slipstream_audit_report
                        ])
 
   SnapshotReportType = String.enum(Report['workload_report'])
-  TemporalReportType = String.enum(Report['caseworker_report'],
-                                   Report['return_reasons_report'],
-                                   Report['volumes_by_office_report'],
-                                   Report['unassigned_from_self_report'])
+  TemporalReportType = String.enum(
+    Report['caseworker_report'], Report['return_reasons_report'], Report['volumes_by_office_report'],
+    Report['unassigned_from_self_report'], Report['slipstream_audit_report']
+  )
   UserTemporalReportType = String.enum(Report['unassigned_from_self_report'])
+
+  # Report types produced only monthly, regardless of the user's default interval.
+  MonthlyOnlyReportType = String.enum(Report['volumes_by_office_report'], Report['slipstream_audit_report'])
 
   TemporalInterval = String.enum('daily', 'weekly', 'monthly')
 
   USER_ROLE_REPORTS = {
     UserRole[CASEWORKER_ROLE] => [Report['current_workload_report'], Report['processed_report']],
-    UserRole[DATA_ANALYST_ROLE] => Report.values,
-    UserRole[AUDITOR_ROLE] => Report.values,
-    UserRole[SUPERVISOR_ROLE] => Report.values - [Report['volumes_by_office_report']],
+    UserRole[DATA_ANALYST_ROLE] => Report.values - [Report['slipstream_audit_report']],
+    UserRole[AUDITOR_ROLE] => Report.values - [Report['slipstream_audit_report']],
+    UserRole[SUPERVISOR_ROLE] => Report.values - MonthlyOnlyReportType.values,
     UserRole[BUSINESS_SUPPORT_ROLE] => Report.values - [Report['volumes_by_office_report']]
   }.freeze
 

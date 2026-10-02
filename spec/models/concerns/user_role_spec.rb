@@ -169,8 +169,13 @@ RSpec.describe UserRole do
       end
     end
 
-    it 'returns false for caseworker, supervisor and business support' do
-      [UserRole::CASEWORKER, UserRole::SUPERVISOR, UserRole::BUSINESS_SUPPORT].each do |role|
+    it 'returns true for business support' do
+      user.role = UserRole::BUSINESS_SUPPORT
+      expect(user.can_download_reports?).to be true
+    end
+
+    it 'returns false for caseworker and supervisor' do
+      [UserRole::CASEWORKER, UserRole::SUPERVISOR].each do |role|
         user.role = role
         expect(user.can_download_reports?).to be false
       end
@@ -254,6 +259,7 @@ RSpec.describe UserRole do
           return_reasons_report
           current_workload_report
           unassigned_from_self_report
+          slipstream_audit_report
         ]
       end
 
@@ -271,13 +277,13 @@ RSpec.describe UserRole do
     context 'when user is data_analyst' do
       before { user.role = Types::DATA_ANALYST_ROLE }
 
-      it { is_expected.to eq Types::Report.values }
+      it { is_expected.to eq Types::Report.values - %w[slipstream_audit_report] }
     end
 
     context 'when user is auditor' do
       before { user.role = Types::AUDITOR_ROLE }
 
-      it { is_expected.to eq Types::Report.values }
+      it { is_expected.to eq Types::Report.values - %w[slipstream_audit_report] }
     end
 
     context 'when user is user manager' do

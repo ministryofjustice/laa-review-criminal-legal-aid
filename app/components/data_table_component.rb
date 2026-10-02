@@ -1,5 +1,5 @@
 class DataTableComponent < GovukComponent::TableComponent
-  renders_one :sortable_head, ->(sorting:) { DataTable::HeadComponent.new(sorting:) }
+  renders_one :sortable_head, ->(sorting:, filter: {}) { DataTable::HeadComponent.new(sorting:, filter:) }
 
   def initialize(classes: [])
     super(classes: classes, html_attributes: {})

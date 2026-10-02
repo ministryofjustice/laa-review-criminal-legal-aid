@@ -39,15 +39,21 @@ module Reporting
     # NOTE: this code is temporary and used here to provide a list of temporal
     # reports for prototyping purposes only.
     def latest_temporal_reports
-      interval = if current_user.data_analyst? || current_user.auditor?
-                   Types::TemporalInterval['monthly']
-                 else
-                   Types::TemporalInterval['daily']
-                 end
-
       temporal_report_types.map do |report_type|
+        interval = interval_for(report_type)
         Reporting::TemporalReport.current(report_type:, interval:).previous_report
       end
+    end
+
+    # Some report types (e.g. volumes_by_office_report, slipstream_audit_report)
+    # are only ever produced monthly, regardless of the user's default
+    # reporting interval.
+    def interval_for(report_type)
+      # rubocop:disable-next Performance/InefficientHashSearch
+      return Types::TemporalInterval['monthly'] if Types::MonthlyOnlyReportType.values.include?(report_type)
+      return Types::TemporalInterval['monthly'] if current_user.data_analyst? || current_user.auditor?
+
+      Types::TemporalInterval['daily']
     end
 
     def temporal_report_types
