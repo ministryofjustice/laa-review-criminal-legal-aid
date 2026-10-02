@@ -29,7 +29,7 @@ gem 'laa-criminal-applications-datastore-api-client',
 
 gem 'laa-criminal-legal-aid-schemas',
     github: 'ministryofjustice/laa-criminal-legal-aid-schemas',
-    tag: 'v1.8.1'
+    tag: 'v1.8.2'
 
 gem 'jsbundling-rails'
 gem 'propshaft'
