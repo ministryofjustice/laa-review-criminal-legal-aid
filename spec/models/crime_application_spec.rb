@@ -339,6 +339,48 @@ RSpec.describe CrimeApplication do
     end
   end
 
+  describe '#slipstream_audit?' do
+    subject(:slipstream_audit?) { application.slipstream_audit? }
+
+    context 'when there is no slipstream audit selection outcome' do
+      let(:attributes) { super().except('slipstream_audit_selection_outcome') }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the selection outcome is confirmed' do
+      let(:attributes) do
+        super().merge(
+          'slipstream_audit_selection_outcome' => {
+            'status' => 'confirmed',
+            'sample_rate' => 10,
+            'sampled_at' => '2026-09-03T10:00:00.000Z',
+            'status_determined_at' => '2026-09-04T11:00:00.000Z',
+            'selection_reason' => 'age'
+          }
+        )
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when the selection outcome is not confirmed' do
+      let(:attributes) do
+        super().merge(
+          'slipstream_audit_selection_outcome' => {
+            'status' => 'withdrawn',
+            'sample_rate' => 10,
+            'sampled_at' => '2026-09-03T10:00:00.000Z',
+            'status_determined_at' => '2026-09-04T11:00:00.000Z',
+            'selection_reason' => 'offence'
+          }
+        )
+      end
+
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#archived?' do
     subject(:archived?) { application.archived? }
 

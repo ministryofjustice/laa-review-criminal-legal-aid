@@ -31,6 +31,10 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
     is_means_tested == 'no'
   end
 
+  def slipstream_audit?
+    slipstream_audit_selection_outcome&.status == 'confirmed'
+  end
+
   def relevant_ioj_passport
     # Being under 18 trumps any other interest of justice
     if ioj_passport.include?('on_age_under18')
