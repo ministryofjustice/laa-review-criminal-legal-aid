@@ -12,8 +12,8 @@ RSpec.describe 'Sentry before_send callback' do # rubocop:disable RSpec/Describe
   def build_request_interface
     Sentry::RequestInterface.new(
       env: Rack::MockRequest.env_for('/test'),
-      send_default_pii: false,
-      rack_env_whitelist: Sentry.configuration.rack_env_whitelist
+      rack_env_whitelist: Sentry.configuration.rack_env_whitelist,
+      data_collection: Sentry.configuration.data_collection
     )
   end
 
