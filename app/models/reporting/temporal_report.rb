@@ -2,6 +2,8 @@ module Reporting
   class TemporalReport
     include ActiveModel::Model
 
+    FILTERS = %i[offence selection_reason].freeze
+
     attr_reader :time_period, :report_type, :page, :sorting, :report_params
 
     def initialize(time_period:, report_type:, sorting: {}, page: 1, **report_params)
@@ -21,17 +23,18 @@ module Reporting
 
       return params unless report_type == 'slipstream_audit_report'
 
-      offence = params.delete(:offence).presence
-      params[:filter] = { offence: } if offence
+      filter = params.extract!(*FILTERS).compact_blank
+      params[:filter] = filter if filter.present?
       params.merge(sorting: sorting.to_h)
     end
 
     def id
-      [report_type, time_period.interval, period_as_param, *report_params.compact.values].join('_')
+      [report_type, time_period.interval, period_as_param, *report_params.compact_blank.values].join('_')
     end
 
     def frame_id
-      [report_type, time_period.interval, period_as_param, *report_params.except(:offence).compact.values].join('_')
+      [report_type, time_period.interval, period_as_param,
+       *report_params.except(*FILTERS).compact_blank.values].join('_')
     end
 
     def period_name

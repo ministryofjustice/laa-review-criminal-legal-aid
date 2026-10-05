@@ -3,25 +3,26 @@ module Reporting
 
   # Reports on applications selected for post-submission slipstream audit in a
   # given month, sourced from the Datastore `/reporting/slipstream_audit`
-  # endpoint. Filtering by offence and sorting happen in-app, as the Datastore
-  # endpoint returns the full (small) monthly sample rather than a paginated
-  # search result.
+  # endpoint. Filtering by offence and selection reason, and sorting, happen
+  # in-app, as the Datastore endpoint returns the full (small) monthly sample
+  # rather than a paginated search result.
   class SlipstreamAuditReport
     CSV_LIMIT = 5_000
     CSV_COLUMNS = %w[
-      reference office_code application_type status sample_rate sampled_at
-      status_determined_at submitted_at maat_reference ioj_outcome offences
+      reference office_code offences sample_rate sampled_at submitted_at
+      maat_reference ioj_outcome selection_reason
     ].freeze
 
     include Downloadable
     include DatastoreApi::Traits::ApiRequest
 
-    attr_reader :time_period, :sorting, :offence
+    attr_reader :time_period, :sorting, :offence, :selection_reason
 
-    def initialize(time_period:, sorting: {}, offence: nil)
+    def initialize(time_period:, sorting: {}, offence: nil, selection_reason: nil)
       @time_period = time_period
       @sorting = SlipstreamAuditReportSorting.new_or_default(sorting)
       @offence = offence.presence
+      @selection_reason = selection_reason.presence
     end
 
     def rows
@@ -38,6 +39,14 @@ module Reporting
       offence_sampling.map { |entry| entry.fetch('offence') }.uniq.sort
     end
 
+    def selection_reason_options
+      Types::SlipstreamAuditSelectionReason.values
+    end
+
+    def filtered?
+      offence.present? || selection_reason.present?
+    end
+
     def csv(*)
       CSV.generate do |csv|
         csv << CSV_COLUMNS
@@ -46,8 +55,8 @@ module Reporting
     end
 
     class << self
-      def for_time_period(time_period:, sorting: {}, offence: nil, **)
-        new(time_period:, sorting:, offence:)
+      def for_time_period(time_period:, sorting: {}, offence: nil, selection_reason: nil, **)
+        new(time_period:, sorting:, offence:, selection_reason:)
       end
     end
 
@@ -63,8 +72,11 @@ module Reporting
       @response ||= http_client.get("/reporting/slipstream_audit/monthly/#{period}")
     end
 
+    # Only applications with both a MAAT reference and an IoJ outcome are reportable.
     def dataset
-      response.fetch('data').map { |entry| SlipstreamAuditReportRow.new(entry) }
+      response.fetch('data')
+              .map { |entry| SlipstreamAuditReportRow.new(entry) }
+              .select { |row| row.maat_reference.present? && row.ioj_outcome.present? }
     end
 
     def offence_sampling
@@ -76,9 +88,9 @@ module Reporting
     end
 
     def filter_rows(data)
-      return data unless offence
-
-      data.select { |row| row.offence_names.include?(offence) }
+      data = data.select { |row| row.offence_names.include?(offence) } if offence
+      data = data.select { |row| row.selection_reason == selection_reason } if selection_reason
+      data
     end
 
     def sort_rows(data)

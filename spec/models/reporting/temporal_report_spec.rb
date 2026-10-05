@@ -119,5 +119,50 @@ describe Reporting::TemporalReport do
       links = [report.previous_report, report.next_report].map(&:to_param)
       expect(links).to all(include(filter: { offence: 'Burglary' }))
     end
+
+    context 'with a selection reason filter' do
+      let(:report) do
+        described_class.from_param(
+          report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+          offence: 'Burglary', selection_reason: 'age',
+          sorting: { sort_by: 'office_code', sort_direction: 'descending' }
+        )
+      end
+
+      it 'serializes both filters under filter' do
+        expect(report.to_param).to eq(
+          report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+          filter: { offence: 'Burglary', selection_reason: 'age' },
+          sorting: { sort_by: 'office_code', sort_direction: 'descending' }
+        )
+      end
+
+      it 'includes both filters in the identity' do
+        expect(report.id).to eq('slipstream_audit_report_monthly_2025-October_Burglary_age')
+      end
+
+      it 'excludes both filters from the frame identity' do
+        expect(report.frame_id).to eq('slipstream_audit_report_monthly_2025-October')
+      end
+
+      it 'preserves both filters in adjacent month links' do
+        links = [report.previous_report, report.next_report].map(&:to_param)
+        expect(links).to all(include(filter: { offence: 'Burglary', selection_reason: 'age' }))
+      end
+    end
+
+    context 'with blank filters' do
+      let(:report) do
+        described_class.from_param(
+          report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+          offence: '', selection_reason: 'offence'
+        )
+      end
+
+      it 'omits blank filters from params and identity' do
+        expect(report.to_param[:filter]).to eq(selection_reason: 'offence')
+        expect(report.id).to eq('slipstream_audit_report_monthly_2025-October_offence')
+      end
+    end
   end
 end

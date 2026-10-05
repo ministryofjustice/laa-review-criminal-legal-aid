@@ -42,7 +42,7 @@ module Reporting
         :page,
         :file,
         sorting: [:sort_by, :sort_direction],
-        filter: [:offence]
+        filter: [:offence, :selection_reason]
       )
     end
 
@@ -79,7 +79,10 @@ module Reporting
     def extra_report_params
       return {} unless @report_type == Types::TemporalReportType['slipstream_audit_report']
 
-      { offence: permitted_params.dig(:filter, :offence) }
+      {
+        offence: permitted_params.dig(:filter, :offence),
+        selection_reason: permitted_params.dig(:filter, :selection_reason)
+      }
     end
   end
 end

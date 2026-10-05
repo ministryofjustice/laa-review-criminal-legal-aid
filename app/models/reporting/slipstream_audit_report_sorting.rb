@@ -2,8 +2,7 @@ module Reporting
   class SlipstreamAuditReportSorting < ApplicationStruct
     SORTABLE_COLUMNS = %w[
       office_code
-      application_type
-      status
+      selection_reason
       submitted_at
       sampled_at
       ioj_outcome

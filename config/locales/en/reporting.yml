@@ -1,7 +1,7 @@
 en:
   calls_to_action:
     filter_report: Filter
-    clear_filter: Show all offences
+    clear_filter: Clear filters
   reporting:
     monthly_report:
       caseworker_report:
@@ -52,6 +52,7 @@ en:
     weekly: Weekly
     daily: Daily
     offence: Offence
+    selection_reason: Selection reason
     period:
       monthly: month
       weekly: week
@@ -70,6 +71,7 @@ en:
       one: "1 application was selected for slipstream audit."
       other: "%{count} applications were selected for slipstream audit."
     all_offences: All offences
+    all_selection_reasons: All selection reasons
     not_yet_determined: Not yet determined
   table_headings:
     application_type: Application type
@@ -98,10 +100,9 @@ en:
     received: Received
     received_applications_by_age: Applications received
     return_reason: Reason
-    sample_rate: Sample rate (%)
     sampled_at: Sampled at
+    selection_reason: Selection reason
     sent_back_by_user: "sent back"
-    status_determined_at: Status determined at
     total_assigned_to_user: total
     total_closed_by_user: total
     total_unassigned_from_user: total
