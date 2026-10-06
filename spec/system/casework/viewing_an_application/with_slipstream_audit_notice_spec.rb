@@ -7,6 +7,14 @@ RSpec.describe 'Slipstream audit notification banner' do
     'For assurance purposes, Interests of Justice (IOJ) reasons are required for this application.'
   end
 
+  let(:slipstream_audit_enabled) { true }
+
+  before do
+    allow(FeatureFlags).to receive(:slipstream_audit).and_return(
+      instance_double(FeatureFlags::EnabledFeature, enabled?: slipstream_audit_enabled)
+    )
+  end
+
   context 'when the application has a confirmed slipstream audit selection' do
     let(:application_data) do
       super().merge(
@@ -39,6 +47,16 @@ RSpec.describe 'Slipstream audit notification banner' do
       visit crime_application_documents_path(application_id)
 
       expect(page).to have_content(notice_text)
+    end
+
+    context 'when the slipstream_audit feature flag is disabled' do
+      let(:slipstream_audit_enabled) { false }
+
+      it 'does not show the banner' do
+        visit crime_application_path(application_id)
+
+        expect(page).to have_no_content(notice_text)
+      end
     end
   end
 

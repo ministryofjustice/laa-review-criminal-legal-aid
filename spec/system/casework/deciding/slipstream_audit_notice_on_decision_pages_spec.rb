@@ -9,6 +9,8 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
     'For assurance purposes, Interests of Justice (IOJ) reasons are required for this application.'
   end
 
+  let(:slipstream_audit_enabled) { true }
+
   let(:slipstream_audit_selection_outcome) do
     {
       'status' => status,
@@ -17,6 +19,12 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
       'status_determined_at' => '2026-09-04T11:00:00.000Z',
       'selection_reason' => 'age'
     }
+  end
+
+  before do
+    allow(FeatureFlags).to receive(:slipstream_audit).and_return(
+      instance_double(FeatureFlags::EnabledFeature, enabled?: slipstream_audit_enabled)
+    )
   end
 
   include_context 'with stubbed application' do
@@ -39,7 +47,7 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
     context 'when the application has a confirmed slipstream audit selection' do
       let(:status) { 'confirmed' }
 
-      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+      # rubocop:disable-next RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'shows the banner on every decision page' do
         click_button 'Start'
         expect(page).to have_content(notice_text) # interests of justice
@@ -54,11 +62,21 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
         visit crime_application_send_decisions_path(application_id)
         expect(page).to have_content(notice_text) # send decisions
       end
-      # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
     end
 
     context 'when the selection outcome is not confirmed' do
       let(:status) { 'withdrawn' }
+
+      it 'does not show the banner on the decision pages' do
+        click_button 'Start'
+
+        expect(page).to have_no_content(notice_text)
+      end
+    end
+
+    context 'when the slipstream_audit feature flag is disabled' do
+      let(:status) { 'confirmed' }
+      let(:slipstream_audit_enabled) { false }
 
       it 'does not show the banner on the decision pages' do
         click_button 'Start'
