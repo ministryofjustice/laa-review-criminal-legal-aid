@@ -25,7 +25,7 @@ module UserRole
   end
 
   def can_download_reports?
-    role_in?([DATA_ANALYST, AUDITOR])
+    role_in?([DATA_ANALYST, AUDITOR, BUSINESS_SUPPORT])
   end
 
   # Determines whether a user can manage user competencies.
