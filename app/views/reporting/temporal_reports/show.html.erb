@@ -30,7 +30,7 @@
         <% end %>
 
         <div class="app-table-container">
-          <%= turbo_frame_tag @report.id, data: { turbo: 'true' } do %>
+          <%= turbo_frame_tag @report.frame_id, data: { turbo: 'true' } do %>
             <%= render partial: @report_type, locals: { report: @report, sorting: @sorting } %>
           <% end %>
           <% if current_user.can_download_reports? && @generated_report.present? %>

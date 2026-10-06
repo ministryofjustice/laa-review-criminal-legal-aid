@@ -44,6 +44,16 @@ describe Reporting::TemporalReport do
       it 'merges report_params into the routing hash' do
         expect(report.to_param).to include(user_id: 'abc-123', some_other_param: 'value')
       end
+
+      it 'does not add filter or sorting parameters to existing report URLs' do
+        expect(report.to_param.keys).to eq(%i[report_type interval period user_id some_other_param])
+      end
+    end
+
+    describe '#frame_id' do
+      it 'retains the user identifier' do
+        expect(report.frame_id).to eq('caseworker_report_monthly_2024-January_abc-123_value')
+      end
     end
 
     describe '#next_report' do
@@ -78,6 +88,80 @@ describe Reporting::TemporalReport do
           user_id: 'abc-123'
         )
         expect(result.report_params).to eq(user_id: 'abc-123')
+      end
+    end
+  end
+
+  describe 'slipstream report links and identity' do
+    let(:report) do
+      described_class.from_param(
+        report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+        offence: 'Burglary', sorting: { sort_by: 'office_code', sort_direction: 'descending' }
+      )
+    end
+
+    it 'serializes the filter and sorting in the controller format' do
+      expect(report.to_param).to eq(
+        report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+        filter: { offence: 'Burglary' }, sorting: { sort_by: 'office_code', sort_direction: 'descending' }
+      )
+    end
+
+    it 'keeps the original filename identity' do
+      expect(report.id).to eq('slipstream_audit_report_monthly_2025-October_Burglary')
+    end
+
+    it 'excludes filter and sorting from the frame identity' do
+      expect(report.frame_id).to eq('slipstream_audit_report_monthly_2025-October')
+    end
+
+    it 'preserves the nested filter in adjacent month links' do
+      links = [report.previous_report, report.next_report].map(&:to_param)
+      expect(links).to all(include(filter: { offence: 'Burglary' }))
+    end
+
+    context 'with a selection reason filter' do
+      let(:report) do
+        described_class.from_param(
+          report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+          offence: 'Burglary', selection_reason: 'age',
+          sorting: { sort_by: 'office_code', sort_direction: 'descending' }
+        )
+      end
+
+      it 'serializes both filters under filter' do
+        expect(report.to_param).to eq(
+          report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+          filter: { offence: 'Burglary', selection_reason: 'age' },
+          sorting: { sort_by: 'office_code', sort_direction: 'descending' }
+        )
+      end
+
+      it 'includes both filters in the identity' do
+        expect(report.id).to eq('slipstream_audit_report_monthly_2025-October_Burglary_age')
+      end
+
+      it 'excludes both filters from the frame identity' do
+        expect(report.frame_id).to eq('slipstream_audit_report_monthly_2025-October')
+      end
+
+      it 'preserves both filters in adjacent month links' do
+        links = [report.previous_report, report.next_report].map(&:to_param)
+        expect(links).to all(include(filter: { offence: 'Burglary', selection_reason: 'age' }))
+      end
+    end
+
+    context 'with blank filters' do
+      let(:report) do
+        described_class.from_param(
+          report_type: 'slipstream_audit_report', interval: 'monthly', period: '2025-October',
+          offence: '', selection_reason: 'offence'
+        )
+      end
+
+      it 'omits blank filters from params and identity' do
+        expect(report.to_param[:filter]).to eq(selection_reason: 'offence')
+        expect(report.id).to eq('slipstream_audit_report_monthly_2025-October_offence')
       end
     end
   end
