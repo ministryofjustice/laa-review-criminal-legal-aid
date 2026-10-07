@@ -16,6 +16,8 @@ Rails.application.config.to_prepare do
     # See discussion on GitHub at https://github.com/rails/rails/pull/43625#issuecomment-1072514175.
     config.rails.register_error_subscriber = true
 
+    config.rails.structured_logging.enabled = false
+
     # Filtering
     # https://docs.sentry.io/platforms/ruby/guides/rails/configuration/filtering/
     
