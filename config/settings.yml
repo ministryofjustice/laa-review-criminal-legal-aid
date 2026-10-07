@@ -38,9 +38,9 @@ feature_flags:
     staging: true
     production: false  
   slipstream_audit:
-    local: false
-    test: false
-    staging: false
+    local: true
+    test: true
+    staging: true
     production: false
 
 # For settings that vary by HostEnv name
