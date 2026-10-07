@@ -1,0 +1,5 @@
+<% return unless FeatureFlags.slipstream_audit.enabled? && crime_application.slipstream_audit? %>
+
+<%= govuk_notification_banner(title_text: t('flash.important.title'), title_id: 'slipstream-audit-notice-title') do %>
+  <p class="govuk-body"><%= t('.explanation') %></p>
+<% end %>
