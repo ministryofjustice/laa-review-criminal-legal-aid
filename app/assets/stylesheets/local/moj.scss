@@ -8,6 +8,10 @@
   $moj-assets-path: "/"
 );
 
+// Alert
+// https://design-patterns.service.justice.gov.uk/components/alert/
+@use "@ministryofjustice/frontend/moj/components/alert/alert";
+
 // Header
 // https://design-patterns.service.justice.gov.uk/components/moj-header/
 @use "@ministryofjustice/frontend/moj/components/header/header";
