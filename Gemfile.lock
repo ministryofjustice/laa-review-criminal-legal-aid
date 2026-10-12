@@ -163,7 +163,7 @@ GEM
     brakeman (8.0.6)
       racc
     builder (3.3.0)
-    business (2.3.0)
+    business (3.1.0)
     capybara (3.40.0)
       addressable
       matrix
