@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Slipstream audit notification banner' do
   include_context 'with stubbed application'
 
-  let(:notice_text) do
-    'For assurance purposes, Interests of Justice (IOJ) reasons are required for this application.'
-  end
+  let(:notice_text) { 'This application requires an IOJ test.' }
 
   let(:slipstream_audit_enabled) { true }
 
@@ -31,10 +29,16 @@ RSpec.describe 'Slipstream audit notification banner' do
     it 'shows the banner on the application page' do
       visit crime_application_path(application_id)
 
-      within('.govuk-notification-banner') do
-        expect(page).to have_content('Important')
+      within('.moj-alert.moj-alert--warning#slipstream-audit-notice') do
+        expect(page).to have_css('h2.moj-alert__heading', text: 'Slipstream audit')
         expect(page).to have_content(notice_text)
       end
+    end
+
+    it 'does not show the banner as a GOV.UK notification banner' do
+      visit crime_application_path(application_id)
+
+      expect(page).to have_no_css('.govuk-notification-banner')
     end
 
     it 'shows the banner on the application history page' do

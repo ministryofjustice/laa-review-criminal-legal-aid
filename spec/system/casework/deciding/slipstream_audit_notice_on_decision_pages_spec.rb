@@ -5,9 +5,7 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
 
   let(:current_user_role) { UserRole::CASEWORKER }
 
-  let(:notice_text) do
-    'For assurance purposes, Interests of Justice (IOJ) reasons are required for this application.'
-  end
+  let(:notice_text) { 'This application requires an IOJ test.' }
 
   let(:slipstream_audit_enabled) { true }
 
@@ -25,6 +23,11 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
     allow(FeatureFlags).to receive(:slipstream_audit).and_return(
       instance_double(FeatureFlags::EnabledFeature, enabled?: slipstream_audit_enabled)
     )
+  end
+
+  def have_slipstream_audit_alert
+    have_css('#slipstream-audit-notice.moj-alert--warning', text: notice_text)
+      .and(have_css('#slipstream-audit-notice h2.moj-alert__heading', text: 'Slipstream audit'))
   end
 
   include_context 'with stubbed application' do
@@ -50,17 +53,17 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
       # rubocop:disable-next RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'shows the banner on every decision page' do
         click_button 'Start'
-        expect(page).to have_content(notice_text) # interests of justice
+        expect(page).to have_slipstream_audit_alert # interests of justice
 
         complete_ioj_form
-        expect(page).to have_content(notice_text) # overall result
+        expect(page).to have_slipstream_audit_alert # overall result
 
         complete_overall_result_form
-        expect(page).to have_content(notice_text) # comment
+        expect(page).to have_slipstream_audit_alert # comment
 
         complete_comment_form
         visit crime_application_send_decisions_path(application_id)
-        expect(page).to have_content(notice_text) # send decisions
+        expect(page).to have_slipstream_audit_alert # send decisions
       end
     end
 
