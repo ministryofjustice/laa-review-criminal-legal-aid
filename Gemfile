@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read('.ruby-version').chomp
-gem 'pg', '~> 1.4'
+gem 'pg', '~> 1.7'
 gem 'puma'
 gem 'rails'
 
@@ -39,7 +39,7 @@ gem 'turbo-rails', '>= 2.0.0'
 gem 'bootsnap', require: false
 
 # Exceptions notifications
-gem 'sentry-rails', '~> 7.0'
+gem 'sentry-rails', '~> 7.1'
 gem 'sentry-ruby'
 gem 'sentry-sidekiq', '~> 7.0'
 gem 'stackprof'
@@ -58,7 +58,7 @@ gem 'aws-sdk-sns', '~> 1.121', require: false
 gem 'aws-sdk-sqs', require: false
 
 gem 'aggregate_root'
-gem 'rails_event_store', '~> 3.1.0'
+gem 'rails_event_store', '~> 3.2.0'
 
 # Monitoring
 gem 'prometheus_exporter'
