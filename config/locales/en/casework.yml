@@ -769,7 +769,8 @@ en:
         application_history: Application history
         supporting_evidence: Supporting evidence
       slipstream_audit_notice:
-        explanation: For assurance purposes, Interests of Justice (IOJ) reasons are required for this application.
+        heading: Slipstream audit
+        explanation: This application requires an IOJ test.
 
     assigned_applications:
       index:
