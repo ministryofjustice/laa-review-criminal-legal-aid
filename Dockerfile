@@ -1,4 +1,4 @@
-FROM ruby:4.0.7-alpine3.23
+FROM ruby:4.0.9-alpine3.24
 LABEL maintainer="LAA Crime Apply Team"
 
 RUN apk add --no-cache --upgrade \
