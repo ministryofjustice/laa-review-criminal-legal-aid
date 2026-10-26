@@ -1,6 +1,10 @@
 FROM ruby:4.0.7-alpine3.23
 LABEL maintainer="LAA Crime Apply Team"
 
+RUN apk add --no-cache --upgrade \
+    ca-certificates \
+    ca-certificates-bundle
+
 RUN apk --no-cache add --virtual build-deps \
   build-base \
   postgresql17-dev \
