@@ -8,9 +8,9 @@
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.23",
     "@ministryofjustice/frontend": "^11.1.0",
-    "govuk-frontend": "^6.5.1",
+    "govuk-frontend": "^6.6.0",
     "moment": "2.31.0",
-    "sass": "1.105.0"
+    "sass": "1.105.2"
   },
   "devDependencies": {
     "esbuild": "^0.28.2"
