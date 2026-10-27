@@ -15,7 +15,7 @@ RUN apk --no-cache add --virtual build-deps \
   postgresql17-client \
   shared-mime-info \
   linux-headers \
-  nodejs=24.22.1-r0 \
+  nodejs>=24.22.1 \
   xz-libs \
   tzdata \
   yaml-dev \
