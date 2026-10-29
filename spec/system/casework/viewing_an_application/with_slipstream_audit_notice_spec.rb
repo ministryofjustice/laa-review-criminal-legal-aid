@@ -29,8 +29,8 @@ RSpec.describe 'Slipstream audit notification banner' do
     it 'shows the banner on the application page' do
       visit crime_application_path(application_id)
 
-      within('.moj-alert.moj-alert--warning#slipstream-audit-notice') do
-        expect(page).to have_css('h2.moj-alert__heading', text: 'Slipstream audit')
+      within('.moj-alert.moj-alert--warning#slipstream-audit-notice[aria-label="warning: Slipstream audit"]') do
+        expect(page).to have_no_css('.moj-alert__heading')
         expect(page).to have_content(notice_text)
       end
     end

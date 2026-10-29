@@ -769,7 +769,7 @@ en:
         application_history: Application history
         supporting_evidence: Supporting evidence
       slipstream_audit_notice:
-        heading: Slipstream audit
+        label: Slipstream audit
         explanation: This application requires an IOJ test.
 
     assigned_applications:
