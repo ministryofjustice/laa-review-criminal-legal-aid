@@ -379,6 +379,55 @@ RSpec.describe CrimeApplication do
 
       it { is_expected.to be false }
     end
+
+    context 'when the application is post submission evidence' do
+      let(:attributes) { JSON.parse(LaaCrimeSchemas.fixture(1.0, name: 'post_submission_evidence').read) }
+      let(:parent_id) { attributes.fetch('parent_id') }
+      let(:get_parent) { instance_double(DatastoreApi::Requests::GetApplication) }
+      let(:parent_data) do
+        JSON.parse(LaaCrimeSchemas.fixture(1.0).read).merge(
+          'slipstream_audit_selection_outcome' => {
+            'status' => 'confirmed',
+            'sample_rate' => 10,
+            'sampled_at' => '2026-09-03T10:00:00.000Z',
+            'status_determined_at' => '2026-09-04T11:00:00.000Z',
+            'selection_reason' => 'age'
+          }
+        )
+      end
+
+      before do
+        allow(DatastoreApi::Requests::GetApplication).to receive(:new)
+          .with(application_id: parent_id).and_return(get_parent)
+        allow(get_parent).to receive(:call) { parent_data }
+      end
+
+      context 'when the parent application is selected for slipstream audit' do
+        it { is_expected.to be true }
+
+        it 'does not receive the parent application' do
+          allow(Reviewing::ReceiveApplication).to receive(:call)
+
+          slipstream_audit?
+
+          expect(Reviewing::ReceiveApplication).not_to have_received(:call)
+        end
+      end
+
+      context 'when the parent application is not selected for slipstream audit' do
+        let(:parent_data) { JSON.parse(LaaCrimeSchemas.fixture(1.0).read).except('slipstream_audit_selection_outcome') }
+
+        it { is_expected.to be false }
+      end
+
+      context 'when the parent application cannot be found' do
+        before do
+          allow(get_parent).to receive(:call).and_raise(DatastoreApi::Errors::NotFoundError)
+        end
+
+        it { is_expected.to be false }
+      end
+    end
   end
 
   describe '#archived?' do
