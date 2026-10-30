@@ -32,6 +32,8 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   end
 
   def slipstream_audit?
+    return parent_slipstream_audit? if pse?
+
     slipstream_audit_selection_outcome&.status == 'confirmed'
   end
 
@@ -229,5 +231,19 @@ class CrimeApplication < LaaCrimeSchemas::Structs::CrimeApplication # rubocop:di
   rescue Faraday::Error, ProviderDataApi::InvalidResponse => e
     Rails.error.report(e, handled: true, severity: :error)
     ProviderDetailsPresenter.new(provider_details, office_details: :unavailable)
+  end
+
+  private
+
+  # PSE submissions do not carry the selection outcome, so it is read from the parent application.
+  # The parent is fetched directly rather than via #parent to avoid receiving it as a side effect.
+  def parent_slipstream_audit?
+    return false if parent_id.nil? || parent_id == id
+
+    CrimeApplication.new(
+      DatastoreApi::Requests::GetApplication.new(application_id: parent_id).call
+    ).slipstream_audit?
+  rescue DatastoreApi::Errors::NotFoundError
+    false
   end
 end

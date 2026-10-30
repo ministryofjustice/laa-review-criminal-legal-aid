@@ -27,7 +27,8 @@ RSpec.describe 'Slipstream audit notification banner on decision pages' do
 
   def have_slipstream_audit_alert
     have_css('#slipstream-audit-notice.moj-alert--warning', text: notice_text)
-      .and(have_css('#slipstream-audit-notice h2.moj-alert__heading', text: 'Slipstream audit'))
+      .and(have_css('#slipstream-audit-notice[role="region"][aria-label="warning: Slipstream audit"]'))
+      .and(have_no_css('#slipstream-audit-notice .moj-alert__heading'))
   end
 
   include_context 'with stubbed application' do
